@@ -1,9 +1,0 @@
-﻿#EX-VRC7
-#EX-MMC5
-// track_parameter %% q7 l8 v15%%
-
-ABCDEGHIJKLab t150; @t4,24 tempo
-
-// replace parameter
-%tr_param
-%mml_param
