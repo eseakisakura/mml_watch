@@ -936,7 +936,7 @@ $contxt_mml.Add_ItemClicked({
 
 	$this.Close()
 })
- 	
+ 
 $listbox_mml= New-Object System.Windows.Forms.ListBox 
 $listbox_mml.Size= "200,60"
 $listbox_mml.Location= "5,30"
@@ -1586,7 +1586,7 @@ $sub_f.Size= "244,302"
 $sub_f.Location= "150,0"
 $sub_f.FormBorderStyle= "FixedSingle"
 $sub_f.StartPosition= "WindowsDefaultLocation"
-$sub_f.Icon= Icon_read "..\common.dll"
+$sub_f.Icon= Icon_read "..\src\ST_icon.ico"
 #$sub_f.ShowIcon= $False
 $sub_f.MaximizeBox= $False
 $sub_f.MinimizeBox= $False
@@ -1631,7 +1631,7 @@ $sub_f.Add_FormClosing({
 	Write-Host '"ERROR: Safety Stopper >> $sub_f.FormClosing()"'
  }
 })
- 
+ 	
 $sub_mnu= New-Object System.Windows.Forms.MenuStrip 
 
 $sub_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem

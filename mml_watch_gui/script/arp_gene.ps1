@@ -1747,7 +1747,7 @@ $comb_chd.Add_SelectedValueChanged({
 	echo $_.exception
  }
 })
- 	
+ 
 $label_genn= New-Object System.Windows.Forms.Label 
 $label_genn.Text= "Root Strings"
 $label_genn.Size= "70,20"
@@ -2403,7 +2403,7 @@ $frm_arp.Text= "Guitar Arpeggio MML Generator" #Transfer
 $frm_arp.Size= "562,602"
 $frm_arp.StartPosition= "WindowsDefaultLocation"
 $frm_arp.FormBorderStyle= "FixedSingle"
-$frm_arp.Icon= Icon_read "..\arp_gene.exe"
+$frm_arp.Icon= Icon_read "..\src\AG_icon.ico"
 # $frm_arp.ShowIcon= $False
 $frm_arp.MinimizeBox= $True
 $frm_arp.MaximizeBox= $False
@@ -2432,7 +2432,7 @@ $frm_arp.Add_FormClosing({
 	echo $_.exception
  }
 })
- 
+ 	
 $arp_mnu= New-Object System.Windows.Forms.MenuStrip 
 	
 $arp_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 

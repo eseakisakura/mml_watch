@@ -9785,7 +9785,7 @@ $frm_fm.Text= "FM Synthesis Chip - Tone Editor"
 $frm_fm.Size= "502,627"
 $frm_fm.FormBorderStyle= "FixedSingle"
 $frm_fm.StartPosition= "WindowsDefaultLocation"
-$frm_fm.Icon= Icon_read "..\fm_editor.exe"
+$frm_fm.Icon= Icon_read "..\src\FE_icon.ico"
 # $frm_fm.ShowIcon= $False
 $frm_fm.MinimizeBox= $True
 $frm_fm.MaximizeBox= $False
@@ -9829,7 +9829,7 @@ $frm_fm.Add_FormClosing({
 	echo $_.exception
  }
 })
- 
+ 	
 $fm_mnu= New-Object System.Windows.Forms.MenuStrip 
 	
 $fm_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
@@ -10878,7 +10878,7 @@ $fm_panel.Controls.AddRange(@($opm_eg_grp,$opm_ring_grp,$opm_lev_grp,$opm_op_grp
 $frm_fm.Controls.AddRange(@($fm_mnu,$fm_panel,$fm_box,$fm_stus))
 
 # $frm_fm.AcceptButton= $lisn_btn	# [Enter]
- 	 
+  
 # Global variable ====== 
  
 # color setting 

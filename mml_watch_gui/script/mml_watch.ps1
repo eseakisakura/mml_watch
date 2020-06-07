@@ -498,7 +498,7 @@ function Toggle_label(){
 	} #sw
 
  } #func
- 	
+ 
 function Toggle_sw([int]$num,[string]$c){ 
 
  if($num -eq 1){ # w_console out cancel
@@ -823,7 +823,7 @@ $frm= New-Object System.Windows.Forms.Form
 $frm.Size= "244,302"
 $frm.FormBorderStyle= "FixedSingle"
 $frm.StartPosition= "WindowsDefaultLocation"
-$frm.Icon= Icon_read "..\mml_watch.exe"
+$frm.Icon= Icon_read "..\src\MW_icon.ico"
 #$frm.ShowIcon= $False
 #$frm.MinimizeBox= $False
 $frm.MaximizeBox= $False
@@ -871,7 +871,7 @@ $frm.Add_DragDrop({
 	echo $_.exception
   }
  })
- 
+ 	
 $mnu= New-Object System.Windows.Forms.MenuStrip 
 	
 $menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
