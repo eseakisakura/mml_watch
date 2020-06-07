@@ -1,0 +1,12 @@
+﻿; replace parameter
+%fm_param
+
+#LoopDefault 2
+ABCDGHI C192 t120; L 48c/l4 * 4= 192c/l1 
+
+ABCD C192 t150 @1 %trk_param q6 l4 v14
+; MML
+A a&a&a&a rrrr >   d&d&d&d rrrr <
+	B >c&c&c&c rrrr   f&f&f&f rrrr <
+	C >e&e&e&e rrrr   a&a&a&a rrrr <
+	D >g&g&g&g rrrr > c&c&c&c rrrr <<

@@ -1,0 +1,71 @@
+#title "vrc7 D2_noise" 
+#composer "‰©”’g—•Œº"
+#copyright "04coreworks"
+#Code "../bin/nsd_vrc7.bin"
+#timebase 24 //l2
+#QReverse
+//#TieMode 1 //&!=^
+#rest 0 //r
+#wait 3 //w
+#ReleaseVolume 1
+
+; w -> ^
+; r -> w
+; k -> r
+; # -> %
+
+; v-1 -> (1
+; v+1 -> )1
+
+; A -> TR1
+; K -> k
+;!! -> j0
+
+VRC7(112){ //bass_org
+;	TL  FB
+	@32  2
+	31  0 15 15  3   3  0  0  1  1  0
+	31  0 15 15  2   1  0  0  1  1  0
+;	AR DR SL RR KL  MT AM VB EG KR DT
+  }
+;opm	al2 fb2
+;op1M	ml3 tl32 ar31 dr0 sr31 rr15 sl15 dt1:0 dt2:0 am0 ks2 ws0
+;op4C	ml1 tl0  ar31 dr0 sr31 rr15 sl15 dt1:0 dt2:0 am0 ks3 ws0
+
+VRC7(111){ //D2 noise_org [o6-o8]
+;	TL  FB
+	@0  0
+	31  0 15 15  0 127  0  0  0  0  0
+	31  0 15 15  0  14  0  0  0  1  0
+;	AR DR SL RR KL  MT AM VB EG KR DT
+  }
+VRC7(110){ //sine_org [o6-o8]
+;	TL  FB
+	@0  0
+	31  0 15 15  3 127 0  0  0  1  0
+	31  0 15 15  0   0  0  0  0  0  0
+;	AR DR SL RR KL  MT AM VB EG KR DT
+  }
+
+VRC7(113){ //@13
+	@R $01 $01 $56 $03 $94 $c2 $03 $12
+  }
+VRC7(114){ //@14
+	@R $31 $21 $0c $03 $82 $c0 $40 $07
+  }
+VRC7(115){ //@15
+	@R $21 $01 $0c $03 $d4 $d3 $40 $84
+  }
+
+BGM(0){ t120  // 6ch. 4•ª,24frame | 60s*60fs/t150= 24fs,l2
+
+	//TR6 l8 q8 @13 //@0 @V111 //{a<<a}1&
+	//o4  e48 P0,3,-36,-48 a2-48 //last
+	//o5  <d%1e48-%1> P0,3,-24,-48 c1-48
+
+//	TR7 @13 q7 l8 o2 aaa bbb o3 {a<<a}1&
+
+	TR8 @V111 @0 o8 q8 v13 l8{a<<a}1& o6 l16 [cd]4 {c>d}4& {df}4& f4 {f<a}4& a4 {a>d}4&
+//	TR9 @V111 @0 o8 r24 v5 {f<<f}1&
+
+  }
