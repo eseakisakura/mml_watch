@@ -18,12 +18,12 @@ FM音源音色エディタのサブウィンドウです。<br/>
 
 □ Mml Watch GUI<br/><br/>
 <img alt="Mml Watch GUI" style="border-width:0" src="./MML_wth.png" /><br/>
-mmlチップチューンコンパイラの、GUI化したフロントエンドです。<br/>
+mmlチップチューンコンパイラをGUI化した、フロントエンドです。<br/>
 ppmck,nsdLib,P.M.Dに対応します。<br/>
 <br/>
 
 □ Setting<br/><br/>
 <img alt="Setting" style="border-width:0" src="./SETTING_w.png" /><br/>
-各exeなどを登録する設定画面です。<br/>
+各file,exeなどを登録する設定画面です。<br/>
 ここで必要なファイルを、リストボックスへD&Dで登録します。<br/>
 <br/>
