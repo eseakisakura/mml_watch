@@ -1,12 +1,14 @@
-□ FM Editor Operator window<br/><br/>
+□ FM Editor Operator window<br/>
+<br/>
 2op,4op対応のFM音源音色エディタです。<br/>
 左上はエンベロープなど繊細なもの、右下は倍音など音色の決定要素を集めています。<br/>
-試聴機能による確認、各FM音源マトリクス(fmp7,mxdrv)からインポートもできます。<br/>
+試聴機能による確認、各FM音源のmml(fmp7,mxdrv)からインポート、エクスポートもできます。<br/>
 <br/>
 <img alt="FM Editor Operator window" style="border-width:0" src="./FM_edt.png" /><br/>
 <br/>
 <br/>
-□ FM Synthesis Chip - Tone Editor<br/><br/>
+□ FM Synthesis Chip - Tone Editor<br/>
+<br/>
 上記、FM音源音色エディタのサブウィンドウです。<br/>
 音色エディタのスライダーに連動し、合成波形が変わります。<br/>
 ウィンドウ内をクリックすることでも、エディットするオペレータ切替えができます。<br/>
@@ -14,7 +16,8 @@
 <img alt="FM Synthesis Chip - Tone Editor" style="border-width:0" src="./FM_opw.png" /><br/>
 <br/>
 <br/>
-□ Guitar Arpeggio MML Generator<br/><br/>
+□ Guitar Arpeggio MML Generator<br/>
+<br/>
 ギターアルペジオMMLジェネレータです。<br/>
 各トラックにMMLを自動的に振り分け、串抜きMMLを自動生成します。<br/>
 <br/>
