@@ -2,7 +2,8 @@
 <br/>
 2op,4op対応のFM音源音色エディタです。<br/>
 左上はエンベロープなど繊細なもの、右下は倍音など音色の決定要素を集めています。<br/>
-試聴機能による確認、各FM音源のmml(fmp7,mxdrv)からインポート、エクスポートもできます。<br/>
+試聴機能による音色の確認、音色の保存、各FM音源のmml(fmp7,mxdrv)から、
+インポート、エクスポートもできます。<br/>
 <br/>
 <img alt="FM Editor Operator window" style="border-width:0" src="./FM_edt.png" /><br/>
 <br/>
