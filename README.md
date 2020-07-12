@@ -2,9 +2,9 @@
 
 mmlチップチューンコンパイラppmck,nsdLib,P.M.D,のユーティリティ集です。<br/>
 GUIも含め総Powershellで組まれてます。<br/>
-
-<h6>(各バイナリexeは、シェルを呼び出すためのc#によるラッパーで、中身の殆どはアイコンリソースです。)</h6>
-それぞれが、スタンドアロンで起動します。<br/>
+<div style="font-size:small">(各バイナリexeは、シェルを呼び出すためのc#によるラッパーで、中身の殆どはアイコンリソースです。)</div>
+<br/>
+それぞれがスタンドアロン(単体)で起動します。<br/>
 <br/>
 <table><tr><td>・Mml Watch GUI</td><td>-- チップチューンのためのフロントエンド</td>
 </tr><tr><td>・FM Synthesis Chip - Tone Editor</td><td>-- 2op.4op.対応FM音源チップエディタ</td>
@@ -28,7 +28,7 @@ ppmck,nsdLib,P.M.Dに対応しています。<br/>
 <img alt="Mml Watch GUI" style="border-width:0" src="./image/MML_wth.png" /><br/>
 <br/>
 <br/>
-<h4>□ Setting Panel</h4>
+<h4>■ Setting Panel</h4>
 
 上記、フロントエンドの各file,exeなどを登録する環境設定です。<br/>
 ここで必要なファイルを、リストボックスへD&Dで登録します。<br/>
@@ -47,7 +47,7 @@ ppmck,nsdLib,P.M.Dに対応しています。<br/>
 <img alt="FM Synthesis Chip - Tone Editor" style="border-width:0" src="./image/FM_edt.png" /><br/>
 <br/>
 <br/>
-<h4>□ FM Editor Operator window</h4>
+<h4>■ FM Editor Operator window</h4>
 
 上記、FM音源音色エディタのサブウィンドウです。<br/>
 音色エディタのスライダーに連動し、合成波形が変わります。<br/>
