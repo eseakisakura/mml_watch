@@ -33,7 +33,7 @@ ppmck,nsdLib,P.M.Dに対応しています。<br/>
 
 上記、フロントエンドの各file,exeなどを登録する環境設定です。<br/>
 ここで必要なファイルを、リストボックスへD&Dで登録します。<br/>
-(以下、Tone EditorとMML Generatorも、このパネルを呼び出すことができます。)<br/>
+(以下記載のTone EditorとMML Generatorも、このパネルを呼び出すことができます。)<br/>
 <br/>
 <img alt="Setting" style="border-width:0" src="./image/SETTING_w.png" /><br/>
 <br/>
@@ -41,7 +41,7 @@ ppmck,nsdLib,P.M.Dに対応しています。<br/>
 <h4>□ FM Synthesis Chip - Tone Editor</h4>
 
 2op,4op対応のFM音源音色エディタです。<br/>
-左上はエンベロープなど繊細なもの、右下は倍音など音色の決定要素を集めています。<br/>
+(左上はエンベロープなど繊細なもの、右下は倍音など音色の決定要素を集めています。)<br/>
 試聴機能による音色の確認、音色の保存、各FM音源のmml(fmp7,mxdrv)から、<br/>
 インポート、エクスポートができます。<br/>
 <br/>
@@ -60,7 +60,7 @@ ppmck,nsdLib,P.M.Dに対応しています。<br/>
 <h4>□ Guitar Arpeggio - MML Generator</h4>
 
 ギターアルペジオMMLジェネレータです。<br/>
-各トラックにMMLを自動的に振り分け、串抜きMMLを自動生成します。<br/>
+マルチトラックにMMLを自動的に振り分け、串抜きMMLを自動生成します。<br/>
 <br/>
 <img alt="Guitar Arpeggio - MML Generator" style="border-width:0" src="./image/GUITAR_arp.png" /><br/>
 <br/>
