@@ -23,8 +23,8 @@ PowerShell2.0(WMF:WindowsManagementFramework2.0)以上なら動くと思いま�
 <br/>
 <h4>□ Mml Watch GUI</h4>
 
-mmlチップチューンコンパイラをGUI化した、フロントエンドです。<br/>
-エディタ呼び出しやファイル更新チェッカとして機能し、自動再生までサポートします。<br/>
+mmlチップチューンコンパイラをGUI化したフロントエンドです。<br/>
+エディタ呼出しやファイル更新チェッカとして機能、自動再生までサポートします。<br/>
 ppmck,nsdLib,P.M.Dに対応しています。<br/>
 <br/>
 <img alt="Mml Watch GUI" style="border-width:0" src="./image/MML_wth.png" /><br/>
