@@ -1,8 +1,7 @@
 <h1>mml watch GUI</h1>
 
-チップチューンコンパイラppmck,nsdLib,P.M.D,へGUI環境を提供する補助ツールです。<br/>
-ファイル更新チェッカとして機能し、プレイヤーによる再生までサポートします。<br/>
-GUIも含め総Powershellで組まれてます。<br/>
+Chiptuneコンパイラppmck,nsdLib,P.M.D,へGUI環境を提供する補助ツールです。<br/>
+GUI部も含め、総Powershellで組まれてます。<br/>
 <br/>
 (各バイナリexeは、シェルを呼び出すためのc#によるラッパーで、中身の殆どはアイコンリソースです。)<br/>
 <br/>
@@ -25,6 +24,7 @@ PowerShell2.0(WMF:WindowsManagementFramework2.0)以上なら動くと思いま�
 <h4>□ Mml Watch GUI</h4>
 
 mmlチップチューンコンパイラをGUI化した、フロントエンドです。<br/>
+エディタ呼び出しやファイル更新チェッカとして機能し、自動再生までサポートします。<br/>
 ppmck,nsdLib,P.M.Dに対応しています。<br/>
 <br/>
 <img alt="Mml Watch GUI" style="border-width:0" src="./image/MML_wth.png" /><br/>
