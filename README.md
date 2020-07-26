@@ -41,7 +41,7 @@ ppmck,nsdLib,P.M.Dに対応しています。<br/>
 <br/>
 <h4>□ FM Synthesis Chip - Tone Editor</h4>
 
-2op,4op対応のFM音源音色エディタです。<br/>
+2op(vrc7など),4op(oplなど)対応のFM音源音色エディタです。<br/>
 (左上はエンベロープなど繊細なもの、右下は倍音など音色の決定要素を集めています。)<br/>
 試聴機能による音色の確認、音色の保存、各FM音源のmml(fmp7,mxdrv)から、<br/>
 インポート、エクスポートができます。<br/>
@@ -55,7 +55,8 @@ ppmck,nsdLib,P.M.Dに対応しています。<br/>
 音色エディタのスライダーに連動し、合成波形が変わります。<br/>
 (ウィンドウ内をクリックすることでも、エディットするオペレータ切替えができます。)<br/>
 <br/>
-<img alt="FM Editor Operator window" style="border-width:0" src="./image/FM_opw.png" /><br/>
+<img alt="FM Editor 2 Operator" style="border-width:0" src="./image/FM_2op.png" /><br/>
+<img alt="FM Editor 4 Operator" style="border-width:0" src="./image/FM_4op.png" /><br/>
 <br/>
 <br/>
 <h4>□ Guitar Arpeggio - MML Generator</h4>
