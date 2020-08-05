@@ -45,8 +45,8 @@ ppmck,nsdLib,P.M.Dに対応しています。<br/>
 
 2op(vrc7など),4op(oplなど)対応のFM音源音色エディタです。<br/>
 (左上はエンベロープなど繊細なもの、右下は倍音など音色の決定要素を集めています。)<br/>
-試聴機能による音色の確認、音色の保存や、fmp7,mxdrvにおけるmmlの音色指定を、
-インポート、逆にfmp7,mxdrvへのエクスポートができます。<br/>
+試聴機能による音色の確認、音色の保存や、<br/>
+fmp7,mxdrvのmml音色指定をインポート、逆のエクスポートができます。<br/>
 <br/>
 <img alt="FM Synthesis Chip - Tone Editor" style="border-width:0" src="./image/FM_edt.png" /><br/>
 <br/>
