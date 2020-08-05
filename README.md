@@ -1,9 +1,9 @@
 <h1>mml watch GUI</h1>
 
-Chiptuneコンパイラppmck,nsdLib,P.M.D,へGUI環境を提供する補助ツールです。
+ChiptuneのMMLコンパイラ"ppmck","nsdLib","P.M.D",へGUI環境を提供する補助ツールです。
 GUI部も含め、総Powershellで組まれてます。<br/>
 <br/>
-<h5>各バイナリexeは、シェルを呼び出すためのc#によるラッパーで、中身の殆どはアイコンリソースです。
+<h5>各起動バイナリexeは、シェルを呼び出すためのc#によるラッパーで、中身の殆どはアイコンリソースです。
 (開発環境を使用しないで、直接コンパイラを通したためか、トータルウィルスの一部で引っかかります。
 [XPにて開発しているため、開発環境が入れられません、、]
 ご心配な方は、srcのcsファイルを見て下さい。起動に必要な最低限のものしか入っていないですが、、)</h5>
@@ -11,17 +11,17 @@ GUI部も含め、総Powershellで組まれてます。<br/>
 それぞれがスタンドアロン(単体)で起動します。<br/>
 <br/>
 <table><tr><td>・Mml Watch GUI</td><td>-- チップチューンのためのフロントエンド</td>
-</tr><tr><td>・FM Synthesis Chip - Tone Editor</td><td>-- 2op.4op.対応FM音源チップエディタ</td>
+</tr><tr><td>・FM Synthesis Chip - Tone Editor</td><td>-- 2op.4op.対応FM音源音色エディタ</td>
 </tr><tr><td>・Guitar Arpeggio - MML Generator</td><td>-- ギターアルペジオジェネレータ</td>
 </tr></table>
 
-<h4>対応OS: windowsXP以上<br/>
-<br/>
-mml_watch.exeなどのバイナリ起動の場合、.NET Framework4.0以上が必要となります。<br/>
+<h4>対応OS: windowsXP以上</h4>
+
+<h5>mml_watch.exeなどのバイナリ起動の場合、.NET Framework4.0以上が必要となります。<br/>
 <br/>
 Watch.cmdなどのバッチファイルによる起動であれば、<br/>
 .NET Framework3.5以上(CLR:共通言語ランタイム2.0)、<br/>
-PowerShell2.0(WMF:WindowsManagementFramework2.0)以上なら動くと思います。</h4>
+PowerShell2.0(WMF:WindowsManagementFramework2.0)以上なら動くと思います。</h5>
 
 <br/>
 <h4>□ Mml Watch GUI</h4>
@@ -46,8 +46,8 @@ ppmck,nsdLib,P.M.Dに対応しています。<br/>
 
 2op(vrc7など),4op(oplなど)対応のFM音源音色エディタです。<br/>
 (左上はエンベロープなど繊細なもの、右下は倍音など音色の決定要素を集めています。)<br/>
-試聴機能による音色の確認、音色の保存、各FM音源のmml(fmp7,mxdrv)から、<br/>
-インポート、エクスポートができます。<br/>
+試聴機能による音色の確認、音色の保存、fmp7,mxdrvからのmmlの音色指定から、
+インポート、逆にfmp7,mxdrvへのエクスポートができます。<br/>
 <br/>
 <img alt="FM Synthesis Chip - Tone Editor" style="border-width:0" src="./image/FM_edt.png" /><br/>
 <br/>
