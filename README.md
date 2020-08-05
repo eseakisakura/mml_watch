@@ -1,9 +1,11 @@
 <h1>mml watch GUI</h1>
 
-Chiptuneコンパイラppmck,nsdLib,P.M.D,へGUI環境を提供する補助ツールです。<br/>
+Chiptuneコンパイラppmck,nsdLib,P.M.D,へGUI環境を提供する補助ツールです。
 GUI部も含め、総Powershellで組まれてます。<br/>
 <br/>
-(各バイナリexeは、シェルを呼び出すためのc#によるラッパーで、中身の殆どはアイコンリソースです。)<br/>
+<h5>各バイナリexeは、シェルを呼び出すためのc#によるラッパーで、中身の殆どはアイコンリソースです。<br/>
+(開発環境を使用しないで、直接コンパイラを通したためか、トータルウィルスの一部で引っかかります。<br/>
+ご心配な方は、srcのcsファイルを見て下さい。起動に必要な最低限のものしか入っていないですが、、)</h5>
 <br/>
 それぞれがスタンドアロン(単体)で起動します。<br/>
 <br/>
@@ -12,13 +14,13 @@ GUI部も含め、総Powershellで組まれてます。<br/>
 </tr><tr><td>・Guitar Arpeggio - MML Generator</td><td>-- ギターアルペジオジェネレータ</td>
 </tr></table>
 
-<h5>対応OS: windowsXP以上<br/>
+<h4>対応OS: windowsXP以上<br/>
 <br/>
 mml_watch.exeなどのバイナリ起動の場合、.NET Framework4.0以上が必要となります。<br/>
 <br/>
 Watch.cmdなどのバッチファイルによる起動であれば、<br/>
 .NET Framework3.5以上(CLR:共通言語ランタイム2.0)、<br/>
-PowerShell2.0(WMF:WindowsManagementFramework2.0)以上なら動くと思います。</h5>
+PowerShell2.0(WMF:WindowsManagementFramework2.0)以上なら動くと思います。</h4>
 
 <br/>
 <h4>□ Mml Watch GUI</h4>
