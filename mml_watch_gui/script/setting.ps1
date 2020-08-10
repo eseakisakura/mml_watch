@@ -64,17 +64,17 @@ function Xml_read($x){
 	if($x.mck[$i].name -ne ''){
 
 		$script:mck[$x.mck[$i].name]= $x.mck[$i].param
-		$script:cmp[$x.mck[$i].name]= $x.mck[$i].param
+		##$script:cmp[$x.mck[$i].name]= $x.mck[$i].param
 	}
 	if($x.nsd[$i].name -ne ''){
 
 		$script:nsd[$x.nsd[$i].name]= $x.nsd[$i].param
-		$script:cmp[$x.nsd[$i].name]= $x.nsd[$i].param
+		##$script:cmp[$x.nsd[$i].name]= $x.nsd[$i].param
 	}
 	if($x.pmd[$i].name -ne ''){
 
 		$script:pmd[$x.pmd[$i].name]= $x.pmd[$i].param
-		$script:cmp[$x.pmd[$i].name]= $x.pmd[$i].param
+		##$script:cmp[$x.pmd[$i].name]= $x.pmd[$i].param
 	}
 
 	if($x.ply[$i].name -ne ''){
@@ -209,7 +209,7 @@ function Write_xml($x){
 function Hash_read(){ 
 
 
-	Pmd_option $opts["option"] > $null # return fuuji	
+	Pmd_option $opts["option"] > $null # return fuuji
 
 
 	$stop_box.CheckState= $opts["chk_stop"]
@@ -311,7 +311,7 @@ function Write_hash(){
 	$script:opts["radio_bin"]= "mck"
 
 	switch($mck.Count){
-	0{	  break;
+	0{	  $script:vals["compiler"]= ""; break;
 	}1{	  $script:vals["compiler"]= $mck.Values; break;
 	}default{ $script:vals["compiler"]= $mck[[string]$listbox_mck.SelectedItem] # [string]キャスト必要
 	}
@@ -322,7 +322,7 @@ function Write_hash(){
 	$script:opts["radio_bin"]= "nsd"
 
 	switch($nsd.Count){
-	0{	  break;
+	0{	  $script:vals["compiler"]= ""; break;
 	}1{	  $script:vals["compiler"]= $nsd.Values; break;
 	}default{ $script:vals["compiler"]= $nsd[[string]$listbox_nsd.SelectedItem]
 	}
@@ -333,7 +333,7 @@ function Write_hash(){
 	$script:opts["radio_bin"]= "pmd"
 
 	switch($pmd.Count){
-	0{	  break;
+	0{	  $script:vals["compiler"]= ""; break;
 	}1{	  $script:vals["compiler"]= $pmd.Values; break;
 	}default{ $script:vals["compiler"]= $pmd[[string]$listbox_pmd.SelectedItem]
 	}
@@ -341,35 +341,35 @@ function Write_hash(){
   }
 
 	switch($mml.Count){
-	0{	  break;
+	0{	  $script:vals["mmlfile"]= ""; break;
 	}1{	  $script:vals["mmlfile"]= $mml.Values;	break;
 	}default{ $script:vals["mmlfile"]= $mml[[string]$listbox_mml.SelectedItem]
 	}
 	} #sw
 
 	switch($ply.Count){
-	0{	  break;
+	0{	  $script:vals["player"]= ""; break;
 	}1{	  $script:vals["player"]= $ply.Values; break;
 	}default{ $script:vals["player"]= $ply[[string]$listbox_ply.SelectedItem]
 	}
 	} #sw
 
 	switch($dmc.Count){
-	0{	  break;
+	0{	  $script:vals["dmcdir"]= ""; break;
 	}1{	  $script:vals["dmcdir"]= $dmc.Values; break;
 	}default{ $script:vals["dmcdir"]= $dmc[[string]$listbox_dmc.SelectedItem]
 	}
 	} #sw
 
 	switch($edt.Count){
-	0{	  break;
+	0{	  $script:vals["editor"]= ""; break;
 	}1{	  $script:vals["editor"]= $edt.Values; break;
 	}default{ $script:vals["editor"]= $edt[[string]$listbox_edt.SelectedItem]
 	}
 	} #sw
 
 	switch($dos.Count){
-	0{	  break;
+	0{	  $script:vals["dos"]= ""; break;
 	}1{	  $script:vals["dos"]= $dos.Values; break;
 	}default{ $script:vals["dos"]= $dos[[string]$listbox_dos.SelectedItem]
 	}
@@ -470,7 +470,7 @@ function Write_hash_cut(){
 	$script:opts["radio_bin"]= "mck"
 
 	switch($mck.Count){
-	0{	  break;
+	0{	  $script:vals["compiler"]= ""; break;
 	}1{	  $script:vals["compiler"]= $mck.Values; break;
 	}default{ $script:vals["compiler"]= $mck[[string]$listbox_mck.SelectedItem] # [string]キャスト必要
 	}
@@ -481,7 +481,7 @@ function Write_hash_cut(){
 	$script:opts["radio_bin"]= "nsd"
 
 	switch($nsd.Count){
-	0{	  break;
+	0{	  $script:vals["compiler"]= ""; break;
 	}1{	  $script:vals["compiler"]= $nsd.Values; break;
 	}default{ $script:vals["compiler"]= $nsd[[string]$listbox_nsd.SelectedItem]
 	}
@@ -492,7 +492,7 @@ function Write_hash_cut(){
 	$script:opts["radio_bin"]= "pmd"
 
 	switch($pmd.Count){
-	0{	  break;
+	0{	  $script:vals["compiler"]= ""; break;
 	}1{	  $script:vals["compiler"]= $pmd.Values; break;
 	}default{ $script:vals["compiler"]= $pmd[[string]$listbox_pmd.SelectedItem]
 	}
@@ -500,20 +500,20 @@ function Write_hash_cut(){
   }
 
 	switch($ply.Count){
-	0{	  break;
+	0{	  $script:vals["player"]= ""; break;
 	}1{	  $script:vals["player"]= $ply.Values; break;
 	}default{ $script:vals["player"]= $ply[[string]$listbox_ply.SelectedItem]
 	}
 	} #sw
 	switch($edt.Count){
-	0{	  break;
+	0{	  $script:vals["editor"]= ""; break;
 	}1{	  $script:vals["editor"]= $edt.Values; break;
 	}default{ $script:vals["editor"]= $edt[[string]$listbox_edt.SelectedItem]
 	}
 	} #sw
 
 	switch($dos.Count){
-	0{	  break;
+	0{	  $script:vals["dos"]= ""; break;
 	}1{	  $script:vals["dos"]= $dos.Values; break;
 	}default{ $script:vals["dos"]= $dos[[string]$listbox_dos.SelectedItem]
 	}
@@ -889,7 +889,7 @@ $tab.Size= "225,205"
 $tab.Location= "5,25"
  
 # tab_mml 
-	 
+	
 $tab_mml= New-Object System.Windows.Forms.TabPage 
 $tab_mml.Text= "mml"
 
@@ -1631,11 +1631,11 @@ $sub_f.Add_FormClosing({
 	Write-Host '"ERROR: Safety Stopper >> $sub_f.FormClosing()"'
  }
 })
- 	
+ 
 $sub_mnu= New-Object System.Windows.Forms.MenuStrip 
 
 $sub_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem
-$sub_menu_f.Text= "ファイル"
+$sub_menu_f.Text= "File"
 
 $sub_menu_a= New-Object System.Windows.Forms.ToolStripMenuItem
 $sub_menu_a.Text= "設定リセット"
@@ -1648,7 +1648,7 @@ $sub_menu_a.Add_Click({	# 環境リセット
   'OK'{
 	$script:xml_set= [xml]$setting_xml
 
-	$script:mml= @{}; $script:mck= @{}; $script:nsd= @{}; $script:pmd= @{};
+	$script:mml= @{}; $script:mck= @{}; $script:nsd= @{}; $script:pmd= @{}; ##$cmp= @{};
 	$script:ply= @{}; $script:dmc= @{}; $script:edt= @{}; $script:dos= @{};
 
 	Xml_read $script:xml_set.table
@@ -1717,7 +1717,7 @@ $sub_menu_towns.Add_Click({
 
 	$script:opts["option"]= Pmd_option "towns"
 })
- 
+ 	
 $sub_menu_f.DropDownItems.AddRange(@($sub_menu_a,$sub_menu_sn,$sub_menu_n)) 
 $sub_menu_o.DropDownItems.AddRange(@($sub_menu_opn,$sub_menu_opm,$sub_menu_sa,$sub_menu_opl,$sub_menu_towns))
 $sub_mnu.Items.AddRange(@($sub_menu_f,$sub_menu_o))
@@ -1742,6 +1742,11 @@ $sub_f.AcceptButton= $ok_btn		# [Enter]
 
  try{
 
+  $args_pram= $Args
+
+  $vals= $args_pram[0]
+  $opts= $args_pram[1] # only memory
+
   # キャスト
   if((Test-Path '.\setting.xml') -eq $True){
 
@@ -1750,15 +1755,11 @@ $sub_f.AcceptButton= $ok_btn		# [Enter]
 	$xml_set= [xml]$setting_xml
   }
 
-  $args_pram= $Args
-
   # 連想配列化
 
-  $vals= $args_pram[0]
-  $opts= $args_pram[1] # only memory
 
-  $cmp= @{}; $mck= @{}; $nsd= @{}; $pmd= @{};
-  $mml= @{}; $ply= @{}; $dmc= @{}; $edt= @{}; $dos= @{};
+  $mml= @{}; $mck= @{}; $nsd= @{}; $pmd= @{}; ##$cmp= @{};
+  $ply= @{}; $dmc= @{}; $edt= @{}; $dos= @{};
 
   Xml_read $script:xml_set.table
 
@@ -1768,7 +1769,7 @@ $sub_f.AcceptButton= $ok_btn		# [Enter]
 
 	$tab.Controls.AddRange(@($tab_mml,$tab_bin,$tab_ply,$tab_dos,$tab_edt))
 
- 	Drag_drop "mml" $vals["mmlfile"] # mml hashへ登録
+ 	Drag_drop "mml" $vals["mmlfile"] # D&D時ため、mml hashへ自動登録
 
 	Hash_read # List化
 	break;

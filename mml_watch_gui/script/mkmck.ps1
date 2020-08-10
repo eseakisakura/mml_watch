@@ -66,10 +66,12 @@
 			}else{
 				if((Test-Path .\ppmck.nes) -eq $true){ del .\ppmck.nes }
 
+
 				# & $exe_nesasm -s -raw .\ppmck.asm | Write-Host # Command
 				$out[2]= & $exe_nesasm -s -raw .\ppmck.asm | Out-String
 				Write-Host $out[2]
 				sleep -m 120
+
 
 				if($LASTEXITCODE -eq 0){
 
@@ -88,3 +90,4 @@
 
 echo $out
 # exit $LASTEXITCODE
+ 

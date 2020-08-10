@@ -4,11 +4,11 @@ Write-Host ('"分散コードエディタ"を起動します')
  
 $xml_arpeg= @' 
 <table>
-	<box>
+	<opt>
 		<oct value="o4"/>
 		<osc value="NSDlib"/>
 		<bit value="Unchecked"/>
-	</box>
+	</opt>
 	<val>
 		<!-- 拡張性の加味 -->
 		<cmp value=""/>
@@ -20,6 +20,7 @@ $xml_arpeg= @'
 '@
  
 $cd= @{} 
+
 	# c  f  b- e- g  c	6E
 	# g  c  f   b- d  g	5A
 	# d  g  c  f  a  d	4D
@@ -33,8 +34,7 @@ $cd["Maj"]["6E"]= 0,2,2, 1,0,0 # [0-11]Flet
 $cd["Maj"]["5A"]= 0,0,2, 2,2,0
 $cd["Maj"]["4D"]= "x",0,0, 2,3,2
 
-
-$cd["Maj7"]= @{}
+$cd["Maj7"]= @{} # M7,m7 no tame
 $cd["Maj7"]["c5A"]= 0,3,2, 0,0,0
 $cd["Maj7"]["f4D"]= "x","x",3, 2,1,0
 $cd["Maj7"]["g6E"]= 3,2,0, 0,0,2
@@ -43,31 +43,27 @@ $cd["Maj7"]["6E"]= 0,2,1, 1,0,0
 $cd["Maj7"]["5A"]= 0,0,2, 1,2,0
 $cd["Maj7"]["4D"]= "x",0,0, 2,2,2
 
-
 $cd["Maj79"]= @{}
 $cd["Maj79"]["6E"]= 0,"x",1, 1,0,2
 $cd["Maj79"]["5A"]= "x",0,-1, 1,0,0
 $cd["Maj79"]["4D"]= "x","x",0, -1,2,0
 
-
 $cd["M7#11"]= @{}
 $cd["M7#11"]["c5A"]= 0,3,2, 0,0,2
-
 $cd["M7#11"]["6E"]= 0,"x",1, 1,-1,"x"
 $cd["M7#11"]["5A"]= "x",0,1, 1,2,"x"
 $cd["M7#11"]["4D"]= "x","x",0, -1,-3,-3
-
 
 $cd["M713"]= @{}
 $cd["M713"]["6E"]= 0,"x",1, 1,2,"x"
 $cd["M713"]["5A"]= "x",0,"x", 1,2,2
 $cd["M713"]["4D"]= "x","x",0, -1,0,-3
 
-
 $cd["M913"]= @{}
 $cd["M913"]["6E"]= 0,"x",1, -1,-3,-3
 $cd["M913"]["5A"]= "x",0,-3, -1,-3,-3
 $cd["M913"]["4D"]= "x","x",0, 4,2,0
+
 
 
 $cd["min"]= @{}
@@ -78,7 +74,6 @@ $cd["min"]["6E"]= 0,2,2, 0,0,0
 $cd["min"]["5A"]= 0,0,2, 2,1,0
 $cd["min"]["4D"]= "x",0,0, 2,3,1
 
-
 $cd["min7"]= @{}
 $cd["min7"]["d-5A"]= 0,4,2, 4,2,0
 $cd["min7"]["e6E"]= 0,2,2, 0,3,0
@@ -87,7 +82,6 @@ $cd["min7"]["6E"]= 0,2,0, 0,0,0
 $cd["min7"]["5A"]= 0,0,2, 0,1,0
 $cd["min7"]["4D"]= "x",0,0, 2,1,1
 
-
 $cd["min79"]= @{}
 $cd["min79"]["g-6E"]= 2,0,2, 1,2,0
 
@@ -95,83 +89,17 @@ $cd["min79"]["6E"]= 0,2,0, 0,0,2
 $cd["min79"]["5A"]= "x",0,-2, 0,0,0
 $cd["min79"]["4D"]= "x","x",0, -2,1,0
 
-
 $cd["m711"]= @{}
 $cd["m711"]["g-6E"]= 2,0,2, 2,0,0
-
 $cd["m711"]["6E"]= 0,0,0, 0,0,0
 $cd["m711"]["5A"]= "x",0,-2, 0,-2,-2
 $cd["m711"]["4D"]= "x","x",0, 0,1,1
-
 
 $cd["m911"]= @{}
 $cd["m911"]["6E"]= 0,0,0, -1,0,"x"
 $cd["m911"]["5A"]= 0,0,0, 0,0,0
 $cd["m911"]["4D"]= "x",0,0, 0,1,0
 
-
-$cd["add9"]= @{}
-$cd["add9"]["c5A"]= 0,3,2, 0,3,0
-$cd["add9"]["e6E"]= 0,2,2, 1,0,2 # = close
-$cd["add9"]["g6E"]= 3,2,0, 0,0,5
-
-$cd["add9"]["6E"]= 0,2,2, 1,0,2
-$cd["add9"]["5A"]= "x",0,-1, "x",0,0
-$cd["add9"]["4D"]= "x","x",0, -1,-2,0
-
-
-$cd["madd9"]= @{}
-$cd["madd9"]["6E"]= 0,2,2, 0,0,2
-$cd["madd9"]["5A"]= "x",0,-2, -3,0,0
-$cd["madd9"]["4D"]= "x","x",0, -2,-2,0
-
-
-$cd["add911"]= @{}
-$cd["add911"]["6E"]= 0,2,4, 2,0,0
-$cd["add911"]["5A"]= 0,0,2, 4,3,0
-$cd["add911"]["4D"]= "x",0,0, 2,5,3
-
-
-$cd["sus2"]= @{}
-$cd["sus2"]["c5A"]= "x",3,0, 0,3,3
-$cd["sus2"]["g6E"]= 3,0,0, 2,3,3
-
-$cd["sus2"]["6E"]= 0,"x",2, -1,0,"x"
-$cd["sus2"]["5A"]= 0,0,2, 2,0,0
-$cd["sus2"]["4D"]= "x",0,0, 2,3,0
-
-
-$cd["6sus2"]= @{}
-$cd["6sus2"]["6E"]= 0,"x",-1, -1,0,"x"	# 'ef+bc+' / exc+ f+bx | ead gbe
-$cd["6sus2"]["5A"]= 0,0,4, 2,0,0	# 'abef+' / eaf+ abe
-$cd["6sus2"]["4D"]= "x",0,0, 2,0,0	# 'deab' / xad abe
-
-
-$cd["sus4"]= @{}
-$cd["sus4"]["c5A"]= "x",3,3, 0,1,1
-$cd["sus4"]["g6E"]= 3,3,0, 0,1,3
-
-$cd["sus4"]["6E"]= 0,2,2, 2,0,0
-$cd["sus4"]["5A"]= 0,0,2, 2,3,0
-$cd["sus4"]["4D"]= "x",0,0, 2,3,3
-
-
-$cd["7sus4"]= @{}
-$cd["7sus4"]["6E"]= 0,2,0, 2,0,0
-$cd["7sus4"]["5A"]= 0,0,2, 0,3,0
-$cd["7sus4"]["4D"]= "x",0,0, 2,1,3
-
-
-$cd["9sus4"]= @{}
-$cd["9sus4"]["6E"]= 0,"x",0, -1,-2,"x"
-$cd["9sus4"]["5A"]= 0,0,0, 0,0,0
-$cd["9sus4"]["4D"]= "x",0,0, 0,1,0
-
-
-$cd["13sus4"]= @{}
-$cd["13sus4"]["6E"]= 0,2,0, 2,2,0
-$cd["13sus4"]["5A"]= 0,0,2, 0,3,2
-$cd["13sus4"]["4D"]= "x","x",0, 4,1,3
 
 
 $cd["7th"]= @{}
@@ -185,18 +113,18 @@ $cd["7th"]["5A"]= 0,0,2, 0,2,0
 $cd["7th"]["4D"]= "x",0,0, 2,1,2
 
 
+$cd["7b9"]= @{}
+$cd["7b9"]["6E"]= 0,2,0, 1,0,1
+$cd["7b9"]["5A"]= "x",0,-1, 0,-1,"x"
+$cd["7b9"]["4D"]= "x","x",0, -1,1,-1
+
+
 $cd["79"]= @{}
 $cd["79"]["f6E"]= 1,0,1, 0,1,"x"
 
 $cd["79"]["6E"]= 0,2,0, 1,0,2
 $cd["79"]["5A"]= "x",0,-1, 0,0,0
 $cd["79"]["4D"]= "x","x",0, -1,1,0
-
-
-$cd["7b9"]= @{}
-$cd["7b9"]["6E"]= 0,2,0, 1,0,1
-$cd["7b9"]["5A"]= "x",0,-1, 0,-1,"x"
-$cd["7b9"]["4D"]= "x","x",0, -1,1,-1
 
 
 $cd["7#9"]= @{}
@@ -229,6 +157,77 @@ $cd["b9#11"]= @{}
 $cd["b9#11"]["6E"]= 0,1,0, -2,"x","x"
 $cd["b9#11"]["5A"]= "x",0,1, 0,-1,-1
 $cd["b9#11"]["4D"]= "x","x",0, 1,1,-1
+
+
+$cd["Maj7b5"]= @{}	# e a d g b e
+$cd["Maj7b5"]["6E"]= 0,"x",1, 1,-1,"x"	# eg+b-d+
+$cd["Maj7b5"]["5A"]= "x",0,1, 1,2,"x"	# ac+e-g+
+$cd["Maj7b5"]["4D"]= "x","x",0, 1,2,2	# df+a-c+
+
+
+$cd["min7b5"]= @{}
+$cd["min7b5"]["b-5A"]= "x",1,2, 1,2,0
+$cd["min7b5"]["b5A"]= "x",2,0, 2,3,1
+
+$cd["min7b5"]["6E"]= 0,"x",0, 0,-1,"x"
+$cd["min7b5"]["5A"]= "x",0,1, 0,1,"x"
+$cd["min7b5"]["4D"]= "x","x",0, 1,1,1
+
+
+$cd["m7b511"]= @{}
+$cd["m7b511"]["6E"]= 0,0,0, "x",-1,"x"
+$cd["m7b511"]["5A"]= "x",0,0, 0,"x",-1
+$cd["m7b511"]["4D"]= "x","x",0, 1,1,3
+
+
+$cd["7b5"]= @{}
+$cd["7b5"]["6E"]= 0,"x",0, 1,-1,"x"
+$cd["7b5"]["5A"]= "x",0,1, 0,2,"x"
+$cd["7b5"]["4D"]= "x","x",0, 1,1,2
+
+
+$cd["Maj7#5"]= @{}
+$cd["Maj7#5"]["e6E"]= 0,"x",1, 1,1,0
+
+$cd["Maj7#5"]["6E"]= 0,"x",1, 1,1,"x"
+$cd["Maj7#5"]["5A"]= "x",0,-1, -2,-3,-3
+$cd["Maj7#5"]["4D"]= "x","x",0, -1,-1,-3
+
+
+$cd["min7#5"]= @{}
+$cd["min7#5"]["6E"]= 0,3,0, 0,1,0
+$cd["min7#5"]["5A"]= "x",0,"x", 0,1,1
+$cd["min7#5"]["4D"]= "x","x",0, 3,1,1
+
+
+$cd["mM7"]= @{}
+$cd["mM7"]["6E"]= 0,2,1, 0,0,0
+$cd["mM7"]["5A"]= 0,0,2, 1,1,0
+$cd["mM7"]["4D"]= "x","x",0, 2,2,1
+
+
+$cd["mM7b5"]= @{}
+$cd["mM7b5"]["f4D"]= "x","x",3, 1,0,0
+$cd["mM7b5"]["b5A"]= "x",2,0, 3,0,1
+
+$cd["mM7b5"]["6E"]= 0,1,1, 0,"x","x"
+$cd["mM7b5"]["5A"]= "x",0,1, 1,1,"x"
+$cd["mM7b5"]["4D"]= "x","x",0, 1,2,1
+
+
+$cd["mM7#5"]= @{}
+$cd["mM7#5"]["c5A"]= "x",3,1, 1,0,"x"
+$cd["mM7#5"]["e6E"]= 0,3,1, 0,1,0
+
+$cd["mM7#5"]["6E"]= 0,"x",1, 0,1,"x"
+$cd["mM7#5"]["5A"]= "x",0,-2, -2,-3,"x"
+$cd["mM7#5"]["4D"]= "x","x",0, -2,-1,-3
+
+
+$cd["mM79"]= @{}
+$cd["mM79"]["6E"]= 0,2,1, 0,0,2
+$cd["mM79"]["5A"]= "x",0,-2, 1,0,"x"
+$cd["mM79"]["4D"]= "x","x",0, -2,2,0
 
 
 $cd["6th"]= @{}
@@ -267,25 +266,71 @@ $cd["m69"]["5A"]= "x",0,-2, -1,0,"x"
 $cd["m69"]["4D"]= "x","x",0, -2,0,0
 
 
-$cd["mM7"]= @{}
-$cd["mM7"]["6E"]= 0,2,1, 0,0,0
-$cd["mM7"]["5A"]= 0,0,2, 1,1,0
-$cd["mM7"]["4D"]= "x","x",0, 2,2,1
+
+$cd["add9"]= @{}
+$cd["add9"]["c5A"]= 0,3,2, 0,3,0
+$cd["add9"]["e6E"]= 0,2,2, 1,0,2 # = close
+$cd["add9"]["g6E"]= 3,2,0, 0,0,5
+
+$cd["add9"]["6E"]= 0,2,2, 1,0,2
+$cd["add9"]["5A"]= "x",0,-1, "x",0,0
+$cd["add9"]["4D"]= "x","x",0, -1,-2,0
+
+$cd["add911"]= @{}
+$cd["add911"]["6E"]= 0,2,4, 2,0,0
+$cd["add911"]["5A"]= 0,0,2, 4,3,0
+$cd["add911"]["4D"]= "x",0,0, 2,5,3
+
+$cd["madd9"]= @{}
+$cd["madd9"]["6E"]= 0,2,2, 0,0,2
+$cd["madd9"]["5A"]= "x",0,2, 4,1,0
+$cd["madd9"]["4D"]= "x","x",0, -2,-2,0
+
+$cd["madd911"]= @{}
+$cd["madd911"]["6E"]= 0,0,4, 0,0,0
+$cd["madd911"]["5A"]= "x",0,0, 4,1,0
+$cd["madd911"]["4D"]= "x","x",0, -2,-4,0
 
 
-$cd["mM79"]= @{}
-$cd["mM79"]["6E"]= 0,2,1, 0,0,2
-$cd["mM79"]["5A"]= "x",0,-2, 1,0,"x"
-$cd["mM79"]["4D"]= "x","x",0, -2,2,0
+$cd["sus2"]= @{}
+$cd["sus2"]["c5A"]= "x",3,0, 0,3,3
+$cd["sus2"]["g6E"]= 3,0,0, 2,3,3
+$cd["sus2"]["6E"]= 0,"x",2, -1,0,"x"
+$cd["sus2"]["5A"]= 0,0,2, 2,0,0
+$cd["sus2"]["4D"]= "x",0,0, 2,3,0
 
 
-$cd["mM7#5"]= @{}
-$cd["mM7#5"]["c5A"]= "x",3,1, 1,0,"x"
-$cd["mM7#5"]["e6E"]= 0,3,1, 0,1,0
+$cd["6sus2"]= @{}
+$cd["6sus2"]["6E"]= 0,"x",-1, -1,0,"x"	# 'ef+bc+' / exc+ f+bx | ead gbe
+$cd["6sus2"]["5A"]= 0,0,4, 2,0,0	# 'abef+' / eaf+ abe
+$cd["6sus2"]["4D"]= "x",0,0, 2,0,0	# 'deab' / xad abe
 
-$cd["mM7#5"]["6E"]= 0,"x",1, 0,1,"x"
-$cd["mM7#5"]["5A"]= "x",0,-2, -2,-3,"x"
-$cd["mM7#5"]["4D"]= "x","x",0, -2,-1,-3
+
+$cd["sus4"]= @{}
+$cd["sus4"]["c5A"]= "x",3,3, 0,1,1
+$cd["sus4"]["g6E"]= 3,3,0, 0,1,3
+
+$cd["sus4"]["6E"]= 0,2,2, 2,0,0
+$cd["sus4"]["5A"]= 0,0,2, 2,3,0
+$cd["sus4"]["4D"]= "x",0,0, 2,3,3
+
+
+$cd["7sus4"]= @{}
+$cd["7sus4"]["6E"]= 0,2,0, 2,0,0
+$cd["7sus4"]["5A"]= 0,0,2, 0,3,0
+$cd["7sus4"]["4D"]= "x",0,0, 2,1,3
+
+
+$cd["9sus4"]= @{}
+$cd["9sus4"]["6E"]= 0,0,0, -1,-2,-2
+$cd["9sus4"]["5A"]= 0,0,0, 0,0,0
+$cd["9sus4"]["4D"]= "x",0,0, 0,1,0
+
+
+$cd["13sus4"]= @{}
+$cd["13sus4"]["6E"]= 0,2,0, 2,2,0
+$cd["13sus4"]["5A"]= 0,0,2, 0,3,2
+$cd["13sus4"]["4D"]= "x","x",0, 4,1,3
 
 
 $cd["aug"]= @{}
@@ -305,20 +350,6 @@ $cd["aug7"]["5A"]= "x",0,3, 0,2,1
 $cd["aug7"]["4D"]= "x","x",0, 3,1,2
 
 
-$cd["min7#5"]= @{}
-$cd["min7#5"]["6E"]= 0,3,0, 0,1,0
-$cd["min7#5"]["5A"]= "x",0,"x", 0,1,1
-$cd["min7#5"]["4D"]= "x","x",0, 3,1,1
-
-
-$cd["Maj7#5"]= @{}
-$cd["Maj7#5"]["e6E"]= 0,"x",1, 1,1,0
-
-$cd["Maj7#5"]["6E"]= 0,"x",1, 1,1,"x"
-$cd["Maj7#5"]["5A"]= "x",0,-1, -2,-3,-3
-$cd["Maj7#5"]["4D"]= "x","x",0, -1,-1,-3
-
-
 $cd["dim"]= @{}
 $cd["dim"]["6E"]= 0,"x",2, 0,-1,"x"
 $cd["dim"]["5A"]= "x",0,1, 2,1,"x"
@@ -333,31 +364,6 @@ $cd["dim7"]["5A"]= "x",0,1, -1,1,"x"
 $cd["dim7"]["4D"]= "x","x",0, 1,0,1
 
 
-$cd["Maj7b5"]= @{}	# e a d g b e
-$cd["Maj7b5"]["6E"]= 0,"x",1, 1,-1,"x"	# eg+b-d+
-$cd["Maj7b5"]["5A"]= "x",0,1, 1,2,"x"	# ac+e-g+
-$cd["Maj7b5"]["4D"]= "x","x",0, 1,2,2	# df+a-c+
-
-
-$cd["7b5"]= @{}
-$cd["7b5"]["6E"]= 0,"x",0, 1,-1,"x"
-$cd["7b5"]["5A"]= "x",0,1, 0,2,"x"
-$cd["7b5"]["4D"]= "x","x",0, 1,1,2
-
-
-$cd["m7b5"]= @{}
-$cd["m7b5"]["b-5A"]= "x",1,2, 1,2,0
-$cd["m7b5"]["b5A"]= "x",2,0, 2,3,1
-
-$cd["m7b5"]["6E"]= 0,"x",0, 0,-1,"x"
-$cd["m7b5"]["5A"]= "x",0,1, 0,1,"x"
-$cd["m7b5"]["4D"]= "x","x",0, 1,1,1
-
-
-$cd["m7b511"]= @{}
-$cd["m7b511"]["6E"]= 0,0,0, "x",-1,"x"
-$cd["m7b511"]["5A"]= "x",0,0, 0,"x",-1
-$cd["m7b511"]["4D"]= "x","x",0, 1,1,3
  
 $rot= @{} 
 
@@ -407,7 +413,7 @@ $rot["4D"]=	"4313 1313",
 		"432 123 132 132"
  
 # gui 
-	
+	 
 function Oscarp_sw([string]$t){ 
 
 
@@ -440,12 +446,17 @@ function Arpmenu_build([string]$sw){
 
   [string]$d= "[v] "
 
+  [string[]]$n= Split_path $val[$sw]
+
   switch($sw){
 
   'compiler'{
-	[string[]]$n= Split_path $val["compiler"]
 	[array]$w= $comp.Keys
 
+	$arp_menu_cmp0.Visible= $False
+	$arp_menu_cmp1.Visible= $False
+	$arp_menu_cmp2.Visible= $False
+	$arp_menu_cmp3.Visible= $False
 
 	if($w.Length -ge 1){ # if nomi de add kousei
 
@@ -485,9 +496,12 @@ function Arpmenu_build([string]$sw){
 	break;
 
   }'player'{
-	[string[]]$n= Split_path $val["player"]
 	[array]$w= $play.Keys
 
+	$arp_menu_ply0.Visible= $False
+	$arp_menu_ply1.Visible= $False
+	$arp_menu_ply2.Visible= $False
+	$arp_menu_ply3.Visible= $False
 
 	if($w.Length -ge 1){
 
@@ -527,9 +541,12 @@ function Arpmenu_build([string]$sw){
 	break;
 
   }'dos'{
-	[string[]]$n= Split_path $val["dos"]
 	[array]$w= $dosv.Keys
 
+	$arp_menu_dos0.Visible= $False
+	$arp_menu_dos1.Visible= $False
+	$arp_menu_dos2.Visible= $False
+	$arp_menu_dos3.Visible= $False
 
 	if($w.Length -ge 1){
 
@@ -569,9 +586,12 @@ function Arpmenu_build([string]$sw){
 	break;
 
   }'editor'{
-	[string[]]$n= Split_path $val["editor"]
 	[array]$w= $edit.Keys
 
+	$arp_menu_edt0.Visible= $False
+	$arp_menu_edt1.Visible= $False
+	$arp_menu_edt2.Visible= $False
+	$arp_menu_edt3.Visible= $False
 
 	if($w.Length -ge 1){
 
@@ -657,7 +677,7 @@ function Arpchange_menu([string]$name, [string]$sw){
  } #func
   
 # Hash Xml 
-	
+	 
 function Setxml_read($x){ 
 
   # $x= $script:set_xml.table
@@ -695,7 +715,7 @@ function Setxml_read($x){
 function Arpxml_read($x,$y){ # hash設定 
 
 	# $x= $script:arp_xml.table.val
-	# $y= $script:arp_xml.table.box
+	# $y= $script:arp_xml.table.opt
 
 
 	$comb_prefix.SelectedItem= $y.osc.value
@@ -714,7 +734,7 @@ function Arpxml_read($x,$y){ # hash設定
 function Arpwrite_xml($x,$y){ 
 
 	# $x= $script:arp_xml.table.val
-	# $y= $script:arp_xml.table.box
+	# $y= $script:arp_xml.table.opt
 
 	$y.osc.value= [string]$comb_prefix.SelectedItem
 	$y.bit.value= [string]$opt["chk_dos"]
@@ -813,6 +833,7 @@ function Chd_chk([array]$chd_select,$cd){
  }'M7#5'{	$d= "Maj7#5";	break;
  }'m7#5'{	$d= "min7#5";	break;
  }'M7b5'{	$d= "Maj7b5";	break;
+ }'m7b5'{	$d= "min7b5";	break;
 
  }'711'{	$d= "7sus4";	break;
  }'913'{	$d= "69";	break;
@@ -890,6 +911,10 @@ function Chd_chk([array]$chd_select,$cd){
 		break;
 	}'m69'{
 		if($s -eq '6E'-and $k -eq 'Gb'){ $s= "g-6E" }
+		break;
+	}'mM7b5'{
+		if($s -eq '4D'-and $k -eq 'F'){ $s= "f4D" }
+		if($s -eq '5A'-and $k -eq 'B'){ $s= "b5A" }
 		break;
 	}'mM7#5'{
 		if($s -eq '5A'-and $k -eq 'C'){ $s= "c5A" }
@@ -1461,7 +1486,7 @@ function Apeg([string]$tt){
 } #func
   
 # Exp 
-	
+	 
 function Prefixarp_mml([string]$t, [string]$g){ 
 
 	[int]$trk_num= $nmud_trk.Value
@@ -1682,7 +1707,7 @@ $chd_grp.Text= "Chord select"
 $chd_grp.Size= "250,100"
 $chd_grp.Location= "10,30"
 $chd_grp.FlatStyle= "Flat"
-	 
+	
 $label_key= New-Object System.Windows.Forms.Label 
 $label_key.Text= "Keys"
 $label_key.Size= "70,20"
@@ -1724,12 +1749,13 @@ $comb_chd.FlatStyle= "Popup"
 [void]$comb_chd.Items.AddRange(@("Maj","M7","min","m7","7sus4","7th","dim7","m7b5"))
 [void]$comb_chd.Items.AddRange(@("M79","M7#11","M713","M913"))
 [void]$comb_chd.Items.AddRange(@("m79","m711","m911"))
-[void]$comb_chd.Items.AddRange(@("add9","add911","madd9"))
+[void]$comb_chd.Items.AddRange(@("7b9","79","7#9","711","7#11","7b13","713","b9#11","913","#9b13"))
 [void]$comb_chd.Items.AddRange(@("sus2","6sus2","sus4","9sus4","13sus4"))
-[void]$comb_chd.Items.AddRange(@("7b9","79","7#9","711","7#11","b9#11","7b13","#9b13","713","913"))
-[void]$comb_chd.Items.AddRange(@("6th","69","m6","m69","mM7","mM79"))
-[void]$comb_chd.Items.AddRange(@("aug","aug7","M7#5","m7#5","7#5","mM7#5"))
-[void]$comb_chd.Items.AddRange(@("dim","M7b5","7b5","m7b511"))
+[void]$comb_chd.Items.AddRange(@("add9","add911","madd9","madd911"))
+[void]$comb_chd.Items.AddRange(@("6th","69","m6","m69"))
+[void]$comb_chd.Items.AddRange(@("dim","M7b5","m7b511","7b5"))
+[void]$comb_chd.Items.AddRange(@("aug","aug7","M7#5","m7#5","7#5"))
+[void]$comb_chd.Items.AddRange(@("mM7","mM7b5","mM7#5","mM79"))
 
 $comb_chd.DropDownStyle= "DropDownList"
 $comb_chd.SelectedIndex= 0
@@ -2424,7 +2450,7 @@ $frm_arp.Add_Shown({
 $frm_arp.Add_FormClosing({
 
  try{
-	Arpwrite_xml $script:arp_xml.table.val $script:arp_xml.table.box
+	Arpwrite_xml $script:arp_xml.table.val $script:arp_xml.table.opt
 
 	File_writer $script:arp_xml '.\arp_gene.xml'
 
@@ -2432,9 +2458,9 @@ $frm_arp.Add_FormClosing({
 	echo $_.exception
  }
 })
- 	
+ 
 $arp_mnu= New-Object System.Windows.Forms.MenuStrip 
-	
+	 
 $arp_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $arp_menu_f.Text= "File"
 
@@ -2447,7 +2473,7 @@ $arp_menu_n.Add_Click({
 	$frm_arp.Close()
 })
  
-$arp_menu_o= New-Object System.Windows.Forms.ToolStripMenuItem 	
+$arp_menu_o= New-Object System.Windows.Forms.ToolStripMenuItem 
 $arp_menu_o.Text= "Option"
 
 $arp_menu_ud= New-Object System.Windows.Forms.ToolStripMenuItem
@@ -2500,9 +2526,10 @@ $arp_menu_set.Add_Click({
 
 		$script:set_xml= [xml](cat '.\setting.xml')
 
+		$script:comp=@{}; $script:play=@{}; $script:dosv=@{}; $script:edit=@{};
+
 		Setxml_read $script:set_xml.table # hash化
 	}
-
 
 	Arpmenu_build "compiler"
 	Arpmenu_build "player"
@@ -2825,9 +2852,9 @@ $arp_menu_oct8.Add_Click({
 $arp_menu_b= New-Object System.Windows.Forms.ToolStripMenuItem 
 $arp_menu_b.Text= "Clipboard"
 
-	
+	 
 $arp_menu_adv= New-Object System.Windows.Forms.ToolStripMenuItem 
-$arp_menu_adv.ForeColor= "Gray"
+#$arp_menu_adv.ForeColor= "Gray"
 $arp_menu_adv.Text= "Advanced"
 
 $arp_menu_mckh= New-Object System.Windows.Forms.ToolStripMenuItem
@@ -2918,10 +2945,6 @@ $frm_arp.Controls.AddRange(@($arp_mnu,$chd_grp,$flet_grp,$mml_grp,$arp_stus))
 
  try{
 
-  # 連想配列化
-  $val=@{}; $opt=@{};
-  $comp=@{}; $play=@{}; $dosv=@{}; $edit=@{}; # only memory
-
   # キャスト
   if((Test-Path '.\arp_gene.xml') -eq $True){
 
@@ -2930,10 +2953,14 @@ $frm_arp.Controls.AddRange(@($arp_mnu,$chd_grp,$flet_grp,$mml_grp,$arp_stus))
 	$arp_xml= [xml]$xml_arpeg
   }
 
-  # hash設定
-  Arpxml_read $script:arp_xml.table.val $script:arp_xml.table.box
+  # 連想配列化
+  $val=@{}; $opt=@{};
+  $comp=@{}; $play=@{}; $dosv=@{}; $edit=@{}; # only memory<- setting.xml
 
-  # readのみ
+  Arpxml_read $script:arp_xml.table.val $script:arp_xml.table.opt
+
+
+  # readのみ - Menuのため
   if((Test-Path '.\setting.xml') -eq $True){
 
 	$set_xml= [xml](cat '.\setting.xml')
@@ -3002,4 +3029,4 @@ $frm_arp.Controls.AddRange(@($arp_mnu,$chd_grp,$flet_grp,$mml_grp,$arp_stus))
 
  }finally{
  }
- 
+ 	

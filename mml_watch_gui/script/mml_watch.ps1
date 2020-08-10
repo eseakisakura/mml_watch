@@ -30,22 +30,22 @@ $xml_watch= @'
 	<val name= "editor" param= ""/>
 	<val name= "dos" param= ""/>
 	<br/>
-	<box name= "option" param= "opn"/>
-	<box name= "radio_bin" param= "nsd"/>
-	<box name= "chk_dos" param= "Unchecked"/>
-	<box name= "chk_stop" param= "Checked"/>
-	<box name= "chk_topmost" param= "False"/>
-	<box name= "chk_auto" param= "True"/>
+	<opt name= "option" param= "opn"/>
+	<opt name= "radio_bin" param= "nsd"/>
+	<opt name= "chk_dos" param= "Unchecked"/>
+	<opt name= "chk_stop" param= "Checked"/>
+	<opt name= "chk_topmost" param= "False"/>
+	<opt name= "chk_auto" param= "True"/>
 	<br />
 </table>
 '@
  
 # nsf_trans 
-	
+	 
 function Player_stop(){ 
 
 
-	if($box["chk_stop"] -eq 'Checked'){
+	if($opt["chk_stop"] -eq 'Checked'){
 
 		& $val["player"] /stop
 	}
@@ -103,7 +103,7 @@ function Mck_trans([string]$file){
 		}
 	}
  } #func
- 
+ 	
 function Nsd_trans([string]$file){ 
 
 
@@ -168,7 +168,7 @@ function Pmd_trans([string]$file){
 	[string[]]$output= "",""
 
 	# mml,bin,dmc
-	$output= .\mkpmd.ps1 $file $val["compiler"] $val["dmcdir"] $val["dos"] $box["option"] $box["chk_dos"]
+	$output= .\mkpmd.ps1 $file $val["compiler"] $val["dmcdir"] $val["dos"] $opt["option"] $opt["chk_dos"]
 
 	sleep -m 60
 
@@ -219,7 +219,7 @@ function Play_nsf([string]$file){
 	2{	Write-Host ('ERROR: Null >> '+ $file);		break;
 	}1{	Write-Host ('ERROR: Test-Path >> '+ $file);	break;
 	}0{
-		switch($box["radio_bin"]){
+		switch($opt["radio_bin"]){
 		'mck'{
 			Mck_trans $file;	break;
 		}'nsd'{
@@ -329,7 +329,7 @@ function Status_cheker(){
 	[array]$arr= 0,0,0,0
 
 
-	switch($box["radio_bin"]){
+	switch($opt["radio_bin"]){
 
 		'mck'{	$m= '"ppmck"' # esc["`""] -> ['"']
 			break;
@@ -338,16 +338,16 @@ function Status_cheker(){
 			break;
 
 		}'pmd'{	$m= '"P.M.D"'
-			$k= $box["option"]
+			$k= $opt["option"]
 		}
 	} #sw
 
-	if($box["chk_dos"] -eq 'Checked'){
+	if($opt["chk_dos"] -eq 'Checked'){
 
 		$g= " /x64対応"
 	}
 
-	if($box["chk_stop"] -eq 'Checked'){
+	if($opt["chk_stop"] -eq 'Checked'){
 
 		$c= " /stopコマンド付き"
 	}
@@ -472,7 +472,7 @@ function Toggle_label(){
 
 	[string]$d= ""
 
-	switch($box["radio_bin"]){
+	switch($opt["radio_bin"]){
 
 	'mck'{	$d= "MCK / ";	break;
 	}'nsd'{	$d= "NSD / ";	break;
@@ -547,11 +547,11 @@ function Watch_Setting(){
 
 
 	[array]$args_set= "",""
-	$args_set= .\setting.ps1 $val $box "all"
+	$args_set= .\setting.ps1 $val $opt "all"
 
 
 	$script:val= $args_set[0]
-	$script:box= $args_set[1]
+	$script:opt= $args_set[1]
 
 	$script:chk_stus= Status_cheker
 	$script:chk_mml= Wait_setpath $chk_stus
@@ -575,7 +575,7 @@ function Watch_Start(){
 		switch($wait.EnableRaisingEvents){ # トグル
 		$False{
 
-			if($box["chk_auto"] -ne 'False'){
+			if($opt["chk_auto"] -ne 'False'){
 
 				Play_nsf $val["mmlfile"]
 			}else{
@@ -634,7 +634,7 @@ function Watch_Drop(){
  } #func
   
 # hash 
-	
+	 
 function Wthxml_read($x){ 
 
   # $x= $script:wth_xml.table
@@ -647,9 +647,9 @@ function Wthxml_read($x){
 		$script:val[$x.val[$i].name]= $x.val[$i].param
 	}
 
-	if($x.box[$i].name -ne ''){
+	if($x.opt[$i].name -ne ''){
 
-		$script:box[$x.box[$i].name]= $x.box[$i].param
+		$script:opt[$x.opt[$i].name]= $x.opt[$i].param
 	}
   } #
  } #func
@@ -659,13 +659,13 @@ function Wthwrite_xml($x){
   # $x= $script:wth_xml.table
 
   [array]$val_keys= $val.Keys
-  [array]$box_keys= $box.Keys
+  [array]$opt_keys= $opt.Keys
 
   [int]$vl= $val_keys.Length
-  [int]$bx= $box_keys.Length
+  [int]$ot= $opt_keys.Length
 
   if($vl -gt 6){ Write-Host ('ERROR: val hash >> '+ $vl) }
-  if($bx -gt 6){ Write-Host ('ERROR: box hash >> '+ $bx) }
+  if($ot -gt 6){ Write-Host ('ERROR: opt hash >> '+ $ot) }
 
 
 
@@ -680,13 +680,47 @@ function Wthwrite_xml($x){
 		$x.val[$i].param= ""
 	}
 
-	if($i -lt $bx){
+	if($i -lt $ot){
 
-		$x.box[$i].name=  [string]$box_keys[$i]
-		$x.box[$i].param= [string]$box[$box_keys[$i]]
+		$x.opt[$i].name=  [string]$opt_keys[$i]
+		$x.opt[$i].param= [string]$opt[$opt_keys[$i]]
 	}else{
-		$x.box[$i].name=  ""
-		$x.box[$i].param= ""
+		$x.opt[$i].name=  ""
+		$x.opt[$i].param= ""
+	}
+  } #
+ } #func
+ 
+function Setxml_read($x){ 
+
+  # $x= $script:set_xml.table
+
+  for([int]$i=3; $i -ge 0; $i--){
+
+	if($x.mck[$i].name -ne ''){
+
+		$script:comp[$x.mck[$i].name]= $x.mck[$i].param
+	}
+	if($x.nsd[$i].name -ne ''){
+
+		$script:comp[$x.nsd[$i].name]= $x.nsd[$i].param
+	}
+	if($x.pmd[$i].name -ne ''){
+
+		$script:comp[$x.pmd[$i].name]= $x.pmd[$i].param
+	}
+
+	if($x.ply[$i].name -ne ''){
+
+		$script:play[$x.ply[$i].name]= $x.ply[$i].param
+	}
+	if($x.edt[$i].name -ne ''){
+
+		$script:edit[$x.edt[$i].name]= $x.edt[$i].param
+	}
+	if($x.dos[$i].name -ne ''){
+
+		$script:dosv[$x.dos[$i].name]= $x.dos[$i].param
 	}
   } #
  } #func
@@ -871,11 +905,11 @@ $frm.Add_DragDrop({
 	echo $_.exception
   }
  })
- 	
+ 
 $mnu= New-Object System.Windows.Forms.MenuStrip 
-	
+	 
 $menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
-$menu_f.Text= "ファイル"
+$menu_f.Text= "File"
 
 $menu_e= New-Object System.Windows.Forms.ToolStripMenuItem
 $menu_e.Text= "エディタ"
@@ -908,7 +942,7 @@ $menu_n.Add_Click({ # 終了
 })
  
 $menu_o= New-Object System.Windows.Forms.ToolStripMenuItem 
-$menu_o.Text= "オプション"
+$menu_o.Text= "Option"
 
 
 $menu_a= New-Object System.Windows.Forms.ToolStripMenuItem
@@ -931,10 +965,10 @@ $menu_t=  New-Object System.Windows.Forms.ToolStripMenuItem
 
 $menu_t.Add_Click({
 
-	switch($box["chk_topmost"]){ # トグル
+	switch($opt["chk_topmost"]){ # トグル
 
-	'True'{		$script:box["chk_topmost"]= Top_most "False";	break;
-	}'False'{	$script:box["chk_topmost"]= Top_most "True"
+	'True'{		$script:opt["chk_topmost"]= Top_most "False";	break;
+	}'False'{	$script:opt["chk_topmost"]= Top_most "True"
 	}
 	} #sw
 })
@@ -945,17 +979,17 @@ $menu_r=  New-Object System.Windows.Forms.ToolStripMenuItem
 
 $menu_r.Add_Click({
 
-	switch($box["chk_auto"]){ # トグル
+	switch($opt["chk_auto"]){ # トグル
 
-	'True'{		$script:box["chk_auto"]= Auto_start "False";	break;
-	}'False'{	$script:box["chk_auto"]= Auto_start "True"
+	'True'{		$script:opt["chk_auto"]= Auto_start "False";	break;
+	}'False'{	$script:opt["chk_auto"]= Auto_start "True"
 	}
 	} #sw
 })
 
   
 $menu_f.DropDownItems.AddRange(@($menu_e,$menu_sd,$menu_d,$menu_sn,$menu_n)) 
-$menu_o.DropDownItems.AddRange(@($menu_a,$menu_sr,$menu_r,$menu_st,$menu_t))
+$menu_o.DropDownItems.AddRange(@($menu_t,$menu_st,$menu_r,$menu_sr,$menu_a))
 $mnu.Items.AddRange(@($menu_f,$menu_o))
 
 $frm.Controls.AddRange(@($mnu,$pic_box,$wait_lbl,$wait_btn,$err_box,$csl_box))
@@ -1019,15 +1053,15 @@ $wait.Add_Changed({	# event func入れ子は一段が理想..
 
  # 連想配列化
 
- $val= @{}; $box= @{};
+ $val= @{}; $opt= @{};
 
  Wthxml_read $script:wth_xml.table
 
 
 
  # 状態チェック
- Top_most $box["chk_topmost"] > $null # 最前面
- Auto_start $box["chk_auto"] > $null # 自動スタート
+ Top_most $opt["chk_topmost"] > $null # 最前面
+ Auto_start $opt["chk_auto"] > $null # 自動スタート
 
 
  [array]$chk_stus= Status_cheker

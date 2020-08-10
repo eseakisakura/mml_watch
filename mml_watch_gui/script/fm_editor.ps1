@@ -1,196 +1,10 @@
-
-# $keyの仮り変数名を直す
-
-# ------
-
-# icon 設定できるか
-# settingのopn　opm切り換えできるようにする
-# function Alg_cable([int]$alg){
-# function Fmx_write(){
-# function Prefixfm_mml([string]$t, [string]$g){
-# function Mask_sw([int]$op){
-
-# arpgene のradio_list環境設定が読めない
-# editorのエラーチェックがうまくいっていない
-# common行きのfuncを選ぶ
-
-# autosave機能のon,off
-# setting時　resetして、キャンセルしても、リセットしてしまう
-
-# zero padding err	 もどらない
-
-# radio_binの自動変更
-# ステータスのoctの場所
-
-# autosaveは、vrc7から、出力値でなく それぞれoscごとに記録する
-
-# 固定値を変動値にする
-#	$script:key["type"]= Type_sw "nsd"
-#	$script:key["style"]= Style_sw "pmd"
-
-# settingのメニュー追加
-
-
-# デバックリスト
-# 出力との、再擦り合わせ
-# ノーマル　リバース直す
-
-# Fmxのハッシュ化　高速化のテスト
-
-
-# -match .Containsへ変更
-#	if($adj_value -ne 27){ と変える
-#		$script:adj_value= Adj_sw 27
-# vrc7 typeで、コンパイラ変える
-#	$fm_menu_cmp0.Add_Click({
-# 	try{
-#		Change_comb $this.Text コンパイラ変更の修正
-# write-host出力の掃除
-
-# $vrc_svnへのレジスタ読み込み
-# mckで試聴できるようにする
-# feedback 0 で%param が表われる
-# レジスタ変換のfm_boxへの出力
-
-# fmp7 style export
-# function Style_sw([string]$t){
-# function Box_write([array]$arr){ # $ten,$zero
-
-# kickをfm音源表へ
-# pad　presetを直す
-# undop をleaveの部分を修正する	再生した後、戻せる様にする
-
-# Unredopに、try catchつける
-
-# preset追加
-# win10 で試す
-# Dark名を変更
-# Light名を変更
-
-
-#関数のローカル変数周りが怪しいか、、
-
-#opのカレントを変えると、白背が真黒になる
-
-#darkモードからlightモード変更が
-#何故かadjustを返ると、チェンジする	all_change関数周りか
-
-#adjustが23に戻らない
-
-#そもそもdarkからlightに行った後、戻れない
-
-#function Op_chg(){
-
-#	[int]$n= $opl_two[0][0]  <= ___1
-#	Alg_cablw $n
-
-
-
-
-
-# ------
-
-# 不要な関数、変数がないかチェック
-# try catch　不足直す -> 関数がある場合、入れる。　メソッドのみは外す
-# opカレント変更時の、処理軽量化 <- カレントのみで良し
-# 2op のegチェンジ時の、sustin levの間違い
-# wait off
-# op window のステータス出力の追加　1/2とかadj.numberとか
-
-# カレントopをハイライトする　<- キャリアを見なければいけないのに気が散る
-# 各アルゴリズムの出力値の確認。
-# 2opのfeedbackの再度確認
-
-# sin mapping の関数化
-# feed mappingの関数化
-
-
-
-
-# sinmapの関数化で、リスタートしなくても良しとする
-# $imgの全ての確認
-# $heightの変更可能な仕組み
-
-
-# sleep 解除
-# bai=1 で確認
-
-
-
-# 最小化ボタン
-
-# ラストセーブ
-
-# dBの仕方、フィードバックの計算、直列接続の説明
-
-#TL
-#0	50
-#..
-#42	1.3303625298994
-#43	1.22030953402099
-#44	1.11936056928417
-
-#45	1.02676251322857 = 対sin波 - これでいいという前提条件として等倍の入力値(電圧)
-
-#	電圧 0.75dB*TotalLevel/ 20 減衰させる
-#	y軸は100pxとして中心値は50px
-#	自然対数は10なので
-
-#	[Math]::Pow(10, (-0.0375* 41))*25(実測値)
-
-#46	0.941824544744901
-#47	0.863912990253932
-#48	0.792446596230557
-#..
-#127	0.000863912990253931
-
-# presetを増加する
-
-# ------
-
-# opmで出力されているのかどうか
-# FM op windowのxml切り換え項目追加 <- nashi
-# statas 周り
-# xmlへlight,dark 切り換えの項目追加
-# preset_FM.xmlとしてピン立ちさせる <- nashi
-# vrc7 -> vrc7 2op
-# opl2 -> opl 2op
-# opn4 -> opn 4op
-# opm4 -> opm 4op
-#マトリクス出力が重い。波形出力時に -> Sin_4opの処理を軽くする sumi
-# [Math]::Round 4桁 sumi
-# slの修正 sumi
-# load,presetでall_chg sumi
-# opl2でeg - sumi
-# 座標の再チェックpictboxの sumi
-# 不要かどうかの確認 sumi
-#$comb_opl.Add_SelectedValueChanged({
-# try{
-	#switch($comb_fm.SelectedItem){ # $this fuka
-	#'vrc7'{ Read $vrc_svn
-# FM窓が開いているときのみ、描画関数を通過するようにする sumi
-# write-host $sb_alg.Visible= $True,$False
-# if($sb_alg.Visible -eq $True){ } # op window ga aru toki
-#Sin_chg([array]$arr,[string]$sw)
-#alg 5 から6への変更でop1解除でのop4の変化がない sumi
-#if(($rc[0][1] -as [int]) -eq 0){ $cycle[0]= 1/2 }else{ $cycle[0]= $rc[0][1] # 回転角
-#-as [int]) -eq 0
-# algは、どこでも表示できるようにする
-# $arr[0][0]に記録するようイベントを変更 <- $arr[(swh)][0]
-# mdu1 -> op3へ書き換え
-# modu carir のテキスト出力項目追加
-# try catch入れる イベントに
-# if($sb_alg.Visible -eq $True){
-# 関数からイベントへ書き換え
-# opnで起動しない <- test no tame datta sumi
- 
 <# fm_editor.ps1 #> 
 
 Write-Host ('"FM音色エディタ"を起動します')
  
 $xml_editor= @' 
 <table>
-	<box>
+	<opt>
 		<autosave value="True"/>
 		<oct value="o4"/>
 		<zero value="False"/>
@@ -205,7 +19,7 @@ $xml_editor= @'
 		<layout value="nomal"/>
 		<color value="natural"/>
 		<bit value="Unchecked"/>
-	</box>
+	</opt>
 	<val>
 		<!-- 拡張性の加味 -->
 		<cmp value=""/>
@@ -951,7 +765,7 @@ function Poly_chw(){
  } #func
   
 # sine 
-	
+	 
 function Flowtting_point([int]$cnt, [int]$num, [array]$xy){ 
 
 	[int]$i= 0
@@ -1142,7 +956,7 @@ function Sin_2op([array]$rc,[int]$alg,[int]$fbj){ # 2op sin render
 
 
  [float[]]$feb= @(0, 0.0625, 0.125, 0.25, 0.5, 1,2,4) # 変調度 0,(1/16),(1/8),(1/4), (1/2),1,2,4
- [float]$feedback= $feb[$fbj]* $radian/ $adj_value
+ [float]$feedback= $feb[$fbj]* $radian/ $adj_value # あらかじめ等倍化
 
 
  [int[]]$dist= @($rc[0][2],$rc[1][2]) # 半整流
@@ -1165,7 +979,7 @@ function Sin_2op([array]$rc,[int]$alg,[int]$fbj){ # 2op sin render
   $rdus[1]= [Math]::Round($rdus[1],4,"ToEven")
  }
 
- [float[]]$ye= @(0,0,0) # 2op+ 1
+ [float[]]$ye= @(0,0,0) # 2op
 
  [array]$xy= $sin_pos
  [array]$sine= $sin_map # gbl -> localへメモリアクセス
@@ -1173,12 +987,12 @@ function Sin_2op([array]$rc,[int]$alg,[int]$fbj){ # 2op sin render
  [int]$i= 0
  for($i=0; $i -lt $count; $i++){ # x軸
 
-		# op.1 // $sin_map= x軸[1-80]px * 2πrad * 倍音数 / 80px
+		# op.1 // $sin_map= x軸[0-79]px * 2π[radian] * ML / 80px
 
 		$ye[0]= $rdus[0]* [Math]::Sin($sine[$num[0]][$i]+ $ye[2])
 
 		$ye[2]= $feedback* $ye[0]
-
+		# $ye[3]= $feedback* $ye[2] # 2sampleの場合
 
 	switch($alg){
 
@@ -1219,7 +1033,7 @@ function Sin_2op([array]$rc,[int]$alg,[int]$fbj){ # 2op sin render
  $buffe.Graphics.DrawLines($color_pen[1], $pointing[1])
 
  } #func
- 
+ 	
 # ------ 
  
 function Sin_chg(){ 
@@ -2440,7 +2254,7 @@ function All_chg(){ # $vrc_svn[][] ha "__1" no string
 function Fmxml_read($x,$y){ # hash設定 
 
 	# $x= $script:fm_xml.table.val
-	# $y= $script:fm_xml.table.box
+	# $y= $script:fm_xml.table.opt
 
 	$script:val["compiler"]= $x.cmp.value
 	$script:val["player"]= $x.ply.value
@@ -2505,7 +2319,7 @@ function Setxml_read($x){
 function Fmwrite_xml($x,$y){ 
 
 	# $x= $script:fm_xml.table.val
-	# $y= $script:fm_xml.table.box
+	# $y= $script:fm_xml.table.opt
 
 	$x.cmp.value= [string]$val["compiler"]
 	$x.ply.value= [string]$val["player"]
@@ -2832,6 +2646,11 @@ function Menu_build([string]$sw){
   'compiler'{
 	[array]$w= $comp.Keys
 
+	$fm_menu_cmp0.Visible= $False
+	$fm_menu_cmp1.Visible= $False
+	$fm_menu_cmp2.Visible= $False
+	$fm_menu_cmp3.Visible= $False
+
 	if($w.Length -ge 1){ # if nomi de add kousei
 
 		$fm_menu_cmp0.Visible= $True
@@ -2873,6 +2692,10 @@ function Menu_build([string]$sw){
   }'player'{
 	[array]$w= $play.Keys
 
+	$fm_menu_ply0.Visible= $False
+	$fm_menu_ply1.Visible= $False
+	$fm_menu_ply2.Visible= $False
+	$fm_menu_ply3.Visible= $False
 
 	if($w.Length -ge 1){
 
@@ -2915,6 +2738,10 @@ function Menu_build([string]$sw){
   }'dos'{
 	[array]$w= $dosv.Keys
 
+	$fm_menu_dos0.Visible= $False
+	$fm_menu_dos1.Visible= $False
+	$fm_menu_dos2.Visible= $False
+	$fm_menu_dos3.Visible= $False
 
 	if($w.Length -ge 1){
 
@@ -2957,6 +2784,10 @@ function Menu_build([string]$sw){
   }'editor'{
 	[array]$w= $edit.Keys
 
+	$fm_menu_edt0.Visible= $False
+	$fm_menu_edt1.Visible= $False
+	$fm_menu_edt2.Visible= $False
+	$fm_menu_edt3.Visible= $False
 
 	if($w.Length -ge 1){
 
@@ -5248,7 +5079,7 @@ $sb_alg.Add_FormClosing({
 })
  
 $sb_mnu= New-Object System.Windows.Forms.MenuStrip 
-	 
+	
 $sb_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $sb_menu_f.Text= "File"
 
@@ -5793,7 +5624,7 @@ $sub_ssg_comb.Add_SelectedValueChanged({
 	if($sb_alg.Visible -eq $True){
 		All_chg
 	}
-	if($key["style"] -ne 'fmp7'){	
+	if($key["style"] -ne 'fmp7'){
 		Box_write
 	}
  }catch{
@@ -9555,7 +9386,7 @@ $opm_alg_grp.Controls.AddRange(@($opm_trkbar_alg,$opm_nmud_alg,$opm_lbl_alg))
 $opm_alg_grp.Controls.AddRange(@($opm_trkbar_fb,$opm_nmud_fb,$opm_lbl_fb))
   
 # forms 
-	 
+	
 $osc_grp= New-Object System.Windows.Forms.GroupBox 
 $osc_grp.Text= "FM OSC"
 $osc_grp.Size= "175,80"
@@ -9821,7 +9652,7 @@ $frm_fm.Add_FormClosing({
 		Autosave $script:fm_xml.table.autosave # 最後のパラメータ保存
 	}
 
-	Fmwrite_xml $script:fm_xml.table.val $script:fm_xml.table.box
+	Fmwrite_xml $script:fm_xml.table.val $script:fm_xml.table.opt
 
 	File_writer $script:fm_xml '.\fm_editor.xml'
 
@@ -9829,9 +9660,9 @@ $frm_fm.Add_FormClosing({
 	echo $_.exception
  }
 })
- 	
+ 
 $fm_mnu= New-Object System.Windows.Forms.MenuStrip 
-	
+	 
 $fm_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_f.Text= "File"
 
@@ -10220,6 +10051,8 @@ $fm_menu_set.Add_Click({
 
 		$script:set_xml= [xml](cat '.\setting.xml')
 
+		$script:comp=@{}; $script:play=@{}; $script:dosv=@{}; $script:edit=@{};
+
 		Setxml_read $script:set_xml.table # hash化
 	}
 
@@ -10233,7 +10066,7 @@ $fm_menu_set.Add_Click({
 	echo $_.exception
  }
 })
-	
+	 
 $fm_menu_cmp0= New-Object System.Windows.Forms.ToolStripMenuItem 
 # $fm_menu_cmp0.Text= "0.exe"
 $fm_menu_cmp0.Visible= $False # .Hide() 不可
@@ -10752,7 +10585,7 @@ $fm_menu_style_mxdrv.Add_Click({
 })
  
 $fm_menu_adv= New-Object System.Windows.Forms.ToolStripMenuItem 
-$fm_menu_adv.ForeColor= "Gray"
+#$fm_menu_adv.ForeColor= "Gray"
 $fm_menu_adv.Text= "Advanced"
 
 $fm_menu_mckh= New-Object System.Windows.Forms.ToolStripMenuItem
@@ -11357,7 +11190,7 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 		$fm_xml= [xml]$xml_editor # キャスト
 	}
 
-	[int[]]$bai= $fm_xml.table.box.bai.value,$fm_xml.table.box.bai.value
+	[int[]]$bai= $fm_xml.table.opt.bai.value,$fm_xml.table.opt.bai.value
 	# 精度,xml_store[<-restart gi no tame]
 
 
@@ -11461,11 +11294,6 @@ $opm_fur[3]= 0,0,25,10,15,10,10,0,0,1,0,0,0
 
  try{
 
-  # 連想配列化
-  $val=@{}; $opt=@{}; $key=@{};
-  $comp=@{}; $play=@{}; $dosv=@{}; $edit=@{}; # only memory
-
-
   # キャスト
   if((Test-Path '.\fm_editor.xml') -eq $True){
 
@@ -11474,11 +11302,14 @@ $opm_fur[3]= 0,0,25,10,15,10,10,0,0,1,0,0,0
 	$fm_xml= [xml]$xml_editor
   }
 
-  # hash設定
-  Fmxml_read $script:fm_xml.table.val $script:fm_xml.table.box
+  # 連想配列化
+  $val=@{}; $opt=@{}; $key=@{};
+  $comp=@{}; $play=@{}; $dosv=@{}; $edit=@{}; # only memory<- setting.xml
+
+  Fmxml_read $script:fm_xml.table.val $script:fm_xml.table.opt
 
 
-  # readのみ
+  # readのみ - Menuのため
   if((Test-Path '.\setting.xml') -eq $True){
 
 	$set_xml= [xml](cat '.\setting.xml')
