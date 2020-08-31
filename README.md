@@ -14,8 +14,6 @@ GUI部も含め、総Powershellで組まれてます。<br/>
 </tr><tr><td>・Guitar Arpeggio - MML Generator</td><td>-- ギターアルペジオジェネレータ</td>
 </tr></table>
 
-<h3><a href="./wiki"> ■□クイックリファレンス □■</a></h3>
-
 <h4>対応OS: windowsXP以上</h4>
 
 <h5>mml_watch.exeなどのバイナリ起動の場合、.NET Framework4.0以上が必要となります。<br/>
@@ -23,6 +21,9 @@ GUI部も含め、総Powershellで組まれてます。<br/>
 Watch.cmdなどのバッチファイルによる起動であれば、<br/>
 .NET Framework3.5以上(CLR:共通言語ランタイム2.0)、<br/>
 PowerShell2.0(WMF:WindowsManagementFramework2.0)以上なら動くと思います。</h5>
+
+<br/>
+<h5><a href="https://github.com/eseakisakura/mml_watch_gui/wiki"> ■□クイックリファレンス □■</a></h5>
 
 <br/>
 <h4><img alt="MW_icon" style="border-width:0" src="./image/MW_icon.png" /> Mml Watch GUI</h4>
