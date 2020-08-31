@@ -23,7 +23,7 @@ Watch.cmdなどのバッチファイルによる起動であれば、<br/>
 PowerShell2.0(WMF:WindowsManagementFramework2.0)以上なら動くと思います。</h5>
 
 <br/>
-<h4>□ Mml Watch GUI<img alt="MW_icon" style="border-width:0" src="./image/MW_icon_title.png" /></h4>
+<h4><img alt="MW_icon" style="border-width:0; width:24px; height:24px" src="./image/MW_icon_title.png" />□ Mml Watch GUI</h4>
 
 mmlチップチューンコンパイラをGUI化したフロントエンドです。<br/>
 エディタ呼出しやファイル更新チェッカとして機能、自動再生までサポートします。<br/>
