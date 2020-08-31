@@ -23,7 +23,7 @@ Watch.cmdなどのバッチファイルによる起動であれば、<br/>
 PowerShell2.0(WMF:WindowsManagementFramework2.0)以上なら動くと思います。</h5>
 
 <br/>
-<h5><a href="https://github.com/eseakisakura/mml_watch_gui/wiki"> ■□クイックリファレンス □■</a></h5>
+<h4><a href="https://github.com/eseakisakura/mml_watch_gui/wiki"> ■□クイックリファレンス □■</a></h4>
 
 <br/>
 <h4><img alt="MW_icon" style="border-width:0" src="./image/MW_icon.png" /> Mml Watch GUI</h4>
