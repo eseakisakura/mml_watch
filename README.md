@@ -23,7 +23,7 @@ Watch.cmdなどのバッチファイルによる起動であれば、<br/>
 PowerShell2.0(WMF:WindowsManagementFramework2.0)以上なら動くと思います。</h5>
 
 <br/>
-<h4>□ Mml Watch GUI</h4>
+<h4>□ Mml Watch GUI<img alt="MW_icon" style="border-width:0" src="./image/MW_icon_title.png" /></h4>
 
 mmlチップチューンコンパイラをGUI化したフロントエンドです。<br/>
 エディタ呼出しやファイル更新チェッカとして機能、自動再生までサポートします。<br/>
@@ -35,7 +35,7 @@ ppmck,nsdLib,P.M.Dに対応しています。<br/>
 <h4>■ Setting Panel</h4>
 
 上記、フロントエンドの各file,exeなどを登録する環境設定です。<br/>
-ここで必要なファイルを、リストボックスへD&Dで登録します。<br/>
+ここで必要なファイルを、リストボックスへDrug&Dropで登録します。<br/>
 (以下記載のTone EditorとMML Generatorも、このパネルを呼び出すことができます。)<br/>
 <br/>
 <img alt="Setting" style="border-width:0" src="./image/SETTING_w.png" /><br/>
