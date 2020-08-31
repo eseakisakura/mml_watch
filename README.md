@@ -14,6 +14,8 @@ GUI部も含め、総Powershellで組まれてます。<br/>
 </tr><tr><td>・Guitar Arpeggio - MML Generator</td><td>-- ギターアルペジオジェネレータ</td>
 </tr></table>
 
+<h3><a href="./wiki"> ■□クイックリファレンス □■</a></h3>
+
 <h4>対応OS: windowsXP以上</h4>
 
 <h5>mml_watch.exeなどのバイナリ起動の場合、.NET Framework4.0以上が必要となります。<br/>
