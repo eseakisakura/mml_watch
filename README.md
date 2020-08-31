@@ -23,7 +23,7 @@ Watch.cmdなどのバッチファイルによる起動であれば、<br/>
 PowerShell2.0(WMF:WindowsManagementFramework2.0)以上なら動くと思います。</h5>
 
 <br/>
-<h4><img alt="MW_icon" style="border-width:0; width:24px; height:24px" src="./image/MW_icon_title.png" />□ Mml Watch GUI</h4>
+<h4><img alt="MW_icon" style="border-width:0" src="./image/MW_icon.png" /> Mml Watch GUI</h4>
 
 mmlチップチューンコンパイラをGUI化したフロントエンドです。<br/>
 エディタ呼出しやファイル更新チェッカとして機能、自動再生までサポートします。<br/>
@@ -41,7 +41,7 @@ ppmck,nsdLib,P.M.Dに対応しています。<br/>
 <img alt="Setting" style="border-width:0" src="./image/SETTING_w.png" /><br/>
 <br/>
 <br/>
-<h4>□ FM Synthesis Chip - Tone Editor</h4>
+<h4><img alt="FE_icon" style="border-width:0" src="./image/FE_icon.png" /> FM Synthesis Chip - Tone Editor</h4>
 
 2op(vrc7など),4op(oplなど)対応のFM音源音色エディタです。<br/>
 (左上はエンベロープなど繊細なもの、右下は倍音など音色の決定要素を集めています。)<br/>
@@ -62,7 +62,7 @@ ppmck,nsdLib,P.M.Dに対応しています。<br/>
 <img alt="FM Editor 4 Operator" style="border-width:0" src="./image/FM_4op.png" /><br/>
 <br/>
 <br/>
-<h4>□ Guitar Arpeggio - MML Generator</h4>
+<h4><img alt="AG_icon" style="border-width:0" src="./image/AG_icon.png" />Guitar Arpeggio - MML Generator</h4>
 
 ギターアルペジオMMLジェネレータです。<br/>
 マルチトラックにMMLを自動的に振り分け、串抜きMMLを自動生成します。<br/>
