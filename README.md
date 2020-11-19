@@ -29,7 +29,7 @@ https://github.com/eseakisakura/mml_watch_gui/wiki</h4>
 mmlによるchiptuneコンパイラをGUI化したフロントエンドです。<br/>
 エディタ呼出しやファイル更新チェッカとして機能、<br/>
 自動再生までサポートします。<br/>
-ppmck,nsdLib,P.M.Dに対応しています。<br/>
+ppmck,nsdLib,PMDに対応しています。<br/>
 <br/>
 <img alt="Mml Watch GUI" style="border-width:0" src="./image/MML_wth.png" /><br/>
 <br/>
@@ -47,13 +47,11 @@ ppmck,nsdLib,P.M.Dに対応しています。<br/>
 <h4><img alt="FE_icon" style="border-width:0" src="./image/FE_icon.png" /> FM Synthesis Chip - Tone Editor</h4>
 
 2op(vrc7,opl),4op(opn,opm)対応のFM音源音色エディタです。<br/>
-(左上にはエンベロープなど繊細なもの、<br/>
-右下は倍音など、音色の決定要素を集めています。)<br/>
 <br/>
 プリセット呼び出し、試聴による音色の確認、音色の一時保存や、<br/>
 2op.(ppmck,nsdLibのレジスタ音色も含む)、<br/>
-4op.(PMD,fmp7,mxdrvの音色形式)の、<br/>
-インポート、エクスポートができます。<br/>
+4op.(PMD,fmp7,mxdrv形式)の、<br/>
+各音色形式のインポート、エクスポートができます。<br/>
 <br/>
 <img alt="FM Synthesis Chip - Tone Editor" style="border-width:0" src="./image/FM_edt.png" /><br/>
 <br/>
@@ -62,7 +60,8 @@ ppmck,nsdLib,P.M.Dに対応しています。<br/>
 
 上記、FM音源音色エディタのサブウィンドウです。<br/>
 音色エディタのスライダーに連動し、合成波形が変わります。<br/>
-(ウィンドウ内をクリックすることで、エディットするオペレータ切替えができます。)<br/>
+(ウィンドウ内をクリックすることで、<br/>
+エディットするオペレータ切替えができます。)<br/>
 <br/>
 <img alt="FM Editor 2 Operator" style="border-width:0" src="./image/FM_2op.png" /><br/>
 <img alt="FM Editor 4 Operator" style="border-width:0" src="./image/FM_4op.png" /><br/>
