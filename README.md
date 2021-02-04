@@ -50,7 +50,6 @@ mml_watch.exeなどのバイナリ起動の場合、.NET Framework4.0以上が�
 </td><td>
 <div>
 mmlによるchiptuneコンパイラをGUI化したフロントエンドです。<br/>
-<br/>
 ファイル更新チェッカとして機能、自動再生までサポートします。
 ppmck、nsdLib、PMDに対応しています。<br/>
 </div></td></tr></table>
