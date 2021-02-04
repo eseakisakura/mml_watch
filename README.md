@@ -31,7 +31,7 @@ mml_watch.exeなどのバイナリ起動の場合、.NET Framework4.0以上が�
 <br/>
 ※各起動バイナリexeについて<br/>
 シェルを呼び出すためのc#によるラッパーで、中身の殆どはアイコンリソースです。<br/>
-(開発環境を使用せず、直接.NETのコンパイラを通したため、トータルウィルスで僅かに引っかります。
+(開発環境を使用せず、直接.NETのコンパイラを通したため、トータルウィルスで僅かに引っかります。<br/>
 [XP上にて主に開発しているため、開発環境が入れられません、]　ご心配あらば、srcにあるcsファイルを開いてみて下さい。)
 </h5>
 
@@ -42,7 +42,7 @@ mml_watch.exeなどのバイナリ起動の場合、.NET Framework4.0以上が�
 <h4><img alt="MW_icon" style="border-width:0; float:left" src="./image/MW_icon.png" /> Mml Watch GUI</h4>
 
 <table><tr><td style="width: 240px;">
-<img alt="Mml Watch GUI" style="border-width: 0; max-width: 480px;" src="./image/MML_wth.png" /><br/>
+<img alt="Mml Watch GUI" style="border-width: 0; max-width: 240px;" src="./image/MML_wth.png" /><br/>
 </td><td style="width: 320px;">
 <div style="color: #51516c; border: 1px dotted #51516c; border-radius: 8px; padding: 20px 20px 20px 20px;">
 mmlによるchiptuneコンパイラをGUI化したフロントエンドです。<br/>
@@ -54,7 +54,7 @@ ppmck、nsdLib、PMDに対応しています。<br/>
 <h4>■□ Setting Panel</h4>
 
 <table><tr><td style="width: 240px;">
-<img alt="Setting" style="border-width: 0; max-width: 480px;" src="./image/SETTING_w.png" /><br/>
+<img alt="Setting" style="border-width: 0; max-width: 240px;" src="./image/SETTING_w.png" /><br/>
 </td><td style="width: 320px;">
 <div style="color: #51516c; border: 1px dotted #51516c; border-radius: 8px; padding: 20px 20px 20px 20px;">
 必要なソフトウェアを登録する環境設定です。
@@ -66,7 +66,7 @@ ppmck、nsdLib、PMDに対応しています。<br/>
 <h4><img alt="FE_icon" style="border-width:0" src="./image/FE_icon.png" /> FM Synthesis Chip - Tone Editor</h4>
 
 <table><tr><td style="width: 240px;">
-<img alt="FM Synthesis Chip - Tone Editor" style="border-width: 0; max-width: 480px;" src="./image/FM_edt.png" /><br/>
+<img alt="FM Synthesis Chip - Tone Editor" style="border-width: 0; max-width: 240px;" src="./image/FM_edt.png" /><br/>
 </td><td style="width: 320px;">
 <div style="color: #51516c; border: 1px dotted #51516c; border-radius: 8px; padding: 20px 20px 20px 20px;">
 2op(vrc7,opl),4op(opn,opm)対応のFM音源音色エディタです。<br/>
@@ -81,8 +81,8 @@ ppmck、nsdLib、PMDに対応しています。<br/>
 <h4>■□ FM Editor Operator window</h4>
 
 <table><tr><td style="width: 240px;">
-<img alt="FM Editor 2 Operator" style="border-width: 0; max-width: 480px;" src="./image/FM_2op.png" /><br/>
-<img alt="FM Editor 4 Operator" style="border-width: 0; max-width: 480px;" src="./image/FM_4op.png" /><br/>
+<img alt="FM Editor 2 Operator" style="border-width: 0; max-width: 240px;" src="./image/FM_2op.png" /><br/>
+<img alt="FM Editor 4 Operator" style="border-width: 0; max-width: 240px;" src="./image/FM_4op.png" /><br/>
 </td><td style="width: 320px;">
 <div style="color: #51516c; border: 1px dotted #51516c; border-radius: 8px; padding: 20px 20px 20px 20px;">
 上記、FM音源音色エディタのサブウィンドウです。<br/>
@@ -95,7 +95,7 @@ ppmck、nsdLib、PMDに対応しています。<br/>
 <h4><img alt="AG_icon" style="border-width:0" src="./image/AG_icon.png" />Guitar Arpeggio - MML Generator</h4>
 
 <table><tr><td style="width: 240px;">
-<img alt="Guitar Arpeggio - MML Generator" style="border-width: 0; max-width: 480px;" src="./image/GUITAR_arp.png" /><br/>
+<img alt="Guitar Arpeggio - MML Generator" style="border-width: 0; max-width: 240px;" src="./image/GUITAR_arp.png" /><br/>
 </td><td style="width: 320px;">
 <div style="color: #51516c; border: 1px dotted #51516c; border-radius: 8px; padding: 20px 20px 20px 20px;">
 ギターアルペジオMMLジェネレータです。<br/>
