@@ -76,8 +76,8 @@ ppmck、nsdLib、PMDに対応しています。<br/>
 2op(vrc7,opl),4op(opn,opm)対応のFM音源音色エディタです。<br/>
 <br/>
 音色の試聴、プリセット呼び出し、音色の一時保存や、<br/>
-2op.(ppmck,nsdLibのレジスタ音色含む)、
-4op.(PMD,fmp7,mxdrv各音色形式)の、
+2op.(ppmck,nsdLibのレジスタ音色含む)、<br/>
+4op.(PMD,fmp7,mxdrv各音色形式)の、<br/>
 インポート、エクスポートができます。<br/>
 </div></td></tr></table>
 
@@ -102,9 +102,9 @@ ppmck、nsdLib、PMDに対応しています。<br/>
 </td><td>
 <div>
 ギターアルペジオMMLジェネレータです。<br/>
-マルチトラックにMMLを自動的に振り分け、<br/>
+マルチトラックにMMLを自動的に振り分け、
 串抜きMMLを自動生成します。<br/>
 <br/>
-chordアサインのち、アルペジオナンバーを打つことで、<br/>
+chordアサインのち、アルペジオナンバーを打つことで、
 各コンパイラに対応したmmlを生成します。<br/>
 </div></td></tr></table>
