@@ -8,7 +8,7 @@ GUI部も含め、総Powershellで組まれてます。<br/>
 <br/>
 それぞれがスタンドアロン(単体)で起動します。<br/>
 <br/>
-<table><tr><td>・Mml Watch GUI</td><td>-- チップチューンのためのフロントエンド</td>
+<table><tr><td>・Mml Watch GUI</td><td>-- mmlチップチューンのフロントエンド</td>
 </tr><tr><td>・FM Synthesis Chip - Tone Editor</td><td>-- 2op.4op.対応FM音源音色エディタ</td>
 </tr><tr><td>・Guitar Arpeggio - MML Generator</td><td>-- ギターアルペジオジェネレータ</td>
 </tr></table>
@@ -36,9 +36,9 @@ mml_watch.exeなどのバイナリ起動の場合、.NET Framework4.0以上が�
 </h5>
 
 <h4>必要となるソフトウェアのリンク <br/>
-https://eseakisakura/github.io/index.html</h4>
-
+・<a href="https://eseakisakura/github.io/index.html"> Mml Watch GUI - download</a><br/>
 <br/>
+
 <h4><img alt="MW_icon" style="border-width:0; float:left" src="./image/MW_icon.png" /> Mml Watch GUI</h4>
 
 <table><tr><td style="width: 320px;">
