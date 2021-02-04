@@ -92,12 +92,12 @@ ppmck、nsdLib、PMDに対応しています。<br/>
 エディットするオペレータ切替えができます。)<br/>
 </div></td></tr></table>
 
-<h4><img alt="AG_icon" style="border-width:0" src="./image/AG_icon.png" />Guitar Arpeggio - MML Generator</h4>
+<h4><img src="./image/AG_icon.png" />Guitar Arpeggio - MML Generator</h4>
 
 <table><tr><td>
-<img style="border-width: 0; width: 25%;" src="./image/GUITAR_arp.png" /><br/>
+<img src="./image/GUITAR_arp.png" /><br/>
 </td><td>
-<div style="padding: 20px 20px 20px 20px;">
+<div>
 ギターアルペジオMMLジェネレータです。<br/>
 マルチトラックにMMLを自動的に振り分け、串抜きMMLを自動生成します。<br/>
 </div></td></tr></table>
