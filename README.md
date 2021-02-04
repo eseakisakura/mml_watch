@@ -1,10 +1,10 @@
 <h1>mml watch GUI</h1>
 
-ChiptuneのMMLコンパイラ"ppmck", "nsdLib", "P.M.D",へGUI環境を提供する補助ツールです。GUI部も含め、総Powershellで組まれてます。<br/>
+ChiptuneのMMLコンパイラへGUI環境を提供するフロントエンドです。<br/>
+"ppmck", "nsdLib", "P.M.D"それぞれに対応します。<br/>
 <br/>
-<h5>各起動バイナリexeは、シェルを呼び出すためのc#によるラッパーで、中身の殆どはアイコンリソースです。
-(開発環境を使用しないで、直接.NETのコンパイラを通したためか、トータルウィルスの一部で引っかかります。<br/>
-[XP上にて開発しているため、開発環境が入れられません、、]ご心配であるならば、srcにあるcsファイルを開いてみて下さい。)</h5>
+GUI部も含め、総Powershellで組まれてます。<br/>
+<br/>
 <br/>
 それぞれがスタンドアロン(単体)で起動します。<br/>
 <br/>
@@ -15,63 +15,89 @@ ChiptuneのMMLコンパイラ"ppmck", "nsdLib", "P.M.D",へGUI環境を提供す
 
 <h4>対応OS: windowsXP以上</h4>
 
-<h5>mml_watch.exeなどのバイナリ起動の場合、.NET Framework4.0以上が必要となります。<br/>
+<h5>
+( 近日、ver4.5を用意する予定です、、)
+
+※テスト環境<br/>
+winXP+ Powershell2(.NET Framework3.5)<br/>
+win10+ Powershell5(.NET Framework4.8)<br/>
+win10+ Powershell7(.NET5)<br/>
 <br/>
 Watch.cmdなどのバッチファイルによる起動であれば、<br/>
-.NET Framework3.5以上(CLR:共通言語ランタイム2.0)、<br/>
-PowerShell2.0(WMF:WindowsManagementFramework2.0)以上なら動くと思います。</h5>
+.NET Framework3.5以上、<br/>
+PowerShell2以上なら動くと思います。<br/>
+<br/>
+mml_watch.exeなどのバイナリ起動の場合、.NET Framework4.0以上が必要となります。<br/>
+<br/>
+※各起動バイナリexeについて<br/>
+シェルを呼び出すためのc#によるラッパーで、中身の殆どはアイコンリソースです。<br/>
+(開発環境を使用せず、直接.NETのコンパイラを通したため、トータルウィルスで僅かに引っかります。
+[XP上にて主に開発しているため、開発環境が入れられません、]　ご心配あらば、srcにあるcsファイルを開いてみて下さい。)
+</h5>
 
-<h4>■□クイックリファレンス □■<br/>
-https://github.com/eseakisakura/mml_watch_gui/wiki</h4>
+<h4>必要となるソフトウェアのリンク <br/>
+https://eseakisakura/github.io/index.html</h4>
 
-<h4><img alt="MW_icon" style="border-width:0" src="./image/MW_icon.png" /> Mml Watch GUI</h4>
+<br/>
+<h4><img alt="MW_icon" style="border-width:0; float:left" src="./image/MW_icon.png" /> Mml Watch GUI</h4>
 
+<table><tr><td style="width: 320px;">
+<img alt="Mml Watch GUI" style="border-width: 0; max-width: 480px;" src="./image/MML_wth.png" /><br/>
+</td><td style="width: 320px;">
+<div style="color: #51516c; border: 1px dotted #51516c; border-radius: 8px; padding: 20px 20px 20px 20px;">
 mmlによるchiptuneコンパイラをGUI化したフロントエンドです。<br/>
-エディタ呼出しやファイル更新チェッカとして機能、<br/>
-自動再生までサポートします。<br/>
-ppmck,nsdLib,PMDに対応しています。<br/>
 <br/>
-<img alt="Mml Watch GUI" style="border-width:0" src="./image/MML_wth.png" /><br/>
-<br/>
-<br/>
-<h4>■ Setting Panel</h4>
+ファイル更新チェッカとして機能、自動再生までサポートします。
+ppmck、nsdLib、PMDに対応しています。<br/>
+</div></td></tr></table>
 
-上記、フロントエンドの各file,exeなどを登録する環境設定です。<br/>
-ここで必要なファイルを、リストボックスへDrug&Dropで登録します。<br/>
-(以下記載のTone EditorとMML Generatorも、<br/>
-この環境設定を呼び出すことができます。)<br/>
-<br/>
-<img alt="Setting" style="border-width:0" src="./image/SETTING_w.png" /><br/>
-<br/>
-<br/>
+<h4>■□ Setting Panel</h4>
+
+<table><tr><td style="width: 320px;">
+<img alt="Setting" style="border-width: 0; max-width: 480px;" src="./image/SETTING_w.png" /><br/>
+</td><td style="width: 320px;">
+<div style="color: #51516c; border: 1px dotted #51516c; border-radius: 8px; padding: 20px 20px 20px 20px;">
+必要なソフトウェアを登録する環境設定です。
+リストボックスへDrug&Dropすることでパスを登録します。<br/>
+(以下のTone Editor、MML Generatorも、
+このパス環境を使います。)<br/>
+</div></td></tr></table>
+
 <h4><img alt="FE_icon" style="border-width:0" src="./image/FE_icon.png" /> FM Synthesis Chip - Tone Editor</h4>
 
+<table><tr><td style="width: 320px;">
+<img alt="FM Synthesis Chip - Tone Editor" style="border-width: 0; max-width: 480px;" src="./image/FM_edt.png" /><br/>
+</td><td style="width: 320px;">
+<div style="color: #51516c; border: 1px dotted #51516c; border-radius: 8px; padding: 20px 20px 20px 20px;">
 2op(vrc7,opl),4op(opn,opm)対応のFM音源音色エディタです。<br/>
 <br/>
-プリセット呼び出し、試聴による音色の確認、音色の一時保存や、<br/>
-2op.(ppmck,nsdLibのレジスタ音色も含む)、<br/>
-4op.(PMD,fmp7,mxdrv形式)の、<br/>
-各音色形式のインポート、エクスポートができます。<br/>
+音色の試聴、プリセット呼び出し、音色の一時保存や、<br/>
 <br/>
-<img alt="FM Synthesis Chip - Tone Editor" style="border-width:0" src="./image/FM_edt.png" /><br/>
-<br/>
-<br/>
-<h4>■ FM Editor Operator window</h4>
+2op.(ppmck,nsdLibのレジスタ音色含む)、
+4op.(PMD,fmp7,mxdrv各音色形式)の、
+インポート、エクスポートができます。<br/>
+</div></td></tr></table>
 
+<h4>■□ FM Editor Operator window</h4>
+
+<table><tr><td style="width: 320px;">
+<img alt="FM Editor 2 Operator" style="border-width: 0; max-width: 480px;" src="./image/FM_2op.png" /><br/>
+<img alt="FM Editor 4 Operator" style="border-width: 0; max-width: 480px;" src="./image/FM_4op.png" /><br/>
+</td><td style="width: 320px;">
+<div style="color: #51516c; border: 1px dotted #51516c; border-radius: 8px; padding: 20px 20px 20px 20px;">
 上記、FM音源音色エディタのサブウィンドウです。<br/>
-音色エディタのスライダーに連動し、合成波形が変わります。<br/>
-(ウィンドウ内をクリックすることで、<br/>
+<br/>
+音色エディタのスライダーに連動し、合成波形表示が変わります。
+(ウィンドウ内をクリックすることで、
 エディットするオペレータ切替えができます。)<br/>
-<br/>
-<img alt="FM Editor 2 Operator" style="border-width:0" src="./image/FM_2op.png" /><br/>
-<img alt="FM Editor 4 Operator" style="border-width:0" src="./image/FM_4op.png" /><br/>
-<br/>
-<br/>
+</div></td></tr></table>
+
 <h4><img alt="AG_icon" style="border-width:0" src="./image/AG_icon.png" />Guitar Arpeggio - MML Generator</h4>
 
+<table><tr><td style="width: 320px;">
+<img alt="Guitar Arpeggio - MML Generator" style="border-width: 0; max-width: 480px;" src="./image/GUITAR_arp.png" /><br/>
+</td><td style="width: 320px;">
+<div style="color: #51516c; border: 1px dotted #51516c; border-radius: 8px; padding: 20px 20px 20px 20px;">
 ギターアルペジオMMLジェネレータです。<br/>
 マルチトラックにMMLを自動的に振り分け、串抜きMMLを自動生成します。<br/>
-<br/>
-<img alt="Guitar Arpeggio - MML Generator" style="border-width:0" src="./image/GUITAR_arp.png" /><br/>
-<br/>
-<br/>
+</div></td></tr></table>
