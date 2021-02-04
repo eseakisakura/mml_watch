@@ -8,7 +8,7 @@ GUI部も含め、総Powershellで組まれています。<br/>
 <br/>
 それぞれがスタンドアロン(単体)で起動します。<br/>
 <br/>
-<table><tr><td>・Mml Watch GUI</td><td>mmlチップチューンのフロントエンド</td>
+<table><tr><td>・Mml Watch GUI</td><td>mmlチップチューンのfront end</td>
 </tr><tr><td>・FM Synthesis Chip - Tone Editor</td><td>2op.4op.対応FM音源音色エディタ</td>
 </tr><tr><td>・Guitar Arpeggio - MML Generator</td><td>ギターアルペジオジェネレータ</td>
 </tr></table>
