@@ -95,7 +95,7 @@ ppmck、nsdLib、PMDに対応しています。<br/>
 <h4><img alt="AG_icon" style="border-width:0" src="./image/AG_icon.png" />Guitar Arpeggio - MML Generator</h4>
 
 <table><tr><td style="width: 240px;">
-<img alt="Guitar Arpeggio - MML Generator" style="border-width: 0; max-width: 240px;" src="./image/GUITAR_arp.png" /><br/>
+<img alt="Guitar Arpeggio - MML Generator" style="border-width: 0; width: 50%;" src="./image/GUITAR_arp.png" /><br/>
 </td><td style="width: 320px;">
 <div style="color: #51516c; border: 1px dotted #51516c; border-radius: 8px; padding: 20px 20px 20px 20px;">
 ギターアルペジオMMLジェネレータです。<br/>
