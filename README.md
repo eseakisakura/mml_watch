@@ -40,7 +40,7 @@ mml_watch.exeなどのバイナリ起動の場合、.NET Framework4.0以上が�
 
 <h4>
 必要となるソフトウェアのリンク <br/>
-・<a href="https://eseakisakura.github.io/"> Mml Watch GUI - download</a><br/>
+・<a href="https://eseakisakura.github.io/mml_watch_gui/"> Mml Watch GUI - download</a><br/>
 <h4>
 
 <h4><img src="./image/MW_icon.png" /> Mml Watch GUI</h4>
