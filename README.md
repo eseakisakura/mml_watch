@@ -21,7 +21,7 @@ GUI部も含め、総Powershellで組まれています。<br/>
 ※テスト環境 - ver4.5<br/>
 winXP+ Powershell2(.NET Framework3.5)<br/>
 win10+ Powershell5(.NET Framework4.8)<br/>
-win10+ Powershell7(.NET5)<br/>
+win10+ Powershell7(.NET5) - 対応予定<br/>
 <br/>
 Watch.cmdなどのバッチファイルによる起動であれば、<br/>
 .NET Framework3.5以上、<br/>
