@@ -1,0 +1,25 @@
+#LoopDefault 2 
+#FM3Extend XYZ ;C tr.extend
+
+GHIABCDEFXYZ t150 C192
+
+; SSG
+G v15 E0,-2,32,16 o4 Q2 l4 ab>cdefga
+
+; Rythm
+K \V60 [[R0:R1]2 R2
+R0 l8 @129c@128c@2c@129c  @1c@128c@2c
+R1 @1024c
+R2 @256c
+
+; ABCDEFXYZ; FM
+; C v16 @1 s3 a1
+; X v16 @1 s12 e1
+
+; NM ALG  FB
+@001   4   0
+; AR  DR  SR  RR  SL  TL  KS  ML  DT AMS
+  30   7   7   5   7  40   0   2   0   0
+  30   7   7   7   7   0   0   2   0   0
+  30   7   7   5   7  40   0   2   0   0
+  30   7   7   7   7   0   0   2   0   0

@@ -1,7 +1,7 @@
-VRC7(100){
+﻿VRC7(100){
 ;  TL  FB
-@ %af_param
+@ %af_param%
 ;  AR  DR  SL  RR KSL  ML  AM VIB  EG KSR  DT
-  %op1_param
-  %op2_param
+  %op1_param%
+  %op2_param%
  }

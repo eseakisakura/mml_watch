@@ -1,9 +1,9 @@
-@1={
+﻿@1={
 ; AR  DR  SR  RR  SL  OL  KS  ML  DT AME
- %op1_param
- %op2_param
- %op3_param
- %op4_param
-;CON  FL  OP
- %af_param
+ %op1_param%
+ %op2_param%
+ %op3_param%
+ %op4_param%
+;CON  FL  OP%mask_param%
+ %af_param%
  }

@@ -1,0 +1,48 @@
+﻿VRC7(001){	;2op Bass 
+;  TL  FB
+@  10   2
+;  AR  DR  SL  RR KSL  ML  AM VIB  EG KSR  DT
+   11   2  14   2   0   0   0   0   0   0   0
+   14   3   9   3   0   3   0   0   1   0   0
+ }
+
+VRC7(002){	;2op Gt
+;  TL  FB
+@  19   6
+;  AR  DR  SL  RR KSL  ML  AM VIB  EG KSR  DT
+   15   3   1   1   0   2   0   0   0   0   0
+   13   4  11   4   0   3   0   0   1   0   0
+ }
+
+VRC7(003){	;2op E.Piano
+;  TL  FB
+@  40   3
+;  AR  DR  SL  RR KSL  ML  AM VIB  EG KSR  DT
+   15   3  14   3   0  12   0   0   0   0   0
+   10   1  11   5   0   2   0   0   0   0   0
+ }
+
+VRC7(004){	;2op H.H
+;  TL  FB
+@   5   6
+;  AR  DR  SL  RR KSL  ML  AM VIB  EG KSR  DT
+   14   1  15  15   0  13   0   0   0   0   0
+    7   8  12   7   0   0   0   0   0   0   0
+ }
+
+VRC7(005){	;2op Space Noise
+;  TL  FB
+@  19   2
+;  AR  DR  SL  RR KSL  ML  AM VIB  EG KSR  DT
+   15   3   1   1   0   0   0   0   0   0   0
+   13   4  11   4   0  14   0   0   1   0   0
+ }
+
+VRC7(006){	;2op Star Ship
+;  TL  FB
+@   7   5
+;  AR  DR  SL  RR KSL  ML  AM VIB  EG KSR  DT
+    1   2   7   2   0   0   0   0   0   0   0
+   14   1   4   4   0  15   0   0   1   0   0
+ }
+ 

@@ -1,9 +1,12 @@
-﻿#EX-VRC7
+﻿// track_parameter %%@vr20 q4 l8 v15 @2%% 
+#EX-VRC7
 #EX-MMC5
-// track_parameter %% q7 l8 v15%%
 
-ABCDEGHIJKLab t150; @t4,24 tempo
+ABCDEGHIJKLab t150 ; @t4,24 tempo
 
 // replace parameter
-%tr_param
-%mml_param
+%tr_param%
+%mml_param%
+
+@v20= { 15 15 15  15 15 15  12 12 10 10  8 8  6 6 6 6  4 4 4 4  2 2 2 2 2 | 2 }
+ 

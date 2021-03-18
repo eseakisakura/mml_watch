@@ -1,0 +1,25 @@
+; track_parameter %%q6 l8 v16 @1%%
+
+ABCD C192 t150 
+; replace parameter
+A  o3q6 l8 v16 @1
+B  o3q6 l8 v16 @1
+C  o3q6 l8 v16 @1
+D  o3q6 l8 v16 @1
+
+A  c &c&c&c x &x&x&x  c &c&c&cr  >e&e&e<
+B  r b &b&b &bb &b&b  &bb &b&b&b r b &b
+C  r r >e&e &e&ee &e  &e&ee &e&e &er e <
+D  r r r >a &a&a&aa   &a&a&aa &a &a&a&a<
+
+
+; NM ALG  FB
+@001   4   0
+; AR  DR  SR  RR  SL  TL  KS  ML  DT AMS
+  31   7   7   7   7  40   0   6   0   0
+  31   7   7   7   7  10   0   2   0   0
+  31   7   7   7   7  40   0   6   0   0
+  31   7   7   7   7  10   0   2   0   0
+
+ 
+

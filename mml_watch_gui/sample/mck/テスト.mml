@@ -1,0 +1,33 @@
+#EX-MMC5 
+
+@EP10= { -127 -127 -127 -127 -127  -96 -96 -96 -96  -64 -64 -64 -64  -32 -32 -32 | 0 }
+@EP20= { 3 3  2 2 1 1 1 | 0 }
+@v20= { 15 15 15  15 15 15  12 12 10 10  8 8  6 6 6 6  4 4 4 4  2 2 2 2 2 | 2 }
+
+@EN1={  0,0, | 5,0,  -5,0  }
+
+ABabCD t150
+ABa @2 o4 l2 v12 q8
+A
+B r%2
+a r%4 >
+b r%6 @2 o7 l16 v15 q6 EN1
+
+// chord:  F#m7b5 Fm7 Em7 Ebdim7 | Dm7 Db7 CM7 C7b5
+// scale:  Am agfedc<b	ae <bfc <gd
+//	:  Am abcdefg   a>dg>cfb>e
+
+A [f+	f	e	e-
+B [>c<	a-	g	g-
+a [e	e-	d	c
+b [[ ae <bfc <gd < ae <bfc <gd rr]2 >>> >>
+
+A d	d-	|c	c]2 c^
+B f	f	|e	g-]2 e^
+a c	<b>	|<b>	<b->]2 <b^>
+b |[ ae <bfc <gd < ae <bfc <gd rr]2]2 >>> >>
+b  ae <bfc <gd < ae <bfc <gd   <a>dg>cfb>e a>dg>cfb>e rrrr
+
+C EP10 l8 o8 [brrf brrr]8 //BD
+D  EP20 @v20 l8 o9 [rre^ rre^]7 e^rr rre^ //Sn
+

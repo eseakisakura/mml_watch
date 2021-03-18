@@ -1,53 +1,42 @@
 <# mml_watch.ps1 #> 
 
 Write-Host ("`"mml watch`"を起動します")
-
-#          filecashe   R/W
-# xml > xml.string > hash > gui.value
-#         cancel gi              change gi
-
-# obj kakuho no hensuu niha $script: shinai
-# func no insuu ha read nomi,
-# func deno write de migikaku suruniha naibu de sengenn
-
-#			xml.string
-#			reset
-#			v
-# xml.file	show->	xml.mem		->hash		->List
-# $val[""]				[key,value]	[key]
-#					foreach etc.
-#
-#		<- ok			<-close
-#		X- cancel
  
 $xml_watch= @' 
 <table>
-	<!-- status / nameは固定値 -->
-	<val name= "mmlfile" param= ""/>
-	<val name= "compiler" param= ""/>
-	<val name= "player" param= ""/>
-	<val name= "dmcdir" param= ""/>
-	<val name= "editor" param= ""/>
-	<val name= "dos" param= ""/>
-	<br/>
-	<opt name= "option" param= "opn"/>
-	<opt name= "radio_bin" param= "nsd"/>
-	<opt name= "chk_dos" param= "Unchecked"/>
-	<opt name= "chk_stop" param= "Checked"/>
-	<opt name= "chk_topmost" param= "False"/>
-	<opt name= "chk_auto" param= "True"/>
-	<br />
+	<!-- タグ value -->
+	<val>
+		<mmlfile value= ""/>
+		<compiler value= ""/>
+		<player value= ""/>
+		<dmcdir value= ""/>
+		<editor value= ""/>
+		<dos value= ""/>
+	</val>
+	<opt>
+		<option value= "10000 00000, 01200 11000, 01000 00000"/>
+		<radio_bin value= "nsd"/>
+		<chk_dos value= "Checked"/>
+		<chk_stop value= "UnChecked"/>
+		<chk_thru value= "UnChecked"/>
+		<chk_auto value= "True"/>
+		<edt_open value= "False"/>
+		<chk_tray value= "True"/>
+		<chk_topmost value= "False"/>
+	</opt>
 </table>
 '@
  
 # nsf_trans 
-	 
+	
 function Player_stop(){ 
 
 
 	if($opt["chk_stop"] -eq 'Checked'){
 
 		& $val["player"] /stop
+
+		sleep -m 33
 	}
 } #func
  
@@ -62,16 +51,15 @@ function Mck_trans([string]$file){
 	[string[]]$output= "",""
 
 	# mml,bin,dmc
-	$output= .\mkmck.ps1 $file $val["compiler"] $val["dmcdir"]
 
-	sleep -m 60
+	[string[]]$rr= $file,$val["compiler"],$val["dmcdir"],$comlin[0]
+	$output= Mkmck $rr
 
-	$csl_box.Text= $scroll_text+ $output[1]+ "`r`n"+ $output[2]
+	sleep -m 33
 
-	$csl_box.SelectionStart= $csl_box.Text.Length
-	$csl_box.ScrollToCaret()
+	$csl_box.Text= $scroll_text+ "`r`n"+ $output[1]+ "`r`n"+ $output[2]+ "`r`n"
 
-	$script:scroll_text= $output[1]+ "`r`n"+ $output[2]+ "`r`n`r`n"
+	$script:scroll_text= $output[1]+ "`r`n"+ $output[2]
 
 
 	if($output[0] -ne ""){
@@ -103,7 +91,7 @@ function Mck_trans([string]$file){
 		}
 	}
  } #func
- 	
+ 
 function Nsd_trans([string]$file){ 
 
 
@@ -115,16 +103,15 @@ function Nsd_trans([string]$file){
 	[string[]]$output= "",""
 
 	# mml,bin,dmc
-	$output= .\mknsd.ps1 $file $val["compiler"] $val["dmcdir"]
+	# 配列確保で通る
+	[string[]]$rr= $file,$val["compiler"],$val["dmcdir"],$comlin[1]
+	$output= Mknsd $rr
 
-	sleep -m 60 # 異常時用ウェイト
+	sleep -m 33 # 異常時用ウェイト
 
-	$csl_box.Text= $scroll_text+ $output[1]
+	$csl_box.Text= $scroll_text+ "`r`n"+ $output[1]+ "`r`n"
 
-	$csl_box.SelectionStart= $csl_box.Text.Length
-	$csl_box.ScrollToCaret()
-
-	$script:scroll_text= $output[1]+ "`r`n`r`n"
+	$script:scroll_text= $output[1]
 
 
 	if($output[0] -ne ""){ # not err
@@ -168,16 +155,15 @@ function Pmd_trans([string]$file){
 	[string[]]$output= "",""
 
 	# mml,bin,dmc
-	$output= .\mkpmd.ps1 $file $val["compiler"] $val["dmcdir"] $val["dos"] $opt["option"] $opt["chk_dos"]
 
-	sleep -m 60
+	[string[]]$rr= $file,$val["compiler"],$val["dmcdir"],$comlin[2],$val["dos"],$opt["chk_dos"]
+	$output= Mkpmd $rr
 
-	$csl_box.Text= $scroll_text+ $output[1]
+	sleep -m 33
 
-	$csl_box.SelectionStart= $csl_box.Text.Length
-	$csl_box.ScrollToCaret()
+	$csl_box.Text= $scroll_text+ "`r`n"+ $output[1]+ "`r`n"
 
-	$script:scroll_text= $output[1]+ "`r`n`r`n"
+	$script:scroll_text= $output[1]
 
 
 	if($output[0] -ne ""){
@@ -210,26 +196,53 @@ function Pmd_trans([string]$file){
 	}
  } #func
  
+function Thru_trans([string]$file){ 
+
+	$err_box.Text= ""
+
+	$script:scroll_text= "compiler thru"+ "`r`n"+ "mml -> player direct"+ "`r`n"
+	$csl_box.Text= $scroll_text
+
+	[string[]]$arr= Split_path $file
+	[string]$dpn= Join-Path $arr[1] $arr[2]
+
+	& $val["player"] ('"'+ $dpn+ '.mml"')
+ } #func
+ 
 function Play_nsf([string]$file){ 
 
-	Write-Host ''
+	$watch.Start()
 
-	switch(Chk_path $file){
+	if($opt["chk_thru"] -eq 'Checked'){
 
-	2{	Write-Host ('ERROR: Null >> '+ $file);		break;
-	}1{	Write-Host ('ERROR: Test-Path >> '+ $file);	break;
-	}0{
-		switch($opt["radio_bin"]){
-		'mck'{
-			Mck_trans $file;	break;
-		}'nsd'{
-			Nsd_trans $file;	break;
-		}'pmd'{
-			Pmd_trans $file
-		}
-		} #sw
+		[string]$sw= "thru"
+	}else{
+		[string]$sw= $opt["radio_bin"]
+	}
+
+	switch($sw){
+	'mck'{	 Mck_trans $file; break;
+	}'nsd'{	 Nsd_trans $file; break;
+	}'pmd'{	 Pmd_trans $file; break;
+	}'thru'{ Thru_trans $file
 	}
 	} #sw
+
+	$watch.Stop()
+
+	$ts= $watch.Elapsed #プロパティ参照
+
+	$watch.Reset()
+
+	[string]$ss= "[Elapsed] :{0:0}.{1:000}sec." -f $ts.Seconds,$ts.Milliseconds # -f フォーマット演算子
+
+	Write-Host ''
+	Write-Host $ss
+
+	$csl_box.Text+= $ss # +"`r`n" fuyou
+	$csl_box.SelectionStart= $csl_box.Text.Length
+	$csl_box.ScrollToCaret()
+
  } #func
  
 function Watches_nsf([string]$eor){ 
@@ -242,18 +255,22 @@ function Watches_nsf([string]$eor){
 	$err_box.SelectionStart= $err_box.Text.Length
 	$err_box.ScrollToCaret()
  } #func
-  
+  	
 # chk_path 
-	 
-function Console_out([string[]]$ph){ 
-
+	
+function Status_build(){ 
 
 	[int[]]$err= 0,0,0,0
 
-	$err[0]= Chk_path $ph[0]
-	$err[1]= Chk_path $ph[1]
-	$err[2]= Chk_path $ph[2]
-	$err[3]= Chk_path $ph[3]
+	$err[0]= Chk_path $val["mmlfile"]
+	$err[1]= Chk_path $val["compiler"]
+	$err[2]= Chk_path $val["player"]
+	$err[3]= Chk_path $val["dmcdir"]
+
+	return $err
+ } #func
+ 
+function Console_out([string[]]$ph){ 
 
 
 	[array]$f= "","","",""
@@ -262,83 +279,98 @@ function Console_out([string[]]$ph){
 	[string[]]$f[2]= "","","",""
 	[string[]]$f[3]= "","","",""
 
+	$f[0]= Split_path $val["mmlfile"]
+	$f[1]= Split_path $val["compiler"]
+	$f[2]= Split_path $val["player"]
+	$f[3]= Split_path $val["dmcdir"]
+
 
 	[string[]]$rot= "","","",""
+
+	[int[]]$err= Status_build
 
 	switch($err[0]){
 	2{	$rot[0]= '> mmlファイル 選択されてません';		break;
 	}1{	$rot[0]= '> mmlファイル パス先がありません';		break;
 	}0{	$rot[0]= '< mmlファイル'
-		$f[0]= Split_path $ph[0]
 	}
 	} #sw
 	switch($err[1]){
-	2{	$rot[1]= '> binファイル 選択されてません';		break;
-	}1{	$rot[1]= '> binファイル パス先がありません';		break;
-	}0{	$rot[1]= '< binファイル'
-		$f[1]= Split_path $ph[1]
+	2{	$rot[1]= '> binaryファイル 選択されてません';		break;
+	}1{	$rot[1]= '> binaryファイル パス先がありません';		break;
+	}0{	$rot[1]= '< binaryファイル'
 	}
 	} #sw
 	switch($err[2]){
 	2{	$rot[2]= '> Playerファイル 選択されてません';		break;
 	}1{	$rot[2]= '> Playerファイル パス先がありません';		break;
 	}0{	$rot[2]= '< Playerファイル'
-		$f[2]= Split_path $ph[2]
 	}
 	} #sw
 	switch($err[3]){
 	2{	$rot[3]= '> Includeフォルダ 選択されてません';		break;
 	}1{	$rot[3]= '> Includeフォルダ パス先がありません';	break;
 	}0{	$rot[3]= '< Includeフォルダ'
-		$f[3]= Split_path $ph[3]
 	}
 	} #sw
 
 	Write-Host '' # 改行
-	Write-Host $ph[4]
-	Write-Host $ph[5]
+	Write-Host $ph[0]
+	Write-Host ($ph[1]+ $ph[2])
 	Write-Host ''
-	Write-Host ($rot[0]+ "`r`n"+ $ph[0]) # full path
-	Write-Host ($rot[1]+ "`r`n"+ $ph[1])
-	Write-Host ($rot[2]+ "`r`n"+ $ph[2])
-	Write-Host ($rot[3]+ "`r`n"+ $ph[3])
+	Write-Host ($rot[0]+ "`r`n"+ $val["mmlfile"]) # full path
+	Write-Host ($rot[1]+ "`r`n"+ $val["compiler"])
+	Write-Host ($rot[2]+ "`r`n"+ $val["player"])
+	Write-Host ($rot[3]+ "`r`n"+ $val["dmcdir"])
 	Write-Host ''
 
 
-	$csl_box.Lines= $ph[4],
-			$ph[5],
-			"",
+	$csl_box.Lines= $ph[0],
+			($ph[1]+ $ph[2]),
 			$rot[0],(" : "+ $f[0][0]), # file name
 			$rot[1],(" : "+ $f[1][0]),
 			$rot[2],(" : "+ $f[2][0]),
-			$rot[3],(" : "+ $f[3][0])
+			$rot[3],(" : "+ $f[3][0]),"" # 改行分
 
+
+	$stus_label.Text= "  "+ "ply: "+ $f[2][0]+ $ph[2]
 
 	$script:scroll_text= $csl_box.Text
 
-	return $err
-} #func
+ } #func
  
 function Status_cheker(){ 
-
 
 	[string]$m= "" # 定義のみだと返値(echo)が出る、空値入れとく
 	[string]$k= ""
 	[string]$c= ""
 	[string]$g= ""
-	[array]$arr= 0,0,0,0
+	[string]$d= ""
 
 
-	switch($opt["radio_bin"]){
+	if($opt["chk_thru"] -eq 'Checked'){
+
+		[string]$sw= "thru"
+	}else{
+		[string]$sw= $opt["radio_bin"]
+	}
+
+	switch($sw){
 
 		'mck'{	$m= '"ppmck"' # esc["`""] -> ['"']
+			$k= $comlin[0]
 			break;
 
 		}'nsd'{	$m= '"NSDlib"'
+			$k= $comlin[1]
 			break;
 
 		}'pmd'{	$m= '"P.M.D"'
-			$k= $opt["option"]
+			$k= $comlin[2]
+			break;
+
+		}'thru'{ $m= '"direct"'
+			 $k= ""
 		}
 	} #sw
 
@@ -349,124 +381,96 @@ function Status_cheker(){
 
 	if($opt["chk_stop"] -eq 'Checked'){
 
-		$c= " /stopコマンド付き"
+		$c= " /stopコマンド付"
 	}
 
 
-	[string[]]$ss= ('[ '+ $m+ $k+'モード ]'),($g+ $c)
+	[string[]]$ss= (' ['+ $m+ '] '+ $k),$g,$c
 
-
-	[array]$yy=	$val["mmlfile"],$val["compiler"],$val["player"],$val["dmcdir"],
-			$ss[0],$ss[1]
-
-	$arr= Console_out $yy
-
-
-	return $arr
+	Console_out $ss
 
 } #func
  
-function Wait_setpath([int[]]$r){ 
+function Play_setpath(){ 
 
 
-	[int]$stus= $r[0]+ $r[1]+ $r[2] # $r[3] cancel -> 000,200
-	[int]$err= 1
+	[int[]]$r= Status_build
+	[int]$stus= $r[0]+ $r[1]+ $r[2] # $r[3] cancel
 
-	Write-Host ''
+	if($stus -ne 0){
 
-	switch($stus){
-	0{
+		[string]$eor= ('監視環境が不足 ERR Level>> '+ $stus)
+
+		$err_box.Text= $eor+ "`r`n"
+		Write-Host $eor
+	}
+
+	return $stus
+ } #func
+ 
+function Wait_setpath(){ 
+
+	$frm.Text= "mml watch"
+
+
+	[int]$stus= Play_setpath
+
+	[int]$err= 0
+	[string]$eor= ""
+
+
+	if($stus -eq 0){
+
 		[string[]]$f= Split_path $val["mmlfile"]
 
 		switch($f[3]){
 		'.mml'{
+			$err= 1
 			$eor= ('.mmlの監視をセット<< '+ $f[0])
-			$err= 0; break;
+			break;
 
 		}'.nsf'{
 			$eor= ('.nsfの監視は不可です>> '+ $f[0])
+			break;
+
+		}'.nsfe'{
+			$eor= ('.nsfeの監視は不可です>> '+ $f[0])
 			break;
 
 		}'.m'{
 			$eor= ('.mの監視は不可です>> '+ $f[0])
 			break;
 
-		}default{
+		}'.m2'{
+			$eor= ('.m2の監視は不可です>> '+ $f[0])
+			break;
 
-			$eor= ('監視対象は、mmlファイルのみ>> '+ $f[0])
+		}default{
+			$err= 1
+			$eor= ($f[3]+ 'の監視をセット<< '+ $f[0])
 		}
 		} #sw
-		break;
 
-	}default{ # 起動できない回避
-
-		$eor= ('監視環境が不足 ERR Level>> '+ $stus)
+		Write-Host $eor
+		$err_box.Text= $eor+ "`r`n"
 	}
-	} #sw
-
-
-	Write-Host $eor
-	$err_box.Text= $eor+ "`r`n"
-
-	$frm.Text= "mml watch"
-
 
 	switch($err){
-	0{
-		$wait.Path= $f[1]	# RaisingEvents= $True時、必要
-		$wait.Filter= $f[0]
-
-		return $True
+	1{
+		$script:wait.Path= $f[1] # RaisingEvents= $True時、必要
+		$script:wait.Filter= $f[0]
 		break;
-	}1{
-		# $wait.Path= $null  # Pathエラーになる
-		$wait.Filter= $null
-
-		return $False
+	}0{
+		$script:wait.Path= ".\temp" # 存在するパス <- Pathエラーため
+		$script:wait.Filter= $null
 	}
 	} #sw
 
-
+	return $err
 } #func
   
-# gui 
-	 
-function Top_most([string]$t){ 
-
-	switch($t){
-	'true'{
-
-		$frm.TopMost= $True # 最前面化
-
-		$menu_t.Text= "v 最前面表示"
-		break;
-	}'false'{
-
-		$frm.TopMost= $False
-
-		$menu_t.Text= "最前面表示"
-	}
-	} #sw
-
-	return $t
- } #func
- 
-function Auto_start([string]$t){ 
-
-	switch($t){
-	'true'{
-		$pic_box.Image= [System.Drawing.Image]::FromFile(".\img\orange.png")
-		$menu_r.Text= "v 自動リスタート"
-		break;
-	}'false'{
-		$pic_box.Image= [System.Drawing.Image]::FromFile(".\img\blue.png")
-		$menu_r.Text= "自動リスタート"
-	}
-	} #sw
-
-	return $t
- } #func
- 
+# toggle 
+	
 function Toggle_label(){ 
 
 
@@ -496,7 +500,6 @@ function Toggle_label(){
 			$wait_lbl.ForeColor= "black"
 	}
 	} #sw
-
  } #func
  
 function Toggle_sw([int]$num,[string]$c){ 
@@ -514,7 +517,7 @@ function Toggle_sw([int]$num,[string]$c){
 	} #sw
  }
 
- if($num -eq 0){ # << $num= 0
+ if($num -eq 0){ # <- $num= 0
 
 	switch($c){
 
@@ -523,25 +526,26 @@ function Toggle_sw([int]$num,[string]$c){
 		$wait_btn.Image= [System.Drawing.Image]::FromFile(".\img\stop.png")
 
 		$wait.EnableRaisingEvents= $True # 開始
-		Write-Host ('RaisingEvents: '+ $wait.EnableRaisingEvents)
 		break;
 	}'false'{
 		$frm.Text= "Pause - mml watch"
 		$wait_btn.Image= [System.Drawing.Image]::FromFile(".\img\play.png")
 
 		$wait.EnableRaisingEvents= $False
-		Write-Host ('RaisingEvents: '+ $wait.EnableRaisingEvents)
 	}
 	} #sw
- }
 
- Toggle_label # RaisingEvents check
+	Write-Host ('RaisingEvents: '+ $wait.EnableRaisingEvents)
+ }
 
  } #func
  
 function Watch_Setting(){ 
 
+	[bool]$bool_sw= $tray.Visible
+	$tray.Visible= $False # tray側のコントロール不可にする
 	$frm.AllowDrop= $False
+
 
 	Toggle_sw 1 "false"	# ファイル更新キャンセラー
 
@@ -553,49 +557,66 @@ function Watch_Setting(){
 	$script:val= $args_set[0]
 	$script:opt= $args_set[1]
 
-	$script:chk_stus= Status_cheker
-	$script:chk_mml= Wait_setpath $chk_stus
+	$script:comlin= Comline $opt["option"]
 
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	# Watches_nsf $wait.Filter # Wait_setpath
 
 	if($chk_mml -eq $True){ # $wait_btn canceller
 
 		Toggle_sw 1 "true"
 	}
 
-	# Watches_nsf $wait.Filter # Wait_setpath
+	Toggle_label
+
+	if((Test-Path '.\setting.xml') -eq $True){
+
+		$script:set_xml= [xml](cat '.\setting.xml')
+
+		$script:edit=@{};
+
+		Helpxml_read $script:set_xml.table # hash化
+	}
 
 	$frm.AllowDrop= $True
-
+	$tray.Visible= $bool_sw
  } #func
  
 function Watch_Start(){ 
 
-	if($chk_mml -eq $True){
+	[int]$stus= Play_setpath
 
-		switch($wait.EnableRaisingEvents){ # トグル
-		$False{
+  if($stus -eq 0){
 
-			if($opt["chk_auto"] -ne 'False'){
+	switch($wait.EnableRaisingEvents){ # トグル
+	$False{
 
-				Play_nsf $val["mmlfile"]
-			}else{
-				$err_box.Text= "" # .Clear() reload gi
-			}
+		if($opt["chk_auto"] -ne 'False'){
 
-			Watches_nsf ('< Watches: '+ $wait.Filter)
-
-			Toggle_sw 1 "true"
-
-			break;
-		}$True{
-
-			$err_box.Text= "" # .Clear()
-			Watches_nsf ('> Pause: '+ $wait.Filter)
-
-			Toggle_sw 1 "false"
+			Play_nsf $val["mmlfile"]
+		}else{
+			$err_box.Text= "" # .Clear() reload gi
 		}
-		} #sw
+
+		Watches_nsf ('< Watches: '+ $wait.Filter)
+
+		Toggle_sw 1 "true"
+
+		break;
+	}$True{
+
+		$err_box.Text= "" # .Clear()
+
+		Watches_nsf ('> Pause: '+ $wait.Filter)
+
+		Toggle_sw 1 "false"
 	}
+	} #sw
+
+	Toggle_label
+  }
  } #func
  
 function Watch_Drop(){ 
@@ -613,17 +634,14 @@ function Watch_Drop(){
 	}1{	Write-Host ('ERROR: Test-Path >> FileDrop Form')
 		break;
 
-	}0{
-		$script:val["mmlfile"]= $args_path[0]
+	}0{	$script:val["mmlfile"]= $args_path[0]
 	}
 	} #sw
 
 	Write-Host '' # 改行
 
-	$script:chk_stus= Status_cheker
-
-	$script:chk_mml= Wait_setpath $chk_stus
-
+	Status_cheker
+	$script:chk_mml= Wait_setpath
 
 	if($chk_mml -eq $True){
 
@@ -631,99 +649,249 @@ function Watch_Drop(){
 	}
 
 	# Watches_nsf $wait.Filter # Wait_setpath
+
+	Toggle_label
+ } #func
+  
+# gui 
+	
+function Contxt_chg([string]$sw,[int]$chg){ 
+
+	switch($sw){
+
+	'最小化'{
+
+		$contxt_tray.Items.Clear()
+		[void]$contxt_tray.Items.Add("元に戻す")
+		[void]$contxt_tray.Items.Add("環境設定")
+		[void]$contxt_tray.Items.Add("終了")
+
+		##$tray.PerformClick()
+		if($chg -eq 1){ $frm.WindowState= "Minimized" }
+		break;
+
+	}'元に戻す'{
+		$contxt_tray.Items.Clear()
+		[void]$contxt_tray.Items.Add("最小化")
+		[void]$contxt_tray.Items.Add("環境設定")
+		[void]$contxt_tray.Items.Add("終了")
+
+		##$tray.PerformClick()
+		if($chg -eq 1){ $frm.WindowState= "Normal" }
+		break;
+
+	}'環境設定'{
+		$menu_a.PerformClick()
+		break;
+
+	}'終了'{
+		$menu_n.PerformClick()
+	}
+	} #sw
+} #func
+ 
+function Top_most([string]$t){ 
+
+	switch($t){
+	'true'{
+
+		$frm.TopMost= $True # 最前面化
+		$menu_t.Text= "v 最前面表示"
+		break;
+	}'false'{
+
+		$frm.TopMost= $False
+		$menu_t.Text= "最前面表示"
+	}
+	} #sw
+
+	return $t
+ } #func
+
+ 
+function Tray_hide([string]$t){ 
+
+	switch($t){
+	'true'{
+
+		$tray.Visible= $True
+		$menu_ty.Text= "v タスクトレイ"
+		break;
+	}'false'{
+
+		$tray.Visible= $False
+		$menu_ty.Text= "タスクトレイ"
+	}
+	} #sw
+
+	return $t
+ } #func
+
+ 
+function Edit_open([string]$t){ 
+
+	switch($t){
+	'true'{
+		$menu_eo.Text= "v 起動時、エディタオープン"
+		break;
+	}'false'{
+		$menu_eo.Text= "起動時、エディタオープン"
+	}
+	} #sw
+
+	return $t
+ } #func
+ 
+function Auto_start([string]$t){ 
+
+	switch($t){
+	'true'{
+		$pic_box.Image= [System.Drawing.Image]::FromFile(".\img\orange.png")
+		$menu_r.Text= "v 開始時、自動リスタート"
+		break;
+	}'false'{
+		$pic_box.Image= [System.Drawing.Image]::FromFile(".\img\blue.png")
+		$menu_r.Text= "開始時、自動リスタート"
+	}
+	} #sw
+
+	return $t
  } #func
   
 # hash 
-	 
-function Wthxml_read($x){ 
-
-  # $x= $script:wth_xml.table
-
-  for([int]$i=5; $i -ge 0; $i--){
-
-
-	if($x.val[$i].name -ne ''){
-
-		$script:val[$x.val[$i].name]= $x.val[$i].param
-	}
-
-	if($x.opt[$i].name -ne ''){
-
-		$script:opt[$x.opt[$i].name]= $x.opt[$i].param
-	}
-  } #
- } #func
- 
-function Wthwrite_xml($x){ 
-
-  # $x= $script:wth_xml.table
-
-  [array]$val_keys= $val.Keys
-  [array]$opt_keys= $opt.Keys
-
-  [int]$vl= $val_keys.Length
-  [int]$ot= $opt_keys.Length
-
-  if($vl -gt 6){ Write-Host ('ERROR: val hash >> '+ $vl) }
-  if($ot -gt 6){ Write-Host ('ERROR: opt hash >> '+ $ot) }
-
-
-
-  for([int]$i=5; $i -ge 0; $i--){
-
-	if($i -lt $vl){
-
-		$x.val[$i].name=  [string]$val_keys[$i] # $xmlは[string]キャスト必要
-		$x.val[$i].param= [string]$val[$val_keys[$i]]
-	}else{
-		$x.val[$i].name=  "" # 空を打つ
-		$x.val[$i].param= ""
-	}
-
-	if($i -lt $ot){
-
-		$x.opt[$i].name=  [string]$opt_keys[$i]
-		$x.opt[$i].param= [string]$opt[$opt_keys[$i]]
-	}else{
-		$x.opt[$i].name=  ""
-		$x.opt[$i].param= ""
-	}
-  } #
- } #func
- 
-function Setxml_read($x){ 
+	
+function Helpxml_read($x){ 
 
   # $x= $script:set_xml.table
 
   for([int]$i=3; $i -ge 0; $i--){
 
-	if($x.mck[$i].name -ne ''){
-
-		$script:comp[$x.mck[$i].name]= $x.mck[$i].param
-	}
-	if($x.nsd[$i].name -ne ''){
-
-		$script:comp[$x.nsd[$i].name]= $x.nsd[$i].param
-	}
-	if($x.pmd[$i].name -ne ''){
-
-		$script:comp[$x.pmd[$i].name]= $x.pmd[$i].param
-	}
-
-	if($x.ply[$i].name -ne ''){
-
-		$script:play[$x.ply[$i].name]= $x.ply[$i].param
-	}
 	if($x.edt[$i].name -ne ''){
 
 		$script:edit[$x.edt[$i].name]= $x.edt[$i].param
 	}
-	if($x.dos[$i].name -ne ''){
-
-		$script:dosv[$x.dos[$i].name]= $x.dos[$i].param
-	}
   } #
  } #func
+ 
+function Wthxml_read($x,$y){ 
+
+	# $x= $script:wth_xml.table.val
+	# $y= $script:wth_xml.table.opt
+
+	$script:val["mmlfile"]= $x.mmlfile.value
+	$script:val["compiler"]= $x.compiler.value
+	$script:val["player"]= $x.player.value
+	$script:val["dmcdir"]= $x.dmcdir.value
+	$script:val["editor"]= $x.editor.value
+	$script:val["dos"]= $x.dos.value
+
+
+	$script:opt["option"]= $y.option.value
+	$script:opt["radio_bin"]= $y.radio_bin.value
+	$script:opt["chk_dos"]= $y.chk_dos.value
+	$script:opt["chk_stop"]= $y.chk_stop.value
+	$script:opt["chk_thru"]= $y.chk_thru.value
+
+	# メニュー切換
+	$script:opt["chk_topmost"]= Top_most $y.chk_topmost.value
+	$script:opt["chk_auto"]= Auto_start $y.chk_auto.value
+	$script:opt["chk_tray"]= Tray_hide $y.chk_tray.value
+
+	$script:opt["edt_open"]= Edit_open $y.edt_open.value
+	# -> next $frm.Add_Shown
+ } #func
+ 
+function Wthwrite_xml($x,$y){ 
+
+	# $x= $script:wth_xml.table.val
+	# $y= $script:wth_xml.table.opt
+
+	$x.mmlfile.value= [string]$val["mmlfile"] # $xmlは[string]キャスト必要
+	$x.compiler.value= [string]$val["compiler"]
+	$x.player.value= [string]$val["player"]
+	$x.dmcdir.value= [string]$val["dmcdir"]
+	$x.editor.value= [string]$val["editor"]
+	$x.dos.value= [string]$val["dos"]
+
+	$y.option.value= [string]$opt["option"]
+	$y.radio_bin.value= [string]$opt["radio_bin"]
+	$y.chk_dos.value= [string]$opt["chk_dos"]
+	$y.chk_stop.value= [string]$opt["chk_stop"]
+	$y.chk_thru.value= [string]$opt["chk_thru"]
+
+	$y.chk_topmost.value= [string]$opt["chk_topmost"]
+	$y.chk_auto.value= [string]$opt["chk_auto"]
+	$y.chk_tray.value= [string]$opt["chk_tray"]
+	$y.edt_open.value= [string]$opt["edt_open"]
+ } #func
+ 
+function Param_join([array]$rr){ 
+
+	[string]$s= ""
+
+	for([int]$i=0; $i -lt $rr.Length; $i++){
+
+		if($rr[$i] -ne ""){
+
+			if($s -ne ""){ $s+= " " }
+
+			$s+= $rr[$i]
+		}
+	} #
+
+	return $s
+} #func
+ 
+function Comline([string]$t){ 
+
+	$s= $t -replace " ",""
+
+	[array]$rr= $s -split ","
+
+	[string[]]$m= $rr[0].ToCharArray()
+	[string[]]$n= $rr[1].ToCharArray()
+	[string[]]$p= $rr[2].ToCharArray()
+
+	[array]$a= @("","","") # mck,nsd,pmd
+	[string[]]$a[0]= "","",""
+	[string[]]$a[1]= "","","","", "","","","", ""
+	[string[]]$a[2]= "","","" #必要な分だけ
+
+	if($m[0] -eq '1'){ $a[0][0]= "-i" }
+	if($m[1] -eq '1'){ $a[0][1]= "-m1" }
+	if($m[2] -eq '1'){ $a[0][2]= "-w" }
+
+	if($n[0] -eq '1'){ $a[1][0]= "-a" } #def.時は読まない
+	if($n[1] -eq '1'){ $a[1][1]= "-n" }
+	if($n[2] -ne '2'){ $a[1][2]= ("-v"+ $n[2]) }
+	if($n[3] -eq '1'){ $a[1][3]= "-x" }
+	if($n[4] -eq '1'){ $a[1][4]= "-od+" }
+	if($n[5] -eq '0'){ $a[1][5]= "-oo-" }
+	if($n[6] -eq '0'){ $a[1][6]= "-os-" }
+	if($n[7] -eq '1'){ $a[1][7]= "-e" }
+	if($n[8] -eq '1'){ $a[1][8]= "-s" }
+
+	switch($p[0]){
+	'0'{	$a[2][0]= "/N"; break;
+	}'1'{	$a[2][0]= "/L"; break;
+	}'2'{	$a[2][0]= "/M"; break;
+	}'3'{	$a[2][0]= "/T"
+	}
+	} #sw
+	if($p[1] -eq '1'){ $a[2][1]= "/V" }
+	if($p[2] -eq '1'){ $a[2][2]= "/C" }
+
+
+	[string[]]$ss= "","",""
+
+	$ss[0]= Param_join $a[0]
+	$ss[1]= Param_join $a[1]
+	$ss[2]= Param_join $a[2]
+
+	# $ss[2]= $a[2] -join " " # 無駄なspaceため
+
+	return $ss
+} #func
   
 Add-Type -AssemblyName System.Windows.Forms > $null 
 
@@ -733,7 +901,7 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 [Environment]::CurrentDirectory= pwd # working_dir set
  
 # Form 
-	 
+	
 $err_box= New-Object System.Windows.Forms.TextBox 
 $err_box.Size= "220,55"
 $err_box.Location= "10,55"
@@ -742,27 +910,38 @@ $err_box.Multiline= "True"
 $err_box.ScrollBars= "Both"
 $err_box.BorderStyle= "FixedSingle"
 $err_box.ReadOnly= "True"
-#$err_box.ForeColor= "Gray"
+$err_box.ForeColor= "Mediumblue"
 $err_box.BackColor= "White"
 
  
 $csl_box= New-Object System.Windows.Forms.TextBox 
-$csl_box.Size= "220,145"
+$csl_box.Size= "220,130"
 $csl_box.Location= "10,115"
 $csl_box.WordWrap= "False"
 $csl_box.Multiline= "True"
 $csl_box.ScrollBars= "Both"
 $csl_box.BorderStyle= "FixedSingle"
 $csl_box.ReadOnly= "True"
-#$csl_box.ForeColor= "Gray"
+$csl_box.ForeColor= "#2b2b2b"
 $csl_box.BackColor= "White"
 
  
-$pic_box = New-Object System.Windows.Forms.PictureBox 
+$pic_box= New-Object System.Windows.Forms.PictureBox 
 $pic_box.ClientSize= "11,11"
 $pic_box.Location= "11,33"
 # $pic_box.Image= [System.Drawing.Image]::FromFile(".\img\blue.png")
 # $pic_box.Image= [System.Drawing.Image]::FromFile(".\img\orange.png")
+
+$pic_box.Add_Click({
+  try{
+    if([string]$_.Button -eq 'Left'){
+
+	$menu_r.PerformClick()
+    }
+  }catch{
+	echo $_.exception
+  }
+})
  
 $wait_lbl= New-Object System.Windows.Forms.Label 
 $wait_lbl.Size= "150,25"
@@ -777,7 +956,7 @@ $wait_lbl.Add_Click({
   try{
     if([string]$_.Button -eq 'Left'){
 
-	Watch_Start
+	$wait_btn.PerformClick()
     }
   }catch{
 	echo $_.exception
@@ -801,87 +980,125 @@ $wait_btn.Add_Click({	# 監視ボタン
   }
  })
  
+$stus_bar= New-Object System.Windows.Forms.StatusStrip 
+$stus_bar.SizingGrip= $false
+
+$stus_label= New-Object System.Windows.Forms.ToolStripStatusLabel
+# $stus_label.Text= "  Test ------"
+# $stus_label.Font= $Fon
+ 
 $contxt_tray= New-Object System.Windows.Forms.ContextMenuStrip 
 # $contxt objを読み込んだ後$NotifyIcon objが安全
 
+[void]$contxt_tray.Items.Add("最小化")
 [void]$contxt_tray.Items.Add("環境設定")
 [void]$contxt_tray.Items.Add("終了")
 
 $contxt_tray.Add_ItemClicked({
-
-	switch([string]$_.ClickedItem){ # キャスト必要
-
-	'環境設定'{
-		Watch_Setting
-		break;
-
-	}'終了'{
-		$frm.Close()
-	}
-	} #sw
+  try{
+	Contxt_chg $_.ClickedItem 1 # キャスト不要
 
 	$this.Close()
+
+ }catch{
+	echo $_.exception
+ }
 })
  
 $tray= New-Object System.Windows.Forms.NotifyIcon 
 $tray.Icon= Icon_read "..\mml_watch.exe"
-$tray.Visible= $True
-#$tray.Text= "watches"
+# $tray.Visible= $True
+# $tray.Text= "watches"
 $tray.ContextMenuStrip= $contxt_tray
 
-$tray.Add_MouseDown({
+$tray.Add_Click({ # .Add_MouseDown
+  try{
 
-  switch([string]$_.Button){ # キャスト
+    switch([string]$_.Button){ # キャスト
+    'Left'{
 
-  'Left'{
 	switch($frm.WindowState){
 	'Minimized'{
-		$frm.WindowState= "Normal"
+		Contxt_chg "元に戻す" 1
 		break;
 
 	}'Normal'{
-		$frm.WindowState= "Minimized"
-
+		Contxt_chg "最小化" 1
 	}
 	} #sw
 
 #	break;
-#  }'Right'{ # 不要 モーダル発生 -> $tray.ContextMenuStrip
+#   }'Right'{ # 不要 モーダル発生 -> $tray.ContextMenuStrip
 #	$contxt_tray.Show([Windows.Forms.Cursor]::Position)
-  }
-  } #sw
- })
+    }
+    } #sw
+
+ }catch{
+	echo $_.exception
+ }
+})
  
 $frm= New-Object System.Windows.Forms.Form 
 #$frm.Text= "mml watch"
-$frm.Size= "244,302"
+$frm.Size= "248,302"
 $frm.FormBorderStyle= "FixedSingle"
 $frm.StartPosition= "WindowsDefaultLocation"
-$frm.Icon= Icon_read "..\src\MW_icon.ico"
+$frm.Icon= Icon_read "..\mml_watch.exe"
 #$frm.ShowIcon= $False
 #$frm.MinimizeBox= $False
 $frm.MaximizeBox= $False
 
 $frm.TopLevel= $True
-# $frm.TopMost= $True # 最前面表示のプロパティ
+## $frm.TopMost= $True # 最前面表示のプロパティ
 
+$frm.AllowDrop= $True
 
 #$frm.Add_Load({
 #	$frm.WindowState= "Minimized" # 最小化 "Normal"
 #})
 #$frm.Add_KeyDown({
-#	write-host $_.KeyCode # check
+#	Write-Host $_.KeyCode # check
 #})
 
 $frm.Add_Shown({
 
-	$wait_btn.Select()	# forcus
- })
+ try{
+	$wait.SynchronizingObject= $this
 
-$frm.Add_FormClosing({ # event nai dato err ha aku shizurai node kannsuuka
+	$wait_btn.Select() # forcus
+
+	if($opt["edt_open"] -eq 'True'){
+
+		[string]$retn= Editor_open $val["editor"] $val["mmlfile"]
+
+		if($retn -ne ""){ $err_box.Text= $retn }
+	}
+ }catch{
+	echo $_.exception
+ }
+})
+
+$frm.Add_SizeChanged({
+ try{
+	switch($frm.WindowState){
+	'Minimized'{
+		Contxt_chg "最小化" 0
+		break;
+
+	}'Normal'{
+		Contxt_chg "元に戻す" 0
+	}
+	} #sw
+
+ }catch{
+	echo $_.exception
+ }
+})
+
+$frm.Add_FormClosing({ # イベント内だとerr把握しずらい ->関数化
  try{
 
-	Wthwrite_xml $script:wth_xml.table
+	Wthwrite_xml $script:wth_xml.table.val $script:wth_xml.table.opt
 
 	File_writer $script:wth_xml '.\mml_watch.xml'
 
@@ -893,9 +1110,7 @@ $frm.Add_FormClosing({ # event nai dato err ha aku shizurai node kannsuuka
 $frm.Add_DragEnter({
 
 	$_.Effect= "All"
- })
-
-$frm.AllowDrop= $True
+})
 
 $frm.Add_DragDrop({
   try{
@@ -904,10 +1119,10 @@ $frm.Add_DragDrop({
   }catch{
 	echo $_.exception
   }
- })
+})
  
 $mnu= New-Object System.Windows.Forms.MenuStrip 
-	 
+	
 $menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $menu_f.Text= "File"
 
@@ -915,10 +1130,13 @@ $menu_e= New-Object System.Windows.Forms.ToolStripMenuItem
 $menu_e.Text= "エディタ"
 
 $menu_e.Add_Click({
-
+ try{
 	[string]$retn= Editor_open $val["editor"] $val["mmlfile"]
 
 	if($retn -ne ""){ $err_box.Text= $retn }
+ }catch{
+	echo $_.exception
+ }
 })
 
 $menu_sd= New-Object System.Windows.Forms.ToolStripSeparator
@@ -926,10 +1144,13 @@ $menu_d= New-Object System.Windows.Forms.ToolStripMenuItem
 $menu_d.Text= "フォルダ"
 
 $menu_d.Add_Click({
-
+ try{
 	[string]$retn= Folder_open 1 $val["mmlfile"]
 
 	if($retn -ne ""){ $err_box.Text= $retn }
+ }catch{
+	echo $_.exception
+ }
 })
 
 $menu_sn= New-Object System.Windows.Forms.ToolStripSeparator
@@ -949,7 +1170,6 @@ $menu_a= New-Object System.Windows.Forms.ToolStripMenuItem
 $menu_a.Text= "環境設定"
 
 $menu_a.Add_Click({ # 環境設定
-
  try{
 	Watch_Setting
 
@@ -959,59 +1179,194 @@ $menu_a.Add_Click({ # 環境設定
  }
 })
 
-$menu_st= New-Object System.Windows.Forms.ToolStripSeparator
-$menu_t=  New-Object System.Windows.Forms.ToolStripMenuItem
-# $menu_t.Text= "v 最前面表示"
+$menu_kar= New-Object System.Windows.Forms.ToolStripSeparator
+$menu_ka=  New-Object System.Windows.Forms.ToolStripMenuItem
+$menu_ka.Text= "各種設定"
 
-$menu_t.Add_Click({
+$menu_ty=  New-Object System.Windows.Forms.ToolStripMenuItem
+# $menu_ty.Text= "v タスクトレイ"
 
-	switch($opt["chk_topmost"]){ # トグル
+$menu_ty.Add_Click({
+ try{
+	switch($opt["chk_tray"]){ # トグル
 
-	'True'{		$script:opt["chk_topmost"]= Top_most "False";	break;
-	}'False'{	$script:opt["chk_topmost"]= Top_most "True"
+	'True'{		$script:opt["chk_tray"]= Tray_hide "False";	break;
+	}'False'{	$script:opt["chk_tray"]= Tray_hide "True"
 	}
 	} #sw
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_eor= New-Object System.Windows.Forms.ToolStripSeparator
+$menu_eo=  New-Object System.Windows.Forms.ToolStripMenuItem
+# $menu_eo.Text= "v 起動時、エディタオープン"
+
+$menu_eo.Add_Click({
+ try{
+	switch($opt["edt_open"]){ # トグル
+
+	'True'{		$script:opt["edt_open"]= Edit_open "False";	break;
+	}'False'{	$script:opt["edt_open"]= Edit_open "True"
+	}
+	} #sw
+ }catch{
+	echo $_.exception
+ }
 })
 
 $menu_sr= New-Object System.Windows.Forms.ToolStripSeparator
 $menu_r=  New-Object System.Windows.Forms.ToolStripMenuItem
-# $menu_r.Text= "v 自動リスタート"
+# $menu_r.Text= "v 開始時、自動リスタート"
 
 $menu_r.Add_Click({
-
+ try{
 	switch($opt["chk_auto"]){ # トグル
 
 	'True'{		$script:opt["chk_auto"]= Auto_start "False";	break;
 	}'False'{	$script:opt["chk_auto"]= Auto_start "True"
 	}
 	} #sw
+ }catch{
+	echo $_.exception
+ }
 })
 
+$menu_st= New-Object System.Windows.Forms.ToolStripSeparator
+$menu_t=  New-Object System.Windows.Forms.ToolStripMenuItem
+# $menu_t.Text= "v 最前面表示"
+
+$menu_t.Add_Click({
+ try{
+	switch($opt["chk_topmost"]){ # トグル
+
+	'True'{		$script:opt["chk_topmost"]= Top_most "False";	break;
+	}'False'{	$script:opt["chk_topmost"]= Top_most "True"
+	}
+	} #sw
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$menu_h= New-Object System.Windows.Forms.ToolStripMenuItem 
+$menu_h.Text= "Help"
+
+
+$menu_sw= New-Object System.Windows.Forms.ToolStripSeparator
+$menu_whelp= New-Object System.Windows.Forms.ToolStripMenuItem
+$menu_whelp.Text= "MmlWatch Help"
+
+$menu_whelp.Add_Click({
+ try{
+
+  if($edit["sted.exe"] -eq $null){
+
+	[string]$retn= Editor_open $val["editor"] "..\doc\Mml_Watch.txt"
+  }else{
+	[string]$retn= Editor_open $edit["sted.exe"] "..\doc\Mml_Watch.txt"
+  }
+
+  if($retn -ne ""){ $err_box.Text= $retn }
+
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_phelp= New-Object System.Windows.Forms.ToolStripMenuItem
+$menu_phelp.Text= "PMD Quick Help"
+
+$menu_phelp.Add_Click({
+ try{
+
+  if($edit["sted.exe"] -eq $null){
+
+	[string]$retn= Editor_open $val["editor"] "..\doc\PMD_Quick_Help.txt"
+  }else{
+	[string]$retn= Editor_open $edit["sted.exe"] "..\doc\PMD_Quick_Help.txt"
+  }
+
+  if($retn -ne ""){ $err_box.Text= $retn }
+
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_nhelp= New-Object System.Windows.Forms.ToolStripMenuItem
+$menu_nhelp.Text= "NSDlib Quick Help"
+
+$menu_nhelp.Add_Click({
+ try{
+
+  if($edit["sted.exe"] -eq $null){
+
+	[string]$retn= Editor_open $val["editor"] "..\doc\Nsdlib_Quick_Help.txt"
+  }else{
+	[string]$retn= Editor_open $edit["sted.exe"] "..\doc\Nsdlib_Quick_Help.txt"
+  }
+
+  if($retn -ne ""){ $err_box.Text= $retn }
+
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_mhelp= New-Object System.Windows.Forms.ToolStripMenuItem
+$menu_mhelp.Text= "ppmck Quick Help"
+
+$menu_mhelp.Add_Click({
+ try{
+
+  if($edit["sted.exe"] -eq $null){
+
+	[string]$retn= Editor_open $val["editor"] "..\doc\ppmck_Quick_Help.txt"
+  }else{
+	[string]$retn= Editor_open $edit["sted.exe"] "..\doc\ppmck_Quick_Help.txt"
+  }
+
+  if($retn -ne ""){ $err_box.Text= $retn }
+
+ }catch{
+	echo $_.exception
+ }
+})
   
 $menu_f.DropDownItems.AddRange(@($menu_e,$menu_sd,$menu_d,$menu_sn,$menu_n)) 
-$menu_o.DropDownItems.AddRange(@($menu_t,$menu_st,$menu_r,$menu_sr,$menu_a))
-$mnu.Items.AddRange(@($menu_f,$menu_o))
+$menu_ka.DropDownItems.AddRange(@($menu_eo,$menu_eor,$menu_r,$menu_sr,$menu_ty))
 
-$frm.Controls.AddRange(@($mnu,$pic_box,$wait_lbl,$wait_btn,$err_box,$csl_box))
+$menu_o.DropDownItems.AddRange(@($menu_t,$menu_st,$menu_ka,$menu_kar,$menu_a))
+$menu_h.DropDownItems.AddRange(@($menu_mhelp,$menu_nhelp,$menu_phelp,$menu_sw,$menu_whelp))
+$mnu.Items.AddRange(@($menu_f,$menu_o,$menu_h))
+
+$stus_bar.Items.AddRange(@($stus_label))
+$frm.Controls.AddRange(@($mnu,$pic_box,$wait_lbl,$wait_btn,$err_box,$csl_box,$stus_bar))
 
 $frm.AcceptButton= $wait_btn	# [Enter]
   
+$watch= New-Object System.Diagnostics.StopWatch 
+ 
 # FileSystemWatcher ------ 
 
 $wait= New-Object System.IO.FileSystemWatcher
-$wait.SynchronizingObject= $frm
 
 
 # $wait.InternalBufferSize= 8192 # [4096-8192-65535]
 # $wait.IncludeSubdirectories= $False
 
+$wait.NotifyFilter= [System.IO.NotifyFilters]::LastWrite
 
-$wait.NotifyFilter= [IO.NotifyFilters]::LastWrite
-
+# $wait.Path= ".\temp" # 仮パス入 <- Pathエラーため
+# $wait.Filter= $null
+# $wait.EnableRaisingEvents= $False
 
 $wait.Add_Changed({	# event func入れ子は一段が理想..
 
  try{
+
 	$script:lated_time= (Get-Item $_.FullPath).LastWriteTime.ToString('yy/MM/dd HH:mm:ss')
 
 	# [ $_ if ok. can't switch ]
@@ -1020,7 +1375,7 @@ $wait.Add_Changed({	# event func入れ子は一段が理想..
 		$script:chk_time= $lated_time
 
 
-		# $_ | write-host  # [= FileSystemEventArgsクラス]
+		# $_ | Write-Host  # [= FileSystemEventArgsクラス]
 
 		Write-Host ('Updated: '+ $_.ChangeType)
 		Write-Host ''
@@ -1028,12 +1383,12 @@ $wait.Add_Changed({	# event func入れ子は一段が理想..
 		Play_nsf $_.FullPath # $err_box.Text
 		Watches_nsf ('< Watches: '+ $_.Name)
 
-		# sleep -m 120	# ウェイト不要
+		# sleep -m 1000	# ウェイト
 	}
 
  }catch{
 	echo $_.exception
-    	Write-Host '"ERROR: Safety Stopper >> FileSystemWatcher"'
+	Write-Host '"ERROR: Safety Stopper >> FileSystemWatcher"'
  }
 })
  
@@ -1054,25 +1409,16 @@ $wait.Add_Changed({	# event func入れ子は一段が理想..
  # 連想配列化
 
  $val= @{}; $opt= @{};
+ $edit=@{};
 
- Wthxml_read $script:wth_xml.table
+ Wthxml_read $script:wth_xml.table.val $script:wth_xml.table.opt
 
 
+ [string[]]$comlin= Comline $opt["option"]
 
  # 状態チェック
- Top_most $opt["chk_topmost"] > $null # 最前面
- Auto_start $opt["chk_auto"] > $null # 自動スタート
-
-
- [array]$chk_stus= Status_cheker
-
- [string]$lated_time= ""
- [string]$chk_time= ""
-
- [bool]$chk_mml= Wait_setpath $chk_stus # $wait.Filter
-
-
-
+ Status_cheker
+ [bool]$chk_mml= Wait_setpath # $wait.Filter
 
  # $wait_btn canceller
  if($chk_mml -eq $True){
@@ -1082,10 +1428,25 @@ $wait.Add_Changed({	# event func入れ子は一段が理想..
 	Toggle_sw 0 "false"
  }
 
- [string]$scroll_text= "" # $csl_box
+ Toggle_label
+
+ # readのみ - Helpため
+ if((Test-Path '.\setting.xml') -eq $True){
+
+	$set_xml= [xml](cat '.\setting.xml')
+
+	Helpxml_read $script:set_xml.table # hash化
+ }
+
+
+ [string]$chk_time= ""
+ [string]$lated_time= ""
+
+ [string]$scroll_text= "" # $csl_box 一つ前の履歴
 
 
  $frm.ShowDialog() > $null
+
 
  # | Out-Null -> > $null # cancel標準出力抑制
 
@@ -1096,7 +1457,24 @@ $wait.Add_Changed({	# event func入れ子は一段が理想..
 	Write-Host '"ERROR: Safety Stopper >> $frm.ShowDialog()"'
 
  }finally{
-	$tray.Dispose() # 必要
+
 	$wait.Dispose()
+	$tray.Dispose() # 必要
  }
+ 
+# ハッシュ名追加の場合 
+# $xml_watch= @'
+# $opt $script:opt
+# function Wthxml_read($x,$y){
+# function Wthwrite_xml($x,$y){
+ 
+#			xml.string 
+#			reset
+#			v
+# xml.file	show->	xml.mem		->hash		->List
+# $val[""]				[key,value]	[key]
+#					foreach etc.
+#
+#		<- ok			<-close
+#		X- cancel
  

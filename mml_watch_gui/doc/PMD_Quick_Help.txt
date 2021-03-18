@@ -1,0 +1,825 @@
+-- PMD_Quick_Help.txt 
+
+-- PMDMML.MANより抜粋、一部加筆しています
+
+-- 当テキストは、構造化エディタで組まれてます。
+ 
+パート指定(Track) 
+
+A	FM
+B	FM
+C	FM(op. Extend)
+D	FM
+E	FM
+F	FM
+G	SSG
+H	SSG
+I	SSG(Rythm K,R)
+J	PCM
+K	Rythm指定(R0~,\V,\v,\l)
+R	Rythm定義(\~)
+ 
+数値の記法 ---- 
+
+	0~9で始まる数値は、10進数
+	$で始まる数値は、16進数
+	%で始まる数値は、clock数
+
+	a[length]
+	a4	Length
+	a%24	clock	(C96)
+
+	q[clock/length]
+	q24	clock	(C96)
+	ql4	Length
+
+
+	基本単位はclock
+
+	C96/ clock:48= l2; C96/4= timebase:24
+	C192/ clock:48= l4; C192/4= timebase:48
+
+ 
+;		comment 
+[tab]		行頭コメント
+[space]		行頭コメント
+
+`~`		範囲コメント
+[全角文字]	コメント扱い
+ 
+ヘッダ////// 
+	
+#Title [str]		曲のタイトル 
+#Composer [str]		作曲者名
+#Arranger [str]		編曲者名
+#Memo [str]		メモ
+ 
+#Filename [file.M]	出力ファイル名 
+
+#PPSFile [file.PPS]	SSGPCMファイル名
+#PCMFile [file.PPC]	JパートのPCM名
+#FFFile [EFFEC.FF]	音色(.FF)ファイル名
+
+#PPZFile [file.pvi]	PPZパートで使用するPCM、
+			(.PVI/.PZI)ファイル名
+
+#Include [file.mml]	#Include行にMMLファイルを読み込む
+
+#Option [/L/S/A/O]	コンパイラオプション
+ 
+#Tempo [18~255]		テンポ指定(C96時、2分音符回数/min) 
+			[->t command]
+
+#Timer [0~250]		TimerB
+			[->T command]
+
+#Zenlen [1~255]		[def.96]全音クロック数
+			[->C command]
+ 
+#LoopDefault [0~255]		def.ループ数[def.0](0で無限) 
+
+#Transpose [-128~+127]		曲全体の転調
+				[->_M command]
+
+#Octave [Reverse,Normal]	"<",">"の反転
+				[->X command]
+
+
+
+ 
+#FM3Extend [XYZなど]		FM音源 3chのパート拡張 
+				(op.を分離して使用する)
+
+#PPZExtend [abcdefghなど]	PPZ8パートの拡張
+
+#DT2Flag [on,off]		音色データにDT2を含む
+ 
+#LFOSpeed [Normal,Extend]	FM,SSG,ADPCソフトウエアLFO、 
+				(Extend: テンポ依存off)
+				[->MX command]
+
+#EnvelopeSpeed [Normal,Extend]	SSG/PCMソフトウエアenv.の速度、
+				(Extend: テンポ依存off)
+				[->EX command]
+
+#Detune [Normal,Extend]		SSGのDetune/LFO、
+				(Extend: キースケーリング)
+				[->DX command]
+
+#Bendrange [0~255]		[def.0]ベンドレンジ
+				[->B command]
+ 
+#Volumedown [FR+16,P+128,S+32]	FM,SSG,PCM,RYTHM音量ダウン 
+				(+で音量下げ)
+
+				FRPS[0~255,-128~+127]
+				[->DF,DS,DP,DR command]
+
+#PCMVolume [Normal,Extend]	PCMパートの"v"値->"V"値の変換、
+				(Extend: V= v×16 -> V= v×v)
+
+
+
+ 
+#ADPCM [on,off]		PMD86専用,音量,ループを合わせる 
+			[->A command]
+
+#Jump [0~65535]		演奏開始小節指定
+			(PMD常駐時のみ)
+  
+定義コマンド////// 
+	
+!	MML変数定義 
+	![string,num,全角文字]
+exp.
+	!abc dfg
+
+	A !abc -> A dfg
+ 
+@	FM音色定義 
+	; comment
+	= 一行コメント(音色定義でのみ)
+exp.
+
+;num alg fbl
+@000 002 007 = Harpsic
+; ar  dr  sr  rr  sl  tl  ks  ml  dt ams
+ 031 012 004 010 001 032 000 012 000 000
+ 031 002 004 006 015 057 003 015 001 000
+ 031 012 004 006 000 030 000 001 000 000
+ 031 005 007 007 002 000 002 003 005 000
+  
+MML command////// 
+	
+t	テンポ 
+	t[18~255,相対+,-]
+
+	clock:48の回数/min
+
+	(C96 -> l2の回数/min)
+	(C192-> l4の回数/min)
+
+	t+10; テンポ値を +10
+
+T	テンポ(TIMER-B)
+	T[0~255,相対+,-](def.200)
+
+	T+10; Timer-B値を +10
+
+
+C	全音符のカウント
+	(全音のtimebase設定)
+
+	C[1~255](def.96)
+ 
+a~g	音程 
+	a[length]
+	a4
+	a%24
+
+x	前の音程利用
+	a4x4 -> a4a4
+
+a+	#
+	a++ -> b
+a-	b
+a=	ナチュラル
+a.	付点
+	a2.. -> a2&a4&a8
+
+a +,a -	送り,戻し音符(l4al-8 -> a8)
+	l4a -8	-> a8
+	a4-8	-> a8
+	(a4 -4だとエラー)
+
+a^	乗算音符(l4al^4	-> a1)
+	l4a^4	-> a1
+	a4^4	-> a1
+
+a =	記法のバリエーション(l4al=2 -> a2)
+	l4a =2	-> a2
+	a4=2	-> a2
+ 
+&	タイ	(直前音符keyoffなし) 
+	a2&8
+	a2&a8
+	(-> a2+8と同じ)
+
+&&	スラー	(直前音符keyoffあり)
+ 
+{~}	ポルタメント(sweep) 
+	{cg}4
+	{cg}4,8 -> c8&{cg}8
+ 
+{{ }}	分散和音 
+	{{~}}[len1(,len2,tai,gate,cycle)]
+
+	len1	全体の長さ[length]
+	len2	音符一つの長さ(def:%1)
+
+	tai	[0,1] off,on (def:1)
+	gate	(def.0)
+	cycle	(def.+-0))
+
+	tai(_flag)は、音符の後、タイ(&)のon,off
+	gate(_time)は、最後をclock分、休符とする
+	cycle(_volume)は、一周時の変化量(Vコマンドレベル)
+
+exp.	{{<a>e}}1,%6,,,-1; (ラミの高速アルペジオ(6clock))
+ 
+r	休符 
+	r[length]
+	r4
+	r%24
+ 
+o	oct.		o[1~8](def.4) 
+
+o+,-	絶対加減oct.	o[-7~+7]
+
+<,>	相対加減 down,up
+	(※再ループ時、メモリ維持(加減算)しない)
+
+	exp. [a>]4 -> aaaa
+
+
+X	"<",">"の反転
+ 
+l	音長(def:4) l[length] 
+
+l.	付点
+	l2..a -> a2..
+ 
+Q	ゲート1 
+	Q[0~8,%0~%255](def:8)
+
+q	ゲート2
+	q[clock/length](def:0)
+	q[0~255/l1~l255]
+
+	exp.
+	q10	10clock減算
+	q10-6	q10,q9,q8,q7,q6までのrandom.clock減算
+
+	ql8 a2	-> Q6 a2 と同等
+
+	ql4-l8,l16 a8 -> Q4 a8 相当
+	(l4~l8ゲート数rdm.clock減算、保証ゲートはl16)
+ 
+v	音量1 
+	SSG	v[0~15]
+	FM	v[0~16]
+
+V	音量2
+	FM	V[0~127]
+	PCM	V[0~255]
+	SSG	V[0~15]
+
+ 
+v+,v-	V 絶対加減	v[-128~+127] 
+v),v(	v 絶対加減	v)[0~16]
+	v)3;
+
+),(	相対加減	)[0~255] //(def:1)
+)%,(%	相対加減(Vコマンドレベル)
+	)3;
+
+)^,(^	一時加減	)^[0~255] //(def:1)
+)^%,(^%	一時加減(Vコマンドレベル)
+	)^3;
+ 
+@	音色 
+	@[num]
+
+	ABCDEF	FM	[0~255]
+	GHI	SSG	[0~9](音色env.選択)
+	R	Rythm	[0~16383]
+
+	(※SSGRythm指定,PPS常駐時はSSGPCM)
+	@1	Kick
+	@2	Snare Drum 1
+	@4	Low Tom
+	@8	Middle Tom
+	@16	High Tom
+	@32	Rim Shot
+	@64	Snare Drum 2
+	@128	Hi-Hat Close
+	@256	Hi-Hat Open
+	@512	Crash Cymbal
+	@1024	Ride Cymbal
+
+exp.	(SSGPCMでは、各値を足して同時に鳴らせる)
+	(※a~gでon,rはmute)
+
+K	\V63 [[R0:R1]2 R2]2
+R0	l8 @129c@128c@2c@129c  @1c@128c@2c
+R1	@1024c
+R2	@256c
+
+
+	J	PCM
+	@[num(,start,end,release)]
+
+	num	[0~255]
+
+	address(波形のenv.に合わせてaddressを指定)
+	start	[-32768~+32767]
+	end	[-32768~+32767]
+	release	[-32768~+32767]
+	(+値は前からのaddress、-値は後から)
+
+	@num		one shot
+	@num,start	loop(st.~FileEnd)
+	@num,start,end	loop(st.~endをkey offでも保持)
+
+	exp.
+	J	@0,100,-50,-50
+ 
+P	Tone,Noise選択 
+	P[num]
+
+	GHI	SSG	[1,2,3](tone,noise,tone+noise)
+	H(OPM op.4) FM	[1,2](tone,noise)
+
+
+w	Noise周波数
+	w[num]
+
+	GHI	SSG	[0~31,-31~+31](high:0~low:31)
+	H(OPM op.4) FM	[0~31,-31~+31]
+
+
+O	FM TL値
+	O[slot,TL]
+
+	TL[0~127,-128~+127]
+
+	O3,10; op.1,2 TL値:10
+	O5,-2; op.1,4 TL値から:-2
+
+
+FB	FM FB値(op.1feedback)
+	FB[0~7,-7~+7]
+
+	FB3; FB値:3
+	FB-2; FB値から:-2
+ 
+s	FMスロット(op.)選択 
+	(#FM3Extend時)
+	s[num]
+
+	Slot1: 1
+	Slot2: 2
+	Slot3: 4
+	Slot4: 8
+
+exp.	#FM3Extend X
+	C	s3;  op.1,2
+	X	s12; op.3,4
+ 
+SE	SSG-EG指定 
+
+	SE[slot,value]
+	value	[0,8~15](EG type)
+
+	(SE15,0で解除、全スロット初期化)
+
+	SE3,10; op.1,2 EGtype:10
+ 
+E	ソフトウェアエンベロープ指定 
+	ADSR		E1,-2,2,1
+	AttackLength,DecayDepth,SustainRate,ReleaseRate
+
+	ADSR SL (AL)	E31,18,4,15,2(,[def.0])
+	AttackRate,DecayRate,SustainRate,ReleaseRate,SustainLevel,AttackLevel
+
+EX	エンベロープ速度
+	EX[0,1](テンポ依存,速度一定)
+ 
+_+,-	絶対転調 
+	_[-128~+127]
+
+__+,-	相対転調
+	(※再ループ時、メモリ維持(加減算)する)
+	exp. [a __+12]4 -> a>a>a>a
+
+
+_M+,-	マスター転調
+	_M[-128~+127]
+ 
+_{+~}	# 移調 
+_{-~}	b
+_{=~}	ナチュラル
+	_{-eab} <- Min scale
+ 
+D	デチューン 
+	D[-32768~+32767](def:0)
+
+DD	相対デチューン
+	DD[-32768~+32767]
+
+
+sd	デチューン(FM音源3chパート専用)
+	sd[slot,value]
+
+	value	[-32768~+32767]
+
+	sd6,-4; (op.2,3 detune:-4)
+
+
+sdd	相対デチューン
+	sdd[slot,value]
+
+	value	[-32768~+32767]
+
+
+DX	SSG detune/LFOキースケーリング
+	DX[0,1](off,on)
+
+B	ベンド幅(主にmidiインポート用)
+	B[0~255]
+
+I	ピッチ設定(上に同じ)
+	I[-32768~+32767]
+
+DM	マスターデチューン
+	DM[-32768~+32767]
+ 
+S	装飾音符 
+	S[speed(,depth,tai_flag)]
+
+	speed		[clock/length](0:off)
+	depth		[-128~+127](def:-1)
+	tai_flag	[0,1](off,on)(def:1)
+	(S0で解除)
+
+	exp.
+	S2,-2 e8 -> d%2 & d+%2 & e%10
+
+	S4,-3 a2 e2
+
+
+W	擬似エコー(単音エコー)
+	W[delay(,depth,tai_flag)]
+
+	delay		[clock/length](0:off)
+	depth		[-128~+127,%-128~%+127](def.-1)
+	tai_flag	[0~3](def.0)
+	(W0で解除)
+
+	depth
+	通常は、vコマンドレベル
+	%指定時、Vコマンドレベル
+
+	tai_flag
+	0 :持続		タイoff
+	1 :持続		タイon
+	2 :one shot	タイoff
+	3 :one shot	タイon
+
+	exp.
+	W8,-2 a4 -> a%8 (^2 a%8 (^4 a%8
+
+	W24,-3 a2 e1
+
+
+sk	スロットのkeyonディレイ(FM音源部でのみ)
+	sk[slot,delay]
+
+	slot	[0,1~15](0:off)
+	delay	[clock/length]
+	(sk0で解除)
+
+	sk12,l8; (slot3,4を、8分音符分keyonを遅らせる)
+ 
+M,MA	LFO1 
+MB	LFO2
+
+	M[delay,speed,depthA,depthB]
+
+	delay	[clock/length]
+	speed	[0~255](1/num周期)
+	depthA	[-128,+127](振幅)
+	depthB	[0~255](波長)
+
+	exp.
+	M0,1,24,6 MD1,1 MW1 *1 a1
+
+MW,MWA	LFO波形
+MWB
+	MW[0~6]
+
+	0 :三角波1(def.)
+	1 :ノコギリ波
+	2 :矩形波
+	3 :ランダム波
+	4 :三角波2(トレモロ／ワウワウ/アーミングなど)
+	5 :三角波3(深い三角波)
+	6 :ワンショット
+
+
+*,*A	LFOスイッチ
+*B
+	*[valueA(,valueB)]
+	*B[valueB(,valueA)]
+
+	valueA,B
+	0: LFO off(def.0)
+	1: 	音程LFO on,キーオンsync.on
+	2: 	音量LFO on,キーオンsync.on
+	3: 音程&音量LFO on,キーオンsync.on
+
+	4: LFO.off
+	5: 	音程LFO on,キーオンsync.off
+	6: 	音量LFO on,キーオンsync.off
+	7: 音程&音量LFO on,キーオンsync.off
+
+
+MM,MMA	LFO slot指定(FM音源パート専用)
+MMB
+	MM[0,slot](def.0)
+	0: 音量LFOはキャリアのみ音程LFOは全てのop.へ
+
+	C M0,1,48,12 *2 MM3 a1; (TL値のスライド)
+	(alg4でop.1,2で音色変化)
+
+MX,MXA	LFO速度
+MXB
+	MX[0,1](def.0)(テンポ依存,速度一定)
+
+
+
+MD,MDA	LFO深さ(depthA)のフェアリング
+MDB
+	MD[cycle(,depth,time)]
+	cycle		[0~255]
+	depth		[-128~+127](0cycle時のみ省略可)
+	time		[0~127](def:0)(0で無限)
+	(MD0で解除)
+
+	cycle周期毎、depthAを変化させ、time回繰り返す
+
+	depth値は、LFOのdepthA(振幅)の符号に関らず、
+	+で深い方向、-で浅い方向へと変化
+
+	MD2,1;	(LFO 2cycleで、depthAを 1+)
+	MD3,2,4;(LFO 3cycleで、depthAを 2+、4回繰返し)
+ 
+MP,MPA	[def.0] 上昇/下降専用 
+MPB
+	MP[depth(,delay,speed)]
+
+	depth	[-128~+127]
+	delay	[clock/length](def:0)
+	speed	[0~255](def:1)
+
+	exp.
+	MP-80; ドラムパートに下降LFO
+
+	MP4,0,3 a2 MP-8,0,2 e1
+ 
+H	ハードウェアLFO 
+	PMS,AMSを設定(OPNA/OPM専用)
+
+	H[pms(,ams,delay)]
+	PMS(音程への速さ)[0～7]
+	AMS(音量への速さ)[0～3](def.0)
+	Delay(Keyonから掛かるまでの時間)[clock/length]
+
+	H6,2,l4; (PMS:6,AMS:6,delayを4分音符長)
+
+
+#	ハードウェアLFOのon/off
+	FM音源パート(A~F)で共通の値(OPNAのFM音源専用)
+
+	#[switch,depth]
+	switch	[0,1](off,on)(def:0)
+	depth	[0~7](switch= 0の時のみ省略可)
+	(#0で解除)
+
+	#1,6; ハードウェアLFOをonにし、深さ6に設定
+
+
+##	ハードウェアLFOの周波数、波形、深さ設定 (OPM)
+	FM音源パート(A~I)で共通の値(OPMのFM音源専用)
+
+	##[LFOfreq,Waveform,PMD,AMD]
+
+#f	LFOfreq(周波数)		[0~255]
+#w	Waveform(波形)		[0~3]
+#p	PMD(音程への深さ)	[-64~+63]
+#a	AMD(音量への深さ)	[0~127]
+
+	##100,0,20,10;
+	LFO_FRQを100、Waveformを0、PMDを+20、AMDを10とする
+
+
+#D	ハードウェアLFOのディレイ
+	Hコマンド第3パラメータの単独指定
+	#D[clock/length]
+
+	#D24; l4(C96時)経ってハードウェアLFOが掛かる
+ 
+p	パン1 
+	p[0~3]
+
+	FM(OPNA),PCM(AD,PPZ)	1 :右
+				2 :左
+				3 :中央(def.)
+
+	FM(OPM),PCM(68)		1 :左
+				2 :右
+				3 :中央(def.)
+
+	PCM(86)			1 :右
+        			2 :左
+				3 :中央(def.)
+				0 :逆相
+
+px	パン2
+	px[num1,num2]
+
+	PCM(86,PPZ)パートで
+	使用した場合に限り、細かい指定が可能
+
+	PCM(86)	num1	[-128~-1] :右寄り
+        		[+1~+127] :左寄り
+			0	  :中央(def.)
+		num2	0	  :正相
+			1	  :逆相
+ 
+y	レジスタ出力 
+	y[address,data]
+
+	address	[0~255]
+	data	[0~255]
+
+	y$58,7 -> FM1ch目,slot2の ARを 7
+
+
+*	PDR(driver)制御(K/Rパート専用)
+	*[0~5]
+
+	0: DoubleMode
+	1: SingleMode
+	2: 16KHz Mode
+	3:  8KHz Mode
+	4:    EI Mode
+	5:    DI Mode
+
+	*0 -> PDRを Double Modeに設定
+ 
+A	PCM仕様選択 
+	A[0,1]
+	0: PMD86ノーマル仕様
+	1: PMDB2に合わせる仕様 (音量、ループ指定が変わります)
+
+N	FM効果音発音
+	N[0~255]
+	(N0で解除)
+
+
+n	SSG効果音発音
+	n[0~255]
+
+	SSG効果音	[1~127]
+	SSGPCM効果音	[128~255](+128の値)(PPS常駐時)
+	(n0で解除)
+
+
+Z	[def.96]小節長さ(組み込み同期など)
+	Z72; (C96時)3/4拍子である
+
+
+~	Status1への数値書込み組み込みため
+	~[0~255,-128~+127]
+
+
+ 
+R	Rythmパターン 
+	R[0~255]
+
+
+\b \s \c \h \t \i	Rythm音源を出力
+\bp \sp \cp \hp \tp \ip	Rythm音源の停止
+
+	(※YM2608 Rythm指定)
+	b: Kick
+	s: SnareDrum
+	c: Cymbal
+	h: Hi-Hat
+	t: Tom
+	i: RimShot
+
+exp.	(※rでclockを送る)
+
+K \V63\vb31\vs31\vc27\rs\lc R0
+R0 l8 [\c\br \hr16\cpr16 \sr \br  \br \hr \sr \hr]4
+
+
+
+\V	Rythm音源マスタボリューム(Kパートも可)
+	\V[0~63,相対+,-](def:48)
+
+	\V63; マスターボリュームMAX
+
+
+\vb \vs \vc \vh \vt \vi	Rythm音源個別音量
+	\vs[0~31,相対+,-]
+
+	\vb25; Kickの音量を 25
+
+
+\lb \ls \lc \lh \lt \li	Rythm音源のパン
+\mb \ms \mc \mh \mt \mi
+\rb \rs \rc \rh \rt \ri
+
+	l	Left(左)
+	r	Right(右)
+	m	Center(中央)
+
+	\lh; Hi-Hatの出力を左に設定
+ 
+m	パートマスク(TrackMute) 
+	m[0,1](off,on)
+
+	m1; パートマスクon
+
+
+F	フェードアウト	F[0~127]
+
+
+DF DS DP DR	音源別音量ダウン
+
+	DF[0~255,-128~+127]
+
+	DF: FM音源
+	DS: SSG音源
+	DP: PCM音源
+	DR: Rythm音源
+
+	G [cdefgab>c< DS+16]8;
+
+	(SSG音源全体が 1ループする毎、
+	音量が段々下がる)
+ 
+!	定義変数読込み 
+
+	exp.
+	!abc	@0<a>
+	!123	@1c
+	!全角	@2e
+
+	A	!abc !123 !全角
+	-> @0<a> @1c @2e
+
+ 
+L		全体ループ 
+
+
+[ : ]num	局所ループ
+
+		※再ループ時、メモリ維持(加減算)しない項目
+		o >< X :oct.関連
+		l :音長
+		S :装飾音符
+		W :擬似エコー
+		C :全音符長
+		_{ } :移調
+
+ 
+/	コンパイル打ち切り 
+
+
+"~"	MMLスキップ制御1
+	音長あるコマンドがスキップ
+
+	exp.
+	" ;skip start
+	A	@0 v13 o5 cde
+	B	@1 v13 o4 ccc
+	" ;skip stop
+	A	 gfd
+	B	<ggg>
+
+	->A	@0 v13 o5  gfd
+	  B	@1 v13 o4 <ggg>
+
+
+'	MMLスキップ制御1
+	スキップ状態を、強制的に終了
+
+	exp.
+	G	"t80 v12 cder'def"
+	->G	t80 v12 def
+
+
+|	パート限定指定
+|!	指定したパート以外のパートに限定
+
+	exp.
+	ABC @12v11o4l2 |A D0ccd |B D3efg |C D-3gab |!C >c& |C g4e4 | c
+
+	->A @12v11o4l2 D0 ccd >c&  c
+	  B @12v11o4l2 D3 efg >c&  c
+	  C @12v11o4l2 D-3gab g4e4 c
+  

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<table>
+	<!-- タグ value -->
+	<val>
+		<mmlfile value="C:\Documents and Settings\sl(4\デスクトップ\テンプファイル\mml_watch\mml_watch_gui\sample\pmd\ダブル-5th.mml" />
+		<compiler value="C:\Programs\Tools\Arc\nsdlib130\bin\nsc.exe" />
+		<player value="C:\Programs\Tools\Media\Winamp\winamp.exe" />
+		<dmcdir value="" />
+		<editor value="C:\Programs\Tools\Text\Mery\Mery.exe" />
+		<dos value="C:\Programs\Tools\Arc\msdos\source\binary\i486_x86\msdos.exe" />
+	</val>
+	<opt>
+		<option value="10000 00000, 01200 11000, 01000 00000" />
+		<radio_bin value="nsd" />
+		<chk_dos value="Checked" />
+		<chk_stop value="Checked" />
+		<chk_thru value="Unchecked" />
+		<chk_auto value="False" />
+		<edt_open value="False" />
+		<chk_tray value="False" />
+		<chk_topmost value="False" />
+	</opt>
+</table>

@@ -1,8 +1,8 @@
-'@ FC 1
+﻿'@ FC 1
     AR  DR  SR  RR  SL  TL  KS  ML DT1 DT2  AM
-'@ %op1_param
-'@ %op2_param
-'@ %op3_param
-'@ %op4_param
+'@ %op1_param%
+'@ %op2_param%
+'@ %op3_param%
+'@ %op4_param%
    ALG, FB
-'@ %af_param
+'@ %af_param%

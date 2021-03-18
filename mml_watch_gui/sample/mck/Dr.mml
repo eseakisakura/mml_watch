@@ -1,0 +1,30 @@
+#EX-MMC5 
+
+@EP10= { -127 -127 -127 -127  -127 -127 -127 -127  -64 -64  -64 -64  | 0 }
+@EP0= { -127 -127 -127 -127  -64 -64  | 0 }
+
+@v20= { 15 15 15  15 15 15  12 12 10 10  8 8  6 6 6 6  4 4 4 4  2 2 2 2 2 | 2 }
+@EP20= { 8 2 1 1 1 1   | 0 }
+
+@v30= { 8 8 8  8 8 8  6 6 6 6  4 4 4 4  2 2 2 2 2 | 2 }
+@EP30= { 5 4 2 2 1 1  | 0 }
+
+
+ABabCD t154
+ABab @1 o4 l2 v12 q8
+
+//A l12 [[b-rfd-  ^e- | f^  ff^f]2 f^  ^^^^ ]4
+
+
+C l8 o9 [ //BD
+C [EP0b EP10frr	rEP0brEP10f]3
+C  EP0brrEP10f	rEP0brEP10f
+C ]2
+
+
+D  EP30 l8 o9 [ //Sn
+D @v30EP20er@v20EP20er16@v30EP20e16	r16@v30EP30e16@v30EP20e@v20EP30e@v30EP30e
+D @v20EP20e@v30EP30e@v20EP20er16@v30EP30e16	@v20EP30e16@v30EP20e16r@v20EP20e16@v30EP20e16@v30EP20e
+D @v30EP30er@v20EP20er16@v30EP30e16	r16@v30EP30e16@v30EP20e@v20EP30e@v30EP30e
+D @v30EP30e@v20EP20e@v20EP30er16@v30EP30e16	r16@v30EP30e16r16@v30EP20e16@v20EP20e@v20EP30e
+D ]2

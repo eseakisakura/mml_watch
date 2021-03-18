@@ -1,16 +1,16 @@
-﻿; track_parameter %% @1 q8 l8 v15%%
+﻿; track_parameter %%q6 l8 v16 @1%%
 
-A C192 t150 
+ABCD C192 t150 
 ; replace parameter
-%tr_param
-%mml_param
+%tr_param%
+%mml_param%
 
 ; NM ALG  FB
-@001   5   4
+@001   4   0
 ; AR  DR  SR  RR  SL  TL  KS  ML  DT AMS
-  30   7   7   7   7  40   0   4   0   0
-  30   7   7   7   7  20   0   2   0   0
-  30   7   7   7   7  20   0   2   0   0
-  30   7   7   7   7  20   0   2   0   0
+  31   7   7   7   7  40   0   6   0   0
+  31   7   7   7   7  10   0   2   0   0
+  31   7   7   7   7  40   0   6   0   0
+  31   7   7   7   7  10   0   2   0   0
 
  

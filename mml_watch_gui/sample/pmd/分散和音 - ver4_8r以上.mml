@@ -1,4 +1,4 @@
-GHI t150 l1 q8 o5 
+GHI t150 l1 Q8 o5 
 G r%4
 H r%7
 I r%1 <
@@ -26,7 +26,7 @@ G {{cg}}1,%9,1,0,-1
 H {{e-b-}}1,%9,1,0,-1
 I {{df}}1,%9,1,0,-1
 
-A @1 v12 l4 q6 o3 [grra grrr]2
+A @1 v12 l4 Q6 o3 [grra grrr]2
 
 ; NM ALG  FB kick
 @001   5   6

@@ -3,49 +3,57 @@
 
 　-- 当テキストは、構造化エディタで組まれてます。
 
-　ちなみにスクリプト側も構造化エディタ対応です。--
+　スクリプトも構造化エディタ対応です。--
 
 
  
 　　□ 概要 
 
 
-　MML仕様のチップチューンコンパイラ、ppmck,NSDlib,PMDのために、
-　ファイル変更監視をするためのユーティリティです。
+　MMLによるchiptuneコンパイラのフロントエンドです。
+、"ppmck","NSDlib","P.M.D"へ対応します。
 
 　mmlファイルの更新チェック、コンパイル、再生までを提供します。
 
-　非同期(イベント)仕様で組まれたPowerShellとなっており、
+  非同期(イベント)で組まれたPowerShellで、
 　環境に依存せずに、運用できるようになっています。
+　(レジストリは使わず、xml環境ファイルとして書き出しています。)
 
 
-　XP、win10で確認、多分他のOSでも可です。
+　XP+ powershell2、win10+ powershell5にて確認、
+　多分他のOSでも可です。
 
 　Watch.cmdでの起動であれば、
 　.NET Framework3.5以上(CLR:共通言語ランタイム2.0)、
 　PowerShell2.0(WMF:WindowsManagementFramework2.0)以上なら動くと思います。
 
 　mml_watch.exeでの起動の場合、.NET Framework4.0以上が必要となります。
-
-
-
  
 　　□ 注意点について 
 
 
-　・PawerShellは起動時、.NET Frameworkモジュールの読込みに幾分かかります。
-　　(読み込まれればそこそこ速いです。)
+　・PawerShellは起動時、.NET モジュールの読込みに幾分かかります。
+　　(XPの場合のみ)
+
+　・MMLファイルの文字コードは、"shiftJIS"のみ対応します。(mmlコンパイラの仕様)
+　　("UTF8bom無し"でもコンパイル自体はできます。[日本語は文字化けします])
+　　エディタなどで、文字コードを変換する必要があります。
 
 
-　・MML,DPCMやInclude各ファイルは、多分何処に置いてあっても対応しますが、
-　　コンパイラについては、空白のないパス上が望ましいです。
+
+　・MMLやDPCM,Include各ファイルは、何処のパス上でも対応しますが、
+　　各コンパイラについては、空白のないパスが望ましいです。
+
+　・ppmckのmmlファイル名、及びパス上に、defaultを含むと、
+　　"String too long! # 1 error(s)"と、発行され ppmckが固まります。
+　　"default_new.mml"のようなファイル名は、できるだけ避けて下さい。
+
 
 
 　・NSDlibにおいて、MMLファイル内の#code記述※ の変更が必要な場合があります。
+　　(#code "../../bin/nsd_all.bin" などの指定で上手く読めないことがある)
 
-　　#code "../../bin/nsd_all.bin" などの指定で上手く読めない時は、
-　　#code "nsd_all.bin" 左記のように指定して下さい。
-　　(nsdlib\binに端末カレントがあっても、各binの認識がうまくいかないことがある)
+　　※ #code "nsd_all.bin" 左記のように指定して下さい。
 
 
 　・どうしても起動できない場合、scriptフォルダにある、
@@ -66,13 +74,13 @@
 　　　サブウィンドウを開きます。
 
 
-　2.　サブウィンドウの binタブを選択します。
+　2.　サブウィンドウの binaryタブを選択します。
 
-　　　NSDlibのコンパイラ本体、nsc.exe(binフォルダにある)を、
+　　　NSDlibのコンパイラ本体、(binフォルダにある)"nsc.exe"を、
 　　　リストボックス内へ、Drug&Dropで登録し、正しいパス設定にします。
 
 　　　同じように playerタブを選択します。
-　　　プレイヤーexeファイルをD&Dで登録、パスを設定します。
+　　　プレイヤー"exeファイル"をD&Dで登録、パスを設定します。
 
 　　　OKボタンを押し、サブウィンドウを閉じます。
 
@@ -102,36 +110,15 @@
 　　------ メインウィンドウ 
 
 
-　・エディタ
-
-　指定されたMMLファイルをエディタで開きます。
-
-
-　・最前面表示トグル
-
-　最前面表示のスイッチです。
-
-
-　・自動リスタート
-
-　オレンジランプで、監視再開時に自動リスタートとなります。
-　ブルーランプでは、監視再開時にリスタートしません。
-
-
-　・環境設定
-
-　環境設定のサブウィンドウを開きます。
-
-
-
-　　・本体パネルの説明
+ 
+　　・本体パネル 
 
 
 　本体パネルは、ファイルドロップによる、
-　mmlファイルの指定が可能です。
+　mmlファイルの登録が可能です。
 
 
-　・メインボタン
+　・ボタンスイッチ
 
 　MMLファイル監視のトグルスイッチです。
 　(ラベル上でクリックしても同じ役割を果たします。)
@@ -141,37 +128,77 @@
 
 
 
-　・上部メインテキストボックス
+　・上部テキストボックス
 
 　今の稼働状態やエラー表示をします。
 
 
-　・下部サブテキストボックス
+　・下部テキストボックス
 
 　環境設定時の情報、及び
 　コンソールアプリケーションの出力を表示します。
 
+ 
+　　・メニュー 
+
+
+　・エディタ
+
+　指定されたMMLファイルをエディタで開きます。
+
+
+　・フォルダ
+
+　MMLファイルのあるフォルダを開きます。
 
 
 
+　・起動時、エディタオープン
+
+　起動する時、MMLファイルをエディタで開きます。
+
+
+　・開始時、自動リスタート
+
+　オレンジランプで、監視再開時に自動リスタートします。
+　ブルーランプでは、リスタートしません。
+
+
+　・環境設定
+
+　環境設定のサブウィンドウを開きます。
+
+
+
+　・ヘルプ - Quick Help
+
+　各mmlコンパイラのコマンドリストの Quick Helpと、
+　mml watch のヘルプです。
+
+　(構造化エディタ"sted.exe"が、エディタとして登録されていれば、
+　"sted.exe"でヘルプファイルを開きます。)
 
 
 
  
 　　------ サブウィンドウ[環境設定] 
 
-　・設定リセット
+
+　・新規ファイル
+
+　テンプレートから新規mmlファイルを保存し、
+　mmlリストへ登録します。
+
+
+　・環境リセット
 
 　XML環境ファイルを、初期状態へ戻します。
 　(仮の相対パスへ初期化します。)
 
 
-　・PMD Option
+　・Option - Coomand(line)option
 
-　OPN,OPM,OPL,TOWNS の選択ができます。
-　基本的にOPN による運用を想定しています。
-
-　(プレイヤー側が、主にOPNA対応のため。)
+　オプションウィンドウを開きます。
 
 
 
@@ -180,8 +207,7 @@
 
 　・mmlタブ
 
-
-　編集したいMMLファイルの登録します。
+　編集したいMMLファイルをDrug&Dropで登録します。
 
 
 　includeファイル、DeltaPCM(差分PCM)ファイルのあるフォルダを登録します。
@@ -189,17 +215,16 @@
 　(NSDlibは、DPCM指定がなくても自前で探しますが、
 　ppmckではmml構文に、[dmc include]指定がある場合、登録必須となります。
 
-　普通はmmlファイル近辺にデルタPCMを置くため、この指定フォルダを登録して下さい。)
+　mmlファイル近辺にデルタPCMを置き、当該フォルダを登録します。)
 
 
 　・binタブ
 
-
 　コンパイラ[mck,NSD,PMD] をラジオボタンで選択します。
 
-　ppmckであれば、binフォルダにある ppmckc.exeファイル、
-　NSDlibであればbinフォルダにある nsc.exeファイル、
-　PMDあれば、MC.EXEファイル
+　ppmckであれば、binフォルダにある "ppmckc.exe"
+　NSDlibであればbinフォルダにある "nsc.exe"
+　PMDあれば、"MC.EXE"
 
 　をそれぞれ登録して下さい。
 
@@ -207,23 +232,22 @@
 
 　・playタブ
 
-
 　リストボックスへ、各プレイヤーを登録します。
 
 
 　　-- STOPチェックボックス
 
-　　コンパイル時、STOPコマンド[/s]を送るものです。
+　　コンパイル時、先んじてSTOPコマンド[/stop]を送ります。
 
-　　winamp, nsfplay2.3では、チェックをonにします。
+　　"foobar2000, winamp, nsfplay2.3"では、
+　　チェックをonにします。
 
-　　nsfplay2.4, VirtuaNSF, FMPMD2000, FMP7の場合は、
-　  チェックoffで使用して下さい。
+　　"nsfplay2.4, VirtuaNSF, FMPMD2000, FMP7"の場合は、
+　  チェック"off"で使用して下さい。
 
 
 
 　・dosタブ
-
 
 　64bitOS(x64環境)下で、PMDを使用する場合に必要となる、
 　MSDOS player (msdos.exe) を登録します。
@@ -241,6 +265,8 @@
 
 　エディタ登録ボックスです。
 
+　Sted.exe(構造化エディタ)をエディタ登録しておくと、Helpは、
+　Sted.exeを優先して起動します。
 
 
 　・各タブ共通の、リストボックス仕様
@@ -253,7 +279,18 @@
 
 
  
+　　------ オプションウィンドウ 
+
+
+　ppmck,nsdlib,pmdへコマンドラインスイッチを付与します。
+
+　nsdlibの -a[アセンブル], -x[NSFe]は、
+　ファイル出力のみです。(再生されるファイルは、nsfとなります。)
+
+
+ 
 　　□ Tips 
+
 
 　・PowerShellショートカットによる、mml_watchの起動
 
@@ -282,15 +319,6 @@
 　　　という意味です。
 
 
-　　　(将来的に、PS7.0へ統合されたときは、
-　　　以下のようにオプションを打つ必要があるかもしれません。)
-
-　　　powershell.exe -ExecutionPolicy RemoteSigned -Sta -Version 5 -Command -File .\mml_watch.ps1
-
-　　　-Version 5 -Command  PSのバージョンを指定し、これを使い実行という意味です。
-
-
-
 　　　------ これ以降の設定は、お好みの指定です。
 
 
@@ -302,40 +330,34 @@
 
 
 
-　以上で終了です。このショートカットであれば、
-　何処に置いても、通常起動できると思います。
+　以上で終了です。
+　このショートカットであれば、何処に置いても、通常起動できると思います。
 
 
  
 　　□ Tips 
 
-　・Meryの外部アプリ登録による、mml_watchの起動
+
+　・新規ファイルのテンプレートを変更したい
+
+　環境設定パネルから、File - Advanced から、
+　エディットします。
+
+　"MCK new edit"は、ppmckのテンプレート、
+　"NSD new edit"は、nsdlib、
+　"PMD new edit"は、pmdとそれぞれ対応します。
 
 
-　ps1本体ではなく、ショートカット自体を登録することで、
-　エディタ側からmml_watchを呼び出します。
+　"\mml_watch_gui\script\new"
 
-
-　1. .lnkまでの絶対パスを確認する
-
-　　　"mml_watch.ps1 へのショートカット.lnk" までの絶対パスの確認をします。
-
-　　　(ひとつ上のTipsで作成したショートカット本体までの絶対パスである、
-　　　[(～\mml_watch_gui)\mml_watch.lnk] (.lnkまでを含む)となります。)
-
-
-　2.　Meryの外部ツールコマンドとして登録
-
-　　　この絶対パスをコマンドに書き込みます。
-　　　引数指定は、"$(Path)" (引用符込みで) とします。
-
-
-　準備は以上です。
-　各種Editorの外部アプリ登録でも、同じ要領で起動できるはずです。
+　newフォルダにある各ファイルを、直接エディットすることでも、
+　新規ファイルのテンプレートを変更できます。
+　(文字コードは、shiftJISとなります。)
 
 
  
 　　□ Tips 
+
 
 　・64bitOSに対応したMC.EXEをつくる(中級者向け)
 
@@ -352,7 +374,7 @@
 　これを、binタブのPMDに直接登録します。
 
 　この際必ず、dosタブのx64対応のチェックを外して下さい。
-　(msdos.exeを経由する必要がなくなるため。)
+　(msdos.exeを経由する必要がないため。)
 
 
  
@@ -383,8 +405,17 @@
 
 
  
-　　□ 各種ダウンロード先 
+　　□ 謝辞 / 参照 / ダウンロードリンク 
 
+
+　必要となるプログラムを、以下のリンクから、
+　ダウンロードして下さい。
+
+　紙面上ではありますが、素晴らしいプログラムが、
+　あることによりmml_watch_GUIは成立します。謝々
+
+
+　　MMLコンパイラ -------
 
 　・ppmck / h7 様
 　　http://ppmck.web.fc2.com/ppmck.html
@@ -392,26 +423,46 @@
 　・NSDlib / Ｓ．Ｗ．様
 　　http://shaw.la.coocan.jp/nsdl/
 
-　・P.M.D / KAJA 様
+　・P.M.D & PMD98用 Preset FM音色セット/ KAJA 様
 　　http://www5.airnet.ne.jp/kajapon/
 
+
+　　音源プレイヤー ------
 
 　・nsfplay+nsfplug / bbbradsmith 様
 　　https://github.com/bbbradsmith/nsfplay/releases
 
+　・FMPMD2000 & PMDWin.dll / Ｃ６０ 様
+　　http://c60.la.coocan.jp/index.html
+
+　・FMP7(PMDWin.dll必須) / Guu様
+　　http://archive.fmp.jp/
+
+　・MDPlayer(runtime x86 VC++12,15必須) / Kuma様
+　　https://kuma4649.github.io/index.html
+
+
 　・Winamp-plugin NEZplug++ / OffGao 様
 　　http://offgao.net/program/nezplug++.html
 
-　・FMPMD2000 / Ｃ６０ 様
-　　http://c60.la.coocan.jp/index.html
+　・Winamp-plugin FMP/PMD input plugin(PMDWin.dll必須) / RuRuRu 様
+　　http://www.vesta.dti.ne.jp/tsato/index.html
 
-　・FMP7 / Guu様
-　　http://archive.fmp.jp/
 
+　・foobar2000-plugin NSF input / RuRuRu 様
+　　http://www.vesta.dti.ne.jp/~tsato/soft_fb2k.html
+
+
+　　DOSプレイヤー ------
 
 　・MS-DOS Player for Win32-x64 / TAKEDA toshiya 様
 　　http://takeda-toshiya.my.coocan.jp/msdos/index.html
 
+
+　　Quick Help表示エディタ ------
+
+　・構造化エディタ sted / 松崎 暁 様
+　　https://www.vector.co.jp/soft/win95/writing/se058548.html
 
  
 　　□ 免責事項 /使用条件 /著作権など 
@@ -422,6 +473,11 @@
 　・当スクリプト群を使用して何らかの問題が起こっても、責任を要求しないこと
 
 　・再配布する際は、当ドキュメントファイルを維持して下さい
+
+
+
+　バグ等ございましたらこちらまで。-> @huangbaihonglan
+　コメント等はこちらへお願いします。-> #mml_watch_GUI
 
 
 　= 黄白紅藍玄 =
@@ -486,9 +542,25 @@
 	3 15		フォルダオープン追加
 	3 26		タスクトレイアイコン追加
 	4 7		ラベルクリックでも監視スタートできるようにした
+	6 7		4.0preview releaseとして、Gitへupload
 
+	7 25		環境パネルのList登録が0でも、ハッシュ出力が残る問題を修正
+			環境パネルで不要の可能性があるset_xmlreadの$cmp,$script:cmpを消去
+	8 11		新規mmlファイルを登録できるようにした<- try catch入れ忘れを修正
+	  28		各コンパイラのへのファイル出力Text.Encodingを、
+			oem(Shift-JIS)へもどし、xml出力はps7対応を含めdefaultととした
+	  31		リモートバグのようになるため、
+			環境設定時にはタスクトレイは見えないようにした
+	11 1		foobar2000pluginに対応した
+			コンパイルps1にtry catchを追加してエラー対応した
+	11 26		HelpファイルをStedで読めるようにした
 
-
-
+  '21	1 9		nsf2への簡易help追加記述とコマンドラインスイッチに対応した。
+	28		win10,ps5上での稼働を確認した
+	2 1		catの読み込み回数をできるだけ減らし最適化
+	26		mmlコンパイラのファイル名の確認を-notmatchにした(nsc64.exeなどのため)
+	3 6		エラーチェック周りを修正、Status_buildを分離した
+			mmlを選択してない時errとなるため、Wait_setpathで仮パスを入れた
+	10		Toggle_labelの位置、Console_outでunknownを出力するようにした
 
  	

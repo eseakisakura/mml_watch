@@ -1,14 +1,13 @@
-﻿#Code "nsd_all.bin"
+﻿// track_parameter %%Ev20 Q2 l8 v15 @2%% 
+#Code "nsd_all.bin"
 #Bank
 #timebase 24 //l4
-#QReverse
-#rest 0 //r
-#wait 2 //w
-#ReleaseVolume 1
-// track_parameter %% q7 l8 v15%%
 
 BGM(0){ t150
 // replace parameter
-%tr_param
-%mml_param
+%tr_param%
+%mml_param%
  }
+
+E(20){ L 15 R (15,2,20) L 2 } // Ev
+ 

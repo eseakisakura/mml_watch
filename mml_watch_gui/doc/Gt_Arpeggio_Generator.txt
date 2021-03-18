@@ -3,7 +3,7 @@
 
 　-- 当テキストは、構造化エディタで組まれてます。
 
-　ちなみにスクリプト側も構造化エディタ対応です。--
+　スクリプト側も構造化エディタ対応です。--
 
 
  
@@ -64,29 +64,8 @@
  
 　　□ 各機能の説明 
 
-
-　・setting
-
-　　環境設定です。
-　　各リストボックスに、ファイルドロップで登録します。
-
-
-　・オクターブ
-
-　試聴時のオクターブ指定です。
-
-
-　・Advanced(上級者向け)
-
-　試聴する音を変えるときに使用します。
-
-　"mck_header"は、ppmck の試聴mmlです。
-　"nsd_header"は、NSDlib の試聴mmlです。
-　"pmd_header"は、PMD の試聴mmlです。
-
-
-
-　　・本体パネルの説明
+ 
+　　・本体パネルの説明 
 
 
 　・コードセレクト
@@ -149,6 +128,30 @@
 　　
 
  
+　　・メニュー 
+
+　・setting
+
+　　環境設定です。
+　　各リストボックスに、ファイルドロップで登録します。
+
+
+　・オクターブ
+
+　試聴時のオクターブ指定です。
+
+
+　・Advanced(上級者向け)
+
+　試聴する音を変えるときに使用します。
+
+　"mck_header"は、ppmck の試聴mmlです。
+　"nsd_header"は、NSDlib の試聴mmlです。
+　"pmd_header"は、PMD の試聴mmlです。
+
+
+
+ 
 　　□ Tips 
 
 
@@ -195,6 +198,19 @@
 
 
  
+　　□謝辞 / 参照リンク 
+
+
+　コードポジションは、以下のページ様を参照しています。
+
+　http://www9.ocn.ne.jp/~knatsu/chords/chords.html
+　http://www.ishibashi.co.jp/academic/Chord_Guitar/C.htm
+　ドミナント9th - 8monji-guitar.com
+
+　http://www.naru-gakki.com/guitar-opentuning/
+　http://guitar-hakase.com/tuning/
+　http://www.aki-f.com/kouza/b_kouza/kouza5/kouza5_2.htm
+ 
 　　□ 免責事項 /使用条件 /著作権など 
 
 
@@ -227,4 +243,14 @@
 			Undo機能追加
 	2 27		スタンドアロンにした、環境設定を自前でできるようにした
 	4 19		6sus2を追加した
+
+	7 25		menu_buildの失敗点、ハッシュの初期化、メニューのリセットを修正
+	8 31		トレイアイコンを付けた
+	11 26		HelpファイルをStedで読めるようにした
+
+   '21	1 21		trayicon非表示機能つけた
+			PS7ため、ps1と読み込みfileはutf8(appためbom有り)とした(mml出入力はshiftJISのまま)
+			mmlライタをcommon.ps1へ移動した(utf8 bom無しへ対応するため)
+	2 1		[cat]ファイル読み込み回数をできるだけ減らした
+	3 6		compiler周りの読み込み方を変えた
  	

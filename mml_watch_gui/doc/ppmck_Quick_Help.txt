@@ -1,0 +1,578 @@
+-- ppmck_Quick_Help.txt 
+
+-- MMLリファレンス - MCK Wiki*より抜粋、一部加筆しています
+https://wikiwiki.jp/mck/MMLリファレンス
+
+-- 当テキストは、構造化エディタで組まれてます。
+ 
+トラックのヘッダー 
+
+AB	APU矩形波
+C	APU三角波
+D	APUノイズ
+E	APU DPCM
+
+F	FDS音源
+G~L	VRC7音源
+MN	VRC6音源矩形波
+O	VRC6音源鋸波
+
+P~W	namco16x音源
+X~Z	FME-7音源
+ab	MMC5音源
+
+ 
+数値の記法 ---- 
+
+	0~9,a~fで始まる数値は、10進数
+	x,$で始まる数値は、16進数
+	%で始まる数値は、2進数
+
+	a[length]
+	a4	Length
+	a%48	count	(timebase:48固定)
+	a#24	frame	(t150)
+
+	基本単位はframe
+
+	(1min= 60frame* 60s= 24frame* t150)
+ 
+;		comment 
+/		一行コメント
+
+/*~*/		範囲コメント
+
+
+ 
+ヘッダ////// 
+	
+#TITLE [str] 		タイトル 
+
+#COMPOSER [str]		作曲者名
+#MAKER [str]		原著作者名
+#PROGRAMER [str]	打ち込み者名
+
+ 
+#OCTAVE-REV [0,1]	oct.変更記号反転[0,1](off,on)(def:0) 
+#GATE-DENOM [num]	quantize分母指定(def:8)
+
+#DPCM-RESTSTOP		r時、DPCM再生停止
+#PITCH-CORRECTION	FDS,N16x PitchEnv.,LFO、Detune +,-方向修正
+			16x Detuneのoct.キースケーリング解除
+
+
+#AUTO-BANKSWITCH [0,※]	バンク自動切換(※FreeByte数)
+			0で自動アサイン、複数曲の場合は必要
+
+#EFFECT-INCLUDE		シーケンスデータを組み込み
+			effect.h内にシーケンスデータを組み込みます
+
+#INCLUDE [str]		ファイル取り込み
+ 
+#EX-DISKFM		FDS音源on 
+			(非対応playerにおいて他の拡張音源との同時使用不可)
+
+#EX-VRC7		VRC7音源on
+#EX-VRC6		VRC6音源on
+#EX-NAMCO106 [1~8]	n16x音源(1~8ch設定)on
+#EX-FME7		FME7(Sunsoft5B)音源on
+#EX-MMC5		MMC5音源on
+  
+共通エンベロープ定義////// 
+
+	{ 0,0,...| 0 0 } or { 0 0 ... | 0 0 }
+
+	env.は","or"space"で区切り、
+	frame単位で指定する
+
+	最後へ到達した場合、最終値の繰り返し、
+	または、"| num~ "の位置から最終値までの繰り返し
+	
+@	音色のデューティ比 
+
+	@[0~127]= { num~ | num~ }; (num x512)
+
+	num
+	A,B,a,b	[0~3]
+	M,N	[0~7]
+
+	-> "@@[0~127]"で呼出し
+	-> "@@r[0~127]"で呼出し
+ 
+@v	v音量エンベロープ 
+
+	@v[0~127]= { num~ | num~ }; (num x512)
+
+	num
+	通常	[0~15]
+	C,E	[無効] APU三角波,DPCM
+
+	F	[0~32] FDS音源
+	O	[0~42] VRC6音源鋸波
+
+exp.(v15 @vr20)
+
+@v20= {
+15 15 15  15 15 15  12 12 10 10  8 8
+6 6 6 6  4 4 4 4  2 2 2 2 2 | 2 }
+
+	-> "@v[0~127]"で呼出し
+	-> "@vr[0~127]"で呼出し
+ 
+@EP	EP周波数変化 
+
+	@EP[0~127]= { num~ | num~ }; (num x512)
+
+	num	[-127~126]
+
+	-> "EP[0~127]"で呼出し
+ 
+@EN	ノート変化 
+
+	@EN[0~127]= { num~ | num~ }; (num x512)
+
+	num	[-127~126]
+	(このパラメータは、前回値からの相対値となる)
+
+	-> "EN[0~127]"で呼出し
+ 
+@MP	LFOパラメータ 
+
+	@MP[0~63]= { delay,speed,depth,0 }
+
+	delay	[0~255]
+	speed	[1~255]
+	depth	[1~255](0:不可)
+	fairing	[0](未対応)
+
+	-> "MP[0~63]"で呼出し
+ 
+@DPCM	デルタPCMの音色を登録 
+
+	@DPCM[0~63]= { File(,FREQ,Size,Point,Mode) }
+
+	File	[string]	デルタPCMのファイル名
+	FREQ	[0~15]		(def:0)再生周波数
+	Size	[0~4081]	(def:0)再生サイズ(0:ファイル全体)
+	Point	[0~]		(def:0)デルタカウンタ初期値
+	Mode	[0,1]		(def:0)[0,1(,2)](通常再生,ループ再生(,IRQ))
+
+	-> "E	n[0~63]"で呼出し
+ 
+@N	n16x音源波形 
+
+	@N[0~127]= { buffer_num  value~ }
+
+	buffer_num	x32[0~3],x16[0~7],x8[0~15]
+	value		[0~15]
+
+exp.	@N00={ 0  0,..(x32) }
+	@N10={ 1  0,..(x32) }
+	@N20={ 2  0,..(x32) }
+	@N30={ 3  0,..(x32) }; buffer num:3 value x32
+
+	(x32)であれば、4buffer、
+	(x16)であれば、8buffer、
+	(x8)であれば、16buffer数となる
+
+	n16x organ
+	@N00= { 0  11,15,9,13, 5,10,9,8,
+	         7,6,5,10, 2,6,0,4 }
+
+->"P~W	@@[0~127]"で呼出し
+ 
+@OP	VRC7音源レジスタ音色 
+
+	@OP[0~63]= { $num~ }; ($num x8)
+
+	$num	[$00~$ff]
+
+exp.	Rodes
+@OP0= { $8f,$88,$7f,$c7,$ec,$e1,$b2,$f0 }
+
+	->" G~L	OP[0~63] @@0 "で呼出し
+
+
+@OT	VRC7音源音色定義2 [ppmck9a ex5~]
+
+	@OT[0~63]= { MGSDRVの音色定義に準拠 }
+
+exp.
+@OT0= {
+;TL FB
+ 22, 7,
+;AR DR SL RR KL ML AM VB EG KR DT
+ 15, 6,15, 0, 0, 6, 0, 1, 1, 0, 1,
+ 15, 2, 2, 8, 1, 1, 0, 0, 1, 0, 1
+}
+
+	->" G~L	OT[0~63] @@0 "で呼出し
+ 
+@FM	FDS音源波形(career) 
+
+	@FM[0~127]= { num~ }; (num x64)
+
+	num	[0~63]
+
+exp:	FDS whistle
+
+@FM00= {
+00 01 02 03 04 06 07 09 11 14 16 19 24 32 43 52
+60 63 63 62 61 58 54 50 47 44 41 38 36 33 30 24
+25 24 30 33 36 38 41 44 47 50 54 58 61 62 63 63
+60 52 43 32 24 19 16 14 11 09 07 06 04 03 02 01 }
+
+
+->"F	@@[0~127]"で呼出し
+ 
+@MW	FDS音源ハードウェアエフェクト波形 
+
+
+	@MW[0~7]= { num~ }; (num x32)
+
+	num	[0~3](0,+1,+2,+4)
+		[4~7](0:reset,-4,-2,-1)
+
+	->"@MHのwave"へ出力
+ 
+@MH	FDS音源ハードウェアエフェクトデータ(modulator) 
+
+	@MH[0~15]= { delay,FREQ,depth,wave }
+
+	delay	[0~255]
+	speed	[1~4095]
+	depth	[1~63]
+	wave	[0~7](@MWで定義した波形番号を指定)
+
+	-> "MH[0~15]"で呼出し
+
+
+
+ 
+$	1文字マクロ定義 [ppmck release9ex3~] 
+
+	$[A-Z] mml
+  
+MML command////// 
+	
+t	Tempo 
+	t[1~255](def:120)
+
+
+@t	テンポ2	@t[length,frame]
+
+	length	[1~192]
+	frame	[288~1]
+
+	@t4,24; l4= 24frame <- t150
+
+	(3600frame/ 24frame= t150)
+	(1frame= 1/60s)
+ 
+a~g	音符 
+	a[length]
+
+a+	#
+a-	b
+a4..	a4&a8&a16
+
+a1-2	a2
+a1~2	a2; (-と~は同じ扱い)
+
+c8-#5
+c8~#5	戻し休符
+
+c8^#5	送り音符
+ 
+&	タイ1(及びスラー) 
+	a4&a16
+
+	ポルタメント(A,B,C,N16x,VRC6,VRC7,MMC5)[ppmck9 ex3~]
+	(別のキーに繋げられる)
+	a&e
+
+
+^	タイ2
+	a4^16
+ 
+{~}num	連符 
+	{ad}4 -> a8d8
+ 
+r	休符 
+	r[length]
+
+	r時、DPCMでプチノイズがある場合、
+	-> wにする、ないし#DPCM-RESTSTOPセット
+
+w	ウェイト
+	w[length]
+
+	前回のコマンドを保持
+	l4 a MP0 w; wからLFOがかかる
+
+k	Key off
+	k[length]
+
+	キーオフ信号を送る
+	(休符のバリエーション)
+ 
+o	oct.(def:4) 
+
+	ABC	[2~8]	矩形波,三角波
+	D	[0]	ノイズ
+	E	[無効]	DPCM
+	F	[0~6]	FDS
+	G~L	[0~7]	VRC7
+	MNO	[1~8]	VRC6
+	P~W	[0~8]	n16x
+	XYZ	[0~8]	FME7
+	ab	[2~7]	MMC5
+
+	(三角波は、1oct.低く発音)
+	(n16x音源は、wave dataが短いほど高く発音)
+
+>,<	相対oct.[up,down]
+ 
+l	音長(def:4) 
+
+	l[length]
+
+	l8..		->l8+l16+l32
+	l%4= l48	l1= l%192;  カウント
+	l#30= 0.5s	l#1= 1/60s; フレーム
+ 
+v	音量 
+	v[num]
+
+	num
+	通常	[0~15]
+	C,E	[無効] APU三角波,DPCM
+
+	F	[0~32] FDS音源
+	O	[0~42] VRC6音源鋸波
+
+
+v+,v-	相対音量(def:1)
+	v+4,v-1
+ 
+@v	音量エンベロープ呼出し 
+	@v[0~127]
+
+	(Key on後、エンベロープ処理)
+
+
+@vr	リリース時(音量)エンベロープ呼出し
+	@vr[0~127,255(off)](def:255)
+
+	(Key off後[ゲート:q4など]、エンベロープ処理)
+
+
+EH	ハードウェア(音量)エンベロープ
+	EH[fade,num](def:0,0)(FDS音源 F)
+
+	fade	[0,1](-,+)
+	num 	[0~63]
+	(v,@vコマンド同時使用不可)
+
+
+	A,B[ppmck9 ex3~] a,b[ppmck9 ex5~]
+	EH[env,loop]
+	env	[0,1](off,on)
+	loop	[0,1](on,off)
+
+	@[num] でセット
+	v-[0~15]+ 減衰時間
+
+	EH1,0 @2 v6 f EH0
+ 
+q	クオンタイズ1 
+	q[num(,frame)]
+
+	num	[1~8](def:8)
+	frame	[-n,n](def.0); numの加減
+
+	q7(,2)
+	q6,-5
+
+
+@q	クオンタイズ2
+	@q[1～65535]
+
+	(frame単位で減算)
+
+	@q10 a4; (a4から10frame減らす)
+ 
+n	直接ノート指定 
+	n[num(,length)]
+
+	num
+	Noise	[0~15](high~low); rdm.noise times/s
+	DPCM	[0~63]
+
+	D n0(,8); (ノイズchの場合)
+
+
+@n	直接周波数指定
+	@n[num(,length)]
+
+	num	[8~2034](high~low)
+	(n16xは不可)
+ 
+@	音色1	@[num] 
+
+	num
+	ABab	[0~3]	(12.5, 25, 50, 75%)
+	MN	[0~7]	(6.25, 12.5, 18.75, 25%,
+			31.25, 37.5, 43.75, 50%)
+	XYZ	[0,1,2,3]
+	        (def:1)(mute,tone,noise,tone+noise)
+ 
+@@	音色2(各env.呼出し,vrc7) 
+	(Key on後、エンベロープ処理)
+
+	@@[num](def:0)
+
+	num
+	ABMNab	[0~127]	<- @ env.呼出し
+	F	[0~127]	<- @FM env.
+	P~W	[0~127]	<- @N env.
+
+	G~L	[0~15](0:User,1~15:Preset)
+
+	Preset音色 1~3	 (Synth,E.Guitar,Piano)
+		   4~7	 (Flute,Clarinet,Bell,Trumpet)
+		   8~11	 (Violin,Horn,MusicBox,Vibraphone)
+		   12~15 (SAW,AcousticBs,SynthBs1,SynthBs2)
+
+
+	exp. G OP0 @@0; vrc7User
+
+
+@@r	リリース時(音色)env.呼出し
+	(Key off後、エンベロープ処理)
+
+	@@r[0~127,255(off)](def:255)
+
+ 
+OP	VRC7user音色読込み 
+	OP[0~63]
+
+	(VRC7の"user音色@@0"へロード)
+
+
+MH	FDSハードウェアエフェクト
+
+	MH[0~15,255(off)](def:255)
+
+
+MHOF	FDSハードウェアエフェクト off
+	(MH255と同等)
+
+
+S	FME7(Sunsoft 5B)ハードウェアEG選択
+	S[0~15]
+
+M	FME7(Sunsoft 5B)ハードウェアEG周期
+	M[0~65535]
+
+N	FME7(Sunsoft 5B)ノイズ周波数
+	N[0~31]
+ 
+K	トランスポーズ 
+	K[num,-num](def:0)
+
+	K1,K-3
+ 
+D	ディチューン 
+	D[-127~126,255(off)]
+	(n16x音源では、SAが必要)
+
+MP	ソフトウェアLFO
+	MP[0~63,255(off)]
+	(n16x音源では、SAが必要)
+
+EP	ピッチエンベロープ
+	EP[0~127,255(off)]
+	(n16x音源では、SAが必要)
+
+EN	ノートエンベロープ
+	EN[0~127,255(off)]
+
+
+PS	ポルタメント[ppmck9 ex3~]
+	ピッチが上下する
+	A c PS g PS c
+
+
+SM	スムース(スラーらしきもの)(A,B,C専用) [ppmck9 ex3~]
+	A SM cdefg SMOF
+
+
+SA	ピッチシフト量(n16x専用 P~W)
+	SA[0~8](左シフト量)
+
+	(#PITCH-CORRECTION 使用時のみ可)
+
+
+SMOF	スムースOFF
+
+
+MPOF	ソフトウェアLFO off
+	(MP255と同等)
+
+EPOF	ピッチエンベロープ off
+	(EP255と同等)
+
+ENOF	ノートエンベロープ off
+	(EN255と同等)
+ 
+SD	セルフディレイ 
+	SD[num]
+
+	(リリース時に、num回前のnote on
+	の音で残響を付加)
+exp.
+
+@v20= {
+15 15 15  15 15 15  12 12 10 10  8 8
+6 6 6 6  4 4 4 4  2 2 2 2 2 | 2 }
+
+A	v15 @vr20 o4 l4 SD2 q4 ab >cde fga<
+
+
+SDOF	セルフディレイ off
+	(セルフディレイの解除)
+
+
+SDQR	セルフディレイ buffer reset
+	(セルフディレイ用バッファを空にする)
+ 
+s	音程スウィープ(矩形波専用 A,B) 
+	s[speed,depth]
+
+	speed	[8~15]	(fast~slow)
+	depth	[0~7]	(0,-7,-6,-5, -4,-3,-2,-1)
+		[8~15]	(0,7,6,5, 4,3,2,1)
+
+	AB	s8,4 a1;
+ 
+L		トラックループ 
+
+[ | ]num	リピート1
+|: \ :|num	リピート2(ネスト不可)
+ 
+!	データスキップ 
+	(コンパイル停止)
+
+!!	タイムシフト [ppmck9a ex7~]
+	(ここから再生)
+
+
+y	レジスタ(メモリ)書き込み
+	y[adress,num]
+
+x	スルー
+	x[param0, param1]
+
+	(データにparam0,param1を直接埋め込む)
+  

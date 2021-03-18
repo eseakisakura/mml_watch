@@ -1,0 +1,8 @@
+﻿  @1:{
+; FB ALG%mask_param%
+ %af_param%
+; AR  DR  SR  RR  SL  TL  KS  ML  DT
+ %op1_param%
+ %op2_param%
+ %op3_param%
+ %op4_param%,""}

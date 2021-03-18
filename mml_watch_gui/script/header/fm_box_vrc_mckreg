@@ -1,2 +1,2 @@
-
-@OP0 = { %op_param }
+﻿
+@OP0 = { %op_param% }

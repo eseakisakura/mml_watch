@@ -1,2 +1,2 @@
-
-VRC7(100){ @R %op_param }
+﻿
+VRC7(100){ @R %op_param% }

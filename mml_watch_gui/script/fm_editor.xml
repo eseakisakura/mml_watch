@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<table>
+	<opt>
+		<tray value="False" />
+		<autosave value="True" />
+		<oct value="o4" />
+		<zero value="False" />
+		<ten value="True" />
+		<type value="nsd" />
+		<style value="mucom" />
+		<open value="False" />
+		<br />
+		<bai value="2" />
+		<adjust value="20" />
+		<wait value="2" />
+		<layout value="reverse" />
+		<color value="natural" />
+		<bit value="Checked" />
+	</opt>
+	<val>
+		<!-- 拡張性の加味 -->
+		<mck value="C:\Programs\Tools\Arc\ppmck\bin\ppmckc.exe" />
+		<nsd value="C:\Programs\Tools\Arc\nsdlib130\bin\nsc64.exe" />
+		<pmd value="C:\Programs\Tools\Arc\pmd\MC.EXE" />
+		<cmp value="C:\Programs\Tools\Arc\pmd\MC.EXE" />
+		<ply value="C:\Programs\Tools\Media\Winamp\winamp.exe" />
+		<dos value="C:\Programs\Tools\Arc\msdos\source\binary\i486_x86\msdos.exe" />
+		<edt value="C:\Programs\Tools\Text\Mery\Mery.exe" />
+	</val>
+	<presetstore name="opm 4op" param="AutoSave : 2021/03/09 14:16">
+		<vrc>
+			<M1 value=" 40,  0, 12,  4,  8,  4,  0,  1,  0,  0,  0,  0,  0" />
+			<CA value="  0,  0, 12,  4,  8,  4,  0,  1,  0,  0,  0,  0,  0" />
+		</vrc>
+		<opl>
+			<M1 value="  0,  0, 12,  4,  4,  8, 40,  0,  1,  0,  0,  0,  0" />
+			<CA value="  0,  0, 12,  4,  4,  8,  0,  0,  1,  0,  0,  0,  0" />
+		</opl>
+		<opn>
+			<M3 value="  2,  7, 31, 12,  4, 10,  1, 32,  0, 12,  0,  0" />
+			<M2 value="  0,  0, 31,  2,  4,  6, 15, 57,  3, 15,  1,  0" />
+			<M1 value="  0,  0, 31, 12,  4,  6,  0, 30,  0,  1,  0,  0" />
+			<CA value="  0,  0, 31,  5,  7,  7,  2,  0,  2,  3,  5,  0" />
+		</opn>
+		<opm>
+			<M3 value="  4,  7, 31,  0,  0,  0,  0, 33,  0,  4,  7,  1,  0" />
+			<M2 value="  0,  0, 18, 15,  9,  7,  3,  9,  0,  4,  7,  1,  0" />
+			<M1 value="  0,  0, 31,  0,  0,  0,  0, 24,  0,  2,  3,  1,  0" />
+			<CA value="  0,  0, 31, 15,  9,  7,  3,  0,  0,  2,  3,  1,  0" />
+		</opm>
+	</presetstore>
+	<resetting name="vrc7 2op" param="AutoSave : 2021/03/16 09:42">
+		<!-- Reset Parameter時使用 -->
+		<vrc>
+			<M1 value=" 40,  0, 12,  4,  8,  4,  0,  1,  0,  0,  0,  0,  0" />
+			<CA value="  0,  0, 12,  4,  8,  4,  0,  1,  0,  0,  0,  0,  0" />
+		</vrc>
+		<opl>
+			<M1 value="  0,  0, 12,  4,  4,  8, 40,  0,  1,  0,  0,  0,  0" />
+			<CA value="  0,  0, 12,  4,  4,  8,  0,  0,  1,  0,  0,  0,  0" />
+		</opl>
+		<opn>
+			<M3 value="  4,  0, 25, 10, 15, 10, 10, 40,  0,  1,  0,  0" />
+			<M2 value="  0,  0, 25, 10, 15, 10, 10,  0,  0,  1,  0,  0" />
+			<M1 value="  0,  0, 25, 10, 15, 10, 10, 40,  0,  2,  0,  0" />
+			<CA value="  0,  0, 25, 10, 15, 10, 10,  0,  0,  1,  0,  0" />
+		</opn>
+		<opm>
+			<M3 value="  4,  0, 25, 10, 15, 10, 10, 40,  0,  1,  0,  0,  0" />
+			<M2 value="  0,  0, 25, 10, 15, 10, 10,  0,  0,  1,  0,  0,  0" />
+			<M1 value="  0,  0, 25, 10, 15, 10, 10, 40,  0,  2,  0,  0,  0" />
+			<CA value="  0,  0, 25, 10, 15, 10, 10,  0,  0,  1,  0,  0,  0" />
+		</opm>
+	</resetting>
+	<autosave name="opn 4op" param="AutoSave : 2021/03/16 09:42">
+		<vrc>
+			<M1 value=" 31,  7, 12,  4,  8,  4,  0,  7,  0,  0,  0,  0,  0" />
+			<CA value="  0,  0, 12,  4,  8,  4,  0,  1,  0,  0,  0,  0,  0" />
+		</vrc>
+		<opl>
+			<M1 value="  0,  0, 12,  4,  4,  8, 40,  0,  1,  0,  0,  0,  0" />
+			<CA value="  0,  0, 12,  4,  4,  8,  0,  0,  1,  0,  0,  0,  0" />
+		</opl>
+		<opn>
+			<M3 value="  4,  7, 27, 24,  4, 10, 12, 32,  0,  4,  0,  0" />
+			<M2 value="  0,  0, 31,  2,  4,  6, 15, 57,  3, 15,  1,  0" />
+			<M1 value="  0,  0, 31, 12,  4,  6,  0, 30,  0,  1,  0,  0" />
+			<CA value="  0,  0, 31,  5,  7,  7,  2,  0,  2,  3,  5,  0" />
+		</opn>
+		<opm>
+			<M3 value="  4,  7, 31,  0,  0,  0,  0, 33,  0,  4,  7,  1,  0" />
+			<M2 value="  0,  0, 18, 15,  9,  7,  3,  9,  0,  4,  7,  1,  0" />
+			<M1 value="  0,  0, 31,  0,  0,  0,  0, 24,  0,  2,  3,  1,  0" />
+			<CA value="  0,  0, 31, 15,  9,  7,  3,  0,  0,  2,  3,  1,  0" />
+		</opm>
+	</autosave>
+	<slot>
+		<A name="" param="">
+			<M3 value="" />
+			<M2 value="" />
+			<M1 value="" />
+			<CA value="" />
+		</A>
+		<B name="" param="">
+			<M3 value="" />
+			<M2 value="" />
+			<M1 value="" />
+			<CA value="" />
+		</B>
+		<C name="" param="">
+			<M3 value="" />
+			<M2 value="" />
+			<M1 value="" />
+			<CA value="" />
+		</C>
+		<D name="" param="">
+			<M3 value="" />
+			<M2 value="" />
+			<M1 value="" />
+			<CA value="" />
+		</D>
+		<E name="" param="">
+			<M3 value="" />
+			<M2 value="" />
+			<M1 value="" />
+			<CA value="" />
+		</E>
+		<F name="" param="">
+			<M3 value="" />
+			<M2 value="" />
+			<M1 value="" />
+			<CA value="" />
+		</F>
+		<G name="" param="">
+			<M3 value="" />
+			<M2 value="" />
+			<M1 value="" />
+			<CA value="" />
+		</G>
+		<H name="" param="">
+			<M3 value="" />
+			<M2 value="" />
+			<M1 value="" />
+			<CA value="" />
+		</H>
+	</slot>
+</table>

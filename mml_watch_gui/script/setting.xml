@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<table>
+	<!-- listbox / nameは変動値 -->
+	<mml name="ダブル-5th.mml" param="C:\Documents and Settings\sl(4\デスクトップ\テンプファイル\mml_watch\mml_watch_gui\sample\pmd\ダブル-5th.mml" />
+	<mml name="分散和音 - ver4_8r以上.mml" param="C:\Documents and Settings\sl(4\デスクトップ\テンプファイル\mml_watch\mml_watch_gui\sample\pmd\分散和音 - ver4_8r以上.mml" />
+	<mml name="check.mml" param="C:\Documents and Settings\sl(4\デスクトップ\テンプファイル\check.mml" />
+	<mml name="" param="" />
+	<br />
+	<mck name="ppmckc.exe" param="C:\Programs\Tools\Arc\ppmck\bin\ppmckc.exe" />
+	<mck name="ppmckc_e.exe" param="C:\Programs\Tools\Arc\ppmck\bin\ppmckc_e.exe" />
+	<mck name="" param="" />
+	<mck name="" param="" />
+	<br />
+	<nsd name="nsc.exe" param="C:\Programs\Tools\Arc\nsdlib130\bin\nsc.exe" />
+	<nsd name="nsc64.exe" param="C:\Programs\Tools\Arc\nsdlib130\bin\nsc64.exe" />
+	<nsd name="" param="" />
+	<nsd name="" param="" />
+	<br />
+	<pmd name="MC.EXE" param="C:\Programs\Tools\Arc\pmd\MC.EXE" />
+	<pmd name="" param="" />
+	<pmd name="" param="" />
+	<pmd name="" param="" />
+	<br />
+	<ply name="FMPMD.exe" param="C:\Programs\Tools\Arc\Fmpmd\FMPMD.exe" />
+	<ply name="foobar2000.exe" param="C:\Programs\Tools\Media\Foobar\foobar2000.exe" />
+	<ply name="winamp.exe" param="C:\Programs\Tools\Media\Winamp\winamp.exe" />
+	<ply name="" param="" />
+	<br />
+	<dmc name="" param="" />
+	<dmc name="" param="" />
+	<dmc name="" param="" />
+	<dmc name="" param="" />
+	<br />
+	<edt name="Mery.exe" param="C:\Programs\Tools\Text\Mery\Mery.exe" />
+	<edt name="sted.exe" param="C:\Programs\Tools\Text\Sted - mdi\sted.exe" />
+	<edt name="" param="" />
+	<edt name="" param="" />
+	<br />
+	<dos name="msdos.exe" param="C:\Programs\Tools\Arc\msdos\source\binary\i486_x86\msdos.exe" />
+	<dos name="" param="" />
+	<dos name="" param="" />
+	<dos name="" param="" />
+</table>

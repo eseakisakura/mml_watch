@@ -1,0 +1,42 @@
+#FFFile PC88.FF
+#LoopDefault 2 
+#FM3Extend XYZ ;C tr.extend
+
+; NM ALG  FB	=ƒ_ƒuƒ‹5th
+@001   4   5
+; AR  DR  SR  RR  SL  TL  KS  ML  DT AMS
+  24   1   6   1  12  14   0   2   7   0
+  24   4  10   5   5   0   0   6   7   0
+  18   1   5   1  13  36   0   3   3   0
+  18   1  11   5   4   0   0  12   3   0
+
+; NM ALG  FB	=FBXBass
+@002   1   7
+; AR  DR  SR  RR  SL  TL  KS  ML  DT AMS
+  28  20   5   7  14  36   1   8   0   0
+  30  13   5   7  13  36   1   2   0   0
+  28   6   5   7  13  10   1   0   0   0
+  30   7   5   9  13   0   1   8   0   0
+
+GHIABCDEFXYZ t144 C192 ; l4=150t. l1=192c.
+
+AB l16 @1 v9
+
+A o3 _+4 _{-abde} [[<b>cde fgab> rrrr r]r;
+B o3 _-3 _{-abe}  [[>rrrr r>rrr fgab >c]r;
+
+A Q8 o4 MP+127,0,7 g^15  o7 g^2 MP-127,0,7 o7 g^17 *0 ] r
+B  Q8 o3 MP+127,0,7 b^17  o7 b^2 MP-127,0,7 o7 b^15 *0 ] r
+
+C o2 @2 v11 l8  [a^12 MP-24,0,3 b^4 >*0 c^12 MP-24,0,3 d^4 *0]
+
+!b     P1 E2,-2,8,4  o4d8 ;BD
+!a     P1 E2,-2,8,4  o4e8 ;BD
+!s w12 P3 E2,-2,2,4 o7c%6 & P2 E2,-2,4,4 o4c8-%6 ;Sn
+!r r8
+I v15 D-24 MX1 MP-66,0,1 l8 ;ƒhƒ‰ƒ€
+I [!b!r!s!a !b!s!s!r  !b!r!s!a !b!r!s!a]3
+I  !b!r!s!a [!b!a!b : !a] !r !r!r!r!r
+
+
+

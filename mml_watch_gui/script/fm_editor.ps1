@@ -1,10 +1,11 @@
-<# fm_editor.ps1 #> 
+Ôªø<# fm_editor.ps1 #> 
 
-Write-Host ('"FMâπêFÉGÉfÉBÉ^"ÇãNìÆÇµÇ‹Ç∑')
+Write-Host ('"FMÈü≥Ëâ≤„Ç®„Éá„Ç£„Çø"„ÇíËµ∑Âãï„Åó„Åæ„Åô')
  
 $xml_editor= @' 
 <table>
 	<opt>
+		<tray value="True"/>
 		<autosave value="True"/>
 		<oct value="o4"/>
 		<zero value="False"/>
@@ -14,21 +15,46 @@ $xml_editor= @'
 		<open value="False"/>
 		<br />
 		<bai value="2"/>
-		<adjust value="24"/>
+		<adjust value="20"/>
 		<wait value="2"/>
 		<layout value="nomal"/>
 		<color value="natural"/>
-		<bit value="Unchecked"/>
+		<bit value="Checked"/>
 	</opt>
 	<val>
-		<!-- ägí£ê´ÇÃâ¡ñ° -->
+		<!-- Êã°ÂºµÊÄß„ÅÆÂä†Âë≥ -->
+		<mck value=""/>
+		<nsd value=""/>
+		<pmd value=""/>
 		<cmp value=""/>
 		<ply value=""/>
 		<dos value=""/>
 		<edt value=""/>
 	</val>
+	<presetstore name="" param="">
+		<vrc>
+			<M1 value="" />
+			<CA value="" />
+		</vrc>
+		<opl>
+			<M1 value="" />
+			<CA value="" />
+		</opl>
+		<opn>
+			<M3 value="" />
+			<M2 value="" />
+			<M1 value="" />
+			<CA value="" />
+		</opn>
+		<opm>
+			<M3 value="" />
+			<M2 value="" />
+			<M1 value="" />
+			<CA value="" />
+		</opm>
+	</presetstore>
 	<resetting name="" param="">
-	<!-- ÉÅÉÇÉäÇÃÇ›Reset Parameteréûégóp -->
+	<!-- Reset ParameterÊôÇ‰ΩøÁî® -->
 		<vrc>
 			<M1 value="" />
 			<CA value="" />
@@ -72,48 +98,6 @@ $xml_editor= @'
 			<CA value="" />
 		</opm>
 	</autosave>
-	<preset>
-		<A name="vrc7 2op" param="Bass">
-			<M1 value=" 10,  2, 11,  2, 14,  2,  0,  0,  0,  0,  0,  0,  0" />
-			<CA value="  0,  0, 14,  3,  9,  3,  0,  3,  0,  0,  1,  0,  0" />
-		</A>
-		<B name="vrc7 2op" param="Guitar">
-			<M1 value=" 19,  6, 15,  3,  1,  1,  0,  2,  0,  0,  0,  0,  0" />
-			<CA value="  0,  0, 13,  4, 11,  4,  0,  3,  0,  0,  1,  0,  0" />
-		</B>
-		<C name="vrc7 2op" param="E.Piano">
-			<M1 value=" 40,  3, 15,  3, 14,  3,  0, 12,  0,  0,  0,  0,  0" />
-			<CA value="  0,  0, 10,  1, 11,  5,  0,  2,  0,  0,  1,  0,  0" />
-		</C>
-		<D name="vrc7 2op" param="H.H">
-			<M1 value="  5,  6, 14,  1, 15, 15,  0, 13,  0,  0,  0,  0,  0" />
-			<CA value="  0,  0,  7,  8, 12,  7,  0,  0,  0,  0,  0,  0,  0" />
-		</D>
-		<E name="opn 4op" param="E.Guitar">
-			<M3 value="  0,  6, 15, 20, 13,  4, 12, 20,  1,  3,  2,  0" />
-			<M2 value="  0,  0, 27, 23, 15,  7, 11, 20,  0,  1,  0,  0" />
-			<M1 value="  0,  0, 24,  8, 16,  9,  6, 24,  0,  3,  0,  0" />
-			<CA value="  0,  0, 23, 10, 14,  9, 12,  0,  0,  6,  0,  0" />
-		</E>
-		<F name="opn 4op" param="E.Piano">
-			<M3 value="  1,  6, 31, 10, 14,  4, 13, 40,  0,  4,  0,  0" />
-			<M2 value="  0,  0, 27, 23, 18,  7, 11, 20,  0,  1,  0,  0" />
-			<M1 value="  0,  0, 24,  8, 12,  2,  3, 50,  0,  3,  0,  0" />
-			<CA value="  0,  0, 23,  5, 14,  4,  3,  0,  0,  2,  0,  0" />
-		</F>
-		<G name="opn 4op" param="Pad">
-			<M3 value="  6,  6, 29, 11,  7,  4, 14, 17,  0,  2,  0,  0" />
-			<M2 value="  0,  0, 23,  5, 14,  5, 13, 17,  0,  2,  0,  0" />
-			<M1 value="  0,  0, 29, 10,  4,  1, 14, 36,  0, 10,  0,  0" />
-			<CA value="  0,  0, 31,  9, 13,  2,  3,  0,  0,  1,  0,  0" />
-		</G>
-		<H name="opn 4op" param="Kick">
-			<M3 value="  5,  6, 20, 19,  3,  3, 15, 17,  0,  0,  0,  0" />
-			<M2 value="  0,  0, 31,  0, 18, 10, 15,  0,  0,  0,  0,  0" />
-			<M1 value="  0,  0, 31,  0, 14,  5, 15,  0,  0,  0,  0,  0" />
-			<CA value="  0,  0, 31, 13, 22, 13,  6,  0,  0,  1,  0,  0" />
-		</H>
-	</preset>
 	<slot>
 		<A name="" param="">
 			<M3 value="" />
@@ -167,69 +151,119 @@ $xml_editor= @'
 </table>
 '@
  
-# ÉnÉbÉVÉÖñºí«â¡ÇÃèÍçá 
-# $xml_editor= @'
-# $key $script:key
-# function Fmwrite_xml($x,$y){
-# function Fmxml_read($x,$y){
- 
 # function ====== 
- 
-#$graphics.DrawLine($pen, 10, 20, 100, 200) 	# íºê¸ 
-#$graphics.DrawRectangle($pen, 0, 0, 200, 300)	# éläp
-#$graphics.FillPolygon($brush,$point)		# ê‹ÇÍê¸
-#$graphics.FillRectangle($brush, $xe[0], $ye[0], 1, 1) # 1px dot
  
 # poly 
 	
-function Point_obj([int]$cnt){ 
+function Whiteblack_select([string]$out){ 
 
-  for([int]$num= 0; $num -lt 8; $num++){ # polygonäpêî
+	switch($key["color"]){
+	'dark'{		[int]$o= 0; break;
+	}'natural'{	[int]$o= 1; break;
+	}'pastel'{	[int]$o= 0; break;
+	}'vivid'{	[int]$o= 1
+	}
+	} #sw
 
-	$script:pointed[0]+= 0
-	$script:pointed[0][$num]= New-Object System.Drawing.Point
+  switch($out){
+  'Alg_'{ # BG_set
 
-	$script:pointed[1]+= 0
-	$script:pointed[1][$num]= New-Object System.Drawing.Point
+	switch($o){
+	0{	[array]$rr= @($Whwpen,$Whbrush,$black); break;
+	}1{	[array]$rr= @($Blwpen,$Blbrush,$white)
+	}
+	} #sw
 
-	$script:pointed[2]+= 0
-	$script:pointed[2][$num]= New-Object System.Drawing.Point
+	return $rr
+	break;
 
-	$script:pointed[3]+= 0
-	$script:pointed[3][$num]= New-Object System.Drawing.Point
-  } #
+  }default{ # "lisn_btn"
 
-  for([int]$num= 0; $num -lt 11; $num++){ # polygonäpêî
+	if($out -eq "conv_btn"){ $o+= 2 } # conv_btn sw 2,3
 
-	$script:pointsg[0]+= 0
-	$script:pointsg[0][$num]= New-Object System.Drawing.Point
+	switch($o){
+	0{	[array]$rr= @($Tbrush,$Blsolid); break;
+	}1{	[array]$rr= @($Tbrush,$Whsolid); break;
+	}2{	[array]$rr= @($Pbrush,$Blsolid); break;
+	}3{	[array]$rr= @($Pbrush,$Whsolid)
+	}
+	} #sw
 
-	$script:pointsg[1]+= 0
-	$script:pointsg[1][$num]= New-Object System.Drawing.Point
+	switch(Itm){ # Chip_position $script:xye2
+	'2op'{
+		$buffw.Graphics.FillRectangle($rr[0],$xye2[0],$xye2[1],$xye2[2],$xye2[3])
+		$buffw.Render($gpw); $Pictbw.Refresh()
 
-	$script:pointsg[2]+= 0
-	$script:pointsg[2][$num]= New-Object System.Drawing.Point
+		sleep -m 166
 
-	$script:pointsg[3]+= 0
-	$script:pointsg[3][$num]= New-Object System.Drawing.Point
-  } #
+		$buffw.Graphics.FillRectangle($rr[1],$xye2[0],$xye2[1],$xye2[2],$xye2[3])
+		$buffw.Render($gpw); $Pictbw.Refresh()
 
-  for([int]$num= 0; $num -lt $cnt; $num++){ # 160px -> 80pointï™ópà”
+		break;
+	}'4op'{
+		$buffb.Graphics.FillRectangle($rr[0],$xye4[0],$xye4[1],$xye4[2],$xye4[3])
+		$buffb.Render($gpb); $Pictbg.Refresh()
 
-	$script:pointing[0]+= 0
-	$script:pointing[0][$num]= New-Object System.Drawing.Point # .PointF -> .Point
+		sleep -m 166
 
-	$script:pointing[1]+= 0
-	$script:pointing[1][$num]= New-Object System.Drawing.Point
-
-	$script:pointing[2]+= 0
-	$script:pointing[2][$num]= New-Object System.Drawing.Point
-
-	$script:pointing[3]+= 0
-	$script:pointing[3][$num]= New-Object System.Drawing.Point
-  } #
-
+		$buffb.Graphics.FillRectangle($rr[1],$xye4[0],$xye4[1],$xye4[2],$xye4[3])
+		$buffb.Render($gpb); $Pictbg.Refresh()
+	}
+	} #sw
+  }
+  } #sw
  } #func
+ 
+function Color_select([string]$out){ 
+
+  switch(Itm){
+  '2op'{
+	switch($key["color"]){
+
+	'dark'{		[array]$color= @($darkblue, $darkred); break;
+	}'natural'{	[array]$color= @($naturalblue, $naturalred); break;
+	}'pastel'{	[array]$color= @($pastelblue, $pastelred); break;
+	}'vivid'{	[array]$color= @($vividblue, $vividred)
+	}
+	} #sw
+
+	break;
+  }'4op'{
+
+	switch($key["color"]){
+
+	'dark'{		[array]$color= @($darkblue, $darkgreen, $darkorange, $darkred); break;
+	}'natural'{	[array]$color= @($naturalblue,$naturalgreen, $naturalorange, $naturalred); break;
+	}'pastel'{	[array]$color= @($pastelblue, $pastelgreen, $pastelorange, $pastelred); break;
+	}'vivid'{	[array]$color= @($vividblue, $vividgreen, $vividorange, $vividred)
+	}
+	} #sw
+  }
+  } #sw
+
+  switch($out){
+
+  'Panel_chg'{
+		$fm_panel.BackColor= $color[(Idx)]
+		break;
+  }'Poly_'{
+
+	switch($key["color"]){
+
+	'dark'{		$brush= $Whbrush; break;
+	}'natural'{	$brush= $Blbrush; break;
+	}'pastel'{	$brush= $Whbrush; break;
+	}'vivid'{	$brush= $Blbrush
+	}
+	} #sw
+
+	[array]$rr= $brush,$color # ÂøÖË¶Å„ÄÅecho Áõ¥„Å†„Å®„ÉÄ„É°
+
+	return $rr
+  }
+  } #sw
+
+} #func
  
 # ------ 
  
@@ -476,34 +510,16 @@ function Flow_poinw([int]$num, [array]$e, [int]$damp, [int]$width, [int]$height)
 function Poly_4op([array]$v, [int]$j){ # 4op ADSR render 
 
 
-  switch($key["color"]){
+	[array]$rr= Color_select "Poly_"
 
-  'dark'{
-	$brush= $Whbrush
-	[array]$color= @($darkblue, $darkgreen, $darkorange, $darkred)
-	break;
-
-  }'natural'{
-	$brush= $Blbrush
-	[array]$color= @($naturalblue,$naturalgreen, $naturalorange, $naturalred)
-	break;
-
-  }'pastel'{
-	$brush= $Whbrush
-	[array]$color= @($pastelblue, $pastelgreen, $pastelorange, $pastelred)
-	break;
-
-  }'vivid'{
-	$brush= $Blbrush
-	[array]$color= @($vividblue, $vividgreen, $vividorange, $vividred)
-
-  }
-  } #sw
-
-	[array]$color_pen= @($XBpen, $XGpen, $XOpen, $XRpen)
+	$brush= $rr[0]
+	[array]$color= $rr[1]
 
 
-	[int]$width= ($img[0]+2)/ 4	# +2 sinÇ∆ÇÃí†êK
+	[array]$color_pen= @($XBpen,$XGpen,$XOpen,$XRpen)
+
+
+	[int]$width= ($img[0]+2)/ 4	# +2 sin„Å®„ÅÆÂ∏≥Â∞ª
 	[int]$height= ($img[1]+2)/ 2
 
 
@@ -522,9 +538,8 @@ function Poly_4op([array]$v, [int]$j){ # 4op ADSR render
   switch($j){
 
   0{
-	$buffc.Graphics.Clear($color[0])	# fill
 
-    if(Mask_checker 1 "ssg"){
+    if(MSop_checker 1 "ssg"){
 	Flow_ssg 0 $xy[0] $width $height
  	$pt= $pointsg[0]
     }else{
@@ -532,13 +547,16 @@ function Poly_4op([array]$v, [int]$j){ # 4op ADSR render
  	$pt= $pointed[0]
     }
 
-    if(Mask_checker 1 "mask"){
-	$buffc.Graphics.FillPolygon($brush, $pt)	# ê‹ÇÍê¸ÇÃfill
+    $buffc.Graphics.Clear($color[0])	# fill
+
+   if(MSop_checker 1 "mask"){
+	$buffc.Graphics.FillPolygon($brush, $pt)	# Êäò„ÇåÁ∑ö„ÅÆfill
     }
-	$buffc.Graphics.DrawLine($color_pen[0], 0, $height, $img[0], $height) # xé≤Çè„èëÇ´
+	$buffc.Graphics.DrawLine($color_pen[0], 0, $height, $img[0], $height) # xËª∏„Çí‰∏äÊõ∏„Åç
+
 	break;
   }1{
-    if(Mask_checker 2 "ssg"){
+    if(MSop_checker 2 "ssg"){
 	Flow_ssg 1 $xy[1] $width $height
  	$pt= $pointsg[1]
     }else{
@@ -546,15 +564,15 @@ function Poly_4op([array]$v, [int]$j){ # 4op ADSR render
  	$pt= $pointed[1]
     }
 
-	$buffe.Graphics.Clear($color[1])
+    $buffe.Graphics.Clear($color[1])
 
-    if(Mask_checker 2 "mask"){
+    if(MSop_checker 2 "mask"){
 	$buffe.Graphics.FillPolygon($brush, $pt)
     }
 	$buffe.Graphics.DrawLine($color_pen[1], 0, $height, $img[0], $height)
 	break;
   }2{
-    if(Mask_checker 4 "ssg"){
+    if(MSop_checker 4 "ssg"){
 	Flow_ssg 2 $xy[2] $width $height
  	$pt= $pointsg[2]
     }else{
@@ -562,15 +580,15 @@ function Poly_4op([array]$v, [int]$j){ # 4op ADSR render
  	$pt= $pointed[2]
     }
 
-	$buffg.Graphics.Clear($color[2])
+    $buffg.Graphics.Clear($color[2])
 
-    if(Mask_checker 4 "mask"){
+    if(MSop_checker 4 "mask"){
 	$buffg.Graphics.FillPolygon($brush, $pt)
     }
 	$buffg.Graphics.DrawLine($color_pen[2], 0, $height, $img[0], $height)
 	break;
   }3{
-    if(Mask_checker 8 "ssg"){
+    if(MSop_checker 8 "ssg"){
 	Flow_ssg 3 $xy[3] $width $height
  	$pt= $pointsg[3]
     }else{
@@ -578,9 +596,9 @@ function Poly_4op([array]$v, [int]$j){ # 4op ADSR render
  	$pt= $pointed[3]
     }
 
-	$buffi.Graphics.Clear($color[3])
+    $buffi.Graphics.Clear($color[3])
 
-    if(Mask_checker 8 "mask"){
+    if(MSop_checker 8 "mask"){
 	$buffi.Graphics.FillPolygon($brush, $pt)
     }
 	$buffi.Graphics.DrawLine($color_pen[3], 0, $height, $img[0], $height)
@@ -592,36 +610,22 @@ function Poly_4op([array]$v, [int]$j){ # 4op ADSR render
 function Poly_2op([array]$v, [int]$j){ # 2op ADSR render 
 
 
-	switch($key["color"]){
+	[array]$rr= Color_select "Poly_"
 
-	'dark'{		$brush= $Whbrush
-			[array]$color= @($darkblue, $darkred)
-			break;
-
-	}'natural'{	$brush= $Blbrush
-			[array]$color= @($naturalblue, $naturalred)
-			break;
-
-	}'pastel'{	$brush= $Whbrush
-			[array]$color= @($pastelblue, $pastelred)
-			break;
-
-	}'vivid'{	$brush= $Blbrush
-			[array]$color= @($vividblue, $vividred)
-
-	}
-	} #sw
-
-	[array]$color_pen= @($XBpen, $XRpen)
+	$brush= $rr[0]
+	[array]$color= $rr[1]
 
 
-	[int]$width= ($img[0]+2)/ 4	# +2 sinÇ∆ÇÃí†êK
+	[array]$color_pen= @($XBpen,$XRpen)
+
+
+	[int]$width= ($img[0]+2)/ 4	# +2 sin„Å®„ÅÆÂ∏≥Â∞ª
 	[int]$height= ($img[1]+2)/ 2
 
 
 	[array]$xy= @(0,0) # 2op
 
-	$xy[$j]= 0,0,0,0,0 # ar dr sl hold rr
+	[int[]]$xy[$j]= 0,0,0,0,0 # ar dr sl hold rr
 
 	$xy[$j][0]= $width* $v[$j][0]/ 15	# ar
 	$xy[$j][1]= $width* $v[$j][1]/ 15	# dr
@@ -637,16 +641,17 @@ function Poly_2op([array]$v, [int]$j){ # 2op ADSR render
   0{
 	Flow_poinw 0 $xy[0] $damp $width $height
 
-	$buffc.Graphics.Clear($color[0])			#fill
-	$buffc.Graphics.FillPolygon($brush, $pointed[0])	# ê‹ÇÍê¸ÇÃfill
-	$buffc.Graphics.DrawLine($color_pen[0], 0, $height, ($width*4), $height) # xé≤Çè„èëÇ´
+	$buffz.Graphics.Clear($color[0])			#fill
+	$buffz.Graphics.FillPolygon($brush, $pointed[0])	# Êäò„ÇåÁ∑ö„ÅÆfill
+	$buffz.Graphics.DrawLine($color_pen[0], 0, $height, ($width*4), $height) # xËª∏„Çí‰∏äÊõ∏„Åç
+
 	break;
   }1{
 	Flow_poinw 1 $xy[1] $damp $width $height
 
-	$buffe.Graphics.Clear($color[1])
-	$buffe.Graphics.FillPolygon($brush, $pointed[1])
-	$buffe.Graphics.DrawLine($color_pen[1], 0, $height, ($width*4), $height)
+	$buffx.Graphics.Clear($color[1])
+	$buffx.Graphics.FillPolygon($brush, $pointed[1])
+	$buffx.Graphics.DrawLine($color_pen[1], 0, $height, ($width*4), $height)
   }
   } #sw
 
@@ -672,7 +677,7 @@ function Poly_chg(){
 
  Poly_4op $env $j
 
- [array]$color_pen= @($Ypen,$Mpen,$Cpen,$Lpen)
+ [array]$color_pen= @($Mpen,$Ypen,$Lpen,$Cpen)
 
 
  $pict_panel.SuspendLayout()
@@ -745,18 +750,18 @@ function Poly_chw(){
  switch($j){
 
  0{
-	$buffc.Render($gpk) # ura buffer store
-	$buffc.Graphics.DrawLines($color_pen[0], $pointing[0])
-	$buffc.Render($gpc)
+	$buffz.Render($gpv) # ura buffer store
+	$buffz.Graphics.DrawLines($color_pen[0], $pointing[0])
+	$buffz.Render($gpz)
 
-	$Pictbox1.Refresh()
+	$Pictbox1a.Refresh()
 	break;
  }1{
-	$buffe.Render($gpm)
-	$buffe.Graphics.DrawLines($color_pen[1], $pointing[1])
-	$buffe.Render($gpe)
+	$buffx.Render($gpt)
+	$buffx.Graphics.DrawLines($color_pen[1], $pointing[1])
+	$buffx.Render($gpx)
 
-	$Pictbox2.Refresh()
+	$Pictbox2a.Refresh()
  }
  } #sw
 
@@ -765,20 +770,77 @@ function Poly_chw(){
  } #func
   
 # sine 
-	 
-function Flowtting_point([int]$cnt, [int]$num, [array]$xy){ 
+	
+function Reso([int]$b){ 
+
+	[int]$script:count= $img[0]/ $b
+
+
+	[array]$script:sin_pos= Sin_position $count # "0"„ÅÆÈÖçÂàó„Éñ„É≠„ÉÉ„ÇØ
+	[array]$script:sin_map= Sin_mapping $count $radian
+
+	# ÂèÇÁÖßÂûã
+
+	[array]$script:pointed= Point_obj 8 # polygon point obj
+	[array]$script:pointsg= Point_obj 11 # polygon ssg-eg
+	[array]$script:pointing= Point_obj $count # sine
+ } #func
+ 
+function Flowtting_point([int]$cnt, [int]$opt, [array]$xy){ 
 
 	[int]$i= 0
 	for($i=0; $i -lt $cnt; $i++){
 
-		$script:pointing[$num][$i].X= $xy[$i][0]+ 2 # 2px zurashi
-		$script:pointing[$num][$i].Y= $xy[$i][1]
+		$script:pointing[$opt][$i].X= $xy[$i][0]+ 2 # 2px zurashi
+		$script:pointing[$opt][$i].Y= $xy[$i][1]
 	} #
+ } #func
+ 
+function Point_obj([int]$cnt){ 
+
+	# 4opÂàÜ,(2op„ÇÇ)
+	[array]$pt= @("","","","")
+
+	[array]$pt[0]= ""; $pt[0]*= $cnt
+	[array]$pt[1]= ""; $pt[1]*= $cnt
+	[array]$pt[2]= ""; $pt[2]*= $cnt
+	[array]$pt[3]= ""; $pt[3]*= $cnt
+
+  for([int]$num= 0; $num -lt $cnt; $num++){
+
+	$pt[0][$num]= New-Object System.Drawing.Point # loop de obj nomi ka
+	$pt[1][$num]= New-Object System.Drawing.Point
+	$pt[2][$num]= New-Object System.Drawing.Point
+	$pt[3][$num]= New-Object System.Drawing.Point
+  } #
+
+	return $pt
+ } #func
+ 
+function Sin_position([int]$cc){ 
+
+	[array]$pos= "","","","" # 4op(2op)
+
+	[array]$pos[0]= ""; $pos[0]*= $cc # [int[]]„Å†„Å®ps5„ÉÄ„É°
+	[array]$pos[1]= ""; $pos[1]*= $cc
+	[array]$pos[2]= ""; $pos[2]*= $cc
+	[array]$pos[3]= ""; $pos[3]*= $cc
+
+
+	for([int]$aa=0; $aa -lt $cc; $aa++){
+
+		[int[]]$pos[0][$aa]= 0,0 # x,y
+		[int[]]$pos[1][$aa]= 0,0
+		[int[]]$pos[2][$aa]= 0,0
+		[int[]]$pos[3][$aa]= 0,0
+	} #
+
+	return $pos
  } #func
  
 function Sin_mapping([int]$cnt,[double]$rad){ 
 
- [float[]]$mul= @( 0.5, 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15) # î{âπ
+ [float[]]$mul= @( 0.5, 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15) # ÂÄçÈü≥
 
  [array]$s_map= 0
  $s_map*= $mul.length
@@ -794,10 +856,11 @@ function Sin_mapping([int]$cnt,[double]$rad){
 
 	for([int]$ii= 0; $ii -lt $cnt; $ii++){
 
-		#âÒì]âûÇ∂ÇΩÉâÉWÉAÉìílèoóÕ
+		#ÂõûËª¢Âøú„Åò„Åü„É©„Ç∏„Ç¢„É≥ÂÄ§Âá∫Âäõ
+
 
 		$s_map[$jj][$ii]+= $ii* $rad* 2* $mul[$jj]/ $cnt
-		# xé≤[1->80]px * 2ÉŒrad * î{âπêî / 80px
+		# xËª∏[1->80]px * 2PI rad * ÂÄçÈü≥Êï∞ / 80px
 	} #
 
 	$jj++;
@@ -810,32 +873,35 @@ function Sin_mapping([int]$cnt,[double]$rad){
 function Sin_4op([array]$rc,[int]$alg,[int]$fbj){ # 4op sin render 
 
  [int]$adj_value= $key["adjust"]
- [array]$color_pen= @($Ypen,$Mpen,$Cpen,$Lpen)
+ [array]$color_pen= @($Mpen,$Ypen,$Lpen,$Cpen)
 
 
  [int]$height= $img[1]/ 2 # 50px
  [float]$adjv= $height/ $adj_value
 
 
- [float[]]$feb= @(0, 0.0625, 0.125, 0.25, 0.5, 1,2,4) # ïœí≤ìx
+ [float[]]$feb= @(0, 0.0625, 0.125, 0.25, 0.5, 1,2,4) # Â§âË™øÂ∫¶
  [float]$feedback= $feb[$fbj]* $radian/ $adj_value
 
 
- [int[]]$level= @($rc[0][0],$rc[1][0],$rc[2][0],$rc[3][0]) # tl [0-127]
- [int[]]$num= @($rc[0][1],$rc[1][1],$rc[2][1],$rc[3][1]) # ml
+ [int[]]$tl= @($rc[0][0],$rc[1][0],$rc[2][0],$rc[3][0]) # tl [0-127]
+ [int[]]$ml= @($rc[0][1],$rc[1][1],$rc[2][1],$rc[3][1]) # ml
 
 
 
-# -0.75dB* [0-127] Ç∆ÇµÇƒåvéZ
+# -0.75dB* [0-127] „Å®„Åó„Å¶Ë®àÁÆó
+
 
  [float[]]$rdus= @(0,0,0,0)
 
- $rdus[0]= [Math]::Pow(10, (-0.0375* $level[0]))* $adj_value
- $rdus[1]= [Math]::Pow(10, (-0.0375* $level[1]))* $adj_value
- $rdus[2]= [Math]::Pow(10, (-0.0375* $level[2]))* $adj_value
- $rdus[3]= [Math]::Pow(10, (-0.0375* $level[3]))* $adj_value
+ $rdus[0]= [Math]::Pow(10, (-0.0375* $tl[0]))* $adj_value
+ $rdus[1]= [Math]::Pow(10, (-0.0375* $tl[1]))* $adj_value
+ $rdus[2]= [Math]::Pow(10, (-0.0375* $tl[2]))* $adj_value
+ $rdus[3]= [Math]::Pow(10, (-0.0375* $tl[3]))* $adj_value
+ # [Math]::Pow(10, (-0.0375* 0))= 1
 
- if($bai[0] -ne 1){
+
+ if($bai -ne 1){
 
   $rdus[0]= [Math]::Round($rdus[0],4,"ToEven") # MidpointRounding.ToEven / ginkohya marume
   $rdus[1]= [Math]::Round($rdus[1],4,"ToEven")
@@ -846,75 +912,82 @@ function Sin_4op([array]$rc,[int]$alg,[int]$fbj){ # 4op sin render
 
  [float[]]$ye= @(0,0,0, 0,0,0) # 4op+ 2
 
+ [int]$loop= $count
  [array]$xy= $sin_pos
  [array]$sine= $sin_map
 
  [int]$i= 0
- for($i=0; $i -lt $count; $i++){ # xé≤
+ for($i=0; $i -lt $loop; $i++){ # xËª∏
 
 		# op.1
 
-		$ye[0]= $rdus[0]* [Math]::Sin($sine[$num[0]][$i] +$ye[4])
-		$ye[4]=	$ye[0]* $feedback	#stack
+		$ye[0]= $rdus[0]* [Math]::Sin($sine[$ml[0]][$i] +$ye[4])
+		$ye[4]= $feedback* ($ye[0]+ $ye[4]) # 2sample„ÅÆÂ†¥Âêà
+
 
 
 	switch($alg){
 
-	0{	# íºóÒ
-		$ye[1]= $rdus[1]* [Math]::Sin($sine[$num[1]][$i]+ $ye[0]) # yç¿ïWíl
-		$ye[2]= $rdus[2]* [Math]::Sin($sine[$num[2]][$i]+ $ye[1])
-		$ye[3]= $rdus[3]* [Math]::Sin($sine[$num[3]][$i]+ $ye[2])
+	0{	# Áõ¥Âàó
+
+		$ye[1]= $rdus[1]* [Math]::Sin($sine[$ml[1]][$i]+ $ye[0]) # yÂ∫ßÊ®ôÂÄ§
+		$ye[2]= $rdus[2]* [Math]::Sin($sine[$ml[2]][$i]+ $ye[1])
+		$ye[3]= $rdus[3]* [Math]::Sin($sine[$ml[3]][$i]+ $ye[2])
 		break;
 	}1{
 
-		$ye[1]= $rdus[1]* [Math]::Sin($sine[$num[1]][$i])
+		$ye[1]= $rdus[1]* [Math]::Sin($sine[$ml[1]][$i])
 
-		$ye[5]= $ye[0]+ $ye[1] # çáíl
-		$ye[2]= $rdus[2]* [Math]::Sin($sine[$num[2]][$i]+ $ye[5])
+		$ye[5]= $ye[0]+ $ye[1] # ÂêàÂÄ§
+		$ye[2]= $rdus[2]* [Math]::Sin($sine[$ml[2]][$i]+ $ye[5])
 
-		$ye[3]= $rdus[3]* [Math]::Sin($sine[$num[3]][$i]+ $ye[2])
+		$ye[3]= $rdus[3]* [Math]::Sin($sine[$ml[3]][$i]+ $ye[2])
 		break;
 	}2{
 
-		$ye[1]= $rdus[1]* [Math]::Sin($sine[$num[1]][$i])
-		$ye[2]= $rdus[2]* [Math]::Sin($sine[$num[2]][$i]+ $ye[1])
+		$ye[1]= $rdus[1]* [Math]::Sin($sine[$ml[1]][$i])
+		$ye[2]= $rdus[2]* [Math]::Sin($sine[$ml[2]][$i]+ $ye[1])
 
 		$ye[5]= $ye[0]+ $ye[2]
-		$ye[3]= $rdus[3]* [Math]::Sin($sine[$num[3]][$i]+ $ye[5])
+		$ye[3]= $rdus[3]* [Math]::Sin($sine[$ml[3]][$i]+ $ye[5])
 		break;
 	}3{
 
-		$ye[1]= $rdus[1]* [Math]::Sin($sine[$num[1]][$i]+ $ye[0])
+		$ye[1]= $rdus[1]* [Math]::Sin($sine[$ml[1]][$i]+ $ye[0])
 
-		$ye[2]= $rdus[2]* [Math]::Sin($sine[$num[2]][$i])
+		$ye[2]= $rdus[2]* [Math]::Sin($sine[$ml[2]][$i])
 
 		$ye[5]= $ye[1]+ $ye[2]
-		$ye[3]= $rdus[3]* [Math]::Sin($sine[$num[3]][$i]+ $ye[5])
+		$ye[3]= $rdus[3]* [Math]::Sin($sine[$ml[3]][$i]+ $ye[5])
 		break;
 	}4{
 
-		$ye[1]= $rdus[1]* [Math]::Sin($sine[$num[1]][$i]+ $ye[0])
+		$ye[1]= $rdus[1]* [Math]::Sin($sine[$ml[1]][$i]+ $ye[0])
 
-		$ye[2]= $rdus[2]* [Math]::Sin($sine[$num[2]][$i])
-		$ye[3]= $rdus[3]* [Math]::Sin($sine[$num[3]][$i]+ $ye[2])
+		$ye[2]= $rdus[2]* [Math]::Sin($sine[$ml[2]][$i])
+		$ye[3]= $rdus[3]* [Math]::Sin($sine[$ml[3]][$i]+ $ye[2])
 		break;
 	}5{
 
-		$ye[1]= $rdus[1]* [Math]::Sin($sine[$num[1]][$i]+ $ye[0])
-		$ye[2]= $rdus[2]* [Math]::Sin($sine[$num[2]][$i]+ $ye[0])
-		$ye[3]= $rdus[3]* [Math]::Sin($sine[$num[3]][$i]+ $ye[0])
+		$ye[1]= $rdus[1]* [Math]::Sin($sine[$ml[1]][$i]+ $ye[0])
+		$ye[2]= $rdus[2]* [Math]::Sin($sine[$ml[2]][$i]+ $ye[0])
+		$ye[3]= $rdus[3]* [Math]::Sin($sine[$ml[3]][$i]+ $ye[0])
 		break;
 	}6{
 
-		$ye[1]= $rdus[1]* [Math]::Sin($sine[$num[1]][$i]+ $ye[0])
-		$ye[2]= $rdus[2]* [Math]::Sin($sine[$num[2]][$i])
-		$ye[3]= $rdus[3]* [Math]::Sin($sine[$num[3]][$i])
+		$ye[1]= $rdus[1]* [Math]::Sin($sine[$ml[1]][$i]+ $ye[0])
+		$ye[2]= $rdus[2]* [Math]::Sin($sine[$ml[2]][$i])
+		$ye[3]= $rdus[3]* [Math]::Sin($sine[$ml[3]][$i])
 		break;
-	}7{	# ï¿óÒ
+	}7{	# ‰∏¶Âàó
 
-		$ye[1]= $rdus[1]* [Math]::Sin($sine[$num[1]][$i])
-		$ye[2]= $rdus[2]* [Math]::Sin($sine[$num[2]][$i])
-		$ye[3]= $rdus[3]* [Math]::Sin($sine[$num[3]][$i])
+
+		$ye[1]= $rdus[1]* [Math]::Sin($sine[$ml[1]][$i])
+		$ye[2]= $rdus[2]* [Math]::Sin($sine[$ml[2]][$i])
+		$ye[3]= $rdus[3]* [Math]::Sin($sine[$ml[3]][$i])
+
+		# ÂÖ®„Å¶ÂêàÊàêÂá∫Âäõ
+		# $ye[3]= $adj_value* [Math]::Sin($ye[0]+ $ye[1]+ $ye[2]+ $ye[3])
 	}
 	} #sw
 
@@ -923,25 +996,27 @@ function Sin_4op([array]$rc,[int]$alg,[int]$fbj){ # 4op sin render
 	$ye[2]= $height- $ye[2]* $adjv
 	$ye[3]= $height- $ye[3]* $adjv
 
-	$xy[0][$i]= ($i* $bai[0]), $ye[0]
-	$xy[1][$i]= ($i* $bai[0]), $ye[1]
-	$xy[2][$i]= ($i* $bai[0]), $ye[2]
-	$xy[3][$i]= ($i* $bai[0]), $ye[3]
+	$xy[0][$i]= ($i* $bai), $ye[0]
+	$xy[1][$i]= ($i* $bai), $ye[1]
+	$xy[2][$i]= ($i* $bai), $ye[2]
+	$xy[3][$i]= ($i* $bai), $ye[3]
+
  } #
 
  sleep -m $key["wait"]
 
- Flowtting_point $count 0 $xy[0]
+ Flowtting_point $loop 0 $xy[0]
  $buffc.Graphics.DrawLines($color_pen[0], $pointing[0])
 
- Flowtting_point $count 1 $xy[1]
+ Flowtting_point $loop 1 $xy[1]
  $buffe.Graphics.DrawLines($color_pen[1], $pointing[1])
 
- Flowtting_point $count 2 $xy[2]
+ Flowtting_point $loop 2 $xy[2]
  $buffg.Graphics.DrawLines($color_pen[2], $pointing[2])
 
- Flowtting_point $count 3 $xy[3]
+ Flowtting_point $loop 3 $xy[3]
  $buffi.Graphics.DrawLines($color_pen[3], $pointing[3])
+
 
  } #func
  
@@ -951,29 +1026,31 @@ function Sin_2op([array]$rc,[int]$alg,[int]$fbj){ # 2op sin render
  [array]$color_pen= @($Mpen,$Cpen)
 
 
- [int]$height= $img[1] / 2 # íÜêSê¸ 50px
- [float]$adjv= $height/ $adj_value # ìxçáÇ¢
+ [int]$height= $img[1] / 2 # ‰∏≠ÂøÉÁ∑ö 50px
+ [float]$adjv= $height/ $adj_value # Â∫¶Âêà„ÅÑ
 
 
- [float[]]$feb= @(0, 0.0625, 0.125, 0.25, 0.5, 1,2,4) # ïœí≤ìx 0,(1/16),(1/8),(1/4), (1/2),1,2,4
- [float]$feedback= $feb[$fbj]* $radian/ $adj_value # Ç†ÇÁÇ©Ç∂Çﬂìôî{âª
+ [float[]]$feb= @(0, 0.0625, 0.125, 0.25, 0.5, 1,2,4) # Â§âË™øÂ∫¶ 0,(1/16),(1/8),(1/4), (1/2),1,2,4
+ [float]$feedback= $feb[$fbj]* $radian/ $adj_value # „ÅÇ„Çâ„Åã„Åò„ÇÅÁ≠âÂÄçÂåñ
 
 
- [int[]]$dist= @($rc[0][2],$rc[1][2]) # îºêÆó¨
-
- [int[]]$level= @($rc[0][0],$rc[1][0]) # tl [0-63]
- [int[]]$num= @($rc[0][1],$rc[1][1]) # ml [int]::Parse(), -as [int] ___0 -> 0
+ [int[]]$dist= @($rc[0][2],$rc[1][2]) # ÂçäÊï¥ÊµÅ
 
 
+ [int[]]$tl= @($rc[0][0],$rc[1][0]) # tl [0-63]
+ [int[]]$ml= @($rc[0][1],$rc[1][1]) # ml [int]::Parse(), -as [int] ___0 -> 0
 
-# -0.75dB* [0-63] Ç∆ÇµÇƒåvéZ
+
+
+# -0.75dB* [0-63] „Å®„Åó„Å¶Ë®àÁÆó
+
 
  [float[]]$rdus= @(0,0)
 
- $rdus[0]= [Math]::Pow(10, (-0.0375* $level[0]))* $adj_value # (-0.75*$level[0]/ 20) -> -0.0375
- $rdus[1]= [Math]::Pow(10, (-0.0375* $level[1]))* $adj_value
+ $rdus[0]= [Math]::Pow(10, (-0.0375* $tl[0]))* $adj_value # (-0.75*$tl[0]/ 20) -> -0.0375
+ $rdus[1]= [Math]::Pow(10, (-0.0375* $tl[1]))* $adj_value
 
- if($bai[0] -ne 1){
+ if($bai -ne 1){
 
   $rdus[0]= [Math]::Round($rdus[0],4,"ToEven") # MidpointRounding.ToEven / ginkohya marume
   $rdus[1]= [Math]::Round($rdus[1],4,"ToEven")
@@ -981,29 +1058,32 @@ function Sin_2op([array]$rc,[int]$alg,[int]$fbj){ # 2op sin render
 
  [float[]]$ye= @(0,0,0) # 2op
 
- [array]$xy= $sin_pos
- [array]$sine= $sin_map # gbl -> localÇ÷ÉÅÉÇÉäÉAÉNÉZÉX
+ [int]$loop= $count
+ [array]$xy= $sin_pos # "0"„ÅÆ„Éñ„É≠„ÉÉ„ÇØ
+ [array]$sine= $sin_map # gbl -> local„Å∏„É°„É¢„É™„Ç¢„ÇØ„Çª„Çπ
 
  [int]$i= 0
- for($i=0; $i -lt $count; $i++){ # xé≤
+ for($i=0; $i -lt $loop; $i++){ # xËª∏
 
-		# op.1 // $sin_map= xé≤[0-79]px * 2ÉŒ[radian] * ML / 80px
+		# [Math]::SinÁõ¥Êé•Êõ∏„ÅçËæº„ÅøÈ´òÈÄüÂåñ„Åü„ÇÅ
 
-		$ye[0]= $rdus[0]* [Math]::Sin($sine[$num[0]][$i]+ $ye[2])
+		# op.1 // $sin_map= xËª∏[0-79]px * 2PI [radian] * ML / 80px
 
-		$ye[2]= $feedback* $ye[0]
-		# $ye[3]= $feedback* $ye[2] # 2sampleÇÃèÍçá
+		$ye[0]= $rdus[0]* [Math]::Sin($sine[$ml[0]][$i]+ $ye[2])
+		$ye[2]= $feedback* ($ye[0]+ $ye[2]) # 2sample„ÅÆÂ†¥Âêà
+
 
 	switch($alg){
 
-	0{	# íºóÒ
+	0{	# Áõ¥Âàó
+
 
 		if($dist[0] -eq 1){
-			if($ye[0] -lt 0){ $ye[0]= 0 # îºêÆó¨ vrc7 nomi
+			if($ye[0] -lt 0){ $ye[0]= 0 # ÂçäÊï¥ÊµÅ vrc7 nomi
 			}
 		}
 
-		$ye[1]= $rdus[1]* [Math]::Sin($sine[$num[1]][$i]+ $ye[0]) # yç¿ïWíl
+		$ye[1]= $rdus[1]* [Math]::Sin($sine[$ml[1]][$i]+ $ye[0]) # yÂ∫ßÊ®ôÂÄ§
 
 		if($dist[1] -eq 1){
 			if($ye[1] -lt 0){ $ye[1]= 0
@@ -1011,30 +1091,75 @@ function Sin_2op([array]$rc,[int]$alg,[int]$fbj){ # 2op sin render
 		}
 		break;
 
-	}1{	# ï¿óÒ opl2 nomi
+	}1{	# ‰∏¶Âàó opl2 nomi
 
-		$ye[1]= $rdus[1]* [Math]::Sin($sine[$num[1]][$i])
+		$ye[1]= $rdus[1]* [Math]::Sin($sine[$ml[1]][$i])
 	}
 	} #sw
 
 	$ye[0]= $height- $ye[0]* $adjv
 	$ye[1]= $height- $ye[1]* $adjv
 
-	$xy[0][$i]= ($i* $bai[0]), $ye[0]
-	$xy[1][$i]= ($i* $bai[0]), $ye[1]
+	$xy[0][$i]= ($i* $bai), $ye[0]
+	$xy[1][$i]= ($i* $bai), $ye[1]
  } #
 
  sleep -m $key["wait"]
 
- Flowtting_point $count 0 $xy[0]
- $buffc.Graphics.DrawLines($color_pen[0], $pointing[0])
+ Flowtting_point $loop 0 $xy[0]
+ $buffz.Graphics.DrawLines($color_pen[0], $pointing[0])
 
- Flowtting_point $count 1 $xy[1]
- $buffe.Graphics.DrawLines($color_pen[1], $pointing[1])
+ Flowtting_point $loop 1 $xy[1]
+ $buffx.Graphics.DrawLines($color_pen[1], $pointing[1])
 
  } #func
- 	
+ 
 # ------ 
+ 
+function Sin_chw(){ 
+
+
+ $buffz.Graphics.DrawImage($image5a, $Pictbox1a.ClientRectangle)
+ $buffx.Graphics.DrawImage($image6a, $Pictbox2a.ClientRectangle)
+
+
+ switch($comb_fm.SelectedItem){
+
+ 'vrc7 2op'{
+		[array]$arr= $vrc_svn
+
+		[int]$n= 0 # alg:0
+		[int]$f= $arr[0][1] # fb
+
+		[array]$cyle= @(0,0) # tl,ml,dt
+		$cyle[0]= @($arr[0][0],$arr[0][7],$arr[0][12])
+		$cyle[1]= @(0,$arr[1][7],$arr[1][12]) # tl:0
+		break;
+ }'opl 2op'{
+		[array]$arr= $opl_two
+
+		[int]$n= $arr[0][0] # alg
+		[int]$f= $arr[0][1] # fb
+
+		[array]$cyle= @(0,0) # tl,ml,dt:0
+		$cyle[0]= @($arr[0][6],$arr[0][8],0)
+		$cyle[1]= @($arr[1][6],$arr[1][8],0)
+ }
+ } #sw
+
+
+
+ Sin_2op $cyle $n $f
+
+
+ $pict_panel.SuspendLayout()
+
+	$buffz.Render($gpz);	$Pictbox1a.Refresh()
+	$buffx.Render($gpx);	$Pictbox2a.Refresh()
+
+ $pict_panel.ResumeLayout()
+
+ } #func
  
 function Sin_chg(){ 
 
@@ -1076,92 +1201,47 @@ function Sin_chg(){
  $pict_panel.ResumeLayout()
 
  } #func
- 
-function Sin_chw(){ 
-
-
- $buffc.Graphics.DrawImage($image5, $Pictbox1.ClientRectangle)
- $buffe.Graphics.DrawImage($image6, $Pictbox2.ClientRectangle)
-
-
- switch($comb_fm.SelectedItem){
-
- 'vrc7 2op'{
-		[array]$arr= $vrc_svn
-
-		[int]$n= 0 # alg:0
-		[int]$f= $arr[0][1] # fb
-
-		[array]$cyle= @(0,0) # tl,ml,dt
-		$cyle[0]= @($arr[0][0],$arr[0][7],$arr[0][12])
-		$cyle[1]= @(0,$arr[1][7],$arr[1][12]) # tl:0
-		break;
- }'opl 2op'{
-		[array]$arr= $opl_two
-
-		[int]$n= $arr[0][0] # alg
-		[int]$f= $arr[0][1] # fb
-
-		[array]$cyle= @(0,0) # tl,ml,dt:0
-		$cyle[0]= @($arr[0][6],$arr[0][8],0)
-		$cyle[1]= @($arr[1][6],$arr[1][8],0)
- }
- } #sw
-
-
-
- Sin_2op $cyle $n $f
-
-
- $pict_panel.SuspendLayout()
-
-	$buffc.Render($gpc);	$Pictbox1.Refresh()
-	$buffe.Render($gpe);	$Pictbox2.Refresh()
-
- $pict_panel.ResumeLayout()
-
- } #func
   
 # alg 
-	
-function Attend_alg([int]$j, [int]$n){ 
+	 
+function Attend_alg([int]$j){ 
 
 	switch($j){
-	1{	[string]$t= "Editor RestartéûÅA1/1 ê∏ìxÇ…ÇµÇ‹Ç∑"; break;
-	}2{	[string]$t= "Editor RestartéûÅA1/2 ê∏ìxÇ…ÇµÇ‹Ç∑"; break;
-	}4{	[string]$t= "Editor RestartéûÅA1/4 ê∏ìxÇ…ÇµÇ‹Ç∑"
+	1{	[string]$t= "1/1 Á≤æÂ∫¶„Å´„Åó„Åæ„Åô"; break;
+	}2{	[string]$t= "1/2 Á≤æÂ∫¶„Å´„Åó„Åæ„Åô"; break;
+	}4{	[string]$t= "1/4 Á≤æÂ∫¶„Å´„Åó„Åæ„Åô"
 	}
 	} #sw
 
 	[string]$retn= [Windows.Forms.MessageBox]::Show(
 
-		$t, "ämîF", "OKCancel","Information","Button2"
+		$t, "Á¢∫Ë™ç", "OKCancel","Information","Button2"
 	)
 
 	switch($retn){
 
-	'OK'{		return $j;	break;
-	}'Cancel'{	return $n
+	'OK'{		return $j;
+	##}'Cancel'{
 	}
 	} #sw
  } #func
  
 function Peralg_build([int]$n){ 
 
-		$sb_menu_w0.Text= " 1/1 ê∏ìx"
-		$sb_menu_w1.Text= " 1/2 ê∏ìx"
-		$sb_menu_w2.Text= " 1/4 ê∏ìx"
+		$sb_menu_w0.Text= " 1/1 Á≤æÂ∫¶"
+		$sb_menu_w1.Text= " 1/2 Á≤æÂ∫¶"
+		$sb_menu_w2.Text= " 1/4 Á≤æÂ∫¶"
 
 	switch($n){
 
-	1{	$sb_menu_w0.Text= "[v] 1/1 ê∏ìx"
-		Write-Host '<< 1/1 ê∏ìxÇ≈ï\é¶ÇµÇ‹Ç∑'
+	1{	$sb_menu_w0.Text= "[v] 1/1 Á≤æÂ∫¶"
+		Write-Host '<< 1/1 Á≤æÂ∫¶„ÅßË°®Á§∫„Åó„Åæ„Åô'
 		break;
-	}2{	$sb_menu_w1.Text= "[v] 1/2 ê∏ìx"
-		Write-Host '<< 1/2 ê∏ìxÇ≈ï\é¶ÇµÇ‹Ç∑'
+	}2{	$sb_menu_w1.Text= "[v] 1/2 Á≤æÂ∫¶"
+		Write-Host '<< 1/2 Á≤æÂ∫¶„ÅßË°®Á§∫„Åó„Åæ„Åô'
 		break;
-	}4{	$sb_menu_w2.Text= "[v] 1/4 ê∏ìx"
-		Write-Host '<< 1/4 ê∏ìxÇ≈ï\é¶ÇµÇ‹Ç∑'
+	}4{	$sb_menu_w2.Text= "[v] 1/4 Á≤æÂ∫¶"
+		Write-Host '<< 1/4 Á≤æÂ∫¶„ÅßË°®Á§∫„Åó„Åæ„Åô'
 
 	}
 	} #sw
@@ -1174,9 +1254,7 @@ function Popalg_build([string]$t){ # <- $key["open"]
 
 	$fm_menu_sb.Text= "v FM OP window"
 
-	Chip_position
-
-	Peralg_build $bai[0]
+	Contxt_octave $key["oct"]
 	All_chg
 	Stus_alg
 
@@ -1184,29 +1262,11 @@ function Popalg_build([string]$t){ # <- $key["open"]
  }'False'{
 
 	$fm_menu_sb.Text= "FM OP window"
-
  }
  } #sw
 
  return $t
- } #func
- 
-function Chip_position(){ 
 
-	switch($key["layout"]){
-	'nomal'{
-		$script:xyp= Chip_view 325 21 # x,y
-		$script:xyi= Chip_view 325 21
-		$script:xytwo= 20,145
-		$script:xyfour= 20,375
-		break;
-	}'reverse'{
-		$script:xyp= Chip_view 20 360 # x,y
-		$script:xyi= Chip_view 20 146
-		$script:xyfour= 365,20
-		$script:xytwo= 365,20
-	}
-	} #sw
  } #func
  
 function Layout_alg([string]$t){ 
@@ -1247,160 +1307,8 @@ function Color_alg([string]$t){
  
 function Stus_alg(){ # status bar 
 
-	$sb_stus.Text= "  1/"+ $bai[0]+ " / "+ "adjust: "+ $key["adjust"]+ " / "+ "wait: "+ $key["wait"]+ "ms"+ " | "+ "layout: "+ $key["layout"]+ " / "+ $key["color"]+ " color"
+	$sb_label.Text= "  1/"+ $bai+ " | "+ "adjust: "+ $key["adjust"]+ " | "+ "wait: "+ $key["wait"]+ "ms"+ " / "+ "layout: "+ $key["layout"]+ " | "+ $key["color"]+ " color"
 
- } #func
- 
-function Contxt_change([string]$osc,[int]$a){ 
-
- [int]$o= Idx
-
- switch($osc){
- '2op'{
-	$contxt_bw.Items.Clear()
-
-	switch($a){
-	0{
-		[void]$contxt_bw.Items.Add("alg:0 [v]") # _bw ha opl nomi
-		[void]$contxt_bw.Items.Add("alg:1")
-		break;
-	}1{
-		[void]$contxt_bw.Items.Add("alg:0")
-		[void]$contxt_bw.Items.Add("alg:1 [v]")
-	}
-	} #sw
-
-	$contxt_2op.Items.Clear()
-
-	switch($o){
-	0{
-		[void]$contxt_2op.Items.Add("Op.1 [v]")
-		[void]$contxt_2op.Items.Add("Op.2")
-		break;
-	}1{
-		[void]$contxt_2op.Items.Add("Op.1")
-		[void]$contxt_2op.Items.Add("Op.2 [v]")
-	}
-	} #sw
-
-	break;
-
- }'4op'{
- 	$contxt_bg.Items.Clear()
-
-	switch($a){
-	0{
-		[void]$contxt_bg.Items.Add("alg:0 [v]")
-		[void]$contxt_bg.Items.Add("alg:1")
-		[void]$contxt_bg.Items.Add("alg:2")
-		[void]$contxt_bg.Items.Add("alg:3")
-		[void]$contxt_bg.Items.Add("alg:4")
-		[void]$contxt_bg.Items.Add("alg:5")
-		[void]$contxt_bg.Items.Add("alg:6")
-		[void]$contxt_bg.Items.Add("alg:7")
-		break;
-	}1{
-		[void]$contxt_bg.Items.Add("alg:0")
-		[void]$contxt_bg.Items.Add("alg:1 [v]")
-		[void]$contxt_bg.Items.Add("alg:2")
-		[void]$contxt_bg.Items.Add("alg:3")
-		[void]$contxt_bg.Items.Add("alg:4")
-		[void]$contxt_bg.Items.Add("alg:5")
-		[void]$contxt_bg.Items.Add("alg:6")
-		[void]$contxt_bg.Items.Add("alg:7")
-		break;
-	}2{
-		[void]$contxt_bg.Items.Add("alg:0")
-		[void]$contxt_bg.Items.Add("alg:1")
-		[void]$contxt_bg.Items.Add("alg:2 [v]")
-		[void]$contxt_bg.Items.Add("alg:3")
-		[void]$contxt_bg.Items.Add("alg:4")
-		[void]$contxt_bg.Items.Add("alg:5")
-		[void]$contxt_bg.Items.Add("alg:6")
-		[void]$contxt_bg.Items.Add("alg:7")
-		break;
-	}3{
-		[void]$contxt_bg.Items.Add("alg:0")
-		[void]$contxt_bg.Items.Add("alg:1")
-		[void]$contxt_bg.Items.Add("alg:2")
-		[void]$contxt_bg.Items.Add("alg:3 [v]")
-		[void]$contxt_bg.Items.Add("alg:4")
-		[void]$contxt_bg.Items.Add("alg:5")
-		[void]$contxt_bg.Items.Add("alg:6")
-		[void]$contxt_bg.Items.Add("alg:7")
-		break;
-	}4{
-		[void]$contxt_bg.Items.Add("alg:0")
-		[void]$contxt_bg.Items.Add("alg:1")
-		[void]$contxt_bg.Items.Add("alg:2")
-		[void]$contxt_bg.Items.Add("alg:3")
-		[void]$contxt_bg.Items.Add("alg:4 [v]")
-		[void]$contxt_bg.Items.Add("alg:5")
-		[void]$contxt_bg.Items.Add("alg:6")
-		[void]$contxt_bg.Items.Add("alg:7")
-		break;
-	}5{
-		[void]$contxt_bg.Items.Add("alg:0")
-		[void]$contxt_bg.Items.Add("alg:1")
-		[void]$contxt_bg.Items.Add("alg:2")
-		[void]$contxt_bg.Items.Add("alg:3")
-		[void]$contxt_bg.Items.Add("alg:4")
-		[void]$contxt_bg.Items.Add("alg:5 [v]")
-		[void]$contxt_bg.Items.Add("alg:6")
-		[void]$contxt_bg.Items.Add("alg:7")
-		break;
-	}6{
-		[void]$contxt_bg.Items.Add("alg:0")
-		[void]$contxt_bg.Items.Add("alg:1")
-		[void]$contxt_bg.Items.Add("alg:2")
-		[void]$contxt_bg.Items.Add("alg:3")
-		[void]$contxt_bg.Items.Add("alg:4")
-		[void]$contxt_bg.Items.Add("alg:5")
-		[void]$contxt_bg.Items.Add("alg:6 [v]")
-		[void]$contxt_bg.Items.Add("alg:7")
-		break;
-	}7{
-		[void]$contxt_bg.Items.Add("alg:0")
-		[void]$contxt_bg.Items.Add("alg:1")
-		[void]$contxt_bg.Items.Add("alg:2")
-		[void]$contxt_bg.Items.Add("alg:3")
-		[void]$contxt_bg.Items.Add("alg:4")
-		[void]$contxt_bg.Items.Add("alg:5")
-		[void]$contxt_bg.Items.Add("alg:6")
-		[void]$contxt_bg.Items.Add("alg:7 [v]")
-	}
-	} #sw
-
-	$contxt_4op.Items.Clear()
-
-	switch($o){
-	0{
-		[void]$contxt_4op.Items.Add("Op.1 [v]")
-		[void]$contxt_4op.Items.Add("Op.2")
-		[void]$contxt_4op.Items.Add("Op.3")
-		[void]$contxt_4op.Items.Add("Op.4")
-		break;
-	}1{
-		[void]$contxt_4op.Items.Add("Op.1")
-		[void]$contxt_4op.Items.Add("Op.2 [v]")
-		[void]$contxt_4op.Items.Add("Op.3")
-		[void]$contxt_4op.Items.Add("Op.4")
-		break;
-	}2{
-		[void]$contxt_4op.Items.Add("Op.1")
-		[void]$contxt_4op.Items.Add("Op.2")
-		[void]$contxt_4op.Items.Add("Op.3 [v]")
-		[void]$contxt_4op.Items.Add("Op.4")
-		break;
-	}3{
-		[void]$contxt_4op.Items.Add("Op.1")
-		[void]$contxt_4op.Items.Add("Op.2")
-		[void]$contxt_4op.Items.Add("Op.3")
-		[void]$contxt_4op.Items.Add("Op.4 [v]")
-	}
-	} #sw
- }
- } #sw
  } #func
  
 # ------ 
@@ -1433,6 +1341,28 @@ function Chip_view([int]$x,[int]$y){
 
  } #func
  
+function Chip_position([string]$k){ 
+
+	switch($k){
+	'nomal'{
+		$script:xyp= Chip_view 325 21 # x,y
+		$script:xyi= Chip_view 325 21
+		$script:xytwo= 20,145
+		$script:xyfour= 20,375
+		$script:xye2= 0,276,480,4
+		$script:xye4= 0,526,480,4
+		break;
+	}'reverse'{
+		$script:xyp= Chip_view 20 360 # x,y
+		$script:xyi= Chip_view 20 146
+		$script:xyfour= 365,20
+		$script:xytwo= 365,20
+		$script:xye2= 0,0,480,4
+		$script:xye4= 0,0,480,4
+	}
+	} #sw
+ } #func
+ 
 function Alg_cable([int]$alg){ 
 
  [int]$sw= Idx
@@ -1454,44 +1384,22 @@ function Alg_cable([int]$alg){
 
  [string]$tt= $ary[$comb_fm.SelectedIndex]+ "`r`n"+ "Alg:"+($alg -as [string])+ "`r`n"+ $arr[$sw]+ "`r`n"+ $mtx[$alg][$sw]
 
- if($key["mask"] -ne '15'){
-	$tt+= "`r`n"+ "Mask:"+ $key["mask"]
- }
- if($key["eg_type"] -ne 'Thru'){
-	$tt+= "`r`n"+ "SSG:"+ $key["ssg"]+","+$key["eg_type"]
- }
+ if(Mskseg_chk){ $tt+= (Mskseg_out 2) }
 
 
- switch($key["color"]){
- 'dark'{	[int]$o= 0; break;
- }'natural'{	[int]$o= 1; break;
- }'pastel'{	[int]$o= 0; break;
- }'vivid'{	[int]$o= 1
- }
- } #sw
+ [array]$rr= Whiteblack_select "Alg_"
 
- switch($o){
- 0{
-	$pen= $Whwpen
-	$brush= $Whbrush
+ $pen= $rr[0]
+ $brush= $rr[1]
+ $board= $rr[2]
 
-	$buffb.Graphics.Clear($black)
-	$buffb.Graphics.DrawString($tt,$Fona,$brush, $xyfour[0],$xyfour[1])
-	break;
- }1{
-	$pen= $Blwpen
-	$brush= $Blbrush
-
-	$buffb.Graphics.Clear($white)
-	$buffb.Graphics.DrawString($tt,$Fona,$brush, $xyfour[0],$xyfour[1])
- }
- } #sw
+ $buffb.Graphics.Clear($board)
+ $buffb.Graphics.DrawString($tt,$Fona,$brush, $xyfour[0],$xyfour[1]) # $script:xyfour
 
 
  [array]$color_pen= @($XBpen,$XGpen,$XOpen,$XRpen)
  [array]$cable= @($Ppen,$Bpen,$Gpen,$Open,$Rpen)
  [array]$tex= @($Cbrush,$Lbrush,$Ybrush,$Mbrush)
-
 
  switch($alg){
  0{
@@ -1525,11 +1433,11 @@ function Alg_cable([int]$alg){
 	}
 	} #sw
 
-	# òg [$pen, x,y, width,height]
-	$buffb.Graphics.DrawRectangle($pen,   $xyp[0][1],$xyp[1][7], 15,18) # op
-	$buffb.Graphics.DrawRectangle($pen,   $xyp[0][5],$xyp[1][7], 15,18)
-	$buffb.Graphics.DrawRectangle($pen,   $xyp[0][9],$xyp[1][7], 15,18)
-	$buffb.Graphics.DrawRectangle($pen,   $xyp[0][13],$xyp[1][7], 15,18)
+	# Êû† [$pen, x,y, width,height]
+	$buffb.Graphics.DrawRectangle($pen, $xyp[0][1],$xyp[1][7], 15,18) # op
+	$buffb.Graphics.DrawRectangle($pen, $xyp[0][5],$xyp[1][7], 15,18)
+	$buffb.Graphics.DrawRectangle($pen, $xyp[0][9],$xyp[1][7], 15,18)
+	$buffb.Graphics.DrawRectangle($pen, $xyp[0][13],$xyp[1][7], 15,18)
 
 	$buffb.Graphics.DrawString("M", $Fona, $tex[0], $xyp[0][1],$xyp[1][7])
 	$buffb.Graphics.DrawString("M", $Fona, $tex[1], $xyp[0][5],$xyp[1][7])
@@ -1541,7 +1449,8 @@ function Alg_cable([int]$alg){
 	$buffb.Graphics.DrawLine($pen, $xyp[0][0],$xyp[1][6], $xyp[0][4],$xyp[1][6])
 	$buffb.Graphics.DrawLine($pen, $xyp[0][4],$xyp[1][6], $xyp[0][4],$xyp[1][8])
 
-	$buffb.Graphics.DrawLine($pen, $xyp[0][3],$xyp[1][8], $xyp[0][5],$xyp[1][8]) # åãê¸
+	$buffb.Graphics.DrawLine($pen, $xyp[0][3],$xyp[1][8], $xyp[0][5],$xyp[1][8]) # ÁµêÁ∑ö
+
 	$buffb.Graphics.DrawLine($pen, $xyp[0][7],$xyp[1][8], $xyp[0][9],$xyp[1][8])
 	$buffb.Graphics.DrawLine($pen, $xyp[0][11],$xyp[1][8], $xyp[0][13],$xyp[1][8])
 	$buffb.Graphics.DrawLine($pen, $xyp[0][15],$xyp[1][8], $xyp[0][17],$xyp[1][8])
@@ -1938,7 +1847,6 @@ function Alg_cable([int]$alg){
  
 function Alg_cablw([int]$alg){ 
 
-
  [int]$sw= Idx
  [array]$arr= @("Op.1","Op.2")
 
@@ -1952,40 +1860,24 @@ function Alg_cablw([int]$alg){
  [string]$tt= $ary[$comb_fm.SelectedIndex]+ "`r`n"+ "Alg:"+ ($alg -as [string])+ "`r`n"+ $arr[$sw]+ "`r`n"+ $mtx[$alg][$sw]
 
 
- switch($key["color"]){
- 'dark'{	[int]$o= 0; break;
- }'natural'{	[int]$o= 1; break;
- }'pastel'{	[int]$o= 0; break;
- }'vivid'{	[int]$o= 1
- }
- } #sw
+ [array]$rr= Whiteblack_select "Alg_"
 
- switch($o){
- 0{
-	$pen= $Whwpen
-	$brush= $Whbrush
+ $pen= $rr[0]
+ $brush= $rr[1]
+ $board= $rr[2]
 
-	$buffw.Graphics.Clear($black)
-	$buffw.Graphics.DrawString($tt,$Fona,$brush, $xytwo[0],$xytwo[1])
-	break;
- }1{
-	$pen= $Blwpen
-	$brush= $Blbrush
-
-	$buffw.Graphics.Clear($white)
-	$buffw.Graphics.DrawString($tt,$Fona,$brush, $xytwo[0],$xytwo[1])
- }
- } #sw
+ $buffw.Graphics.Clear($board)
+ $buffw.Graphics.DrawString($tt,$Fona,$brush, $xytwo[0],$xytwo[1]) # $script:xytwo
 
 
-  [array]$color_pen= @($XBpen, $XRpen)
-  [array]$cable= @($Ppen, $Bpen,$Rpen)
-  [array]$tex= @($Cbrush,$Mbrush)
+ [array]$color_pen= @($XBpen,$XRpen)
+ [array]$cable= @($Ppen,$Bpen,$Rpen)
+ [array]$tex= @($Cbrush,$Mbrush)
 
   switch($alg){
   0{
-	$Pictbox1.Location= "100,20"
-	$Pictbox2.Location= "180,145"
+	$Pictbox1a.Location= "100,20"
+	$Pictbox2a.Location= "180,145"
 
 	$buffw.Graphics.DrawBeziers($cable[0],$pointar[0])
 	$buffw.Graphics.DrawBeziers($cable[1],$pointar[1])
@@ -2013,13 +1905,14 @@ function Alg_cablw([int]$alg){
 	$buffw.Graphics.DrawLine($pen, $xyi[0][8],$xyi[1][6], $xyi[0][12],$xyi[1][6])
 	$buffw.Graphics.DrawLine($pen, $xyi[0][12],$xyi[1][6], $xyi[0][12],$xyi[1][8])
 
-	$buffw.Graphics.DrawLine($pen, $xyi[0][11],$xyi[1][8], $xyi[0][13],$xyi[1][8]) # åãê¸
+	$buffw.Graphics.DrawLine($pen, $xyi[0][11],$xyi[1][8], $xyi[0][13],$xyi[1][8]) # ÁµêÁ∑ö
+
 	$buffw.Graphics.DrawLine($pen, $xyi[0][15],$xyi[1][8], $xyi[0][17],$xyi[1][8])
 
 	break;
   }1{
-	$Pictbox1.Location= "180,20"
-	$Pictbox2.Location= "180,145"
+	$Pictbox1a.Location= "180,20"
+	$Pictbox2a.Location= "180,145"
 
 	$buffw.Graphics.DrawBeziers($cable[0],$pointat[0])
 	$buffw.Graphics.DrawBeziers($cable[1],$pointat[1])
@@ -2047,7 +1940,7 @@ function Alg_cablw([int]$alg){
 	$buffw.Graphics.DrawLine($pen, $xyi[0][10],$xyi[1][4], $xyi[0][14],$xyi[1][4])
 	$buffw.Graphics.DrawLine($pen, $xyi[0][14],$xyi[1][4], $xyi[0][14],$xyi[1][6])
 
-	$buffw.Graphics.DrawLine($pen, $xyi[0][13],$xyi[1][6], $xyi[0][15],$xyi[1][6]) #xyé≤
+	$buffw.Graphics.DrawLine($pen, $xyi[0][13],$xyi[1][6], $xyi[0][15],$xyi[1][6]) #xyËª∏
 	$buffw.Graphics.DrawLine($pen, $xyi[0][13],$xyi[1][10], $xyi[0][15],$xyi[1][10])
 	$buffw.Graphics.DrawLine($pen, $xyi[0][15],$xyi[1][6], $xyi[0][15],$xyi[1][10])
 	$buffw.Graphics.DrawLine($pen, $xyi[0][15],$xyi[1][8], $xyi[0][17],$xyi[1][8])
@@ -2065,16 +1958,15 @@ function Op_chg(){
 
 	[int]$n= 0 # alg
 	Alg_cablw $n
-	Contxt_change "2op" $n
+	Contxt_change $n
 
 	$buffw.Render($gpw);	$Pictbw.Refresh()
-
 	break;
  }'opl 2op'{
 
 	[int]$n= $opl_two[0][0]
 	Alg_cablw $n
-	Contxt_change "2op" $n
+	Contxt_change $n
 
 	$buffw.Render($gpw);	$Pictbw.Refresh()
 	break;
@@ -2082,7 +1974,7 @@ function Op_chg(){
 
 	[int]$n= $opn_fur[0][0]
 	Alg_cable $n
-	Contxt_change "4op" $n
+	Contxt_change $n
 
 	$buffb.Render($gpb);	$Pictbg.Refresh()
 	break;
@@ -2090,10 +1982,9 @@ function Op_chg(){
 
 	[int]$n= $opm_fur[0][0]
 	Alg_cable $n
-	Contxt_change "4op" $n
+	Contxt_change $n
 
 	$buffb.Render($gpb);	$Pictbg.Refresh()
-
  }
  } #sw
 
@@ -2107,7 +1998,6 @@ function All_chg(){ # $vrc_svn[][] ha "__1" no string
 
  switch($comb_fm.SelectedItem){
  'vrc7 2op'{
-		[string]$sw= "2op"
 		[array]$arr= $vrc_svn
 
 		[int]$n= 0 # alg:0
@@ -2123,7 +2013,6 @@ function All_chg(){ # $vrc_svn[][] ha "__1" no string
 
 		break;
  }'opl 2op'{
-		[string]$sw= "2op"
 		[array]$arr= $opl_two
 
 		[int]$n= $arr[0][0] # alg
@@ -2139,7 +2028,6 @@ function All_chg(){ # $vrc_svn[][] ha "__1" no string
 
 		break;
  }'opn 4op'{
-		[string]$sw= "4op"
 		[array]$arr= $opn_fur
 
 		[int]$n= $arr[0][0] # alg
@@ -2159,7 +2047,6 @@ function All_chg(){ # $vrc_svn[][] ha "__1" no string
 
 		break;
  }'opm 4op'{
-		[string]$sw= "4op"
 		[array]$arr= $opm_fur
 
 		[int]$n= $arr[0][0] # alg
@@ -2180,32 +2067,37 @@ function All_chg(){ # $vrc_svn[][] ha "__1" no string
  } #sw
 
 
- switch($sw){
+ switch(Itm){
  '2op'{
 
 	Poly_2op $env 0
 	Poly_2op $env 1
 
-	$buffc.Render($gpk) # ura buffer store
-	$buffe.Render($gpm)
+	$buffz.Render($gpv) # ura buffer store
+	$buffx.Render($gpt)
 
 	Sin_2op $cyle $n $f
 
+	$Pictbox1.Hide()
+	$Pictbox2.Hide()
 	$Pictbox3.Hide()
 	$Pictbox4.Hide()
-	$buffc.Render($gpc);	$Pictbox1.Refresh()
-	$buffe.Render($gpe);	$Pictbox2.Refresh()
+	$Pictbox1a.Show()
+	$Pictbox2a.Show()
+	$buffz.Render($gpz);	$Pictbox1a.Refresh()
+	$buffx.Render($gpx);	$Pictbox2a.Refresh()
 
 	Alg_cablw $n
-	Contxt_change "2op" $n
+	Contxt_change $n
 
 	$buffw.Render($gpw)
 	$Pictbg.Hide()
-	$Pictbw.Show()		# çÇë¨âª -> .RefreshÇÃíºëO
+	$Pictbw.Show()		# È´òÈÄüÂåñ -> .Refresh„ÅÆÁõ¥Ââç
+
 	$Pictbw.Refresh()	# poly to sine no ato kireini read
 
 	$pict_panel.Size= "480,280"
-	$sb_alg.Size= "502,375"
+	$sb_alg.Size= "502,371"
 
 	break;
  }'4op'{
@@ -2223,6 +2115,10 @@ function All_chg(){ # $vrc_svn[][] ha "__1" no string
 	Sin_4op $cyle $n $f
 
 
+	$Pictbox1a.Hide()
+	$Pictbox2a.Hide()
+	$Pictbox1.Show()
+	$Pictbox2.Show()
 	$Pictbox3.Show()
 	$Pictbox4.Show()
 	$buffc.Render($gpc);	$Pictbox1.Refresh()	# Invalidate() tsudo tsudo
@@ -2231,7 +2127,7 @@ function All_chg(){ # $vrc_svn[][] ha "__1" no string
 	$buffi.Render($gpi);	$Pictbox4.Refresh()
 
 	Alg_cable $n
-	Contxt_change "4op" $n
+	Contxt_change $n
 
 	$buffb.Render($gpb)
 	$Pictbw.Hide()
@@ -2239,7 +2135,7 @@ function All_chg(){ # $vrc_svn[][] ha "__1" no string
 	$Pictbg.Refresh()
 
 	$pict_panel.Size= "480,530"
-	$sb_alg.Size= "502,625"
+	$sb_alg.Size= "502,621"
  }
  } #sw
 
@@ -2249,150 +2145,47 @@ function All_chg(){ # $vrc_svn[][] ha "__1" no string
   
 # ------ 
  
-# hash 
-	
-function Fmxml_read($x,$y){ # hashê›íË 
-
-	# $x= $script:fm_xml.table.val
-	# $y= $script:fm_xml.table.opt
-
-	$script:val["compiler"]= $x.cmp.value
-	$script:val["player"]= $x.ply.value
-	$script:val["dos"]= $x.dos.value
-	$script:val["editor"]= $x.edt.value
-
-	$script:opt["chk_dos"]= $y.bit.value
-
-	$script:key["mask"]= "15"		# non save
-	$script:key["ssg"]= "0"			#
-	$script:key["eg_type"]= "Thru"		#
-
-	$script:key["autosave"]= Autosave_sw $y.autosave.value
-	$script:key["oct"]= Osc_sw $y.oct.value
-	$script:key["ten"]= Ten_sw $y.ten.value
-	$script:key["zero"]= Zero_sw $y.zero.value
-	$script:key["type"]= Type_sw $y.type.value
-	$script:key["style"]= Style_sw $y.style.value
-
-	$script:key["adjust"]= Adj_sw $y.adjust.value
-	$script:key["wait"]= Wait_sw $y.wait.value
-	$script:key["layout"]= Layout_alg $y.layout.value
-	$script:key["color"]= Color_alg $y.color.value
-
-	$script:key["open"]= $y.open.value # -> $frm_fm.Add_Shown
- } #func
- 
-function Setxml_read($x){ 
-
-  # $x= $script:set_xml.table
-
-  for([int]$i=3; $i -ge 0; $i--){
-
-	if($x.mck[$i].name -ne ''){
-
-		$script:comp[$x.mck[$i].name]= $x.mck[$i].param
-	}
-	if($x.nsd[$i].name -ne ''){
-
-		$script:comp[$x.nsd[$i].name]= $x.nsd[$i].param
-	}
-	if($x.pmd[$i].name -ne ''){
-
-		$script:comp[$x.pmd[$i].name]= $x.pmd[$i].param
-	}
-
-	if($x.ply[$i].name -ne ''){
-
-		$script:play[$x.ply[$i].name]= $x.ply[$i].param
-	}
-	if($x.edt[$i].name -ne ''){
-
-		$script:edit[$x.edt[$i].name]= $x.edt[$i].param
-	}
-	if($x.dos[$i].name -ne ''){
-
-		$script:dosv[$x.dos[$i].name]= $x.dos[$i].param
-	}
-  } #
- } #func
- 
-function Fmwrite_xml($x,$y){ 
-
-	# $x= $script:fm_xml.table.val
-	# $y= $script:fm_xml.table.opt
-
-	$x.cmp.value= [string]$val["compiler"]
-	$x.ply.value= [string]$val["player"]
-	$x.dos.value= [string]$val["dos"]
-	$x.edt.value= [string]$val["editor"]
-
-	$y.bit.value= [string]$opt["chk_dos"]
-
-	$y.autosave.value= [string]$key["autosave"] # $xmlÇÕ[string]ÉLÉÉÉXÉgïKóv
-	$y.oct.value= [string]$key["oct"]
-	$y.zero.value= [string]$key["zero"]
-	$y.ten.value= [string]$key["ten"]
-	$y.type.value= [string]$key["type"]
-	$y.style.value= [string]$key["style"]
-
-	$y.bai.value= [string]$bai[1]
-	$y.adjust.value= [string]$key["adjust"]
-	$y.wait.value= [string]$key["wait"]
-	$y.layout.value= [string]$key["layout"]
-	$y.color.value= [string]$key["color"]
-
-	$y.open.value= [string]$key["open"]
-
- } #func
-  
 # load save 
 	
-function Preset_build($x){ 
-
-	$fm_pre_a.Text= "slot A [ "+ $x.A.name+ " : "+$x.A.param + " ]"
-	$fm_pre_b.Text= "slot B [ "+ $x.B.name+ " : "+$x.B.param + " ]"
-	$fm_pre_c.Text= "slot C [ "+ $x.C.name+ " : "+$x.C.param + " ]"
-	$fm_pre_d.Text= "slot D [ "+ $x.D.name+ " : "+$x.D.param + " ]"
-
-	$fm_pre_e.Text= "slot E [ "+ $x.E.name+ " : "+$x.E.param + " ]"
-	$fm_pre_f.Text= "slot F [ "+ $x.F.name+ " : "+$x.F.param + " ]"
-	$fm_pre_g.Text= "slot G [ "+ $x.G.name+ " : "+$x.G.param + " ]"
-	$fm_pre_h.Text= "slot H [ "+ $x.H.name+ " : "+$x.H.param + " ]"
- } #func
- 
 function Autoload($x){ 
 
-		[array]$r= @("","")
-		$r[0]= $x.vrc.M1.value -split ","
-		$r[1]= $x.vrc.CA.value -split ","
+	if($comb_fm.SelectedItem -ne $x.name){
 
-		$script:vrc_svn= $r
+		# $comb_fm.Add_SelectedValueChanged
+		$comb_fm.SelectedItem= $x.name
+	}
 
-		[array]$r= @("","")
-		$r[0]= $x.opl.M1.value -split ","
-		$r[1]= $x.opl.CA.value -split ","
+	[array]$r= @("","")
+	$r[0]= $x.vrc.M1.value -split ","
+	$r[1]= $x.vrc.CA.value -split ","
 
-		$script:opl_two= $r
+	$script:vrc_svn= $r
 
-		[array]$r= @("","","","")
-		$r[0]= $x.opn.M3.value -split ","
-		$r[1]= $x.opn.M2.value -split ","
-		$r[2]= $x.opn.M1.value -split ","
-		$r[3]= $x.opn.CA.value -split ","
+	[array]$r= @("","")
+	$r[0]= $x.opl.M1.value -split ","
+	$r[1]= $x.opl.CA.value -split ","
 
-		$script:opn_fur= $r
+	$script:opl_two= $r
 
-		[array]$r= @("","","","")
-		$r[0]= $x.opm.M3.value -split ","
-		$r[1]= $x.opm.M2.value -split ","
-		$r[2]= $x.opm.M1.value -split ","
-		$r[3]= $x.opm.CA.value -split ","
+	[array]$r= @("","","","")
+	$r[0]= $x.opn.M3.value -split ","
+	$r[1]= $x.opn.M2.value -split ","
+	$r[2]= $x.opn.M1.value -split ","
+	$r[3]= $x.opn.CA.value -split ","
 
-		$script:opm_fur= $r
+	$script:opn_fur= $r
+
+	[array]$r= @("","","","")
+	$r[0]= $x.opm.M3.value -split ","
+	$r[1]= $x.opm.M2.value -split ","
+	$r[2]= $x.opm.M1.value -split ","
+	$r[3]= $x.opm.CA.value -split ","
+
+	$script:opm_fur= $r
+
  } # func
  
 function Autosave($x){ 
-
 
 	$x.name= $comb_fm.SelectedItem
 	$x.param= "AutoSave : "+ (Get-Date).ToString("yyyy/MM/dd HH:mm")
@@ -2623,19 +2416,199 @@ function Load_value($x, [string]$sw){
   } #sw
 
   Panel_chg
-
   Unredo 2
 
   $comb_fm.Select() # sai enter event no tame
 
-  if($sb_alg.Visible -eq $True){
+  if($sb_alg.Visible){
 
 	All_chg
   }
  } #func
   
+# hash 
+	
+function Fmxml_read($x,$y){ # hashË®≠ÂÆö 
+
+	# $x= $script:fm_xml.table.val
+	# $y= $script:fm_xml.table.opt
+
+	$script:val["mck"]= $x.mck.value
+	$script:val["nsd"]= $x.nsd.value
+	$script:val["pmd"]= $x.pmd.value
+	$script:val["compiler"]= $x.cmp.value
+	$script:val["player"]= $x.ply.value
+	$script:val["dos"]= $x.dos.value
+	$script:val["editor"]= $x.edt.value
+
+	$script:opt["chk_dos"]= $y.bit.value
+
+	$script:key["mask"]= "15"		# non save
+	$script:key["ssg"]= "0"			#
+	$script:key["eg_type"]= "Thru"		#
+
+	$script:key["tray"]= Trayfm_hide $y.tray.value
+	$script:key["autosave"]= Autosav_sw $y.autosave.value
+	$script:key["oct"]= Osc_sw $y.oct.value
+	$script:key["ten"]= Ten_sw $y.ten.value
+	$script:key["zero"]= Zero_sw $y.zero.value
+	$script:key["type"]= Type_sw $y.type.value
+	$script:key["style"]= Style_sw $y.style.value
+
+	$script:bai= $fm_xml.table.opt.bai.value # Á≤æÂ∫¶
+	$script:key["adjust"]= Adj_sw $y.adjust.value
+	$script:key["wait"]= Wait_sw $y.wait.value
+	$script:key["layout"]= Layout_alg $y.layout.value
+	$script:key["color"]= Color_alg $y.color.value
+
+	$script:key["open"]= $y.open.value # -> $frm_fm.Add_Shown
+ } #func
+ 
+function Setxml_read($x){ 
+
+  # $x= $script:set_xml.table
+
+  for([int]$i=3; $i -ge 0; $i--){
+
+	if($x.mck[$i].name -ne ''){
+
+		$script:comp[$x.mck[$i].name]= $x.mck[$i].param
+	}
+	if($x.nsd[$i].name -ne ''){
+
+		$script:comp[$x.nsd[$i].name]= $x.nsd[$i].param
+	}
+	if($x.pmd[$i].name -ne ''){
+
+		$script:comp[$x.pmd[$i].name]= $x.pmd[$i].param
+	}
+
+	if($x.ply[$i].name -ne ''){
+
+		$script:play[$x.ply[$i].name]= $x.ply[$i].param
+	}
+	if($x.edt[$i].name -ne ''){
+
+		$script:edit[$x.edt[$i].name]= $x.edt[$i].param
+	}
+	if($x.dos[$i].name -ne ''){
+
+		$script:dosv[$x.dos[$i].name]= $x.dos[$i].param
+	}
+  } #
+ } #func
+ 
+function Fmwrite_xml($x,$y){ 
+
+	# $x= $script:fm_xml.table.val
+	# $y= $script:fm_xml.table.opt
+
+	$x.mck.value= [string]$val["mck"]
+	$x.nsd.value= [string]$val["nsd"]
+	$x.pmd.value= [string]$val["pmd"]
+	$x.cmp.value= [string]$val["compiler"]
+	$x.ply.value= [string]$val["player"]
+	$x.dos.value= [string]$val["dos"]
+	$x.edt.value= [string]$val["editor"]
+
+	$y.bit.value= [string]$opt["chk_dos"]
+
+	$y.tray.value= [string]$key["tray"]
+	$y.autosave.value= [string]$key["autosave"] # $xml„ÅØ[string]„Ç≠„É£„Çπ„ÉàÂøÖË¶Å
+
+	$y.oct.value= [string]$key["oct"]
+	$y.zero.value= [string]$key["zero"]
+	$y.ten.value= [string]$key["ten"]
+	$y.type.value= [string]$key["type"]
+	$y.style.value= [string]$key["style"]
+
+	$y.bai.value= [string]$bai
+	$y.adjust.value= [string]$key["adjust"]
+	$y.wait.value= [string]$key["wait"]
+	$y.layout.value= [string]$key["layout"]
+	$y.color.value= [string]$key["color"]
+
+	$y.open.value= [string]$key["open"]
+
+ } #func
+  
 # gui 
 	
+function Trayfm_hide([string]$t){ 
+
+	switch($t){
+	'true'{
+
+		$tray_fm.Visible= $True
+		$menu_fty.Text= "v Task tray"
+		break;
+	}'false'{
+
+		$tray_fm.Visible= $False
+		$menu_fty.Text= "Task tray"
+	}
+	} #sw
+
+	return $t
+ } #func
+ 
+function Contxt_state([string]$t,[int[]]$ss){ 
+
+  switch($t){
+
+  'ÊúÄÂ∞èÂåñ'{
+
+    $contxt_trayfm.Items.Clear()
+    [void]$contxt_trayfm.Items.Add("ÂÖÉ„Å´Êàª„Åô")
+    [void]$contxt_trayfm.Items.Add("Áí∞Â¢ÉË®≠ÂÆö")
+    [void]$contxt_trayfm.Items.Add("ÁµÇ‰∫Ü")
+
+    $ss[0]= 1 # Â∞è„ÄÅÂÖÉ
+
+    if($frm_fm.WindowState -eq 'Normal'){
+	$ss[1]= 1; $frm_fm.WindowState= "Minimized"
+    }
+    if($sb_alg.WindowState -eq 'Normal'){
+	$ss[2]= 1; $sb_alg.WindowState= "Minimized"
+    }
+    if($ff_frm.WindowState -eq 'Normal'){
+	$ss[3]= 1; $ff_frm.WindowState= "Minimized"
+    }
+    if($sub_mask.WindowState -eq 'Normal'){
+	$ss[4]= 1; $sub_mask.WindowState= "Minimized"
+    }
+
+    return $ss
+    break;
+
+  }'ÂÖÉ„Å´Êàª„Åô'{
+
+    $contxt_trayfm.Items.Clear()
+    [void]$contxt_trayfm.Items.Add("ÊúÄÂ∞èÂåñ")
+    [void]$contxt_trayfm.Items.Add("Áí∞Â¢ÉË®≠ÂÆö")
+    [void]$contxt_trayfm.Items.Add("ÁµÇ‰∫Ü")
+
+    if($ss[1] -eq 1){ $frm_fm.WindowState= "Normal" }
+    if($ss[2] -eq 1){ $sb_alg.WindowState= "Normal" }
+    if($ss[3] -eq 1){ $ff_frm.WindowState= "Normal" }
+    if($ss[4] -eq 1){ $sub_mask.WindowState= "Normal" }
+
+    $ss= 0, 0,0,0,0
+
+    return $ss
+    break;
+
+  }'Áí∞Â¢ÉË®≠ÂÆö'{
+    $fm_menu_set.PerformClick()
+    break;
+
+  }'ÁµÇ‰∫Ü'{
+    $fm_menu_n.PerformClick()
+  }
+  } #sw
+
+ } #func
+ 
 function Menu_build([string]$sw){ 
 
   [string]$d= "[v] "
@@ -2830,10 +2803,19 @@ function Menu_build([string]$sw){
  
 function Change_menu([string]$name, [string]$sw){ 
 
-  if($s -match '[v]' -ne $True){ # equal cancel, .Contains() moka
+
+  if($name -match '[v]' -eq $False){ # .Contains() moka
 
 	switch($sw){
-	'compiler'{	$script:val[$sw]= $comp[$name];	break;
+	'compiler'{
+		switch($name){
+		'mck'{    $script:val[$sw]= $val["mck"]; break;
+		}'nsd'{	  $script:val[$sw]= $val["nsd"]; break;
+		}'pmd'{	  $script:val[$sw]= $val["pmd"]; break;	
+		}default{ $script:val[$sw]= $comp[$name]
+		}
+		} #sw
+
 	}'player'{	$script:val[$sw]= $play[$name];	break;
 	}'dos'{		$script:val[$sw]= $dosv[$name];	break;
 	}'editor'{	$script:val[$sw]= $edit[$name]
@@ -2850,39 +2832,26 @@ function Stus_build(){
 	[string[]]$t= Split_path $val["compiler"]
 	[string[]]$s= Split_path $val["player"]
 
-	[string]$q= "  cmp: "+ $t[0]+ " / ply: "+ $s[0]+ " | oct: "+ $key["oct"]
-	[string]$b= " / "+ $comb_fm.SelectedItem+ ": "
+	[string]$q= "  cmp: "+ $t[0]+ " | ply: "+ $s[0]+ " / oct: "+ $key["oct"]
+	[string]$b= " | "+ $comb_fm.SelectedItem+ ": "
 
 	switch($comb_fm.SelectedItem){
 	'vrc7 2op'{	$b+= $key["type"];	break;
 	}'opl 2op'{	$b+= "pmd";		break;
 	}'opn 4op'{
-			$q+= " / mask: "+ $key["mask"]
+			$q+= " | mask: "+ $key["mask"]
 			$b+= $key["style"]
 			break;
 	}'opm 4op'{
-			$q+= " / mask: "+ $key["mask"]
+			$q+= " | mask: "+ $key["mask"]
 			$b+= $key["style"]
 	}
 	} #sw
 
-	$fm_stus.Text= $q+ $b
+	$fm_label.Text= $q+ $b
  } #func
  
 # ------ 
- 
-function Bgmap_change([int]$j){ 
-
-	# .Value= $j event -> .Add_ValueChanged
-
-	switch($comb_fm.SelectedItem){
-	'vrc7 2op'{	$vrc_nmud_alg.Value= $j;	break;
-	}'opl 2op'{	$opl_nmud_alg.Value= $j;	break;
-	}'opn 4op'{	$opn_nmud_alg.Value= $j;	break;
-	}'opm 4op'{	$opm_nmud_alg.Value= $j
-	}
-	} #sw
- } #func
  
 function Opmap_change([int]$j){ 
 
@@ -2897,35 +2866,237 @@ function Opmap_change([int]$j){
 	} #sw
  } #func
  
+function Bgmap_change([int]$j){ 
+
+	# .Value= $j event -> .Add_ValueChanged
+
+	switch($comb_fm.SelectedItem){
+	'vrc7 2op'{	$vrc_nmud_alg.Value= $j;	break;
+	}'opl 2op'{	$opl_nmud_alg.Value= $j;	break;
+	}'opn 4op'{	$opn_nmud_alg.Value= $j;	break;
+	}'opm 4op'{	$opm_nmud_alg.Value= $j
+	}
+	} #sw
+ } #func
+ 
 function Contxt_select([string]$n){ 
 
 	switch($n){
-
 	'bg'{
-		$contxt_bg.Show([Windows.Forms.Cursor]::Position)
-		break;
-	}'bw'{
 		switch($comb_fm.SelectedItem){
 		'vrc7 2op'{	$contxt_7bw.Show([Windows.Forms.Cursor]::Position);	break;
-		}'opl 2op'{	$contxt_bw.Show([Windows.Forms.Cursor]::Position)
+		}'opl 2op'{	$contxt_bw.Show([Windows.Forms.Cursor]::Position);	break;
+		}default{	$contxt_bg.Show([Windows.Forms.Cursor]::Position)
 		}
 		} #sw
 		break;
-	}'pict'{
-		switch($comb_fm.SelectedItem){
-		'vrc7 2op'{	$contxt_2op.Show([Windows.Forms.Cursor]::Position);	break;
-		}'opl 2op'{	$contxt_2op.Show([Windows.Forms.Cursor]::Position);	break;
-		}'opn 4op'{	$contxt_4op.Show([Windows.Forms.Cursor]::Position);	break;
-		}'opm 4op'{	$contxt_4op.Show([Windows.Forms.Cursor]::Position)
-		}
-		} #sw
+
+	}'oct'{
+		$contxt_oct.Show([Windows.Forms.Cursor]::Position)
+	}
+	} #sw
+ } #func
+ 
+function Contxt_change([int]$a){ 
+
+  switch(Itm){
+  '2op'{
+	$contxt_bw.Items.Clear()
+
+	switch($a){
+	0{
+		[void]$contxt_bw.Items.Add("alg:0 [v]") # _bw ha opl nomi
+		[void]$contxt_bw.Items.Add("alg:1")
+		break;
+	}1{
+		[void]$contxt_bw.Items.Add("alg:0")
+		[void]$contxt_bw.Items.Add("alg:1 [v]")
+	}
+	} #sw
+
+	break;
+
+  }'4op'{
+ 	$contxt_bg.Items.Clear()
+
+	switch($a){
+	0{
+		[void]$contxt_bg.Items.Add("alg:0 [v]")
+		[void]$contxt_bg.Items.Add("alg:1")
+		[void]$contxt_bg.Items.Add("alg:2")
+		[void]$contxt_bg.Items.Add("alg:3")
+		[void]$contxt_bg.Items.Add("alg:4")
+		[void]$contxt_bg.Items.Add("alg:5")
+		[void]$contxt_bg.Items.Add("alg:6")
+		[void]$contxt_bg.Items.Add("alg:7")
+		break;
+	}1{
+		[void]$contxt_bg.Items.Add("alg:0")
+		[void]$contxt_bg.Items.Add("alg:1 [v]")
+		[void]$contxt_bg.Items.Add("alg:2")
+		[void]$contxt_bg.Items.Add("alg:3")
+		[void]$contxt_bg.Items.Add("alg:4")
+		[void]$contxt_bg.Items.Add("alg:5")
+		[void]$contxt_bg.Items.Add("alg:6")
+		[void]$contxt_bg.Items.Add("alg:7")
+		break;
+	}2{
+		[void]$contxt_bg.Items.Add("alg:0")
+		[void]$contxt_bg.Items.Add("alg:1")
+		[void]$contxt_bg.Items.Add("alg:2 [v]")
+		[void]$contxt_bg.Items.Add("alg:3")
+		[void]$contxt_bg.Items.Add("alg:4")
+		[void]$contxt_bg.Items.Add("alg:5")
+		[void]$contxt_bg.Items.Add("alg:6")
+		[void]$contxt_bg.Items.Add("alg:7")
+		break;
+	}3{
+		[void]$contxt_bg.Items.Add("alg:0")
+		[void]$contxt_bg.Items.Add("alg:1")
+		[void]$contxt_bg.Items.Add("alg:2")
+		[void]$contxt_bg.Items.Add("alg:3 [v]")
+		[void]$contxt_bg.Items.Add("alg:4")
+		[void]$contxt_bg.Items.Add("alg:5")
+		[void]$contxt_bg.Items.Add("alg:6")
+		[void]$contxt_bg.Items.Add("alg:7")
+		break;
+	}4{
+		[void]$contxt_bg.Items.Add("alg:0")
+		[void]$contxt_bg.Items.Add("alg:1")
+		[void]$contxt_bg.Items.Add("alg:2")
+		[void]$contxt_bg.Items.Add("alg:3")
+		[void]$contxt_bg.Items.Add("alg:4 [v]")
+		[void]$contxt_bg.Items.Add("alg:5")
+		[void]$contxt_bg.Items.Add("alg:6")
+		[void]$contxt_bg.Items.Add("alg:7")
+		break;
+	}5{
+		[void]$contxt_bg.Items.Add("alg:0")
+		[void]$contxt_bg.Items.Add("alg:1")
+		[void]$contxt_bg.Items.Add("alg:2")
+		[void]$contxt_bg.Items.Add("alg:3")
+		[void]$contxt_bg.Items.Add("alg:4")
+		[void]$contxt_bg.Items.Add("alg:5 [v]")
+		[void]$contxt_bg.Items.Add("alg:6")
+		[void]$contxt_bg.Items.Add("alg:7")
+		break;
+	}6{
+		[void]$contxt_bg.Items.Add("alg:0")
+		[void]$contxt_bg.Items.Add("alg:1")
+		[void]$contxt_bg.Items.Add("alg:2")
+		[void]$contxt_bg.Items.Add("alg:3")
+		[void]$contxt_bg.Items.Add("alg:4")
+		[void]$contxt_bg.Items.Add("alg:5")
+		[void]$contxt_bg.Items.Add("alg:6 [v]")
+		[void]$contxt_bg.Items.Add("alg:7")
+		break;
+	}7{
+		[void]$contxt_bg.Items.Add("alg:0")
+		[void]$contxt_bg.Items.Add("alg:1")
+		[void]$contxt_bg.Items.Add("alg:2")
+		[void]$contxt_bg.Items.Add("alg:3")
+		[void]$contxt_bg.Items.Add("alg:4")
+		[void]$contxt_bg.Items.Add("alg:5")
+		[void]$contxt_bg.Items.Add("alg:6")
+		[void]$contxt_bg.Items.Add("alg:7 [v]")
+	}
+	} #sw
+  }
+  } #sw
+ } #func
+ 
+function Contxt_octave([string]$a){ 
+
+
+	$contxt_oct.Items.Clear()
+
+	switch($a){
+	'o1'{
+		[void]$contxt_oct.Items.Add("o1 [v]")
+		[void]$contxt_oct.Items.Add("o2")
+		[void]$contxt_oct.Items.Add("o3")
+		[void]$contxt_oct.Items.Add("o4")
+		[void]$contxt_oct.Items.Add("o5")
+		[void]$contxt_oct.Items.Add("o6")
+		[void]$contxt_oct.Items.Add("o7")
+		[void]$contxt_oct.Items.Add("o8")
+		break;
+	}'o2'{
+		[void]$contxt_oct.Items.Add("o1")
+		[void]$contxt_oct.Items.Add("o2 [v]")
+		[void]$contxt_oct.Items.Add("o3")
+		[void]$contxt_oct.Items.Add("o4")
+		[void]$contxt_oct.Items.Add("o5")
+		[void]$contxt_oct.Items.Add("o6")
+		[void]$contxt_oct.Items.Add("o7")
+		[void]$contxt_oct.Items.Add("o8")
+		break;
+	}'o3'{
+		[void]$contxt_oct.Items.Add("o1")
+		[void]$contxt_oct.Items.Add("o2")
+		[void]$contxt_oct.Items.Add("o3 [v]")
+		[void]$contxt_oct.Items.Add("o4")
+		[void]$contxt_oct.Items.Add("o5")
+		[void]$contxt_oct.Items.Add("o6")
+		[void]$contxt_oct.Items.Add("o7")
+		[void]$contxt_oct.Items.Add("o8")
+		break;
+	}'o4'{
+		[void]$contxt_oct.Items.Add("o1")
+		[void]$contxt_oct.Items.Add("o2")
+		[void]$contxt_oct.Items.Add("o3")
+		[void]$contxt_oct.Items.Add("o4 [v]")
+		[void]$contxt_oct.Items.Add("o5")
+		[void]$contxt_oct.Items.Add("o6")
+		[void]$contxt_oct.Items.Add("o7")
+		[void]$contxt_oct.Items.Add("o8")
+		break;
+	}'o5'{
+		[void]$contxt_oct.Items.Add("o1")
+		[void]$contxt_oct.Items.Add("o2")
+		[void]$contxt_oct.Items.Add("o3")
+		[void]$contxt_oct.Items.Add("o4")
+		[void]$contxt_oct.Items.Add("o5 [v]")
+		[void]$contxt_oct.Items.Add("o6")
+		[void]$contxt_oct.Items.Add("o7")
+		[void]$contxt_oct.Items.Add("o8")
+		break;
+	}'o6'{
+		[void]$contxt_oct.Items.Add("o1")
+		[void]$contxt_oct.Items.Add("o2")
+		[void]$contxt_oct.Items.Add("o3")
+		[void]$contxt_oct.Items.Add("o4")
+		[void]$contxt_oct.Items.Add("o5")
+		[void]$contxt_oct.Items.Add("o6 [v]")
+		[void]$contxt_oct.Items.Add("o7")
+		[void]$contxt_oct.Items.Add("o8")
+		break;
+	}'o7'{
+		[void]$contxt_oct.Items.Add("o1")
+		[void]$contxt_oct.Items.Add("o2")
+		[void]$contxt_oct.Items.Add("o3")
+		[void]$contxt_oct.Items.Add("o4")
+		[void]$contxt_oct.Items.Add("o5")
+		[void]$contxt_oct.Items.Add("o6")
+		[void]$contxt_oct.Items.Add("o7 [v]")
+		[void]$contxt_oct.Items.Add("o8")
+		break;
+	}'o8'{
+		[void]$contxt_oct.Items.Add("o1")
+		[void]$contxt_oct.Items.Add("o2")
+		[void]$contxt_oct.Items.Add("o3")
+		[void]$contxt_oct.Items.Add("o4")
+		[void]$contxt_oct.Items.Add("o5")
+		[void]$contxt_oct.Items.Add("o6")
+		[void]$contxt_oct.Items.Add("o7")
+		[void]$contxt_oct.Items.Add("o8 [v]")
 	}
 	} #sw
  } #func
  
 # ------ 
  
-function Autosave_sw([string]$sw){ 
+function Autosav_sw([string]$sw){ 
 
   switch($sw){
   'True'{	$fm_menu_auto.Text= "v Autosave"
@@ -2958,24 +3129,25 @@ function Wait_sw([int]$t){
 	return $t
  } #func
  
-function Adj_sw([int]$t){ 
+function Adj_sw([string]$t){ 
 
-	$sb_menu_one.Text= "21"
-	$sb_menu_two.Text= "22"
-	$sb_menu_three.Text= "23"
-	$sb_menu_four.Text= "24"
-	$sb_menu_five.Text= "25"
-	$sb_menu_six.Text= "26"
-	$sb_menu_seven.Text= "27"
+	$sb_menu_one.Text= $adjr[0]
+	$sb_menu_two.Text= $adjr[1]
+	$sb_menu_three.Text= $adjr[2]
+	$sb_menu_four.Text= $adjr[3]
+	$sb_menu_five.Text= $adjr[4]
+	$sb_menu_six.Text= $adjr[5]
+	$sb_menu_seven.Text= $adjr[6]
 
+	[string]$s= ("[v] "+ $t)
 	switch($t){
-	21{	$sb_menu_one.Text= "[v] 21";	break;
-	}22{	$sb_menu_two.Text= "[v] 22";	break;
-	}23{	$sb_menu_three.Text= "[v] 23";	break;
-	}24{	$sb_menu_four.Text= "[v] 24";	break;
-	}25{	$sb_menu_five.Text= "[v] 25";	break;
-	}26{	$sb_menu_six.Text= "[v] 26";	break;
-	}27{	$sb_menu_seven.Text= "[v] 27"
+	$adjr[0]{	$sb_menu_one.Text= $s;		break;
+	}$adjr[1]{	$sb_menu_two.Text= $s;		break;
+	}$adjr[2]{	$sb_menu_three.Text= $s;	break;
+	}$adjr[3]{	$sb_menu_four.Text= $s;		break;
+	}$adjr[4]{	$sb_menu_five.Text= $s;		break;
+	}$adjr[5]{	$sb_menu_six.Text= $s;		break;
+	}$adjr[6]{	$sb_menu_seven.Text= $s
 	}
 	} #sw
 
@@ -3042,7 +3214,7 @@ function Mask_sw([string]$op, [string]$hh){
 
  } #func
  
-function Mask_checker([int]$i, [string]$ss){ 
+function MSop_checker([int]$i, [string]$ss){ # Mask,SSG 
 
 	[int]$sw= 0
 	switch($ss){
@@ -3050,7 +3222,7 @@ function Mask_checker([int]$i, [string]$ss){
 		switch($key["eg_type"]){
 		'Thru'{
 		}'0'{
-		}default{	[int]$sw= 1
+		}default{	$sw= 1
 		}
 		} #sw
 		break;
@@ -3062,8 +3234,10 @@ function Mask_checker([int]$i, [string]$ss){
 
 	[int]$k= 0
 	if($sw){ # $sw -eq 1
+
 		[int]$j= $key[$ss]
-		$k= [Math]::Floor($j/ $i)% 2 # êÿÇËéÃÇƒ
+
+		$k= [Math]::Floor($j/ $i)% 2 # Âàá„ÇäÊç®„Å¶ 1,4,8,16 -> 1,2,3,4op
 	}
 
 	# $j / 1 % 2 -eq 1 = checked op1
@@ -3088,14 +3262,16 @@ function Enable_chk(){
 
 	switch($key["style"]){
 	'fmp7'{		$num[1]= 1; break;
+	}'mucom'{	$num[1]= 1; break;
 	}'mxdrv'{	$num[1]= 1
 	}
 	} #sw
 
-	if($num[0]* $num[1] -ne 0){
-		return $False
-	}else{
+	if(($num[0]* $num[1]) -eq 0){
+
 		return $True
+	}else{
+		return $False
 	}
  } #func
  
@@ -3117,13 +3293,28 @@ function Type_sw([string]$t){
  
 function Style_sw([string]$t){ 
 
+  $fm_menu_copy.Enabled= Enable_chk
+  $opn_nmud_ams.BackColor= "white"
+  $opm_nmud_ams.BackColor= "white"
+  $opn_nmud_ams.ForeColor= "black"
+  $opm_nmud_ams.ForeColor= "black"
+
   $fm_menu_style_pmd.Text= "PMD"
   $fm_menu_style_fmp7.Text= "FMP7"
+  $fm_menu_style_mucom.Text= "MUCOM"
   $fm_menu_style_mxdrv.Text= "MXDRV"
 
   switch($t){
-  'pmd'{	$fm_menu_style_pmd.Text= "[v] PMD";	break;
-  }'fmp7'{	$fm_menu_style_fmp7.Text= "[v] FMP7";	break;
+  'pmd'{	$fm_menu_style_pmd.Text= "[v] PMD"
+		break;
+  }'fmp7'{	$fm_menu_style_fmp7.Text= "[v] FMP7"
+		break;
+  }'mucom'{	$fm_menu_style_mucom.Text= "[v] MUCOM"
+		$opn_nmud_ams.BackColor= "beige"
+		$opm_nmud_ams.BackColor= "beige"
+		$opn_nmud_ams.ForeColor= "silver"
+		$opm_nmud_ams.ForeColor= "silver"
+		break;
   }'mxdrv'{	$fm_menu_style_mxdrv.Text= "[v] MXDRV"
   }
   } #sw
@@ -3167,6 +3358,7 @@ function Idx(){
 
 	[int]$i= 0
 	switch($comb_fm.SelectedItem){
+
 	'vrc7 2op'{ $i= $comb_vrc.SelectedIndex; break; # mod select
 	}'opl 2op'{ $i= $comb_opl.SelectedIndex; break;
 	}'opn 4op'{ $i= $comb_opn.SelectedIndex; break;
@@ -3177,11 +3369,28 @@ function Idx(){
 	return $i
  } #func
  
+function Itm(){ 
+
+	[string]$s= 0
+	switch($comb_fm.SelectedItem){
+
+	'vrc7 2op'{ $s= "2op"; break;
+	}'opl 2op'{ $s= "2op"; break;
+	}'opn 4op'{ $s= "4op"; break;
+	}'opm 4op'{ $s= "4op"
+	}
+	} #sw
+
+	return $s
+ } #func
+ 
 function Value_gui(){ 
 
-  [int]$i= Idx # OP1-4index
+  $script:event_change= $False
 
   $fm_panel.SuspendLayout()
+
+  [int]$i= Idx # OP1-4index
 
   switch($comb_fm.SelectedItem){
 
@@ -3263,6 +3472,8 @@ function Value_gui(){
 
   $fm_panel.ResumeLayout()
 
+  $script:event_change= $True
+
  } # func
  
 function Fm_osc(){ 
@@ -3338,28 +3549,31 @@ function Fm_osc(){
  
 function Panel_chg(){ 
 
-	Box_write	# mtx
-	Value_gui	# bar
-	Fm_osc		# çÇë¨âªÇ≈ç≈å„Ç÷
-
 	switch($comb_fm.SelectedItem){
 	'vrc7 2op'{
-		switch($key["type"]){
-		'mckreg'{	Change_menu "ppmckc.exe" "compiler"; break;
-		}default{	Change_menu "nsc.exe" "compiler"
-		}
-		} #sw
+			switch($key["type"]){
+			'mckreg'{	Change_menu "mck" "compiler"; break;
+			}default{	Change_menu "nsd" "compiler"
+			}
+			} #sw
 
-		break;
-	}'opl 2op'{	Change_menu "mc.exe" "compiler"; break;
-	}'opn 4op'{	Change_menu "mc.exe" "compiler"; break;
-	}'opm 4op'{	Change_menu "mc.exe" "compiler"
+			break;
+	}'opl 2op'{	Change_menu "pmd" "compiler"; break;
+	}'opn 4op'{	Change_menu "pmd" "compiler"; break;
+	}'opm 4op'{	Change_menu "pmd" "compiler"
 	}
 	} #sw
 
+
+	Color_select "Panel_chg"
+
+	Box_write	# mtx
+	Value_gui	# bar
+	Fm_osc		# È´òÈÄüÂåñ„ÅßÊúÄÂæå„Å∏
+
  } #func
  
-function Tz([string]$tt){ # zero padding 
+function Zeropad([string]$tt){ # zero padding 
 
 	[string]$ss= "0"* (3- $tt.Length)+ $tt
 
@@ -3409,8 +3623,540 @@ function All_sz([array]$r,[int]$j){
 	return $s
  } #func
   
-# Exp 
+# Lis 
 	
+function Adv_edit([string]$t){ 
+
+  switch($t){
+  'mck'{
+	[string]$ss= Editor_open $val["editor"] ".\header\fm_header_mck"; break;
+  }'nsd'{
+	[string]$ss= Editor_open $val["editor"] ".\header\fm_header_nsd"; break;
+  }'pmd'{
+	[string]$ss= Editor_open $val["editor"] ".\header\fm_header_pmd"
+  }
+  } #sw
+
+  if($ss -ne ''){
+
+	[string]$retn= [Windows.Forms.MessageBox]::Show(
+
+	$ss, "Á¢∫Ë™ç", "OK","Information","Button1"
+	)
+  }
+
+ } #func
+ 
+function Read_mck([int]$j,$xx,[array]$yy){ 
+
+
+  [array]$label=@("","")
+
+  for([int] $i= 0; $i -lt $j; $i++){
+
+
+	[string]$mtx= $yy[$i] # yy[$i]+ "`r`n" fuka
+
+	$label[0]= [System.Text.RegularExpressions.Regex]::Matches($mtx,"(?<=^@OP)[0-9]+(?=\s*=)")
+	$label[1]= [System.Text.RegularExpressions.Regex]::Matches($mtx,"(?<=;).*(?=$)")
+	# ÊúÄÈï∑‰∏ÄËá¥
+
+	[string]$ss= "@"+ $label[0] + " "+ $label[1]
+
+	$xx[$ss]= $mtx+ "`r`n" # hashÁ¢∫‰øù
+  } #
+
+ } #func
+ 
+function Read_vrc7([int]$j,$xx,[array]$yy){ 
+
+
+  [string[]]$label=@("","")
+
+  for([int] $i= 0; $i -lt $j; $i++){
+
+
+	[int]$num= 8* $i # @num[0-126]
+
+	[array]$rr= $yy[$num],$yy[$num+1],$yy[$num+2],$yy[$num+3],$yy[$num+4],$yy[$num+5],$yy[$num+6]
+
+	[string]$mtx= ($rr -join "`r`n")
+
+	[string]$tt= $rr[0]
+
+	$label[0]= [System.Text.RegularExpressions.Regex]::Matches($tt,"(?<=^VRC7\()[0-9]+(?=\))")
+	$label[1]= [System.Text.RegularExpressions.Regex]::Matches($tt,"(?<=;).*(?=$)")
+	# ÊúÄÈï∑‰∏ÄËá¥
+
+	[string]$ss= "@"+ $label[0] + " "+ $label[1]
+
+	$xx[$ss]= $mtx+ "`r`n"
+  } #
+
+ } #func
+ 
+function Read_ff([int]$j,$xx,[array]$yy){ 
+
+
+  [string[]]$label=@("","")
+
+  for([int] $i= 0; $i -lt $j; $i++){
+
+
+	[int]$num= 8* $i # @num[0-126]
+
+	[array]$rr= $yy[$num],$yy[$num+1],$yy[$num+2],$yy[$num+3],$yy[$num+4],$yy[$num+5],$yy[$num+6]
+
+	[string]$mtx= ($rr -join "`r`n")
+
+	[string]$tt= $rr[1]
+
+	$label[0]= [System.Text.RegularExpressions.Regex]::Matches($tt,"(?<=^)@[0-9]+(?=\s)")
+	$label[1]= [System.Text.RegularExpressions.Regex]::Matches($tt,"(?<==\t).*(?=$)")
+	# ÊúÄÈï∑‰∏ÄËá¥
+
+	[string]$ss= $label[0] + " "+ $label[1]
+
+	$xx[$ss]= $mtx+ "`r`n"
+  } #
+
+ } #func
+ 
+function Preset_read(){ 
+
+  if($comp["MC.EXE"] -ne $null){
+
+	[string[]]$ss= Split_path $comp["MC.EXE"]
+  }
+
+  [string[]]$pp= @("","","","","")
+
+
+  $pp[0]= '.\preset\mck.preset'; if((Test-Path $pp[0]) -ne $True){ $pp[0]= "" }
+  $pp[1]= '.\preset\vrc7.preset'; if((Test-Path $pp[1]) -ne $True){ $pp[1]= "" }
+
+ # 2ÁÆáÊâÄ„ÉÅ„Çß„ÉÉ„ÇØ
+  $pp[2]= '.\preset\PC88.MML'; if((Test-Path $pp[2]) -ne $True){ $pp[2]= "" }
+  if($pp[2] -eq ""){
+  $pp[2]= $ss[1]+ '\PC88.MML'; if((Test-Path $pp[2]) -ne $True){ $pp[2]= "" }
+  }
+  $pp[3]= '.\preset\X68ED.MML'; if((Test-Path $pp[3]) -ne $True){ $pp[3]= "" }
+  if($pp[3] -eq ""){
+  $pp[3]= $ss[1]+ '\X68ED.MML'; if((Test-Path $pp[3]) -ne $True){ $pp[3]= "" }
+  }
+  $pp[4]= '.\preset\EFFEC.MML'; if((Test-Path $pp[4]) -ne $True){ $pp[4]= "" }
+  if($pp[4] -eq ""){
+  $pp[4]= $ss[1]+ '\EFFEC.MML'; if((Test-Path $pp[4]) -ne $True){ $pp[4]= "" }
+  }
+
+  if($pp[0] -ne ""){
+
+	[string]$read= (cat $pp[0] | Out-String) # ÊîπË°å‰ªò„Åç
+
+	[array]$ary= $read -split "`r`n"
+
+
+	Read_mck 36 $script:hsmck $ary
+	#write-host ("chk_mck: "+ $hsmck["@36 Èü≥„ÅÆÂ∞è„Åï„ÅÑ"]) # Saw„Ç¶„Çß„Éº„Éñ
+
+
+	[array]$key= $hsmck.Keys
+
+	$key= $key | sort
+
+	[void]$list_mck.Items.AddRange(@($key))
+  }else{
+
+	Write-Host '"mck.preset"„Éï„Ç°„Ç§„É´„Åå„Å™„ÅÑ'
+  }
+
+
+  if($pp[1] -ne ""){
+
+	[string]$read= (cat $pp[1] | Out-String)
+
+	[array]$ary= $read -split "`r`n"
+
+
+	Read_vrc7 6 $script:hsvrc $ary
+	#write-host ("chk_vrc: "+ $hsvrc["@005 2op Space Noise"])
+
+
+	[array]$key= $hsvrc.Keys
+
+	$key= $key | sort
+
+	[void]$list_vrc.Items.AddRange(@($key))
+  }else{
+
+	Write-Host '"vrc7.preset"„Éï„Ç°„Ç§„É´„Åå„Å™„ÅÑ'
+  }
+
+
+  if($pp[2] -ne ""){
+
+	[string]$read= (cat $pp[2] | Out-String)
+
+	[array]$ary= $read -split "`r`n"
+
+
+	Read_ff 127 $script:hs88 $ary
+	#write-host $hs88["@126MusicBX"]
+
+
+	[array]$key= $hs88.Keys
+
+	$key= $key | sort
+
+	[void]$list_88.Items.AddRange(@($key))
+  }else{
+
+	Write-Host '"PC88.MML"„Éï„Ç°„Ç§„É´„Åå„Å™„ÅÑ'
+  }
+
+
+  if($pp[3] -ne ""){
+
+	[string]$read= (cat $pp[3] | Out-String)
+
+	[array]$ary= $read -split "`r`n"
+
+
+	Read_ff 68 $script:hsx68 $ary
+	#write-host $hsx68["@067 Effect2"]
+
+
+	[array]$key= $hsx68.Keys
+
+	$key= $key | sort
+
+	[void]$list_x68.Items.AddRange(@($key))
+  }else{
+
+	Write-Host '"X68ED.MML"„Éï„Ç°„Ç§„É´„Åå„Å™„ÅÑ'
+  }
+
+
+  if($pp[4] -ne ""){
+
+	[string]$read= (cat $pp[4] | Out-String)
+
+	[array]$ary= $read -split "`r`n"
+
+
+	Read_ff 256 $script:hsefx $ary
+	#write-host $hsefx["@255 Effect"]
+
+
+	[array]$key= $hsefx.Keys
+
+	$key= $key | sort
+
+	[void]$list_efx.Items.AddRange(@($key))
+  }else{
+
+	Write-Host '"EFFEC.MML"„Éï„Ç°„Ç§„É´„Åå„Å™„ÅÑ'
+  }
+ } #func
+ 
+# ------ 
+ 
+function Mck_listen([string]$ss){ 
+
+
+	[string]$gg= [System.Text.RegularExpressions.Regex]::Replace($ss,"@OP[0-9]+","@OP0")
+	#write-host $gg
+
+	[string]$tt= $key["oct"]
+
+	[string]$hh= $header["fm_header_mck"]
+
+
+	$hh= $hh.Replace("%trk_param%",$tt)
+	$hh= $hh.Replace("%fm_param%",$gg)
+
+	Lisnfm_nsf 0 $hh
+
+	Param_exp 1 $ss
+
+	if($sb_alg.Visible){
+
+		Whiteblack_select "lisn_btn"
+		All_chg
+	}
+ } #func
+ 
+function Vrc7_listen([string]$ss){ 
+
+
+	[string]$gg= [System.Text.RegularExpressions.Regex]::Replace($ss,"VRC7\([0-9]+\)","VRC7(100)")
+	#write-host $gg
+
+	[string]$tt= $key["oct"]
+
+	[string]$hh= $header["fm_header_nsd"]
+
+
+	$hh= $hh.Replace("%trk_param%",$tt)
+	$hh= $hh.Replace("%fm_param%",$gg)
+
+	Lisnfm_nsf 0 $hh
+
+	Param_exp 1 $ss
+
+	if($sb_alg.Visible){
+
+		Whiteblack_select "lisn_btn"
+		All_chg
+	}
+ } #func
+ 
+function FF_listen([string]$ss){ 
+
+
+	[string]$gg= [System.Text.RegularExpressions.Regex]::Replace($ss,"@[0-9]+","@001")
+	#write-host $gg
+
+	[string]$tt= $key["oct"]
+
+	if(Mskseg_chk){ $tt+= (Mskseg_out 0) }
+
+
+	[string]$hh= $header["fm_header_pmd"]
+
+	$hh= $hh.Replace("%trk_param%",$tt)
+	$hh= $hh.Replace("%fm_param%",$gg)
+
+	Lisnfm_nsf 0 $hh
+
+	Param_exp 2 $ss # pmd„ÅßË™≠„ÅøËæº„ÇÄ
+
+	if($sb_alg.Visible){
+
+		Whiteblack_select "lisn_btn"
+		All_chg
+	}
+ } #func
+ 
+# ------ 
+ 
+function Prefixfm_mml([string]$gg){ # mml build 
+
+
+	[string]$tt= $key["oct"]
+
+	[string]$hh= ""
+
+	switch($comb_fm.SelectedItem){
+
+	'vrc7 2op'{
+		switch($key["type"]){
+		'mckreg'{
+			$hh= $header["fm_header_mck"]
+			break;
+		}default{
+			$hh= $header["fm_header_nsd"]
+		}
+		} #sw
+
+		break;
+	}default{
+		$hh= $header["fm_header_pmd"]
+
+		if(Mskseg_chk){ $tt+= (Mskseg_out 0) }
+	}
+	} #sw
+
+
+	$hh= $hh.Replace("%trk_param%",$tt)
+	$hh= $hh.Replace("%fm_param%",$gg)
+
+	return $hh
+
+} #func
+ 
+function Lisnfm_nsf([int]$sw, [string]$t){ 
+
+ switch($sw){	# „Çπ„Éà„ÉÉ„Éó
+  0{
+	Write-Host $val["compiler"]
+	Write-Host $val["player"]
+	Write-Host ""
+	Write-Host $t
+	Write-Host ""
+
+
+	Mml_writer $t ".\temp\temp.mml" 0
+	# $t | Out-File -Encoding oem -FilePath ".\temp\temp.mml" # shiftJIS ms-dos
+
+	$file= [System.IO.Path]::GetFullPath(".\temp\temp.mml") # full path
+
+
+	[string[]]$arr= Split_path $file
+	[string]$dpn= Join-Path $arr[1] $arr[2]
+
+	switch($comb_fm.SelectedItem){
+
+	'vrc7 2op'{
+		switch($key["type"]){
+		'mckreg'{	[string[]]$ss= $file,$val["compiler"],$arr[1],"-i"
+				$output= Mkmck $ss; break;
+		}default{	[string[]]$ss= $file,$val["compiler"],$arr[1],"-n"
+				$output= Mknsd $ss; break;
+		}
+		} #sw
+
+		[string]$ext= ".nsf"
+		break;
+
+	}'opl 2op'{	[string[]]$ss= $file,$val["compiler"],$arr[1],"/L /V",$val["dos"],$opt["chk_dos"]
+			$output= Mkpmd $ss
+			[string]$ext= ".m"
+			break;
+	}'opn 4op'{	[string[]]$ss= $file,$val["compiler"],$arr[1],"/N /V",$val["dos"],$opt["chk_dos"]
+			$output= Mkpmd $ss
+			[string]$ext= ".m"
+			break;
+	}'opm 4op'{	[string[]]$ss= $file,$val["compiler"],$arr[1],"/M /V",$val["dos"],$opt["chk_dos"]
+			$output= Mkpmd $ss
+			[string]$ext= ".m"
+	}
+	} #sw
+
+	sleep -m 33	# Áï∞Â∏∏ÊôÇÁî®„Ç¶„Çß„Ç§„Éà
+
+
+	if($output[0] -ne ""){
+
+			[string]$retn= [Windows.Forms.MessageBox]::Show(
+		("Áí∞Â¢ÉË®≠ÂÆö ERROR : "+ $output[0]), "Á¢∫Ë™ç", "OK","Information","Button1"
+			)
+	}else{
+
+		if($LASTEXITCODE -ne 0){
+
+			Write-Host ("`r`n"+ 'exitcode: '+ $LASTEXITCODE)
+			Write-Host ("`r`n"+ 'ERROR: '+ $arr[0]+ ' >> '+ $arr[2]+ $ext)
+
+			[string]$retn= [Windows.Forms.MessageBox]::Show(
+
+		("„Ç≥„É≥„Éë„Ç§„É´„Å´Â§±Êïó : "+ $arr[0]+ " >> "+ $arr[2]+ $ext), "Á¢∫Ë™ç", "OK","Information","Button1"
+			)
+
+		}else{
+			# '"' Á©∫ÁôΩ„Éë„ÇπÂØæÂøú
+
+			& $val["player"] ('"'+ $dpn+ $ext+ '"')
+		}
+	}
+  }
+  } #sw
+
+} #func
+ 
+function Box_listen([int]$j){ 
+
+  switch($comb_fm.SelectedItem){
+  'vrc7 2op'{
+
+	  switch($key["type"]){
+	  'mckreg'{	[string]$s= Reg_write;	break;
+	  }'nsdreg'{	[string]$s= Reg_write;	break;
+	  }default{	[string]$s= Fmx_light	# pmd comma less
+	  }
+	  } #sw
+
+	  break;
+
+  }default{ [string]$s= Fmx_light
+  }
+  } #sw
+
+  [string]$lis= Prefixfm_mml $s
+
+  if($j -eq 0){
+
+	Lisnfm_nsf 0 $lis # ÂâçÊÆµ„Å´„Åó„Åü
+
+	if($sb_alg.Visible){
+
+		Whiteblack_select "lisn_btn"
+	}
+
+  }else{
+	[Windows.Forms.Clipboard]::SetText($lis,[Windows.Forms.TextDataFormat]::UnicodeText)
+  }
+ } #func
+ 
+function Key_down([string]$t){ 
+
+  switch($t){
+  'F5'{		$conv_btn.PerformClick()
+  }
+  } #sw
+} #func
+ 
+function Key_play([string]$t){ 
+
+  switch($t){
+  'Space'{	$lisn_btn.PerformClick()
+  }
+  } #sw
+ } #func
+  
+# Export 
+	
+function Unredo([int]$n){ 
+
+  switch($n){
+  2{
+	$script:undo[0]= $null # Á©∫ÂÄ§„ÇÇÂÖ•„Çã„Åü„ÇÅ
+
+	$script:undo[1]= $null
+
+	break;
+  }1{
+
+	switch($undo[2]){ # undo
+	'0'{
+		$script:undo[1]= $fm_box.Text # omote buffer
+
+		$script:undo[2]= "1"	# toggle
+		$fm_box.Text= $undo[0]	# undo read
+		break;
+
+	}'1'{ #redo
+		$script:undo[0]= $fm_box.Text # ura buffer
+
+		$script:undo[2]= "0"
+		$fm_box.Text= $undo[1]	# redo read
+	}
+	} #sw
+
+	Param_exp 1 $fm_box.Text
+
+	if($sb_alg.Visible){
+		All_chg
+	}
+	break;
+
+  }0{ # .Add_Enter„Åßdo (menu„Åã„ÇâÂêÑobj„Åß„ÅØÂÜçenter„Å®„ÅØ„Å™„Çâ„Å™„ÅÑ)
+
+	$script:undo[$undo[2]]= $fm_box.Text # undo buffer dochiraka ni
+  }
+  } #sw
+
+  if(($undo[0] -ne $null) -or ($undo[1] -ne $null)){
+
+	$fm_menu_ud.Enabled= $True
+  }else{
+	$fm_menu_ud.Enabled= $False
+  }
+
+ } #func
+ 
+# ------ 
+ 
 function Vrc_flow([array]$s){ 
 
 
@@ -3640,7 +4386,9 @@ function Opm_flow([array]$s){
 
  } #func
  
-function Reg_exp(){ # $key["type"] 
+# ------ 
+ 
+function Reg_exp([string]$zz){ # $key["type"] 
 
 
 	switch($key["type"]){
@@ -3650,29 +4398,29 @@ function Reg_exp(){ # $key["type"]
 	} #sw
 
 
-	[string[]]$er= [System.Text.RegularExpressions.Regex]::Matches($fm_box.Text,"(?<=\$)[0-9a-zA-Z]*?(?=\,|\s|\}|$)")
-	# (\$Ç™ê⁄ì™é´)[0-9a-zA-Z]ÇÃÇ›ï∂éöóÒ?ç≈íZàÍív(,\s}$Ç™ê⁄îˆé´)
+	[string[]]$er= [System.Text.RegularExpressions.Regex]::Matches($zz,"(?<=\$)[0-9a-zA-Z]*?(?=\,|\s|\}|$)")
+	# (\$„ÅåÊé•È†≠Ëæû)[0-9a-zA-Z]„ÅÆ„ÅøÊñáÂ≠óÂàó?ÊúÄÁü≠‰∏ÄËá¥(,\s}$„ÅåÊé•Â∞æËæû)
 
 
 
   if($er.Length -gt $n){
 
-	Write-Host ('ERROR: ÉåÉWÉXÉ^ '+ $ary+ ':'+ $n+ ' ÉJÉEÉìÉgêîÇ™âﬂëΩ>> '+ $er.Length)
+	Write-Host ('ERROR: „É¨„Ç∏„Çπ„Çø '+ $ary+ ':'+ $n+ ' „Ç´„Ç¶„É≥„ÉàÊï∞„ÅåÈÅéÂ§ö>> '+ $er.Length)
 
 	[string]$retn= [Windows.Forms.MessageBox]::Show(
 
-	("ÉåÉWÉXÉ^ "+ $ary+ ":"+ $n+ " ÉJÉEÉìÉgêîÇ™âﬂëΩ>> "+ $er.Length), "ämîF", "OK","Information","Button1"
+	("„É¨„Ç∏„Çπ„Çø "+ $ary+ ":"+ $n+ " „Ç´„Ç¶„É≥„ÉàÊï∞„ÅåÈÅéÂ§ö>> "+ $er.Length), "Á¢∫Ë™ç", "OK","Information","Button1"
 	)
 
 	return 1
 
   }elseif($er.Length -lt $n){
 
-	Write-Host ('ERROR: ÉåÉWÉXÉ^ '+ $ary+ ':'+ $n+ ' ÉJÉEÉìÉgêîÇ™ïsë´>> '+ $er.Length)
+	Write-Host ('ERROR: „É¨„Ç∏„Çπ„Çø '+ $ary+ ':'+ $n+ ' „Ç´„Ç¶„É≥„ÉàÊï∞„Åå‰∏çË∂≥>> '+ $er.Length)
 
 	[string]$retn= [Windows.Forms.MessageBox]::Show(
 
-	("ÉåÉWÉXÉ^ "+ $ary+ ":"+ $n+ " ÉJÉEÉìÉgêîÇ™ïsë´>> "+ $er.Length), "ämîF", "OK","Information","Button1"
+	("„É¨„Ç∏„Çπ„Çø "+ $ary+ ":"+ $n+ " „Ç´„Ç¶„É≥„ÉàÊï∞„Åå‰∏çË∂≥>> "+ $er.Length), "Á¢∫Ë™ç", "OK","Information","Button1"
 	)
 
 	return 1
@@ -3747,28 +4495,33 @@ function Reg_exp(){ # $key["type"]
 # write-host $vrc_svn[0]
 # write-host $vrc_svn[1]
 
-	Box_write # êÆå`
-	Value_gui
 	return 0
   }
  } #func
  
-function Fmx_exp(){ # $key["style"] 
+function Fmx_exp([string]$zz,[string]$key_style){ # $key["style"] 
 
   [int]$sw= 0
   [int]$n= 0
   [string]$ary= ""
   switch($comb_fm.SelectedItem){
 
-  'vrc7 2op'{	$n= 24; $ary= "VRC7";	break; # É}ÉgÉäÉNÉXëçêî 2+11*2
+  'vrc7 2op'{	$n= 24; $ary= "VRC7";	break; # „Éû„Éà„É™„ÇØ„ÇπÁ∑èÊï∞ 2+11*2
   }'opl 2op'{	$n= 24; $ary= "OPL";	break;
 
   }default{
-	switch($key["style"]){
+	switch($key_style){
 	'fmp7'{ $sw= 1;
 		switch($comb_fm.SelectedItem){
 		'opn 4op'{	$n= 42; $ary= "FMP7 OPN";	break;
 		}'opm 4op'{	$n= 46; $ary= "FMP7 OPM"
+		}
+		} #sw
+		break;
+	}'mucom'{
+		switch($comb_fm.SelectedItem){
+		'opn 4op'{	$n= 38; $ary= "MUCOM OPN";	break;
+		}'opm 4op'{	$n= 42; $ary= "MUCOM OPM"
 		}
 		} #sw
 		break;
@@ -3791,56 +4544,56 @@ function Fmx_exp(){ # $key["style"]
   } #sw
 
 
-  [string]$vv= [System.Text.RegularExpressions.Regex]::Replace($fm_box.Text,"\t"," ")
-  # tab -> space É^ÉuÇ™âΩå¬Ç‡Ç†ÇÈÇ∆ÉGÉâÅ[ÇΩÇﬂ
+  [string]$vv= [System.Text.RegularExpressions.Regex]::Replace($zz,"\t"," ")
+  # tab -> space „Çø„Éñ„Åå‰ΩïÂÄã„ÇÇ„ÅÇ„Çã„Å®„Ç®„É©„Éº„Åü„ÇÅ
 
   [string]$uu= [System.Text.RegularExpressions.Regex]::Replace($vv,"/\*.*?\*/","")
 
 
-  switch($sw){	# ÉRÉÅÉìÉgçsÉJÉbÉg
+  switch($sw){	# „Ç≥„É°„É≥„ÉàË°å„Ç´„ÉÉ„Éà
   0{
     [string]$ss= [System.Text.RegularExpressions.Regex]::Replace($uu,"[/;].*(?=\n|$)","")
     break;
   }1{
-    # FA 1 Ç»Ç«ÇÃÉJÉbÉg
+    # FA 1 „Å™„Å©„ÅÆ„Ç´„ÉÉ„Éà
     [string]$tt= [System.Text.RegularExpressions.Regex]::Replace($uu,"(?<='@)\s*F[a-zA-Z]+\s*[0-9]+\s*(?=\n|$)","")
     [string]$ss= [System.Text.RegularExpressions.Regex]::Matches($tt,"'@.*(?=\n|$)")
     break;
-  }2{ # ;abc, =abc ÉJÉbÉg
+  }2{ # ;abc, =abc „Ç´„ÉÉ„Éà
     [string]$ss= [System.Text.RegularExpressions.Regex]::Replace($uu,"[=;].*(?=\n|$)","")
   }
   } #sw
 
 
   [string[]]$er= [System.Text.RegularExpressions.Regex]::Matches($ss,"(?<=^|;|:|,|\s)(?:-)?[0-9]+?(?=;|:|,|\s|\n|$)")
-  # (\s,^)Ç™ê⁄ì™é´)(ä‹Ç‹Ç»Ç¢Ç™-ÇÃâ¬î\ê´)[0-9]ï∂éöóÒä‹Çﬁ?ç≈íZàÍív(,;\s\n$Ç™ê⁄îˆé´)
+  # (\s,^)„ÅåÊé•È†≠Ëæû)(Âê´„Åæ„Å™„ÅÑ„Åå-„ÅÆÂèØËÉΩÊÄß)[0-9]ÊñáÂ≠óÂàóÂê´„ÇÄ?ÊúÄÁü≠‰∏ÄËá¥(,;\s\n$„ÅåÊé•Â∞æËæû)
 
 
   if($er.Length -gt $n){
 
-	Write-Host ('ERROR: FMâπêF '+ $ary+ ':'+ $n+ ' ÉJÉEÉìÉgêîÇ™âﬂëΩ>> '+ $er.Length)
+	Write-Host ('ERROR: FMÈü≥Ëâ≤ '+ $ary+ ':'+ $n+ ' „Ç´„Ç¶„É≥„ÉàÊï∞„ÅåÈÅéÂ§ö>> '+ $er.Length)
 
 	[string]$retn= [Windows.Forms.MessageBox]::Show(
 
-	("FMâπêF "+ $ary+ ": "+ $n+ " /ÉJÉEÉìÉgêîÇ™âﬂëΩ>> "+ $er.Length), "ämîF", "OK","Information","Button1"
+	("FMÈü≥Ëâ≤ "+ $ary+ ": "+ $n+ " /„Ç´„Ç¶„É≥„ÉàÊï∞„ÅåÈÅéÂ§ö>> "+ $er.Length), "Á¢∫Ë™ç", "OK","Information","Button1"
 	)
 
 	return 1
 
   }elseif($er.Length -lt $n){
 
-	Write-Host ('ERROR: FMâπêF '+ $ary+ ':'+ $n+ ' ÉJÉEÉìÉgêîÇ™ïsë´>> '+ $er.Length)
+	Write-Host ('ERROR: FMÈü≥Ëâ≤ '+ $ary+ ':'+ $n+ ' „Ç´„Ç¶„É≥„ÉàÊï∞„Åå‰∏çË∂≥>> '+ $er.Length)
 
 	[string]$retn= [Windows.Forms.MessageBox]::Show(
 
-	("FMâπêF "+ $ary+ ": "+ $n+ " /ÉJÉEÉìÉgêîÇ™ïsë´>> "+ $er.Length), "ämîF", "OK","Information","Button1"
+	("FMÈü≥Ëâ≤ "+ $ary+ ": "+ $n+ " /„Ç´„Ç¶„É≥„ÉàÊï∞„Åå‰∏çË∂≥>> "+ $er.Length), "Á¢∫Ë™ç", "OK","Information","Button1"
 	)
 
 	return 1
   }else{
 
-	# [string[]]$ir= $er[($er.Length- $n)..($er.Length- 1)] # @numÇ†ÇÁÇŒêÊì™çÌèú
-	# ññîˆÇ©ÇÁÉJÉEÉìÉg - ç≈èIÉtÉBÉãÉ^
+	# [string[]]$ir= $er[($er.Length- $n)..($er.Length- 1)] # @num„ÅÇ„Çâ„Å∞ÂÖàÈ†≠ÂâäÈô§
+	# Êú´Â∞æ„Åã„Çâ„Ç´„Ç¶„É≥„Éà - ÊúÄÁµÇ„Éï„Ç£„É´„Çø
 
 
 	switch($comb_fm.SelectedItem){
@@ -3865,7 +4618,7 @@ function Fmx_exp(){ # $key["style"]
 
 		break;
 	}'opn 4op'{
-		switch($key["style"]){
+		switch($key_style){
 		'fmp7'{
 			$er= $er[40..41]+ $er[0..39]
 			break;
@@ -3875,10 +4628,20 @@ function Fmx_exp(){ # $key["style"]
 		} #sw
 
 		[array]$r= (0,0,0,0)
-		[int[]]$r[0]= $er[0..11]
-		[int[]]$r[1]= (0,0)+ $er[12..21]
-		[int[]]$r[2]= (0,0)+ $er[22..31]
-		[int[]]$r[3]= (0,0)+ $er[32..41]
+
+		switch($key_style){
+		'mucom'{
+			[int[]]$r[0]= $er[1..0]+ $er[2..10]+ 0
+			[int[]]$r[1]= (0,0)+ $er[11..19]+ 0
+			[int[]]$r[2]= (0,0)+ $er[20..28]+ 0
+			[int[]]$r[3]= (0,0)+ $er[29..37]+ 0
+		}default{
+			[int[]]$r[0]= $er[0..11]
+			[int[]]$r[1]= (0,0)+ $er[12..21]
+			[int[]]$r[2]= (0,0)+ $er[22..31]
+			[int[]]$r[3]= (0,0)+ $er[32..41]
+		}
+		} #sw
 
 		[array]$brr= Opn_flow $r
 
@@ -3886,7 +4649,7 @@ function Fmx_exp(){ # $key["style"]
 
 		break;
 	}'opm 4op'{
-		switch($key["style"]){
+		switch($key_style){
 		'fmp7'{
 			$er= $er[44..45]+ $er[0..43]
 			break;
@@ -3896,10 +4659,20 @@ function Fmx_exp(){ # $key["style"]
 		} #sw
 
 		[array]$r= (0,0,0,0)
-		[int[]]$r[0]= $er[0..12]
-		[int[]]$r[1]= (0,0)+ $er[13..23]
-		[int[]]$r[2]= (0,0)+ $er[24..34]
-		[int[]]$r[3]= (0,0)+ $er[35..45]
+
+		switch($key_style){
+		'mucom'{
+			[int[]]$r[0]= $er[1..0]+ $er[2..11]+ 0
+			[int[]]$r[1]= (0,0)+ $er[12..21]+ 0
+			[int[]]$r[2]= (0,0)+ $er[22..31]+ 0
+			[int[]]$r[3]= (0,0)+ $er[32..41]+ 0
+		}default{
+			[int[]]$r[0]= $er[0..12]
+			[int[]]$r[1]= (0,0)+ $er[13..23]
+			[int[]]$r[2]= (0,0)+ $er[24..34]
+			[int[]]$r[3]= (0,0)+ $er[35..45]
+		}
+		} #sw
 
 		[array]$brr= Opm_flow $r
 
@@ -3907,115 +4680,128 @@ function Fmx_exp(){ # $key["style"]
 	}
 	} #sw
 
-	Box_write # êÆå`
-	Value_gui
 	return 0
   }
  } #func
  
-function Param_exp([int]$jj){ 
+function Param_exp([int]$jj,[string]$mtx){ 
 
 
   switch($comb_fm.SelectedItem){
   'vrc7 2op'{
 	switch($key["type"]){
-	'mckreg'{	[int]$nn= Reg_exp;	break;
-	}'nsdreg'{	[int]$nn= Reg_exp;	break;
-	}default{	[int]$nn= Fmx_exp
+	'mckreg'{	[int]$nn= Reg_exp $mtx;	break;
+	}'nsdreg'{	[int]$nn= Reg_exp $mtx;	break;
+	}default{	[int]$nn= Fmx_exp $mtx ""
 	}
 	} #sw
 	break;
 
-  }default{		[int]$nn= Fmx_exp
+  }default{
+		if($jj -eq 2){
+			[string]$tt= "opn"
+		}else{
+			[string]$tt= $key["style"]
+		}
+		[int]$nn= Fmx_exp $mtx $tt
   }
   } #sw
 
   switch($nn){
   '0'{
-	if($jj -eq 0){ # thruÅ@Unredo 1
+	if($jj -eq 0){ # Unredo 1 thru
 
-		Write-Host ('<< FMâπêFÇì«Ç›çûÇ›Ç‹ÇµÇΩ')
+		Write-Host ('<< FMÈü≥Ëâ≤„ÇíË™≠„ÅøËæº„Åø„Åæ„Åó„Åü')
 	}
+
+	Box_write # Êï¥ÂΩ¢
+	Value_gui
+
 	break;
   }'1'{
-		Write-Host ('>> FMâπêFÇÃì«Ç›çûÇ›Ç…é∏îsÇµÇ‹ÇµÇΩ')
+		Write-Host ('>> FMÈü≥Ëâ≤„ÅÆË™≠„ÅøËæº„Åø„Å´Â§±Êïó„Åó„Åæ„Åó„Åü')
   }
   } #sw
- } #func
- 
-function Unredo([int]$n){ 
-
-  switch($n){
-  2{
-	$script:undo[0]= $null # ãÛílÇ‡ì¸ÇÈÇΩÇﬂ
-	$script:undo[1]= $null
-
-	break;
-  }1{
-
-	switch($undo[2]){ # undo
-	'0'{
-		$script:undo[1]= $fm_box.Text # omote buffer
-
-		$script:undo[2]= "1"	# toggle
-		$fm_box.Text= $undo[0]	# undo read
-		break;
-
-	}'1'{ #redo
-		$script:undo[0]= $fm_box.Text # ura buffer
-
-		$script:undo[2]= "0"
-		$fm_box.Text= $undo[1]	# redo read
-	}
-	} #sw
-
-	Param_exp 1
-
-	if($sb_alg.Visible -eq $True){
-		All_chg
-	}
-	break;
-
-  }0{ # .Add_EnterÇ≈do (menuÇ©ÇÁäeobjÇ≈ÇÕçƒenterÇ∆ÇÕÇ»ÇÁÇ»Ç¢)
-
-	$script:undo[$undo[2]]= $fm_box.Text # undo buffer dochiraka ni
-  }
-  } #sw
-
-  if(($undo[0] -ne $null) -or ($undo[1] -ne $null)){
-
-	$fm_menu_ud.Enabled= $True
-  }else{
-	$fm_menu_ud.Enabled= $False
-  }
-
  } #func
  
 # ------ 
  
 function Mskseg_chk(){ 
 
-	[string]$ms= ""
+	[int[]]$num= 0,0
+
 	if($key["mask"] -ne '15'){
 
-		$ms+= " s"+ $key["mask"]
+		$num[0]= 1
+	}
+	if($key["eg_type"] -ne 'Thru'){
+
+		$num[1]= 1
+	}
+
+	if(($num[0]+ $num[1]) -eq 0){
+
+		return $False
+	}else{
+		return $True
+	}
+ } #func
+ 
+function Mskseg_out([int]$sw){ 
+
+	[string]$ss= ""
+
+	switch($sw){
+	0{ # Listen
+		[string]$tt= " "
+		[string]$out= "pmd"
+		break;
+	}1{ # FM box
+		[string]$tt= " "
+		[string]$out= $key["style"]
+		if($out -eq 'pmd'){ $ss+= " =" }
+		break;
+	}2{ # FM op window
+		[string]$tt= "`r`n"
+		[string]$out= ""
+	}
+	} #sw
+
+	switch($out){
+	'pmd'{
+		[string]$mk= "s"
+		[string]$eg= "SE"
+		[string]$tr= "SE15,0"
+		break;
+	}default{
+		[string]$mk= "Mask:"
+		[string]$eg= "SSG:"
+		[string]$tr= ""
+	}
+	} #sw
+
+	if($key["mask"] -ne '15'){
+
+		if($out -ne 'mxdrv'){
+
+			$ss+= $tt
+			$ss+= $mk+ $key["mask"]
+		}
 	}
 
 	if($key["eg_type"] -ne 'Thru'){
 
-		if($key["ssg"] -gt 0){
+		$ss+= $tt
+		$ss+= $eg+ $key["ssg"]+ ","+ $key["eg_type"]
+	}else{
+		if($sw -eq 0){ # Listen„ÅÆ„Åø
 
-			$ms+= " SE"+ $key["ssg"]+ ","+ $key["eg_type"]
+			$ss+= $tt
+			$ss+= $tr
 		}
 	}
 
-	[string]$tt= ""
-	if($ms -ne ''){
-
-		$tt= " ="+ $ms
-	}
-
-	return $tt
+	return $ss
  } #func
  
 function Reg_write(){ # $key["type"] 
@@ -4103,7 +4889,7 @@ function Reg_write(){ # $key["type"]
 	}
   } #
 
-  $header= $header.Replace("%op_param", $val)
+  $header= $header.Replace("%op_param%", $val)
 
 # write-host $header
 
@@ -4137,9 +4923,9 @@ function Fmx_light(){
 	$two= $ir[2] -join " "
 
 	$header= $box_header["vrc"]
-	$header= $header.Replace("%af_param",$af)
-	$header= $header.Replace("%op1_param",$one)
-	$header= $header.Replace("%op2_param",$two)
+	$header= $header.Replace("%af_param%",$af)
+	$header= $header.Replace("%op1_param%",$one)
+	$header= $header.Replace("%op2_param%",$two)
 
 	break;
 
@@ -4154,9 +4940,9 @@ function Fmx_light(){
 	$two= $ir[2] -join " "
 
 	$header= $box_header["opl"]
-	$header= $header.Replace("%af_param",$af)
-	$header= $header.Replace("%op1_param",$one)
-	$header= $header.Replace("%op2_param",$two)
+	$header= $header.Replace("%af_param%",$af)
+	$header= $header.Replace("%op1_param%",$one)
+	$header= $header.Replace("%op2_param%",$two)
 
 	break;
 
@@ -4168,8 +4954,6 @@ function Fmx_light(){
 	$ir[3]= $opn_fur[2][2..11]
 	$ir[4]= $opn_fur[3][2..11]
 
-	if(Mskseg_chk -ne ''){ $ir[0]+= Mskseg_chk }
-
 	$af= $ir[0] -join " "
 	$one= $ir[1] -join " "
 	$two= $ir[2] -join " "
@@ -4177,11 +4961,12 @@ function Fmx_light(){
 	$four= $ir[4] -join " "
 
 	$header= $box_header["opn"]
-	$header= $header.Replace("%af_param",$af)
-	$header= $header.Replace("%op1_param",$one)
-	$header= $header.Replace("%op2_param",$two)
-	$header= $header.Replace("%op3_param",$three)
-	$header= $header.Replace("%op4_param",$four)
+	$header= $header.Replace("%mask_param%","")
+	$header= $header.Replace("%af_param%",$af)
+	$header= $header.Replace("%op1_param%",$one)
+	$header= $header.Replace("%op2_param%",$two)
+	$header= $header.Replace("%op3_param%",$three)
+	$header= $header.Replace("%op4_param%",$four)
 
 	break;
 
@@ -4193,8 +4978,6 @@ function Fmx_light(){
 	$ir[3]= $opm_fur[2][2..12]
 	$ir[4]= $opm_fur[3][2..12]
 
-	if(Mskseg_chk -ne ''){ $ir[0]+= Mskseg_chk }
-
 	$af= $ir[0] -join " "
 	$one= $ir[1] -join " "
 	$two= $ir[2] -join " "
@@ -4202,11 +4985,12 @@ function Fmx_light(){
 	$four= $ir[4] -join " "
 
 	$header= $box_header["opm"]
-	$header= $header.Replace("%af_param",$af)
-	$header= $header.Replace("%op1_param",$one)
-	$header= $header.Replace("%op2_param",$two)
-	$header= $header.Replace("%op3_param",$three)
-	$header= $header.Replace("%op4_param",$four)
+	$header= $header.Replace("%mask_param%","")
+	$header= $header.Replace("%af_param%",$af)
+	$header= $header.Replace("%op1_param%",$one)
+	$header= $header.Replace("%op2_param%",$two)
+	$header= $header.Replace("%op3_param%",$three)
+	$header= $header.Replace("%op4_param%",$four)
   }
   } #sw
 
@@ -4225,12 +5009,13 @@ function Fmx_write(){ # $key["ten"],$key["zero"],$key["style"]
   [string]$four= ""
 
   [string]$header= ""
-
+  [string]$mask= ""
+  [string]$te= ""
 
   switch($key["ten"]){
 
-	'False'{ [string]$te= " "; break;
-	}'True'{ [string]$te= ","
+	'False'{ $te= " "; break;
+	}'True'{ $te= ","
   }
   } #sw
 
@@ -4270,9 +5055,9 @@ function Fmx_write(){ # $key["ten"],$key["zero"],$key["style"]
 	$two= $ir[2] -join $te
 
 	$header= $box_header["vrc"]
-	$header= $header.Replace("%af_param",$af)
-	$header= $header.Replace("%op1_param",$one)
-	$header= $header.Replace("%op2_param",$two)
+	$header= $header.Replace("%af_param%",$af)
+	$header= $header.Replace("%op1_param%",$one)
+	$header= $header.Replace("%op2_param%",$two)
 
 	break;
 
@@ -4307,9 +5092,9 @@ function Fmx_write(){ # $key["ten"],$key["zero"],$key["style"]
 	$two= $ir[2] -join $te
 
 	$header= $box_header["opl"]
-	$header= $header.Replace("%af_param",$af)
-	$header= $header.Replace("%op1_param",$one)
-	$header= $header.Replace("%op2_param",$two)
+	$header= $header.Replace("%af_param%",$af)
+	$header= $header.Replace("%op1_param%",$one)
+	$header= $header.Replace("%op2_param%",$two)
 
 	break;
 
@@ -4323,7 +5108,8 @@ function Fmx_write(){ # $key["ten"],$key["zero"],$key["style"]
 		$opn[1]= $opn_fur[1]
 		$opn[2]= $opn_fur[2]
 		$opn[3]= $opn_fur[3]
-		[string]$mask= Sz $key["mask"]
+
+		$mask= Sz $key["mask"]
 		break;
 
 	}'True'{
@@ -4337,34 +5123,49 @@ function Fmx_write(){ # $key["ten"],$key["zero"],$key["style"]
 			$opn[2][$i]= $opn_fur[2][$i].Replace(" ","0")
 			$opn[3][$i]= $opn_fur[3][$i].Replace(" ","0")
 		} #
-		[string]$mask= Tz $key["mask"]
+		$mask= Zeropad $key["mask"]
 	}
 	} #sw
-
-	$ir[0]= $opn[0][0..1]
-	$ir[1]= $opn[0][2..11]
-	$ir[2]= $opn[1][2..11]
-	$ir[3]= $opn[2][2..11]
-	$ir[4]= $opn[3][2..11]
-
 
 	switch($key["style"]){
-	'fmp7'{
-		$header= $box_header["opn_fmp7"]
+	'mucom'{
+		$ir[0]= $opn[0][1..0]
+		$ir[1]= $opn[0][2..10]
+		$ir[2]= $opn[1][2..10]
+		$ir[3]= $opn[2][2..10]
+		$ir[4]= $opn[3][2..10]
 		break;
 	}'mxdrv'{
-		$header= $box_header["opn_mxdrv"]
-		$ir[0]+= $mask
-		$ir[1]+= ""
-		$ir[2]+= ""
-		$ir[3]+= ""
-		$ir[4]+= ""
+		$ir[0]= $opn[0][0..1]+ $mask
+		$ir[1]= $opn[0][2..11]+ ""
+		$ir[2]= $opn[1][2..11]+ ""
+		$ir[3]= $opn[2][2..11]+ ""
+		$ir[4]= $opn[3][2..11]+ "" # commaËøΩÂä† ,0 -> ,0,("")
 		break;
 	}default{
-		$header= $box_header["opn"]
-		if(Mskseg_chk -ne ''){ $ir[0]+= Mskseg_chk }
+		$ir[0]= $opn[0][0..1]
+		$ir[1]= $opn[0][2..11]
+		$ir[2]= $opn[1][2..11]
+		$ir[3]= $opn[2][2..11]
+		$ir[4]= $opn[3][2..11]
 	}
 	} #sw
+
+	switch($key["style"]){
+	'fmp7'{ $header= $box_header["opn_fmp7"]; break;
+	}'mucom'{ $header= $box_header["opn_mucom"]; break;
+	}'mxdrv'{ $header= $box_header["opn_mxdrv"]; break;
+	}default{ $header= $box_header["opn"]
+	}
+	} #sw
+
+	if(Mskseg_chk){
+
+		$mask= " "+ (Mskseg_out 1)
+	}else{
+		$mask= ""
+	}
+	$header= $header.Replace("%mask_param%",$mask)
 
 
 	$af= $ir[0] -join $te
@@ -4373,12 +5174,11 @@ function Fmx_write(){ # $key["ten"],$key["zero"],$key["style"]
 	$three= $ir[3] -join $te
 	$four= $ir[4] -join $te
 
-
-	$header= $header.Replace("%af_param",$af)
-	$header= $header.Replace("%op1_param",$one)
-	$header= $header.Replace("%op2_param",$two)
-	$header= $header.Replace("%op3_param",$three)
-	$header= $header.Replace("%op4_param",$four)
+	$header= $header.Replace("%af_param%",$af)
+	$header= $header.Replace("%op1_param%",$one)
+	$header= $header.Replace("%op2_param%",$two)
+	$header= $header.Replace("%op3_param%",$three)
+	$header= $header.Replace("%op4_param%",$four)
 
 	break;
 
@@ -4392,7 +5192,8 @@ function Fmx_write(){ # $key["ten"],$key["zero"],$key["style"]
 		$opm[1]= $opm_fur[1]
 		$opm[2]= $opm_fur[2]
 		$opm[3]= $opm_fur[3]
-		[string]$mask=  Sz $key["mask"]
+
+		$mask= Sz $key["mask"]
 		break;
 
 	}'True'{
@@ -4406,36 +5207,50 @@ function Fmx_write(){ # $key["ten"],$key["zero"],$key["style"]
 			$opm[2][$i]= $opm_fur[2][$i].Replace(" ","0")
 			$opm[3][$i]= $opm_fur[3][$i].Replace(" ","0")
 		} #
-
-
-		[string]$mask= Tz $key["mask"]
+		$mask= Zeropad $key["mask"]
 	}
 	} #sw
 
-	$ir[0]= $opm[0][0..1]
-	$ir[1]= $opm[0][2..12]
-	$ir[2]= $opm[1][2..12]
-	$ir[3]= $opm[2][2..12]
-	$ir[4]= $opm[3][2..12]
+	switch($key["style"]){
+	'mucom'{
+		$ir[0]= $opm[0][1..0]
+		$ir[1]= $opm[0][2..11]
+		$ir[2]= $opm[1][2..11]
+		$ir[3]= $opm[2][2..11]
+		$ir[4]= $opm[3][2..11]
+		break;
+	}'mxdrv'{
+		$ir[0]= $opm[0][0..1]+ $mask
+		$ir[1]= $opm[0][2..12]+ ""
+		$ir[2]= $opm[1][2..12]+ ""
+		$ir[3]= $opm[2][2..12]+ ""
+		$ir[4]= $opm[3][2..12]+ "" # commaËøΩÂä†
+		break;
+	}default{
+		$ir[0]= $opm[0][0..1]
+		$ir[1]= $opm[0][2..12]
+		$ir[2]= $opm[1][2..12]
+		$ir[3]= $opm[2][2..12]
+		$ir[4]= $opm[3][2..12]
+	}
+	} #sw
 
 
 	switch($key["style"]){
-	'fmp7'{
-		$header= $box_header["opm_fmp7"]
-		break;
-	}'mxdrv'{
-		$header= $box_header["opm_mxdrv"]
-		$ir[0]+= $mask
-		$ir[1]+= ""	# commaí«â¡ ,0 -> ,0,("")
-		$ir[2]+= ""
-		$ir[3]+= ""
-		$ir[4]+= ""
-		break;
-	}default{
-		$header= $box_header["opm"]
-		if(Mskseg_chk -ne ''){ $ir[0]+= Mskseg_chk }
+	'fmp7'{ $header= $box_header["opm_fmp7"]; break;
+	}'mucom'{ $header= $box_header["opm_mucom"]; break;
+	}'mxdrv'{ $header= $box_header["opm_mxdrv"]; break;
+	}default{ $header= $box_header["opm"]
 	}
 	} #sw
+
+	if(Mskseg_chk){
+
+		$mask= " "+ (Mskseg_out 1)
+	}else{
+		$mask= ""
+	}
+	$header= $header.Replace("%mask_param%",$mask)
 
 
 	$af= $ir[0] -join $te
@@ -4444,12 +5259,11 @@ function Fmx_write(){ # $key["ten"],$key["zero"],$key["style"]
 	$three= $ir[3] -join $te
 	$four= $ir[4] -join $te
 
-
-	$header= $header.Replace("%af_param",$af)
- 	$header= $header.Replace("%op1_param",$one)
- 	$header= $header.Replace("%op2_param",$two)
- 	$header= $header.Replace("%op3_param",$three)
- 	$header= $header.Replace("%op4_param",$four)
+	$header= $header.Replace("%af_param%",$af)
+ 	$header= $header.Replace("%op1_param%",$one)
+ 	$header= $header.Replace("%op2_param%",$two)
+ 	$header= $header.Replace("%op3_param%",$three)
+ 	$header= $header.Replace("%op4_param%",$four)
   }
   } #sw
 
@@ -4480,213 +5294,6 @@ function Box_write(){
   $fm_box.ResumeLayout()
 
  } #func
- 
-# ------ 
- 
-function Prefixfm_mml([string]$g){ 
-
-
-	[string]$t= $key["oct"]
-
-	switch($comb_fm.SelectedItem){
-
-	'vrc7 2op'{
-		switch($key["type"]){
-		'mckreg'{
-			[string]$header= (cat '.\header\fm_header_mck' | Out-String)
-			break;
-		}default{
-			[string]$header= (cat '.\header\fm_header_nsd' | Out-String)
-			# cat -> Out-String ï∂éöóÒ(â¸çsÇ†ÇË)Ç≈stringÇ÷
-		}
-		} #sw
-
-		break;
-	}default{
-		[string]$header= (cat '.\header\fm_header_pmd' | Out-String)
-
-		if($key["mask"] -ne '15'){
-
-			$t+= " s"+ $key["mask"]
-		}
-		if($key["eg_type"] -ne 'Thru'){
-
-			if($key["ssg"] -gt 0){
-				$t+= " SE"+ $key["ssg"]+ ","+ $key["eg_type"]
-			}else{
-				$t+= " SE15,0"
-			}
-		}
-	}
-	} #sw
-
-	$header= $header.Replace("%trk_param",$t)
-	$header= $header.Replace("%fm_param",$g)
-
-	return $header
-
-} #func
- 
-function Lisnfm_nsf([int]$sw, [string]$t){ # $key["type"] 
-
- switch($sw){	# ÉXÉgÉbÉv
-# }1{
-#	[string[]]$s= Split_path $val["player"]
-
-#	switch($s[0]){
-#	'FMPMD.EXE'{	# & $val["player"] -s # ÉtÉ@ÉCÉãäJÇØÇ»Ç¢ëãÇ™äJÇ¢ÇƒÉGÉâÅ[Ç∆Ç»ÇÈ
-#	}default{	& $val["player"] /stop
-#	}
-#	} #sw
-
-#	break;
-  0{
-	Write-Host $val["compiler"]
-	Write-Host $val["player"]
-	Write-Host ""
-	Write-Host $t
-	Write-Host ""
-
-
-	$t | Out-File -Encoding ASCII -FilePath ".\temp\temp.mml"
-
-	$file= [IO.Path]::GetFullPath(".\temp\temp.mml") # full path
-
-
-	[string[]]$arr= Split_path $file
-	[string]$dpn= Join-Path $arr[1] $arr[2]
-
-	switch($comb_fm.SelectedItem){
-
-	'vrc7 2op'{
-		switch($key["type"]){
-		'mckreg'{	$output= .\mkmck.ps1 $file $val["compiler"] $arr[1]; break;
-		}default{	$output= .\mknsd.ps1 $file $val["compiler"] $arr[1]
-		}
-		} #sw
-
-		[string]$ext= ".nsf"
-		break;
-	}'opl 2op'{	$output= .\mkpmd.ps1 $file $val["compiler"] $arr[1] $val["dos"] "opl" $opt["chk_dos"]
-			[string]$ext= ".m"
-			break;
-	}'opn 4op'{	$output= .\mkpmd.ps1 $file $val["compiler"] $arr[1] $val["dos"] "opn" $opt["chk_dos"]
-			[string]$ext= ".m"
-			break;
-	}'opm 4op'{	$output= .\mkpmd.ps1 $file $val["compiler"] $arr[1] $val["dos"] "opm" $opt["chk_dos"]
-			[string]$ext= ".m"
-	}
-	} #sw
-
-	sleep -m 120	# àŸèÌéûópÉEÉFÉCÉg
-
-	if($output[0] -ne ""){
-
-			[string]$retn= [Windows.Forms.MessageBox]::Show(
-		("ä¬ã´ê›íË ERROR : "+ $output[0]), "ämîF", "OK","Information","Button1"
-			)
-	}else{
-
-		if($LASTEXITCODE -ne 0){
-
-			Write-Host ("`r`n"+ 'exitcode: '+ $LASTEXITCODE)
-			Write-Host ("`r`n"+ 'ERROR: '+ $arr[0]+ ' >> '+ $arr[2]+ $ext)
-
-			[string]$retn= [Windows.Forms.MessageBox]::Show(
-
-		("ÉRÉìÉpÉCÉãÇ…é∏îs : "+ $arr[0]+ " >> "+ $arr[2]+ $ext), "ämîF", "OK","Information","Button1"
-			)
-
-		}else{
-			# '"' ãÛîíÉpÉXëŒâû
-			& $val["player"] ('"'+ $dpn+ $ext+ '"')
-		}
-	}
-  }
-  } #sw
-
-} #func
- 
-function Box_listen([int]$j){ 
-
-
- switch($comb_fm.SelectedItem){
- 'vrc7 2op'{
-	switch($key["type"]){
-	'mckreg'{	[string]$s= Reg_write;	break;
-	}'nsdreg'{	[string]$s= Reg_write;	break;
-	}default{	[string]$s= Fmx_light	# pmd comma less
-	}
-	} #sw
-	break;
-  }default{		[string]$s= Fmx_light
-  }
-  } #sw
-
-
-  [string]$lis= Prefixfm_mml $s
-
-  switch($j){
-  0{
-	Lisnfm_nsf 0 $lis; break;
-  }1{
-	[Windows.Forms.Clipboard]::SetText($lis,[Windows.Forms.TextDataFormat]::UnicodeText)
-  }
-  } #sw
- } #func
- 
-function Key_down([string]$t){ 
-
-  switch($t){
-  'F5'{
-	if($fm_box.Modified -eq $True){
-
-	  	Param_exp 0
-
-	  	if($sb_alg.Visible -eq $True){
-			All_chg
-	 	 }
-	}
-	break;
-
-  }'F12'{
-	Box_listen 0
-  }
-  } #sw
-} #func
- 
-function Keyplay([string]$t){ 
-
-  switch($t){
-  'Space'{
-	Box_listen 0; break;
-  }'F12'{
-	Box_listen 0
-  }
-  } #sw
- } #func
- 
-function Adv_edit([string]$t){ 
-
-  switch($t){
-  'mck'{
-	[string]$ss= Editor_open $val["editor"] ".\header\fm_header_mck"; break;
-  }'nsd'{
-	[string]$ss= Editor_open $val["editor"] ".\header\fm_header_nsd"; break;
-  }'pmd'{
-	[string]$ss= Editor_open $val["editor"] ".\header\fm_header_pmd"
-  }
-  } #sw
-
-  if($ss -ne ''){
-
-	[string]$retn= [Windows.Forms.MessageBox]::Show(
-
-	$ss, "ämîF", "OK","Information","Button1"
-	)
-  }
-
- } #func
   
 # forms ====== 
  
@@ -4701,38 +5308,345 @@ $Fona= New-Object System.Drawing.Font("Lucida Console",14) # Garamond Georgia Ve
 cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 [Environment]::CurrentDirectory= pwd # working_dir set
  
-# Sub forms ----- 
-	
+# Sub forms 
+	 
 $bgimg= New-Object System.Drawing.Bitmap(480,530) # bg 4op 
 $bgimw= New-Object System.Drawing.Bitmap(480,280) # bg 2op
 
-$image1= New-Object System.Drawing.Bitmap(162,102) # èëÇ´çûÇﬁèÍèä
+$image1= New-Object System.Drawing.Bitmap(162,102) # Êõ∏„ÅçËæº„ÇÄÂ†¥ÊâÄ
 $image2= New-Object System.Drawing.Bitmap(162,102) # 160+2,100+2
 $image3= New-Object System.Drawing.Bitmap(162,102)
 $image4= New-Object System.Drawing.Bitmap(162,102)
+
+$image1a= New-Object System.Drawing.Bitmap(162,102)
+$image2a= New-Object System.Drawing.Bitmap(162,102)
 
 # ura buffer
 $image5= New-Object System.Drawing.Bitmap(162,102)
 $image6= New-Object System.Drawing.Bitmap(162,102)
 $image7= New-Object System.Drawing.Bitmap(162,102)
 $image8= New-Object System.Drawing.Bitmap(162,102)
+
+$image5a= New-Object System.Drawing.Bitmap(162,102)
+$image6a= New-Object System.Drawing.Bitmap(162,102)
  
-# $ContextMenu objÇì«Ç›çûÇÒÇæå„$PictureBox objÇ™à¿ëS 
+$Pictbg= New-Object System.Windows.Forms.PictureBox 
+$Pictbg.ClientSize=  $bgimg.Size
+$Pictbg.Image= $bgimg
+$Pictbg.Location= "0,0"
+
+$Pictbg.Add_MouseDown({
+ try{
+	switch([string]$_.Button){
+	'Right'{
+		Contxt_select "bg"
+	}
+	} #sw
+ }catch{
+	echo $_.exception
+ }
+})
+
+$Pictbg.Add_DoubleClick({
+ try{
+	switch([string]$_.Button){
+	'Left'{
+		$lisn_btn.PerformClick() # „É°„ÇΩ„ÉÉ„Éâ
+	}
+	} #sw
+ }catch{
+	echo $_.exception
+ }
+})
+
+$Pictbw= New-Object System.Windows.Forms.PictureBox
+$Pictbw.ClientSize=  $bgimw.Size
+$Pictbw.Image= $bgimw
+$Pictbw.Location= "0,0"
+$Pictbw.Add_MouseDown({
+ try{
+	switch([string]$_.Button){
+	'Right'{
+		Contxt_select "bg"
+	}
+	} #sw
+ }catch{
+	echo $_.exception
+ }
+})
+
+
+$Pictbw.Add_DoubleClick({
+ try{
+	switch([string]$_.Button){
+	'Left'{
+		$lisn_btn.PerformClick()
+	}
+	} #sw
+ }catch{
+	echo $_.exception
+ }
+})
+
+$Pictbox1a= New-Object System.Windows.Forms.PictureBox
+$Pictbox1a.ClientSize= $image1a.Size
+$Pictbox1a.Image= $image1a
+#$Pictbox1a.Location= "0,0"
+#$Pictbox1a.Enabled= $false
+
+$Pictbox1a.Add_MouseDown({
+ try{
+	switch([string]$_.Button){
+	'Left'{
+		Opmap_change 0 # .SelectedIndex
+		break;
+	}'Right'{
+		Contxt_select "oct"
+	}
+	} #sw
+ }catch{
+	echo $_.exception
+ }
+})
+
+$Pictbox2a= New-Object System.Windows.Forms.PictureBox
+$Pictbox2a.ClientSize= $image2a.Size
+$Pictbox2a.Image= $image2a
+#$Pictbox2a.Location= "0,100"
+$Pictbox2a.Add_MouseDown({
+ try{
+	switch([string]$_.Button){
+	'Left'{
+		Opmap_change 1
+		break;
+	}'Right'{
+		Contxt_select "oct"
+	}
+	} #sw
+ }catch{
+	echo $_.exception
+ }
+})
+
+$Pictbox1= New-Object System.Windows.Forms.PictureBox
+$Pictbox1.ClientSize= $image1.Size
+$Pictbox1.Image= $image1
+#$Pictbox1.Location= "0,0"
+#$Pictbox1.Enabled= $false
+
+$Pictbox1.Add_MouseDown({
+ try{
+	switch([string]$_.Button){
+	'Left'{
+		Opmap_change 0 # .SelectedIndex
+		break;
+	}'Right'{
+		Contxt_select "oct"
+	}
+	} #sw
+ }catch{
+	echo $_.exception
+ }
+})
+
+$Pictbox2= New-Object System.Windows.Forms.PictureBox
+$Pictbox2.ClientSize= $image2.Size
+$Pictbox2.Image= $image2
+#$Pictbox2.Location= "0,100"
+$Pictbox2.Add_MouseDown({
+ try{
+	switch([string]$_.Button){
+	'Left'{
+		Opmap_change 1
+		break;
+	}'Right'{
+		Contxt_select "oct"
+	}
+	} #sw
+ }catch{
+	echo $_.exception
+ }
+})
+
+$Pictbox3= New-Object System.Windows.Forms.PictureBox
+$Pictbox3.ClientSize= $image3.Size
+$Pictbox3.Image= $image3
+#$Pictbox3.Location= "0,200"
+$Pictbox3.Add_MouseDown({
+ try{
+	switch([string]$_.Button){
+	'Left'{
+		Opmap_change 2
+		break;
+	}'Right'{
+		Contxt_select "oct"
+	}
+	} #sw
+ }catch{
+	echo $_.exception
+ }
+})
+
+$Pictbox4= New-Object System.Windows.Forms.PictureBox
+$Pictbox4.ClientSize= $image4.Size
+$Pictbox4.Image= $image4
+#$Pictbox4.Location= "0,300"
+$Pictbox4.Add_MouseDown({
+ try{
+	switch([string]$_.Button){
+	'Left'{
+		Opmap_change 3
+		break;
+	}'Right'{
+		Contxt_select "oct"
+	}
+	} #sw
+}catch{
+	echo $_.exception
+ }
+})
+ 
+$gpb= [System.Drawing.Graphics]::FromImage($bgimg) # Êõ∏„ÅçËæº„Åø 
+$gpw= [System.Drawing.Graphics]::FromImage($bgimw)
+
+$gpb.CompositingQuality= "HighQuality"
+$gpw.CompositingQuality= "HighQuality"
+
+$gpb.SmoothingMode= "HighQuality"
+$gpw.SmoothingMode= "HighQuality"
+
+
+$gpz= [System.Drawing.Graphics]::FromImage($image1a)
+$gpx= [System.Drawing.Graphics]::FromImage($image2a)
+
+$gpc= [System.Drawing.Graphics]::FromImage($image1)
+$gpe= [System.Drawing.Graphics]::FromImage($image2)
+$gpg= [System.Drawing.Graphics]::FromImage($image3)
+$gpi= [System.Drawing.Graphics]::FromImage($image4)
+
+$gpz.CompositingQuality= "HighSpeed"
+$gpx.CompositingQuality= "HighSpeed"
+
+$gpc.CompositingQuality= "HighSpeed" # È´òÈÄü„Åß‰ΩéÂìÅË≥™
+$gpe.CompositingQuality= "HighSpeed"
+$gpg.CompositingQuality= "HighSpeed"
+$gpi.CompositingQuality= "HighSpeed"
+
+$gpz.SmoothingMode= "HighSpeed"
+$gpx.SmoothingMode= "HighSpeed"
+
+$gpc.SmoothingMode= "HighSpeed" # „Ç¢„É≥„ÉÅ„Ç®„Ç§„É™„Ç¢„ÇπÂá¶ÁêÜ„Åó„Å™„ÅÑ
+
+$gpe.SmoothingMode= "HighSpeed"
+$gpg.SmoothingMode= "HighSpeed"
+$gpi.SmoothingMode= "HighSpeed"
+
+
+# ura buffer
+$gpv= [System.Drawing.Graphics]::FromImage($image5a)
+$gpt= [System.Drawing.Graphics]::FromImage($image6a)
+
+$gpk= [System.Drawing.Graphics]::FromImage($image5) # Êõ∏„ÅçËæº„Åø
+$gpm= [System.Drawing.Graphics]::FromImage($image6)
+$gpo= [System.Drawing.Graphics]::FromImage($image7)
+$gpq= [System.Drawing.Graphics]::FromImage($image8)
+
+$gpv.CompositingQuality= "HighSpeed"
+$gpt.CompositingQuality= "HighSpeed"
+
+$gpk.CompositingQuality= "HighSpeed" # È´òÈÄü„Åß‰ΩéÂìÅË≥™
+$gpm.CompositingQuality= "HighSpeed"
+$gpo.CompositingQuality= "HighSpeed"
+$gpq.CompositingQuality= "HighSpeed"
+
+$gpv.SmoothingMode= "HighSpeed"
+$gpt.SmoothingMode= "HighSpeed"
+
+$gpk.SmoothingMode= "HighSpeed" # „Ç¢„É≥„ÉÅ„Ç®„Ç§„É™„Ç¢„ÇπÂá¶ÁêÜ„Åó„Å™„ÅÑ
+
+$gpm.SmoothingMode= "HighSpeed"
+$gpo.SmoothingMode= "HighSpeed"
+$gpq.SmoothingMode= "HighSpeed"
+ 
+#$buffw= [System.Drawing.BufferedGraphics] 
+#$buffz= [System.Drawing.BufferedGraphics]
+#$buffx= [System.Drawing.BufferedGraphics]
+
+#$buffb= [System.Drawing.BufferedGraphics]
+#$buffc= [System.Drawing.BufferedGraphics]
+#$buffe= [System.Drawing.BufferedGraphics]
+#$buffg= [System.Drawing.BufferedGraphics]
+#$buffi= [System.Drawing.BufferedGraphics]
+
+
+#$contxtw= [System.Drawing.BufferedGraphicsContext]
+$contxtw= [System.Drawing.BufferedGraphicsManager]::Current
+$contxtw.MaximumBuffer= "481,281"
+
+#$contxtz= [System.Drawing.BufferedGraphicsContext]
+$contxtz= [System.Drawing.BufferedGraphicsManager]::Current
+$contxtz.MaximumBuffer= "163,103"
+
+#$contxtx= [System.Drawing.BufferedGraphicsContext]
+$contxtx= [System.Drawing.BufferedGraphicsManager]::Current
+$contxtx.MaximumBuffer= "163,103"
+
+
+#$contxtb= [System.Drawing.BufferedGraphicsContext]
+$contxtb= [System.Drawing.BufferedGraphicsManager]::Current
+$contxtb.MaximumBuffer= "481,531"
+
+#$contxtc= [System.Drawing.BufferedGraphicsContext]
+$contxtc= [System.Drawing.BufferedGraphicsManager]::Current
+$contxtc.MaximumBuffer= "163,103"
+
+#$contxte= [System.Drawing.BufferedGraphicsContext]
+$contxte= [System.Drawing.BufferedGraphicsManager]::Current
+$contxte.MaximumBuffer= "163,103"
+
+#$contxtg= [System.Drawing.BufferedGraphicsContext]
+$contxtg= [System.Drawing.BufferedGraphicsManager]::Current
+$contxtg.MaximumBuffer= "163,103"
+
+#$contxti= [System.Drawing.BufferedGraphicsContext]
+$contxti= [System.Drawing.BufferedGraphicsManager]::Current
+$contxti.MaximumBuffer= "163,103"
+
+
+$buffw= $contxtb.Allocate($gpw, $Pictbw.ClientRectangle)
+$buffz= $contxtc.Allocate($gpz, $Pictbox1a.ClientRectangle)
+$buffx= $contxte.Allocate($gpx, $Pictbox2a.ClientRectangle)
+
+$buffb= $contxtb.Allocate($gpb, $Pictbg.ClientRectangle)
+$buffc= $contxtc.Allocate($gpc, $Pictbox1.ClientRectangle)
+$buffe= $contxte.Allocate($gpe, $Pictbox2.ClientRectangle)
+$buffg= $contxtg.Allocate($gpg, $Pictbox3.ClientRectangle)
+$buffi= $contxti.Allocate($gpi, $Pictbox4.ClientRectangle)
+
+
+# ura buffer ha Render„É°„ÇΩ„ÉÉ„Éâ‰∏ç‰ΩøÁî®„ÅÆ„Åü„ÇÅ„ÄÅÊâãÂãï„Éê„ÉÉ„Éï„Ç°„ÅØ‰∏çË¶Å
+
+# $gpk ha BufferedGraphics ha hitsuyou nai
+ 
+# ------ 
+ 
+# $ContextMenu obj„ÇíË™≠„ÅøËæº„Çì„Å†Âæå$PictureBox obj„ÅåÂÆâÂÖ® 
 
 $contxt_bg= New-Object System.Windows.Forms.ContextMenuStrip
 
-#[void]$contxt_bg.Items.Add("alg:0")
-#[void]$contxt_bg.Items.Add("alg:1")
-#[void]$contxt_bg.Items.Add("alg:2")
-#[void]$contxt_bg.Items.Add("alg:3")
-#[void]$contxt_bg.Items.Add("alg:4")
-#[void]$contxt_bg.Items.Add("alg:5")
-#[void]$contxt_bg.Items.Add("alg:6")
-#[void]$contxt_bg.Items.Add("alg:7")
+##[void]$contxt_bg.Items.Add("alg:0") # ->Contxt_change
+##[void]$contxt_bg.Items.Add("alg:1")
+##[void]$contxt_bg.Items.Add("alg:2")
+##[void]$contxt_bg.Items.Add("alg:3")
+##[void]$contxt_bg.Items.Add("alg:4")
+##[void]$contxt_bg.Items.Add("alg:5")
+##[void]$contxt_bg.Items.Add("alg:6")
+##[void]$contxt_bg.Items.Add("alg:7")
 
 $contxt_bg.Add_ItemClicked({
  try{
-	switch([string]$_.ClickedItem){ # ÉLÉÉÉXÉgïKóv
+	switch([string]$_.ClickedItem){ # „Ç≠„É£„Çπ„ÉàÂøÖË¶Å
+
 
 	'alg:0'{	Bgmap_change 0;	break; # value change event
 	}'alg:1'{	Bgmap_change 1;	break;
@@ -4754,8 +5668,8 @@ $contxt_bg.Add_ItemClicked({
 
 $contxt_bw= New-Object System.Windows.Forms.ContextMenuStrip
 
-#[void]$contxt_bw.Items.Add("alg:0")
-#[void]$contxt_bw.Items.Add("alg:1")
+##[void]$contxt_bw.Items.Add("alg:0")
+##[void]$contxt_bw.Items.Add("alg:1")
 
 $contxt_bw.Add_ItemClicked({
  try{
@@ -4788,21 +5702,28 @@ $contxt_7bw.Add_ItemClicked({
 	$this.Close()
 })
 
-$contxt_4op= New-Object System.Windows.Forms.ContextMenuStrip
+$contxt_oct= New-Object System.Windows.Forms.ContextMenuStrip
+##[void]$contxt_oct.Items.Add("o1") # Safety
+##[void]$contxt_oct.Items.Add("o2")
+##[void]$contxt_oct.Items.Add("o3")
+##[void]$contxt_oct.Items.Add("o4")
+##[void]$contxt_oct.Items.Add("o5")
+##[void]$contxt_oct.Items.Add("o6")
+##[void]$contxt_oct.Items.Add("o7")
+##[void]$contxt_oct.Items.Add("o8")
 
-#[void]$contxt_4op.Items.Add("Op.1")
-#[void]$contxt_4op.Items.Add("Op.2")
-#[void]$contxt_4op.Items.Add("Op.3")
-#[void]$contxt_4op.Items.Add("Op.4")
-
-$contxt_4op.Add_ItemClicked({
+$contxt_oct.Add_ItemClicked({
  try{
 	switch([string]$_.ClickedItem){
 
-	'Op.1'{		Opmap_change 0;	break;
-	}'Op.2'{	Opmap_change 1;	break;
-	}'Op.3'{	Opmap_change 2;	break;
-	}'Op.4'{	Opmap_change 3
+	'o1'{	$fm_menu_oct1.PerformClick();	break; # „É°„ÇΩ„ÉÉ„Éâ
+	}'o2'{	$fm_menu_oct2.PerformClick();	break;
+	}'o3'{	$fm_menu_oct3.PerformClick();	break;
+	}'o4'{	$fm_menu_oct4.PerformClick();	break;
+	}'o5'{	$fm_menu_oct5.PerformClick();	break;
+	}'o6'{	$fm_menu_oct6.PerformClick();	break;
+	}'o7'{	$fm_menu_oct7.PerformClick();	break;
+	}'o8'{	$fm_menu_oct8.PerformClick()
 	}
 	} #sw
 
@@ -4812,236 +5733,23 @@ $contxt_4op.Add_ItemClicked({
 	echo $_.exception
  }
 })
-
-$contxt_2op= New-Object System.Windows.Forms.ContextMenuStrip
-
-#[void]$contxt_2op.Items.Add("Op.1")
-#[void]$contxt_2op.Items.Add("Op.2")
-
-$contxt_2op.Add_ItemClicked({
- try{
-	switch([string]$_.ClickedItem){
-
-	'Op.1'{		Opmap_change 0;	break;
-	}'Op.2'{	Opmap_change 1
-	}
-	} #sw
-
-	$this.Close()
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$Pictbg= New-Object System.Windows.Forms.PictureBox 
-$Pictbg.ClientSize=  $bgimg.Size
-$Pictbg.Image= $bgimg
-$Pictbg.Location= "0,0"
-
-$Pictbg.Add_MouseDown({
- try{
-	if([string]$_.Button -eq 'Right'){ Contxt_select "bg" }
- }catch{
-	echo $_.exception
- }
-})
-
-$Pictbw= New-Object System.Windows.Forms.PictureBox
-$Pictbw.ClientSize=  $bgimw.Size
-$Pictbw.Image= $bgimw
-$Pictbw.Location= "0,0"
-$Pictbw.Add_MouseDown({
- try{
-	if([string]$_.Button -eq 'Right'){ Contxt_select "bw" }
- }catch{
-	echo $_.exception
- }
-})
-
-
-$Pictbox1= New-Object System.Windows.Forms.PictureBox
-$Pictbox1.ClientSize= $image1.Size
-$Pictbox1.Image= $image1
-#$Pictbox1.Location= "0,0"
-#$Pictbox1.Enabled= $false
-
-$Pictbox1.Add_MouseDown({
- try{
-	switch([string]$_.Button){
-	'Left'{
-		Opmap_change 0 # .SelectedIndex
-		break;
-	}'Right'{
-		Contxt_select "pict"
-	}
-	} #sw
- }catch{
-	echo $_.exception
- }
-})
-
-$Pictbox2= New-Object System.Windows.Forms.PictureBox
-$Pictbox2.ClientSize= $image2.Size
-$Pictbox2.Image= $image2
-#$Pictbox2.Location= "0,100"
-$Pictbox2.Add_MouseDown({
- try{
-	switch([string]$_.Button){
-	'Left'{
-		Opmap_change 1
-		break;
-	}'Right'{
-		Contxt_select "pict"
-	}
-	} #sw
- }catch{
-	echo $_.exception
- }
-})
-
-$Pictbox3= New-Object System.Windows.Forms.PictureBox
-$Pictbox3.ClientSize= $image3.Size
-$Pictbox3.Image= $image3
-#$Pictbox3.Location= "0,200"
-$Pictbox3.Add_MouseDown({
- try{
-	switch([string]$_.Button){
-	'Left'{
-		Opmap_change 2
-		break;
-	}'Right'{
-		Contxt_select "pict"
-	}
-	} #sw
- }catch{
-	echo $_.exception
- }
-})
-
-$Pictbox4= New-Object System.Windows.Forms.PictureBox
-$Pictbox4.ClientSize= $image4.Size
-$Pictbox4.Image= $image4
-#$Pictbox4.Location= "0,300"
-$Pictbox4.Add_MouseDown({
- try{
-	switch([string]$_.Button){
-	'Left'{
-		Opmap_change 3
-		break;
-	}'Right'{
-		Contxt_select "pict"
-	}
-	} #sw
-}catch{
-	echo $_.exception
- }
-})
- 
-$gpb= [System.Drawing.Graphics]::FromImage($bgimg) # èëÇ´çûÇ› 
-$gpw= [System.Drawing.Graphics]::FromImage($bgimw)
-
-$gpb.CompositingQuality= "HighQuality"
-$gpw.CompositingQuality= "HighQuality"
-
-$gpb.SmoothingMode= "HighQuality"
-$gpw.SmoothingMode= "HighQuality"
-
-
-$gpc= [System.Drawing.Graphics]::FromImage($image1)
-$gpe= [System.Drawing.Graphics]::FromImage($image2)
-$gpg= [System.Drawing.Graphics]::FromImage($image3)
-$gpi= [System.Drawing.Graphics]::FromImage($image4)
-
-$gpc.CompositingQuality= "HighSpeed" # çÇë¨Ç≈í·ïiéø
-$gpe.CompositingQuality= "HighSpeed"
-$gpg.CompositingQuality= "HighSpeed"
-$gpi.CompositingQuality= "HighSpeed"
-
-$gpc.SmoothingMode= "HighSpeed" # ÉAÉìÉ`ÉGÉCÉäÉAÉXèàóùÇµÇ»Ç¢
-$gpe.SmoothingMode= "HighSpeed"
-$gpg.SmoothingMode= "HighSpeed"
-$gpi.SmoothingMode= "HighSpeed"
-
-
-# ura buffer
-$gpk= [System.Drawing.Graphics]::FromImage($image5) # èëÇ´çûÇ›
-$gpm= [System.Drawing.Graphics]::FromImage($image6)
-$gpo= [System.Drawing.Graphics]::FromImage($image7)
-$gpq= [System.Drawing.Graphics]::FromImage($image8)
-
-$gpk.CompositingQuality= "HighSpeed" # çÇë¨Ç≈í·ïiéø
-$gpm.CompositingQuality= "HighSpeed"
-$gpo.CompositingQuality= "HighSpeed"
-$gpq.CompositingQuality= "HighSpeed"
-
-$gpk.SmoothingMode= "HighSpeed" # ÉAÉìÉ`ÉGÉCÉäÉAÉXèàóùÇµÇ»Ç¢
-$gpm.SmoothingMode= "HighSpeed"
-$gpo.SmoothingMode= "HighSpeed"
-$gpq.SmoothingMode= "HighSpeed"
- 
-#$buffb= [System.Drawing.BufferedGraphics] 
-#$buffw= [System.Drawing.BufferedGraphics]
-
-#$buffc= [System.Drawing.BufferedGraphics]
-#$buffe= [System.Drawing.BufferedGraphics]
-#$buffg= [System.Drawing.BufferedGraphics]
-#$buffi= [System.Drawing.BufferedGraphics]
-
-
-#$contxtb= [System.Drawing.BufferedGraphicsContext]
-$contxtb= [System.Drawing.BufferedGraphicsManager]::Current
-$contxtb.MaximumBuffer= "481,531"
-
-#$contxtw= [System.Drawing.BufferedGraphicsContext]
-$contxtw= [System.Drawing.BufferedGraphicsManager]::Current
-$contxtw.MaximumBuffer= "481,281"
-
-#$contxtc= [System.Drawing.BufferedGraphicsContext]
-$contxtc= [System.Drawing.BufferedGraphicsManager]::Current
-$contxtc.MaximumBuffer= "163,103"
-
-#$contxte= [System.Drawing.BufferedGraphicsContext]
-$contxte= [System.Drawing.BufferedGraphicsManager]::Current
-$contxte.MaximumBuffer= "163,103"
-
-#$contxtg= [System.Drawing.BufferedGraphicsContext]
-$contxtg= [System.Drawing.BufferedGraphicsManager]::Current
-$contxtg.MaximumBuffer= "163,103"
-
-#$contxti= [System.Drawing.BufferedGraphicsContext]
-$contxti= [System.Drawing.BufferedGraphicsManager]::Current
-$contxti.MaximumBuffer= "163,103"
-
-
-$buffb= $contxtb.Allocate($gpb, $Pictbg.ClientRectangle)
-$buffw= $contxtb.Allocate($gpw, $Pictbw.ClientRectangle)
-
-$buffc= $contxtc.Allocate($gpc, $Pictbox1.ClientRectangle)
-$buffe= $contxte.Allocate($gpe, $Pictbox2.ClientRectangle)
-$buffg= $contxtg.Allocate($gpg, $Pictbox3.ClientRectangle)
-$buffi= $contxti.Allocate($gpi, $Pictbox4.ClientRectangle)
-
-
-# ura buffer ha RenderÉÅÉ\ÉbÉhïségópÇÃÇΩÇﬂÅAéËìÆÉoÉbÉtÉ@ÇÕïsóv
-# $gpk ha BufferedGraphics ha hitsuyou nai
- 
-# ------ 
  
 $pict_panel= New-Object System.Windows.Forms.Panel 
-$pict_panel.Location= "4,35"
-#$pict_panel.Size= "480,530"
+$pict_panel.Location= "4,26"
+$pict_panel.Size= "481,536"
 #$pict_panel.ClientSize= $bgimg.Size
 #$pict_panel.Text= ""
-#$pict_panel.BackColor= "white"
- 
-$sb_stus= New-Object System.Windows.Forms.StatusBar 
-#$sb_stus.Text= "  Test ------"
+#$pict_panel.BackColor= "red"
+ 	
+$sb_stus= New-Object System.Windows.Forms.StatusStrip 
 $sb_stus.SizingGrip= $false
-#$sb_stus.Font= $Fon
+
+$sb_label= New-Object System.Windows.Forms.ToolStripStatusLabel
+# $sb_label.Text= "  Test ------"
+# $sb_label.Font= $Fon
  
 $sb_alg= New-Object System.Windows.Forms.Form 
-$sb_alg.Text= "Operator window"
+$sb_alg.Text= "FM Operator window"
 #$sb_alg.Size= "502,627"
 $sb_alg.Location= "500,0"
 
@@ -5055,21 +5763,26 @@ $sb_alg.MaximizeBox= $False
 #$sb_alg.TopLevel= $True
 $sb_alg.Owner= $frm_fm
 
-#$sb_alg.Add_Shown({ # èâï\é¶ÇÃÇ› .ShowDialog() dake keiyu - fuyoh
-#  Write-Host ('<< Operator windowÇäJÇ´Ç‹Ç∑'+ "`r`n")
-#})
+$sb_alg.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
 
 $sb_alg.Add_FormClosing({
  try{
-	if($_.CloseReason -eq 'UserClosing'){ # x É{É^ÉìÇÃèÍçáÇÃÇΩÇﬂ
+	if($_.CloseReason -eq 'UserClosing'){ # x „Éú„Çø„É≥„ÅÆÂ†¥Âêà„ÅÆ„Åü„ÇÅ
 
 		$script:key["open"]= Popalg_build $False
 	}
 
-	$_.Cancel= $True # Hide -> çƒìx ShowÇÃÇΩÇﬂ
+	$_.Cancel= $True # Hide -> ÂÜçÂ∫¶ Show„ÅÆ„Åü„ÇÅ
 	# EventArgs -> $_.(c# dato e.)
 
-	Write-Host ('<< Operator windowÇï¬Ç∂Ç‹Ç∑'+ "`r`n")
+	Write-Host ('<< Operator window„ÇíÈñâ„Åò„Åæ„Åô'+ "`r`n")
 
 	$this.Hide() #.Visible= $false
 
@@ -5090,9 +5803,17 @@ $sb_menu_w0= New-Object System.Windows.Forms.ToolStripMenuItem
 #$sb_menu_w0.Text= "1"
 $sb_menu_w0.Add_Click({
  try{
-	if($bai[1] -ne 1){
+	if($bai -ne 1){
 
-		$script:bai[1]= Attend_alg 1 $bai[1]
+		$script:bai= Attend_alg 1
+		Peralg_build $bai
+		Reso $bai
+
+		switch(Itm){
+		'2op'{ Sin_chw; break;
+		}'4op'{ Sin_chg
+		}
+		} #sw
 	}
  }catch{
 	echo $_.exception
@@ -5103,9 +5824,17 @@ $sb_menu_w1= New-Object System.Windows.Forms.ToolStripMenuItem
 #$sb_menu_w1.Text= "1/2"
 $sb_menu_w1.Add_Click({
  try{
-	if($bai[1] -ne 2){
+	if($bai -ne 2){
 
-		$script:bai[1]= Attend_alg 2 $bai[1]
+		$script:bai= Attend_alg 2
+		Peralg_build $bai
+		Reso $bai
+
+		switch(Itm){
+		'2op'{ Sin_chw; break;
+		}'4op'{ Sin_chg
+		}
+		} #sw
 	}
  }catch{
 	echo $_.exception
@@ -5116,9 +5845,17 @@ $sb_menu_w2= New-Object System.Windows.Forms.ToolStripMenuItem
 #$sb_menu_w2.Text= "1/4"
 $sb_menu_w2.Add_Click({
  try{
-	if($bai[1] -ne 4){
+	if($bai -ne 4){
 
-		$script:bai[1]= Attend_alg 4 $bai[1]
+		$script:bai= Attend_alg 4
+		Peralg_build $bai
+		Reso $bai
+
+		switch(Itm){
+		'2op'{ Sin_chw; break;
+		}'4op'{ Sin_chg
+		}
+		} #sw
 	}
  }catch{
 	echo $_.exception
@@ -5132,24 +5869,22 @@ $sb_menu_fin.Text= "Close"
 $sb_menu_fin.Add_Click({
  try{
 	# $script:key["open"]= Popalg_build $False
-	$sb_alg.Close() # $sb_alg.Add_FormClosingÇ÷
+	$sb_alg.Close() # $sb_alg.Add_FormClosing„Å∏
 
  }catch{
 	echo $_.exception
  }
 })
-
-
  
 $sb_menu_e= New-Object System.Windows.Forms.ToolStripMenuItem 
 $sb_menu_e.Text= "Adjust"
 
 $sb_menu_one= New-Object System.Windows.Forms.ToolStripMenuItem
-#$sb_menu_one.Text= "21"
+#$sb_menu_one.Text= $adjr[0]
 $sb_menu_one.Add_Click({
  try{
-	if($key["adjust"] -ne 21){
-		$script:key["adjust"]= Adj_sw 21
+	if($key["adjust"] -ne $adjr[0]){
+		$script:key["adjust"]= Adj_sw $adjr[0]
 		All_chg
 		Stus_alg
 	}
@@ -5159,11 +5894,11 @@ $sb_menu_one.Add_Click({
 })
 
 $sb_menu_two= New-Object System.Windows.Forms.ToolStripMenuItem
-#$sb_menu_two.Text= "22"
+#$sb_menu_two.Text= $adjr[1]
 $sb_menu_two.Add_Click({
  try{
-	if($key["adjust"] -ne 22){
-		$script:key["adjust"]= Adj_sw 22
+	if($key["adjust"] -ne $adjr[1]){
+		$script:key["adjust"]= Adj_sw $adjr[1]
 		All_chg
 		Stus_alg
 	}
@@ -5173,11 +5908,11 @@ $sb_menu_two.Add_Click({
 })
 
 $sb_menu_three= New-Object System.Windows.Forms.ToolStripMenuItem
-#$sb_menu_three.Text= "23"
+#$sb_menu_three.Text= $adjr[2]
 $sb_menu_three.Add_Click({
  try{
-	if($key["adjust"] -ne 23){
-		$script:key["adjust"]= Adj_sw 23
+	if($key["adjust"] -ne $adjr[2]){
+		$script:key["adjust"]= Adj_sw $adjr[2]
 		All_chg
 		Stus_alg
 	}
@@ -5187,11 +5922,11 @@ $sb_menu_three.Add_Click({
 })
 
 $sb_menu_four= New-Object System.Windows.Forms.ToolStripMenuItem
-#$sb_menu_four.Text= "24"
+#$sb_menu_four.Text= $adjr[3]
 $sb_menu_four.Add_Click({
  try{
-	if($key["adjust"] -ne 24){
-		$script:key["adjust"]= Adj_sw 24
+	if($key["adjust"] -ne $adjr[3]){
+		$script:key["adjust"]= Adj_sw $adjr[3]
 		All_chg
 		Stus_alg
 	}
@@ -5201,11 +5936,11 @@ $sb_menu_four.Add_Click({
 })
 
 $sb_menu_five= New-Object System.Windows.Forms.ToolStripMenuItem
-#$sb_menu_five.Text= "25"
+#$sb_menu_five.Text= $adjr[4]
 $sb_menu_five.Add_Click({
  try{
-	if($key["adjust"] -ne 25){
-		$script:key["adjust"]= Adj_sw 25
+	if($key["adjust"] -ne $adjr[4]){
+		$script:key["adjust"]= Adj_sw $adjr[4]
 		All_chg
 		Stus_alg
 	}
@@ -5215,11 +5950,11 @@ $sb_menu_five.Add_Click({
 })
 
 $sb_menu_six= New-Object System.Windows.Forms.ToolStripMenuItem
-#$sb_menu_six.Text= "26"
+#$sb_menu_six.Text= $adjr[5]
 $sb_menu_six.Add_Click({
  try{
-	if($key["adjust"] -ne 26){
-		$script:key["adjust"]= Adj_sw 26
+	if($key["adjust"] -ne $adjr[5]){
+		$script:key["adjust"]= Adj_sw $adjr[5]
 		All_chg
 		Stus_alg
 	}
@@ -5229,11 +5964,11 @@ $sb_menu_six.Add_Click({
 })
 
 $sb_menu_seven= New-Object System.Windows.Forms.ToolStripMenuItem
-#$sb_menu_seven.Text= "27"
+#$sb_menu_seven.Text= $adjr[6]
 $sb_menu_seven.Add_Click({
  try{
-	if($key["adjust"] -ne 27){
-		$script:key["adjust"]= Adj_sw 27
+	if($key["adjust"] -ne $adjr[6]){
+		$script:key["adjust"]= Adj_sw $adjr[6]
 		All_chg
 		Stus_alg
 	}
@@ -5322,7 +6057,7 @@ $sb_menu_ff.Add_Click({
 
 		$script:key["layout"]= Layout_alg "nomal"
 
-		Chip_position
+		Chip_position $key["layout"]
 
 		Op_chg
 		Stus_alg
@@ -5341,7 +6076,7 @@ $sb_menu_rev.Add_Click({
 
 		$script:key["layout"]= Layout_alg "reverse"
 
-		Chip_position
+		Chip_position $key["layout"]
 
 		Op_chg
 		Stus_alg
@@ -5362,6 +6097,8 @@ $sb_menu_natural.Add_Click({
 	if($key["color"] -ne 'natural'){
 
 		$script:key["color"]= Color_alg "natural"
+
+		Color_select "Panel_chg"
 		All_chg # ura buffer no tame
 		Stus_alg
 	}
@@ -5379,6 +6116,8 @@ $sb_menu_dark.Add_Click({
 	if($key["color"] -ne 'dark'){
 
 		$script:key["color"]= Color_alg "dark"
+
+		Color_select "Panel_chg"
 		All_chg
 		Stus_alg
 	}
@@ -5396,6 +6135,8 @@ $sb_menu_pastel.Add_Click({
 	if($key["color"] -ne 'pastel'){
 
 		$script:key["color"]= Color_alg "pastel"
+
+		Color_select "Panel_chg"
 		All_chg
 		Stus_alg
 	}
@@ -5413,6 +6154,8 @@ $sb_menu_vivid.Add_Click({
 	if($key["color"] -ne 'vivid'){
 
 		$script:key["color"]= Color_alg "vivid"
+
+		Color_select "Panel_chg"
 		All_chg
 		Stus_alg
 	}
@@ -5422,8 +6165,9 @@ $sb_menu_vivid.Add_Click({
  }
 })
   
-$pict_panel.Controls.AddRange(@($Pictbox1,$Pictbox2,$Pictbox3,$Pictbox4, $Pictbw, $Pictbg)) 
-# å„ÇÎë§ÇŸÇ«â∫Ç÷ÉåÉìÉ_ÉäÉìÉOÇ≥ÇÍÇÈ
+$pict_panel.Controls.AddRange(@($Pictbox1a,$Pictbox2a,$Pictbox1,$Pictbox2,$Pictbox3,$Pictbox4, $Pictbw, $Pictbg)) 
+# Âæå„ÇçÂÅ¥„Åª„Å©‰∏ã„Å∏„É¨„É≥„ÉÄ„É™„É≥„Ç∞„Åï„Çå„Çã
+
 
 
 $sb_menu_e.DropDownItems.AddRange(@($sb_menu_one,$sb_menu_two,$sb_menu_three,$sb_menu_four,$sb_menu_five,$sb_menu_six,$sb_menu_seven))
@@ -5435,52 +6179,359 @@ $sb_menu_f.DropDownItems.AddRange(@($sb_menu_p,$sb_menu_sn,$sb_menu_fin))
 
 $sb_mnu.Items.AddRange(@($sb_menu_f,$sb_menu_e,$sb_menu_a,$sb_menu_y,$sb_menu_o))
 
+$sb_stus.Items.AddRange(@($sb_label))
 $sb_alg.Controls.AddRange(@($sb_mnu,$pict_panel,$sb_stus))
   
-<# 
-
+# Preset forms 
 	
-$alg_img= [System.Drawing.Image]::FromFile(".\img\algorithm.png") 
+$ff_baloon= New-Object System.Windows.Forms.Tooltip 
+$ff_baloon.ShowAlways= $False
+# $ff_baloon.ToolTipIcon= "Info"
+$ff_baloon.ToolTipTitle= 'Voice: '
+$ff_baloon.AutomaticDelay= 667
  
-$Pictbox= New-Object System.Windows.Forms.PictureBox 
-$Pictbox.ClientSize= $alg_img.Size
-$Pictbox.Image= $alg_img
- 
-$sub_alg= New-Object System.Windows.Forms.Form 
-$sub_alg.Text= "Algorithm List"
-# $sub_alg.Size= "360,480"
-$sub_alg.Location= "500,0"
+$list_mck= New-Object System.Windows.Forms.ListBox 
+$list_mck.Size= "200,120"
+$list_mck.Location= "5,30"
 
-$sub_alg.FormBorderStyle= "FixedSingle"
-$sub_alg.StartPosition= "WindowsDefaultLocation"
-$sub_alg.MaximizeBox= $false
-$sub_alg.MinimizeBox= $false
-
-$sub_alg.TopLevel= $True
-$sub_alg.Owner= $frm_fm
-
-$sub_alg.ClientSize= $alg_img.Size
-
-$sub_alg.Add_FormClosing({ #
+$list_mck.Add_MouseDown({
  try{
-
-	if($_.CloseReason -eq 'UserClosing'){ # x É{É^ÉìÇÃèÍçá
+	switch([string]$_.Button){
+	'Left'{
+		Mck_listen $hsmck[[string]$list_mck.SelectedItem]
+		break;
+	}'Right'{
+		$ff_baloon.SetToolTip($list_mck,$hsmck[[string]$list_mck.SelectedItem])
 	}
-
-	$_.Cancel= $True # Hide -> çƒìx ShowÇÃÇΩÇﬂ
-	# EventArgs -> $_.(c# dato e.)
-
-	$this.Hide() #.Visible= $false
+	} #sw
  }catch{
 	echo $_.exception
  }
 })
  
-$sub_alg.Controls.Add($Pictbox) 
+$list_vrc= New-Object System.Windows.Forms.ListBox 
+$list_vrc.Size= "200,120"
+$list_vrc.Location= "5,30"
+
+$list_vrc.Add_MouseDown({
+ try{
+	switch([string]$_.Button){
+	'Left'{
+		Vrc7_listen $hsvrc[[string]$list_vrc.SelectedItem]
+		break;
+	}'Right'{
+		$ff_baloon.SetToolTip($list_vrc,$hsvrc[[string]$list_vrc.SelectedItem])
+	}
+	} #sw
+ }catch{
+	echo $_.exception
+ }
+})
  
-#> 
+$list_88= New-Object System.Windows.Forms.ListBox 
+$list_88.Size= "200,120"
+$list_88.Location= "5,30"
+
+$list_88.Add_MouseDown({
+ try{
+	switch([string]$_.Button){
+	'Left'{
+		FF_listen $hs88[[string]$list_88.SelectedItem]
+		break;
+	}'Right'{
+		$ff_baloon.SetToolTip($list_88,$hs88[[string]$list_88.SelectedItem])
+	}
+	} #sw
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$list_x68= New-Object System.Windows.Forms.ListBox 
+$list_x68.Size= "200,120"
+$list_x68.Location= "5,30"
+
+$list_x68.Add_MouseDown({
+ try{
+	switch([string]$_.Button){
+	'Left'{
+		FF_listen $hsx68[[string]$list_x68.SelectedItem]
+		break;
+	}'Right'{
+		$ff_baloon.SetToolTip($list_x68,$hsx68[[string]$list_x68.SelectedItem])
+	}
+	} #sw
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$list_efx= New-Object System.Windows.Forms.ListBox 
+$list_efx.Size= "200,120"
+$list_efx.Location= "5,30"
+
+$list_efx.Add_MouseDown({
+ try{
+	switch([string]$_.Button){
+	'Left'{
+		FF_listen $hsefx[[string]$list_efx.SelectedItem]
+		break;
+	}'Right'{
+		$ff_baloon.SetToolTip($list_efx,$hsefx[[string]$list_efx.SelectedItem])
+	}
+	} #sw
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+# ------ 
+ 
+$ff_tab= New-Object System.Windows.Forms.TabControl 
+$ff_tab.Size= "225,205"
+$ff_tab.Location= "5,25"
+ 
+$tab_mck= New-Object System.Windows.Forms.TabPage 
+$tab_mck.Text= "mck"
+
+$tab_mck.Add_VisibleChanged({
+ try{
+    if($tab_mck.Visible){
+
+	$comb_fm.SelectedItem= "vrc7 2op"
+	$script:key["type"]= Type_sw "mckreg"
+	Change_menu "mck" "compiler"
+
+	Box_write
+	Unredo 2
+
+	Stus_build
+    }
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$tab_vrc= New-Object System.Windows.Forms.TabPage 
+$tab_vrc.Text= "vrc7"
+
+$tab_vrc.Add_VisibleChanged({
+ try{
+    if($tab_vrc.Visible){
+
+	$comb_fm.SelectedItem= "vrc7 2op"
+	$script:key["type"]= Type_sw "nsd"
+	Change_menu "nsd" "compiler"
+
+	Box_write
+	Unredo 2
+
+	Stus_build
+    }
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$tab_88= New-Object System.Windows.Forms.TabPage 
+$tab_88.Text= "pc88"
+
+$tab_88.Add_VisibleChanged({
+ try{
+    if($tab_88.Visible){
+
+	$comb_fm.SelectedItem= "opn 4op"
+
+	Box_write
+	Unredo 2
+
+	Stus_build
+    }
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$tab_x68= New-Object System.Windows.Forms.TabPage 
+$tab_x68.Text= "x68ed"
+
+$tab_x68.Add_VisibleChanged({
+ try{
+    if($tab_x68.Visible){
+
+	$comb_fm.SelectedItem= "opn 4op"
+
+	Box_write
+	Unredo 2
+
+	Stus_build
+    }
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$tab_efx= New-Object System.Windows.Forms.TabPage 
+$tab_efx.Text= "effec"
+
+$tab_efx.Add_VisibleChanged({
+ try{
+    if($tab_efx.Visible){
+
+	$comb_fm.SelectedItem= "opn 4op"
+
+	Box_write
+	Unredo 2
+
+	Stus_build
+    }
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$import_btn= New-Object System.Windows.Forms.Button 
+$import_btn.Text= "Import"
+$import_btn.Size= "75,25"
+$import_btn.Location= "15,234"
+
+$import_btn.Add_Click({
+ try{
+	switch($ff_tab.SelectedIndex){
+	'0'{	[string]$retn= $hsmck[[string]$list_mck.SelectedItem]; break;
+	}'1'{	[string]$retn= $hsvrc[[string]$list_vrc.SelectedItem]; break;
+	}'2'{	[string]$retn= $hs88[[string]$list_88.SelectedItem];   break;
+	}'3'{	[string]$retn= $hsx68[[string]$list_x68.SelectedItem]; break;
+	}'4'{	[string]$retn= $hsefx[[string]$list_efx.SelectedItem]
+	}
+	} #sw
+
+    if($retn -ne ''){
+
+	Autosave $script:fm_xml.table.presetstore
+	# store„ÇíÊõ¥Êñ∞
+
+	if($sb_alg.Visible){
+
+		Whiteblack_select "conv_btn"
+	}
+
+	Write-Host '<< preset„Çíimport„Åó„Åæ„Åó„Åü'
+    }
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$clip_btn= New-Object System.Windows.Forms.Button 
+$clip_btn.Text= "Clipboard"
+$clip_btn.Size= "75,25"
+$clip_btn.Location= "95,234"
+
+$clip_btn.Add_Click({
+ try{
+	switch($ff_tab.SelectedIndex){
+	'0'{	[string]$retn= $hsmck[[string]$list_mck.SelectedItem]; break;
+	}'1'{	[string]$retn= $hsvrc[[string]$list_vrc.SelectedItem]; break;
+	}'2'{	[string]$retn= $hs88[[string]$list_88.SelectedItem];   break;
+	}'3'{	[string]$retn= $hsx68[[string]$list_x68.SelectedItem]; break;
+	}'4'{	[string]$retn= $hsefx[[string]$list_efx.SelectedItem]
+	}
+	} #sw
+
+    if($retn -ne ''){
+
+	[Windows.Forms.Clipboard]::SetText($retn,[Windows.Forms.TextDataFormat]::UnicodeText)
+
+	Write-Host '<< preset„Çíclipboard„Å∏ÈÄÅ„Çä„Åæ„Åó„Åü'
+    }
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$ff_frm= New-Object System.Windows.Forms.Form 
+$ff_frm.Text= "PresetÊ≥¢ÂΩ¢"
+$ff_frm.Size= "248,302"
+$ff_frm.Location= "500,0"
+
+$ff_frm.FormBorderStyle= "FixedSingle"
+$ff_frm.StartPosition= "WindowsDefaultLocation"
+$ff_frm.Icon= Icon_read "..\fm_editor.exe"
+# $ff_frm.MinimizeBox= $False
+$ff_frm.MaximizeBox= $False
+
+# $ff_frm.TopLevel= $True
+$ff_frm.Owner= $frm_fm
+
+$ff_frm.Add_FormClosing({
+ try{
+	$fm_box.ForeColor= "Black"
+	$fm_box.BackColor= "White"
+
+	Autoload $fm_xml.table.presetstore
+
+	Panel_chg
+
+	if($sb_alg.Visible){
+		All_chg
+	}
+
+	$fm_menu_ff.Text= "Preset"
+
+	if($_.CloseReason -eq 'UserClosing'){ # x „Éú„Çø„É≥„ÅÆÂ†¥Âêà
+	}
+
+	$_.Cancel= $True # Hide -> ÂÜçÂ∫¶ Show„ÅÆ„Åü„ÇÅ
+
+	$this.Hide() #.Visible= $false
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$ff_mnu= New-Object System.Windows.Forms.MenuStrip 
+
+$ff_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem
+$ff_menu_f.Text= "File"
+
+$ff_menu_r= New-Object System.Windows.Forms.ToolStripMenuItem
+$ff_menu_r.Text= "Preset reload"
+$ff_menu_r.Add_Click({
+
+	$list_mck.Items.Clear() # reset 2ÈáçË™≠ËæºÂØæÁ≠ñ
+	$list_vrc.Items.Clear()
+	$list_88.Items.Clear()
+	$list_x68.Items.Clear()
+	$list_efx.Items.Clear()
+
+	Preset_read
+	Write-Host '"Preset"„Éï„Ç°„Ç§„É´„Çíreload„Åó„Åæ„Åó„Åü'
+})
+
+$ff_menu_cr= New-Object System.Windows.Forms.ToolStripSeparator
+$ff_menu_c= New-Object System.Windows.Forms.ToolStripMenuItem
+$ff_menu_c.Text= "Close"
+$ff_menu_c.Add_Click({
+
+	$ff_frm.Close()
+})
+ 
+$tab_mck.Controls.AddRange(@($list_mck)) 
+$tab_vrc.Controls.AddRange(@($list_vrc))
+$tab_88.Controls.AddRange(@($list_88))
+$tab_x68.Controls.AddRange(@($list_x68))
+$tab_efx.Controls.AddRange(@($list_efx))
+$ff_tab.Controls.AddRange(@($tab_mck,$tab_vrc,$tab_88,$tab_x68,$tab_efx))
+
+$ff_menu_f.DropDownItems.AddRange(@($ff_menu_r,$ff_menu_cr,$ff_menu_c))
+$ff_mnu.Items.AddRange(@($ff_menu_f))
+$ff_frm.Controls.AddRange(@($ff_mnu,$ff_tab,$import_btn,$clip_btn))
   
-# Sub Mask forms ----- 
+# Mask forms 
 	
 $sub_mask= New-Object System.Windows.Forms.Form 
 $sub_mask.Text= "Operator Mask"
@@ -5496,18 +6547,15 @@ $sub_mask.MaximizeBox= $False
 # $sub_mask.TopLevel= $True
 $sub_mask.Owner= $frm_fm
 
-#$sub_mask.Add_Shown({
-#})
-
 $sub_mask.Add_FormClosing({
  try{
 
 	$fm_menu_mask.Text= "4op.mask"
 
-	if($_.CloseReason -eq 'UserClosing'){ # x É{É^ÉìÇÃèÍçá
+	if($_.CloseReason -eq 'UserClosing'){ # x „Éú„Çø„É≥„ÅÆÂ†¥Âêà
  	}
 
-	$_.Cancel= $True # Hide -> çƒìx ShowÇÃÇΩÇﬂ
+	$_.Cancel= $True # Hide -> ÂÜçÂ∫¶ Show„ÅÆ„Åü„ÇÅ
 
 	$this.Hide() #.Visible= $false
 
@@ -5533,12 +6581,10 @@ $sub_mask_chk0.Add_Click({
 	$script:key["mask"]= Mask_sw "0" $key["mask"]
 
 	Stus_build
+	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 		All_chg
-	}
-	if($key["style"] -ne 'fmp7'){
-		Box_write
 	}
 })
 
@@ -5553,12 +6599,10 @@ $sub_mask_chk1.Add_Click({
 	$script:key["mask"]= Mask_sw "1" $key["mask"]
 
 	Stus_build
+	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 		All_chg
-	}
-	if($key["style"] -ne 'fmp7'){
-		Box_write
 	}
 })
 
@@ -5573,12 +6617,10 @@ $sub_mask_chk2.Add_Click({
 	$script:key["mask"]= Mask_sw "2" $key["mask"]
 
 	Stus_build
+	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 		All_chg
-	}
-	if($key["style"] -ne 'fmp7'){
-		Box_write
 	}
 })
 
@@ -5593,12 +6635,10 @@ $sub_mask_chk3.Add_Click({
 	$script:key["mask"]= Mask_sw "3" $key["mask"]
 
 	Stus_build
+	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 		All_chg
-	}
-	if($key["style"] -ne 'fmp7'){
-		Box_write
 	}
 })
  
@@ -5621,11 +6661,10 @@ $sub_ssg_comb.Add_SelectedValueChanged({
  try{
 	$script:key["eg_type"]= $this.SelectedItem
 
-	if($sb_alg.Visible -eq $True){
+	Box_write
+
+	if($sb_alg.Visible){
 		All_chg
-	}
-	if($key["style"] -ne 'fmp7'){
-		Box_write
 	}
  }catch{
 	echo $_.exception
@@ -5643,11 +6682,10 @@ $sub_ssg_chk0.Add_Click({
  try{
 	$script:key["ssg"]= Mask_sw "0" $key["ssg"]
 
-	if($sb_alg.Visible -eq $True){
+	Box_write
+
+	if($sb_alg.Visible){
 		All_chg
-	}
-	if($key["style"] -ne 'fmp7'){
-		Box_write
 	}
  }catch{
 	echo $_.exception
@@ -5664,11 +6702,10 @@ $sub_ssg_chk1.Add_Click({
  try{
 	$script:key["ssg"]= Mask_sw "1" $key["ssg"]
 
-	if($sb_alg.Visible -eq $True){
+	Box_write
+
+	if($sb_alg.Visible){
 		All_chg
-	}
-	if($key["style"] -ne 'fmp7'){
-		Box_write
 	}
  }catch{
 	echo $_.exception
@@ -5685,11 +6722,10 @@ $sub_ssg_chk2.Add_Click({
  try{
 	$script:key["ssg"]= Mask_sw "2" $key["ssg"]
 
-	if($sb_alg.Visible -eq $True){
+	Box_write
+
+	if($sb_alg.Visible){
 		All_chg
-	}
-	if($key["style"] -ne 'fmp7'){
-		Box_write
 	}
  }catch{
 	echo $_.exception
@@ -5706,11 +6742,10 @@ $sub_ssg_chk3.Add_Click({
  try{
 	$script:key["ssg"]= Mask_sw "3" $key["ssg"]
 
-	if($sb_alg.Visible -eq $True){
+	Box_write
+
+	if($sb_alg.Visible){
 		All_chg
-	}
-	if($key["style"] -ne 'fmp7'){
-		Box_write
 	}
  }catch{
 	echo $_.exception
@@ -5722,7 +6757,7 @@ $sub_ssg_grp.Controls.AddRange(@($sub_ssg_comb,$sub_ssg_chk0,$sub_ssg_chk1,$sub_
 
 $sub_mask.Controls.AddRange(@($sub_mask_grp,$sub_ssg_grp))
   
-# Sub Sav forms ----- 
+# Sav forms 
 	
 $sub_sav_grp= New-Object System.Windows.Forms.GroupBox 
 $sub_sav_grp.Text= "Save Name"
@@ -5794,8 +6829,8 @@ $sub_sav.Controls.AddRange(@($sub_sav_label,$sub_sav_grp,$sub_sav_ok_Btn,$sub_sa
 $sub_sav.CancelButton= $sub_sav_cancel_Btn	# [ESC]
 $sub_sav.AcceptButton= $sub_sav_ok_Btn		# [Enter]
   
-# Main forms ----- 
- 
+# Main forms 
+	
 # VRC7 
 	
 $vrc_eg_grp= New-Object System.Windows.Forms.GroupBox 
@@ -5804,7 +6839,7 @@ $vrc_eg_grp.Size= "230,200"
 $vrc_eg_grp.Text= "Envelope"
 $vrc_eg_grp.FlatStyle= "Flat"
 #$vrc_eg_grp.Hide() #$eg_grp.Show()
-	 
+	
 # ------ AR - AttackRate 15-0 
  
 $vrc_trkbar_ar= New-Object System.Windows.Forms.TrackBar 
@@ -5831,7 +6866,7 @@ $vrc_trkbar_ar.Add_Enter({
 
 $vrc_trkbar_ar.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -5853,12 +6888,14 @@ $vrc_nmud_ar.Add_ValueChanged({
 	$vrc_trkbar_ar.Value= $this.Value
 	$script:vrc_svn[(Idx)][2]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Poly_chw
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -5895,7 +6932,7 @@ $vrc_trkbar_dr.Add_Enter({
 
 $vrc_trkbar_dr.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -5917,12 +6954,14 @@ $vrc_nmud_dr.Add_ValueChanged({
 	$vrc_trkbar_dr.Value= $this.Value
 	$script:vrc_svn[(Idx)][3]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Poly_chw
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -5959,7 +6998,7 @@ $vrc_trkbar_rr.Add_Enter({
 
 $vrc_trkbar_rr.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -5981,12 +7020,14 @@ $vrc_nmud_rr.Add_ValueChanged({
 	$vrc_trkbar_rr.Value= $this.Value
 	$script:vrc_svn[(Idx)][5]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Poly_chw
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -6023,7 +7064,7 @@ $vrc_trkbar_sl.Add_Enter({
 
 $vrc_trkbar_sl.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -6045,12 +7086,14 @@ $vrc_nmud_sl.Add_ValueChanged({
 	$vrc_trkbar_sl.Value= $this.Value
 	$script:vrc_svn[(Idx)][4]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Poly_chw
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -6068,7 +7111,7 @@ $vrc_lev_grp.Location= "10,235"
 $vrc_lev_grp.Size= "230,80"
 $vrc_lev_grp.Text= "Key Scale"
 $vrc_lev_grp.FlatStyle= "Flat"
-	 
+	
 # ------ KSL - KeyScaleLevel 0-3 
  
 $vrc_trkbar_ksl= New-Object System.Windows.Forms.TrackBar 
@@ -6095,7 +7138,7 @@ $vrc_trkbar_ksl.Add_Enter({
 
 $vrc_trkbar_ksl.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -6117,8 +7160,10 @@ $vrc_nmud_ksl.Add_ValueChanged({
 	$vrc_trkbar_ksl.Value= $this.Value
 	$script:vrc_svn[(Idx)][6]= Sz $this.Value
 
-	Box_write
+  if($event_change){
 
+	Box_write
+  }
  }catch{
 	echo $_.exception
  }
@@ -6155,7 +7200,7 @@ $vrc_trkbar_ksr.Add_Enter({
 
 $vrc_trkbar_ksr.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -6177,8 +7222,10 @@ $vrc_nmud_ksr.Add_ValueChanged({
 	$vrc_trkbar_ksr.Value= $this.Value
 	$script:vrc_svn[(Idx)][11]= Sz $this.Value
 
-	Box_write
+  if($event_change){
 
+	Box_write
+  }
  }catch{
 	echo $_.exception
  }
@@ -6223,7 +7270,7 @@ $vrc_trkbar_dt.Add_Enter({
 
 $vrc_trkbar_dt.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -6245,12 +7292,14 @@ $vrc_nmud_dt.Add_ValueChanged({
 	$vrc_trkbar_dt.Value= $this.Value
 	$script:vrc_svn[(Idx)][12]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Sin_chw
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -6260,6 +7309,7 @@ $vrc_lbl_dt= New-Object System.Windows.Forms.Label
 $vrc_lbl_dt.Location= "175,105"
 $vrc_lbl_dt.Size= "45,30"
 $vrc_lbl_dt.Text= "Distortion"
+
  
 # ------ EG - EnvelopeGeneratorType 0-1 / SR=0 off,on 
  
@@ -6287,7 +7337,7 @@ $vrc_trkbar_eg.Add_Enter({
 
 $vrc_trkbar_eg.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -6309,12 +7359,14 @@ $vrc_nmud_eg.Add_ValueChanged({
 	$vrc_trkbar_eg.Value= $this.Value
 	$script:vrc_svn[(Idx)][10]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Poly_chw
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -6351,7 +7403,7 @@ $vrc_trkbar_vib.Add_Enter({
 
 $vrc_trkbar_vib.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -6373,8 +7425,10 @@ $vrc_nmud_vib.Add_ValueChanged({
 	$vrc_trkbar_vib.Value= $this.Value
 	$script:vrc_svn[(Idx)][9]= Sz $this.Value
 
-	Box_write
+  if($event_change){
 
+	Box_write
+  }
  }catch{
 	echo $_.exception
  }
@@ -6411,7 +7465,7 @@ $vrc_trkbar_ams.Add_Enter({
 
 $vrc_trkbar_ams.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -6433,8 +7487,10 @@ $vrc_nmud_ams.Add_ValueChanged({
 	$vrc_trkbar_ams.Value= $this.Value
 	$script:vrc_svn[(Idx)][8]= Sz $this.Value
 
-	Box_write
+  if($event_change){
 
+	Box_write
+  }
  }catch{
 	echo $_.exception
  }
@@ -6479,7 +7535,7 @@ $vrc_trkbar_ml.Add_Enter({
 
 $vrc_trkbar_ml.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -6501,12 +7557,14 @@ $vrc_nmud_ml.Add_ValueChanged({
 	$vrc_trkbar_ml.Value= $this.Value
 	$script:vrc_svn[(Idx)][7]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Sin_chw
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -6543,7 +7601,7 @@ $vrc_trkbar_tl.Add_Enter({
 
 $vrc_trkbar_tl.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -6565,12 +7623,14 @@ $vrc_nmud_tl.Add_ValueChanged({
 	$vrc_trkbar_tl.Value= $this.Value
 	$script:vrc_svn[(Idx)][0]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Sin_chw
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -6659,7 +7719,7 @@ $vrc_trkbar_fb.Add_Enter({
 
 $vrc_trkbar_fb.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -6681,12 +7741,14 @@ $vrc_nmud_fb.Add_ValueChanged({
 	$vrc_trkbar_fb.Value= $this.Value
 	$script:vrc_svn[0][1]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Sin_chw
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -6754,7 +7816,7 @@ $opl_trkbar_ar.Add_Enter({
 
 $opl_trkbar_ar.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -6776,12 +7838,14 @@ $opl_nmud_ar.Add_ValueChanged({
 	$opl_trkbar_ar.Value= $this.Value
 	$script:opl_two[(Idx)][2]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Poly_chw
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -6818,7 +7882,7 @@ $opl_trkbar_dr.Add_Enter({
 
 $opl_trkbar_dr.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -6840,12 +7904,14 @@ $opl_nmud_dr.Add_ValueChanged({
 	$opl_trkbar_dr.Value= $this.Value
 	$script:opl_two[(Idx)][3]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Poly_chw
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -6882,7 +7948,7 @@ $opl_trkbar_rr.Add_Enter({
 
 $opl_trkbar_rr.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -6904,12 +7970,14 @@ $opl_nmud_rr.Add_ValueChanged({
 	$opl_trkbar_rr.Value= $this.Value
 	$script:opl_two[(Idx)][4]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Poly_chw
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -6946,7 +8014,7 @@ $opl_trkbar_sl.Add_Enter({
 
 $opl_trkbar_sl.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -6968,12 +8036,14 @@ $opl_nmud_sl.Add_ValueChanged({
 	$opl_trkbar_sl.Value= $this.Value
 	$script:opl_two[(Idx)][5]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Poly_chw
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -7018,7 +8088,7 @@ $opl_trkbar_ksl.Add_Enter({
 
 $opl_trkbar_ksl.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -7040,8 +8110,10 @@ $opl_nmud_ksl.Add_ValueChanged({
 	$opl_trkbar_ksl.Value= $this.Value
 	$script:opl_two[(Idx)][7]= Sz $this.Value
 
-	Box_write
+  if($event_change){
 
+	Box_write
+  }
  }catch{
 	echo $_.exception
  }
@@ -7078,7 +8150,7 @@ $opl_trkbar_ksr.Add_Enter({
 
 $opl_trkbar_ksr.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -7100,8 +8172,10 @@ $opl_nmud_ksr.Add_ValueChanged({
 	$opl_trkbar_ksr.Value= $this.Value
 	$script:opl_two[(Idx)][9]= Sz $this.Value
 
-	Box_write
+  if($event_change){
 
+	Box_write
+  }
  }catch{
 	echo $_.exception
  }
@@ -7190,7 +8264,7 @@ $opl_trkbar_eg.Add_Enter({
 
 $opl_trkbar_eg.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -7212,12 +8286,14 @@ $opl_nmud_eg.Add_ValueChanged({
 	$opl_trkbar_eg.Value= $this.Value
 	$script:opl_two[(Idx)][10]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Poly_chw
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -7254,7 +8330,7 @@ $opl_trkbar_vib.Add_Enter({
 
 $opl_trkbar_vib.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -7276,8 +8352,10 @@ $opl_nmud_vib.Add_ValueChanged({
 	$opl_trkbar_vib.Value= $this.Value
 	$script:opl_two[(Idx)][11]= Sz $this.Value
 
-	Box_write
+  if($event_change){
 
+	Box_write
+  }
  }catch{
 	echo $_.exception
  }
@@ -7314,7 +8392,7 @@ $opl_trkbar_ams.Add_Enter({
 
 $opl_trkbar_ams.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -7336,8 +8414,10 @@ $opl_nmud_ams.Add_ValueChanged({
 	$opl_trkbar_ams.Value= $this.Value
 	$script:opl_two[(Idx)][12]= Sz $this.Value
 
-	Box_write
+  if($event_change){
 
+	Box_write
+  }
  }catch{
 	echo $_.exception
  }
@@ -7382,7 +8462,7 @@ $opl_trkbar_ml.Add_Enter({
 
 $opl_trkbar_ml.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -7404,12 +8484,14 @@ $opl_nmud_ml.Add_ValueChanged({
 	$opl_trkbar_ml.Value= $this.Value
 	$script:opl_two[(Idx)][8]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Sin_chw
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -7446,7 +8528,7 @@ $opl_trkbar_tl.Add_Enter({
 
 $opl_trkbar_tl.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -7468,12 +8550,14 @@ $opl_nmud_tl.Add_ValueChanged({
 	$opl_trkbar_tl.Value= $this.Value
 	$script:opl_two[(Idx)][6]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Sin_chw
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -7518,7 +8602,7 @@ $opl_trkbar_alg.Add_Enter({
 
 $opl_trkbar_alg.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -7540,13 +8624,15 @@ $opl_nmud_alg.Add_ValueChanged({
 	$opl_trkbar_alg.Value= $this.Value
 	$script:opl_two[0][0]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Sin_chw
 	  Op_chg
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -7583,7 +8669,7 @@ $opl_trkbar_fb.Add_Enter({
 
 $opl_trkbar_fb.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -7605,12 +8691,14 @@ $opl_nmud_fb.Add_ValueChanged({
 	$opl_trkbar_fb.Value= $this.Value
 	$script:opl_two[0][1]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Sin_chw
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -7651,7 +8739,7 @@ $opn_eg_grp.Size= "230,200"
 $opn_eg_grp.Text= "Envelope"
 $opn_eg_grp.FlatStyle= "Flat"
 #$opn_eg_grp.Hide() #$eg_grp.Show()
-	 
+	
 # ------ AR - AttackRate 31-0 
  
 $opn_trkbar_ar= New-Object System.Windows.Forms.TrackBar 
@@ -7678,7 +8766,7 @@ $opn_trkbar_ar.Add_Enter({
 
 $opn_trkbar_ar.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -7700,12 +8788,14 @@ $opn_nmud_ar.Add_ValueChanged({
 	$opn_trkbar_ar.Value= $this.Value
 	$script:opn_fur[(Idx)][2]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Poly_chg
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -7742,7 +8832,7 @@ $opn_trkbar_dr.Add_Enter({
 
 $opn_trkbar_dr.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -7764,12 +8854,14 @@ $opn_nmud_dr.Add_ValueChanged({
 	$opn_trkbar_dr.Value= $this.Value
 	$script:opn_fur[(Idx)][3]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Poly_chg
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -7806,7 +8898,7 @@ $opn_trkbar_sr.Add_Enter({
 
 $opn_trkbar_sr.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -7828,12 +8920,14 @@ $opn_nmud_sr.Add_ValueChanged({
 	$opn_trkbar_sr.Value= $this.Value
 	$script:opn_fur[(Idx)][4]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Poly_chg
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -7870,7 +8964,7 @@ $opn_trkbar_rr.Add_Enter({
 
 $opn_trkbar_rr.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -7892,12 +8986,14 @@ $opn_nmud_rr.Add_ValueChanged({
 	$opn_trkbar_rr.Value= $this.Value
 	$script:opn_fur[(Idx)][5]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Poly_chg
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -7915,7 +9011,7 @@ $opn_lev_grp.Location= "10,235"
 $opn_lev_grp.Size= "230,80"
 $opn_lev_grp.Text= "Sustain Level"
 $opn_lev_grp.FlatStyle= "Flat"
-	 
+	
 # ------ SL - SustainLevel 15-0 
  
 $opn_trkbar_sl= New-Object System.Windows.Forms.TrackBar 
@@ -7942,7 +9038,7 @@ $opn_trkbar_sl.Add_Enter({
 
 $opn_trkbar_sl.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -7964,12 +9060,14 @@ $opn_nmud_sl.Add_ValueChanged({
 	$opn_trkbar_sl.Value= $this.Value
 	$script:opn_fur[(Idx)][6]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Poly_chg
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -8014,7 +9112,7 @@ $opn_trkbar_ks.Add_Enter({
 
 $opn_trkbar_ks.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -8036,8 +9134,10 @@ $opn_nmud_ks.Add_ValueChanged({
 	$opn_trkbar_ks.Value= $this.Value
 	$script:opn_fur[(Idx)][8]= Sz $this.Value
 
-	Box_write
+  if($event_change){
 
+	Box_write
+  }
  }catch{
 	echo $_.exception
  }
@@ -8074,7 +9174,7 @@ $opn_trkbar_dt1.Add_Enter({
 
 $opn_trkbar_dt1.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -8096,8 +9196,10 @@ $opn_nmud_dt1.Add_ValueChanged({
 	$opn_trkbar_dt1.Value= $this.Value
 	$script:opn_fur[(Idx)][10]= Sz $this.Value
 
-	Box_write
+  if($event_change){
 
+	Box_write
+  }
  }catch{
 	echo $_.exception
  }
@@ -8178,7 +9280,7 @@ $opn_trkbar_ams.Add_Enter({
 
 $opn_trkbar_ams.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -8200,8 +9302,10 @@ $opn_nmud_ams.Add_ValueChanged({
 	$opn_trkbar_ams.Value= $this.Value
 	$script:opn_fur[(Idx)][11]= Sz $this.Value
 
-	Box_write
+  if($event_change){
 
+	Box_write
+  }
  }catch{
 	echo $_.exception
  }
@@ -8219,7 +9323,7 @@ $opn_op_grp.Location= "250,175"
 $opn_op_grp.Size= "230,140"
 $opn_op_grp.Text= "Frequency Modulation"
 $opn_op_grp.FlatStyle= "Flat"
-	 
+	
 # ------ ML - Multiple 0-15 
  
 $opn_trkbar_ml= New-Object System.Windows.Forms.TrackBar 
@@ -8246,7 +9350,7 @@ $opn_trkbar_ml.Add_Enter({
 
 $opn_trkbar_ml.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -8268,12 +9372,14 @@ $opn_nmud_ml.Add_ValueChanged({
 	$opn_trkbar_ml.Value= $this.Value
 	$script:opn_fur[(Idx)][9]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Sin_chg
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -8310,7 +9416,7 @@ $opn_trkbar_tl.Add_Enter({
 
 $opn_trkbar_tl.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -8332,12 +9438,14 @@ $opn_nmud_tl.Add_ValueChanged({
 	$opn_trkbar_tl.Value= $this.Value
 	$script:opn_fur[(Idx)][7]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Sin_chg
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -8355,7 +9463,7 @@ $opn_alg_grp.Location= "10,320"
 $opn_alg_grp.Size= "285,80"
 $opn_alg_grp.Text= "Algorithm / Feedback"
 $opn_alg_grp.FlatStyle= "Flat"
-	 
+	
 # ------ ALG - Algorithm 0-7 
  
 $opn_trkbar_alg= New-Object System.Windows.Forms.TrackBar 
@@ -8382,7 +9490,7 @@ $opn_trkbar_alg.Add_Enter({
 
 $opn_trkbar_alg.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -8404,13 +9512,15 @@ $opn_nmud_alg.Add_ValueChanged({
 	$opn_trkbar_alg.Value= $this.Value
 	$script:opn_fur[0][0]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Sin_chg
 	  Op_chg
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -8447,7 +9557,7 @@ $opn_trkbar_fb.Add_Enter({
 
 $opn_trkbar_fb.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -8469,12 +9579,14 @@ $opn_nmud_fb.Add_ValueChanged({
 	$opn_trkbar_fb.Value= $this.Value
 	$script:opn_fur[0][1]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Sin_chg
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -8514,7 +9626,7 @@ $opm_eg_grp.Size= "230,200"
 $opm_eg_grp.Text= "Envelope"
 $opm_eg_grp.FlatStyle= "Flat"
 #$opm_eg_grp.Hide() #$eg_grp.Show()
-	 
+	
 # ------ AR - AttackRate 31-0 
  
 $opm_trkbar_ar= New-Object System.Windows.Forms.TrackBar 
@@ -8541,7 +9653,7 @@ $opm_trkbar_ar.Add_Enter({
 
 $opm_trkbar_ar.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -8563,12 +9675,14 @@ $opm_nmud_ar.Add_ValueChanged({
 	$opm_trkbar_ar.Value= $this.Value
 	$script:opm_fur[(Idx)][2]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Poly_chg
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -8605,7 +9719,7 @@ $opm_trkbar_dr.Add_Enter({
 
 $opm_trkbar_dr.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -8627,12 +9741,14 @@ $opm_nmud_dr.Add_ValueChanged({
 	$opm_trkbar_dr.Value= $this.Value
 	$script:opm_fur[(Idx)][3]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Poly_chg
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -8669,7 +9785,7 @@ $opm_trkbar_sr.Add_Enter({
 
 $opm_trkbar_sr.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -8691,12 +9807,14 @@ $opm_nmud_sr.Add_ValueChanged({
 	$opm_trkbar_sr.Value= $this.Value
 	$script:opm_fur[(Idx)][4]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Poly_chg
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -8733,7 +9851,7 @@ $opm_trkbar_rr.Add_Enter({
 
 $opm_trkbar_rr.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -8755,12 +9873,14 @@ $opm_nmud_rr.Add_ValueChanged({
 	$opm_trkbar_rr.Value= $this.Value
 	$script:opm_fur[(Idx)][5]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Poly_chg
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -8778,7 +9898,7 @@ $opm_lev_grp.Location= "10,235"
 $opm_lev_grp.Size= "230,80"
 $opm_lev_grp.Text= "Sustain Level"
 $opm_lev_grp.FlatStyle= "Flat"
-	 
+	
 # ------ SL - SustainLevel 0-15 
  
 $opm_trkbar_sl= New-Object System.Windows.Forms.TrackBar 
@@ -8805,7 +9925,7 @@ $opm_trkbar_sl.Add_Enter({
 
 $opm_trkbar_sl.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -8827,12 +9947,14 @@ $opm_nmud_sl.Add_ValueChanged({
 	$opm_trkbar_sl.Value= $this.Value
 	$script:opm_fur[(Idx)][6]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Poly_chg
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -8850,7 +9972,7 @@ $opm_ring_grp.Location= "250,30"
 $opm_ring_grp.Size= "230,140"
 $opm_ring_grp.Text= "Effects Control"
 $opm_ring_grp.FlatStyle= "Flat"
-	 
+	
 # ------ KS - KeyScaling 0-3 / env length 
  
 $opm_trkbar_ks= New-Object System.Windows.Forms.TrackBar 
@@ -8877,7 +9999,7 @@ $opm_trkbar_ks.Add_Enter({
 
 $opm_trkbar_ks.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -8899,8 +10021,10 @@ $opm_nmud_ks.Add_ValueChanged({
 	$opm_trkbar_ks.Value= $this.Value
 	$script:opm_fur[(Idx)][8]= Sz $this.Value
 
-	Box_write
+  if($event_change){
 
+	Box_write
+  }
  }catch{
 	echo $_.exception
  }
@@ -8937,7 +10061,7 @@ $opm_trkbar_dt1.Add_Enter({
 
 $opm_trkbar_dt1.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -8959,8 +10083,10 @@ $opm_nmud_dt1.Add_ValueChanged({
 	$opm_trkbar_dt1.Value= $this.Value
 	$script:opm_fur[(Idx)][10]= Sz $this.Value
 
-	Box_write
+  if($event_change){
 
+	Box_write
+  }
  }catch{
 	echo $_.exception
  }
@@ -8997,7 +10123,7 @@ $opm_trkbar_dt2.Add_Enter({
 
 $opm_trkbar_dt2.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -9019,8 +10145,10 @@ $opm_nmud_dt2.Add_ValueChanged({
 	$opm_trkbar_dt2.Value= $this.Value
 	$script:opm_fur[(Idx)][11]= Sz $this.Value
 
-	Box_write
+  if($event_change){
 
+	Box_write
+  }
  }catch{
 	echo $_.exception
  }
@@ -9057,7 +10185,7 @@ $opm_trkbar_ams.Add_Enter({
 
 $opm_trkbar_ams.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -9079,8 +10207,10 @@ $opm_nmud_ams.Add_ValueChanged({
 	$opm_trkbar_ams.Value= $this.Value
 	$script:opm_fur[(Idx)][12]= Sz $this.Value
 
-	Box_write
+  if($event_change){
 
+	Box_write
+  }
  }catch{
 	echo $_.exception
  }
@@ -9098,7 +10228,7 @@ $opm_op_grp.Location= "250,175"
 $opm_op_grp.Size= "230,140"
 $opm_op_grp.Text= "Frequency Modulation"
 $opm_op_grp.FlatStyle= "Flat"
-	 
+	
 # ------ ML - Multiple 0-15 
  
 $opm_trkbar_ml= New-Object System.Windows.Forms.TrackBar 
@@ -9125,7 +10255,7 @@ $opm_trkbar_ml.Add_Enter({
 
 $opm_trkbar_ml.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -9147,12 +10277,14 @@ $opm_nmud_ml.Add_ValueChanged({
 	$opm_trkbar_ml.Value= $this.Value
 	$script:opm_fur[(Idx)][9]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Sin_chg
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -9189,7 +10321,7 @@ $opm_trkbar_tl.Add_Enter({
 
 $opm_trkbar_tl.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -9211,12 +10343,14 @@ $opm_nmud_tl.Add_ValueChanged({
 	$opm_trkbar_tl.Value= $this.Value
 	$script:opm_fur[(Idx)][7]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Sin_chg
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -9261,7 +10395,7 @@ $opm_trkbar_alg.Add_Enter({
 
 $opm_trkbar_alg.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -9283,13 +10417,15 @@ $opm_nmud_alg.Add_ValueChanged({
 	$opm_trkbar_alg.Value= $this.Value
 	$script:opm_fur[0][0]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Sin_chg
 	  Op_chg
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -9326,7 +10462,7 @@ $opm_trkbar_fb.Add_Enter({
 
 $opm_trkbar_fb.Add_KeyDown({
  try{
-	Keyplay $_.KeyCode
+	Key_play $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -9348,12 +10484,14 @@ $opm_nmud_fb.Add_ValueChanged({
 	$opm_trkbar_fb.Value= $this.Value
 	$script:opm_fur[0][1]= Sz $this.Value
 
+  if($event_change){
+
 	Box_write
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 	  Sin_chg
 	}
-
+  }
  }catch{
 	echo $_.exception
  }
@@ -9391,7 +10529,8 @@ $osc_grp= New-Object System.Windows.Forms.GroupBox
 $osc_grp.Text= "FM OSC"
 $osc_grp.Size= "175,80"
 $osc_grp.Location= "305,320"
-	
+
+ 
 $lisn_btn= New-Object System.Windows.Forms.Button 
 $lisn_btn.Location= "10,15"
 $lisn_btn.Size= "20,20"
@@ -9399,9 +10538,10 @@ $lisn_btn.FlatStyle= "Popup"
 $lisn_btn.Image= [System.Drawing.Image]::FromFile(".\img\play.png")
 # $lisn_btn.Text= ">"
 
-$lisn_btn.Add_Click({ # ééíÆ
+$lisn_btn.Add_Click({ # Ë©¶ËÅ¥
  try{
 	Box_listen 0
+
  }catch{
 	echo $_.exception
  }
@@ -9416,16 +10556,17 @@ $conv_btn.Image= [System.Drawing.Image]::FromFile(".\img\convert.png")
 
 $conv_btn.Add_Click({ # text convert
  try{
+	##if($fm_box.Modified -eq $True){ #Â§âÊõ¥„ÅÇ„Çâ„Å∞
 
-  if($fm_box.Modified -eq $True){
 
-	Param_exp 0
+		Param_exp 0 $fm_box.Text
 
-	if($sb_alg.Visible -eq $True){
-		All_chg
-	}
-  }
+		if($sb_alg.Visible){
 
+			Whiteblack_select "conv_btn"
+			All_chg
+		}
+	##}
  }catch{
 	echo $_.exception
  }
@@ -9447,7 +10588,7 @@ $comb_vrc.Add_SelectedValueChanged({
 
 	Panel_chg # Box_write ha tsuide
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 
 		Op_chg	# op-alg img change
  	}
@@ -9456,6 +10597,7 @@ $comb_vrc.Add_SelectedValueChanged({
 	echo $_.exception
  }
 })
+
  
 $comb_opl= New-Object System.Windows.Forms.Combobox 
 $comb_opl.Size= "125,20"
@@ -9473,7 +10615,7 @@ $comb_opl.Add_SelectedValueChanged({
 
 	Panel_chg
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 
 		Op_chg
  	}
@@ -9499,7 +10641,7 @@ $comb_opn.Add_SelectedValueChanged({
 
 	Panel_chg
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 
 		Op_chg
  	}
@@ -9525,7 +10667,7 @@ $comb_opm.Add_SelectedValueChanged({
 
 	Panel_chg
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 
 		Op_chg
  	}
@@ -9542,42 +10684,42 @@ $comb_fm.FlatStyle= "Popup"
 
 [void]$comb_fm.Items.AddRange(@("vrc7 2op", "opl 2op", "opn 4op", "opm 4op"))
 $comb_fm.DropDownStyle= "DropDownList"
-$comb_fm.SelectedItem= "vrc7 2op"
+$comb_fm.SelectedItem= "vrc7 2op" # „ÉÄ„Éü„ÉºÂøÖË¶Å
 #$comb_fm.SelectedIndex= 0
 
 $comb_fm.Add_SelectedValueChanged({ # Event
  try{
 
-	$fm_menu_fix.Enabled= Enable_chk
+	$fm_menu_copy.Enabled= Enable_chk
+	Unredo 2
 
 	Panel_chg
 
-	if($sb_alg.Visible -eq $True){
+	if($sb_alg.Visible){
 		All_chg
 	}
-
-	Unredo 2
 
  }catch{
 	echo $_.exception
  }
 })
  
-$osc_grp.Controls.AddRange(@($comb_vrc,$comb_opl,$comb_opn,$comb_opm,$comb_fm,$lisn_btn,$conv_btn)) 
-  
+# ------ 
+ 
 $fm_panel= New-Object System.Windows.Forms.Panel 
 $fm_panel.Location= "0,0"
-$fm_panel.Size= "500,405"
+$fm_panel.Size= "500,410"
+# $fm_panel.BackColor= "orange"
  
 $fm_box= New-Object System.Windows.Forms.TextBox 
-$fm_box.Size= "470,155"
-$fm_box.Location= "10,410"
+$fm_box.Size= "470,145"
+$fm_box.Location= "10,420"
 $fm_box.WordWrap= "False"
 $fm_box.Multiline= "True"
 $fm_box.ScrollBars= "Both"
 $fm_box.BorderStyle= "FixedSingle"
-#$fm_box.ReadOnly= "True"
-#$fm_box.ForeColor= "Gray"
+# $fm_box.ReadOnly= "True"
+$fm_box.ForeColor= "Black"
 $fm_box.BackColor= "White"
 $fm_box.font= $Fon
 
@@ -9589,7 +10731,7 @@ $fm_box.Add_Enter({ # kaki komi de undo reset
  }
 })
 
-$fm_box.Add_KeyDown({ # ééíÆ
+$fm_box.Add_KeyDown({ # Ë©¶ËÅ¥
  try{
 	Key_down $_.KeyCode
 
@@ -9598,25 +10740,72 @@ $fm_box.Add_KeyDown({ # ééíÆ
  }
 })
 
-# $fm_box.Add_GotFocus({ # clickIn
-#	$frm_fm.AcceptButton= $null	# [Enter]
-# })
-
-# $fm_box.Add_Leave({ # clickOut
-#	$frm_fm.AcceptButton= $lisn_btn	# [Enter]
-# })
  
-$fm_stus= New-Object System.Windows.Forms.StatusBar 
-# $fm_stus.Text= "  Test ------"
+$fm_stus= New-Object System.Windows.Forms.StatusStrip 
 $fm_stus.SizingGrip= $false
-# $fm_stus.Font= $Fon
+
+$fm_label= New-Object System.Windows.Forms.ToolStripStatusLabel
+# $fm_label.Text= "  Test ------"
+# $fm_label.Font= $Fon
+ 
+$contxt_trayfm= New-Object System.Windows.Forms.ContextMenuStrip 
+# $contxt obj„ÇíË™≠„ÅøËæº„Çì„Å†Âæå$NotifyIcon obj„ÅåÂÆâÂÖ®
+
+[void]$contxt_trayfm.Items.Add("ÊúÄÂ∞èÂåñ")
+[void]$contxt_trayfm.Items.Add("Áí∞Â¢ÉË®≠ÂÆö")
+[void]$contxt_trayfm.Items.Add("ÁµÇ‰∫Ü")
+
+$contxt_trayfm.Add_ItemClicked({
+  try{
+	# „Ç≠„É£„Çπ„Éà‰∏çË¶Å [string]$_.ClickedItem
+	$script:frm_state= Contxt_state $_.ClickedItem $frm_state
+
+	$this.Close()
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$tray_fm= New-Object System.Windows.Forms.NotifyIcon 
+$tray_fm.Icon= Icon_read "..\fm_editor.exe"
+# $tray_fm.Visible= $True
+$tray_fm.Text= "FM editor"
+$tray_fm.ContextMenuStrip= $contxt_trayfm
+
+$tray_fm.Add_MouseDown({
+ try{
+
+  switch([string]$_.Button){ # „Ç≠„É£„Çπ„Éà
+  'Left'{
+
+	switch($frm_state[0]){
+	0{
+		$script:frm_state= Contxt_state "ÊúÄÂ∞èÂåñ" $frm_state
+		break;
+	}1{
+		$script:frm_state= Contxt_state "ÂÖÉ„Å´Êàª„Åô" $frm_state
+	}
+	} #sw
+
+
+#	break;
+#  }'Right'{ # ‰∏çË¶Å „É¢„Éº„ÉÄ„É´Áô∫Áîü -> $tray_fm.ContextMenuStrip
+#	$contxt_trayfm.Show([Windows.Forms.Cursor]::Position)
+  }
+  } #sw
+
+ }catch{
+	echo $_.exception
+ }
+})
  
 $frm_fm= New-Object System.Windows.Forms.Form 
 $frm_fm.Text= "FM Synthesis Chip - Tone Editor"
 $frm_fm.Size= "502,627"
 $frm_fm.FormBorderStyle= "FixedSingle"
 $frm_fm.StartPosition= "WindowsDefaultLocation"
-$frm_fm.Icon= Icon_read "..\src\FE_icon.ico"
+$frm_fm.Icon= Icon_read "..\fm_editor.exe"
 # $frm_fm.ShowIcon= $False
 $frm_fm.MinimizeBox= $True
 $frm_fm.MaximizeBox= $False
@@ -9624,10 +10813,9 @@ $frm_fm.MaximizeBox= $False
 $frm_fm.TopLevel= $True
 # $frm_fm.Topmost= $True
 
-
-$frm_fm.Add_Shown({ # sub window auto open
+$frm_fm.Add_Shown({ # .ShowDialog()ÂëºÂá∫ÊôÇ„ÅÆ„Åø‰ΩøÁî® - ÊåôÂãïÊÄ™„Åü„ÇÅ
  try{
-	$comb_fm.Select()  # .ShowDialog() -> .Select()
+	$comb_fm.Select() # .ShowDialog() -> .Select()
 
 	switch($key["open"]){
 	'False'{
@@ -9649,7 +10837,7 @@ $frm_fm.Add_Shown({ # sub window auto open
 $frm_fm.Add_FormClosing({
  try{
 	if($key["autosave"] -eq 'True'){
-		Autosave $script:fm_xml.table.autosave # ç≈å„ÇÃÉpÉâÉÅÅ[É^ï€ë∂
+		Autosave $script:fm_xml.table.autosave # ÊúÄÂæå„ÅÆ„Éë„É©„É°„Éº„Çø‰øùÂ≠ò
 	}
 
 	Fmwrite_xml $script:fm_xml.table.val $script:fm_xml.table.opt
@@ -9662,19 +10850,86 @@ $frm_fm.Add_FormClosing({
 })
  
 $fm_mnu= New-Object System.Windows.Forms.MenuStrip 
-	 
+	
 $fm_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_f.Text= "File"
 
+$fm_menu_ff= New-Object System.Windows.Forms.ToolStripSeparator
+$fm_menu_ff= New-Object System.Windows.Forms.ToolStripMenuItem
+$fm_menu_ff.Text= "Preset"
+
+$fm_menu_ff.Add_Click({
+ try{
+
+  switch($ff_frm.Visible){
+  'False'{
+	switch(Itm){ # $ff_tabÂÖà„Å´Â§âÊõ¥„ÅÆ„Å° -> .show()
+	'2op'{	$ff_tab.SelectedIndex= "0"; break;
+	}'4op'{	$ff_tab.SelectedIndex= "2"
+	}
+	} #sw
+
+	$fm_box.ForeColor= "dimgray"
+	$fm_box.BackColor= "gainsboro"
+
+	Autosave $script:fm_xml.table.presetstore
+
+	$fm_menu_ff.Text= "v Preset"
+
+	$ff_frm.Show(); break;
+
+  }'True'{
+
+	$ff_frm.Close() # $ff_frm.Add_FormClosing„Å∏
+  }
+  } #sw
+
+ }catch{
+	echo $_.exception
+    	Write-Host '"ERROR: Safety Stopper >> $ff_frm.Show()"'
+ }
+})
+
+$fm_menu_ladn= New-Object System.Windows.Forms.ToolStripSeparator
+
+$fm_menu_lad= New-Object System.Windows.Forms.ToolStripMenuItem
+$fm_menu_lad.Text= "Load"
+
+$fm_menu_sav= New-Object System.Windows.Forms.ToolStripMenuItem
+$fm_menu_sav.Text= "Save"
+
+$fm_menu_ktn= New-Object System.Windows.Forms.ToolStripSeparator
+$fm_menu_kt= New-Object System.Windows.Forms.ToolStripMenuItem
+$fm_menu_kt.Text= "Preferences"
+
+
+$menu_fty= New-Object System.Windows.Forms.ToolStripMenuItem
+# $menu_fty.Text= "v Task tray"
+
+$menu_fty.Add_Click({
+  try{
+	switch($key["tray"]){ # „Éà„Ç∞„É´
+
+	'True'{		$script:key["tray"]= Trayfm_hide "False";	break;
+	}'False'{	$script:key["tray"]= Trayfm_hide "True"
+	}
+	} #sw
+
+ }catch{
+	echo $_.exception
+  }
+})
+
+$fm_menu_auton= New-Object System.Windows.Forms.ToolStripSeparator
 $fm_menu_auto= New-Object System.Windows.Forms.ToolStripMenuItem
 # $fm_menu_auto.Text= "Autosave"
 
 $fm_menu_auto.Add_Click({
  try{
   switch($key["autosave"]){
-  'False'{	$script:key["autosave"]= Autosave_sw $True
+  'False'{	$script:key["autosave"]= Autosav_sw $True
 		break;
-  }'True'{	$script:key["autosave"]= Autosave_sw $False
+  }'True'{	$script:key["autosave"]= Autosav_sw $False
   }
   } #sw
 
@@ -9683,25 +10938,15 @@ $fm_menu_auto.Add_Click({
  }
 })
 
-$fm_menu_pren= New-Object System.Windows.Forms.ToolStripSeparator
-$fm_menu_pre= New-Object System.Windows.Forms.ToolStripMenuItem
-$fm_menu_pre.Text= "Preset"
-
-$fm_menu_lad= New-Object System.Windows.Forms.ToolStripMenuItem
-$fm_menu_lad.Text= "Load"
-
-$fm_menu_sav= New-Object System.Windows.Forms.ToolStripMenuItem
-$fm_menu_sav.Text= "Save"
-
 $fm_menu_rstn= New-Object System.Windows.Forms.ToolStripSeparator
 $fm_menu_rst= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_rst.Text= "Reset Parameter"
 
-$fm_menu_rst.Add_Click({	# êîílÉäÉZÉbÉg
+$fm_menu_rst.Add_Click({	# Êï∞ÂÄ§„É™„Çª„ÉÉ„Éà
  try{
 	[string]$retn= [Windows.Forms.MessageBox]::Show(
 
-	"êîílÇÉäÉZÉbÉgÇµÇ‹Ç∑", "ämîF", "OKCancel","Information","Button2"
+	"Êï∞ÂÄ§„Çí„É™„Çª„ÉÉ„Éà„Åó„Åæ„Åô", "Á¢∫Ë™ç", "OKCancel","Information","Button2"
 	)
 
 	switch($retn){
@@ -9712,12 +10957,11 @@ $fm_menu_rst.Add_Click({	# êîílÉäÉZÉbÉg
 
 		Panel_chg
 
-
-		if($sb_alg.Visible -eq $True){
+		if($sb_alg.Visible){
 			All_chg
 		}
 
-		Write-Host '<< êîílÇÉäÉZÉbÉgÇµÇ‹ÇµÇΩ'
+		Write-Host '<< Êï∞ÂÄ§„Çí„É™„Çª„ÉÉ„Éà„Åó„Åæ„Åó„Åü'
 	}
 	#'Cancel'{}
 	} #sw
@@ -9735,96 +10979,8 @@ $fm_menu_n.Add_Click({
 
 	$frm_fm.Close()
 })
-	
-$fm_pre_a= New-Object System.Windows.Forms.ToolStripMenuItem 
-# $fm_pre_a.Text= "slot A"
 
-$fm_pre_a.Add_Click({
- try{
-	Load_value $fm_xml.table.preset "A"
- }catch{
-	echo $_.exception
- }
-})
-
-$fm_pre_b= New-Object System.Windows.Forms.ToolStripMenuItem
-# $fm_pre_b.Text= "slot B"
-
-$fm_pre_b.Add_Click({
- try{
-	Load_value $fm_xml.table.preset "B"
- }catch{
-	echo $_.exception
- }
-})
-
-$fm_pre_c= New-Object System.Windows.Forms.ToolStripMenuItem
-# $fm_pre_c.Text= "slot C"
-
-$fm_pre_c.Add_Click({
- try{
-	Load_value $fm_xml.table.preset "C"
- }catch{
-	echo $_.exception
- }
-})
-
-$fm_pre_d= New-Object System.Windows.Forms.ToolStripMenuItem
-# $fm_pre_d.Text= "slot D"
-
-$fm_pre_d.Add_Click({
- try{
-	Load_value $fm_xml.table.preset "D"
- }catch{
-	echo $_.exception
- }
-})
-
-$fm_pre_e= New-Object System.Windows.Forms.ToolStripMenuItem
-# $fm_pre_e.Text= "slot E"
-
-$fm_pre_e.Add_Click({
- try{
-	Load_value $fm_xml.table.preset "E"
- }catch{
-	echo $_.exception
- }
-})
-
-$fm_pre_f= New-Object System.Windows.Forms.ToolStripMenuItem
-# $fm_pre_f.Text= "slot F"
-
-$fm_pre_f.Add_Click({
- try{
-	Load_value $fm_xml.table.preset "F"
- }catch{
-	echo $_.exception
- }
-})
-
-$fm_pre_g= New-Object System.Windows.Forms.ToolStripMenuItem
-# $fm_pre_g.Text= "slot G"
-
-$fm_pre_g.Add_Click({
- try{
-	Load_value $fm_xml.table.preset "G"
- }catch{
-	echo $_.exception
- }
-})
-
-$fm_pre_h= New-Object System.Windows.Forms.ToolStripMenuItem
-# $fm_pre_h.Text= "slot H"
-
-$fm_pre_h.Add_Click({
- try{
-	Load_value $fm_xml.table.preset "H"
- }catch{
-	echo $_.exception
- }
-})
- 
-$fm_lad_a= New-Object System.Windows.Forms.ToolStripMenuItem 
+$fm_lad_a= New-Object System.Windows.Forms.ToolStripMenuItem
 # $fm_lad_a.Text= "slot A"
 
 $fm_lad_a.Add_Click({
@@ -9910,8 +11066,8 @@ $fm_lad_h.Add_Click({
 	echo $_.exception
  }
 })
- 
-$fm_sav_a= New-Object System.Windows.Forms.ToolStripMenuItem 
+
+$fm_sav_a= New-Object System.Windows.Forms.ToolStripMenuItem
 # $fm_sav_a.Text= "slot A"
 
 $fm_sav_a.Add_Click({
@@ -9998,7 +11154,7 @@ $fm_sav_h.Add_Click({
 	echo $_.exception
  }
 })
-  
+ 
 $fm_menu_o= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_o.Text= "Option"
 
@@ -10039,6 +11195,8 @@ $fm_menu_set.Text= "Setting"
 
 $fm_menu_set.Add_Click({
  try{
+	[bool]$bool_sw= $tray_fm.Visible
+	$tray_fm.Visible= $False
 
 	[array]$args_set= "",""
 	$args_set= .\setting.ps1 $val $opt "cut"
@@ -10053,7 +11211,7 @@ $fm_menu_set.Add_Click({
 
 		$script:comp=@{}; $script:play=@{}; $script:dosv=@{}; $script:edit=@{};
 
-		Setxml_read $script:set_xml.table # hashâª
+		Setxml_read $script:set_xml.table # hashÂåñ
 	}
 
 	Menu_build "compiler"
@@ -10062,14 +11220,16 @@ $fm_menu_set.Add_Click({
 	Menu_build "editor"
 	Stus_build
 
+	$tray_fm.Visible= $bool_sw
+
  }catch{
 	echo $_.exception
  }
 })
-	 
-$fm_menu_cmp0= New-Object System.Windows.Forms.ToolStripMenuItem 
+
+$fm_menu_cmp0= New-Object System.Windows.Forms.ToolStripMenuItem
 # $fm_menu_cmp0.Text= "0.exe"
-$fm_menu_cmp0.Visible= $False # .Hide() ïsâ¬
+$fm_menu_cmp0.Visible= $False # .Hide() ‰∏çÂèØ
 
 $fm_menu_cmp0.Add_Click({
  try{
@@ -10114,8 +11274,8 @@ $fm_menu_cmp3.Add_Click({
 	echo $_.exception
  }
 })
- 
-$fm_menu_ply0= New-Object System.Windows.Forms.ToolStripMenuItem 
+
+$fm_menu_ply0= New-Object System.Windows.Forms.ToolStripMenuItem
 # $fm_menu_ply0.Text= "0.exe"
 $fm_menu_ply0.Visible= $False
 
@@ -10162,8 +11322,8 @@ $fm_menu_ply3.Add_Click({
 	echo $_.exception
  }
 })
- 
-$fm_menu_dos0= New-Object System.Windows.Forms.ToolStripMenuItem 
+
+$fm_menu_dos0= New-Object System.Windows.Forms.ToolStripMenuItem
 # $fm_menu_dos0.Text= "0.exe"
 $fm_menu_dos0.Visible= $False
 
@@ -10210,8 +11370,8 @@ $fm_menu_dos3.Add_Click({
 	echo $_.exception
  }
 })
- 
-$fm_menu_edt0= New-Object System.Windows.Forms.ToolStripMenuItem 
+
+$fm_menu_edt0= New-Object System.Windows.Forms.ToolStripMenuItem
 # $fm_menu_edt0.Text= "0.exe"
 $fm_menu_edt0.Visible= $False
 
@@ -10258,11 +11418,11 @@ $fm_menu_edt3.Add_Click({
 	echo $_.exception
  }
 })
-  
+ 
 $fm_menu_m= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_m.Text= "Octave"
-	
-$fm_menu_mask= New-Object System.Windows.Forms.ToolStripMenuItem 
+
+$fm_menu_mask= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_mask.Text= "4op.mask"
 
 $fm_menu_mask.Add_Click({
@@ -10275,7 +11435,7 @@ $fm_menu_mask.Add_Click({
 	$sub_mask.Show()
 	break;
   }'True'{
-	$sub_mask.Close() # $sub_mask.Add_FormClosingÇ÷
+	$sub_mask.Close() # $sub_mask.Add_FormClosing„Å∏
   }
   } #sw
 
@@ -10285,8 +11445,8 @@ $fm_menu_mask.Add_Click({
  }
 })
 
- 
-$fm_menu_so= New-Object System.Windows.Forms.ToolStripSeparator 
+
+$fm_menu_so= New-Object System.Windows.Forms.ToolStripSeparator
 $fm_menu_oct1= New-Object System.Windows.Forms.ToolStripMenuItem
 #$fm_menu_oct1.Text= "o1"
 $fm_menu_oct1.Add_Click({
@@ -10295,6 +11455,10 @@ $fm_menu_oct1.Add_Click({
 
 	$script:key["oct"]= Osc_sw "o1"
 	Stus_build # <- $script:key["oct"] nochi
+
+	if($sb_alg.Visible){
+		Contxt_octave $key["oct"]
+	}
     }
  }catch{
 	echo $_.exception
@@ -10309,6 +11473,10 @@ $fm_menu_oct2.Add_Click({
 
 	$script:key["oct"]= Osc_sw "o2"
 	Stus_build
+
+	if($sb_alg.Visible){
+		Contxt_octave $key["oct"]
+	}
     }
  }catch{
 	echo $_.exception
@@ -10323,6 +11491,10 @@ $fm_menu_oct3.Add_Click({
 
 	$script:key["oct"]= Osc_sw "o3"
 	Stus_build
+
+	if($sb_alg.Visible){
+		Contxt_octave $key["oct"]
+	}
     }
  }catch{
 	echo $_.exception
@@ -10337,6 +11509,10 @@ $fm_menu_oct4.Add_Click({
 
 	$script:key["oct"]= Osc_sw "o4"
 	Stus_build
+
+	if($sb_alg.Visible){
+		Contxt_octave $key["oct"]
+	}
     }
  }catch{
 	echo $_.exception
@@ -10351,6 +11527,10 @@ $fm_menu_oct5.Add_Click({
 
 	$script:key["oct"]= Osc_sw "o5"
 	Stus_build
+
+	if($sb_alg.Visible){
+		Contxt_octave $key["oct"]
+	}
     }
  }catch{
 	echo $_.exception
@@ -10365,6 +11545,10 @@ $fm_menu_oct6.Add_Click({
 
 	$script:key["oct"]= Osc_sw "o6"
 	Stus_build
+
+	if($sb_alg.Visible){
+		Contxt_octave $key["oct"]
+	}
     }
  }catch{
 	echo $_.exception
@@ -10379,6 +11563,10 @@ $fm_menu_oct7.Add_Click({
 
 	$script:key["oct"]= Osc_sw "o7"
 	Stus_build
+
+	if($sb_alg.Visible){
+		Contxt_octave $key["oct"]
+	}
     }
  }catch{
 	echo $_.exception
@@ -10393,16 +11581,48 @@ $fm_menu_oct8.Add_Click({
 
 	$script:key["oct"]= Osc_sw "o8"
 	Stus_build
+
+	if($sb_alg.Visible){
+		Contxt_octave $key["oct"]
+	}
     }
  }catch{
 	echo $_.exception
  }
 })
-  
+ 
+$fm_menu_w= New-Object System.Windows.Forms.ToolStripMenuItem 
+$fm_menu_w.Text= "Window"
+
+$fm_menu_sb= New-Object System.Windows.Forms.ToolStripMenuItem
+#$fm_menu_sb.Text= "FM OP window"
+
+$fm_menu_sb.Add_Click({
+ try{
+
+  switch($key["open"]){
+  'False'{
+
+	$script:key["open"]= Popalg_build $True
+	$sb_alg.Show()
+	break;
+  }'True'{
+
+	## $script:key["open"]= Popalg_build $False
+	$sb_alg.Close() # $sb_alg.Add_FormClosing„Å∏
+  }
+  } #sw
+
+ }catch{
+	echo $_.exception
+    	Write-Host '"ERROR: Safety Stopper >> $sb_alg.Show()"'
+ }
+})
+ 
 $fm_menu_b= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_b.Text= "Clipboard"
-	
-$fm_menu_put= New-Object System.Windows.Forms.ToolStripMenuItem 
+
+$fm_menu_put= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_put.Text= "Output"
 
 $fm_menu_zero= New-Object System.Windows.Forms.ToolStripMenuItem
@@ -10438,8 +11658,8 @@ $fm_menu_ten.Add_Click({
 	echo $_.exception
  }
 })
- 
-$fm_menu_type= New-Object System.Windows.Forms.ToolStripMenuItem 
+
+$fm_menu_type= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_type.Text= "vrc7 Type"
 
 $fm_menu_type_nsd= New-Object System.Windows.Forms.ToolStripMenuItem
@@ -10454,13 +11674,14 @@ $fm_menu_type_nsd.Add_Click({
 	switch($comb_fm.SelectedItem){
 	'vrc7 2op'{
 
-		Change_menu "nsc.exe" "compiler"
+		Change_menu "nsd" "compiler"
 	}
 	} #sw
 	# $comb_fm.SelectedItem= "vrc7 2op"
 
-	Unredo 2
 	Box_write
+	Unredo 2
+
 	Stus_build
     #}
  }catch{
@@ -10479,13 +11700,14 @@ $fm_menu_type_mckreg.Add_Click({
 	switch($comb_fm.SelectedItem){
 	'vrc7 2op'{
 
-		Change_menu "ppmckc.exe" "compiler"
+		Change_menu "mck" "compiler"
 	}
 	} #sw
 	# $comb_fm.SelectedItem= "vrc7 2op"
 
-	Unredo 2
 	Box_write
+	Unredo 2
+
 	Stus_build
     #}
  }catch{
@@ -10504,21 +11726,22 @@ $fm_menu_type_nsdreg.Add_Click({
 	switch($comb_fm.SelectedItem){
 	'vrc7 2op'{
 
-		Change_menu "nsc.exe" "compiler"
+		Change_menu "nsd" "compiler"
 	}
 	} #sw
 	# $comb_fm.SelectedItem= "vrc7 2op"
 
-	Unredo 2
 	Box_write
+	Unredo 2
+
 	Stus_build
     #}
  }catch{
 	echo $_.exception
  }
 })
- 
-$fm_menu_style= New-Object System.Windows.Forms.ToolStripMenuItem 
+
+$fm_menu_style= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_style.Text= "4op Style"
 
 $fm_menu_style_pmd= New-Object System.Windows.Forms.ToolStripMenuItem
@@ -10531,10 +11754,31 @@ $fm_menu_style_pmd.Add_Click({
 	$script:key["ten"]= Ten_sw $False
 
 	# $comb_fm.SelectedItem= "opn 4op" # konrann shiyasui
-	$fm_menu_fix.Enabled= Enable_chk
 
-	Unredo 2
 	Box_write
+	Unredo 2
+
+	Stus_build
+    #}
+  }catch{
+	echo $_.exception
+  }
+})
+
+$fm_menu_style_mucom= New-Object System.Windows.Forms.ToolStripMenuItem
+#$fm_menu_style_mucom.Text= "MUCOM"
+$fm_menu_style_mucom.Add_Click({
+ try{
+    #if($key["style"] -ne 'mucom'){
+
+	$script:key["style"]= Style_sw "mucom"
+	$script:key["ten"]= Ten_sw $True
+
+	# $comb_fm.SelectedItem= "opn 4op"
+
+	Box_write
+	Unredo 2
+
 	Stus_build
     #}
   }catch{
@@ -10552,10 +11796,10 @@ $fm_menu_style_fmp7.Add_Click({
 	$script:key["ten"]= Ten_sw $True
 
 	# $comb_fm.SelectedItem= "opn 4op"
-	$fm_menu_fix.Enabled= Enable_chk
 
-	Unredo 2
 	Box_write
+	Unredo 2
+
 	Stus_build
     #}
   }catch{
@@ -10573,52 +11817,19 @@ $fm_menu_style_mxdrv.Add_Click({
 	$script:key["ten"]= Ten_sw $True
 
 	# $comb_fm.SelectedItem= "opm 4op"
-	$fm_menu_fix.Enabled= Enable_chk
 
-	Unredo 2
 	Box_write
+	Unredo 2
+
 	Stus_build
+
     #}
   }catch{
 	echo $_.exception
   }
 })
- 
-$fm_menu_adv= New-Object System.Windows.Forms.ToolStripMenuItem 
-#$fm_menu_adv.ForeColor= "Gray"
-$fm_menu_adv.Text= "Advanced"
 
-$fm_menu_mckh= New-Object System.Windows.Forms.ToolStripMenuItem
-$fm_menu_mckh.Text= "mck header"
-$fm_menu_mckh.Add_Click({
- try{
-	Adv_edit "mck"
- }catch{
-	echo $_.exception
- }
-})
-
-$fm_menu_nsdh= New-Object System.Windows.Forms.ToolStripMenuItem
-$fm_menu_nsdh.Text= "nsd header"
-$fm_menu_nsdh.Add_Click({
- try{
-	Adv_edit "nsd"
- }catch{
-	echo $_.exception
- }
-})
-
-$fm_menu_pmdh= New-Object System.Windows.Forms.ToolStripMenuItem
-$fm_menu_pmdh.Text= "pmd header"
-$fm_menu_pmdh.Add_Click({
- try{
-	Adv_edit "pmd"
- }catch{
-	echo $_.exception
- }
-})
- 
-$fm_menu_mmlun= New-Object System.Windows.Forms.ToolStripSeparator 
+$fm_menu_mmlun= New-Object System.Windows.Forms.ToolStripSeparator
 $fm_menu_mml= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_mml.Text= "TextBox"
 
@@ -10631,59 +11842,97 @@ $fm_menu_mml.Add_Click({
  }
 })
 
-$fm_menu_fix= New-Object System.Windows.Forms.ToolStripMenuItem
-$fm_menu_fix.Text= "header+ MML"
-$fm_menu_fix.ForeColor= "Black"
+$fm_menu_copy= New-Object System.Windows.Forms.ToolStripMenuItem
+$fm_menu_copy.Text= "header+ MML"
+$fm_menu_copy.ForeColor= "Black"
 
-$fm_menu_fix.Add_Click({
+$fm_menu_copy.Add_Click({
  try{
 	Box_listen 1
  }catch{
 	echo $_.exception
  }
 })
-  
-$fm_menu_sb= New-Object System.Windows.Forms.ToolStripMenuItem 
-#$fm_menu_sb.Text= "FM OP window"
+ 
+$fm_menu_h= New-Object System.Windows.Forms.ToolStripMenuItem 
+$fm_menu_h.Text= "Help"
 
-$fm_menu_sb.Add_Click({
+
+$fm_menu_whelp= New-Object System.Windows.Forms.ToolStripMenuItem
+$fm_menu_whelp.Text= "FMToneEditor Help"
+
+$fm_menu_whelp.Add_Click({
  try{
 
-  switch($key["open"]){
-  'False'{
+  if($edit["sted.exe"] -eq $null){
 
-	$script:key["open"]= Popalg_build $True
-	$sb_alg.Show()
-	break;
-  }'True'{
-
-	# $script:key["open"]= Popalg_build $False
-	$sb_alg.Close() # $sb_alg.Add_FormClosingÇ÷
+	[string]$retn= Editor_open $val["editor"] "..\doc\FM_Tone_Editor.txt"
+  }else{
+	[string]$retn= Editor_open $edit["sted.exe"] "..\doc\FM_Tone_Editor.txt"
   }
-  } #sw
+
+  if($retn -ne ''){
+
+	$retn= [Windows.Forms.MessageBox]::Show(
+
+	$retn, "Á¢∫Ë™ç", "OK","Information","Button1"
+	)
+  }
 
  }catch{
 	echo $_.exception
-    	Write-Host '"ERROR: Safety Stopper >> $sb_alg.Show()"'
  }
 })
-	
-$fm_menu_alg= New-Object System.Windows.Forms.ToolStripMenuItem 
-$fm_menu_alg.Text= "Algorithm List"
 
-$fm_menu_alg.Add_Click({
-
+$fm_menu_rld= New-Object System.Windows.Forms.ToolStripMenuItem
+$fm_menu_rld.Text= "Header reload"
+$fm_menu_rld.Add_Click({
  try{
-	$sub_alg.Show()
+	$script:header["fm_header_mck"]= (cat '.\header\fm_header_mck' | Out-String)
+	$script:header["fm_header_nsd"]= (cat '.\header\fm_header_nsd' | Out-String)
+	$script:header["fm_header_pmd"]= (cat '.\header\fm_header_pmd' | Out-String)
+
+	Write-Host '<< header„Çí„É™„É≠„Éº„Éâ„Åó„Åæ„Åó„Åü'
 
  }catch{
 	echo $_.exception
-    	Write-Host '"ERROR: Safety Stopper >> $sub_alg.Show()"'
  }
 })
-   
-$fm_menu_pre.DropDownItems.AddRange(@($fm_pre_a,$fm_pre_b,$fm_pre_c,$fm_pre_d,$fm_pre_e,$fm_pre_f,$fm_pre_g,$fm_pre_h)) 
-$fm_menu_lad.DropDownItems.AddRange(@($fm_lad_a,$fm_lad_b,$fm_lad_c,$fm_lad_d,$fm_lad_e,$fm_lad_f,$fm_lad_g,$fm_lad_h))
+
+$fm_menu_adv= New-Object System.Windows.Forms.ToolStripMenuItem
+$fm_menu_adv.Text= "Advanced"
+
+$fm_menu_mckh= New-Object System.Windows.Forms.ToolStripMenuItem
+$fm_menu_mckh.Text= "edit mck header"
+$fm_menu_mckh.Add_Click({
+ try{
+	Adv_edit "mck"
+ }catch{
+	echo $_.exception
+ }
+})
+
+$fm_menu_nsdh= New-Object System.Windows.Forms.ToolStripMenuItem
+$fm_menu_nsdh.Text= "edit nsd header"
+$fm_menu_nsdh.Add_Click({
+ try{
+	Adv_edit "nsd"
+ }catch{
+	echo $_.exception
+ }
+})
+
+$fm_menu_pmdh= New-Object System.Windows.Forms.ToolStripMenuItem
+$fm_menu_pmdh.Text= "edit pmd header"
+$fm_menu_pmdh.Add_Click({
+ try{
+	Adv_edit "pmd"
+ }catch{
+	echo $_.exception
+ }
+})
+  
+$fm_menu_lad.DropDownItems.AddRange(@($fm_lad_a,$fm_lad_b,$fm_lad_c,$fm_lad_d,$fm_lad_e,$fm_lad_f,$fm_lad_g,$fm_lad_h)) 
 $fm_menu_sav.DropDownItems.AddRange(@($fm_sav_a,$fm_sav_b,$fm_sav_c,$fm_sav_d,$fm_sav_e,$fm_sav_f,$fm_sav_g,$fm_sav_h))
 
 $fm_menu_comp.DropDownItems.AddRange(@($fm_menu_cmp0,$fm_menu_cmp1,$fm_menu_cmp2,$fm_menu_cmp3))
@@ -10692,61 +11941,62 @@ $fm_menu_dosv.DropDownItems.AddRange(@($fm_menu_dos0,$fm_menu_dos1,$fm_menu_dos2
 $fm_menu_edit.DropDownItems.AddRange(@($fm_menu_edt0,$fm_menu_edt1,$fm_menu_edt2,$fm_menu_edt3))
 
 $fm_menu_type.DropDownItems.AddRange(@($fm_menu_type_nsd,$fm_menu_type_mckreg,$fm_menu_type_nsdreg))
-$fm_menu_style.DropDownItems.AddRange(@($fm_menu_style_pmd,$fm_menu_style_fmp7,$fm_menu_style_mxdrv))
+$fm_menu_style.DropDownItems.AddRange(@($fm_menu_style_pmd,$fm_menu_style_mucom,$fm_menu_style_fmp7,$fm_menu_style_mxdrv))
 $fm_menu_put.DropDownItems.AddRange(@($fm_menu_zero,$fm_menu_ten))
 $fm_menu_adv.DropDownItems.AddRange(@($fm_menu_mckh,$fm_menu_nsdh,$fm_menu_pmdh))
 
-$fm_menu_f.DropDownItems.AddRange(@($fm_menu_auto,$fm_menu_pren,$fm_menu_pre,$fm_menu_lad,$fm_menu_sav,$fm_menu_rstn,$fm_menu_rst,$fm_menu_sn,$fm_menu_n))
+$fm_menu_kt.DropDownItems.AddRange(@($menu_fty,$fm_menu_auton,$fm_menu_auto,$fm_menu_rstn,$fm_menu_rst))
+
+$fm_menu_f.DropDownItems.AddRange(@($fm_menu_ff,$fm_menu_ladn,$fm_menu_lad,$fm_menu_sav,$fm_menu_ktn,$fm_menu_kt,$fm_menu_sn,$fm_menu_n))
 $fm_menu_o.DropDownItems.AddRange(@($fm_menu_ud,$fm_menu_comn,$fm_menu_comp,$fm_menu_play,$fm_menu_dosv,$fm_menu_edit,$fm_menu_setn,$fm_menu_set))
 
 $fm_menu_m.DropDownItems.AddRange(@($fm_menu_mask,$fm_menu_so,$fm_menu_oct1,$fm_menu_oct2,$fm_menu_oct3,$fm_menu_oct4,$fm_menu_oct5,$fm_menu_oct6,$fm_menu_oct7,$fm_menu_oct8))
-$fm_menu_b.DropDownItems.AddRange(@($fm_menu_put,$fm_menu_type,$fm_menu_style,$fm_menu_adv,$fm_menu_mmlun,$fm_menu_mml,$fm_menu_fix))
+$fm_menu_b.DropDownItems.AddRange(@($fm_menu_put,$fm_menu_type,$fm_menu_style,$fm_menu_mmlun,$fm_menu_mml,$fm_menu_copy))
+$fm_menu_w.DropDownItems.AddRange(@($fm_menu_sb))
+$fm_menu_h.DropDownItems.AddRange(@($fm_menu_adv,$fm_menu_rld,$fm_menu_whelp))
 
-$fm_mnu.Items.AddRange(@($fm_menu_f,$fm_menu_o,$fm_menu_m,$fm_menu_sb,$fm_menu_b))
+$fm_mnu.Items.AddRange(@($fm_menu_f,$fm_menu_o,$fm_menu_m,$fm_menu_b,$fm_menu_w,$fm_menu_h))
+
+$osc_grp.Controls.AddRange(@($comb_vrc,$comb_opl,$comb_opn,$comb_opm,$comb_fm,$lisn_btn,$conv_btn))
 $fm_panel.Controls.AddRange(@($vrc_eg_grp,$vrc_lev_grp,$vrc_ring_grp,$vrc_op_grp,$vrc_alg_grp,$osc_grp))
 $fm_panel.Controls.AddRange(@($opl_eg_grp,$opl_lev_grp,$opl_ring_grp,$opl_op_grp,$opl_alg_grp,$osc_grp))
 $fm_panel.Controls.AddRange(@($opn_eg_grp,$opn_ring_grp,$opn_lev_grp,$opn_op_grp,$opn_alg_grp,$osc_grp))
 $fm_panel.Controls.AddRange(@($opm_eg_grp,$opm_ring_grp,$opm_lev_grp,$opm_op_grp,$opm_alg_grp,$osc_grp))
 
+$fm_stus.Items.AddRange(@($fm_label))
 $frm_fm.Controls.AddRange(@($fm_mnu,$fm_panel,$fm_box,$fm_stus))
-
-# $frm_fm.AcceptButton= $lisn_btn	# [Enter]
-  
+   
 # Global variable ====== 
- 
+	
 # color setting 
 
  try{
 
-# $trans= [System.Drawing.Color]::FromName($transparent)	# ìßñæêF
-
 # bg,line,text ------
-
-$poix= New-Object System.Drawing.Point(0,0)			# ÉOÉâÉfÅ[ÉVÉáÉìpoint obj
+$poix= New-Object System.Drawing.Point(0,0)			# „Ç∞„É©„Éá„Éº„Ç∑„Éß„É≥point obj
 $poia= New-Object System.Drawing.Point(162,0)
 
-# 'dark' set =====
+# $trans= [System.Drawing.Color]::FromName($transparent)	# ÈÄèÊòéËâ≤
 
-$black= [System.Drawing.Color]::FromArgb(244,22,22,14)		# à√çïêF AÇÕçÇãâä¥ÇÃÇΩÇﬂ
-$darkwhite= [System.Drawing.Color]::FromArgb(240,255,255,252)	# å”ï≤êF a:240
+# 'white' set =====
+$white= [System.Drawing.Color]::FromArgb(248,251,250,245)	# ÁîüÊàê„ÇäËâ≤ A:254
+$darkwhite= [System.Drawing.Color]::FromArgb(240,255,255,252)	# ËÉ°Á≤âËâ≤ a:240
 $gr_white= [System.Drawing.Color]::FromArgb(199,255,255,252)	# a:224
 
-$Cdbrend= New-Object System.Drawing.Drawing2D.ColorBlend(3)	# ÉOÉâÉfÅ[ÉVÉáÉì
+$Cdbrend= New-Object System.Drawing.Drawing2D.ColorBlend(3)	# „Ç∞„É©„Éá„Éº„Ç∑„Éß„É≥
 $Cdbrend.Colors= @($gr_white,$darkwhite,$gr_white)
 $Cdbrend.Positions= @(0.0,0.333,1.0)
 
 # alg fill,Polygon -----
-
+$Whsolid= New-Object System.Drawing.SolidBrush($white)
 $Whwpen= New-Object System.Drawing.Pen($darkwhite, 2)
-#$Whbrush= New-Object System.Drawing.SolidBrush($darkwhite)
-# .LinearGradientBrush âºêFéwíËÇ™ïKóv
+# .LinearGradientBrush ‰ªÆËâ≤ÊåáÂÆö„ÅåÂøÖË¶Å
 $Whbrush= New-Object System.Drawing.Drawing2D.LinearGradientBrush($poix,$poia,$darkwhite,$gr_white)
 $Whbrush.InterpolationColors= $Cdbrend
 
-# 'natural' set =====
-
-$white= [System.Drawing.Color]::FromArgb(248,251,250,245)	# ê∂ê¨ÇËêF A:254
-$naturalblack= [System.Drawing.Color]::FromArgb(216,0,11,0)	# îGâHêF A:236
+# 'black' set =====
+$black= [System.Drawing.Color]::FromArgb(236,33,55,60)		# ÊöóÈªíËâ≤Êîπ A„ÅØÈ´òÁ¥öÊÑü„ÅÆ„Åü„ÇÅ
+$naturalblack= [System.Drawing.Color]::FromArgb(216,0,11,0)	# Êø°ÁæΩËâ≤ A:236
 $gr_black= [System.Drawing.Color]::FromArgb(124,0,11,0)		# a:184
 
 $Clbrend= New-Object System.Drawing.Drawing2D.ColorBlend(3)
@@ -10754,20 +12004,20 @@ $Clbrend.Colors= @($gr_black,$naturalblack,$gr_black)
 $Clbrend.Positions= @(0.0,0.333,1.0)
 
 # alg fill,Polygon -----
-
+$Blsolid= New-Object System.Drawing.SolidBrush($black)
 $Blwpen= New-Object System.Drawing.Pen($naturalblack, 2)
-#$Blbrush= New-Object System.Drawing.SolidBrush($naturalblack)
+# .LinearGradientBrush ‰ªÆËâ≤ÊåáÂÆö„ÅåÂøÖË¶Å
 $Blbrush= New-Object System.Drawing.Drawing2D.LinearGradientBrush($poix,$poia,$naturalblack,$gr_black)
 $Blbrush.InterpolationColors= $Clbrend
 
 
-# ç˜êF254,244,244	# îñç˜253,239,251	# åéîí234,244,252
-# ê∂ê¨ÇËêF251,250,245	# âKÇÃâ‘êF247,252,254	# îíé•248,251,248	# å”ï≤êF255,255,252
-# åõñ@çïíÉ36,26,8	# ìSçï40,26,20		# îGâHêF 0,11,0		# à√çïêF22,22,14
+# Ê°úËâ≤254,244,244	# ËñÑÊ°ú253,239,251	# ÊúàÁôΩ234,244,252
+# ÁîüÊàê„ÇäËâ≤251,250,245	# ÂçØ„ÅÆËä±Ëâ≤247,252,254	# ÁôΩÁ£Å248,251,248	# ËÉ°Á≤âËâ≤255,255,252
+# ÊÜ≤Ê≥ïÈªíËå∂36,26,8	# ÈâÑÈªí40,26,20		# Êø°ÁæΩËâ≤ 0,11,0		# ÊöóÈªíËâ≤22,22,14
 
-#äóåˆâpêF255,217,0	#â©êF255,217,17		#íÜâ©255,234,0
-#å¸ì˙à®êF252,200,0	#éRêÅêF248,181,0	#çÿÇÃâ‘êF255,236,71
-#ã‡êF230,180,34		#ã‡éÖêùêF235,216,66
+#Ëí≤ÂÖ¨Ëã±Ëâ≤255,217,0	#ÈªÑËâ≤255,217,17		#‰∏≠ÈªÑ255,234,0
+#ÂêëÊó•ËëµËâ≤252,200,0	#Â±±ÂêπËâ≤248,181,0	#Ëèú„ÅÆËä±Ëâ≤255,236,71
+#ÈáëËâ≤230,180,34		#ÈáëÁ≥∏ÈõÄËâ≤235,216,66
 
 
 # poly,sine,text ------
@@ -10800,16 +12050,15 @@ $vividred= [System.Drawing.Color]::FromArgb(201,241,55,55)	# 107,142,35
 $naturalred= [System.Drawing.Color]::FromArgb(221,255,99,71)	# tomato
 $pastelred= [System.Drawing.Color]::FromArgb(160,252,81,84)	# 240,56,59+H359S68V99
 
-#$plum= [System.Drawing.Color]::FromName("plum")
+$plum= [System.Drawing.Color]::FromName("plum")
+$turquoise= [System.Drawing.Color]::FromName("powderblue")
 $thistle= [System.Drawing.Color]::FromArgb(220,216,191,216)	# thistle
-
 
 # cyan		powderblue	darkcyan	cadetblue	lightseagreen
 # lime		greenyellow	olivedrab	darkseagreen	yellowgreen
 # orange	gold		goldenrod	darkkhaki	khaki
 # magenta	lightpink	brown		rosybrown	tomato
 # plum		thistle		indigo
-
 
 # sine -----
 
@@ -10818,14 +12067,16 @@ $Mpen= New-Object System.Drawing.Pen($magenta, 1)
 $Cpen= New-Object System.Drawing.Pen($cyan, 1)
 $Lpen= New-Object System.Drawing.Pen($lime, 1)
 
-# alg font -----
+# alg font point -----
 
 $Ybrush= New-Object System.Drawing.SolidBrush($yellow)	# Fill
 $Mbrush= New-Object System.Drawing.SolidBrush($magenta)
 $Cbrush= New-Object System.Drawing.SolidBrush($cyan)
 $Lbrush= New-Object System.Drawing.SolidBrush($lime)
+$Pbrush= New-Object System.Drawing.SolidBrush($plum)
+$Tbrush= New-Object System.Drawing.SolidBrush($turquoise)
 
-# íÜêSé≤,òg -----
+# ‰∏≠ÂøÉËª∏,Êû† -----
 
 $XBpen= New-Object System.Drawing.Pen($skyblue, 1)
 $XGpen= New-Object System.Drawing.Pen($greenyellow, 1)
@@ -10873,17 +12124,17 @@ $pointab[0][3]=  New-Object System.Drawing.Point(20,60)
 
 $pointab[1][0]=  New-Object System.Drawing.Point(100,205)
 $pointab[1][1]=  New-Object System.Drawing.Point(20,225) # 80,20
-$pointab[1][2]=  New-Object System.Drawing.Point(240,140) # 60,60 1ê¸1íi
+$pointab[1][2]=  New-Object System.Drawing.Point(240,140) # 60,60 1Á∑ö1ÊÆµ
 $pointab[1][3]=  New-Object System.Drawing.Point(180,80)
 
 $pointab[2][0]=  New-Object System.Drawing.Point(180,330)
 $pointab[2][1]=  New-Object System.Drawing.Point(100,350) # 80,20
-$pointab[2][2]=  New-Object System.Drawing.Point(320,265) # 60,60 1ê¸1íi
+$pointab[2][2]=  New-Object System.Drawing.Point(320,265) # 60,60 1Á∑ö1ÊÆµ
 $pointab[2][3]=  New-Object System.Drawing.Point(260,205)
 
 $pointab[3][0]=  New-Object System.Drawing.Point(260,455)
 $pointab[3][1]=  New-Object System.Drawing.Point(180,475) # 80,20
-$pointab[3][2]=  New-Object System.Drawing.Point(400,390) # 60,60 1ê¸1íi
+$pointab[3][2]=  New-Object System.Drawing.Point(400,390) # 60,60 1Á∑ö1ÊÆµ
 $pointab[3][3]=  New-Object System.Drawing.Point(340,330)
 
 $pointab[4][0]=  New-Object System.Drawing.Point(485,505) # 480+5 gomikeshi
@@ -10904,18 +12155,18 @@ $pointad[0][2]=  New-Object System.Drawing.Point(-30,170)
 $pointad[0][3]=  New-Object System.Drawing.Point(20,60)
 
 $pointad[1][0]=  New-Object System.Drawing.Point(180,330)
-$pointad[1][1]=  New-Object System.Drawing.Point(120,290) # 60,40 2ê¸2íi
+$pointad[1][1]=  New-Object System.Drawing.Point(120,290) # 60,40 2Á∑ö2ÊÆµ
 $pointad[1][2]=  New-Object System.Drawing.Point(240,120)
 $pointad[1][3]=  New-Object System.Drawing.Point(180,80)
 
 $pointad[2][0]=  New-Object System.Drawing.Point(180,330)
-$pointad[2][1]=  New-Object System.Drawing.Point(120,290) # 60,40 2ê¸1íi
+$pointad[2][1]=  New-Object System.Drawing.Point(120,290) # 60,40 2Á∑ö1ÊÆµ
 $pointad[2][2]=  New-Object System.Drawing.Point(240,245)
 $pointad[2][3]=  New-Object System.Drawing.Point(180,205)
 
 $pointad[3][0]=  New-Object System.Drawing.Point(260,455)
 $pointad[3][1]=  New-Object System.Drawing.Point(180,475) # 80,20
-$pointad[3][2]=  New-Object System.Drawing.Point(400,390) # 60,60 1ê¸1íi
+$pointad[3][2]=  New-Object System.Drawing.Point(400,390) # 60,60 1Á∑ö1ÊÆµ
 $pointad[3][3]=  New-Object System.Drawing.Point(340,330)
 
 $pointad[4][0]=  New-Object System.Drawing.Point(485,505)
@@ -10936,17 +12187,17 @@ $pointaf[0][2]=  New-Object System.Drawing.Point(50,170)
 $pointaf[0][3]=  New-Object System.Drawing.Point(100,60)
 
 $pointaf[1][0]=  New-Object System.Drawing.Point(260,455)
-$pointaf[1][1]=  New-Object System.Drawing.Point(200,415) # 60,40 2ê¸3íi
+$pointaf[1][1]=  New-Object System.Drawing.Point(200,415) # 60,40 2Á∑ö3ÊÆµ
 $pointaf[1][2]=  New-Object System.Drawing.Point(320,120)
 $pointaf[1][3]=  New-Object System.Drawing.Point(260,80)
 
 $pointaf[2][0]=  New-Object System.Drawing.Point(100,330)
 $pointaf[2][1]=  New-Object System.Drawing.Point(20,350) # 80,20
-$pointaf[2][2]=  New-Object System.Drawing.Point(240,265) # 60,60 1ê¸1íi
+$pointaf[2][2]=  New-Object System.Drawing.Point(240,265) # 60,60 1Á∑ö1ÊÆµ
 $pointaf[2][3]=  New-Object System.Drawing.Point(180,205)
 
 $pointaf[3][0]=  New-Object System.Drawing.Point(260,455)
-$pointaf[3][1]=  New-Object System.Drawing.Point(200,415) #60,40 2ê¸1íi
+$pointaf[3][1]=  New-Object System.Drawing.Point(200,415) #60,40 2Á∑ö1ÊÆµ
 $pointaf[3][2]=  New-Object System.Drawing.Point(320,370)
 $pointaf[3][3]=  New-Object System.Drawing.Point(260,330)
 
@@ -10969,16 +12220,16 @@ $pointah[0][3]=  New-Object System.Drawing.Point(20,60)
 
 $pointah[1][0]=  New-Object System.Drawing.Point(100,205)
 $pointah[1][1]=  New-Object System.Drawing.Point(20,225) # 80,20
-$pointah[1][2]=  New-Object System.Drawing.Point(240,140) # 60,60 1ê¸1íi
+$pointah[1][2]=  New-Object System.Drawing.Point(240,140) # 60,60 1Á∑ö1ÊÆµ
 $pointah[1][3]=  New-Object System.Drawing.Point(180,80)
 
 $pointah[2][0]=  New-Object System.Drawing.Point(260,455)
-$pointah[2][1]=  New-Object System.Drawing.Point(200,415) # 60,40 2ê¸2íi
+$pointah[2][1]=  New-Object System.Drawing.Point(200,415) # 60,40 2Á∑ö2ÊÆµ
 $pointah[2][2]=  New-Object System.Drawing.Point(320,245)
 $pointah[2][3]=  New-Object System.Drawing.Point(260,205)
 
 $pointah[3][0]=  New-Object System.Drawing.Point(260,455)
-$pointah[3][1]=  New-Object System.Drawing.Point(200,415) # 60,40 2ê¸1íi
+$pointah[3][1]=  New-Object System.Drawing.Point(200,415) # 60,40 2Á∑ö1ÊÆµ
 $pointah[3][2]=  New-Object System.Drawing.Point(320,370)
 $pointah[3][3]=  New-Object System.Drawing.Point(260,330)
 
@@ -11001,12 +12252,12 @@ $pointaj[0][3]=  New-Object System.Drawing.Point(100,60)
 
 $pointaj[1][0]=  New-Object System.Drawing.Point(180,205)
 $pointaj[1][1]=  New-Object System.Drawing.Point(100,225) # 80,20
-$pointaj[1][2]=  New-Object System.Drawing.Point(320,140) # 60,60 1ê¸1íi
+$pointaj[1][2]=  New-Object System.Drawing.Point(320,140) # 60,60 1Á∑ö1ÊÆµ
 $pointaj[1][3]=  New-Object System.Drawing.Point(260,80)
 
 $pointaj[2][0]=  New-Object System.Drawing.Point(180,455)
 $pointaj[2][1]=  New-Object System.Drawing.Point(100,475) # 80,20
-$pointaj[2][2]=  New-Object System.Drawing.Point(320,390) # 60,60 1ê¸1íi
+$pointaj[2][2]=  New-Object System.Drawing.Point(320,390) # 60,60 1Á∑ö1ÊÆµ
 $pointaj[2][3]=  New-Object System.Drawing.Point(260,330)
 
 $pointaj[3][0]=  New-Object System.Drawing.Point(480,505)
@@ -11034,17 +12285,17 @@ $pointal[0][2]=  New-Object System.Drawing.Point(-30,170)
 $pointal[0][3]=  New-Object System.Drawing.Point(20,60)
 
 $pointal[1][0]=  New-Object System.Drawing.Point(180,205)
-$pointal[1][1]=  New-Object System.Drawing.Point(120,165) # 60,40 2ê¸1íi
+$pointal[1][1]=  New-Object System.Drawing.Point(120,165) # 60,40 2Á∑ö1ÊÆµ
 $pointal[1][2]=  New-Object System.Drawing.Point(240,120)
 $pointal[1][3]=  New-Object System.Drawing.Point(180,80)
 
 $pointal[2][0]=  New-Object System.Drawing.Point(180,330)
-$pointal[2][1]=  New-Object System.Drawing.Point(120,290) # 60,40 2ê¸2íi
+$pointal[2][1]=  New-Object System.Drawing.Point(120,290) # 60,40 2Á∑ö2ÊÆµ
 $pointal[2][2]=  New-Object System.Drawing.Point(240,120)
 $pointal[2][3]=  New-Object System.Drawing.Point(180,80)
 
 $pointal[3][0]=  New-Object System.Drawing.Point(180,455)
-$pointal[3][1]=  New-Object System.Drawing.Point(120,415) # 60,40 2ê¸3íi
+$pointal[3][1]=  New-Object System.Drawing.Point(120,415) # 60,40 2Á∑ö3ÊÆµ
 $pointal[3][2]=  New-Object System.Drawing.Point(240,120)
 $pointal[3][3]=  New-Object System.Drawing.Point(180,80)
 
@@ -11077,7 +12328,7 @@ $pointan[0][3]=  New-Object System.Drawing.Point(100,60)
 
 $pointan[1][0]=  New-Object System.Drawing.Point(180,205)
 $pointan[1][1]=  New-Object System.Drawing.Point(100,225) # 80,20
-$pointan[1][2]=  New-Object System.Drawing.Point(320,140) # 60,60 1ê¸1íi
+$pointan[1][2]=  New-Object System.Drawing.Point(320,140) # 60,60 1Á∑ö1ÊÆµ
 $pointan[1][3]=  New-Object System.Drawing.Point(260,80)
 
 $pointan[2][0]=  New-Object System.Drawing.Point(480,505)
@@ -11141,7 +12392,7 @@ $pointar[0][3]=  New-Object System.Drawing.Point(100,60)
 
 $pointar[1][0]=  New-Object System.Drawing.Point(180,205)
 $pointar[1][1]=  New-Object System.Drawing.Point(100,225) # 80,20
-$pointar[1][2]=  New-Object System.Drawing.Point(320,140) # 60,60 1ê¸1íi
+$pointar[1][2]=  New-Object System.Drawing.Point(320,140) # 60,60 1Á∑ö1ÊÆµ
 $pointar[1][3]=  New-Object System.Drawing.Point(260,80)
 
 $pointar[2][0]=  New-Object System.Drawing.Point(480,255)
@@ -11174,127 +12425,93 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 	Write-Host '"ERROR: Safety Stopper >> Cable point object err"'
  }
   
-# PIradian= 180ìx/57.29578ìx(1radian) 
-# $radian= [Math]::PI/ 180.0 # 1ìxÇÃÉâÉWÉAÉìíl
-
- try{
-	[double]$radian= [Math]::PI # ÉŒ
-
-	[int[]]$img= 160,100 # 160, 50*2 / write pict
-
-
-	if((Test-Path '.\fm_editor.xml') -eq $True){
-
-		$fm_xml= [xml](cat '.\fm_editor.xml')
-	}else{
-		$fm_xml= [xml]$xml_editor # ÉLÉÉÉXÉg
-	}
-
-	[int[]]$bai= $fm_xml.table.opt.bai.value,$fm_xml.table.opt.bai.value
-	# ê∏ìx,xml_store[<-restart gi no tame]
-
-
-	[int]$count= $img[0]/ $bai[0]
-
-	[array]$sin_pos= "","","",""
-	[int[]]$sin_pos[0]= 0; $sin_pos[0]*= $count
-	[int[]]$sin_pos[1]= 0; $sin_pos[1]*= $count
-	[int[]]$sin_pos[2]= 0; $sin_pos[2]*= $count
-	[int[]]$sin_pos[3]= 0; $sin_pos[3]*= $count
-
-	[array]$sin_map= Sin_mapping $count $radian
-
-
- }catch{
-	echo $_.exception
-	Write-Host '"ERROR: Safety Stopper >> global variable err"'
- }
- 
-# plygon, sine pointer [System.Drawing] 
-
- try{
-
-[array]$pointed= @("","","","") # polygon point obj éQè∆å^
-[array]$pointed[0]= @() # 4opï™, 2opåì
-[array]$pointed[1]= @()
-[array]$pointed[2]= @()
-[array]$pointed[3]= @()
-
-[array]$pointsg= @("","","","") # polygon ssg-eg
-[array]$pointsg[0]= @() # 4opï™
-[array]$pointsg[1]= @()
-[array]$pointsg[2]= @()
-[array]$pointsg[3]= @()
-
-[array]$pointing= @("","","","") # sine point obj éQè∆å^
-[array]$pointing[0]= @() # 4opï™, 2opåì
-[array]$pointing[1]= @()
-[array]$pointing[2]= @()
-[array]$pointing[3]= @()
-
-Point_obj $count
-
- }catch{
-	echo $_.exception
-	Write-Host '"ERROR: Safety Stopper >> Plygon,Sine point object err"'
- }
- 
 # Operator resetting param 
 
  try{
+	[array]$_vrc= @("","") #jag
+	[string[]]$_vrc[0]= ""; $_vrc[0]*= 13
+	[string[]]$_vrc[1]= ""; $_vrc[1]*= 13
 
-[array]$_vrc= @("","") #jag
-[string[]]$_vrc[0]= ""; $_vrc[0]*= 13
-[string[]]$_vrc[1]= ""; $_vrc[1]*= 13
+	[array]$_opl= @("","")
+	[string[]]$_opl[0]= ""; $_opl[0]*= 13
+	[string[]]$_opl[1]= ""; $_opl[1]*= 13
 
-[array]$_opl= @("","")
-[string[]]$_opl[0]= ""; $_opl[0]*= 13
-[string[]]$_opl[1]= ""; $_opl[1]*= 13
+	[array]$_opn= @("","","","")
+	[string[]]$_opn[0]= ""; $_opn[0]*= 12
+	[string[]]$_opn[1]= ""; $_opn[1]*= 12
+	[string[]]$_opn[2]= ""; $_opn[2]*= 12
+	[string[]]$_opn[3]= ""; $_opn[3]*= 12
 
-[array]$_opn= @("","","","")
-[string[]]$_opn[0]= ""; $_opn[0]*= 12
-[string[]]$_opn[1]= ""; $_opn[1]*= 12
-[string[]]$_opn[2]= ""; $_opn[2]*= 12
-[string[]]$_opn[3]= ""; $_opn[3]*= 12
-
-[array]$_opm= @("","","","")
-[string[]]$_opm[0]= ""; $_opm[0]*= 13
-[string[]]$_opm[1]= ""; $_opm[1]*= 13
-[string[]]$_opm[2]= ""; $_opm[2]*= 13
-[string[]]$_opm[3]= ""; $_opm[3]*= 13
+	[array]$_opm= @("","","","")
+	[string[]]$_opm[0]= ""; $_opm[0]*= 13
+	[string[]]$_opm[1]= ""; $_opm[1]*= 13
+	[string[]]$_opm[2]= ""; $_opm[2]*= 13
+	[string[]]$_opm[3]= ""; $_opm[3]*= 13
 
 
-[array]$vrc_svn= "",""
-[array]$opl_two= "",""
-[array]$opn_fur= "","","",""
-[array]$opm_fur= "","","",""
+	[array]$vrc_svn= "",""
+	[array]$opl_two= "",""
+	[array]$opn_fur= "","","",""
+	[array]$opm_fur= "","","",""
 
-$vrc_svn[0]= 40,0,12,4,8,4,0,1,0,0,0,0,0
-$vrc_svn[1]= 0,0,12,4,8,4,0,1,0,0,0,0,0
+	$vrc_svn[0]= 40,0,12,4,8,4,0,1,0,0,0,0,0 # ÂàùÊúüÂÄ§
+	$vrc_svn[1]= 0,0,12,4,8,4,0,1,0,0,0,0,0
 
-$opl_two[0]= 0,0,12,4,4,8,40,0,1,0,0,0,0
-$opl_two[1]= 0,0,12,4,4,8,0,0,1,0,0,0,0
+	$opl_two[0]= 0,0,12,4,4,8,40,0,1,0,0,0,0
+	$opl_two[1]= 0,0,12,4,4,8,0,0,1,0,0,0,0
 
-$opn_fur[0]= 4,0,25,10,15,10,10,40,0,1,0,0
-$opn_fur[1]= 0,0,25,10,15,10,10,0,0,1,0,0
-$opn_fur[2]= 0,0,25,10,15,10,10,40,0,2,0,0
-$opn_fur[3]= 0,0,25,10,15,10,10,0,0,1,0,0
+	$opn_fur[0]= 4,0,25,10,15,10,10,40,0,1,0,0
+	$opn_fur[1]= 0,0,25,10,15,10,10,0,0,1,0,0
+	$opn_fur[2]= 0,0,25,10,15,10,10,40,0,2,0,0
+	$opn_fur[3]= 0,0,25,10,15,10,10,0,0,1,0,0
 
-$opm_fur[0]= 4,0,25,10,15,10,10,40,0,1,0,0,0
-$opm_fur[1]= 0,0,25,10,15,10,10,0,0,1,0,0,0
-$opm_fur[2]= 0,0,25,10,15,10,10,40,0,2,0,0,0
-$opm_fur[3]= 0,0,25,10,15,10,10,0,0,1,0,0,0
+	$opm_fur[0]= 4,0,25,10,15,10,10,40,0,1,0,0,0
+	$opm_fur[1]= 0,0,25,10,15,10,10,0,0,1,0,0,0
+	$opm_fur[2]= 0,0,25,10,15,10,10,40,0,2,0,0,0
+	$opm_fur[3]= 0,0,25,10,15,10,10,0,0,1,0,0,0
+
 
  }catch{
 	echo $_.exception
 	Write-Host '"ERROR: Safety Stopper >> Operator resetting param err"'
  }
  
+# PIradian= 180Â∫¶/57.29578Â∫¶(1radian) 
+# $radian= [Math]::PI/ 180.0 # 1Â∫¶„ÅÆ„É©„Ç∏„Ç¢„É≥ÂÄ§
+
+ try{
+	[double]$radian= [Math]::PI
+
+	[string[]]$adjr= "14","16","18","20","22","24","26"
+
+	[int[]]$img= 160,100 # 160, 50*2 / write pict
+
+	[int]$bai= 0 # Á≤æÂ∫¶
+	[int]$count= 0
+	[array]$sin_pos= @()
+	[array]$sin_map= @()
+	[array]$pointed= @()
+	[array]$pointsg= @()
+	[array]$pointing= @()
+
+	[array]$xyi= @() # Chip_position ÂÆöÊï∞ÁöÑ„Åü„ÇÅ
+	[int[]]$xytwo= 0,0
+	[int[]]$xye2= 0,0,0,0
+
+	[array]$xyp= @()
+	[int[]]$xyfour= 0,0
+	[int[]]$xye4= 0,0,0,0
+
+ }catch{
+	echo $_.exception
+	Write-Host '"ERROR: Safety Stopper >> global variable err"'
+ }
+  
 # ------ main 
 
  try{
 
-  # ÉLÉÉÉXÉg
+  # „Ç≠„É£„Çπ„Éà
   if((Test-Path '.\fm_editor.xml') -eq $True){
 
 	$fm_xml= [xml](cat '.\fm_editor.xml')
@@ -11302,26 +12519,19 @@ $opm_fur[3]= 0,0,25,10,15,10,10,0,0,1,0,0,0
 	$fm_xml= [xml]$xml_editor
   }
 
-  # òAëzîzóÒâª
+  # ÈÄ£ÊÉ≥ÈÖçÂàóÂåñ
   $val=@{}; $opt=@{}; $key=@{};
   $comp=@{}; $play=@{}; $dosv=@{}; $edit=@{}; # only memory<- setting.xml
-
-  Fmxml_read $script:fm_xml.table.val $script:fm_xml.table.opt
-
-
-  # readÇÃÇ› - MenuÇÃÇΩÇﬂ
-  if((Test-Path '.\setting.xml') -eq $True){
-
-	$set_xml= [xml](cat '.\setting.xml')
-
-	Setxml_read $script:set_xml.table # hashâª
-  }
+  $hsmck= @{}; $hsvrc= @{}; $hs88= @{}; $hsx68= @{}; $hsefx= @{};
+  $header=@{}; $box_header=@{}; # replace mtx
 
 
-  $box_header=@{}; # replace mtx
+  # cat -> Out-String(ÊîπË°å„ÅÇ„Çä)„Åßstring„Å∏
+  $header["fm_header_mck"]= (cat '.\header\fm_header_mck' | Out-String)
+  $header["fm_header_nsd"]= (cat '.\header\fm_header_nsd' | Out-String)
+  $header["fm_header_pmd"]= (cat '.\header\fm_header_pmd' | Out-String)
 
-  # cat -> Out-String ï∂éöóÒ(â¸çsÇ†ÇË)Ç≈stringÇ÷
-
+  # box header Ë™≠„ÅøËæº„Åø
   $box_header["vrc"]= (cat '.\header\fm_box_vrc' | Out-String)
   $box_header["vrc_mckreg"]= (cat '.\header\fm_box_vrc_mckreg' | Out-String)
   $box_header["vrc_nsdreg"]= (cat '.\header\fm_box_vrc_nsdreg' | Out-String)
@@ -11330,11 +12540,33 @@ $opm_fur[3]= 0,0,25,10,15,10,10,0,0,1,0,0,0
 
   $box_header["opn"]= (cat '.\header\fm_box_opn' | Out-String)
   $box_header["opn_fmp7"]= (cat '.\header\fm_box_opn_fmp7' | Out-String)
+  $box_header["opn_mucom"]= (cat '.\header\fm_box_opn_mucom' | Out-String)
   $box_header["opn_mxdrv"]= (cat '.\header\fm_box_opn_mxdrv' | Out-String)
 
   $box_header["opm"]= (cat '.\header\fm_box_opm' | Out-String)
   $box_header["opm_fmp7"]= (cat '.\header\fm_box_opm_fmp7' | Out-String)
+  $box_header["opm_mucom"]= (cat '.\header\fm_box_opm_mucom' | Out-String)
   $box_header["opm_mxdrv"]= (cat '.\header\fm_box_opm_mxdrv' | Out-String)
+
+
+  # hashË®≠ÂÆö
+  Fmxml_read $script:fm_xml.table.val $script:fm_xml.table.opt
+
+  Chip_position $key["layout"]
+  Peralg_build $bai
+  Reso $bai
+
+  # Menu„ÅÆ„Åü„ÇÅË™≠„ÅøËæº„Åø
+  if((Test-Path '.\setting.xml') -eq $True){
+
+	$set_xml= [xml](cat '.\setting.xml')
+
+	Setxml_read $script:set_xml.table # hashÂåñ
+  }
+
+  #preset,FFË™≠„ÅøËæº„Åø
+  Preset_read # $comp["MC.EXE"]ÂøÖË¶Å <- .\setting.xml
+
 
 # write-host "------"
 # write-host $val["compiler"]
@@ -11344,8 +12576,6 @@ $opm_fur[3]= 0,0,25,10,15,10,10,0,0,1,0,0,0
 # write-host $comp.Values
 # write-host $play.Values
 # write-host "------"
-
-  Preset_build $fm_xml.table.preset
 
   Slot_build $fm_xml.table.slot "A"
   Slot_build $fm_xml.table.slot "B"
@@ -11366,33 +12596,38 @@ $opm_fur[3]= 0,0,25,10,15,10,10,0,0,1,0,0,0
   # Stus_alg # -> Popalg_build
 
 
-  # ëSÇƒì«ÇÒÇ≈Ç®Ç≠ <- safe no tqnpo
+  # ÂÖ®„Å¶Ë™≠„Çì„Åß„Åä„Åè <- safe no tqnpo
   $vrc_svn= All_sz $vrc_svn 13 # 1 -> ___1
   $opl_two= All_sz $opl_two 13
   $opn_fur= All_sz $opn_fur 12
   $opm_fur= All_sz $opm_fur 13
 
-  # Reset Parameteréûégóp
+  # Reset ParameterÊôÇ‰ΩøÁî®
   Autosave $script:fm_xml.table.resetting
 
 
+  # $fm_xml.table.autosave.name -ne "" „ÅØÂàùÂõûÊôÇ„Åü„ÇÅÂøÖË¶Å auto:on„Åü„ÇÅ
   if($fm_xml.table.autosave.name -ne "" -and $key["autosave"] -eq 'True'){
 
-	$comb_fm.SelectedItem= $fm_xml.table.autosave.name
-
 	Autoload $fm_xml.table.autosave
+  }else{
+	Autoload $fm_xml.table.resetting # ÂàùÂõûËµ∑Âãï or auto:off
+
   }
 
+  [bool]$event_change= $True # Â§öÈáç„É≠„Éº„ÉâÈò≤Ê≠¢
   Panel_chg
 
 
-  [array]$undo= $null,$null,"0" # array objçÇë¨âª
+  [array]$undo= $null,$null,"0" # array objÈ´òÈÄüÂåñ
 
-  # Unredo 2
+  ## Unredo 2
+
+  [int[]]$frm_state= 0, 0,0,0,0 # Multi window state
 
   $frm_fm.ShowDialog() > $null
 
-  Write-Host ('"FMâπêFÉGÉfÉBÉ^"ÇèIóπÇµÇ‹Ç∑'+ "`r`n")
+  Write-Host ('"FMÈü≥Ëâ≤„Ç®„Éá„Ç£„Çø"„ÇíÁµÇ‰∫Ü„Åó„Åæ„Åô'+ "`r`n")
 
  }catch{
 	echo $_.exception
@@ -11400,24 +12635,37 @@ $opm_fur[3]= 0,0,25,10,15,10,10,0,0,1,0,0,0
 
  }finally{
 
+	$tray_fm.Dispose()
+	$ff_frm.Dispose()
 	$sub_mask.Dispose()
 	$sub_sav.Dispose()
 	#$sub_alg.Dispose()
 	$sb_alg.Dispose()
 
 	$buffb.Dispose()
+	$buffw.Dispose()
+
+	$buffz.Dispose()
+	$buffx.Dispose()
 
 	$buffc.Dispose()
 	$buffe.Dispose()
 	$buffg.Dispose()
 	$buffi.Dispose()
 
+	$gpw.Dispose()
 	$gpb.Dispose()
+
+	$gpz.Dispose()
+	$gpx.Dispose()
 
 	$gpc.Dispose()
 	$gpe.Dispose()
 	$gpg.Dispose()
 	$gpi.Dispose()
+
+	$gpv.Dispose()
+	$gpt.Dispose()
 
 	$gpk.Dispose()
 	$gpm.Dispose()
@@ -11425,6 +12673,62 @@ $opm_fur[3]= 0,0,25,10,15,10,10,0,0,1,0,0,0
 	$gpq.Dispose()
  }
  
+#$graphics.DrawLine($pen, 10, 20, 100, 200) 	# Áõ¥Á∑ö 
+#$graphics.DrawRectangle($pen, 0, 0, 200, 300)	# ÂõõËßí
+
+#$graphics.FillPolygon($brush,$point)		# Êäò„ÇåÁ∑ö
+
+#$graphics.FillRectangle($brush, $xe[0], $ye[0], 1, 1) # 1px dot
+#$graphics.FillEllipse($brush, 0, 0, 200, 300)	# ÂÜÜ
+ 
+# base part 
+	
+#$graphics.DrawLine($pen, 10, 20, 100, 200) 	# Áõ¥Á∑ö 
+#$graphics.DrawRectangle($pen, 0, 0, 200, 300)	# ÂõõËßí
+
+#$graphics.FillPolygon($brush,$point)		# Êäò„ÇåÁ∑ö
+
+#$graphics.FillRectangle($brush, $xe[0], $ye[0], 1, 1) # 1px dot
+#$graphics.FillEllipse($brush, 0, 0, 200, 300)	# ÂÜÜ
+
+ 
+#$alg_img= [System.Drawing.Image]::FromFile(".\img\algorithm.png") 
+ 
+#$Pictbox= New-Object System.Windows.Forms.PictureBox 
+#$Pictbox.ClientSize= $alg_img.Size
+#$Pictbox.Image= $alg_img
+ 
+#$sub_alg= New-Object System.Windows.Forms.Form 
+#$sub_alg.Text= "Algorithm List"
+## $sub_alg.Size= "360,480"
+#$sub_alg.Location= "500,0"
+#$sub_alg.FormBorderStyle= "FixedSingle"
+#$sub_alg.StartPosition= "WindowsDefaultLocation"
+#$sub_alg.MaximizeBox= $false
+#$sub_alg.MinimizeBox= $false
+
+#$sub_alg.TopLevel= $True
+#$sub_alg.Owner= $frm_fm
+
+#$sub_alg.ClientSize= $alg_img.Size
+
+#$sub_alg.Add_FormClosing({ #
+# try{
+
+#	if($_.CloseReason -eq 'UserClosing'){ # x „Éú„Çø„É≥„ÅÆÂ†¥Âêà
+#	}
+
+#	$_.Cancel= $True # Hide -> ÂÜçÂ∫¶ Show„ÅÆ„Åü„ÇÅ
+#	# EventArgs -> $_.(c# dato e.)
+
+#	$this.Hide() #.Visible= $false
+# }catch{
+#	echo $_.exception
+# }
+#})
+ 
+#$sub_alg.Controls.Add($Pictbox) 
+  
 # VRC7 ------ 
 # @TL FB
 #  AR DR SL RR KSL ML AM VIB EG KSR DT  (Modulator,Carrier)

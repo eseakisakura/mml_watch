@@ -1,10 +1,10 @@
-<# setting.ps1 #> 
+Ôªø<# setting.ps1 #> 
 
-Write-Host ('"ä¬ã´ê›íË"ÇãNìÆÇµÇ‹Ç∑')
+Write-Host ('"Áí∞Â¢ÉË®≠ÂÆö"„ÇíËµ∑Âãï„Åó„Åæ„Åô')
  
 $setting_xml= @' 
 <table>
-	<!-- listbox / nameÇÕïœìÆíl -->
+	<!-- listbox / name„ÅØÂ§âÂãïÂÄ§ -->
 	<mml name= "" param= ""/>
 	<mml name= "" param= ""/>
 	<mml name= "" param= ""/>
@@ -26,16 +26,16 @@ $setting_xml= @'
 	<pmd name= "" param= ""/>
 	<br />
 	<ply name= "nsfplay.exe" param= "..\nsfplay\nsfplay.exe"/>
+	<ply name= "foobar2000.exe" param= "..\foobar2000\foobar2000.exe"/>
 	<ply name= "winamp.exe" param= "..\winamp\winamp.exe"/>
 	<ply name= "FMPMD.exe" param= "..\fmpmd\FMPMD.exe"/>
-	<ply name= "FMP7.exe" param= "..\fmp7\FMP7.exe"/>
 	<br />
 	<dmc name= "" param= ""/>
 	<dmc name= "" param= ""/>
 	<dmc name= "" param= ""/>
 	<dmc name= "" param= ""/>
 	<br />
-	<edt name= "" param= ""/>
+	<edt name= "sted.exe" param= "..\sted\sted.exe"/>
 	<edt name= "" param= ""/>
 	<edt name= "" param= ""/>
 	<edt name= "" param= ""/>
@@ -206,17 +206,180 @@ function Write_xml($x){
   } #
  } #func
  
+function Pamamter_reset([string]$sw){ 
+
+  switch($sw){
+  'mck'{
+	[string]$t= "10000 00000"
+			#i m1 w
+
+	[string]$s= $t -replace " ",""
+
+	[string[]]$m= $s.ToCharArray()
+
+	$env_chk_mck.CheckState= $m[0]
+	$lang_chk_mck.CheckState= $m[1]
+	$warn_chk_mck.CheckState= $m[2]
+	break;
+  }'nsd'{
+	[string]$t= "01200 11000"
+		#a n v1 x od+ oo- os- e s
+
+	[string]$s= $t -replace " ",""
+
+	[string[]]$n= $s.ToCharArray()
+
+	[int[]]$v= 0,0,1
+
+	$asm_chk_nsd.CheckState= $n[0]
+	$nsf_chk_nsd.CheckState= $n[1]
+	$comb_ver_nsd.SelectedIndex= $v[$n[2]]
+	$nsfe_chk_nsd.CheckState= $n[3]
+
+	$bank_chk_nsd.CheckState= $n[4]
+	$env_chk_nsd.CheckState= $n[5]
+	$sqr_chk_nsd.CheckState= $n[6]
+	$err_chk_nsd.CheckState= $n[7]
+	$find_chk_nsd.CheckState= $n[8]
+	break;
+  }'pmd'{
+	[string]$t= "01000 00000"
+			#NLMT V C
+
+	[string]$s= $t -replace " ",""
+
+	[string[]]$p= $s.ToCharArray()
+
+	switch($p[0]){
+	'0'{	$radio_opn.Checked= "True"; break;
+	}'1'{	$radio_opl.Checked= "True"; break;
+	}'2'{	$radio_opm.Checked= "True"; break;
+	}'3'{	$radio_towns.Checked= "True"
+	}
+	} #sw
+
+	$add_chk_pmd.CheckState= $p[1]
+	$part_chk_pmd.CheckState= $p[2]
+  }
+  } #sw
+
+} #func
+ 
+function Pamamter_read([string]$t){ 
+
+
+	[string]$s= $t -replace " ",""
+
+	[array]$rr= $s -split ","
+
+	[string[]]$m= $rr[0].ToCharArray()
+	[string[]]$n= $rr[1].ToCharArray()
+	[string[]]$p= $rr[2].ToCharArray()
+
+
+	$env_chk_mck.CheckState= $m[0]
+	$lang_chk_mck.CheckState= $m[1]
+	$warn_chk_mck.CheckState= $m[2]
+
+	[int[]]$v= 0,0,1
+
+	$asm_chk_nsd.CheckState= $n[0]
+	$nsf_chk_nsd.CheckState= $n[1]
+	$comb_ver_nsd.SelectedIndex= $v[$n[2]]
+	$nsfe_chk_nsd.CheckState= $n[3]
+
+	$bank_chk_nsd.CheckState= $n[4]
+	$env_chk_nsd.CheckState= $n[5]
+	$sqr_chk_nsd.CheckState= $n[6]
+	$err_chk_nsd.CheckState= $n[7]
+	$find_chk_nsd.CheckState= $n[8]
+
+
+	switch($p[0]){
+	'0'{	$radio_opn.Checked= "True"; break;
+	}'1'{	$radio_opl.Checked= "True"; break;
+	}'2'{	$radio_opm.Checked= "True"; break;
+	}'3'{	$radio_towns.Checked= "True"
+	}
+	} #sw
+
+	$add_chk_pmd.CheckState= $p[1]
+	$part_chk_pmd.CheckState= $p[2]
+
+} #func
+ 
+function Pamamter_write(){ 
+
+	[array]$a= "","",""
+	[int[]]$a[0]= 0,0,0,0,0, 0,0,0,0,0
+	[int[]]$a[1]= 0,0,0,0,0, 0,0,0,0,0
+	[int[]]$a[2]= 0,0,0,0,0, 0,0,0,0,0
+
+
+	$a[0][0]= $env_chk_mck.CheckState
+	$a[0][1]= $lang_chk_mck.CheckState
+	$a[0][2]= $warn_chk_mck.CheckState
+
+
+	[int[]]$v= 1,2
+
+	$a[1][0]= $asm_chk_nsd.CheckState
+	$a[1][1]= $nsf_chk_nsd.CheckState
+	$a[1][2]= $v[$comb_ver_nsd.SelectedIndex]
+	$a[1][3]= $nsfe_chk_nsd.CheckState
+
+	$a[1][4]= $bank_chk_nsd.CheckState
+	$a[1][5]= $env_chk_nsd.CheckState
+	$a[1][6]= $sqr_chk_nsd.CheckState
+	$a[1][7]= $err_chk_nsd.CheckState
+	$a[1][8]= $find_chk_nsd.CheckState
+
+
+	if($radio_opn.Checked -eq "True"){ $a[2][0]= 0
+	}elseif($radio_opl.Checked -eq "True"){ $a[2][0]= 1
+	}elseif($radio_opm.Checked -eq "True"){ $a[2][0]= 2
+	}elseif($radio_towns.Checked -eq "True"){ $a[2][0]= 3
+	}
+
+	$a[2][1]= $add_chk_pmd.CheckState
+	$a[2][2]= $part_chk_pmd.CheckState
+
+
+	[string[]]$ss= "","",""
+
+	$ss[0]= $a[0] -join ""
+	$ss[1]= $a[1] -join ""
+	$ss[2]= $a[2] -join ""
+
+	[int]$a= 0 # [ref] tame
+
+	$ss[0]= $ss[0].Insert(5," ")
+	$ss[1]= $ss[1].Insert(5," ")
+	$ss[2]= $ss[2].Insert(5," ")
+
+	[string]$tt= $ss -join ", "
+
+
+	#output checker
+	[string]$g= ""
+	$g= [System.Text.RegularExpressions.Regex]::Matches($tt,"[^0-9,\s]")
+
+	if($g -ne ""){ Write-Host "Pamamter_write: option number check ERR" }
+
+	return $tt
+} #func
+ 
 function Hash_read(){ 
 
 
-	Pmd_option $opts["option"] > $null # return fuuji
+	Pamamter_read $opts["option"]
+
+	$thru_chk.CheckState= $opts["chk_thru"]
+	$stop_chk.CheckState= $opts["chk_stop"]
+	$dos_chk.CheckState= $opts["chk_dos"]
 
 
-	$stop_box.CheckState= $opts["chk_stop"]
-	$dos_box.CheckState= $opts["chk_dos"]
-
-
-	$listbox_mml.Items.Clear() # reset 2èdì«çûëŒçÙ
+	$listbox_mml.Items.Clear() # reset 2ÈáçË™≠ËæºÂØæÁ≠ñ
 	$listbox_mck.Items.Clear()
 	$listbox_nsd.Items.Clear()
 	$listbox_pmd.Items.Clear()
@@ -225,7 +388,7 @@ function Hash_read(){
 	$listbox_edt.Items.Clear()
 	$listbox_dos.Items.Clear()
 
-	[void]$listbox_mml.Items.AddRange(@($mml.Keys)) # .AddÇ™ ñﬂílÇ†ÇÈÉÅÉ\ÉbÉhÇΩÇﬂ
+	[void]$listbox_mml.Items.AddRange(@($mml.Keys)) # .Add„Åå ÊàªÂÄ§„ÅÇ„Çã„É°„ÇΩ„ÉÉ„Éâ„Åü„ÇÅ
 	[void]$listbox_mck.Items.AddRange(@($mck.Keys))
 	[void]$listbox_nsd.Items.AddRange(@($nsd.Keys))
 	[void]$listbox_pmd.Items.AddRange(@($pmd.Keys))
@@ -245,65 +408,62 @@ function Hash_read(){
 	switch($opts["radio_bin"]){
 
 	'mck'{
+		$pram_tab.SelectedIndex= 0
 		$radio_mck.Checked= "True"
 		$listbox_mck.Show()
 
 		foreach($key in $mck.Keys){
-
 			if($mck[$key] -eq $vals["compiler"]){ $listbox_mck.SelectedItem= $key }
 		} #
 
 		break;
 	}'nsd'{
+		$pram_tab.SelectedIndex= 1
 		$radio_nsd.Checked= "True"
 		$listbox_nsd.Show()
 
 		foreach($key in $nsd.Keys){
-
 			if($nsd[$key] -eq $vals["compiler"]){ $listbox_nsd.SelectedItem= $key }
 		} #
 
 		break;
 	}'pmd'{
+		$pram_tab.SelectedIndex= 3
 		$radio_pmd.Checked= "True"
 		$listbox_pmd.Show()
 
 		foreach($key in $pmd.Keys){
-
 			if($pmd[$key] -eq $vals["compiler"]){ $listbox_pmd.SelectedItem= $key }
 		} #
 	}
 	} #sw
 
 
-	foreach($key in $mml.Keys){ # Ç†ÇÍÇŒÉnÉCÉâÉCÉgï\é¶
-
+	foreach($key in $mml.Keys){ # „ÅÇ„Çå„Å∞„Éè„Ç§„É©„Ç§„ÉàË°®Á§∫
 		if($mml[$key] -eq $vals["mmlfile"]){ $listbox_mml.SelectedItem= $key }
 	} #
 	foreach($key in $ply.Keys){
-
 		if($ply[$key] -eq $vals["player"]){ $listbox_ply.SelectedItem= $key }
 	} #
 	foreach($key in $dmc.Keys){
-
 		if($dmc[$key] -eq $vals["dmcdir"]){ $listbox_dmc.SelectedItem= $key }
 	} #
 	foreach($key in $edt.Keys){
-
 		if($edt[$key] -eq $vals["editor"]){ $listbox_edt.SelectedItem= $key }
 	} #
 	foreach($key in $dos.Keys){
-
 		if($dos[$key] -eq $vals["dos"]){ $listbox_dos.SelectedItem= $key }
 	} #
-
 } #func
  
 function Write_hash(){ 
 
 
-  $script:opts["chk_stop"]= [string]$stop_box.CheckState
-  $script:opts["chk_dos"]= [string]$dos_box.CheckState
+  $script:opts["option"]= Pamamter_write
+
+  $script:opts["chk_thru"]= [string]$thru_chk.CheckState
+  $script:opts["chk_stop"]= [string]$stop_chk.CheckState
+  $script:opts["chk_dos"]= [string]$dos_chk.CheckState
 
 
   if([string]$radio_mck.Checked -eq 'True'){
@@ -313,7 +473,7 @@ function Write_hash(){
 	switch($mck.Count){
 	0{	  $script:vals["compiler"]= ""; break;
 	}1{	  $script:vals["compiler"]= $mck.Values; break;
-	}default{ $script:vals["compiler"]= $mck[[string]$listbox_mck.SelectedItem] # [string]ÉLÉÉÉXÉgïKóv
+	}default{ $script:vals["compiler"]= $mck[[string]$listbox_mck.SelectedItem] # [string]„Ç≠„É£„Çπ„ÉàÂøÖË¶Å
 	}
 	} #sw
 
@@ -379,23 +539,28 @@ function Write_hash(){
 function Hash_read_cut(){ 
 
 
-	$sub_menu_o.Enabled= $False # Pmd_option
+	$sub_menu_opt.Enabled= $False # Command Line Option
+
+	$stop_label.Enabled= $False
+	$thru_label.Enabled= $False
+
+	$stop_chk.CheckState= "Unchecked"
+	$stop_chk.Enabled= $False
+
+	$thru_chk.CheckState= "Unchecked" # $LASTEXITCODE -> popup„Åü„ÇÅ‰∏çÂèØ
+	$thru_chk.Enabled= $False
+
+	$dos_chk.CheckState= $opts["chk_dos"]
 
 
-	$stop_box.CheckState= "Unchecked"
-	$stop_box.Enabled= $False
-
-	$dos_box.CheckState= $opts["chk_dos"]
-
-
-	$listbox_mck.Items.Clear() # reset 2èdì«çûëŒçÙ
+	$listbox_mck.Items.Clear() # reset 2ÈáçË™≠ËæºÂØæÁ≠ñ
 	$listbox_nsd.Items.Clear()
 	$listbox_pmd.Items.Clear()
 	$listbox_ply.Items.Clear()
 	$listbox_edt.Items.Clear()
 	$listbox_dos.Items.Clear()
 
-	[void]$listbox_mck.Items.AddRange(@($mck.Keys)) # .AddÇ™ ñﬂílÇ†ÇÈÉÅÉ\ÉbÉhÇΩÇﬂ
+	[void]$listbox_mck.Items.AddRange(@($mck.Keys)) # .Add„Åå ÊàªÂÄ§„ÅÇ„Çã„É°„ÇΩ„ÉÉ„Éâ„Åü„ÇÅ
 	[void]$listbox_nsd.Items.AddRange(@($nsd.Keys))
 	[void]$listbox_pmd.Items.AddRange(@($pmd.Keys))
 	[void]$listbox_ply.Items.AddRange(@($ply.Keys))
@@ -407,42 +572,35 @@ function Hash_read_cut(){
 	$listbox_nsd.Hide()
 	$listbox_pmd.Hide()
 
-
-	[string]$key= ""
-
 	switch($opts["radio_bin"]){
-
 	'mck'{
 		$radio_mck.Checked= "True"
 		$listbox_mck.Show()
-
-		foreach($key in $mck.Keys){
-
-			if($mck[$key] -eq $vals["compiler"]){ $listbox_mck.SelectedItem= $key }
-		} #
-
 		break;
 	}'nsd'{
 		$radio_nsd.Checked= "True"
 		$listbox_nsd.Show()
-
-		foreach($key in $nsd.Keys){
-
-			if($nsd[$key] -eq $vals["compiler"]){ $listbox_nsd.SelectedItem= $key }
-		} #
-
 		break;
 	}'pmd'{
 		$radio_pmd.Checked= "True"
 		$listbox_pmd.Show()
-
-		foreach($key in $pmd.Keys){
-
-			if($pmd[$key] -eq $vals["compiler"]){ $listbox_pmd.SelectedItem= $key }
-		} #
 	}
 	} #sw
 
+
+	[string]$key= ""
+	foreach($key in $mck.Keys){
+
+		if($mck[$key] -eq $vals["mck"]){ $listbox_mck.SelectedItem= $key }
+	} #
+	foreach($key in $nsd.Keys){
+
+		if($nsd[$key] -eq $vals["nsd"]){ $listbox_nsd.SelectedItem= $key }
+	} #
+	foreach($key in $pmd.Keys){
+
+		if($pmd[$key] -eq $vals["pmd"]){ $listbox_pmd.SelectedItem= $key }
+	} #
 
 	foreach($key in $ply.Keys){
 
@@ -456,48 +614,47 @@ function Hash_read_cut(){
 
 		if($dos[$key] -eq $vals["dos"]){ $listbox_dos.SelectedItem= $key }
 	} #
-
-} #func
- 
+ } #func
+ 	
 function Write_hash_cut(){ 
 
 
-	$script:opts["chk_dos"]= [string]$dos_box.CheckState
+	$script:opts["chk_dos"]= [string]$dos_chk.CheckState
 
-
-  if([string]$radio_mck.Checked -eq 'True'){
-
-	$script:opts["radio_bin"]= "mck"
 
 	switch($mck.Count){
-	0{	  $script:vals["compiler"]= ""; break;
-	}1{	  $script:vals["compiler"]= $mck.Values; break;
-	}default{ $script:vals["compiler"]= $mck[[string]$listbox_mck.SelectedItem] # [string]ÉLÉÉÉXÉgïKóv
+	0{	  $script:vals["mck"]= ""; break;
+	}1{	  $script:vals["mck"]= $mck.Values; break;
+	}default{ $script:vals["mck"]= $mck[[string]$listbox_mck.SelectedItem] # [string]„Ç≠„É£„Çπ„ÉàÂøÖË¶Å
 	}
 	} #sw
-
-  }elseif([string]$radio_nsd.Checked -eq 'True'){
-
-	$script:opts["radio_bin"]= "nsd"
 
 	switch($nsd.Count){
-	0{	  $script:vals["compiler"]= ""; break;
-	}1{	  $script:vals["compiler"]= $nsd.Values; break;
-	}default{ $script:vals["compiler"]= $nsd[[string]$listbox_nsd.SelectedItem]
+	0{	  $script:vals["nsd"]= ""; break;
+	}1{	  $script:vals["nsd"]= $nsd.Values; break;
+	}default{ $script:vals["nsd"]= $nsd[[string]$listbox_nsd.SelectedItem]
 	}
 	} #sw
-
-  }elseif([string]$radio_pmd.Checked -eq 'True'){
-
-	$script:opts["radio_bin"]= "pmd"
 
 	switch($pmd.Count){
-	0{	  $script:vals["compiler"]= ""; break;
-	}1{	  $script:vals["compiler"]= $pmd.Values; break;
-	}default{ $script:vals["compiler"]= $pmd[[string]$listbox_pmd.SelectedItem]
+	0{	  $script:vals["pmd"]= ""; break;
+	}1{	  $script:vals["pmd"]= $pmd.Values; break;
+	}default{ $script:vals["pmd"]= $pmd[[string]$listbox_pmd.SelectedItem]
 	}
 	} #sw
-  }
+
+	if([string]$radio_mck.Checked -eq 'True'){
+
+		$script:vals["compiler"]= $vals["mck"]
+
+	}elseif([string]$radio_nsd.Checked -eq 'True'){
+
+		$script:vals["compiler"]= $vals["nsd"]
+
+	}elseif([string]$radio_pmd.Checked -eq 'True'){
+
+		$script:vals["compiler"]= $vals["pmd"]
+	}
 
 	switch($ply.Count){
 	0{	  $script:vals["player"]= ""; break;
@@ -524,44 +681,11 @@ function Attend(){
 
 	[string]$ret= [Windows.Forms.MessageBox]::Show(
 
-		"ä¬ã´ê›íËÇÃÉäÉZÉbÉg", "ämîF", "OKCancel","Information","Button2"
+		"Áí∞Â¢ÉË®≠ÂÆö„ÅÆ„É™„Çª„ÉÉ„Éà", "Á¢∫Ë™ç", "OKCancel","Information","Button2"
 	)
 
 	return $ret
  } #func
- 
-function Pmd_option([string]$t){ 
-
-	switch($t){
-
-	'opl'{
-		$sub_menu_opl.Text= "[v] OPL 2op"
-		$sub_menu_opn.Text= "OPN 4op"
-		$sub_menu_opm.Text= "OPM 4op"
-		$sub_menu_towns.Text= "TOWNS 4op"
-		break;
-	}'opn'{
-		$sub_menu_opl.Text= "OPL 2op"
-		$sub_menu_opn.Text= "[v] OPN 4op"
-		$sub_menu_opm.Text= "OPM 4op"
-		$sub_menu_towns.Text= "TOWNS 4op"
-		break;
-	}'opm'{
-		$sub_menu_opl.Text= "OPL 2op"
-		$sub_menu_opn.Text= "OPN 4op"
-		$sub_menu_opm.Text= "[v] OPM 4op"
-		$sub_menu_towns.Text= "TOWNS 4op"
-		break;
-	}'towns'{
-		$sub_menu_opl.Text= "OPL 2op"
-		$sub_menu_opn.Text= "OPN 4op"
-		$sub_menu_opm.Text= "OPM 4op"
-		$sub_menu_towns.Text= "[v] TOWNS 4op"
-	}
-	} #sw
-
-	return $t
-} #func
  
 function Drag_drop([string]$sw,[array]$drp){ 
 
@@ -585,13 +709,13 @@ function Drag_drop([string]$sw,[array]$drp){
 
 		'mml'{
 			[string[]]$arr= $mml.Keys
-			#($key in $mml.Keys)ÇæÇ∆ÅAmml.ValuesèëÇ´ä∑Ç¶ÇÈÇ∆ÉãÅ[ÉvÇ™é~Ç‹ÇÈÇΩÇﬂ
+			#($key in $mml.Keys)„Å†„Å®„ÄÅmml.ValuesÊõ∏„ÅçÊèõ„Åà„Çã„Å®„É´„Éº„Éó„ÅåÊ≠¢„Åæ„Çã„Åü„ÇÅ
 
 			foreach($key in $arr){
 
-				if($key -eq $f[0]){ # Ç†ÇÁÇŒç∑ë÷Ç¶
+				if($key -eq $f[0]){ # „ÅÇ„Çâ„Å∞Â∑ÆÊõø„Åà
 
-					if($mml[$key] -ne $s){ # ÇΩÇ™Ç¶ÇŒhashílç∑ë÷Ç¶
+					if($mml[$key] -ne $s){ # „Åü„Åå„Åà„Å∞hashÂÄ§Â∑ÆÊõø„Åà
 
 				 		$script:mml[$key]= $s # Values
 					}
@@ -601,12 +725,12 @@ function Drag_drop([string]$sw,[array]$drp){
 				}
 			} #
 
-			if($chk -eq 0){ # Ç»ÇØÇÍÇŒÉnÉbÉVÉÖí«â¡
+			if($chk -eq 0){ # „Å™„Åë„Çå„Å∞„Éè„ÉÉ„Ç∑„É•ËøΩÂä†
 
 				if(($mml.Count+1) -le 4){
 
 				 	$script:mml[$f[0]]= $s
-					[void]$listbox_mml.Items.Add($f[0]) # ÉtÉ@ÉCÉãí«â¡
+					[void]$listbox_mml.Items.Add($f[0]) # „Éï„Ç°„Ç§„É´ËøΩÂä†
 
 					$listbox_mml.SelectedItem= $f[0]
 				}else{
@@ -853,20 +977,76 @@ function Drag_drop([string]$sw,[array]$drp){
 
 } #func
  
-function Box_radio([string]$val_path){ 
+function Box_radio([string]$ss){ 
 
-	[string[]]$arr= Split_path $val_path
+	[string]$tt= "nsd" # radio's listÊäú„ÅëÂ∞Å„Åò
 
-	[string]$s= "nsd" # radio's listî≤ÇØïïÇ∂
+	if($ss -eq $vals["mck"]){ $tt= "mck"
+	}elseif($ss -eq $vals["nsd"]){ $tt= "nsd"
+	}elseif($ss -eq $vals["pmd"]){ $tt= "pmd"
+	}
 
-	switch($arr[0]){
-	'ppmckc.exe'{	$s= "mck"
-	}'nsc.exe'{	$s= "nsd"
-	}'mc.exe'{	$s= "pmd"
+	return $tt
+ } #func
+ 
+function New_mml([string]$sw){ 
+
+  [string]$new_set= "" # kara iretoku -> system err kaihi
+
+  if($mml.Keys.Count -ge 4){
+
+	Write-Host "New_mml>> MML List full"
+
+	[string]$retn= [Windows.Forms.MessageBox]::Show(
+
+	"MML„É™„Çπ„Éà„ÅåÊ∫ÄÊùØ„Åß„Åô", "Á¢∫Ë™ç", "OK","Information","Button1"
+	)
+
+  }else{
+	switch($sw){
+	'mck'{  $new_set= (cat '.\new\new_mck.mml' | Out-String); break;
+	}'nsd'{ $new_set= (cat '.\new\new_nsd.mml' | Out-String); break;
+	}'pmd'{ $new_set= (cat '.\new\new_pmd.mml' | Out-String) # ÊîπË°å‰ªò„Åç
 	}
 	} #sw
 
-	return $s
+	[string]$chk= $dia.ShowDialog()
+
+	switch($chk){
+	'OK'{
+		[string]$path= $dia.FileName
+
+		Mml_writer $new_set $path 0
+		# $new_set | Out-File -Encoding oem -FilePath $path # shiftJIS
+
+		Drag_drop "mml" $path # mml hash„Å∏ÁôªÈå≤
+
+	#}'Cancel'{
+	}
+	} #sw
+  }
+ } #func
+ 
+function Setadv_edit([string]$t){ 
+
+  switch($t){
+  'mck'{
+	[string]$ss= Editor_open $edt[[string]$listbox_edt.SelectedItem] ".\new\new_mck.mml"; break;
+  }'nsd'{
+	[string]$ss= Editor_open $edt[[string]$listbox_edt.SelectedItem] ".\new\new_nsd.mml"; break;
+  }'pmd'{
+	[string]$ss= Editor_open $edt[[string]$listbox_edt.SelectedItem] ".\new\new_pmd.mml"
+  }
+  } #sw
+
+  if($ss -ne ''){
+
+	[string]$retn= [Windows.Forms.MessageBox]::Show(
+
+	$ss, "Á¢∫Ë™ç", "OK","Information","Button1"
+	)
+  }
+
  } #func
  
 Add-Type -AssemblyName System.Windows.Forms > $null 
@@ -876,6 +1056,252 @@ $ErrorActionPreference= "Stop"
 cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 [Environment]::CurrentDirectory= pwd # working_dir set
  
+# Sub pram forms ----- 
+	
+$pram_frm= New-Object System.Windows.Forms.Form 
+$pram_frm.Text= "Option"
+$pram_frm.Size= "248,302"
+$pram_frm.Location= "500,0"
+
+$pram_frm.FormBorderStyle= "FixedSingle"
+$pram_frm.StartPosition= "WindowsDefaultLocation"
+$pram_frm.Icon= Icon_read "..\src\ST_icon.ico"
+# $pram_frm.MinimizeBox= $False
+$pram_frm.MaximizeBox= $False
+
+$pram_frm.TopLevel= $True
+$pram_frm.Owner= $sub_f
+
+$pram_frm.Add_FormClosing({
+ try{
+
+	$sub_menu_opt.Text= "Command Option"
+
+	if($_.CloseReason -eq 'UserClosing'){ # x „Éú„Çø„É≥„ÅÆÂ†¥Âêà
+ 	}
+
+	$_.Cancel= $True # Hide -> ÂÜçÂ∫¶ Show„ÅÆ„Åü„ÇÅ
+	# EventArgs -> $_.(c# dato e.)
+
+	$this.Hide() #.Visible= $false
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$pram_tab= New-Object System.Windows.Forms.TabControl 
+$pram_tab.Size= "225,235"
+$pram_tab.Location= "5,25"
+#$pram_tab.SelectedIndex= 0
+
+$tab_mck= New-Object System.Windows.Forms.TabPage
+$tab_mck.Text= "mck"
+
+$tab_nsd= New-Object System.Windows.Forms.TabPage
+$tab_nsd.Text= "nsd1"
+
+$tab_nsd2= New-Object System.Windows.Forms.TabPage
+$tab_nsd2.Text= "nsd2"
+
+$tab_pmd= New-Object System.Windows.Forms.TabPage
+$tab_pmd.Text= "pmd"
+ 
+$grp_mck= New-Object System.Windows.Forms.GroupBox 
+$grp_mck.Text= "Command Line Option"
+$grp_mck.Size= "205,130"
+$grp_mck.Location= "5,5"
+$grp_mck.FlatStyle= "Flat"
+
+$grp_nsd= New-Object System.Windows.Forms.GroupBox
+$grp_nsd.Text= "Command Line Option"
+$grp_nsd.Size= "205,130"
+$grp_nsd.Location= "5,5"
+$grp_nsd.FlatStyle= "Flat"
+
+$grp_nsd2= New-Object System.Windows.Forms.GroupBox
+$grp_nsd2.Text= "Command Line Option"
+$grp_nsd2.Size= "205,150"
+$grp_nsd2.Location= "5,5"
+$grp_nsd2.FlatStyle= "Flat"
+
+$grp_radio_pmd= New-Object System.Windows.Forms.GroupBox
+$grp_radio_pmd.Text= "opn,opl,opm,towns"
+$grp_radio_pmd.Size= "205,85"
+$grp_radio_pmd.Location= "5,5"
+
+$grp_pmd= New-Object System.Windows.Forms.GroupBox
+$grp_pmd.Text= "Command Line Option"
+$grp_pmd.Size= "205,110"
+$grp_pmd.Location= "5,95"
+$grp_pmd.FlatStyle= "Flat"
+ 
+$radio_opn= New-Object System.Windows.Forms.RadioButton 
+$radio_opn.Text= "OPN" # /N
+$radio_opn.Size= "65,20"
+$radio_opn.Location= "20,20"
+
+$radio_opl= New-Object System.Windows.Forms.RadioButton
+$radio_opl.Text= "OPL" # /L
+$radio_opl.Size= "65,20"
+$radio_opl.Location= "20,45"
+
+$radio_opm= New-Object System.Windows.Forms.RadioButton
+$radio_opm.Text= "OPM" # /M
+$radio_opm.Size= "65,20"
+$radio_opm.Location= "95,20"
+
+$radio_towns= New-Object System.Windows.Forms.RadioButton
+$radio_towns.Text= "TOWNS" # /T
+$radio_towns.Size= "65,20"
+$radio_towns.Location= "95,45"
+ 
+$add_chk_pmd= New-Object System.Windows.Forms.CheckBox 
+$add_chk_pmd.Text= "/V :m„Å∏FMÈü≥Ëâ≤„Éá„Éº„ÇøÊ∑ª‰ªò"
+$add_chk_pmd.Size= "190,20"
+$add_chk_pmd.Location= "10,20"
+
+$part_chk_pmd= New-Object System.Windows.Forms.CheckBox
+$part_chk_pmd.Text= "/C :„Éë„Éº„ÉàÊØé„ÅÆÈï∑„Åï„ÇíË°®Á§∫"
+$part_chk_pmd.Size= "190,20"
+$part_chk_pmd.Location= "10,40"
+ 
+$bank_chk_nsd= New-Object System.Windows.Forms.CheckBox 
+$bank_chk_nsd.Text= "-od :„Éê„É≥„ÇØÊúÄÈÅ©Âåñ[def.chkoff]"
+$bank_chk_nsd.Size= "190,20"
+$bank_chk_nsd.Location= "10,20"
+
+$env_chk_nsd= New-Object System.Windows.Forms.CheckBox
+$env_chk_nsd.Text= "-oo :Êú™‰ΩøÁî®Sub,Env„ÅÆÂâäÈô§"
+$env_chk_nsd.Size= "190,20"
+$env_chk_nsd.Location= "10,40"
+
+$sqr_chk_nsd= New-Object System.Windows.Forms.CheckBox
+$sqr_chk_nsd.Text= "-os :SqrData„ÅÆÊúÄÈÅ©Âåñ"
+$sqr_chk_nsd.Size= "190,20"
+$sqr_chk_nsd.Location= "10,60"
+
+$err_chk_nsd= New-Object System.Windows.Forms.CheckBox
+$err_chk_nsd.Text= "-e :err/warning„Çí„Ç®„É©„ÉºÂá∫Âäõ„Å∏"
+$err_chk_nsd.Size= "190,20"
+$err_chk_nsd.Location= "10,80"
+
+$find_chk_nsd= New-Object System.Windows.Forms.CheckBox
+$find_chk_nsd.Text= "-s :Ê§úÁ¥¢„Éë„Çπ„ÅÆÊ§úÁ¥¢ÁµêÊûú„ÇíÂá∫Âäõ"
+$find_chk_nsd.Size= "190,20"
+$find_chk_nsd.Location= "10,100"
+ 
+$asm_chk_nsd= New-Object System.Windows.Forms.CheckBox 
+$asm_chk_nsd.Text= "-a :„Ç¢„Çª„É≥„Éñ„É™„Å∏Â§âÊèõ"
+$asm_chk_nsd.Size= "190,20"
+$asm_chk_nsd.Location= "10,20"
+
+$nsf_chk_nsd= New-Object System.Windows.Forms.CheckBox
+$nsf_chk_nsd.Text= "-n :NSF„Å∏Â§âÊèõ"
+$nsf_chk_nsd.Size= "190,20"
+$nsf_chk_nsd.Location= "10,40"
+
+$label_ver_nsd= New-Object System.Windows.Forms.Label
+$label_ver_nsd.Text= "-v :NSF version"
+$label_ver_nsd.Size= "125,20"
+$label_ver_nsd.Location= "65,65"
+$label_ver_nsd.TextAlign= "BottomLeft"
+
+$comb_ver_nsd= New-Object System.Windows.Forms.Combobox
+$comb_ver_nsd.Size= "50,20"
+$comb_ver_nsd.Location= "10,65"
+$comb_ver_nsd.FlatStyle= "Popup"
+[void]$comb_ver_nsd.Items.AddRange(@('1','2'))
+$comb_ver_nsd.DropDownStyle= "DropDownList"
+$comb_ver_nsd.SelectedIndex= 1
+
+$nsfe_chk_nsd= New-Object System.Windows.Forms.CheckBox
+$nsfe_chk_nsd.Text= "-x :NSFe„Å∏Â§âÊèõ"
+$nsfe_chk_nsd.Size= "190,20"
+$nsfe_chk_nsd.Location= "10,90"
+ 
+$env_chk_mck= New-Object System.Windows.Forms.CheckBox 
+$env_chk_mck.Text= '-i :"effect.h"„Å´SqrData„ÇíËøΩÂä†'
+$env_chk_mck.Size= "190,20"
+$env_chk_mck.Location= "10,20"
+
+$lang_chk_mck= New-Object System.Windows.Forms.CheckBox
+$lang_chk_mck.Text= "-m :Language„ÅÆÈÅ∏Êäû[Jpn,Eng]"
+$lang_chk_mck.Size= "190,20"
+$lang_chk_mck.Location= "10,40"
+
+$warn_chk_mck= New-Object System.Windows.Forms.CheckBox
+$warn_chk_mck.Text= "-w :Warning„ÇíË°®Á§∫„Åó„Å™„ÅÑ"
+$warn_chk_mck.Size= "190,20"
+$warn_chk_mck.Location= "10,60"
+ 
+$pram_mnu= New-Object System.Windows.Forms.MenuStrip 
+	
+$parm_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
+$parm_menu_f.Text= "File"
+
+$parm_menu_mck= New-Object System.Windows.Forms.ToolStripMenuItem
+$parm_menu_mck.Text= "MCK option reset"
+
+$parm_menu_mck.Add_Click({
+ try{
+	Pamamter_reset "mck"
+ }catch{
+	echo $_.exception
+ }
+})
+
+$parm_menu_nsd= New-Object System.Windows.Forms.ToolStripMenuItem
+$parm_menu_nsd.Text= "NSD option reset"
+
+$parm_menu_nsd.Add_Click({
+ try{
+	Pamamter_reset "nsd"
+ }catch{
+	echo $_.exception
+ }
+})
+
+$parm_menu_pmd= New-Object System.Windows.Forms.ToolStripMenuItem
+$parm_menu_pmd.Text= "PMD option reset"
+
+$parm_menu_pmd.Add_Click({
+ try{
+	Pamamter_reset "pmd"
+ }catch{
+	echo $_.exception
+ }
+})
+
+$parm_menu_nn=New-Object System.Windows.Forms.ToolStripSeparator
+$parm_menu_fin= New-Object System.Windows.Forms.ToolStripMenuItem
+$parm_menu_fin.Text= "Close"
+
+$parm_menu_fin.Add_Click({ # close
+
+	$pram_frm.Close() #.Add_FormClosing„Å∏
+})
+  
+$grp_radio_pmd.Controls.AddRange(@($radio_opn,$radio_opl,$radio_opm,$radio_towns)) 
+$grp_pmd.Controls.AddRange(@($add_chk_pmd,$part_chk_pmd))
+$tab_pmd.Controls.AddRange(@($grp_radio_pmd,$grp_pmd))
+
+$grp_nsd2.Controls.AddRange(@($bank_chk_nsd,$env_chk_nsd,$sqr_chk_nsd,$err_chk_nsd,$find_chk_nsd))
+$tab_nsd2.Controls.AddRange(@($grp_nsd2))
+
+$grp_nsd.Controls.AddRange(@($asm_chk_nsd,$nsf_chk_nsd,$comb_ver_nsd,$label_ver_nsd,$nsfe_chk_nsd))
+$tab_nsd.Controls.AddRange(@($grp_nsd))
+
+$grp_mck.Controls.AddRange(@($env_chk_mck,$lang_chk_mck,$warn_chk_mck))
+$tab_mck.Controls.AddRange(@($grp_mck))
+
+$pram_tab.Controls.AddRange(@($tab_mck,$tab_nsd,$tab_nsd2,$tab_pmd))
+
+$parm_menu_f.DropDownItems.AddRange(@($parm_menu_mck,$parm_menu_nsd,$parm_menu_pmd,$parm_menu_nn,$parm_menu_fin))
+$pram_mnu.Items.AddRange(@($parm_menu_f))
+
+$pram_frm.Controls.AddRange(@($pram_mnu,$pram_tab))
+  
 # sub Form 
 	 
 $baloon= New-Object System.Windows.Forms.Tooltip 
@@ -895,7 +1321,7 @@ $tab_mml.Text= "mml"
 
  
 $label_mml= New-Object System.Windows.Forms.Label 
-$label_mml.Text= "MMLÉtÉ@ÉCÉã"
+$label_mml.Text= "MML„Éï„Ç°„Ç§„É´"
 $label_mml.Size= "190,15"
 $label_mml.Location= "10,5"
  
@@ -908,7 +1334,7 @@ $contxt_mml= New-Object System.Windows.Forms.ContextMenuStrip
 
 $contxt_mml.Add_ItemClicked({
 
-	switch([string]$_.ClickedItem){ # ÉLÉÉÉXÉgïKóv
+	switch([string]$_.ClickedItem){ # „Ç≠„É£„Çπ„ÉàÂøÖË¶Å
 
 	'Cancel'{
 		$listbox_mml.SelectedItem= $null
@@ -970,7 +1396,7 @@ $listbox_mml.Add_DragDrop({
 })
  
 $label_dmc= New-Object System.Windows.Forms.Label 
-$label_dmc.Text= "DMC,PMD/includeÉtÉHÉãÉ_"
+$label_dmc.Text= "Áí∞Â¢ÉÂ§âÊï∞DMC/PMD„Éï„Ç©„É´„ÉÄ"
 $label_dmc.Size= "190,15"
 $label_dmc.Location= "10,95"
  
@@ -982,7 +1408,7 @@ $contxt_dmc= New-Object System.Windows.Forms.ContextMenuStrip
 
 $contxt_dmc.Add_ItemClicked({
 
-	switch([string]$_.ClickedItem){ # ÉLÉÉÉXÉgïKóv
+	switch([string]$_.ClickedItem){ # „Ç≠„É£„Çπ„ÉàÂøÖË¶Å
 
 	'Cancel'{
 		$listbox_dmc.SelectedItem= $null
@@ -1037,9 +1463,9 @@ $listbox_dmc.Add_DragDrop({
 })
   
 # tab_bin 
-	
+	 
 $tab_bin= New-Object System.Windows.Forms.TabPage 
-$tab_bin.Text= "bin"
+$tab_bin.Text= "binary"
  
 $radio_grp= New-Object System.Windows.Forms.GroupBox 
 $radio_grp.Text= "mck,NSD,PMD"
@@ -1047,13 +1473,13 @@ $radio_grp.Size= "120,105"
 $radio_grp.Location= "10,5"
  
 <# $label_bin= New-Object System.Windows.Forms.Label 
-$label_bin.Text= "ÉRÉìÉpÉCÉâÉtÉ@ÉCÉã"
+$label_bin.Text= "„Ç≥„É≥„Éë„Ç§„É©„Éï„Ç°„Ç§„É´"
 $label_bin.Size= "190,15"
 $label_bin.Location= "10,95"
 #>
  
 # mck ------ 
-	
+	 
 $radio_mck= New-Object System.Windows.Forms.RadioButton 
 $radio_mck.Text= "ppmck"
 $radio_mck.Size= "65,20"
@@ -1061,6 +1487,7 @@ $radio_mck.Location= "20,20"
 
 $radio_mck.Add_CheckedChanged({
 
+	$pram_tab.SelectedIndex= 0
 	$listbox_nsd.Hide()
 	$listbox_pmd.Hide()
 	$listbox_mck.Show()
@@ -1074,7 +1501,7 @@ $contxt_mck= New-Object System.Windows.Forms.ContextMenuStrip
 
 $contxt_mck.Add_ItemClicked({
 
-	switch([string]$_.ClickedItem){ # ÉLÉÉÉXÉgïKóv
+	switch([string]$_.ClickedItem){ # „Ç≠„É£„Çπ„ÉàÂøÖË¶Å
 
 	'Cancel'{
 		$listbox_mck.SelectedItem= $null
@@ -1129,7 +1556,7 @@ $listbox_mck.Add_DragDrop({
 })
   
 # nsd ------ 
-	
+	 
 $radio_nsd= New-Object System.Windows.Forms.RadioButton 
 $radio_nsd.Text= "NSDlib"
 $radio_nsd.Size= "65,20"
@@ -1137,6 +1564,7 @@ $radio_nsd.Location= "20,45" # $from radio_grp Location
 
 $radio_nsd.Add_CheckedChanged({
 
+	$pram_tab.SelectedIndex= 1
 	$listbox_mck.Hide()
 	$listbox_pmd.Hide()
 	$listbox_nsd.Show()
@@ -1150,7 +1578,7 @@ $contxt_nsd= New-Object System.Windows.Forms.ContextMenuStrip
 
 $contxt_nsd.Add_ItemClicked({
 
-	switch([string]$_.ClickedItem){ # ÉLÉÉÉXÉgïKóv
+	switch([string]$_.ClickedItem){ # „Ç≠„É£„Çπ„ÉàÂøÖË¶Å
 
 	'Cancel'{
 		$listbox_nsd.SelectedItem= $null
@@ -1195,7 +1623,7 @@ $listbox_nsd.Add_MouseDoubleClick({
 #$listbox_nsd.Add_MouseDown({ # -> $listbox_nsd.ContextMenuStrip
 
 #	if([string]$_.Button -eq 'Right'){
-		# [Windows.Forms.Control]::MousePosition | write-host #Ç≈Ç‡ìØÇ∂
+		# [Windows.Forms.Control]::MousePosition | write-host #„Åß„ÇÇÂêå„Åò
 #		$contxt_nsd.Show([Windows.Forms.Cursor]::Position) # [.X, .Y]
 #	}
 #})
@@ -1213,7 +1641,7 @@ $listbox_nsd.Add_DragDrop({
 })
   
 # pmd ------ 
-	
+	 
 $radio_pmd= New-Object System.Windows.Forms.RadioButton 
 $radio_pmd.Text= "P.M.D"
 $radio_pmd.Size= "65,20"
@@ -1221,6 +1649,7 @@ $radio_pmd.Location= "20,70"
 
 $radio_pmd.Add_CheckedChanged({
 
+	$pram_tab.SelectedIndex= 3
 	$listbox_mck.Hide()
 	$listbox_nsd.Hide()
 	$listbox_pmd.Show()
@@ -1234,7 +1663,7 @@ $contxt_pmd= New-Object System.Windows.Forms.ContextMenuStrip
 
 $contxt_pmd.Add_ItemClicked({
 
-	switch([string]$_.ClickedItem){ # ÉLÉÉÉXÉgïKóv
+	switch([string]$_.ClickedItem){ # „Ç≠„É£„Çπ„ÉàÂøÖË¶Å
 
 	'Cancel'{
 		$listbox_pmd.SelectedItem= $null
@@ -1294,7 +1723,7 @@ $tab_ply= New-Object System.Windows.Forms.TabPage
 $tab_ply.Text= "player"
  
 $label_ply= New-Object System.Windows.Forms.Label 
-$label_ply.Text= "ÉvÉåÉCÉÑÅ[ÉtÉ@ÉCÉã"
+$label_ply.Text= "„Éó„É¨„Ç§„É§„Éº„Éï„Ç°„Ç§„É´"
 $label_ply.Size= "190,15"
 $label_ply.Location= "10,5"
  
@@ -1307,7 +1736,7 @@ $contxt_ply= New-Object System.Windows.Forms.ContextMenuStrip
 
 $contxt_ply.Add_ItemClicked({
 
-	switch([string]$_.ClickedItem){ # ÉLÉÉÉXÉgïKóv
+	switch([string]$_.ClickedItem){ # „Ç≠„É£„Çπ„ÉàÂøÖË¶Å
 
 	'Cancel'{
 		$listbox_ply.SelectedItem= $null
@@ -1368,15 +1797,25 @@ $listbox_ply.Add_DragDrop({
 	Drag_drop "ply" $args_path
 })
  
-$stop_box= New-Object System.Windows.Forms.CheckBox 
-$stop_box.Text= "/stopÉRÉ}ÉìÉh(nsfplay2.3, winamp)"
-$stop_box.Size= "200,20"
-$stop_box.Location= "10,95"
+$stop_chk= New-Object System.Windows.Forms.CheckBox 
+$stop_chk.Text= "/stop„Ç≥„Éû„É≥„Éâ(winamp,foobar2000)"
+$stop_chk.Size= "200,20"
+$stop_chk.Location= "10,95"
  
-$label_ply_read= New-Object System.Windows.Forms.Label 
-$label_ply_read.Text= "Å¶ÉRÉìÉpÉCÉãëOÅAstopÉRÉ}ÉìÉhèoóÕ"
-$label_ply_read.Size= "190,15"
-$label_ply_read.Location= "10,155"
+$stop_label= New-Object System.Windows.Forms.Label 
+$stop_label.Text= "‚Äª„Ç≥„É≥„Éë„Ç§„É´Ââç„ÄÅstop„Ç≥„Éû„É≥„ÉâÂá∫Âäõ"
+$stop_label.Size= "190,15"
+$stop_label.Location= "10,115"
+ 
+$thru_chk= New-Object System.Windows.Forms.CheckBox 
+$thru_chk.Text= "compilerÂÜÖËîµ„Éó„É¨„Ç§„É§„Éº"
+$thru_chk.Size= "200,20"
+$thru_chk.Location= "10,135"
+ 
+$thru_label= New-Object System.Windows.Forms.Label 
+$thru_label.Text= "‚Äªmml -> player direct"
+$thru_label.Size= "190,15"
+$thru_label.Location= "10,155"
   
 # tab_dos 
 	
@@ -1384,7 +1823,7 @@ $tab_dos= New-Object System.Windows.Forms.TabPage
 $tab_dos.Text= "dos"
  
 $label_dos= New-Object System.Windows.Forms.Label 
-$label_dos.Text= "ÉhÉXÉvÉçÉìÉvÉg"
+$label_dos.Text= "„Éâ„Çπ„Éó„É≠„É≥„Éó„Éà"
 $label_dos.Size= "190,15"
 $label_dos.Location= "10,5"
  
@@ -1397,7 +1836,7 @@ $contxt_dos= New-Object System.Windows.Forms.ContextMenuStrip
 
 $contxt_dos.Add_ItemClicked({
 
-	switch([string]$_.ClickedItem){ # ÉLÉÉÉXÉgïKóv
+	switch([string]$_.ClickedItem){ # „Ç≠„É£„Çπ„ÉàÂøÖË¶Å
 
 	'Cancel'{
 		$listbox_dos.SelectedItem= $null
@@ -1458,15 +1897,15 @@ $listbox_dos.Add_DragDrop({
 	Drag_drop "dos" $args_path
 })
  
-$dos_box= New-Object System.Windows.Forms.CheckBox 
-$dos_box.Text= "x64ëŒâû"
-$dos_box.Size= "200,20"
-$dos_box.Location= "10,95"
+$dos_chk= New-Object System.Windows.Forms.CheckBox 
+$dos_chk.Text= "x64ÂØæÂøú"
+$dos_chk.Size= "200,20"
+$dos_chk.Location= "10,95"
  
 $label_dos_read= New-Object System.Windows.Forms.Label 
-$label_dos_read.Text= "Å¶16bitPMD running 64bitOS"
+$label_dos_read.Text= "‚Äª16bitPMD running 64bitOS"
 $label_dos_read.Size= "190,15"
-$label_dos_read.Location= "10,155"
+$label_dos_read.Location= "10,115"
   
 # tab_edt 
 	
@@ -1474,7 +1913,7 @@ $tab_edt= New-Object System.Windows.Forms.TabPage
 $tab_edt.Text= "editor"
  
 $label_edt= New-Object System.Windows.Forms.Label 
-$label_edt.Text= "ÉGÉfÉBÉ^ìoò^"
+$label_edt.Text= "„Ç®„Éá„Ç£„ÇøÁôªÈå≤"
 $label_edt.Size= "190,15"
 $label_edt.Location= "10,5"
  
@@ -1487,7 +1926,7 @@ $contxt_edt= New-Object System.Windows.Forms.ContextMenuStrip
 
 $contxt_edt.Add_ItemClicked({
 
-	switch([string]$_.ClickedItem){ # ÉLÉÉÉXÉgïKóv
+	switch([string]$_.ClickedItem){ # „Ç≠„É£„Çπ„ÉàÂøÖË¶Å
 
 	'Cancel'{
 		$listbox_edt.SelectedItem= $null
@@ -1549,13 +1988,20 @@ $listbox_edt.Add_DragDrop({
 })
  
 $label_edt_read= New-Object System.Windows.Forms.Label 
-$label_edt_read.Text= "Å¶ÉGÉfÉBÉ^ÅAmml ÉäÉXÉgâEÉNÉäÉbÉN"
+$label_edt_read.Text= "‚Äª„Ç®„Éá„Ç£„Çø„ÄÅmml „É™„Çπ„ÉàÂè≥„ÇØ„É™„ÉÉ„ÇØ"
 $label_edt_read.Size= "190,15"
-$label_edt_read.Location= "10,155"
+$label_edt_read.Location= "10,95"
 # $label_edt_read.ForeColor= "Gray"
 # $label_edt_read.BackColor= "White"
 
   
+$dia= New-Object System.Windows.Forms.SaveFileDialog 
+# „Éï„Ç°„Ç§„É´ÈÅ∏Êäû„ÉÄ„Ç§„Ç¢„É≠„Ç∞
+
+$dia.Filter= "mml„Éï„Ç°„Ç§„É´|*.mml" # space„ÇíÂÖ•„Çå„Å™„ÅÑ„Åì„Å®!
+$dia.Title= "‰øùÂ≠ò„Éï„Ç°„Ç§„É´Âêç„ÇíÂÖ•Âäõ„Åó„Å¶„Åè„Å†„Åï„ÅÑ"
+$dia.RestoreDirectory= "True"
+ 
 $ok_btn= New-Object System.Windows.Forms.Button 
 $ok_btn.Text= "OK"
 $ok_btn.Size= "75,25"
@@ -1565,7 +2011,7 @@ $ok_btn.DialogResult= "OK"
 
 $ok_btn.Add_Click({
 
-	$sub_f.Close() #.Add_FormClosingÇ÷
+	$sub_f.Close() #.Add_FormClosing„Å∏
 })
  
 $cancel_btn= New-Object System.Windows.Forms.Button 
@@ -1577,12 +2023,12 @@ $cancel_btn.DialogResult= "Cancel"
 
 $cancel_btn.Add_Click({
 
-	$sub_f.Close() #.Add_FormClosingÇ÷
+	$sub_f.Close() #.Add_FormClosing„Å∏
 })
  
 $sub_f= New-Object System.Windows.Forms.Form 
-$sub_f.Text= "ä¬ã´ê›íË"
-$sub_f.Size= "244,302"
+$sub_f.Text= "Áí∞Â¢ÉË®≠ÂÆö"
+$sub_f.Size= "248,302"
 $sub_f.Location= "150,0"
 $sub_f.FormBorderStyle= "FixedSingle"
 $sub_f.StartPosition= "WindowsDefaultLocation"
@@ -1591,7 +2037,8 @@ $sub_f.Icon= Icon_read "..\src\ST_icon.ico"
 $sub_f.MaximizeBox= $False
 $sub_f.MinimizeBox= $False
 
-$sub_f.TopMost= $True # ç≈ëOñ Ç÷
+#$sub_f.TopMost= $True # ÊúÄÂâçÈù¢„Å∏
+$sub_f.TopLevel= $True
 # $sub_f.Owner= $frm
 
 $sub_f.Add_Shown({
@@ -1602,13 +2049,16 @@ $sub_f.Add_Shown({
 $sub_f.Add_FormClosing({
  try{
 
-  # $_.Cancel= $True # .ShowDialog()ÇÃèÍçáÅA$sub_fÇ™Ç∆Ç∂Ç»Ç≠Ç»ÇÈ
-  # write-host ("chk button: "+ $sub_f.DialogResult) # ëIëbutton
+  if($_.CloseReason -eq 'UserClosing'){ # x „Éú„Çø„É≥„ÅÆÂ†¥Âêà
+  }
+
+  # $_.Cancel= $True # .ShowDialog()„ÅÆÂ†¥Âêà„ÄÅ$sub_f„Åå„Å®„Åò„Å™„Åè„Å™„Çã
+  # write-host ("chk button---"+ $sub_f.DialogResult) # ÈÅ∏Êäûbutton
 
   switch($sub_f.DialogResult){
-  # 'None'{}		# ïsóv
+  # 'None'{}		# ‰∏çË¶Å
 
-  'Cancel'{ break;	# ÉLÉÉÉìÉZÉãÇ≈xmlèëÇ´çûÇ›ÉXÉãÅ[
+  'Cancel'{ break;	# „Ç≠„É£„É≥„Çª„É´„ÅßxmlÊõ∏„ÅçËæº„Åø„Çπ„É´„Éº
 
   }'OK'{
 	switch($args_pram[2]){
@@ -1633,14 +2083,87 @@ $sub_f.Add_FormClosing({
 })
  
 $sub_mnu= New-Object System.Windows.Forms.MenuStrip 
-
-$sub_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem
+	 
+$sub_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $sub_menu_f.Text= "File"
 
-$sub_menu_a= New-Object System.Windows.Forms.ToolStripMenuItem
-$sub_menu_a.Text= "ê›íËÉäÉZÉbÉg"
+$sub_menu_new= New-Object System.Windows.Forms.ToolStripMenuItem
+$sub_menu_new.Text= "Êñ∞Ë¶è„Éï„Ç°„Ç§„É´"
 
-$sub_menu_a.Add_Click({	# ä¬ã´ÉäÉZÉbÉg
+$sub_menu_mck= New-Object System.Windows.Forms.ToolStripMenuItem
+$sub_menu_mck.Text= "MCK new mml"
+
+$sub_menu_mck.Add_Click({
+ try{
+	New_mml "mck"
+ }catch{
+	echo $_.exception
+ }
+})
+
+$sub_menu_nsd= New-Object System.Windows.Forms.ToolStripMenuItem
+$sub_menu_nsd.Text= "NSD new mml"
+
+$sub_menu_nsd.Add_Click({
+ try{
+	New_mml "nsd"
+ }catch{
+	echo $_.exception
+ }
+})
+
+$sub_menu_pmd= New-Object System.Windows.Forms.ToolStripMenuItem
+$sub_menu_pmd.Text= "PMD new mml"
+
+$sub_menu_pmd.Add_Click({
+ try{
+	New_mml "pmd"
+ }catch{
+	echo $_.exception
+ }
+})
+
+$sub_menu_adv= New-Object System.Windows.Forms.ToolStripMenuItem
+$sub_menu_adv.Text= "Advanced"
+
+$adv_menu_mck= New-Object System.Windows.Forms.ToolStripMenuItem
+$adv_menu_mck.Text= "MCK new edit"
+
+$adv_menu_mck.Add_Click({
+ try{
+	Setadv_edit "mck"
+ }catch{
+	echo $_.exception
+ }
+})
+
+$adv_menu_nsd= New-Object System.Windows.Forms.ToolStripMenuItem
+$adv_menu_nsd.Text= "NSD new edit"
+
+$adv_menu_nsd.Add_Click({
+ try{
+	Setadv_edit "nsd"
+ }catch{
+	echo $_.exception
+ }
+})
+
+$adv_menu_pmd= New-Object System.Windows.Forms.ToolStripMenuItem
+$adv_menu_pmd.Text= "PMD new edit"
+
+$adv_menu_pmd.Add_Click({
+ try{
+	Setadv_edit "pmd"
+ }catch{
+	echo $_.exception
+ }
+})
+
+$sub_menu_an=New-Object System.Windows.Forms.ToolStripSeparator
+$sub_menu_a= New-Object System.Windows.Forms.ToolStripMenuItem
+$sub_menu_a.Text= "Áí∞Â¢É„É™„Çª„ÉÉ„Éà"
+
+$sub_menu_a.Add_Click({	# Áí∞Â¢É„É™„Çª„ÉÉ„Éà
  try{
 
   switch(Attend){
@@ -1660,7 +2183,7 @@ $sub_menu_a.Add_Click({	# ä¬ã´ÉäÉZÉbÉg
 	}
 	} #sw
 
-	Write-Host "ä¬ã´ÇÉäÉZÉbÉgÇµÇ‹ÇµÇΩ"
+	Write-Host "Áí∞Â¢É„Çí„É™„Çª„ÉÉ„Éà„Åó„Åæ„Åó„Åü"
   }
   #'Cancel'{}
   } #sw
@@ -1672,54 +2195,50 @@ $sub_menu_a.Add_Click({	# ä¬ã´ÉäÉZÉbÉg
 
 $sub_menu_sn=New-Object System.Windows.Forms.ToolStripSeparator
 $sub_menu_n= New-Object System.Windows.Forms.ToolStripMenuItem
-$sub_menu_n.Text= "ê›íËèIóπ"
+$sub_menu_n.Text= "Ë®≠ÂÆöÁµÇ‰∫Ü"
 
-$sub_menu_n.Add_Click({	# ê›íËèIóπ
+$sub_menu_n.Add_Click({	# Ë®≠ÂÆöÁµÇ‰∫Ü
 
 	$sub_f.DialogResult= "OK"
 
-	$sub_f.Close() #.Add_FormClosingÇ÷
+	$sub_f.Close() #.Add_FormClosing„Å∏
 })
+ 
+$sub_menu_o= New-Object System.Windows.Forms.ToolStripMenuItem 
+$sub_menu_o.Text= "Option"
 
 
-$sub_menu_o= New-Object System.Windows.Forms.ToolStripMenuItem
-# $sub_menu_o.Text= "PMD Option"
+$sub_menu_opt= New-Object System.Windows.Forms.ToolStripMenuItem
+# $sub_menu_opt.Text= "Command Option"
 
-$sub_menu_opn= New-Object System.Windows.Forms.ToolStripMenuItem
-$sub_menu_opn.Text= "OPN 4op"
-$sub_menu_opn.Add_Click({
+$sub_menu_opt.Add_Click({
+ try{
 
-	$script:opts["option"]= Pmd_option "opn"
+  switch($pram_frm.Visible){
+  'False'{
+
+	$this.Text= "v Command Option"
+
+	$pram_frm.Show()
+
+	break;
+  }'True'{
+
+	$pram_frm.Close() # $pram_frm.Add_FormClosing„Å∏
+  }
+  } #sw
+
+ }catch{
+	echo $_.exception
+    	Write-Host '"ERROR: Safety Stopper >> $pram_frm.Show()"'
+ }
 })
+  
+$sub_menu_new.DropDownItems.AddRange(@($sub_menu_mck,$sub_menu_nsd,$sub_menu_pmd)) 
+$sub_menu_adv.DropDownItems.AddRange(@($adv_menu_mck,$adv_menu_nsd,$adv_menu_pmd))
 
-$sub_menu_opm= New-Object System.Windows.Forms.ToolStripMenuItem
-$sub_menu_opm.Text= "OPM 4op"
-$sub_menu_opm.ForeColor= "Gray"
-$sub_menu_opm.Add_Click({
-
-	$script:opts["option"]= Pmd_option "opm"
-})
-
-$sub_menu_sa=New-Object System.Windows.Forms.ToolStripSeparator
-
-$sub_menu_opl= New-Object System.Windows.Forms.ToolStripMenuItem
-$sub_menu_opl.Text= "OPL 2op"
-$sub_menu_opl.ForeColor= "Gray"
-$sub_menu_opl.Add_Click({
-
-	$script:opts["option"]= Pmd_option "opl"
-})
-
-$sub_menu_towns= New-Object System.Windows.Forms.ToolStripMenuItem
-$sub_menu_towns.Text= "TOWNS 4op"
-$sub_menu_towns.ForeColor= "Gray"
-$sub_menu_towns.Add_Click({
-
-	$script:opts["option"]= Pmd_option "towns"
-})
- 	
-$sub_menu_f.DropDownItems.AddRange(@($sub_menu_a,$sub_menu_sn,$sub_menu_n)) 
-$sub_menu_o.DropDownItems.AddRange(@($sub_menu_opn,$sub_menu_opm,$sub_menu_sa,$sub_menu_opl,$sub_menu_towns))
+# kirikae# $sub_menu_f.DropDownItems.AddRange(@($sub_menu_new,$sub_menu_adv,$sub_menu_an,$sub_menu_a,$sub_menu_sn,$sub_menu_n))
+$sub_menu_o.DropDownItems.AddRange(@($sub_menu_opt))
 $sub_mnu.Items.AddRange(@($sub_menu_f,$sub_menu_o))
 
 
@@ -1728,26 +2247,27 @@ $tab_mml.Controls.AddRange(@($label_mml,$listbox_mml,$label_dmc,$listbox_dmc))
 $radio_grp.Controls.AddRange(@($radio_mck,$radio_nsd,$radio_pmd))
 $tab_bin.Controls.AddRange(@($radio_grp,$listbox_mck,$listbox_nsd,$listbox_pmd))
 
-$tab_ply.Controls.AddRange(@($label_ply,$listbox_ply,$stop_box,$label_ply_read))
-$tab_dos.Controls.AddRange(@($label_dos,$listbox_dos,$dos_box,$label_dos_read))
+$tab_ply.Controls.AddRange(@($label_ply,$listbox_ply,$stop_chk,$stop_label,$thru_chk,$thru_label,$label_ply_read))
+$tab_dos.Controls.AddRange(@($label_dos,$listbox_dos,$dos_chk,$label_dos_read))
 $tab_edt.Controls.AddRange(@($label_edt,$listbox_edt,$label_edt_read))
 
-# $tab.Controls.AddRange(@($tab_mml,$tab_bin,$tab_ply,$tab_dos,$tab_edt))
+# $tab.Controls.AddRange(@($tab_mml,$tab_bin,$tab_ply,$tab_edt,$tab_dos))
 
 $sub_f.Controls.AddRange(@($sub_mnu,$tab,$ok_btn,$cancel_btn))
 $sub_f.CancelButton= $cancel_btn	# [ESC]
 $sub_f.AcceptButton= $ok_btn		# [Enter]
   
 # ------ main 
-
  try{
 
+  #ÂºïÊï∞
   $args_pram= $Args
 
   $vals= $args_pram[0]
   $opts= $args_pram[1] # only memory
 
-  # ÉLÉÉÉXÉg
+
+  # „Ç≠„É£„Çπ„Éà
   if((Test-Path '.\setting.xml') -eq $True){
 
 	$xml_set= [xml](cat '.\setting.xml')
@@ -1755,32 +2275,33 @@ $sub_f.AcceptButton= $ok_btn		# [Enter]
 	$xml_set= [xml]$setting_xml
   }
 
-  # òAëzîzóÒâª
+  # ÈÄ£ÊÉ≥ÈÖçÂàóÂåñ
 
-
-  $mml= @{}; $mck= @{}; $nsd= @{}; $pmd= @{}; ##$cmp= @{};
-  $ply= @{}; $dmc= @{}; $edt= @{}; $dos= @{};
+  $mck= @{}; $nsd= @{}; $pmd= @{}; ##$cmp= @{};
+  $mml= @{}; $ply= @{}; $dmc= @{}; $edt= @{}; $dos= @{};
 
   Xml_read $script:xml_set.table
 
   switch($args_pram[2]){
   'all'{
-	$sub_menu_o.Text= "PMD Option"
+	$sub_menu_opt.Text= "Command Option"
 
-	$tab.Controls.AddRange(@($tab_mml,$tab_bin,$tab_ply,$tab_dos,$tab_edt))
+	$tab.Controls.AddRange(@($tab_mml,$tab_bin,$tab_ply,$tab_edt,$tab_dos))
+	$sub_menu_f.DropDownItems.AddRange(@($sub_menu_new,$sub_menu_adv,$sub_menu_an,$sub_menu_a,$sub_menu_sn,$sub_menu_n))
 
- 	Drag_drop "mml" $vals["mmlfile"] # D&DéûÇΩÇﬂÅAmml hashÇ÷é©ìÆìoò^
+ 	Drag_drop "mml" $vals["mmlfile"] # D&DÊôÇ„Åü„ÇÅ„ÄÅmml hash„Å∏Ëá™ÂãïÁôªÈå≤
 
-	Hash_read # Listâª
+	Hash_read # ListÂåñ
 	break;
   }'cut'{
-	$sub_menu_o.Text= "PMD Auto Option"
+	$sub_menu_opt.Text= "Auto Option"
 
-	$tab.Controls.AddRange(@($tab_bin,$tab_ply,$tab_dos,$tab_edt))
+	$tab.Controls.AddRange(@($tab_bin,$tab_ply,$tab_edt,$tab_dos))
+	$sub_menu_f.DropDownItems.AddRange(@($sub_menu_a,$sub_menu_sn,$sub_menu_n))
 
-	$script:opts["radio_bin"]= Box_radio $vals["compiler"] # hashê›íË
+	$script:opts["radio_bin"]= Box_radio $vals["compiler"] # hashË®≠ÂÆö
 
-	Hash_read_cut # Listâª
+	Hash_read_cut # ListÂåñ
   }
   } #sw
 
@@ -1788,7 +2309,7 @@ $sub_f.AcceptButton= $ok_btn		# [Enter]
 
   echo $vals $opts # return dato Safety Stopper
 
-  Write-Host ("`r`n"+"`"ä¬ã´ê›íË`"ÇèIóπÇµÇ‹Ç∑"+"`r`n")
+  Write-Host ("`r`n"+"`"Áí∞Â¢ÉË®≠ÂÆö`"„ÇíÁµÇ‰∫Ü„Åó„Åæ„Åô"+"`r`n")
 
 
  }catch{
@@ -1796,5 +2317,6 @@ $sub_f.AcceptButton= $ok_btn		# [Enter]
 	Write-Host '"ERROR: Safety Stopper >> setting - main"'
 
  }finally{
+	$pram_frm.Dispose()
  }
  

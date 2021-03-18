@@ -1,7 +1,7 @@
-; NM ALG  FB
-@001 %af_param
+﻿; NM ALG  FB%mask_param%
+@001 %af_param%
 ; AR  DR  SR  RR  SL  TL  KS  ML  DT AMS
- %op1_param
- %op2_param
- %op3_param
- %op4_param
+ %op1_param%
+ %op2_param%
+ %op3_param%
+ %op4_param%

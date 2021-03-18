@@ -1,0 +1,25 @@
+#Code "nsd_all.bin" 
+#Bank
+#timebase 24 //l4
+
+BGM(0){ t150
+TR1 Ev20 Q2 o3 @2 l4 ab>cdefga<
+
+TR3 En100 o4 l8 [errf+ errr]2 //BD
+TR4 Ev200  @0 o4 l8 [rrgr rrer]2 //Sn
+
+TR9,10,11,12,13,14 @V100 @0 //FM”g
+//TR9 v15 q8 o4 b1
+ }
+
+E(20){ L 15 R (15,2,20) L 2 } // Ev
+E(100){ (12,-18,9) L-18 } // En
+E(200){ (15,1,4),(7,1,8) L 0 } // Ev
+
+VRC7(100){
+;  TL  FB
+@  40   3
+;  AR  DR  SL  RR KSL  ML  AM VIB  EG KSR  DT
+   15   3  11   3   0   2   0   0   0   0   0
+   15   3  11   5   0   2   0   0   1   0   0
+ }

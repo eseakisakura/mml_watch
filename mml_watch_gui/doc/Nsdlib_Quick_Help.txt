@@ -1,0 +1,617 @@
+-- Nsdlib_Quick_Help.txt 
+
+-- NSDL(NES Sound Driver Library)より抜粋、一部加筆しています
+http://shaw.la.coocan.jp/nsdl/doc/index.html
+
+-- 当テキストは、構造化エディタで組まれてます。
+ 
+トラック指定 --romcode選択 
+
+⊿PCMバンク切替非対応----
+
+--nsd.bin
+TR1,2	APU(2A03) パルス波 ch1,2
+TR3	APU(2A03) 三角波
+TR4	APU(2A03) ノイズ
+TR5	APU(2A03) ⊿PCM
+
+--nsd_fds.bin
+TR6	FDS(ディスクシステム音源)
+
+--nsd_vrc6.bin
+TR6,7	VRC6 パルス波 ch1,2
+TR8	VRC6 鋸波
+
+--nsd_vrc7.bin
+TR6~11	VRC7(FM音源) ch1~6
+
+--nsd_mmc5.bin
+TR6,7	MMC5 パルス波 ch1,2
+
+--nsd_n163.bin
+TR6~13	n16x(波形メモリ音源) ch8~1
+
+--nsd_s5b.bin
+TR6,7,8	Sunsoft 5B ch1,2,3
+
+
+⊿PCMバンク切替対応----
+
+--nsd_all.bin
+TR6,7 		VRC6 パルス波 ch1,2
+TR8 		VRC6 鋸波
+TR9~14 		VRC7 (FM音源) ch1~6
+TR15,16 	MMC5 パルス波 ch1,2
+TR17~24		n16x (波形メモリ音源) ch8~1
+TR25,26,27	Sunsoft 5B ch1,2,3
+TR28 		制御用トラック(音符は発音しない)
+		曲全体のコマンド(テンポや、VRC7, n16xの
+		音色設定等)を記述できます。
+
+--nsd_all2.bin
+TR6 		FDS (ディスクシステム音源)
+TR7,8 		VRC6 パルス波 ch1,2
+TR9 		VRC6 鋸波
+TR10~15 	VRC7 (FM音源) ch1~6
+TR16,17 	MMC5 パルス波 ch1,2
+TR18~25 	n16x (波形メモリ音源) ch8~1
+TR26,27,28	Sunsoft 5B ch1,2,3
+TR29 		制御用トラック(音符は発音しない)
+		曲全体のコマンド(テンポや、VRC7, n16xの
+		音色設定等)を記述できます。
+ 
+数値の記法 ---- 
+
+	0~9で始まる数値は、10進数
+	$で始まる数値は、16進数
+	%で始まる数値は、2進数
+
+	a[length]
+	a4	Length
+	a%24	tick	(#timebase 24)
+
+
+	基本単位はtick
+
+	1frame= 1tick #timebase 24 t150
+	(1min= 60frame* 60s= 24tick* t150)
+
+	(1frame= 1/60s)
+ 
+;	comment 
+//	1行コメント
+
+/*~*/	範囲コメント
+|	小節線
+ 
+ヘッダ////// 
+	
+#title "str" 		タイトル名 
+#composer "str" 	作曲者
+#copyright "str" 	著作権者
+#maker "str"(nsf2)	製作者を設定
+#text "str"(nsf2)	テキストを設定
+
+
+#code "romcode" 	romcode(~.bin)指定
+
+#Bank			⊿PCMのバンク切替へ対応する
+			nsd_all.bin、
+			nsd_all2.binなどは必須
+
+#External num		nsfヘッダーに設定する
+			(拡張音源フラグ書き換え)
+
+
+#VRC7 num (nsf2)	VRC7,OPLL[0,1]の換装
+			(対応playerのみ可)
+
+#mixe {			拡張音源の音量バランス指定[+,-]
+id = volume,		id: 音源タイプ
+id = volume		[APU1,APU2,VRC6,VRC7,FDS,MMC5,N163,SN5B]
+}(nsf2)
+
+
+
+ 
+#QMax num		"Q"の分母の設定(def:8) 
+#QReverse		"Q"と"q"を入替え
+
+#octaveReverse		"<"と">"を入替え
+
+#RepeatMode mode	リピートA"[:]"各記法のコンパイル方法
+			[0~2](def:0)
+			0: 自動モード
+			1: 記法1driver,記法2compiler
+			2: 記法2driver,記法1compiler
+			(メモリ制約がある場合)
+
+#TieMode num		"^"のコンパイル方法の設定
+			[0,1](def:0)
+			0 :tai only
+			1 :tai+lengthがあると見る
+
+#rest num		"r"のコンパイル方法の設定
+			[0~3](def:2)
+			0: v0
+			1: R@,Rvの設定値
+			2: リリースパターン
+			3: Rmの設定値
+
+#wait num		"w"のコンパイル方法の設定
+			[0~3](def:0)
+			上記同
+
+#ReleaseVolume num	"Rv"コマンドの初期値の設定
+			[0~15](def:2)
+ 
+#offsetE@ [+n,-n]	"E@[num]"のnumを、nだけ加減する 
+#offsetEv [+n,-n]	"Ev[num]"のnumを、nだけ加減する
+#offsetEm [+n,-n]	"Em[num]"のnumを、nだけ加減する
+#offsetEn [+n,-n]	"En[num]"のnumを、nだけ加減する
+			[def:0]
+
+#offsetPCM address	⊿PCMを配置するアドレスを指定
+			(#Bank時は不要)
+			[def:$10000](⊿PCM無し)
+
+			exp. #offsetPCM $C000
+ 
+#include "file"		外部ファイルの呼込み 
+
+#bgm num		[def:1] BGM(曲)数の設定
+#se num			[def:0] SE(効果音)数の設定
+
+#plst {n,n,n}(nsf2)	BGMの演奏順番[n:0~255]
+#psfx {n,n,n}(nsf2)	SEの演奏順番[n:0~255]
+
+#priority num		+[0~3]-(def:0) 以降のSE(効果音)優先度の設定
+
+#timebase num		(def:24) 4分音符分解能の設定
+			(随時シーケンス(sqr)ブロック(BGM,SE,Sub)へ適用可)
+
+
+#label "str"(nsf2)	sqrブロックの曲名を設定
+#author "str"(nsf2)	sqrブロックの作曲者を設定
+
+#time n (nsf2)		(def:-1)sqrブロックの演奏時間をmsecで設定
+			0: 直ちにFade out
+
+#fade n (nsf2)		(def:-1)sqrブロックのFade out時間をmsecで設定
+			0: Fadeしない
+  
+定義ブロック////// 
+	
+BGM(num){~}	BGM シーケンス(sqr)記述ブロック 
+SE(num){~}	SE シーケンス(sqr)記述ブロック
+ 
+Sub(num){~}	サブルーチン記述ブロック 
+S(num){~}
+
+exp.
+S20{ aa }
+
+BGM(20){
+	S20
+ }
+ 
+$name{~}	マクロ(シーケンス外部で定義) 
+$$name{~}	ローカルマクロ(シーケンス内部で定義)
+
+exp.
+$macro1{aa}
+
+BGM(20){
+	$$macro2{bb}
+
+	$macro1 $macro2
+ }
+ 
+Envelop(num){ value~ }	エンベロープ定義 
+E(num){ value }
+
+	--音程(Note)
+	通常
+	value	[-64~63]
+
+	APU Noise(Note numの下位4bit)
+	value
+		[o5c~o5d+](o1a,o2a,o3a,o4d)
+		[o5e~o5g](o4a,o5d,o5a,o6c)
+		[o5g+~05b](o6f,o6a,o7d,o7a)
+		[o6c~06d+](o8a,o9a,o10a,o11a)
+
+	 -> En
+
+	--周波数(Pitch)
+
+	value	[-64~63](16= 100cent(半音))
+
+	-> Em
+
+	--音色
+
+	value[MML command - "@"参照]
+
+	-> E@
+
+	--音量
+
+	value	[0~15]
+
+	APU TRI	[0~4] <-> s[0~127]
+		(Mute, 4.17, 8.33, 12.5, 16.7msec)
+		(4:当該frame間、常に発音)
+		リニアカウンター
+
+	FDS 	[0~63] Carrier.Gain
+
+	VRC6 SAW[0~63]
+
+	-> Ev
+
+exp.
+E(20){ (8,15,3),(15,8,100) L8  R (8,0,3) L0 }
+ 
+Patch(num){~}	パッチ定義(KeyAssgin) 
+P(num){~}
+
+exp.
+P(20){
+        @NS  0,32   _+36    Ev0	    //Range= c1 - g#1
+    a1  @NS  0,32   _+36    Ev1	    //Range= a1 - d#2
+    e2  @NS  0,32   _+36    Ev2	    //Range= e2 - g#2
+    a2  @NS  0,32   _+36    Ev3	    //Range= a2 - d#3
+
+    e7  @NS112,16   _+24    Ev12    //Range= e7 - g#7
+    a7  @NS112,16   _+24    Ev13    //Range= a7 - d#8
+    e8  @NS112,16   _+24    Ev14    //Range= e8 - g#8
+    a8  @NS112,16   _+24    Ev15    //Range= a8 - d#9
+ }
+
+
+ 
+DPCM{~}		⊿PCMの定義 
+@DPCM{~}
+
+exp.
+DPCM{
+	b1,	"../dmc/bd.dmc",14,0,64
+	e2,	"../dmc/sd.dmc",14,0,64
+	c+3,	"../dmc/cymbal.dmc",15,0,64
+
+	f2,	"../dmc/tom.dmc",10,0,64
+	b2,	"../dmc/tom.dmc",13,0,64
+	d3,	"../dmc/tom.dmc",15,0,64
+ }
+
+
+
+
+ 
+FDSC(num){~} 	FDS career波形定義 
+
+exp.
+FDSC(20){
+	00 01 02 03  04 06 07 09  11 14 16 19  24 32 43 52
+	60 63 63 62  61 58 54 50  47 44 41 38  36 33 30 24
+	25 24 30 33  36 38 41 44  47 50 54 58  61 62 63 63
+	60 52 43 32  24 19 16 14  11 09 07 06  04 03 02 01
+ }
+
+FDSM(num){~} 	FDS modulator波形定義
+
+exp.
+FDSM(20){
+	0,7,0,7, 0,7,0,7, 0,1,0,1, 0,1,0,1,
+	0,1,0,1, 0,1,0,1, 0,7,0,7, 0,7,0,7
+ }
+ 
+VRC7(num){~} 	VRC7ユーザー音色定義 
+
+exp.
+VRC7(20){	//Piano
+	//	TL FB
+	@	18  4
+	//	AR DR SL RR KL MT AM VB EG KR DT
+		15  1  3  3  2  1  0  0  0  1  1
+		15  2  3  1  0  1  0  0  0  1  0
+ }
+ 
+N163(num){~}	n16x波形定義 
+@N(n){~}
+
+exp.
+N163(20){	//Pipe Organ 32Sample
+	8, 5, 4, 3,  8,11, 5, 8,  7, 8,11, 8,  8,12, 6,10,
+	4, 1, 0, 1,  4,10, 5, 7,  7, 9,14,11, 10,15, 9,13
+ }
+  
+MML command////// 
+	
+t	Tempo	t[num] 
+t_	相対テンポ
+ 
+a~g	音符	a[length] 
+	a4
+	a%24
+
+a+,a#	#
+a-	b
+a=,a*	ナチュラル
+
+a..	付点	a4&a8&a16
+
+
+a+(,a^)	加算	a2+4(,l2a^4)(※#TieMode:1を設定)
+a-,a~	減算	a1-4,l1a~4
+
+ 
+a^	タイ 
+
+a&b	スラー
+
+
+P	ポルタメント(sweep)
+	P[delay,rate,depth,target]
+	exp. P20,1,-7,-24
+
+{~}	ポルタメント2
+	exp.
+	{c#2&>c#}
+	{c#2>c#}&
+	{c#&>c#}2
+	{c#>c#}2&
+ 
+r,w	休符 rest,wait 
+	(※restがwait的な振舞 <- def.設定)
+
+	r-	:v0
+	r+,r#	:R@, Rvの設定値
+	r=	:リリースパターン
+	r*	:Rmの設定値
+
+	exp. v15 Rv15 a1 s11,5 r=1 s11,13 w1+
+ 
+o	Octave	o[1~8] 
+
+>,<	相対oct. [-1,+1]
+",`	一時oct. [-1,+1]
+ 
+l	Length 音長 l[length] 
+
+v	音量	v[0~15]
+),(	相対vol [-1,+1]
+
+Q	gate-quantize	(q:疑似命令)
+q	[tick]減算ゲート
+
+u	lengthのゲート
+ 
+@	音色	@[num]、@2 
+
+	APU SQ   [0~3]	(12.5, 25, 50, 75%)
+	    Noise[0,1]	long,short
+
+	MMC5 [0~3]	(12.5, 25, 50, 75%)
+
+	FDS [0~63]	Modulator.Gain
+
+	N16x [0~63]	@0 s56(32byte) -> @NS0,32
+
+	Sun5B [0~31]	Noise
+	      [32~63]	Tone& Noise
+	      64	Tone
+	      96	Mute
+
+	VRC6 SQ [0~7]	(6.25, 12.5, 18.75, 25%,
+			31.25, 37.5, 43.75, 50%)
+
+	VRC7 [0,1~15]	(User,Preset)
+
+	     Preset音色	1~3	(Synth,E.Guitar,Piano)
+			4~7	(Flute,Clarinet,Bell,Trumpet)
+			8~11	(Violin,Horn,MusicBox,Vibraphone)
+			12~15	(SAW,AcousticBs,SynthBs1,SynthBs2)
+
+	     [32~47]	Modulator.ML	(-32の値)
+	     [48~63]	Carrier.ML	(-48の値)
+	     [64~127]	Modulator.TL	(-64の値)
+
+
+exp.	(@0 @V100; vrc7User呼出し)
+
+#Code "nsd_all.bin"
+#Bank
+#TieMode 1
+VRC7(100){
+;  TL  FB
+@   3   5
+;  AR  DR  SL  RR KSL  ML  AM VIB  EG KSR  DT
+   15   3   4   1   0   4   0   0   1   0   0
+   15   3  10   8   0   0   0   0   1   0   0
+ }
+E(300){ (127,64,30) L64 } // E@ Modulator.TL
+BGM(0){ TR9 @0 @V100 E@300 v15 Q8 [ f1r1 ]4 }
+ 
+@FC	FDS音源career波形 
+	@FC[num] <- FDSC(num)
+
+@FF	FDS音源modulator周波数
+	@FF[0:mute,1~4095]、@FF16
+
+@FM	FDS音源modulator波形
+	@FMnum <- FDSM(num)
+
+@FV	FDSマスター音量
+	@FV[def.0~3]、@FV3
+	(1/1, 2/3, 1/2, 2/5)
+
+
+NC	n16xのch数指定
+	NC[1~8]、NC4
+
+@N	n16x音色波形のレジスタ転送
+	@N0,num @N8,num
+	<- N163(num) 32Sample(16Byte) 16Sample
+
+@NL	n16x音色波形のsample転送
+	@NL0,num @NL32,num
+	<- N163(num) 32Sample 16Sample
+
+@NS	n16x波形＆sample長指定
+	@NS0,32 @NS32,16
+	<- @N,@NL 32Sample 16Sample
+
+
+@V	vrc7user定義音色 @Vnum、@0 @V20
+	(VRC7の"user音色@0"へロード)
+
+
+F	Sunsoft 5B env周波数 F[frequency]、F1000
+ 
+E@	音色env、E@[num] 
+	(@numで無効)
+
+Ev	音量env、Ev[num]
+	(Ev*で無効)
+
+Em	ベンドenv、Em[num]
+	(Em*で無効)
+
+En	音程env、En[num]
+	(En*で無効)
+ 
+R@	KeyOff時の音色、R@2 
+Rv	KeyOff時の音量、Rv2
+
+Rm	KeyOff時の処理、Rm[mode]
+	mode
+	0 :v0(⊿PCMはKeyOff)
+	1 :R@, Rvの設定値
+	2 :リリースパターン(Default)
+ 
+k	KeyShift k[-128~127](_:疑似命令) 
+k_	相対キーシフト
+
+_	transpose _[-128~127]
+__	相対転調
+
+K{~}	移調、K{-eab} //Min scale
+
+ 
+D	Detune(cent単位) D[-128~127]、D3 
+D%	デチューン(register単位) D%[-128~127]
+ 
+EC	疑似エコー 
+	EC[delay,volume(,length)]、EC2,4
+
+	delay	[0:直前音~] (何音前か)
+	volume	[-1:スラー,0~15]
+	length	[-1:r休符のecho,音長減echo:1~255](def.-1)
+	(EC*で無効)
+
+	exp. v15 EC1,5 l8 arbr crdrer arbr crdrer
+	(※wだとエコーしない <- def.設定)
+ 
+s	拡張命令 s[num,num] 
+
+	--APU SQ スイープ s[speed,depth]
+
+	speed
+		[0~7]	off(Default)
+		[8~11]	(120,60,40,30Hz)
+		[12~15]	(24,20,17.1, 15Hz)
+
+	depth(Regx Shift)(def.8)
+
+		[0~7]	(0,-7,-6,-5, -4,-3,-2,-1)
+		[8~15]	(0,7,6,5, 4,3,2,1)
+
+	(sweep解除: s0,8)
+	s9,7; sweepを設定
+	exp. TR1 s9,7 c2 s9,15 ^2 s0,8
+
+
+	--APU TRI リニアカウンタ s[time]
+
+	240Hz単位で、ハードウェアによる、
+	自動的なKeyOffが行える
+
+	time
+		[128]	  mute
+		[0~127]	  リニアカウンタ(0~529msec)
+		[129~255] off(Default)
+
+	(Ev未使用時、sで指定する)
+	s64;
+
+
+	--FDS bias スイープ s[num]
+
+	num
+		[0~127](def:0)
+		[64~127](-64~-1)
+
+	s64;
+
+
+	--VRC7 KeyOff sustain 余韻の制御 s[num]
+
+	num
+		s0: hard,env. 無効
+		s1: hard,env. 有効 RR= 5
+		s2: env. 無効
+		s3: env. 有効
+
+
+	--n16x Sample Length 波形長 s[num]
+
+	num
+		56 	32(16 byte)
+		57 	28(14 byte)
+		58 	24(12 byte)
+		59 	20(10 byte)
+		60 	16( 8 byte)
+		61 	12( 6 byte)
+		62 	8 ( 4 byte)
+		63 	4 ( 2 byte)
+
+	@0 s56  <-> @NS0,32
+
+
+	--Sunsoft 5B ハードウェアenv. s[switch,form]
+
+	switch	[0,1](off,on)	ハードウェアenv.
+	form	(def.0)		env.の形状
+
+	s1,0;
+ 
+y	メモリ書き込み y[address,data] (組み込み向け) 
+
+
+yV	VRC7のレジスタを叩く専用 yV[address,data]
+
+	address	[0~63]
+	data	[0~255]
+ 
+$	マクロ呼び出し $[name] 
+S	サブルーチン呼出し S[num]
+
+@P	音色パッチ @P[num]
+
+SE	効果音呼出し SE[num]
+ 
+L		無限ループ 
+
+[num : ]num	(MML記法1)リピートA
+[:num : :]num	(MML記法2)
+
+|: \ :|	:|	(楽譜記法)リピートB
+ 
+j	Jump [1,0] (on,off) 
+	(全トラック、Driver実装)
+
+J	ジャンプ早送り
+	(指定のトラックのみ、疑似命令)
+  
