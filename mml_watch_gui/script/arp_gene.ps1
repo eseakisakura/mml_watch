@@ -415,7 +415,7 @@ $rot["4D"]=	"4313 1313",
 		"432 123 132 132"
  
 # gui 
-	 
+	
 function Trayarp_hide([string]$t){ 
 
 	switch($t){
@@ -721,7 +721,7 @@ function Arpstus_build(){
 	[string[]]$t= Split_path $val["compiler"]
 	[string[]]$s= Split_path $val["player"]
 
-	$arp_label.Text= "  cmp: "+ $t[0]+ " | ply: "+ $s[0]+ " / oct: "+ $opt["oct"] +" | Track Header: "+ $comb_prefix.SelectedItem
+	$arp_label.Text= "  cmp: "+ $t[0]+ " | ply: "+ $s[0]+ " | oct: "+ $opt["oct"] +" | Track Header: "+ $comb_prefix.SelectedItem
  } #func
  
 function Arpchange_menu([string]$name, [string]$sw){ 
@@ -831,7 +831,7 @@ function Arpwrite_xml($x,$y){
  } #func
   
 # Chord select 
-	 
+	
 function Key_chk([string]$kk){ 
 
 	$r= @{}
@@ -1570,7 +1570,7 @@ function Apeg([string]$tt){
 } #func
   
 # Exp 
-	 
+	
 function Prefixarp_mml([string]$t, [string]$g){ 
 
 	[int]$trk_num= $nmud_trk.Value
@@ -1690,7 +1690,7 @@ function Lisnarp_nsf([int]$sw, [string]$lis){
  } #sw
 
 } #func
- 	
+ 
 function Keydown_arp([string]$t){ 
 
   switch($t){
@@ -2095,7 +2095,7 @@ $mml_grp.Text= "MML arpeggio"
 $mml_grp.Size= "530,415"
 $mml_grp.Location= "10,130"
 $mml_grp.FlatStyle= "Flat"
-	 
+	
 $label_apeg= New-Object System.Windows.Forms.Label 
 $label_apeg.Text= "Arpeggio"
 $label_apeg.Size= "75,20"
@@ -3110,6 +3110,26 @@ $arp_menu_whelp.Add_Click({
  }
 })
 
+$arp_menu_spy= New-Object System.Windows.Forms.ToolStripSeparator
+$arp_menu_py= New-Object System.Windows.Forms.ToolStripMenuItem
+$arp_menu_py.Text= "Player open"
+
+$arp_menu_py.Add_Click({
+ try{
+	[string]$retn= Player_open $val["player"]
+
+	if($retn -ne ""){
+
+		$retn= [Windows.Forms.MessageBox]::Show(
+		$retn, "確認", "OK","Information","Button1"
+		)
+	}
+ }catch{
+	echo $_.exception
+ }
+})
+
+$arp_menu_srld= New-Object System.Windows.Forms.ToolStripSeparator
 $arp_menu_rld= New-Object System.Windows.Forms.ToolStripMenuItem
 $arp_menu_rld.Text= "Header reload"
 $arp_menu_rld.Add_Click({
@@ -3117,6 +3137,12 @@ $arp_menu_rld.Add_Click({
 	$script:header["arp_header_mck"]= (cat '.\header\arp_header_mck' | Out-String)
 	$script:header["arp_header_nsd"]= (cat '.\header\arp_header_nsd' | Out-String)
 	$script:header["arp_header_pmd"]= (cat '.\header\arp_header_pmd' | Out-String)
+
+	Write-Host '<< headerをリロードしました'
+
+	$retn= [Windows.Forms.MessageBox]::Show(
+	"headerをリロードしました", "確認", "OK","Information","Button1"
+	)
  }catch{
 	echo $_.exception
  }
@@ -3173,14 +3199,14 @@ $arp_menu_kt.DropDownItems.AddRange(@($menu_aty))
 $arp_menu_f.DropDownItems.AddRange(@($arp_menu_kt,$arp_menu_sn,$arp_menu_n))
 $arp_menu_o.DropDownItems.AddRange(@($arp_menu_ud,$arp_menu_comn,$arp_menu_comp,$arp_menu_play,$arp_menu_dosv,$arp_menu_edit,$arp_menu_setn,$arp_menu_set))
 $arp_menu_m.DropDownItems.AddRange(@($arp_menu_oct1,$arp_menu_oct2,$arp_menu_oct3,$arp_menu_oct4,$arp_menu_oct5,$arp_menu_oct6,$arp_menu_oct7,$arp_menu_oct8))
-$arp_menu_b.DropDownItems.AddRange(@($arp_menu_mlun,$Arp_menu_mml,$Arp_menu_fix))
-$arp_menu_h.DropDownItems.AddRange(@($arp_menu_adv,$arp_menu_rld,$arp_menu_whelp))
+$arp_menu_b.DropDownItems.AddRange(@($Arp_menu_mml,$arp_menu_mlun,$Arp_menu_fix))
+$arp_menu_h.DropDownItems.AddRange(@($arp_menu_py,$arp_menu_spy,$arp_menu_adv,$arp_menu_rld,$arp_menu_srld,$arp_menu_whelp))
 
 $arp_mnu.Items.AddRange(@($arp_menu_f,$arp_menu_o,$arp_menu_m,$arp_menu_b,$arp_menu_h))
 
 $arp_stus.Items.AddRange(@($arp_label))
 $frm_arp.Controls.AddRange(@($arp_mnu,$chd_grp,$flet_grp,$mml_grp,$arp_stus))
- 
+ 	
 # ------ main 
 
  try{

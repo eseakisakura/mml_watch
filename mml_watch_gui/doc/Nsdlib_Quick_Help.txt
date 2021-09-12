@@ -5,57 +5,57 @@ http://shaw.la.coocan.jp/nsdl/doc/index.html
 
 -- 当テキストは、構造化エディタで組まれてます。
  
-トラック指定 --romcode選択 
+トラック指定 -- #code "romcode" 
 
 ⊿PCMバンク切替非対応----
 
---nsd.bin
+#code "nsd.bin"
 TR1,2	APU(2A03) パルス波 ch1,2
 TR3	APU(2A03) 三角波
 TR4	APU(2A03) ノイズ
 TR5	APU(2A03) ⊿PCM
 
---nsd_fds.bin
+#code "nsd_fds.bin"
 TR6	FDS(ディスクシステム音源)
 
---nsd_vrc6.bin
+#code "nsd_vrc6.bin"
 TR6,7	VRC6 パルス波 ch1,2
 TR8	VRC6 鋸波
 
---nsd_vrc7.bin
+#code "nsd_vrc7.bin"
 TR6~11	VRC7(FM音源) ch1~6
 
---nsd_mmc5.bin
+#code "nsd_mmc5.bin"
 TR6,7	MMC5 パルス波 ch1,2
 
---nsd_n163.bin
+#code "nsd_n163.bin"
 TR6~13	n16x(波形メモリ音源) ch8~1
 
---nsd_s5b.bin
-TR6,7,8	Sunsoft 5B ch1,2,3
+#code "nsd_s5b.bin"
+TR6,7,8	Sunsoft 5B(Tone& Noise) ch1,2,3
 
 
 ⊿PCMバンク切替対応----
 
---nsd_all.bin
+#code "nsd_all.bin"
 TR6,7 		VRC6 パルス波 ch1,2
 TR8 		VRC6 鋸波
 TR9~14 		VRC7 (FM音源) ch1~6
 TR15,16 	MMC5 パルス波 ch1,2
 TR17~24		n16x (波形メモリ音源) ch8~1
-TR25,26,27	Sunsoft 5B ch1,2,3
+TR25,26,27	Sunsoft 5B(Tone& Noise) ch1,2,3
 TR28 		制御用トラック(音符は発音しない)
 		曲全体のコマンド(テンポや、VRC7, n16xの
 		音色設定等)を記述できます。
 
---nsd_all2.bin
+#code "nsd_all2.bin"
 TR6 		FDS (ディスクシステム音源)
 TR7,8 		VRC6 パルス波 ch1,2
 TR9 		VRC6 鋸波
 TR10~15 	VRC7 (FM音源) ch1~6
 TR16,17 	MMC5 パルス波 ch1,2
 TR18~25 	n16x (波形メモリ音源) ch8~1
-TR26,27,28	Sunsoft 5B ch1,2,3
+TR26,27,28	Sunsoft 5B(Tone& Noise) ch1,2,3
 TR29 		制御用トラック(音符は発音しない)
 		曲全体のコマンド(テンポや、VRC7, n16xの
 		音色設定等)を記述できます。
@@ -78,14 +78,16 @@ TR29 		制御用トラック(音符は発音しない)
 
 	(1frame= 1/60s)
  
-;	comment 
+;	1行comment 
+
 //	1行コメント
 
-/*~*/	範囲コメント
+/*~*/	範囲コメント (入れ子不可)
+
 |	小節線
  
 ヘッダ////// 
-	
+	 
 #title "str" 		タイトル名 
 #composer "str" 	作曲者
 #copyright "str" 	著作権者
@@ -93,7 +95,7 @@ TR29 		制御用トラック(音符は発音しない)
 #text "str"(nsf2)	テキストを設定
 
 
-#code "romcode" 	romcode(~.bin)指定
+#code "romcode"		romcode(~.bin)指定
 
 #Bank			⊿PCMのバンク切替へ対応する
 			nsd_all.bin、
@@ -181,7 +183,7 @@ id = volume		[APU1,APU2,VRC6,VRC7,FDS,MMC5,N163,SN5B]
 			0: Fadeしない
   
 定義ブロック////// 
-	
+	 
 BGM(num){~}	BGM シーケンス(sqr)記述ブロック 
 SE(num){~}	SE シーケンス(sqr)記述ブロック
  
@@ -196,6 +198,7 @@ BGM(20){
  }
  
 $name{~}	マクロ(シーケンス外部で定義) 
+
 $$name{~}	ローカルマクロ(シーケンス内部で定義)
 
 exp.
@@ -210,7 +213,7 @@ BGM(20){
 Envelop(num){ value~ }	エンベロープ定義 
 E(num){ value }
 
-	--音程(Note)
+	--音程(Note) -> En
 	通常
 	value	[-64~63]
 
@@ -221,34 +224,33 @@ E(num){ value }
 		[o5g+~05b](o6f,o6a,o7d,o7a)
 		[o6c~06d+](o8a,o9a,o10a,o11a)
 
-	 -> En
 
-	--周波数(Pitch)
+
+	--周波数(Pitch)	-> Em
 
 	value	[-64~63](16= 100cent(半音))
 
-	-> Em
 
-	--音色
+
+	--音色	-> E@
 
 	value[MML command - "@"参照]
 
-	-> E@
 
-	--音量
+
+	--音量	-> Ev
 
 	value	[0~15]
 
 	APU TRI	[0~4] <-> s[0~127]
-		(Mute, 4.17, 8.33, 12.5, 16.7msec)
-		(4:当該frame間、常に発音)
+		(Mute, 4.17, 8.33, 12.5msec)
+		(4: 16.7msec [当該frame間、常に発音])
 		リニアカウンター
 
 	FDS 	[0~63] Carrier.Gain
 
 	VRC6 SAW[0~63]
 
-	-> Ev
 
 exp.
 E(20){ (8,15,3),(15,8,100) L8  R (8,0,3) L0 }
@@ -258,15 +260,15 @@ P(num){~}
 
 exp.
 P(20){
-        @NS  0,32   _+36    Ev0	    //Range= c1 - g#1
-    a1  @NS  0,32   _+36    Ev1	    //Range= a1 - d#2
-    e2  @NS  0,32   _+36    Ev2	    //Range= e2 - g#2
-    a2  @NS  0,32   _+36    Ev3	    //Range= a2 - d#3
+        @NS64,32   _+36    Ev0	    //Range= c1 - g#1
+    a1  @NS64,32   _+36    Ev1	    //Range= a1 - d#2
+    e2  @NS64,32   _+36    Ev2	    //Range= e2 - g#2
+    a2  @NS64,32   _+36    Ev3	    //Range= a2 - d#3
 
-    e7  @NS112,16   _+24    Ev12    //Range= e7 - g#7
-    a7  @NS112,16   _+24    Ev13    //Range= a7 - d#8
-    e8  @NS112,16   _+24    Ev14    //Range= e8 - g#8
-    a8  @NS112,16   _+24    Ev15    //Range= a8 - d#9
+    e7  @NS96,16   _+24    Ev12    //Range= e7 - g#7
+    a7  @NS96,16   _+24    Ev13    //Range= a7 - d#8
+    e8  @NS96,16   _+24    Ev14    //Range= e8 - g#8
+    a8  @NS96,16   _+24    Ev15    //Range= a8 - d#9
  }
 
 
@@ -322,13 +324,17 @@ N163(num){~}	n16x波形定義
 @N(n){~}
 
 exp.
-N163(20){	//Pipe Organ 32Sample
+N163(20){	//Pipe Organ  32Sample(16Byte)
 	8, 5, 4, 3,  8,11, 5, 8,  7, 8,11, 8,  8,12, 6,10,
 	4, 1, 0, 1,  4,10, 5, 7,  7, 9,14,11, 10,15, 9,13
  }
+
+	呼出し -> NC4 @NL64,20 @NS64
+
+	@NL64,0 /*= @N16,0 */ @NS64,32 /*= @16 s56 */
   
 MML command////// 
-	
+	 
 t	Tempo	t[num] 
 t_	相対テンポ
  
@@ -350,11 +356,10 @@ a-,a~	減算	a1-4,l1a~4
 a^	タイ 
 
 a&b	スラー
-
-
-P	ポルタメント(sweep)
+ 
+P	ポルタメント(sweep) 
 	P[delay,rate,depth,target]
-	exp. P20,1,-7,-24
+	exp.P20,1,-7,-24
 
 {~}	ポルタメント2
 	exp.
@@ -379,11 +384,16 @@ o	Octave	o[1~8]
 ",`	一時oct. [-1,+1]
  
 l	Length 音長 l[length] 
-
-v	音量	v[0~15]
+ 
+v	音量	v[0~15] 共通 (APU[TRI,DPCM]指定不可) 
 ),(	相対vol [-1,+1]
 
-Q	gate-quantize	(q:疑似命令)
+	APU TRI -> Ev リニアカウンター
+	FDS 	-> Ev [0~63] Carrier.Gain
+	VRC6 SAW-> Ev [0~63]
+ 
+Q	gate-quantize	(q:疑似命令) 
+
 q	[tick]減算ゲート
 
 u	lengthのゲート
@@ -397,7 +407,8 @@ u	lengthのゲート
 
 	FDS [0~63]	Modulator.Gain
 
-	N16x [0~63]	@0 s56(32byte) -> @NS0,32
+	n16x [0~63]	@address/2, (64-length)*4
+			@16 s56(32sample) -> @NS64,32
 
 	Sun5B [0~31]	Noise
 	      [32~63]	Tone& Noise
@@ -448,28 +459,41 @@ BGM(0){ TR9 @0 @V100 E@300 v15 Q8 [ f1r1 ]4 }
 	(1/1, 2/3, 1/2, 2/5)
 
 
-NC	n16xのch数指定
+NC	n16xのch数指定(sample長、ch数によりoct.が変動)
 	NC[1~8]、NC4
 
-@N	n16x音色波形のレジスタ転送
-	@N0,num @N8,num
-	<- N163(num) 32Sample(16Byte) 16Sample
+	exp.NC4 @NL64,20 @NS64 //32sample(16Byte)
 
-@NL	n16x音色波形のsample転送
-	@NL0,num @NL32,num
-	<- N163(num) 32Sample 16Sample
+	    @NL64,20 /*= @N16,20 */ @NS64,32 /*= @16 s56 */
 
-@NS	n16x波形＆sample長指定
-	@NS0,32 @NS32,16
-	<- @N,@NL 32Sample 16Sample
+@N	n16x音色波形のレジスタ転送 @N address/2, num
+	@N16,num	// N163(num) 32Sample(16Byte)
+	@N24,num	// N163(num) 16Sample( 8Byte)
+
+@NL	n16x音色波形のsample転送 @N address*2,num
+	@NL64,num
+	@NL96,num
+
+@NS	n16x波形＆sample長指定 @NS address*2(,sample) [def:32sample]
+	@NS64	  = @16 s56
+	@NS96,16  = @24 s60
+
+	(addressは最後の値で、sample分、前を読む)
+
+	|[20] 32sample |[30] 16sample | と読み込む場合、
+	|0          32 |32         48 | sample
+	|           64 |           96 | address*2
+
+	TR17 NC4 @NL64,20 @NS64,32
+	TR18 @NL96,30 @NS96,16
 
 
 @V	vrc7user定義音色 @Vnum、@0 @V20
 	(VRC7の"user音色@0"へロード)
 
 
-F	Sunsoft 5B env周波数 F[frequency]、F1000
- 
+F	Sunsoft5B env周波数 F[frequency]、F1000
+ 	
 E@	音色env、E@[num] 
 	(@numで無効)
 
@@ -497,7 +521,8 @@ k_	相対キーシフト
 _	transpose _[-128~127]
 __	相対転調
 
-K{~}	移調、K{-eab} //Min scale
+K{~}	移調	K{-eab} //Min scale
+		K{=eab} //調号なし
 
  
 D	Detune(cent単位) D[-128~127]、D3 
@@ -565,22 +590,20 @@ s	拡張命令 s[num,num]
 		s3: env. 有効
 
 
-	--n16x Sample Length 波形長 s[num]
+	--n16x s[num]	Sample Length	MaxTR
 
-	num
-		56 	32(16 byte)
-		57 	28(14 byte)
-		58 	24(12 byte)
-		59 	20(10 byte)
-		60 	16( 8 byte)
-		61 	12( 6 byte)
-		62 	8 ( 4 byte)
-		63 	4 ( 2 byte)
+		num
+		 0 	128(64 byte)	NC1
+		22 	 64(32 byte)	NC2
+		56 	 32(16 byte)	NC4
+		60 	 16( 8 byte)	NC8
+		62 	  8( 4 byte)
+		63 	  4( 2 byte)
 
-	@0 s56  <-> @NS0,32
+	@16 s56	//32sample(16Byte)
 
 
-	--Sunsoft 5B ハードウェアenv. s[switch,form]
+	--Sunsoft5B ハードウェアenv. s[switch,form]
 
 	switch	[0,1](off,on)	ハードウェアenv.
 	form	(def.0)		env.の形状
@@ -595,7 +618,8 @@ yV	VRC7のレジスタを叩く専用 yV[address,data]
 	address	[0~63]
 	data	[0~255]
  
-$	マクロ呼び出し $[name] 
+$	マクロ、ローカルマクロ呼び出し $[name] 
+
 S	サブルーチン呼出し S[num]
 
 @P	音色パッチ @P[num]

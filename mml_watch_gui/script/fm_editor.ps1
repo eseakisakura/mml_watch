@@ -529,7 +529,7 @@ function Poly_4op([array]$v, [int]$j){ # 4op ADSR render
 
 	$xy[$j][0]= $width* $v[$j][0]/ 31	# ar
 	$xy[$j][1]= $width* $v[$j][1]/ 31	# dr
-	$xy[$j][2]= $height* $v[$j][2]/ 15	# sl
+	$xy[$j][2]= $height* (15- $v[$j][2])/ 15 # sl # 0max
 	$xy[$j][3]= $width* $v[$j][3]/ 31	# sr
 	$xy[$j][4]= $xy[$j][2]* $v[$j][3]/ 31	# rl
 	$xy[$j][5]= $width* $v[$j][4]/ 15	# rr
@@ -629,7 +629,7 @@ function Poly_2op([array]$v, [int]$j){ # 2op ADSR render
 
 	$xy[$j][0]= $width* $v[$j][0]/ 15	# ar
 	$xy[$j][1]= $width* $v[$j][1]/ 15	# dr
-	$xy[$j][2]= $height* $v[$j][2]/ 15	# sl
+	$xy[$j][2]= $height* (15- $v[$j][2])/ 15 # sl # 0max
 	$xy[$j][3]= $width			# hold
 	$xy[$j][4]= $width* $v[$j][3]/ 15	# rr
 
@@ -1203,7 +1203,7 @@ function Sin_chg(){
  } #func
   
 # alg 
-	 
+	
 function Attend_alg([int]$j){ 
 
 	switch($j){
@@ -1307,7 +1307,7 @@ function Color_alg([string]$t){
  
 function Stus_alg(){ # status bar 
 
-	$sb_label.Text= "  1/"+ $bai+ " | "+ "adjust: "+ $key["adjust"]+ " | "+ "wait: "+ $key["wait"]+ "ms"+ " / "+ "layout: "+ $key["layout"]+ " | "+ $key["color"]+ " color"
+	$sb_label.Text= "  1/"+ $bai+ " | "+ "adjust: "+ $key["adjust"]+ " | "+ "wait: "+ $key["wait"]+ "ms"+ " | "+ "layout: "+ $key["layout"]+ " | "+ $key["color"]+ " color"
 
  } #func
  
@@ -2811,7 +2811,7 @@ function Change_menu([string]$name, [string]$sw){
 		switch($name){
 		'mck'{    $script:val[$sw]= $val["mck"]; break;
 		}'nsd'{	  $script:val[$sw]= $val["nsd"]; break;
-		}'pmd'{	  $script:val[$sw]= $val["pmd"]; break;	
+		}'pmd'{	  $script:val[$sw]= $val["pmd"]; break;
 		}default{ $script:val[$sw]= $comp[$name]
 		}
 		} #sw
@@ -2832,7 +2832,7 @@ function Stus_build(){
 	[string[]]$t= Split_path $val["compiler"]
 	[string[]]$s= Split_path $val["player"]
 
-	[string]$q= "  cmp: "+ $t[0]+ " | ply: "+ $s[0]+ " / oct: "+ $key["oct"]
+	[string]$q= "  cmp: "+ $t[0]+ " | ply: "+ $s[0]+ " | oct: "+ $key["oct"]
 	[string]$b= " | "+ $comb_fm.SelectedItem+ ": "
 
 	switch($comb_fm.SelectedItem){
@@ -3250,7 +3250,7 @@ function MSop_checker([int]$i, [string]$ss){ # Mask,SSG
   
 # Panel 
 	
-function Enable_chk(){ 
+function Enable_chk([string]$s){ 
 
 	[int[]]$num= 0,0
 
@@ -3260,7 +3260,7 @@ function Enable_chk(){
 	}
 	} #sw
 
-	switch($key["style"]){
+	switch($s){
 	'fmp7'{		$num[1]= 1; break;
 	}'mucom'{	$num[1]= 1; break;
 	}'mxdrv'{	$num[1]= 1
@@ -3293,7 +3293,9 @@ function Type_sw([string]$t){
  
 function Style_sw([string]$t){ 
 
-  $fm_menu_copy.Enabled= Enable_chk
+  $fm_menu_copy.Enabled= Enable_chk $t
+
+  #初期化
   $opn_nmud_ams.BackColor= "white"
   $opm_nmud_ams.BackColor= "white"
   $opn_nmud_ams.ForeColor= "black"
@@ -3309,12 +3311,15 @@ function Style_sw([string]$t){
 		break;
   }'fmp7'{	$fm_menu_style_fmp7.Text= "[v] FMP7"
 		break;
-  }'mucom'{	$fm_menu_style_mucom.Text= "[v] MUCOM"
+  }'mucom'{
 		$opn_nmud_ams.BackColor= "beige"
 		$opm_nmud_ams.BackColor= "beige"
 		$opn_nmud_ams.ForeColor= "silver"
 		$opm_nmud_ams.ForeColor= "silver"
+
+		$fm_menu_style_mucom.Text= "[v] MUCOM"
 		break;
+
   }'mxdrv'{	$fm_menu_style_mxdrv.Text= "[v] MXDRV"
   }
   } #sw
@@ -3875,9 +3880,8 @@ function Mck_listen([string]$ss){
 	$hh= $hh.Replace("%trk_param%",$tt)
 	$hh= $hh.Replace("%fm_param%",$gg)
 
-	Lisnfm_nsf 0 $hh
-
 	Param_exp 1 $ss
+	Lisnfm_nsf 0 $hh
 
 	if($sb_alg.Visible){
 
@@ -3900,9 +3904,8 @@ function Vrc7_listen([string]$ss){
 	$hh= $hh.Replace("%trk_param%",$tt)
 	$hh= $hh.Replace("%fm_param%",$gg)
 
-	Lisnfm_nsf 0 $hh
-
 	Param_exp 1 $ss
+	Lisnfm_nsf 0 $hh
 
 	if($sb_alg.Visible){
 
@@ -3927,9 +3930,8 @@ function FF_listen([string]$ss){
 	$hh= $hh.Replace("%trk_param%",$tt)
 	$hh= $hh.Replace("%fm_param%",$gg)
 
-	Lisnfm_nsf 0 $hh
-
 	Param_exp 2 $ss # pmdで読み込む
+	Lisnfm_nsf 0 $hh
 
 	if($sb_alg.Visible){
 
@@ -4388,39 +4390,37 @@ function Opm_flow([array]$s){
  
 # ------ 
  
-function Reg_exp([string]$zz){ # $key["type"] 
+function Reg_exp([string]$zz,[string]$key_type){ 
 
 
-	switch($key["type"]){
-	'mckreg'{	[int]$n= 8; [string]$ary= "VRC7 MCK";	break;
-	}'nsdreg'{	[int]$n= 8; [string]$ary= "VRC7 NSD"
-	}
-	} #sw
-
+	[int]$n= 8;
 
 	[string[]]$er= [System.Text.RegularExpressions.Regex]::Matches($zz,"(?<=\$)[0-9a-zA-Z]*?(?=\,|\s|\}|$)")
 	# (\$が接頭辞)[0-9a-zA-Z]のみ文字列?最短一致(,\s}$が接尾辞)
 
 
+  if($er.Length -ne $n){
 
-  if($er.Length -gt $n){
+	[string]$xx= "不明"
 
-	Write-Host ('ERROR: レジスタ '+ $ary+ ':'+ $n+ ' カウント数が過多>> '+ $er.Length)
+	if($er.Length -gt $n){
+
+		$xx= "過多"
+
+
+	}elseif($er.Length -lt $n){
+
+		$xx= "不足"
+
+	}
+
+	[string]$err= $key_type+ " レジスタ音色: "+ $n+ " count数が"+ $xx+ ">> "+ $er.Length
+
+	Write-Host ('ERROR: '+ $err)
 
 	[string]$retn= [Windows.Forms.MessageBox]::Show(
 
-	("レジスタ "+ $ary+ ":"+ $n+ " カウント数が過多>> "+ $er.Length), "確認", "OK","Information","Button1"
-	)
-
-	return 1
-
-  }elseif($er.Length -lt $n){
-
-	Write-Host ('ERROR: レジスタ '+ $ary+ ':'+ $n+ ' カウント数が不足>> '+ $er.Length)
-
-	[string]$retn= [Windows.Forms.MessageBox]::Show(
-
-	("レジスタ "+ $ary+ ":"+ $n+ " カウント数が不足>> "+ $er.Length), "確認", "OK","Information","Button1"
+	$err, "確認", "OK","Information","Button1"
 	)
 
 	return 1
@@ -4501,43 +4501,35 @@ function Reg_exp([string]$zz){ # $key["type"]
  
 function Fmx_exp([string]$zz,[string]$key_style){ # $key["style"] 
 
-  [int]$sw= 0
   [int]$n= 0
   [string]$ary= ""
+
   switch($comb_fm.SelectedItem){
 
   'vrc7 2op'{	$n= 24; $ary= "VRC7";	break; # マトリクス総数 2+11*2
   }'opl 2op'{	$n= 24; $ary= "OPL";	break;
+  }'opn 4op'{
 
-  }default{
+	$ary= "OPN"
+
 	switch($key_style){
-	'fmp7'{ $sw= 1;
-		switch($comb_fm.SelectedItem){
-		'opn 4op'{	$n= 42; $ary= "FMP7 OPN";	break;
-		}'opm 4op'{	$n= 46; $ary= "FMP7 OPM"
-		}
-		} #sw
-		break;
-	}'mucom'{
-		switch($comb_fm.SelectedItem){
-		'opn 4op'{	$n= 38; $ary= "MUCOM OPN";	break;
-		}'opm 4op'{	$n= 42; $ary= "MUCOM OPM"
-		}
-		} #sw
-		break;
-	}'mxdrv'{
-		switch($comb_fm.SelectedItem){
-		'opn 4op'{	$n= 43; $ary= "MXDRV OPN";	break;
-		}'opm 4op'{	$n= 47; $ary= "MXDRV OPM"
-		}
-		} #sw
-		break;
-	}default{ $sw= 2;
-		switch($comb_fm.SelectedItem){
-		'opn 4op'{	$n= 42; $ary= "OPN";	break;
-		}'opm 4op'{	$n= 46; $ary= "OPM"
-		}
-		} #sw
+	'pmd'{		$n= 42;	break;
+	}'fmp7'{	$n= 42;	break;
+	}'mucom'{	$n= 38;	break;
+	}'mxdrv'{	$n= 43
+	}
+	} #sw
+
+	break;
+  }'opm 4op'{
+
+	$ary= "OPM"
+
+	switch($key_style){
+	'pmd'{		$n= 46;	break;
+	}'fmp7'{	$n= 46;	break;
+	}'mucom'{	$n= 42;	break;
+	}'mxdrv'{	$n= 47
 	}
 	} #sw
   }
@@ -4550,17 +4542,21 @@ function Fmx_exp([string]$zz,[string]$key_style){ # $key["style"]
   [string]$uu= [System.Text.RegularExpressions.Regex]::Replace($vv,"/\*.*?\*/","")
 
 
-  switch($sw){	# コメント行カット
-  0{
-    [string]$ss= [System.Text.RegularExpressions.Regex]::Replace($uu,"[/;].*(?=\n|$)","")
+  switch($key_style){	# コメント行カット
+  'pmd'{ # ;abc, =abc カット
+
+    [string]$ss= [System.Text.RegularExpressions.Regex]::Replace($uu,"[=;].*(?=\n|$)","")
     break;
-  }1{
-    # FA 1 などのカット
+
+  }'fmp7'{ # FA 1 などのカット
+
     [string]$tt= [System.Text.RegularExpressions.Regex]::Replace($uu,"(?<='@)\s*F[a-zA-Z]+\s*[0-9]+\s*(?=\n|$)","")
     [string]$ss= [System.Text.RegularExpressions.Regex]::Matches($tt,"'@.*(?=\n|$)")
     break;
-  }2{ # ;abc, =abc カット
-    [string]$ss= [System.Text.RegularExpressions.Regex]::Replace($uu,"[=;].*(?=\n|$)","")
+
+  }default{
+
+    [string]$ss= [System.Text.RegularExpressions.Regex]::Replace($uu,"[/;].*(?=\n|$)","")
   }
   } #sw
 
@@ -4569,27 +4565,30 @@ function Fmx_exp([string]$zz,[string]$key_style){ # $key["style"]
   # (\s,^)が接頭辞)(含まないが-の可能性)[0-9]文字列含む?最短一致(,;\s\n$が接尾辞)
 
 
-  if($er.Length -gt $n){
+  if($er.Length -ne $n){
 
-	Write-Host ('ERROR: FM音色 '+ $ary+ ':'+ $n+ ' カウント数が過多>> '+ $er.Length)
+	[string]$xx= "不明"
+
+	if($er.Length -gt $n){
+
+		$xx= "過多"
+
+	}elseif($er.Length -lt $n){
+
+		$xx= "不足"
+	}
+
+	[string]$err= $key_style+ " FM音色 "+ $ary+ ":"+ $n+ " count数が"+ $xx+ ">> "+ $er.Length
+
+	Write-Host ('ERROR: '+ $err)
 
 	[string]$retn= [Windows.Forms.MessageBox]::Show(
 
-	("FM音色 "+ $ary+ ": "+ $n+ " /カウント数が過多>> "+ $er.Length), "確認", "OK","Information","Button1"
+	$err, "確認", "OK","Information","Button1"
 	)
 
 	return 1
 
-  }elseif($er.Length -lt $n){
-
-	Write-Host ('ERROR: FM音色 '+ $ary+ ':'+ $n+ ' カウント数が不足>> '+ $er.Length)
-
-	[string]$retn= [Windows.Forms.MessageBox]::Show(
-
-	("FM音色 "+ $ary+ ": "+ $n+ " /カウント数が不足>> "+ $er.Length), "確認", "OK","Information","Button1"
-	)
-
-	return 1
   }else{
 
 	# [string[]]$ir= $er[($er.Length- $n)..($er.Length- 1)] # @numあらば先頭削除
@@ -4686,24 +4685,31 @@ function Fmx_exp([string]$zz,[string]$key_style){ # $key["style"]
  
 function Param_exp([int]$jj,[string]$mtx){ 
 
-
   switch($comb_fm.SelectedItem){
   'vrc7 2op'{
+
 	switch($key["type"]){
-	'mckreg'{	[int]$nn= Reg_exp $mtx;	break;
-	}'nsdreg'{	[int]$nn= Reg_exp $mtx;	break;
-	}default{	[int]$nn= Fmx_exp $mtx ""
+	'mckreg'{	[int]$nn= Reg_exp $mtx $key["type"];	break;
+	}'nsdreg'{	[int]$nn= Reg_exp $mtx $key["type"];	break;
+	}default{	[int]$nn= Fmx_exp $mtx $key["type"]
 	}
 	} #sw
 	break;
 
+  }'opl 2op'{
+
+	[int]$nn= Fmx_exp $mtx "opl"
+	break;
+
   }default{
-		if($jj -eq 2){
-			[string]$tt= "opn"
-		}else{
-			[string]$tt= $key["style"]
-		}
-		[int]$nn= Fmx_exp $mtx $tt
+	if($jj -eq 2){
+
+		[string]$tt= "pmd"
+	}else{
+		[string]$tt= $key["style"]
+	}
+
+	[int]$nn= Fmx_exp $mtx $tt
   }
   } #sw
 
@@ -5309,7 +5315,7 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 [Environment]::CurrentDirectory= pwd # working_dir set
  
 # Sub forms 
-	 
+	
 $bgimg= New-Object System.Drawing.Bitmap(480,530) # bg 4op 
 $bgimw= New-Object System.Drawing.Bitmap(480,280) # bg 2op
 
@@ -5740,7 +5746,7 @@ $pict_panel.Size= "481,536"
 #$pict_panel.ClientSize= $bgimg.Size
 #$pict_panel.Text= ""
 #$pict_panel.BackColor= "red"
- 	
+ 
 $sb_stus= New-Object System.Windows.Forms.StatusStrip 
 $sb_stus.SizingGrip= $false
 
@@ -6187,12 +6193,18 @@ $sb_alg.Controls.AddRange(@($sb_mnu,$pict_panel,$sb_stus))
 $ff_baloon= New-Object System.Windows.Forms.Tooltip 
 $ff_baloon.ShowAlways= $False
 # $ff_baloon.ToolTipIcon= "Info"
-$ff_baloon.ToolTipTitle= 'Voice: '
+$ff_baloon.ToolTipTitle= "Voice: "
 $ff_baloon.AutomaticDelay= 667
  
 $list_mck= New-Object System.Windows.Forms.ListBox 
 $list_mck.Size= "200,120"
 $list_mck.Location= "5,30"
+
+$list_mck.Add_Enter({
+
+	$fm_box.ForeColor= "dimgray"
+	$fm_box.BackColor= "gainsboro"
+})
 
 $list_mck.Add_MouseDown({
  try{
@@ -6213,6 +6225,12 @@ $list_vrc= New-Object System.Windows.Forms.ListBox
 $list_vrc.Size= "200,120"
 $list_vrc.Location= "5,30"
 
+$list_vrc.Add_Enter({
+
+	$fm_box.ForeColor= "dimgray"
+	$fm_box.BackColor= "gainsboro"
+})
+
 $list_vrc.Add_MouseDown({
  try{
 	switch([string]$_.Button){
@@ -6231,6 +6249,12 @@ $list_vrc.Add_MouseDown({
 $list_88= New-Object System.Windows.Forms.ListBox 
 $list_88.Size= "200,120"
 $list_88.Location= "5,30"
+
+$list_88.Add_Enter({
+
+	$fm_box.ForeColor= "dimgray"
+	$fm_box.BackColor= "gainsboro"
+})
 
 $list_88.Add_MouseDown({
  try{
@@ -6251,6 +6275,12 @@ $list_x68= New-Object System.Windows.Forms.ListBox
 $list_x68.Size= "200,120"
 $list_x68.Location= "5,30"
 
+$list_x68.Add_Enter({
+
+	$fm_box.ForeColor= "dimgray"
+	$fm_box.BackColor= "gainsboro"
+})
+
 $list_x68.Add_MouseDown({
  try{
 	switch([string]$_.Button){
@@ -6269,6 +6299,12 @@ $list_x68.Add_MouseDown({
 $list_efx= New-Object System.Windows.Forms.ListBox 
 $list_efx.Size= "200,120"
 $list_efx.Location= "5,30"
+
+$list_efx.Add_Enter({
+
+	$fm_box.ForeColor= "dimgray"
+	$fm_box.BackColor= "gainsboro"
+})
 
 $list_efx.Add_MouseDown({
  try{
@@ -6393,7 +6429,8 @@ $tab_efx.Add_VisibleChanged({
 $import_btn= New-Object System.Windows.Forms.Button 
 $import_btn.Text= "Import"
 $import_btn.Size= "75,25"
-$import_btn.Location= "15,234"
+$import_btn.Location= "65,234"
+
 
 $import_btn.Add_Click({
  try{
@@ -6408,15 +6445,19 @@ $import_btn.Add_Click({
 
     if($retn -ne ''){
 
-	Autosave $script:fm_xml.table.presetstore
-	# storeを更新
-
-	if($sb_alg.Visible){
-
-		Whiteblack_select "conv_btn"
-	}
+	$fm_box.ForeColor= "dimgray"
+	$fm_box.BackColor= "white" # "gainsboro"
 
 	Write-Host '<< presetをimportしました'
+
+	$conv_btn.PerformClick()
+	## $conv_btn.Add_Click <- storeを更新
+
+	## Autosave $script:fm_xml.table.presetstore
+	## if($sb_alg.Visible){
+	##	Whiteblack_select "conv_btn" # line書込
+	## }
+
     }
 
  }catch{
@@ -6424,29 +6465,15 @@ $import_btn.Add_Click({
  }
 })
  
-$clip_btn= New-Object System.Windows.Forms.Button 
-$clip_btn.Text= "Clipboard"
-$clip_btn.Size= "75,25"
-$clip_btn.Location= "95,234"
+$close_btn= New-Object System.Windows.Forms.Button 
+$close_btn.Text= "Close"
+$close_btn.Size= "75,25"
+$close_btn.Location= "145,234"
 
-$clip_btn.Add_Click({
+
+$close_btn.Add_Click({
  try{
-	switch($ff_tab.SelectedIndex){
-	'0'{	[string]$retn= $hsmck[[string]$list_mck.SelectedItem]; break;
-	}'1'{	[string]$retn= $hsvrc[[string]$list_vrc.SelectedItem]; break;
-	}'2'{	[string]$retn= $hs88[[string]$list_88.SelectedItem];   break;
-	}'3'{	[string]$retn= $hsx68[[string]$list_x68.SelectedItem]; break;
-	}'4'{	[string]$retn= $hsefx[[string]$list_efx.SelectedItem]
-	}
-	} #sw
-
-    if($retn -ne ''){
-
-	[Windows.Forms.Clipboard]::SetText($retn,[Windows.Forms.TextDataFormat]::UnicodeText)
-
-	Write-Host '<< presetをclipboardへ送りました'
-    }
-
+	$ff_frm.Close()
  }catch{
 	echo $_.exception
  }
@@ -6468,8 +6495,8 @@ $ff_frm.Owner= $frm_fm
 
 $ff_frm.Add_FormClosing({
  try{
-	$fm_box.ForeColor= "Black"
-	$fm_box.BackColor= "White"
+	$fm_box.ForeColor= "dimgray"
+	$fm_box.BackColor= "white" # "gainsboro"
 
 	Autoload $fm_xml.table.presetstore
 
@@ -6494,6 +6521,36 @@ $ff_frm.Add_FormClosing({
 })
  
 $ff_mnu= New-Object System.Windows.Forms.MenuStrip 
+
+$ff_menu_b= New-Object System.Windows.Forms.ToolStripMenuItem
+$ff_menu_b.Text= "Clipboard"
+
+$ff_menu_cb= New-Object System.Windows.Forms.ToolStripMenuItem
+$ff_menu_cb.Text= "Voice copy"
+
+$ff_menu_cb.Add_Click({
+ try{
+	switch($ff_tab.SelectedIndex){
+	'0'{	[string]$retn= $hsmck[[string]$list_mck.SelectedItem]; break;
+	}'1'{	[string]$retn= $hsvrc[[string]$list_vrc.SelectedItem]; break;
+	}'2'{	[string]$retn= $hs88[[string]$list_88.SelectedItem];   break;
+	}'3'{	[string]$retn= $hsx68[[string]$list_x68.SelectedItem]; break;
+	}'4'{	[string]$retn= $hsefx[[string]$list_efx.SelectedItem]
+	}
+	} #sw
+
+    if($retn -ne ''){
+
+	[Windows.Forms.Clipboard]::SetText($retn,[Windows.Forms.TextDataFormat]::UnicodeText)
+
+	Write-Host '<< presetをclipboardへ送りました'
+
+    }
+
+ }catch{
+	echo $_.exception
+ }
+})
 
 $ff_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem
 $ff_menu_f.Text= "File"
@@ -6528,8 +6585,9 @@ $tab_efx.Controls.AddRange(@($list_efx))
 $ff_tab.Controls.AddRange(@($tab_mck,$tab_vrc,$tab_88,$tab_x68,$tab_efx))
 
 $ff_menu_f.DropDownItems.AddRange(@($ff_menu_r,$ff_menu_cr,$ff_menu_c))
-$ff_mnu.Items.AddRange(@($ff_menu_f))
-$ff_frm.Controls.AddRange(@($ff_mnu,$ff_tab,$import_btn,$clip_btn))
+$ff_menu_b.DropDownItems.AddRange(@($ff_menu_cb))
+$ff_mnu.Items.AddRange(@($ff_menu_f,$ff_menu_b))
+$ff_frm.Controls.AddRange(@($ff_mnu,$ff_tab,$import_btn,$close_btn))
   
 # Mask forms 
 	
@@ -6830,7 +6888,7 @@ $sub_sav.CancelButton= $sub_sav_cancel_Btn	# [ESC]
 $sub_sav.AcceptButton= $sub_sav_ok_Btn		# [Enter]
   
 # Main forms 
-	
+	 
 # VRC7 
 	
 $vrc_eg_grp= New-Object System.Windows.Forms.GroupBox 
@@ -7243,7 +7301,7 @@ $vrc_ring_grp.Location= "250,30"
 $vrc_ring_grp.Size= "230,140"
 $vrc_ring_grp.Text= "Effects Control"
 $vrc_ring_grp.FlatStyle= "Flat"
-	 
+	
 # ------ DT - Distortion 0-1 
  
 $vrc_trkbar_dt= New-Object System.Windows.Forms.TrackBar 
@@ -7508,7 +7566,7 @@ $vrc_op_grp.Location= "250,175"
 $vrc_op_grp.Size= "230,140"
 $vrc_op_grp.Text= "Frequency Modulation"
 $vrc_op_grp.FlatStyle= "Flat"
-	 
+	
 # ------ ML - Multiple 0-15 
  
 $vrc_trkbar_ml= New-Object System.Windows.Forms.TrackBar 
@@ -7648,7 +7706,7 @@ $vrc_alg_grp.Location= "10,320"
 $vrc_alg_grp.Size= "285,80"
 $vrc_alg_grp.Text= "Algorithm / Feedback"
 $vrc_alg_grp.FlatStyle= "Flat"
-	 
+	
 # ------ ALG - Algorithm $False 
  
 $vrc_trkbar_alg= New-Object System.Windows.Forms.TrackBar 
@@ -7789,7 +7847,7 @@ $opl_eg_grp.Size= "230,200"
 $opl_eg_grp.Text= "Envelope"
 $opl_eg_grp.FlatStyle= "Flat"
 #$opl_eg_grp.Hide() #$eg_grp.Show()
-	 
+	
 # ------ AR - AttackRate 15-0 
  
 $opl_trkbar_ar= New-Object System.Windows.Forms.TrackBar 
@@ -8061,7 +8119,7 @@ $opl_lev_grp.Location= "10,235"
 $opl_lev_grp.Size= "230,80"
 $opl_lev_grp.Text= "Key Scale"
 $opl_lev_grp.FlatStyle= "Flat"
-	 
+	
 # ------ KSL - KeyScaleLevel 0-3 
  
 $opl_trkbar_ksl= New-Object System.Windows.Forms.TrackBar 
@@ -8193,7 +8251,7 @@ $opl_ring_grp.Location= "250,30"
 $opl_ring_grp.Size= "230,140"
 $opl_ring_grp.Text= "Effects Control"
 $opl_ring_grp.FlatStyle= "Flat"
-	 
+	
 # ------ DT - Distortion 0-1 
  
 $opl_trkbar_dt= New-Object System.Windows.Forms.TrackBar 
@@ -8435,7 +8493,7 @@ $opl_op_grp.Location= "250,175"
 $opl_op_grp.Size= "230,140"
 $opl_op_grp.Text= "Frequency Modulation"
 $opl_op_grp.FlatStyle= "Flat"
-	 
+	
 # ------ ML - Multiple 0-15 
  
 $opl_trkbar_ml= New-Object System.Windows.Forms.TrackBar 
@@ -8575,7 +8633,7 @@ $opl_alg_grp.Location= "10,320"
 $opl_alg_grp.Size= "285,80"
 $opl_alg_grp.Text= "Algorithm / Feedback"
 $opl_alg_grp.FlatStyle= "Flat"
-	 
+	
 # ------ ALG - Algorithm 0-1 
  
 $opl_trkbar_alg= New-Object System.Windows.Forms.TrackBar 
@@ -9076,7 +9134,7 @@ $opn_nmud_sl.Add_ValueChanged({
 $opn_lbl_sl= New-Object System.Windows.Forms.Label 
 $opn_lbl_sl.Location= "10,15"
 $opn_lbl_sl.Size= "165,20"
-$opn_lbl_sl.Text= "Sustain Level / 0min - 15max"
+$opn_lbl_sl.Text= "Sustain Level / 0max - 15min"
  
 # ------ 
   
@@ -9085,7 +9143,7 @@ $opn_ring_grp.Location= "250,30"
 $opn_ring_grp.Size= "230,140"
 $opn_ring_grp.Text= "Effects Control"
 $opn_ring_grp.FlatStyle= "Flat"
-	 
+	
 # ------ KS - KeyScaling 0-3 / env length 
  
 $opn_trkbar_ks= New-Object System.Windows.Forms.TrackBar 
@@ -9626,7 +9684,7 @@ $opm_eg_grp.Size= "230,200"
 $opm_eg_grp.Text= "Envelope"
 $opm_eg_grp.FlatStyle= "Flat"
 #$opm_eg_grp.Hide() #$eg_grp.Show()
-	
+	 
 # ------ AR - AttackRate 31-0 
  
 $opm_trkbar_ar= New-Object System.Windows.Forms.TrackBar 
@@ -9898,7 +9956,7 @@ $opm_lev_grp.Location= "10,235"
 $opm_lev_grp.Size= "230,80"
 $opm_lev_grp.Text= "Sustain Level"
 $opm_lev_grp.FlatStyle= "Flat"
-	
+	 
 # ------ SL - SustainLevel 0-15 
  
 $opm_trkbar_sl= New-Object System.Windows.Forms.TrackBar 
@@ -9963,7 +10021,7 @@ $opm_nmud_sl.Add_ValueChanged({
 $opm_lbl_sl= New-Object System.Windows.Forms.Label 
 $opm_lbl_sl.Location= "10,15"
 $opm_lbl_sl.Size= "165,20"
-$opm_lbl_sl.Text= "Sustain Level / 0min - 15max"
+$opm_lbl_sl.Text= "Sustain Level / 0max - 15min"
  
 # ------ 
   
@@ -9972,7 +10030,7 @@ $opm_ring_grp.Location= "250,30"
 $opm_ring_grp.Size= "230,140"
 $opm_ring_grp.Text= "Effects Control"
 $opm_ring_grp.FlatStyle= "Flat"
-	
+	 
 # ------ KS - KeyScaling 0-3 / env length 
  
 $opm_trkbar_ks= New-Object System.Windows.Forms.TrackBar 
@@ -10228,7 +10286,7 @@ $opm_op_grp.Location= "250,175"
 $opm_op_grp.Size= "230,140"
 $opm_op_grp.Text= "Frequency Modulation"
 $opm_op_grp.FlatStyle= "Flat"
-	
+	 
 # ------ ML - Multiple 0-15 
  
 $opm_trkbar_ml= New-Object System.Windows.Forms.TrackBar 
@@ -10524,7 +10582,7 @@ $opm_alg_grp.Controls.AddRange(@($opm_trkbar_alg,$opm_nmud_alg,$opm_lbl_alg))
 $opm_alg_grp.Controls.AddRange(@($opm_trkbar_fb,$opm_nmud_fb,$opm_lbl_fb))
   
 # forms 
-	
+	 
 $osc_grp= New-Object System.Windows.Forms.GroupBox 
 $osc_grp.Text= "FM OSC"
 $osc_grp.Size= "175,80"
@@ -10558,14 +10616,20 @@ $conv_btn.Add_Click({ # text convert
  try{
 	##if($fm_box.Modified -eq $True){ #変更あらば
 
+	Param_exp 0 $fm_box.Text
 
-		Param_exp 0 $fm_box.Text
+	switch($ff_frm.Visible){ # preset undo overwrite
+	'True'{
+		Autosave $script:fm_xml.table.presetstore
+	}
+	} #sw
 
-		if($sb_alg.Visible){
+	if($sb_alg.Visible){
 
-			Whiteblack_select "conv_btn"
-			All_chg
-		}
+		Whiteblack_select "conv_btn" # Colorline書込
+		All_chg
+	}
+
 	##}
  }catch{
 	echo $_.exception
@@ -10690,7 +10754,7 @@ $comb_fm.SelectedItem= "vrc7 2op" # ダミー必要
 $comb_fm.Add_SelectedValueChanged({ # Event
  try{
 
-	$fm_menu_copy.Enabled= Enable_chk
+	$fm_menu_copy.Enabled= Enable_chk $key["style"]
 	Unredo 2
 
 	Panel_chg
@@ -10719,19 +10783,28 @@ $fm_box.Multiline= "True"
 $fm_box.ScrollBars= "Both"
 $fm_box.BorderStyle= "FixedSingle"
 # $fm_box.ReadOnly= "True"
-$fm_box.ForeColor= "Black"
-$fm_box.BackColor= "White"
+$fm_box.ForeColor= "dimgray"
+$fm_box.BackColor= "white" # "gainsboro"
 $fm_box.font= $Fon
 
 $fm_box.Add_Enter({ # kaki komi de undo reset
  try{
 	Unredo 0
+
+	$fm_box.ForeColor= "black"
+	$fm_box.BackColor= "white"
  }catch{
 	echo $_.exception
  }
 })
 
-$fm_box.Add_KeyDown({ # 試聴
+$fm_box.Add_Leave({
+
+	$fm_box.ForeColor= "dimgray"
+	$fm_box.BackColor= "white" # "gainsboro"
+})
+
+$fm_box.Add_KeyDown({ # インポート
  try{
 	Key_down $_.KeyCode
 
@@ -10850,7 +10923,7 @@ $frm_fm.Add_FormClosing({
 })
  
 $fm_mnu= New-Object System.Windows.Forms.MenuStrip 
-	
+	 
 $fm_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_f.Text= "File"
 
@@ -10868,9 +10941,6 @@ $fm_menu_ff.Add_Click({
 	}'4op'{	$ff_tab.SelectedIndex= "2"
 	}
 	} #sw
-
-	$fm_box.ForeColor= "dimgray"
-	$fm_box.BackColor= "gainsboro"
 
 	Autosave $script:fm_xml.table.presetstore
 
@@ -11884,6 +11954,7 @@ $fm_menu_whelp.Add_Click({
  }
 })
 
+$fm_menu_srld= New-Object System.Windows.Forms.ToolStripSeparator
 $fm_menu_rld= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_rld.Text= "Header reload"
 $fm_menu_rld.Add_Click({
@@ -11894,6 +11965,29 @@ $fm_menu_rld.Add_Click({
 
 	Write-Host '<< headerをリロードしました'
 
+	$retn= [Windows.Forms.MessageBox]::Show(
+	"headerをリロードしました", "確認", "OK","Information","Button1"
+	)
+ }catch{
+	echo $_.exception
+ }
+})
+
+$fm_menu_spy= New-Object System.Windows.Forms.ToolStripSeparator
+
+$fm_menu_py= New-Object System.Windows.Forms.ToolStripMenuItem
+$fm_menu_py.Text= "Player open"
+
+$fm_menu_py.Add_Click({
+ try{
+	[string]$retn= Player_open $val["player"]
+
+	if($retn -ne ""){
+
+		$retn= [Windows.Forms.MessageBox]::Show(
+		$retn, "確認", "OK","Information","Button1"
+		)
+	}
  }catch{
 	echo $_.exception
  }
@@ -11953,7 +12047,7 @@ $fm_menu_o.DropDownItems.AddRange(@($fm_menu_ud,$fm_menu_comn,$fm_menu_comp,$fm_
 $fm_menu_m.DropDownItems.AddRange(@($fm_menu_mask,$fm_menu_so,$fm_menu_oct1,$fm_menu_oct2,$fm_menu_oct3,$fm_menu_oct4,$fm_menu_oct5,$fm_menu_oct6,$fm_menu_oct7,$fm_menu_oct8))
 $fm_menu_b.DropDownItems.AddRange(@($fm_menu_put,$fm_menu_type,$fm_menu_style,$fm_menu_mmlun,$fm_menu_mml,$fm_menu_copy))
 $fm_menu_w.DropDownItems.AddRange(@($fm_menu_sb))
-$fm_menu_h.DropDownItems.AddRange(@($fm_menu_adv,$fm_menu_rld,$fm_menu_whelp))
+$fm_menu_h.DropDownItems.AddRange(@($fm_menu_py,$fm_menu_spy,$fm_menu_adv,$fm_menu_rld,$fm_menu_srld,$fm_menu_whelp))
 
 $fm_mnu.Items.AddRange(@($fm_menu_f,$fm_menu_o,$fm_menu_m,$fm_menu_b,$fm_menu_w,$fm_menu_h))
 
@@ -11965,7 +12059,7 @@ $fm_panel.Controls.AddRange(@($opm_eg_grp,$opm_ring_grp,$opm_lev_grp,$opm_op_grp
 
 $fm_stus.Items.AddRange(@($fm_label))
 $frm_fm.Controls.AddRange(@($fm_mnu,$fm_panel,$fm_box,$fm_stus))
-   
+ 	  
 # Global variable ====== 
 	
 # color setting 
@@ -11995,7 +12089,7 @@ $Whbrush= New-Object System.Drawing.Drawing2D.LinearGradientBrush($poix,$poia,$d
 $Whbrush.InterpolationColors= $Cdbrend
 
 # 'black' set =====
-$black= [System.Drawing.Color]::FromArgb(236,33,55,60)		# 暗黒色改 Aは高級感のため
+$black= [System.Drawing.Color]::FromArgb(236,36,60,60)		# 暗黒色改 Aは高級感のため
 $naturalblack= [System.Drawing.Color]::FromArgb(216,0,11,0)	# 濡羽色 A:236
 $gr_black= [System.Drawing.Color]::FromArgb(124,0,11,0)		# a:184
 
@@ -12025,30 +12119,30 @@ $Blbrush.InterpolationColors= $Clbrend
 $cyan= [System.Drawing.Color]::FromName("cyan")
 $skyblue= [System.Drawing.Color]::FromArgb(190,176,224,230)	# powderblue :a220
 $darkblue= [System.Drawing.Color]::FromArgb(165,0,139,139) 	# darkcyan :a212>170
-$vividblue= [System.Drawing.Color]::FromArgb(201,35,134,215)
+$vividblue= [System.Drawing.Color]::FromArgb(200,35,134,215)
 $naturalblue= [System.Drawing.Color]::FromArgb(221,32,178,170)	# lightseagreen :a236
-$pastelblue= [System.Drawing.Color]::FromArgb(160,0,225,201)	#
+$pastelblue= [System.Drawing.Color]::FromArgb(170,0,225,201)	#
 
 $lime= [System.Drawing.Color]::FromName("lime")
 $greenyellow= [System.Drawing.Color]::FromArgb(190,173,255,47)	# greenyellow
 $darkgreen= [System.Drawing.Color]::FromArgb(165,107,142,35) 	# olivedrab 107,142,35
-$vividgreen= [System.Drawing.Color]::FromArgb(201,35,216,66) 	# 235,216,66
+$vividgreen= [System.Drawing.Color]::FromArgb(200,35,216,66) 	# 235,216,66
 $naturalgreen= [System.Drawing.Color]::FromArgb(221,154,205,50)	# yellowgreen
-$pastelgreen= [System.Drawing.Color]::FromArgb(160,140,220,61)	# 0,235,104
+$pastelgreen= [System.Drawing.Color]::FromArgb(170,140,220,61)	# 0,235,104
 
 $yellow= [System.Drawing.Color]::FromName("orange")
 $gold= [System.Drawing.Color]::FromArgb(190,255,215,0)		# gold 255,215,0
-$darkorange= [System.Drawing.Color]::FromArgb(165,190,184,91)	# goldenrod -1,-1,-1
-$vividorange= [System.Drawing.Color]::FromArgb(201,230,180,34)	# goldenrod 218,165,32->213,217,33/ 222,255,40
-$naturalorange= [System.Drawing.Color]::FromArgb(221,200,200,60)	# khaki 240,230,140->200,200,60
-$pastelorange= [System.Drawing.Color]::FromArgb(160,255,225,107)	# 255,217,0+H48S58V100/H-,S-
+$darkorange= [System.Drawing.Color]::FromArgb(165,163,166,100)	# goldenrod -1,-1,-1
+$vividorange= [System.Drawing.Color]::FromArgb(200,200,216,54)	# goldenrod 218,165,32->213,217,33/ 222,255,40 / 200,200,210,48
+$naturalorange= [System.Drawing.Color]::FromArgb(221,202,206,66) # khaki 240,230,140->221,200,200,60
+$pastelorange= [System.Drawing.Color]::FromArgb(170,204,208,114) # 255,217,0+H48S58V100/H-,S-
 
 $magenta= [System.Drawing.Color]::FromName("magenta")
 $pink= [System.Drawing.Color]::FromArgb(190,255,182,193)	# lightpink
 $darkred= [System.Drawing.Color]::FromArgb(165,189,72,76)	# brown139,52,51+H358S62->62V74
-$vividred= [System.Drawing.Color]::FromArgb(201,241,55,55)	# 107,142,35
+$vividred= [System.Drawing.Color]::FromArgb(200,241,55,55)	# 107,142,35
 $naturalred= [System.Drawing.Color]::FromArgb(221,255,99,71)	# tomato
-$pastelred= [System.Drawing.Color]::FromArgb(160,252,81,84)	# 240,56,59+H359S68V99
+$pastelred= [System.Drawing.Color]::FromArgb(170,252,81,84)	# 240,56,59+H359S68V99
 
 $plum= [System.Drawing.Color]::FromName("plum")
 $turquoise= [System.Drawing.Color]::FromName("powderblue")

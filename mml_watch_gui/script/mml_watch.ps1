@@ -1,12 +1,15 @@
-<# mml_watch.ps1 #> 
+ï»¿<# mml_watch.ps1 #> 
 
-Write-Host ("`"mml watch`"‚ğ‹N“®‚µ‚Ü‚·")
+Write-Host ("`"mml watch`"ã‚’èµ·å‹•ã—ã¾ã™")
  
 $xml_watch= @' 
 <table>
-	<!-- ƒ^ƒO value -->
+	<!-- ã‚¿ã‚° value -->
 	<val>
 		<mmlfile value= ""/>
+		<mck value=""/>
+		<nsd value=""/>
+		<pmd value=""/>
 		<compiler value= ""/>
 		<player value= ""/>
 		<dmcdir value= ""/>
@@ -28,7 +31,7 @@ $xml_watch= @'
 '@
  
 # nsf_trans 
-	
+	 
 function Player_stop(){ 
 
 
@@ -95,19 +98,19 @@ function Mck_trans([string]$file){
 function Nsd_trans([string]$file){ 
 
 
-	Player_stop # nsfplay2.4 errƒ_ƒCƒAƒƒOo—Í
+	Player_stop # nsfplay2.4 errãƒ€ã‚¤ã‚¢ãƒ­ã‚°å‡ºåŠ›
 
-	Write-Host '' # ‰üs
+	Write-Host '' # æ”¹è¡Œ
 
 	[string[]]$eor= "",""
 	[string[]]$output= "",""
 
 	# mml,bin,dmc
-	# ”z—ñŠm•Û‚Å’Ê‚é
+	# é…åˆ—ç¢ºä¿ã§é€šã‚‹
 	[string[]]$rr= $file,$val["compiler"],$val["dmcdir"],$comlin[1]
 	$output= Mknsd $rr
 
-	sleep -m 33 # ˆÙí—pƒEƒFƒCƒg
+	sleep -m 33 # ç•°å¸¸æ™‚ç”¨ã‚¦ã‚§ã‚¤ãƒˆ
 
 	$csl_box.Text= $scroll_text+ "`r`n"+ $output[1]+ "`r`n"
 
@@ -138,7 +141,7 @@ function Nsd_trans([string]$file){
 			$err_box.Text+= $eor[1]+ "`r`n"
 
 		}else{
-			# '"' ‹ó”’ƒpƒX‘Î‰
+			# '"' ç©ºç™½ãƒ‘ã‚¹å¯¾å¿œ
 			& $val["player"] ('"'+ $dpn+ '.nsf"')
 		}
 	}
@@ -147,7 +150,7 @@ function Nsd_trans([string]$file){
 function Pmd_trans([string]$file){ 
 
 
-	# Player_stop # fmpmd /s -> ƒ_ƒCƒAƒƒO‚Å~‚Ü‚é
+	# Player_stop # fmpmd /s -> ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã§æ­¢ã¾ã‚‹
 
 	Write-Host ''
 
@@ -230,11 +233,11 @@ function Play_nsf([string]$file){
 
 	$watch.Stop()
 
-	$ts= $watch.Elapsed #ƒvƒƒpƒeƒBQÆ
+	$ts= $watch.Elapsed #ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£å‚ç…§
 
 	$watch.Reset()
 
-	[string]$ss= "[Elapsed] :{0:0}.{1:000}sec." -f $ts.Seconds,$ts.Milliseconds # -f ƒtƒH[ƒ}ƒbƒg‰‰Zq
+	[string]$ss= "[Elapsed] :{0:0}.{1:000}sec." -f $ts.Seconds,$ts.Milliseconds # -f ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆæ¼”ç®—å­
 
 	Write-Host ''
 	Write-Host $ss
@@ -250,14 +253,14 @@ function Watches_nsf([string]$eor){
 	Write-Host ''
 	Write-Host $eor
 
-	$err_box.Text+= $eor # " last de `r`n"•s—v
+	$err_box.Text+= $eor # " last de `r`n"ä¸è¦
 
 	$err_box.SelectionStart= $err_box.Text.Length
 	$err_box.ScrollToCaret()
  } #func
-  	
+  
 # chk_path 
-	
+	 
 function Status_build(){ 
 
 	[int[]]$err= 0,0,0,0
@@ -290,31 +293,31 @@ function Console_out([string[]]$ph){
 	[int[]]$err= Status_build
 
 	switch($err[0]){
-	2{	$rot[0]= '> mmlƒtƒ@ƒCƒ‹ ‘I‘ğ‚³‚ê‚Ä‚Ü‚¹‚ñ';		break;
-	}1{	$rot[0]= '> mmlƒtƒ@ƒCƒ‹ ƒpƒXæ‚ª‚ ‚è‚Ü‚¹‚ñ';		break;
-	}0{	$rot[0]= '< mmlƒtƒ@ƒCƒ‹'
+	2{	$rot[0]= '> mmlãƒ•ã‚¡ã‚¤ãƒ« é¸æŠã•ã‚Œã¦ã¾ã›ã‚“';		break;
+	}1{	$rot[0]= '> mmlãƒ•ã‚¡ã‚¤ãƒ« ãƒ‘ã‚¹å…ˆãŒã‚ã‚Šã¾ã›ã‚“';		break;
+	}0{	$rot[0]= '< mmlãƒ•ã‚¡ã‚¤ãƒ«'
 	}
 	} #sw
 	switch($err[1]){
-	2{	$rot[1]= '> binaryƒtƒ@ƒCƒ‹ ‘I‘ğ‚³‚ê‚Ä‚Ü‚¹‚ñ';		break;
-	}1{	$rot[1]= '> binaryƒtƒ@ƒCƒ‹ ƒpƒXæ‚ª‚ ‚è‚Ü‚¹‚ñ';		break;
-	}0{	$rot[1]= '< binaryƒtƒ@ƒCƒ‹'
+	2{	$rot[1]= '> binaryãƒ•ã‚¡ã‚¤ãƒ« é¸æŠã•ã‚Œã¦ã¾ã›ã‚“';		break;
+	}1{	$rot[1]= '> binaryãƒ•ã‚¡ã‚¤ãƒ« ãƒ‘ã‚¹å…ˆãŒã‚ã‚Šã¾ã›ã‚“';		break;
+	}0{	$rot[1]= '< binaryãƒ•ã‚¡ã‚¤ãƒ«'
 	}
 	} #sw
 	switch($err[2]){
-	2{	$rot[2]= '> Playerƒtƒ@ƒCƒ‹ ‘I‘ğ‚³‚ê‚Ä‚Ü‚¹‚ñ';		break;
-	}1{	$rot[2]= '> Playerƒtƒ@ƒCƒ‹ ƒpƒXæ‚ª‚ ‚è‚Ü‚¹‚ñ';		break;
-	}0{	$rot[2]= '< Playerƒtƒ@ƒCƒ‹'
+	2{	$rot[2]= '> Playerãƒ•ã‚¡ã‚¤ãƒ« é¸æŠã•ã‚Œã¦ã¾ã›ã‚“';		break;
+	}1{	$rot[2]= '> Playerãƒ•ã‚¡ã‚¤ãƒ« ãƒ‘ã‚¹å…ˆãŒã‚ã‚Šã¾ã›ã‚“';		break;
+	}0{	$rot[2]= '< Playerãƒ•ã‚¡ã‚¤ãƒ«'
 	}
 	} #sw
 	switch($err[3]){
-	2{	$rot[3]= '> IncludeƒtƒHƒ‹ƒ_ ‘I‘ğ‚³‚ê‚Ä‚Ü‚¹‚ñ';		break;
-	}1{	$rot[3]= '> IncludeƒtƒHƒ‹ƒ_ ƒpƒXæ‚ª‚ ‚è‚Ü‚¹‚ñ';	break;
-	}0{	$rot[3]= '< IncludeƒtƒHƒ‹ƒ_'
+	2{	$rot[3]= '> Includeãƒ•ã‚©ãƒ«ãƒ€ é¸æŠã•ã‚Œã¦ã¾ã›ã‚“';		break;
+	}1{	$rot[3]= '> Includeãƒ•ã‚©ãƒ«ãƒ€ ãƒ‘ã‚¹å…ˆãŒã‚ã‚Šã¾ã›ã‚“';	break;
+	}0{	$rot[3]= '< Includeãƒ•ã‚©ãƒ«ãƒ€'
 	}
 	} #sw
 
-	Write-Host '' # ‰üs
+	Write-Host '' # æ”¹è¡Œ
 	Write-Host $ph[0]
 	Write-Host ($ph[1]+ $ph[2])
 	Write-Host ''
@@ -330,7 +333,7 @@ function Console_out([string[]]$ph){
 			$rot[0],(" : "+ $f[0][0]), # file name
 			$rot[1],(" : "+ $f[1][0]),
 			$rot[2],(" : "+ $f[2][0]),
-			$rot[3],(" : "+ $f[3][0]),"" # ‰üs•ª
+			$rot[3],(" : "+ $f[3][0]),"" # æ”¹è¡Œåˆ†
 
 
 	$stus_label.Text= "  "+ "ply: "+ $f[2][0]+ $ph[2]
@@ -341,7 +344,7 @@ function Console_out([string[]]$ph){
  
 function Status_cheker(){ 
 
-	[string]$m= "" # ’è‹`‚Ì‚İ‚¾‚Æ•Ô’l(echo)‚ªo‚éA‹ó’l“ü‚ê‚Æ‚­
+	[string]$m= "" # å®šç¾©ã®ã¿ã ã¨è¿”å€¤(echo)ãŒå‡ºã‚‹ã€ç©ºå€¤å…¥ã‚Œã¨ã
 	[string]$k= ""
 	[string]$c= ""
 	[string]$g= ""
@@ -376,12 +379,12 @@ function Status_cheker(){
 
 	if($opt["chk_dos"] -eq 'Checked'){
 
-		$g= " /x64‘Î‰"
+		$g= " /x64å¯¾å¿œ"
 	}
 
 	if($opt["chk_stop"] -eq 'Checked'){
 
-		$c= " /stopƒRƒ}ƒ“ƒh•t"
+		$c= " /stopã‚³ãƒãƒ³ãƒ‰ä»˜"
 	}
 
 
@@ -390,7 +393,7 @@ function Status_cheker(){
 	Console_out $ss
 
 } #func
- 
+ 	
 function Play_setpath(){ 
 
 
@@ -399,7 +402,7 @@ function Play_setpath(){
 
 	if($stus -ne 0){
 
-		[string]$eor= ('ŠÄ‹ŠÂ‹«‚ª•s‘« ERR Level>> '+ $stus)
+		[string]$eor= ('ç›£è¦–ç’°å¢ƒãŒä¸è¶³ ERR Level>> '+ $stus)
 
 		$err_box.Text= $eor+ "`r`n"
 		Write-Host $eor
@@ -426,28 +429,28 @@ function Wait_setpath(){
 		switch($f[3]){
 		'.mml'{
 			$err= 1
-			$eor= ('.mml‚ÌŠÄ‹‚ğƒZƒbƒg<< '+ $f[0])
+			$eor= ('.mmlã®ç›£è¦–ã‚»ãƒƒãƒˆ<< '+ $f[0])
 			break;
 
 		}'.nsf'{
-			$eor= ('.nsf‚ÌŠÄ‹‚Í•s‰Â‚Å‚·>> '+ $f[0])
+			$eor= ('.nsfã®ç›£è¦–ã¯ä¸å¯ã§ã™>> '+ $f[0])
 			break;
 
 		}'.nsfe'{
-			$eor= ('.nsfe‚ÌŠÄ‹‚Í•s‰Â‚Å‚·>> '+ $f[0])
+			$eor= ('.nsfeã®ç›£è¦–ã¯ä¸å¯ã§ã™>> '+ $f[0])
 			break;
 
 		}'.m'{
-			$eor= ('.m‚ÌŠÄ‹‚Í•s‰Â‚Å‚·>> '+ $f[0])
+			$eor= ('.mã®ç›£è¦–ã¯ä¸å¯ã§ã™>> '+ $f[0])
 			break;
 
 		}'.m2'{
-			$eor= ('.m2‚ÌŠÄ‹‚Í•s‰Â‚Å‚·>> '+ $f[0])
+			$eor= ('.m2ã®ç›£è¦–ã¯ä¸å¯ã§ã™>> '+ $f[0])
 			break;
 
 		}default{
 			$err= 1
-			$eor= ($f[3]+ '‚ÌŠÄ‹‚ğƒZƒbƒg<< '+ $f[0])
+			$eor= ($f[3]+ 'ã®ç›£è¦–ã‚»ãƒƒãƒˆ<< '+ $f[0])
 		}
 		} #sw
 
@@ -457,11 +460,11 @@ function Wait_setpath(){
 
 	switch($err){
 	1{
-		$script:wait.Path= $f[1] # RaisingEvents= $TrueA•K—v
+		$script:wait.Path= $f[1] # RaisingEvents= $Trueæ™‚ã€å¿…è¦
 		$script:wait.Filter= $f[0]
 		break;
 	}0{
-		$script:wait.Path= ".\temp" # ‘¶İ‚·‚éƒpƒX <- PathƒGƒ‰[‚½‚ß
+		$script:wait.Path= ".\temp" # å­˜åœ¨ã™ã‚‹ãƒ‘ã‚¹ <- Pathã‚¨ãƒ©ãƒ¼ãŸã‚
 		$script:wait.Filter= $null
 	}
 	} #sw
@@ -470,7 +473,7 @@ function Wait_setpath(){
 } #func
   
 # toggle 
-	
+	 
 function Toggle_label(){ 
 
 
@@ -525,7 +528,7 @@ function Toggle_sw([int]$num,[string]$c){
 		$frm.Text= ("["+ $wait.Filter+ "] - mml watch")
 		$wait_btn.Image= [System.Drawing.Image]::FromFile(".\img\stop.png")
 
-		$wait.EnableRaisingEvents= $True # ŠJn
+		$wait.EnableRaisingEvents= $True # é–‹å§‹
 		break;
 	}'false'{
 		$frm.Text= "Pause - mml watch"
@@ -543,11 +546,11 @@ function Toggle_sw([int]$num,[string]$c){
 function Watch_Setting(){ 
 
 	[bool]$bool_sw= $tray.Visible
-	$tray.Visible= $False # tray‘¤‚ÌƒRƒ“ƒgƒ[ƒ‹•s‰Â‚É‚·‚é
+	$tray.Visible= $False # trayå´ã®ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ä¸å¯ã«ã™ã‚‹
 	$frm.AllowDrop= $False
 
 
-	Toggle_sw 1 "false"	# ƒtƒ@ƒCƒ‹XVƒLƒƒƒ“ƒZƒ‰[
+	Toggle_sw 1 "false"	# ãƒ•ã‚¡ã‚¤ãƒ«æ›´æ–°ã‚­ãƒ£ãƒ³ã‚»ãƒ©ãƒ¼
 
 
 	[array]$args_set= "",""
@@ -577,7 +580,7 @@ function Watch_Setting(){
 
 		$script:edit=@{};
 
-		Helpxml_read $script:set_xml.table # hash‰»
+		Helpxml_read $script:set_xml.table # hashåŒ–
 	}
 
 	$frm.AllowDrop= $True
@@ -590,7 +593,7 @@ function Watch_Start(){
 
   if($stus -eq 0){
 
-	switch($wait.EnableRaisingEvents){ # ƒgƒOƒ‹
+	switch($wait.EnableRaisingEvents){ # ãƒˆã‚°ãƒ«
 	$False{
 
 		if($opt["chk_auto"] -ne 'False'){
@@ -638,7 +641,7 @@ function Watch_Drop(){
 	}
 	} #sw
 
-	Write-Host '' # ‰üs
+	Write-Host '' # æ”¹è¡Œ
 
 	Status_cheker
 	$script:chk_mml= Wait_setpath
@@ -654,37 +657,37 @@ function Watch_Drop(){
  } #func
   
 # gui 
-	
+	 
 function Contxt_chg([string]$sw,[int]$chg){ 
 
 	switch($sw){
 
-	'Å¬‰»'{
+	'æœ€å°åŒ–'{
 
 		$contxt_tray.Items.Clear()
-		[void]$contxt_tray.Items.Add("Œ³‚É–ß‚·")
-		[void]$contxt_tray.Items.Add("ŠÂ‹«İ’è")
-		[void]$contxt_tray.Items.Add("I—¹")
+		[void]$contxt_tray.Items.Add("å…ƒã«æˆ»ã™")
+		[void]$contxt_tray.Items.Add("ç’°å¢ƒè¨­å®š")
+		[void]$contxt_tray.Items.Add("çµ‚äº†")
 
 		##$tray.PerformClick()
 		if($chg -eq 1){ $frm.WindowState= "Minimized" }
 		break;
 
-	}'Œ³‚É–ß‚·'{
+	}'å…ƒã«æˆ»ã™'{
 		$contxt_tray.Items.Clear()
-		[void]$contxt_tray.Items.Add("Å¬‰»")
-		[void]$contxt_tray.Items.Add("ŠÂ‹«İ’è")
-		[void]$contxt_tray.Items.Add("I—¹")
+		[void]$contxt_tray.Items.Add("æœ€å°åŒ–")
+		[void]$contxt_tray.Items.Add("ç’°å¢ƒè¨­å®š")
+		[void]$contxt_tray.Items.Add("çµ‚äº†")
 
 		##$tray.PerformClick()
 		if($chg -eq 1){ $frm.WindowState= "Normal" }
 		break;
 
-	}'ŠÂ‹«İ’è'{
+	}'ç’°å¢ƒè¨­å®š'{
 		$menu_a.PerformClick()
 		break;
 
-	}'I—¹'{
+	}'çµ‚äº†'{
 		$menu_n.PerformClick()
 	}
 	} #sw
@@ -695,13 +698,13 @@ function Top_most([string]$t){
 	switch($t){
 	'true'{
 
-		$frm.TopMost= $True # Å‘O–Ê‰»
-		$menu_t.Text= "v Å‘O–Ê•\¦"
+		$frm.TopMost= $True # æœ€å‰é¢åŒ–
+		$menu_t.Text= "v æœ€å‰é¢è¡¨ç¤º"
 		break;
 	}'false'{
 
 		$frm.TopMost= $False
-		$menu_t.Text= "Å‘O–Ê•\¦"
+		$menu_t.Text= "æœ€å‰é¢è¡¨ç¤º"
 	}
 	} #sw
 
@@ -715,12 +718,12 @@ function Tray_hide([string]$t){
 	'true'{
 
 		$tray.Visible= $True
-		$menu_ty.Text= "v ƒ^ƒXƒNƒgƒŒƒC"
+		$menu_ty.Text= "v ã‚¿ã‚¹ã‚¯ãƒˆãƒ¬ã‚¤"
 		break;
 	}'false'{
 
 		$tray.Visible= $False
-		$menu_ty.Text= "ƒ^ƒXƒNƒgƒŒƒC"
+		$menu_ty.Text= "ã‚¿ã‚¹ã‚¯ãƒˆãƒ¬ã‚¤"
 	}
 	} #sw
 
@@ -732,10 +735,10 @@ function Edit_open([string]$t){
 
 	switch($t){
 	'true'{
-		$menu_eo.Text= "v ‹N“®AƒGƒfƒBƒ^ƒI[ƒvƒ“"
+		$menu_eo.Text= "v èµ·å‹•æ™‚ã€ã‚¨ãƒ‡ã‚£ã‚¿ã‚ªãƒ¼ãƒ—ãƒ³"
 		break;
 	}'false'{
-		$menu_eo.Text= "‹N“®AƒGƒfƒBƒ^ƒI[ƒvƒ“"
+		$menu_eo.Text= "èµ·å‹•æ™‚ã€ã‚¨ãƒ‡ã‚£ã‚¿ã‚ªãƒ¼ãƒ—ãƒ³"
 	}
 	} #sw
 
@@ -747,11 +750,11 @@ function Auto_start([string]$t){
 	switch($t){
 	'true'{
 		$pic_box.Image= [System.Drawing.Image]::FromFile(".\img\orange.png")
-		$menu_r.Text= "v ŠJnA©“®ƒŠƒXƒ^[ƒg"
+		$menu_r.Text= "v ç›£è¦–é–‹å§‹æ™‚ã€ãƒªã‚¹ã‚¿ãƒ¼ãƒˆ"
 		break;
 	}'false'{
 		$pic_box.Image= [System.Drawing.Image]::FromFile(".\img\blue.png")
-		$menu_r.Text= "ŠJnA©“®ƒŠƒXƒ^[ƒg"
+		$menu_r.Text= "ç›£è¦–é–‹å§‹æ™‚ã€ãƒªã‚¹ã‚¿ãƒ¼ãƒˆ"
 	}
 	} #sw
 
@@ -759,7 +762,7 @@ function Auto_start([string]$t){
  } #func
   
 # hash 
-	
+	 
 function Helpxml_read($x){ 
 
   # $x= $script:set_xml.table
@@ -779,6 +782,9 @@ function Wthxml_read($x,$y){
 	# $y= $script:wth_xml.table.opt
 
 	$script:val["mmlfile"]= $x.mmlfile.value
+	$script:val["mck"]= $x.mck.value
+	$script:val["nsd"]= $x.nsd.value
+	$script:val["pmd"]= $x.pmd.value
 	$script:val["compiler"]= $x.compiler.value
 	$script:val["player"]= $x.player.value
 	$script:val["dmcdir"]= $x.dmcdir.value
@@ -792,7 +798,7 @@ function Wthxml_read($x,$y){
 	$script:opt["chk_stop"]= $y.chk_stop.value
 	$script:opt["chk_thru"]= $y.chk_thru.value
 
-	# ƒƒjƒ…[ØŠ·
+	# ãƒ¡ãƒ‹ãƒ¥ãƒ¼åˆ‡æ›
 	$script:opt["chk_topmost"]= Top_most $y.chk_topmost.value
 	$script:opt["chk_auto"]= Auto_start $y.chk_auto.value
 	$script:opt["chk_tray"]= Tray_hide $y.chk_tray.value
@@ -806,7 +812,10 @@ function Wthwrite_xml($x,$y){
 	# $x= $script:wth_xml.table.val
 	# $y= $script:wth_xml.table.opt
 
-	$x.mmlfile.value= [string]$val["mmlfile"] # $xml‚Í[string]ƒLƒƒƒXƒg•K—v
+	$x.mmlfile.value= [string]$val["mmlfile"] # $xmlã¯[string]ã‚­ãƒ£ã‚¹ãƒˆå¿…è¦
+	$x.mck.value= [string]$val["mck"]
+	$x.nsd.value= [string]$val["nsd"]
+	$x.pmd.value= [string]$val["pmd"]
 	$x.compiler.value= [string]$val["compiler"]
 	$x.player.value= [string]$val["player"]
 	$x.dmcdir.value= [string]$val["dmcdir"]
@@ -855,13 +864,13 @@ function Comline([string]$t){
 	[array]$a= @("","","") # mck,nsd,pmd
 	[string[]]$a[0]= "","",""
 	[string[]]$a[1]= "","","","", "","","","", ""
-	[string[]]$a[2]= "","","" #•K—v‚È•ª‚¾‚¯
+	[string[]]$a[2]= "","","" #å¿…è¦ãªåˆ†ã ã‘
 
 	if($m[0] -eq '1'){ $a[0][0]= "-i" }
 	if($m[1] -eq '1'){ $a[0][1]= "-m1" }
 	if($m[2] -eq '1'){ $a[0][2]= "-w" }
 
-	if($n[0] -eq '1'){ $a[1][0]= "-a" } #def.‚Í“Ç‚Ü‚È‚¢
+	if($n[0] -eq '1'){ $a[1][0]= "-a" } #def.æ™‚ã¯èª­ã¾ãªã„
 	if($n[1] -eq '1'){ $a[1][1]= "-n" }
 	if($n[2] -ne '2'){ $a[1][2]= ("-v"+ $n[2]) }
 	if($n[3] -eq '1'){ $a[1][3]= "-x" }
@@ -888,7 +897,7 @@ function Comline([string]$t){
 	$ss[1]= Param_join $a[1]
 	$ss[2]= Param_join $a[2]
 
-	# $ss[2]= $a[2] -join " " # –³‘Ê‚Èspace‚½‚ß
+	# $ss[2]= $a[2] -join " " # ç„¡é§„ãªspaceãŸã‚
 
 	return $ss
 } #func
@@ -901,7 +910,7 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 [Environment]::CurrentDirectory= pwd # working_dir set
  
 # Form 
-	
+	 
 $err_box= New-Object System.Windows.Forms.TextBox 
 $err_box.Size= "220,55"
 $err_box.Location= "10,55"
@@ -971,7 +980,7 @@ $wait_btn.FlatStyle= "Popup"
 # $wait_btn.Image= [System.Drawing.Image]::FromFile(".\img\stop.png")
 # $wait_btn.Image= [System.Drawing.Image]::FromFile(".\img\play.png")
 
-$wait_btn.Add_Click({	# ŠÄ‹ƒ{ƒ^ƒ“
+$wait_btn.Add_Click({	# ç›£è¦–ãƒœã‚¿ãƒ³
   try{
 	Watch_Start
 
@@ -988,15 +997,15 @@ $stus_label= New-Object System.Windows.Forms.ToolStripStatusLabel
 # $stus_label.Font= $Fon
  
 $contxt_tray= New-Object System.Windows.Forms.ContextMenuStrip 
-# $contxt obj‚ğ“Ç‚İ‚ñ‚¾Œã$NotifyIcon obj‚ªˆÀ‘S
+# $contxt objã‚’èª­ã¿è¾¼ã‚“ã å¾Œ$NotifyIcon objãŒå®‰å…¨
 
-[void]$contxt_tray.Items.Add("Å¬‰»")
-[void]$contxt_tray.Items.Add("ŠÂ‹«İ’è")
-[void]$contxt_tray.Items.Add("I—¹")
+[void]$contxt_tray.Items.Add("æœ€å°åŒ–")
+[void]$contxt_tray.Items.Add("ç’°å¢ƒè¨­å®š")
+[void]$contxt_tray.Items.Add("çµ‚äº†")
 
 $contxt_tray.Add_ItemClicked({
   try{
-	Contxt_chg $_.ClickedItem 1 # ƒLƒƒƒXƒg•s—v
+	Contxt_chg $_.ClickedItem 1 # ã‚­ãƒ£ã‚¹ãƒˆä¸è¦
 
 	$this.Close()
 
@@ -1014,21 +1023,21 @@ $tray.ContextMenuStrip= $contxt_tray
 $tray.Add_Click({ # .Add_MouseDown
   try{
 
-    switch([string]$_.Button){ # ƒLƒƒƒXƒg
+    switch([string]$_.Button){ # ã‚­ãƒ£ã‚¹ãƒˆ
     'Left'{
 
 	switch($frm.WindowState){
 	'Minimized'{
-		Contxt_chg "Œ³‚É–ß‚·" 1
+		Contxt_chg "å…ƒã«æˆ»ã™" 1
 		break;
 
 	}'Normal'{
-		Contxt_chg "Å¬‰»" 1
+		Contxt_chg "æœ€å°åŒ–" 1
 	}
 	} #sw
 
 #	break;
-#   }'Right'{ # •s—v ƒ‚[ƒ_ƒ‹”­¶ -> $tray.ContextMenuStrip
+#   }'Right'{ # ä¸è¦ ãƒ¢ãƒ¼ãƒ€ãƒ«ç™ºç”Ÿ -> $tray.ContextMenuStrip
 #	$contxt_tray.Show([Windows.Forms.Cursor]::Position)
     }
     } #sw
@@ -1049,12 +1058,12 @@ $frm.Icon= Icon_read "..\mml_watch.exe"
 $frm.MaximizeBox= $False
 
 $frm.TopLevel= $True
-## $frm.TopMost= $True # Å‘O–Ê•\¦‚ÌƒvƒƒpƒeƒB
+## $frm.TopMost= $True # æœ€å‰é¢è¡¨ç¤ºã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
 
 $frm.AllowDrop= $True
 
 #$frm.Add_Load({
-#	$frm.WindowState= "Minimized" # Å¬‰» "Normal"
+#	$frm.WindowState= "Minimized" # æœ€å°åŒ– "Normal"
 #})
 #$frm.Add_KeyDown({
 #	Write-Host $_.KeyCode # check
@@ -1082,11 +1091,11 @@ $frm.Add_SizeChanged({
  try{
 	switch($frm.WindowState){
 	'Minimized'{
-		Contxt_chg "Å¬‰»" 0
+		Contxt_chg "æœ€å°åŒ–" 0
 		break;
 
 	}'Normal'{
-		Contxt_chg "Œ³‚É–ß‚·" 0
+		Contxt_chg "å…ƒã«æˆ»ã™" 0
 	}
 	} #sw
 
@@ -1095,7 +1104,7 @@ $frm.Add_SizeChanged({
  }
 })
 
-$frm.Add_FormClosing({ # ƒCƒxƒ“ƒg“à‚¾‚Æerr”cˆ¬‚µ‚¸‚ç‚¢ ->ŠÖ”‰»
+$frm.Add_FormClosing({ # ã‚¤ãƒ™ãƒ³ãƒˆå†…ã ã¨erræŠŠæ¡ã—ãšã‚‰ã„ ->é–¢æ•°åŒ–
  try{
 
 	Wthwrite_xml $script:wth_xml.table.val $script:wth_xml.table.opt
@@ -1122,12 +1131,12 @@ $frm.Add_DragDrop({
 })
  
 $mnu= New-Object System.Windows.Forms.MenuStrip 
-	
+	 
 $menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $menu_f.Text= "File"
 
 $menu_e= New-Object System.Windows.Forms.ToolStripMenuItem
-$menu_e.Text= "ƒGƒfƒBƒ^"
+$menu_e.Text= "ã‚¨ãƒ‡ã‚£ã‚¿"
 
 $menu_e.Add_Click({
  try{
@@ -1139,9 +1148,8 @@ $menu_e.Add_Click({
  }
 })
 
-$menu_sd= New-Object System.Windows.Forms.ToolStripSeparator
 $menu_d= New-Object System.Windows.Forms.ToolStripMenuItem
-$menu_d.Text= "ƒtƒHƒ‹ƒ_"
+$menu_d.Text= "ãƒ•ã‚©ãƒ«ãƒ€"
 
 $menu_d.Add_Click({
  try{
@@ -1153,11 +1161,25 @@ $menu_d.Add_Click({
  }
 })
 
+$menu_spy= New-Object System.Windows.Forms.ToolStripSeparator
+$menu_py= New-Object System.Windows.Forms.ToolStripMenuItem
+$menu_py.Text= "ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼"
+
+$menu_py.Add_Click({
+ try{
+	[string]$retn= Player_open $val["player"]
+
+	if($retn -ne ""){ $err_box.Text= $retn }
+ }catch{
+	echo $_.exception
+ }
+})
+
 $menu_sn= New-Object System.Windows.Forms.ToolStripSeparator
 $menu_n=  New-Object System.Windows.Forms.ToolStripMenuItem
-$menu_n.Text= "I—¹"
+$menu_n.Text= "çµ‚äº†"
 
-$menu_n.Add_Click({ # I—¹
+$menu_n.Add_Click({ # çµ‚äº†
 
 	$frm.Close()
 })
@@ -1167,9 +1189,9 @@ $menu_o.Text= "Option"
 
 
 $menu_a= New-Object System.Windows.Forms.ToolStripMenuItem
-$menu_a.Text= "ŠÂ‹«İ’è"
+$menu_a.Text= "ç’°å¢ƒè¨­å®š"
 
-$menu_a.Add_Click({ # ŠÂ‹«İ’è
+$menu_a.Add_Click({ # ç’°å¢ƒè¨­å®š
  try{
 	Watch_Setting
 
@@ -1181,14 +1203,14 @@ $menu_a.Add_Click({ # ŠÂ‹«İ’è
 
 $menu_kar= New-Object System.Windows.Forms.ToolStripSeparator
 $menu_ka=  New-Object System.Windows.Forms.ToolStripMenuItem
-$menu_ka.Text= "Šeíİ’è"
+$menu_ka.Text= "å„ç¨®è¨­å®š"
 
 $menu_ty=  New-Object System.Windows.Forms.ToolStripMenuItem
-# $menu_ty.Text= "v ƒ^ƒXƒNƒgƒŒƒC"
+# $menu_ty.Text= "v ã‚¿ã‚¹ã‚¯ãƒˆãƒ¬ã‚¤"
 
 $menu_ty.Add_Click({
  try{
-	switch($opt["chk_tray"]){ # ƒgƒOƒ‹
+	switch($opt["chk_tray"]){ # ãƒˆã‚°ãƒ«
 
 	'True'{		$script:opt["chk_tray"]= Tray_hide "False";	break;
 	}'False'{	$script:opt["chk_tray"]= Tray_hide "True"
@@ -1201,11 +1223,11 @@ $menu_ty.Add_Click({
 
 $menu_eor= New-Object System.Windows.Forms.ToolStripSeparator
 $menu_eo=  New-Object System.Windows.Forms.ToolStripMenuItem
-# $menu_eo.Text= "v ‹N“®AƒGƒfƒBƒ^ƒI[ƒvƒ“"
+# $menu_eo.Text= "v èµ·å‹•æ™‚ã€ã‚¨ãƒ‡ã‚£ã‚¿ã‚ªãƒ¼ãƒ—ãƒ³"
 
 $menu_eo.Add_Click({
  try{
-	switch($opt["edt_open"]){ # ƒgƒOƒ‹
+	switch($opt["edt_open"]){ # ãƒˆã‚°ãƒ«
 
 	'True'{		$script:opt["edt_open"]= Edit_open "False";	break;
 	}'False'{	$script:opt["edt_open"]= Edit_open "True"
@@ -1218,11 +1240,11 @@ $menu_eo.Add_Click({
 
 $menu_sr= New-Object System.Windows.Forms.ToolStripSeparator
 $menu_r=  New-Object System.Windows.Forms.ToolStripMenuItem
-# $menu_r.Text= "v ŠJnA©“®ƒŠƒXƒ^[ƒg"
+# $menu_r.Text= "v ç›£è¦–é–‹å§‹æ™‚ã€ãƒªã‚¹ã‚¿ãƒ¼ãƒˆ"
 
 $menu_r.Add_Click({
  try{
-	switch($opt["chk_auto"]){ # ƒgƒOƒ‹
+	switch($opt["chk_auto"]){ # ãƒˆã‚°ãƒ«
 
 	'True'{		$script:opt["chk_auto"]= Auto_start "False";	break;
 	}'False'{	$script:opt["chk_auto"]= Auto_start "True"
@@ -1235,11 +1257,11 @@ $menu_r.Add_Click({
 
 $menu_st= New-Object System.Windows.Forms.ToolStripSeparator
 $menu_t=  New-Object System.Windows.Forms.ToolStripMenuItem
-# $menu_t.Text= "v Å‘O–Ê•\¦"
+# $menu_t.Text= "v æœ€å‰é¢è¡¨ç¤º"
 
 $menu_t.Add_Click({
  try{
-	switch($opt["chk_topmost"]){ # ƒgƒOƒ‹
+	switch($opt["chk_topmost"]){ # ãƒˆã‚°ãƒ«
 
 	'True'{		$script:opt["chk_topmost"]= Top_most "False";	break;
 	}'False'{	$script:opt["chk_topmost"]= Top_most "True"
@@ -1335,7 +1357,7 @@ $menu_mhelp.Add_Click({
  }
 })
   
-$menu_f.DropDownItems.AddRange(@($menu_e,$menu_sd,$menu_d,$menu_sn,$menu_n)) 
+$menu_f.DropDownItems.AddRange(@($menu_e,$menu_py,$menu_spy,$menu_d,$menu_sn,$menu_n)) 
 $menu_ka.DropDownItems.AddRange(@($menu_eo,$menu_eor,$menu_r,$menu_sr,$menu_ty))
 
 $menu_o.DropDownItems.AddRange(@($menu_t,$menu_st,$menu_ka,$menu_kar,$menu_a))
@@ -1359,23 +1381,23 @@ $wait= New-Object System.IO.FileSystemWatcher
 
 $wait.NotifyFilter= [System.IO.NotifyFilters]::LastWrite
 
-# $wait.Path= ".\temp" # ‰¼ƒpƒX“ü <- PathƒGƒ‰[‚½‚ß
+# $wait.Path= ".\temp" # ä»®ãƒ‘ã‚¹å…¥ <- Pathã‚¨ãƒ©ãƒ¼ãŸã‚
 # $wait.Filter= $null
 # $wait.EnableRaisingEvents= $False
 
-$wait.Add_Changed({	# event func“ü‚êq‚Íˆê’i‚ª—‘z..
+$wait.Add_Changed({	# event funcå…¥ã‚Œå­ã¯ä¸€æ®µãŒç†æƒ³..
 
  try{
 
 	$script:lated_time= (Get-Item $_.FullPath).LastWriteTime.ToString('yy/MM/dd HH:mm:ss')
 
 	# [ $_ if ok. can't switch ]
-	if($lated_time -ne $chk_time){ # “ñd“Ç‚İ‚Ì•s”õ‘Îô
+	if($lated_time -ne $chk_time){ # äºŒé‡èª­è¾¼ã¿ã®ä¸å‚™å¯¾ç­–
 
 		$script:chk_time= $lated_time
 
 
-		# $_ | Write-Host  # [= FileSystemEventArgsƒNƒ‰ƒX]
+		# $_ | Write-Host  # [= FileSystemEventArgsã‚¯ãƒ©ã‚¹]
 
 		Write-Host ('Updated: '+ $_.ChangeType)
 		Write-Host ''
@@ -1383,7 +1405,7 @@ $wait.Add_Changed({	# event func“ü‚êq‚Íˆê’i‚ª—‘z..
 		Play_nsf $_.FullPath # $err_box.Text
 		Watches_nsf ('< Watches: '+ $_.Name)
 
-		# sleep -m 1000	# ƒEƒFƒCƒg
+		sleep -m 167	# ã‚¦ã‚§ã‚¤ãƒˆ
 	}
 
  }catch{
@@ -1396,7 +1418,9 @@ $wait.Add_Changed({	# event func“ü‚êq‚Íˆê’i‚ª—‘z..
 
  try{
 
- # ƒLƒƒƒXƒg
+ [string[]]$args_str= $Args
+
+ # ã‚­ãƒ£ã‚¹ãƒˆ
 
  if((Test-Path '.\mml_watch.xml') -eq $True){
 
@@ -1406,17 +1430,30 @@ $wait.Add_Changed({	# event func“ü‚êq‚Íˆê’i‚ª—‘z..
  }
 
 
- # ˜A‘z”z—ñ‰»
+ # é€£æƒ³é…åˆ—åŒ–
 
  $val= @{}; $opt= @{};
  $edit=@{};
 
  Wthxml_read $script:wth_xml.table.val $script:wth_xml.table.opt
 
-
  [string[]]$comlin= Comline $opt["option"]
 
- # ó‘Ôƒ`ƒFƒbƒN
+
+	switch(Chk_path $args_str[0]){
+
+	2{	Write-Host ('ERROR: Null >> FileDrop Icon')
+		break;
+
+	}1{	Write-Host ('ERROR: Test-Path >> FileDrop Icon')
+		break;
+
+	}0{	$script:val["mmlfile"]= $args_str[0]
+	}
+	} #sw
+
+
+ # çŠ¶æ…‹ãƒã‚§ãƒƒã‚¯
  Status_cheker
  [bool]$chk_mml= Wait_setpath # $wait.Filter
 
@@ -1430,27 +1467,27 @@ $wait.Add_Changed({	# event func“ü‚êq‚Íˆê’i‚ª—‘z..
 
  Toggle_label
 
- # read‚Ì‚İ - Help‚½‚ß
+ # readã®ã¿ - HelpãŸã‚
  if((Test-Path '.\setting.xml') -eq $True){
 
 	$set_xml= [xml](cat '.\setting.xml')
 
-	Helpxml_read $script:set_xml.table # hash‰»
+	Helpxml_read $script:set_xml.table # hashåŒ–
  }
 
 
  [string]$chk_time= ""
  [string]$lated_time= ""
 
- [string]$scroll_text= "" # $csl_box ˆê‚Â‘O‚Ì—š—ğ
+ [string]$scroll_text= "" # $csl_box ä¸€ã¤å‰ã®å±¥æ­´
 
 
  $frm.ShowDialog() > $null
 
 
- # | Out-Null -> > $null # cancel•W€o—Í—}§
+ # | Out-Null -> > $null # cancelæ¨™æº–å‡ºåŠ›æŠ‘åˆ¶
 
- Write-Host ("`r`n"+"`"mml watch`"‚ğI—¹‚µ‚Ü‚·"+"`r`n")
+ Write-Host ("`r`n"+"`"mml watch`"ã‚’çµ‚äº†ã—ã¾ã™"+"`r`n")
 
  }catch{
 	echo $_.exception
@@ -1459,14 +1496,14 @@ $wait.Add_Changed({	# event func“ü‚êq‚Íˆê’i‚ª—‘z..
  }finally{
 
 	$wait.Dispose()
-	$tray.Dispose() # •K—v
+	$tray.Dispose() # å¿…è¦
  }
  
-# ƒnƒbƒVƒ…–¼’Ç‰Á‚Ìê‡ 
+# ãƒãƒƒã‚·ãƒ¥åè¿½åŠ ã®å ´åˆ 
 # $xml_watch= @'
-# $opt $script:opt
 # function Wthxml_read($x,$y){
 # function Wthwrite_xml($x,$y){
+# $opt $script:opt
  
 #			xml.string 
 #			reset

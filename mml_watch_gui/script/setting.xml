@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <table>
 	<!-- listbox / nameは変動値 -->
-	<mml name="ダブル-5th.mml" param="C:\Documents and Settings\sl(4\デスクトップ\テンプファイル\mml_watch\mml_watch_gui\sample\pmd\ダブル-5th.mml" />
-	<mml name="分散和音 - ver4_8r以上.mml" param="C:\Documents and Settings\sl(4\デスクトップ\テンプファイル\mml_watch\mml_watch_gui\sample\pmd\分散和音 - ver4_8r以上.mml" />
 	<mml name="check.mml" param="C:\Documents and Settings\sl(4\デスクトップ\テンプファイル\check.mml" />
+	<mml name="" param="" />
+	<mml name="" param="" />
 	<mml name="" param="" />
 	<br />
 	<mck name="ppmckc.exe" param="C:\Programs\Tools\Arc\ppmck\bin\ppmckc.exe" />

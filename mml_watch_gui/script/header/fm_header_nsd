@@ -1,11 +1,12 @@
 ﻿#Code "nsd_vrc7.bin" 
 #timebase 24 //l4
+#wait 1
 
 BGM(0){ t150
-TR6,7,8,9 %trk_param% @0 @V100 Q2 l4 v15
+TR6,7,8,9 %trk_param% @0 @V100 Q4 l4 v15
 
-TR6 d^w > e^rw <
-//TR7 >f^w  g+^rw <
+TR6  Rv15 d^w > e^rr <
+//TR7  Rv15 >f^w  g+^rr <
  }
 
 ; replace parameter

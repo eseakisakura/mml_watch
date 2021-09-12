@@ -1,25 +1,18 @@
-; track_parameter %%q6 l8 v16 @1%%
+#LoopDefault 2
 
-ABCD C192 t150 
-; replace parameter
-A  o3q6 l8 v16 @1
-B  o3q6 l8 v16 @1
-C  o3q6 l8 v16 @1
-D  o3q6 l8 v16 @1
+ABCD C192 t150
+ABCD o5 q6 v16 l4 @1
 
-A  c &c&c&c x &x&x&x  c &c&c&cr  >e&e&e<
-B  r b &b&b &bb &b&b  &bb &b&b&b r b &b
-C  r r >e&e &e&ee &e  &e&ee &e&e &er e <
-D  r r r >a &a&a&aa   &a&a&aa &a &a&a&a<
+A <d&d r >   e&err <
+; B >f&fr    g+&g+rr <
 
+; replace parameter 
+; nm alg fbl
+@001 004 000				=	POrgan1
+; ar  dr  sr  rr  sl  tl  ks  ml  dt ams
+ 020 002 000 007 000 031 002 008 007 000
+ 016 002 000 007 000 027 002 004 007 000
+ 018 002 000 005 000 031 002 000 006 000
+ 018 002 000 006 000 000 002 000 001 000
 
-; NM ALG  FB
-@001   4   0
-; AR  DR  SR  RR  SL  TL  KS  ML  DT AMS
-  31   7   7   7   7  40   0   6   0   0
-  31   7   7   7   7  10   0   2   0   0
-  31   7   7   7   7  40   0   6   0   0
-  31   7   7   7   7  10   0   2   0   0
-
- 
 

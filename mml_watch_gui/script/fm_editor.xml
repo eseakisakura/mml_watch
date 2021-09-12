@@ -1,55 +1,55 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <table>
 	<opt>
-		<tray value="False" />
+		<tray value="True" />
 		<autosave value="True" />
-		<oct value="o4" />
+		<oct value="o5" />
 		<zero value="False" />
 		<ten value="True" />
 		<type value="nsd" />
-		<style value="mucom" />
+		<style value="fmp7" />
 		<open value="False" />
 		<br />
-		<bai value="2" />
+		<bai value="1" />
 		<adjust value="20" />
-		<wait value="2" />
+		<wait value="1" />
 		<layout value="reverse" />
-		<color value="natural" />
+		<color value="vivid" />
 		<bit value="Checked" />
 	</opt>
 	<val>
 		<!-- 拡張性の加味 -->
 		<mck value="C:\Programs\Tools\Arc\ppmck\bin\ppmckc.exe" />
-		<nsd value="C:\Programs\Tools\Arc\nsdlib130\bin\nsc64.exe" />
+		<nsd value="C:\Programs\Tools\Arc\nsdlib130\bin\nsc.exe" />
 		<pmd value="C:\Programs\Tools\Arc\pmd\MC.EXE" />
 		<cmp value="C:\Programs\Tools\Arc\pmd\MC.EXE" />
 		<ply value="C:\Programs\Tools\Media\Winamp\winamp.exe" />
 		<dos value="C:\Programs\Tools\Arc\msdos\source\binary\i486_x86\msdos.exe" />
 		<edt value="C:\Programs\Tools\Text\Mery\Mery.exe" />
 	</val>
-	<presetstore name="opm 4op" param="AutoSave : 2021/03/09 14:16">
+	<presetstore name="opn 4op" param="AutoSave : 2021/09/10 13:06">
 		<vrc>
-			<M1 value=" 40,  0, 12,  4,  8,  4,  0,  1,  0,  0,  0,  0,  0" />
-			<CA value="  0,  0, 12,  4,  8,  4,  0,  1,  0,  0,  0,  0,  0" />
+			<M1 value=" 21,  4,  6,  6,  4,  6,  1,  2,  0,  0,  0,  0,  0" />
+			<CA value="  0,  0, 10,  1,  4,  7,  0,  5,  0,  0,  1,  0,  0" />
 		</vrc>
 		<opl>
 			<M1 value="  0,  0, 12,  4,  4,  8, 40,  0,  1,  0,  0,  0,  0" />
 			<CA value="  0,  0, 12,  4,  4,  8,  0,  0,  1,  0,  0,  0,  0" />
 		</opl>
 		<opn>
-			<M3 value="  2,  7, 31, 12,  4, 10,  1, 32,  0, 12,  0,  0" />
-			<M2 value="  0,  0, 31,  2,  4,  6, 15, 57,  3, 15,  1,  0" />
-			<M1 value="  0,  0, 31, 12,  4,  6,  0, 30,  0,  1,  0,  0" />
-			<CA value="  0,  0, 31,  5,  7,  7,  2,  0,  2,  3,  5,  0" />
+			<M3 value="  5,  7, 31, 18,  0, 15,  2, 39,  3,  5,  3,  0" />
+			<M2 value="  0,  0, 31,  4,  0, 15,  0, 17,  0,  8,  5,  0" />
+			<M1 value="  0,  0, 31, 15,  0, 15,  0, 27,  0,  2,  7,  0" />
+			<CA value="  0,  0, 31, 15,  0, 15,  0,  0,  0,  1,  3,  0" />
 		</opn>
 		<opm>
-			<M3 value="  4,  7, 31,  0,  0,  0,  0, 33,  0,  4,  7,  1,  0" />
-			<M2 value="  0,  0, 18, 15,  9,  7,  3,  9,  0,  4,  7,  1,  0" />
-			<M1 value="  0,  0, 31,  0,  0,  0,  0, 24,  0,  2,  3,  1,  0" />
+			<M3 value="  4,  0, 14,  6, 10,  1,  4, 28,  0,  1,  7,  0,  0" />
+			<M2 value="  0,  0, 18, 15,  9,  7,  3,  3,  0,  1,  7,  1,  0" />
+			<M1 value="  0,  0, 15,  5, 14,  4,  0, 24,  0,  2,  3,  1,  0" />
 			<CA value="  0,  0, 31, 15,  9,  7,  3,  0,  0,  2,  3,  1,  0" />
 		</opm>
 	</presetstore>
-	<resetting name="vrc7 2op" param="AutoSave : 2021/03/16 09:42">
+	<resetting name="vrc7 2op" param="AutoSave : 2021/09/11 20:53">
 		<!-- Reset Parameter時使用 -->
 		<vrc>
 			<M1 value=" 40,  0, 12,  4,  8,  4,  0,  1,  0,  0,  0,  0,  0" />
@@ -72,46 +72,46 @@
 			<CA value="  0,  0, 25, 10, 15, 10, 10,  0,  0,  1,  0,  0,  0" />
 		</opm>
 	</resetting>
-	<autosave name="opn 4op" param="AutoSave : 2021/03/16 09:42">
+	<autosave name="opn 4op" param="AutoSave : 2021/09/11 21:44">
 		<vrc>
-			<M1 value=" 31,  7, 12,  4,  8,  4,  0,  7,  0,  0,  0,  0,  0" />
-			<CA value="  0,  0, 12,  4,  8,  4,  0,  1,  0,  0,  0,  0,  0" />
+			<M1 value=" 21,  4,  6,  6,  4,  6,  1,  2,  0,  0,  0,  0,  0" />
+			<CA value="  0,  0, 10,  1,  4,  7,  0,  5,  0,  0,  1,  0,  0" />
 		</vrc>
 		<opl>
-			<M1 value="  0,  0, 12,  4,  4,  8, 40,  0,  1,  0,  0,  0,  0" />
+			<M1 value="  0,  0,  9,  8,  4,  4, 40,  0,  1,  0,  0,  0,  0" />
 			<CA value="  0,  0, 12,  4,  4,  8,  0,  0,  1,  0,  0,  0,  0" />
 		</opl>
 		<opn>
-			<M3 value="  4,  7, 27, 24,  4, 10, 12, 32,  0,  4,  0,  0" />
-			<M2 value="  0,  0, 31,  2,  4,  6, 15, 57,  3, 15,  1,  0" />
-			<M1 value="  0,  0, 31, 12,  4,  6,  0, 30,  0,  1,  0,  0" />
-			<CA value="  0,  0, 31,  5,  7,  7,  2,  0,  2,  3,  5,  0" />
+			<M3 value="  1,  0,  8,  0,  0, 15,  0, 11,  3,  0,  0,  0" />
+			<M2 value="  0,  0, 10,  0,  0, 15,  0, 11,  3,  0,  0,  0" />
+			<M1 value="  0,  0, 12, 10, 20, 15,  1, 26,  3,  8,  0,  0" />
+			<CA value="  0,  0, 12, 10, 20, 15,  2,  0,  3,  0,  0,  0" />
 		</opn>
 		<opm>
-			<M3 value="  4,  7, 31,  0,  0,  0,  0, 33,  0,  4,  7,  1,  0" />
-			<M2 value="  0,  0, 18, 15,  9,  7,  3,  9,  0,  4,  7,  1,  0" />
-			<M1 value="  0,  0, 31,  0,  0,  0,  0, 24,  0,  2,  3,  1,  0" />
+			<M3 value="  4,  0, 18,  6, 10,  1,  4, 28,  0,  1,  7,  0,  0" />
+			<M2 value="  0,  0, 18, 15,  9,  7,  3,  3,  0,  1,  7,  1,  0" />
+			<M1 value="  0,  0, 15,  5, 14,  4,  0, 24,  0, 11,  3,  1,  0" />
 			<CA value="  0,  0, 31, 15,  9,  7,  3,  0,  0,  2,  3,  1,  0" />
 		</opm>
 	</autosave>
 	<slot>
-		<A name="" param="">
-			<M3 value="" />
-			<M2 value="" />
-			<M1 value="" />
-			<CA value="" />
+		<A name="opn 4op" param="drum_W : 2021/06/21 09:21">
+			<M3 value="  4,  7, 31,  0,  0,  0,  1,  4,  2, 12,  7,  0" />
+			<M2 value="  0,  0, 31, 20, 12,  0,  3,  0,  2,  0,  3,  0" />
+			<M1 value="  0,  0, 31, 19, 12,  0, 15,  0,  0,  3,  0,  0" />
+			<CA value="  0,  0,  0, 18, 14,  1,  5,  0,  0,  0,  0,  0" />
 		</A>
-		<B name="" param="">
-			<M3 value="" />
-			<M2 value="" />
-			<M1 value="" />
-			<CA value="" />
+		<B name="opn 4op" param="drum_W2 : 2021/06/21 11:02">
+			<M3 value="  4,  7, 31,  0,  0,  0,  1,  4,  2, 12,  7,  0" />
+			<M2 value="  0,  0,  0, 18, 12,  4,  0,  0,  2,  0,  3,  0" />
+			<M1 value="  0,  0, 31,  0, 21,  0,  0,  5,  0,  3,  0,  0" />
+			<CA value="  0,  0, 31,  0,  0,  0,  0,  0,  0,  0,  0,  0" />
 		</B>
-		<C name="" param="">
+		<C name="vrc7 2op" param="Horn_preset : 2021/08/14 15:05">
 			<M3 value="" />
 			<M2 value="" />
-			<M1 value="" />
-			<CA value="" />
+			<M1 value=" 21,  5,  6,  6,  4,  2,  0,  2,  0,  0,  0,  0,  0" />
+			<CA value="  0,  0, 10,  1,  4,  4,  0,  4,  0,  0,  1,  0,  0" />
 		</C>
 		<D name="" param="">
 			<M3 value="" />

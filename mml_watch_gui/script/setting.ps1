@@ -411,30 +411,16 @@ function Hash_read(){
 		$pram_tab.SelectedIndex= 0
 		$radio_mck.Checked= "True"
 		$listbox_mck.Show()
-
-		foreach($key in $mck.Keys){
-			if($mck[$key] -eq $vals["compiler"]){ $listbox_mck.SelectedItem= $key }
-		} #
-
 		break;
 	}'nsd'{
 		$pram_tab.SelectedIndex= 1
 		$radio_nsd.Checked= "True"
 		$listbox_nsd.Show()
-
-		foreach($key in $nsd.Keys){
-			if($nsd[$key] -eq $vals["compiler"]){ $listbox_nsd.SelectedItem= $key }
-		} #
-
 		break;
 	}'pmd'{
 		$pram_tab.SelectedIndex= 3
 		$radio_pmd.Checked= "True"
 		$listbox_pmd.Show()
-
-		foreach($key in $pmd.Keys){
-			if($pmd[$key] -eq $vals["compiler"]){ $listbox_pmd.SelectedItem= $key }
-		} #
 	}
 	} #sw
 
@@ -442,6 +428,17 @@ function Hash_read(){
 	foreach($key in $mml.Keys){ # あればハイライト表示
 		if($mml[$key] -eq $vals["mmlfile"]){ $listbox_mml.SelectedItem= $key }
 	} #
+
+	foreach($key in $mck.Keys){
+		if($mck[$key] -eq $vals["mck"]){ $listbox_mck.SelectedItem= $key }
+	} #
+	foreach($key in $nsd.Keys){
+		if($nsd[$key] -eq $vals["nsd"]){ $listbox_nsd.SelectedItem= $key }
+	} #
+	foreach($key in $pmd.Keys){
+		if($pmd[$key] -eq $vals["pmd"]){ $listbox_pmd.SelectedItem= $key }
+	} #
+
 	foreach($key in $ply.Keys){
 		if($ply[$key] -eq $vals["player"]){ $listbox_ply.SelectedItem= $key }
 	} #
@@ -468,36 +465,41 @@ function Write_hash(){
 
   if([string]$radio_mck.Checked -eq 'True'){
 
-	$script:opts["radio_bin"]= "mck"
-
 	switch($mck.Count){
-	0{	  $script:vals["compiler"]= ""; break;
-	}1{	  $script:vals["compiler"]= $mck.Values; break;
-	}default{ $script:vals["compiler"]= $mck[[string]$listbox_mck.SelectedItem] # [string]キャスト必要
+	0{	  $script:vals["mck"]= ""; break;
+	}1{	  $script:vals["mck"]= $mck.Values; break;
+	}default{ $script:vals["mck"]= $mck[[string]$listbox_mck.SelectedItem] # [string]キャスト必要
 	}
 	} #sw
+
+	$script:opts["radio_bin"]= "mck"
+	$script:vals["compiler"]= $vals["mck"]
+
 
   }elseif([string]$radio_nsd.Checked -eq 'True'){
 
-	$script:opts["radio_bin"]= "nsd"
-
 	switch($nsd.Count){
-	0{	  $script:vals["compiler"]= ""; break;
-	}1{	  $script:vals["compiler"]= $nsd.Values; break;
-	}default{ $script:vals["compiler"]= $nsd[[string]$listbox_nsd.SelectedItem]
+	0{	  $script:vals["nsd"]= ""; break;
+	}1{	  $script:vals["nsd"]= $nsd.Values; break;
+	}default{ $script:vals["nsd"]= $nsd[[string]$listbox_nsd.SelectedItem]
 	}
 	} #sw
+
+	$script:opts["radio_bin"]= "nsd"
+	$script:vals["compiler"]= $vals["nsd"]
+
 
   }elseif([string]$radio_pmd.Checked -eq 'True'){
 
-	$script:opts["radio_bin"]= "pmd"
-
 	switch($pmd.Count){
-	0{	  $script:vals["compiler"]= ""; break;
-	}1{	  $script:vals["compiler"]= $pmd.Values; break;
-	}default{ $script:vals["compiler"]= $pmd[[string]$listbox_pmd.SelectedItem]
+	0{	  $script:vals["pmd"]= ""; break;
+	}1{	  $script:vals["pmd"]= $pmd.Values; break;
+	}default{ $script:vals["pmd"]= $pmd[[string]$listbox_pmd.SelectedItem]
 	}
 	} #sw
+
+	$script:opts["radio_bin"]= "pmd"
+	$script:vals["compiler"]= $vals["pmd"]
   }
 
 	switch($mml.Count){
@@ -535,7 +537,7 @@ function Write_hash(){
 	}
 	} #sw
  } #func
- 
+ 	
 function Hash_read_cut(){ 
 
 
@@ -615,7 +617,7 @@ function Hash_read_cut(){
 		if($dos[$key] -eq $vals["dos"]){ $listbox_dos.SelectedItem= $key }
 	} #
  } #func
- 	
+ 
 function Write_hash_cut(){ 
 
 
@@ -990,6 +992,7 @@ function Box_radio([string]$ss){
  } #func
  
 function New_mml([string]$sw){ 
+
 
   [string]$new_set= "" # kara iretoku -> system err kaihi
 
@@ -1463,7 +1466,7 @@ $listbox_dmc.Add_DragDrop({
 })
   
 # tab_bin 
-	 
+	
 $tab_bin= New-Object System.Windows.Forms.TabPage 
 $tab_bin.Text= "binary"
  
@@ -2096,6 +2099,12 @@ $sub_menu_mck.Text= "MCK new mml"
 $sub_menu_mck.Add_Click({
  try{
 	New_mml "mck"
+
+	$listbox_nsd.Hide()
+	$listbox_pmd.Hide()
+	$listbox_mck.Show()
+	$radio_mck.Checked= "True"
+
  }catch{
 	echo $_.exception
  }
@@ -2107,6 +2116,12 @@ $sub_menu_nsd.Text= "NSD new mml"
 $sub_menu_nsd.Add_Click({
  try{
 	New_mml "nsd"
+
+	$listbox_nsd.Show()
+	$listbox_pmd.Hide()
+	$listbox_mck.Hide()
+	$radio_nsd.Checked= "True"
+
  }catch{
 	echo $_.exception
  }
@@ -2118,6 +2133,12 @@ $sub_menu_pmd.Text= "PMD new mml"
 $sub_menu_pmd.Add_Click({
  try{
 	New_mml "pmd"
+
+	$listbox_mck.Hide()
+	$listbox_nsd.Hide()
+	$listbox_pmd.Show()
+	$radio_pmd.Checked= "True"
+
  }catch{
 	echo $_.exception
  }
@@ -2289,7 +2310,7 @@ $sub_f.AcceptButton= $ok_btn		# [Enter]
 	$tab.Controls.AddRange(@($tab_mml,$tab_bin,$tab_ply,$tab_edt,$tab_dos))
 	$sub_menu_f.DropDownItems.AddRange(@($sub_menu_new,$sub_menu_adv,$sub_menu_an,$sub_menu_a,$sub_menu_sn,$sub_menu_n))
 
- 	Drag_drop "mml" $vals["mmlfile"] # D&D時ため、mml hashへ自動登録
+	Drag_drop "mml" $vals["mmlfile"] # D&D時ため、mml hashへ自動登録
 
 	Hash_read # List化
 	break;
@@ -2299,7 +2320,7 @@ $sub_f.AcceptButton= $ok_btn		# [Enter]
 	$tab.Controls.AddRange(@($tab_bin,$tab_ply,$tab_edt,$tab_dos))
 	$sub_menu_f.DropDownItems.AddRange(@($sub_menu_a,$sub_menu_sn,$sub_menu_n))
 
-	$script:opts["radio_bin"]= Box_radio $vals["compiler"] # hash設定
+	$script:opts["radio_bin"]= Box_radio $vals["compiler"] # radioを選択
 
 	Hash_read_cut # List化
   }

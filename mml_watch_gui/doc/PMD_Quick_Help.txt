@@ -48,7 +48,7 @@ R	Rythm定義(\~)
 [全角文字]	コメント扱い
  
 ヘッダ////// 
-	
+	 
 #Title [str]		曲のタイトル 
 #Composer [str]		作曲者名
 #Arranger [str]		編曲者名
@@ -57,7 +57,9 @@ R	Rythm定義(\~)
 #Filename [file.M]	出力ファイル名 
 
 #PPSFile [file.PPS]	SSGPCMファイル名
+
 #PCMFile [file.PPC]	JパートのPCM名
+
 #FFFile [EFFEC.FF]	音色(.FF)ファイル名
 
 #PPZFile [file.pvi]	PPZパートで使用するPCM、
@@ -66,7 +68,7 @@ R	Rythm定義(\~)
 #Include [file.mml]	#Include行にMMLファイルを読み込む
 
 #Option [/L/S/A/O]	コンパイラオプション
- 
+ 	
 #Tempo [18~255]		テンポ指定(C96時、2分音符回数/min) 
 			[->t command]
 
@@ -287,7 +289,7 @@ v),v(	v 絶対加減	v)[0~16]
 )^%,(^%	一時加減(Vコマンドレベル)
 	)^3;
  
-@	音色 
+@	音色, Rythm音色 
 	@[num]
 
 	ABCDEF	FM	[0~255]
@@ -739,29 +741,6 @@ R0 l8 [\c\br \hr16\cpr16 \sr \br  \br \hr \sr \hr]4
 
 	\lh; Hi-Hatの出力を左に設定
  
-m	パートマスク(TrackMute) 
-	m[0,1](off,on)
-
-	m1; パートマスクon
-
-
-F	フェードアウト	F[0~127]
-
-
-DF DS DP DR	音源別音量ダウン
-
-	DF[0~255,-128~+127]
-
-	DF: FM音源
-	DS: SSG音源
-	DP: PCM音源
-	DR: Rythm音源
-
-	G [cdefgab>c< DS+16]8;
-
-	(SSG音源全体が 1ループする毎、
-	音量が段々下がる)
- 
 !	定義変数読込み 
 
 	exp.
@@ -786,6 +765,29 @@ L		全体ループ
 		C :全音符長
 		_{ } :移調
 
+ 
+m	パートマスク(TrackMute) 
+	m[0,1](off,on)
+
+	m1; パートマスクon
+
+
+F	フェードアウト	F[0~127]
+
+
+DF DS DP DR	音源別音量ダウン
+
+	DF[0~255,-128~+127]
+
+	DF: FM音源
+	DS: SSG音源
+	DP: PCM音源
+	DR: Rythm音源
+
+	G [cdefgab>c< DS+16]8;
+
+	(SSG音源全体が 1ループする毎、
+	音量が段々下がる)
  
 /	コンパイル打ち切り 
 

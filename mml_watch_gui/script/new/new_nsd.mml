@@ -3,23 +3,39 @@
 #timebase 24 //l4
 
 BGM(0){ t150
-TR1 Ev20 Q2 o3 @2 l4 ab>cdefga<
+TR1 Ev200 Em700 o3 @2 q4 l4 ab>cdefga<
 
-TR3 En100 o4 l8 [errf+ errr]2 //BD
-TR4 Ev200  @0 o4 l8 [rrgr rrer]2 //Sn
+TR3 En4 Ev6 o3 l8 [errf+ errr]2 //BD
+TR4 Ev20  @0 o4 l8 [rrgr rrer]2 //Sn
 
-TR9,10,11,12,13,14 @V100 @0 //FM波
-//TR9 v15 q8 o4 b1
+//TR9 @V100 @0 v15 q8 o4 b2 b2 b2 >c2< //vrc7
+//TR17 NC4 @NL64,20 @NS64 v15 q8 o6 dc<ba gfec> //n16x
  }
 
-E(20){ L 15 R (15,2,20) L 2 } // Ev
-E(100){ (12,-18,9) L-18 } // En
-E(200){ (15,1,4),(7,1,8) L 0 } // Ev
+
+E(200){ 13 (15,10,23) L9 R (8,2,12) L2 } // Ev
+E(700){	0 D23
+	  1 1  0 0  0 0  0 0
+	  2 2  1 1  0 0  0 0
+	L 3 3  2 2  1 1  0 0 } //Em LFO
+
+
+E(4){ (20,-3,18) (-4,-16,9) L-32 } // En
+E(6){ 2 (4, 1, 36) L0 } //リニアカウンター
+
+E(20){ 15 (14,8,7) (7,1,14) 1 L 0 } // Ev
+
 
 VRC7(100){
 ;  TL  FB
 @  40   3
 ;  AR  DR  SL  RR KSL  ML  AM VIB  EG KSR  DT
    15   3  11   3   0   2   0   0   0   0   0
-   15   3  11   5   0   2   0   0   1   0   0
- }
+   15   3  11   5   0   2   0   0   1   0   0 }
+
+N163(20){ //TRI 32Sample
+   8  9 10 11 12 13 14 15 15 14 13 12 11 10  9  8
+   7  6  5  4  3  2  1  0  0  1  2  3  4  5  6  7 }
+
+
+ 
