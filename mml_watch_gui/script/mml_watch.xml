@@ -18,7 +18,7 @@
 		<chk_dos value="Checked" />
 		<chk_stop value="Checked" />
 		<chk_thru value="Unchecked" />
-		<chk_auto value="False" />
+		<chk_auto value="True" />
 		<edt_open value="True" />
 		<chk_tray value="True" />
 		<chk_topmost value="False" />
