@@ -48,7 +48,7 @@ $setting_xml= @'
 '@
  
 # hash 
-	 
+	
 function Xml_read($x){ 
 
   # $x= $script:xml_set.table
@@ -537,7 +537,7 @@ function Write_hash(){
 	}
 	} #sw
  } #func
- 	
+ 
 function Hash_read_cut(){ 
 
 
@@ -683,7 +683,7 @@ function Attend(){
 
 	[string]$ret= [Windows.Forms.MessageBox]::Show(
 
-		"環境設定のリセット", "確認", "OKCancel","Information","Button2"
+		"環境設定をリセットします", "確認", "OKCancel","Information","Button2"
 	)
 
 	return $ret
@@ -2224,7 +2224,7 @@ $sub_menu_n.Add_Click({	# 設定終了
 
 	$sub_f.Close() #.Add_FormClosingへ
 })
- 
+ 	
 $sub_menu_o= New-Object System.Windows.Forms.ToolStripMenuItem 
 $sub_menu_o.Text= "Option"
 

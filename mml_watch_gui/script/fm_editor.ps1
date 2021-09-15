@@ -12128,7 +12128,7 @@ $Whbrush= New-Object System.Drawing.Drawing2D.LinearGradientBrush($poix,$poia,$d
 $Whbrush.InterpolationColors= $Cdbrend
 
 # 'black' set =====
-$black= [System.Drawing.Color]::FromArgb(236,36,60,60)		# ˆÃ•F‰ü A‚Í‚‹‰Š´‚Ì‚½‚ß
+$black= [System.Drawing.Color]::FromArgb(236,35,60,60)		# ˆÃ•F‰ü A‚Í‚‹‰Š´‚Ì‚½‚ß
 $naturalblack= [System.Drawing.Color]::FromArgb(216,0,11,0)	# ”G‰HF A:236
 $gr_black= [System.Drawing.Color]::FromArgb(124,0,11,0)		# a:184
 
