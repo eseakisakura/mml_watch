@@ -94,39 +94,39 @@ Function Split_path([string]$f){
 
  } #func
  
-function Eor_open([string]$pcheck,[string]$name){ 
+function Eor_open([string]$path_chk,[string]$name){ 
 
-	[string]$eor= ""
+	[string]$tt= ""
 
-	switch(Chk_path $pcheck){
+	switch(Chk_path $path_chk){
 	2{
 		[string[]]$ff= "","","",""
-		$ff= Split_path $pcheck # unkhown出力
+		$ff= Split_path $path_chk # unkhown出力
 
 
-		$eor=  ('> "'+ $name+ '"選択されてません: '+ $ff[0])
-		Write-Host ($eor+ "`r`n")
+		$tt=  ('"'+ $name+ '"選択されてません: '+ $ff[0])
+		Write-Host (">"+ $tt)
 
 		break;
 	}1{
-		$eor= ('> '+ $name+ 'パス先がありません: '+ $pcheck)
-		Write-Host ($eor+ "`r`n")
+		$tt= ('"'+ $name+ 'パス先がありません: '+ $path_chk)
+		Write-Host (">"+ $tt)
 
 		break;
 	#}0{
 	}
 	} #sw
 
-	return $eor
+	return $tt
  } #func
  
-function Editor_open([string]$dpath,[string]$fpath){ 
+function Editor_open([string]$edt_path,[string]$file_path){ 
 
 
 	[string[]]$ss= "","",""
 
-	$ss[0]= Eor_open $dpath "エディタ"
-	$ss[1]= Eor_open $fpath "ファイル"
+	$ss[0]= Eor_open $edt_path "Editor"
+	$ss[1]= Eor_open $file_path "File"
 
 
 	if($ss[0] -ne "" -and $ss[1] -ne ""){
@@ -142,15 +142,15 @@ function Editor_open([string]$dpath,[string]$fpath){
 		$ss[2]=  $ss[1]
 	}else{
 
-		& $dpath ('"'+ $fpath+ '"')
+		& $edt_path ('"'+ $file_path+ '"')
 	}
 
 	return $ss[2]
 } #func
- 
+ 	
 function Folder_open([int]$sw,[string]$path){ 
 
-	[string[]]$tt= "フォルダ","ファイル"
+	[string[]]$tt= "Folder","File"
 
 	[string]$ss= Eor_open $path $tt[$sw]
 
@@ -175,19 +175,7 @@ function Folder_open([int]$sw,[string]$path){
 	return $ss
 } #func
  
-function Player_open([string]$path){ 
-
-	[string]$ss= Eor_open $path "プレイヤー"
-
-	if($ss -eq ""){
-
-		& $path
-	}
-
-	return $ss
-} #func
- 
-function Icon_read([string]$tt){ 
+function Icon_read([string]$tt){ 	
 
   switch(Chk_path $tt){
   0{
@@ -474,6 +462,41 @@ return $out
 
  } #func
  
+function Player_open([int]$num,[string]$plyer,[string]$path){ 
+
+	[string]$ss= Eor_open $plyer "Player"
+
+	if($ss -eq ""){
+
+		switch($num){
+		0{
+			& $plyer
+			break;
+		}1{
+			[string[]]$s= Split_path $plyer
+
+			# fmpmd /sダイアログで止まる
+			# nsfplay2.4 -> errダイアログ出力
+
+			switch($s[0]){
+			'winamp.exe'{	& $plyer /stop; break;
+			}'foobar.exe'{	& $plyer /stop
+			}
+			} #sw
+
+			break;
+		}2{	& $plyer $path
+		}
+		} #sw
+
+	}else{
+		switch($num){
+		0{	return $ss;
+		}
+		} #sw
+	}
+} #func
+ 
 # ------ main 
 
  try{
@@ -494,4 +517,4 @@ return $out
 
  }finally{
  }
- 	
+ 

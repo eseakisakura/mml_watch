@@ -3,18 +3,18 @@
 	<opt>
 		<tray value="True" />
 		<autosave value="True" />
-		<oct value="o4" />
+		<oct value="o5" />
 		<zero value="False" />
 		<ten value="True" />
 		<type value="nsd" />
-		<style value="fmp7" />
-		<open value="True" />
+		<style value="mucom" />
+		<open value="False" />
 		<br />
 		<bai value="2" />
 		<adjust value="20" />
 		<wait value="1" />
 		<layout value="reverse" />
-		<color value="vivid" />
+		<color value="pastel" />
 		<bit value="Checked" />
 	</opt>
 	<val>
@@ -27,20 +27,20 @@
 		<dos value="C:\Programs\Tools\Arc\msdos\source\binary\i486_x86\msdos.exe" />
 		<edt value="C:\Programs\Tools\Text\Mery\Mery.exe" />
 	</val>
-	<presetstore name="opn 4op" param="AutoSave : 2021/09/12 20:11">
+	<presetstore name="opn 4op" param="AutoSave : 2021/09/19 17:25">
 		<vrc>
-			<M1 value=" 40,  7, 12,  4,  8,  4,  0,  1,  0,  0,  0,  0,  0" />
+			<M1 value=" 24,  7, 12,  4,  8,  4,  0,  1,  0,  0,  0,  0,  0" />
 			<CA value="  0,  0, 12,  4,  8,  4,  0,  1,  0,  0,  0,  0,  0" />
 		</vrc>
 		<opl>
-			<M1 value="  1,  0, 12,  4,  4,  8, 40,  0,  1,  0,  0,  0,  0" />
+			<M1 value="  0,  0, 12,  4,  4,  8, 40,  0,  1,  0,  0,  0,  0" />
 			<CA value="  0,  0, 12,  4,  4,  8,  0,  0,  1,  0,  0,  0,  0" />
 		</opl>
 		<opn>
-			<M3 value="  2,  7, 28,  4,  3,  9,  1, 35,  2,  1,  3,  0" />
-			<M2 value="  0,  0, 27,  8,  1,  9,  0, 37,  3, 15,  7,  0" />
-			<M1 value="  0,  0, 28,  3,  0,  8, 15, 27,  2,  1,  6,  0" />
-			<CA value="  0,  0, 26,  9,  0, 10, 15,  0,  2, 10,  0,  0" />
+			<M3 value="  2,  7, 25, 11,  0,  3,  1, 31,  3,  1,  3,  0" />
+			<M2 value="  0,  0, 28, 12, 12, 11,  5, 40,  3,  9,  3,  0" />
+			<M1 value="  0,  0, 22,  0,  0, 11,  1, 50,  1,  2,  3,  0" />
+			<CA value="  0,  0, 20,  6,  0, 11,  0,  0,  1,  4,  3,  0" />
 		</opn>
 		<opm>
 			<M3 value="  0,  0, 25, 10, 15, 10, 10, 40,  0,  1,  0,  0,  0" />
@@ -49,7 +49,7 @@
 			<CA value="  0,  0, 25, 10, 15, 10, 10,  0,  0,  1,  0,  0,  0" />
 		</opm>
 	</presetstore>
-	<resetting name="vrc7 2op" param="AutoSave : 2021/09/13 22:17">
+	<resetting name="vrc7 2op" param="AutoSave : 2021/09/19 17:25">
 		<!-- Reset Parameter時使用 -->
 		<vrc>
 			<M1 value=" 40,  0, 12,  4,  8,  4,  0,  1,  0,  0,  0,  0,  0" />
@@ -72,7 +72,7 @@
 			<CA value="  0,  0, 25, 10, 15, 10, 10,  0,  0,  1,  0,  0,  0" />
 		</opm>
 	</resetting>
-	<autosave name="opn 4op" param="AutoSave : 2021/09/13 22:18">
+	<autosave name="opn 4op" param="AutoSave : 2021/09/19 17:26">
 		<vrc>
 			<M1 value=" 24,  7, 12,  4,  8,  4,  0,  1,  0,  0,  0,  0,  0" />
 			<CA value="  0,  0, 12,  4,  8,  4,  0,  1,  0,  0,  0,  0,  0" />
@@ -82,10 +82,10 @@
 			<CA value="  0,  0, 12,  4,  4,  8,  0,  0,  1,  0,  0,  0,  0" />
 		</opl>
 		<opn>
-			<M3 value="  2,  3, 21,  9, 16,  8,  4,  6,  2,  0,  4,  0" />
-			<M2 value="  0,  0, 27,  8,  1,  9,  0,  0,  3,  0,  7,  0" />
-			<M1 value="  0,  0, 28,  9,  9,  8,  3, 27,  2,  1,  6,  0" />
-			<CA value="  0,  0, 26,  9,  0, 10, 15,  0,  2, 10,  0,  0" />
+			<M3 value="  2,  7, 25, 11,  0,  3,  1, 31,  3,  1,  3,  0" />
+			<M2 value="  0,  0, 28, 12, 12, 11,  5, 40,  3,  9,  3,  0" />
+			<M1 value="  0,  0, 22,  0,  0, 11,  1, 50,  1,  2,  3,  0" />
+			<CA value="  0,  0, 20,  6,  0, 11,  0,  0,  1,  4,  3,  0" />
 		</opn>
 		<opm>
 			<M3 value="  0,  0, 25, 10, 15, 10, 10, 40,  0,  1,  0,  0,  0" />

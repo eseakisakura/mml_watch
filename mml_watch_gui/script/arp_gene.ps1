@@ -1,6 +1,6 @@
 ﻿<# arp_gene.ps1 #> 
 
-Write-Host ('"分散コードエディタ"を起動します')
+Write-Host ('"分散コードエディタ"を起動します'+ "`r`n")
  
 $xml_arpeg= @' 
 <table>
@@ -415,7 +415,7 @@ $rot["4D"]=	"4313 1313",
 		"432 123 132 132"
  
 # gui 
-	
+	 
 function Trayarp_hide([string]$t){ 
 
 	switch($t){
@@ -751,7 +751,7 @@ function Arpchange_menu([string]$name, [string]$sw){
  } #func
   
 # Hash Xml 
-	
+	 
 function Setxml_read($x){ 
 
   # $x= $script:set_xml.table
@@ -1570,7 +1570,7 @@ function Apeg([string]$tt){
 } #func
   
 # Exp 
-	
+	 
 function Prefixarp_mml([string]$t, [string]$g){ 
 
 	[int]$trk_num= $nmud_trk.Value
@@ -1612,15 +1612,8 @@ function Lisnarp_nsf([int]$sw, [string]$lis){
  switch($sw){
 
  1{
-	[string[]]$s= Split_path $val["player"]
-
-	switch($s[0]){
-	'winamp.exe'{	& $val["player"] /stop; break;
-	}'foobar.exe'{	& $val["player"] /stop; break;
-	}default{
-	}
-	} #sw
-
+	Player_open 1 $val["player"]
+	break;
  }0{
 	Write-Host $val["compiler"]
 	Write-Host $val["player"]
@@ -1683,7 +1676,7 @@ function Lisnarp_nsf([int]$sw, [string]$lis){
 		}else{
 			# '"' 空白パス対応
 
-			& $val["player"] ('"'+ $dpn+ $ext+ '"')
+			Player_open 2 $val["player"] ('"'+ $dpn+ $ext+ '"')
 		}
 	}
  }
@@ -1694,7 +1687,7 @@ function Lisnarp_nsf([int]$sw, [string]$lis){
 function Keydown_arp([string]$t){ 
 
   switch($t){
-  'F5'{
+  'F10'{
 	Lisnarp_nsf 1 # stop
 
   }'F12'{
@@ -2095,7 +2088,7 @@ $mml_grp.Text= "MML arpeggio"
 $mml_grp.Size= "530,415"
 $mml_grp.Location= "10,130"
 $mml_grp.FlatStyle= "Flat"
-	
+	 
 $label_apeg= New-Object System.Windows.Forms.Label 
 $label_apeg.Text= "Arpeggio"
 $label_apeg.Size= "75,20"
@@ -3116,7 +3109,7 @@ $arp_menu_py.Text= "Player open"
 
 $arp_menu_py.Add_Click({
  try{
-	[string]$retn= Player_open $val["player"]
+	[string]$retn= Player_open 0 $val["player"]
 
 	if($retn -ne ""){
 
@@ -3206,7 +3199,7 @@ $arp_mnu.Items.AddRange(@($arp_menu_f,$arp_menu_o,$arp_menu_m,$arp_menu_b,$arp_m
 
 $arp_stus.Items.AddRange(@($arp_label))
 $frm_arp.Controls.AddRange(@($arp_mnu,$chd_grp,$flet_grp,$mml_grp,$arp_stus))
- 	
+ 
 # ------ main 
 
  try{

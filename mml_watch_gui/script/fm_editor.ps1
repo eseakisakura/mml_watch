@@ -1,6 +1,6 @@
 <# fm_editor.ps1 #> 
 
-Write-Host ('"FM音色エディタ"を起動します')
+Write-Host ('"FM音色エディタ"を起動します'+ "`r`n")
  
 $xml_editor= @' 
 <table>
@@ -2427,7 +2427,7 @@ function Load_value($x, [string]$sw){
  } #func
   
 # hash 
-	
+	 
 function Fmxml_read($x,$y){ # hash設定 
 
 	# $x= $script:fm_xml.table.val
@@ -2533,7 +2533,7 @@ function Fmwrite_xml($x,$y){
  } #func
   
 # gui 
-	
+	 
 function Trayfm_hide([string]$t){ 
 
 	switch($t){
@@ -3628,7 +3628,7 @@ function All_sz([array]$r,[int]$j){
  } #func
   
 # Lis 
-	
+	 
 function Adv_edit([string]$t){ 
 
   switch($t){
@@ -4047,7 +4047,7 @@ function Lisnfm_nsf([int]$sw, [string]$t){
 		}else{
 			# '"' 空白パス対応
 
-			& $val["player"] ('"'+ $dpn+ $ext+ '"')
+			Player_open 2 $val["player"] ('"'+ $dpn+ $ext+ '"')
 		}
 	}
   }
@@ -6192,7 +6192,7 @@ $sb_stus.Items.AddRange(@($sb_label))
 $sb_alg.Controls.AddRange(@($sb_mnu,$pict_panel,$sb_stus))
   
 # Preset forms 
-	
+	 
 $ff_baloon= New-Object System.Windows.Forms.Tooltip 
 $ff_baloon.ShowAlways= $False
 # $ff_baloon.ToolTipIcon= "Info"
@@ -6891,7 +6891,7 @@ $sub_sav.CancelButton= $sub_sav_cancel_Btn	# [ESC]
 $sub_sav.AcceptButton= $sub_sav_ok_Btn		# [Enter]
   
 # Main forms 
-	
+	 
 # VRC7 
 	
 $vrc_eg_grp= New-Object System.Windows.Forms.GroupBox 
@@ -10585,7 +10585,7 @@ $opm_alg_grp.Controls.AddRange(@($opm_trkbar_alg,$opm_nmud_alg,$opm_lbl_alg))
 $opm_alg_grp.Controls.AddRange(@($opm_trkbar_fb,$opm_nmud_fb,$opm_lbl_fb))
   
 # forms 
-	
+	 
 $osc_grp= New-Object System.Windows.Forms.GroupBox 
 $osc_grp.Text= "FM OSC"
 $osc_grp.Size= "175,80"
@@ -10926,7 +10926,7 @@ $frm_fm.Add_FormClosing({
 })
  
 $fm_mnu= New-Object System.Windows.Forms.MenuStrip 
-	
+	 
 $fm_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_f.Text= "File"
 
@@ -10949,7 +10949,8 @@ $fm_menu_pset.Add_Click({
 
 	$fm_menu_pset.Text= "v Preset"
 
-	$ff_frm.Show(); break;
+	$ff_frm.Show(); break;	
+
 
   }'True'{
 
@@ -12019,7 +12020,7 @@ $fm_menu_py.Text= "Player open"
 
 $fm_menu_py.Add_Click({
  try{
-	[string]$retn= Player_open $val["player"]
+	[string]$retn= Player_open 0 $val["player"]
 
 	if($retn -ne ""){
 
@@ -12128,7 +12129,7 @@ $Whbrush= New-Object System.Drawing.Drawing2D.LinearGradientBrush($poix,$poia,$d
 $Whbrush.InterpolationColors= $Cdbrend
 
 # 'black' set =====
-$black= [System.Drawing.Color]::FromArgb(236,35,60,60)		# 暗黒色改 Aは高級感のため
+$black= [System.Drawing.Color]::FromArgb(236,36,61,61)		# 暗黒色改 Aは高級感のため
 $naturalblack= [System.Drawing.Color]::FromArgb(216,0,11,0)	# 濡羽色 A:236
 $gr_black= [System.Drawing.Color]::FromArgb(124,0,11,0)		# a:184
 
@@ -12171,10 +12172,10 @@ $pastelgreen= [System.Drawing.Color]::FromArgb(170,140,220,61)	# 0,235,104
 
 $yellow= [System.Drawing.Color]::FromName("orange")
 $gold= [System.Drawing.Color]::FromArgb(190,255,215,0)		# gold 255,215,0
-$darkorange= [System.Drawing.Color]::FromArgb(165,163,166,100)	# goldenrod -1,-1,-1
-$vividorange= [System.Drawing.Color]::FromArgb(200,200,216,54)	# goldenrod 218,165,32->213,217,33/ 222,255,40 / 200,200,210,48
+$darkorange= [System.Drawing.Color]::FromArgb(165,161,166,106)	# goldenrod -1,-1,-1
+$vividorange= [System.Drawing.Color]::FromArgb(200,204,220,62)	# goldenrod 218,165,32->213,217,33/ 222,255,40 / 200,200,210,48
 $naturalorange= [System.Drawing.Color]::FromArgb(221,202,206,66) # khaki 240,230,140->221,200,200,60
-$pastelorange= [System.Drawing.Color]::FromArgb(170,206,210,114) # 255,217,0+H48S58V100/H-,S-
+$pastelorange= [System.Drawing.Color]::FromArgb(170,206,210,120) # 255,217,0+H48S58V100/H-,S-
 
 $magenta= [System.Drawing.Color]::FromName("magenta")
 $pink= [System.Drawing.Color]::FromArgb(190,255,182,193)	# lightpink
@@ -12228,7 +12229,7 @@ $Rpen= New-Object System.Drawing.Pen($pink, 7)
 	echo $_.exception
 	Write-Host '"ERROR: Safety Stopper >> Color object err"'
  }
- 	
+ 
 # cable pointer 
 
 # pos / 480,530
