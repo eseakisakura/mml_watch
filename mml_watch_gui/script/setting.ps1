@@ -26,9 +26,9 @@ $setting_xml= @'
 	<pmd name= "" param= ""/>
 	<br />
 	<ply name= "nsfplay.exe" param= "..\nsfplay\nsfplay.exe"/>
-	<ply name= "foobar2000.exe" param= "..\foobar2000\foobar2000.exe"/>
 	<ply name= "winamp.exe" param= "..\winamp\winamp.exe"/>
 	<ply name= "FMPMD.exe" param= "..\fmpmd\FMPMD.exe"/>
+	<ply name= "MDPlayer.exe" param= "..\mdplayer\MDPlayer.exe"/>
 	<br />
 	<dmc name= "" param= ""/>
 	<dmc name= "" param= ""/>
@@ -46,7 +46,7 @@ $setting_xml= @'
 	<dos name= "" param= ""/>
 </table>
 '@
- 
+ 	
 # hash 
 	
 function Xml_read($x){ 
@@ -981,13 +981,15 @@ function Drag_drop([string]$sw,[array]$drp){
  
 function Box_radio([string]$ss){ 
 
-	[string]$tt= "nsd" # radio's list抜け封じ
+	[string]$tt=　"nsd" # radio's list初期値入れる
 
-	if($ss -eq $vals["mck"]){ $tt= "mck"
-	}elseif($ss -eq $vals["nsd"]){ $tt= "nsd"
-	}elseif($ss -eq $vals["pmd"]){ $tt= "pmd"
+	if($ss -ne ""){
+
+		if($ss -eq $vals["nsd"]){		$tt= "nsd"
+		}elseif($ss -eq $vals["mck"]){	$tt= "mck"
+		}elseif($ss -eq $vals["pmd"]){	$tt= "pmd"
+		}
 	}
-
 	return $tt
  } #func
  
@@ -1318,7 +1320,7 @@ $tab.Size= "225,205"
 $tab.Location= "5,25"
  
 # tab_mml 
-	
+	 
 $tab_mml= New-Object System.Windows.Forms.TabPage 
 $tab_mml.Text= "mml"
 
@@ -1334,6 +1336,7 @@ $contxt_mml= New-Object System.Windows.Forms.ContextMenuStrip
 [void]$contxt_mml.Items.Add("Editor")
 [void]$contxt_mml.Items.Add("Folder")
 [void]$contxt_mml.Items.Add("Remove")
+[void]$contxt_mml.Items.Add("All Clear")
 
 $contxt_mml.Add_ItemClicked({
 
@@ -1341,6 +1344,11 @@ $contxt_mml.Add_ItemClicked({
 
 	'Cancel'{
 		$listbox_mml.SelectedItem= $null
+		break;
+
+	}'All Clear'{
+		$listbox_mml.Items.Clear()
+		$script:mml= @{}
 		break;
 
 	}'Remove'{
@@ -1406,8 +1414,10 @@ $label_dmc.Location= "10,95"
 $contxt_dmc= New-Object System.Windows.Forms.ContextMenuStrip 
 
 [void]$contxt_dmc.Items.Add("Cancel")
+
 [void]$contxt_dmc.Items.Add("Folder")
 [void]$contxt_dmc.Items.Add("Remove")
+[void]$contxt_dmc.Items.Add("All Clear")
 
 $contxt_dmc.Add_ItemClicked({
 
@@ -1415,6 +1425,11 @@ $contxt_dmc.Add_ItemClicked({
 
 	'Cancel'{
 		$listbox_dmc.SelectedItem= $null
+		break;
+
+	}'All Clear'{
+		$listbox_dmc.Items.Clear()
+		$script:dmc= @{}
 		break;
 
 	}'Remove'{
@@ -1471,7 +1486,7 @@ $tab_bin= New-Object System.Windows.Forms.TabPage
 $tab_bin.Text= "binary"
  
 $radio_grp= New-Object System.Windows.Forms.GroupBox 
-$radio_grp.Text= "mck,NSD,PMD"
+$radio_grp.Text= "PMD,mck,NSD"
 $radio_grp.Size= "120,105"
 $radio_grp.Location= "10,5"
  
@@ -2224,7 +2239,7 @@ $sub_menu_n.Add_Click({	# 設定終了
 
 	$sub_f.Close() #.Add_FormClosingへ
 })
- 	
+ 
 $sub_menu_o= New-Object System.Windows.Forms.ToolStripMenuItem 
 $sub_menu_o.Text= "Option"
 

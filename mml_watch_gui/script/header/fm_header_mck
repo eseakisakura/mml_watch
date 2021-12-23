@@ -1,11 +1,12 @@
-﻿#EX-VRC7
+﻿#EX-VRC7 
 #EX-MMC5
 
 GHIJ t150
 GHIJ %trk_param%  OP0 @@0 q4 l4 v15
 
-G d^r  > e^wr
-//H >f^r    g+^wr<
+G <e^r>  d^wr
+// H >g+^r    b^wr<
 
 ; replace parameter
 %fm_param%
+ 

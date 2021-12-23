@@ -1,9 +1,9 @@
 <h1>mml watch GUI</h1>
 
-ChiptuneのMMLコンパイラへGUI環境を提供するフロントエンドです。<br/>
+Chiptune MMLコンパイラへ、GUIを提供するフロントエンドです。<br/>
 "ppmck", "nsdLib", "P.M.D"へ対応します。<br/>
 <br/>
-GUI部も含め、総Powershellで組まれています。<br/>
+GUI部も含めて、総Powershellで組まれています。<br/>
 <br/>
 <br/>
 それぞれがスタンドアロン(単体)で起動します。<br/>
@@ -13,35 +13,24 @@ GUI部も含め、総Powershellで組まれています。<br/>
 </tr><tr><td>・Guitar Arpeggio - MML Generator</td><td>ギターアルペジオジェネレータ</td>
 </tr></table>
 
-<h4>対応OS: windowsXP以上</h4>
-
-<h5>
-( 近日、ver4.5を用意する予定です、、)<br/>
-<br/>
-※テスト環境 - ver4.5<br/>
-winXP+ Powershell2(.NET Framework3.5)<br/>
-win10+ Powershell5(.NET Framework4.8)<br/>
-win10+ Powershell7(.NET5) - 対応予定<br/>
-<br/>
-Watch.cmdなどのバッチファイルによる起動であれば、<br/>
-.NET Framework3.5以上、<br/>
-PowerShell2以上なら動くと思います。<br/>
-<br/>
-mml_watch.exeなどのバイナリ起動の場合、.NET Framework4.0以上が必要となります。<br/>
-<br/>
-※各起動バイナリexeについて<br/>
-<br/>
-シェルを呼び出すためのc#によるラッパーで、<br/>
-中身の殆どはアイコンリソースです。(開発環境を使用せず直接、<br/>
-.NETのコンパイラを通したため、トータルウィルスで僅かに引っかります。<br/>
-[XP上にて主に開発しており、開発環境が入れられません、]<br/>
-ご心配あらば、srcにあるcsファイルを開いてみて下さい。)<br/>
-</h5>
-
 <h4>
 必要となるソフトウェアのリンク <br/>
 ・<a href="https://eseakisakura.github.io/mml_watch_gui/"> Mml Watch GUI - download</a><br/>
 <h4>
+
+<h5>起動済み確認環境: <br/>
+winXP+ Powershell2(.NET Framework3.5)<br/>
+win10(21H2)+ Powershell5(.NET Framework4.8)<br/>
+win10(21H2)+ Powershell7(.NET5) - Alpha版<br/>
+</h5>
+
+※Watch.cmdなどのバッチファイルによる起動であれば、.NET Framework3.5以上、PowerShell2以上なら動くと思います。<br/>
+<br/>
+※mml_watch.exeなどのバイナリ起動の場合、.NET Framework4.0以上が必要となります。<br/>
+<br/>
+※各起動バイナリexeについて<br/>
+powershell scriptを呼び出すための、c#によるラッパーとなっています。<br/>
+
 
 <h4><img src="./image/MW_icon.png" /> Mml Watch GUI</h4>
 

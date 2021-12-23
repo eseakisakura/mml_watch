@@ -1,4 +1,5 @@
-#EX-MMC5 
+#COMPOSER â©îíçgóïå∫ 
+#EX-MMC5
 
 @EP10= { -127 -127 -127 -127 -127  -96 -96 -96 -96  -64 -64 -64 -64  -32 -32 -32 | 0 }
 @EP20= { 3 3  2 2 1 1 1 | 0 }
@@ -31,3 +32,4 @@ b  ae <bfc <gd < ae <bfc <gd   <a>dg>cfb>e a>dg>cfb>e rrrr
 C EP10 l8 o8 [brrf brrr]8 //BD
 D  EP20 @v20 l8 o9 [rre^ rre^]7 e^rr rre^ //Sn
 
+ 

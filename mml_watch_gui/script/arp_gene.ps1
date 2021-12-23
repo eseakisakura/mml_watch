@@ -516,14 +516,16 @@ function Arpmenu_build([string]$sw){
   [string[]]$n= Split_path $val[$sw]
 
   switch($sw){
-
   'compiler'{
+
 	[array]$w= $comp.Keys
 
 	$arp_menu_cmp0.Visible= $False
 	$arp_menu_cmp1.Visible= $False
 	$arp_menu_cmp2.Visible= $False
 	$arp_menu_cmp3.Visible= $False
+	$arp_menu_cmp4.Visible= $False
+	$arp_menu_cmp5.Visible= $False
 
 	if($w.Length -ge 1){ # if nomi de add kousei
 
@@ -556,6 +558,24 @@ function Arpmenu_build([string]$sw){
 		if($n[0] -eq $w[3]){ $arp_menu_cmp3.Text= $d+ $w[3]
 		}else{ $arp_menu_cmp3.Text= $w[3]
 		}
+
+					if($w.Length -ge 5){
+
+		$arp_menu_cmp4.Visible= $True
+
+		if($n[0] -eq $w[4]){ $arp_menu_cmp4.Text= $d+ $w[4]
+		}else{ $arp_menu_cmp4.Text= $w[4]
+		}
+
+						if($w.Length -ge 6){
+
+		$arp_menu_cmp5.Visible= $True
+
+		if($n[0] -eq $w[5]){ $arp_menu_cmp5.Text= $d+ $w[5]
+		}else{ $arp_menu_cmp5.Text= $w[5]
+		}
+						}
+					}
 				}
 			}
 		}
@@ -724,35 +744,99 @@ function Arpstus_build(){
 	$arp_label.Text= "  cmp: "+ $t[0]+ " | ply: "+ $s[0]+ " | oct: "+ $opt["oct"] +" | Track Header: "+ $comb_prefix.SelectedItem
  } #func
  
-function Arpchange_menu([string]$name, [string]$sw){ 
+function Arpchange_value([string]$sw, [string]$name){ 
 
 
   if($name -match '[v]' -eq $False){
 
 	switch($sw){
-	'compiler'{
-		switch($name){
-		'mck'{    $script:val[$sw]= $val["mck"]; break;
-		}'nsd'{	  $script:val[$sw]= $val["nsd"]; break;
-		}'pmd'{	  $script:val[$sw]= $val["pmd"]; break;
-		}default{ $script:val[$sw]= $comp[$name]
-		}
-		} #sw
-
+	'compiler'{	$script:val[$sw]= $comp[$name]	;break;
 	}'player'{	$script:val[$sw]= $play[$name];	break;
-	}'dos'{		$script:val[$sw]= $dosv[$name];	break;
+	}'dos'{	$script:val[$sw]= $dosv[$name];	break;
 	}'editor'{	$script:val[$sw]= $edit[$name]
 	}
 	} #sw
-
-	Arpmenu_build $sw
-	Arpstus_build
   }
+ } #func
+ 
+function Mml_select([string]$sw){ 
+
+	switch($sw){
+	'none'{
+
+		$arp_menu_fix.Enabled= $False
+
+		$box_trk.Text= ""
+		$comb_trk.SelectedIndex= 0
+		break;
+
+	}'ppmck'{
+
+		$arp_menu_fix.Enabled= $True
+
+		$box_trk.Text= "A  B  a  b"
+		$comb_trk.SelectedIndex= 0
+
+		$comb_oct.SelectedItem= "< >"
+		$comb_tai.SelectedItem= "^"
+
+		$script:val["compiler"]= $val["mck"]
+		break;
+
+	}'NSDlib'{
+
+		$arp_menu_fix.Enabled= $True
+
+		$box_trk.Text= "1  2  15  16"
+		$comb_trk.SelectedIndex= 2
+
+		$comb_oct.SelectedItem= '" `'
+		$comb_tai.SelectedItem= "^"
+
+		$script:val["compiler"]= $val["nsd"]
+		break;
+
+	}'PMD'{
+
+		$arp_menu_fix.Enabled= $True
+
+		$box_trk.Text= "A  B  C  D"
+		$comb_trk.SelectedIndex= 0
+
+		$comb_oct.SelectedItem= "< >"
+		$comb_tai.SelectedItem= "&"
+
+		$script:val["compiler"]= $val["pmd"]
+		break;
+
+	}'Fmp7'{
+
+		$arp_menu_fix.Enabled= $False
+
+		$box_trk.Text= "A0  B0  C0  D0"
+		$comb_trk.SelectedIndex= 1
+
+		$comb_oct.SelectedItem= "< >"
+		$comb_tai.SelectedItem= "&"
+		break;
+
+	}'sakura mml'{
+
+		$arp_menu_fix.Enabled= $False
+
+		$box_trk.Text= "(1)  (2)  (3)  (4)"
+		$comb_trk.SelectedIndex= 2
+
+		$comb_oct.SelectedItem= '" `'
+		$comb_tai.SelectedItem= "^"
+
+	}
+	} #sw
  } #func
   
 # Hash Xml 
 	 
-function Setxml_read($x){ 
+function Setxml_read($x){ # hash読み込み 
 
   # $x= $script:set_xml.table
 
@@ -786,7 +870,7 @@ function Setxml_read($x){
   } #
  } #func
  
-function Arpxml_read($x,$y){ # hash設定 
+function Arpxml_read($x,$y){ # ワーク読み込み 
 
 	# $x= $script:arp_xml.table.val
 	# $y= $script:arp_xml.table.opt
@@ -795,13 +879,15 @@ function Arpxml_read($x,$y){ # hash設定
 	$comb_prefix.SelectedItem= $y.osc.value
 
 	$script:key["tray"]= Trayarp_hide $y.tray.value
+
+
 	$script:opt["oct"]= Oscarp_sw $y.oct.value
 	$script:opt["chk_dos"]= $y.bit.value
-
 
 	$script:val["mck"]= $x.mck.value
 	$script:val["nsd"]= $x.nsd.value
 	$script:val["pmd"]= $x.pmd.value
+
 	$script:val["compiler"]= $x.cmp.value
 	$script:val["player"]= $x.ply.value
 	$script:val["dos"]= $x.dos.value
@@ -1612,7 +1698,7 @@ function Lisnarp_nsf([int]$sw, [string]$lis){
  switch($sw){
 
  1{
-	Player_open 1 $val["player"]
+	Player_open 1 $val["player"] > $null
 	break;
  }0{
 	Write-Host $val["compiler"]
@@ -1656,33 +1742,40 @@ function Lisnarp_nsf([int]$sw, [string]$lis){
 
 	sleep -m 33	# 異常時用ウェイト
 
-
 	if($output[0] -ne ""){
 
-			[string]$retn= [Windows.Forms.MessageBox]::Show(
-		("環境設定 ERROR : "+ $output[0]), "確認", "OK","Information","Button1"
-			)
+		[string]$retn= [Windows.Forms.MessageBox]::Show(
+		("compiler setting error : "+ $output[0]), "確認", "OK","Information","Button1"
+		)
 	}else{
+
 		if($LASTEXITCODE -ne 0){
 
 			Write-Host ("`r`n"+ 'exitcode: '+ $LASTEXITCODE)
 			Write-Host ("`r`n"+ 'ERROR: '+ $arr[0]+ ' >> '+ $arr[2]+ $ext)
 
 			[string]$retn= [Windows.Forms.MessageBox]::Show(
-
 			("コンパイルに失敗 : "+ $arr[0]+ " >> "+ $arr[2]+ $ext), "確認", "OK","Information","Button1"
 			)
 
 		}else{
+
 			# '"' 空白パス対応
 
-			Player_open 2 $val["player"] ('"'+ $dpn+ $ext+ '"')
+			[string]$tt= Player_open 2 $val["player"] ('"'+ $dpn+ $ext+ '"')
+
+			if($tt -ne ""){
+
+				[string]$retn= [Windows.Forms.MessageBox]::Show(
+				("player setting error : "+ $tt), "確認", "OK","Information","Button1"
+				)
+			}
 		}
 	}
  }
  } #sw
 
-} #func
+ } #func
  
 function Keydown_arp([string]$t){ 
 
@@ -2088,7 +2181,7 @@ $mml_grp.Text= "MML arpeggio"
 $mml_grp.Size= "530,415"
 $mml_grp.Location= "10,130"
 $mml_grp.FlatStyle= "Flat"
-	 
+	
 $label_apeg= New-Object System.Windows.Forms.Label 
 $label_apeg.Text= "Arpeggio"
 $label_apeg.Size= "75,20"
@@ -2187,82 +2280,9 @@ $comb_prefix.SelectedIndex= 2
 $comb_prefix.Add_SelectedValueChanged({
 
  try{
-	switch($this.SelectedItem){
-	'none'{
-
-		$arp_menu_fix.Enabled= $False
-
-		$box_trk.Text= ""
-		$comb_trk.SelectedIndex= 0
-
-		Arpstus_build
-		break;
-
-	}'ppmck'{
-
-		$arp_menu_fix.Enabled= $True
-
-		$box_trk.Text= "A  B  a  b"
-		$comb_trk.SelectedIndex= 0
-
-		$comb_oct.SelectedItem= "< >"
-		$comb_tai.SelectedItem= "^"
-
-		Arpchange_menu "mck" "compiler" # Arpstus_build
-		break;
-
-	}'NSDlib'{
-
-		$arp_menu_fix.Enabled= $True
-
-		$box_trk.Text= "1  2  15  16"
-		$comb_trk.SelectedIndex= 2
-
-		$comb_oct.SelectedItem= '" `'
-		$comb_tai.SelectedItem= "^"
-
-		Arpchange_menu "nsd" "compiler" # Arpstus_build
-		break;
-
-	}'PMD'{
-
-		$arp_menu_fix.Enabled= $True
-
-		$box_trk.Text= "A  B  C  D"
-		$comb_trk.SelectedIndex= 0
-
-		$comb_oct.SelectedItem= "< >"
-		$comb_tai.SelectedItem= "&"
-
-		Arpchange_menu "pmd" "compiler" # Arpstus_build
-		break;
-
-	}'Fmp7'{
-
-		$arp_menu_fix.Enabled= $False
-
-		$box_trk.Text= "A0  B0  C0  D0"
-		$comb_trk.SelectedIndex= 1
-
-		$comb_oct.SelectedItem= "< >"
-		$comb_tai.SelectedItem= "&"
-
-		Arpstus_build
-		break;
-
-	}'sakura mml'{
-
-		$arp_menu_fix.Enabled= $False
-
-		$box_trk.Text= "(1)  (2)  (3)  (4)"
-		$comb_trk.SelectedIndex= 2
-
-		$comb_oct.SelectedItem= '" `'
-		$comb_tai.SelectedItem= "^"
-
-		Arpstus_build
-	}
-	} #sw
+	Mml_select $this.SelectedItem
+	Arpmenu_build "compiler"
+	Arpstus_build
 
 	Apeg $box_apeg.Text
 
@@ -2712,14 +2732,18 @@ $arp_menu_set.Add_Click({
 	$script:val= $args_set[0]
 	$script:opt= $args_set[1]
 
-	if((Test-Path '.\setting.xml') -eq $True){
+	if((Chk_path '.\setting.xml') -eq 0){
 
 		$script:set_xml= [xml](cat '.\setting.xml')
 
 		$script:comp=@{}; $script:play=@{}; $script:dosv=@{}; $script:edit=@{};
 
-		Setxml_read $script:set_xml.table # hash化
+		Setxml_read $script:set_xml.table # hash化 script: ga hitsuyo
+	}else{
+		Write-Host ("`r`n"+ '"setting.xml" 読み込みエラー')
 	}
+
+	Mml_select $comb_prefix.SelectedItem
 
 	Arpmenu_build "compiler"
 	Arpmenu_build "player"
@@ -2740,7 +2764,9 @@ $arp_menu_cmp0.Visible= $False # .Hide() 不可
 
 $arp_menu_cmp0.Add_Click({
  try{
-	Arpchange_menu $this.Text "compiler"
+	Arpchange_value "compiler" $this.Text
+	Arpmenu_build "compiler"
+	Arpstus_build
  }catch{
 	echo $_.exception
  }
@@ -2752,7 +2778,9 @@ $arp_menu_cmp1.Visible= $False
 
 $arp_menu_cmp1.Add_Click({
  try{
-	Arpchange_menu $this.Text "compiler"
+	Arpchange_value "compiler" $this.Text
+	Arpmenu_build "compiler"
+	Arpstus_build
  }catch{
 	echo $_.exception
  }
@@ -2764,7 +2792,9 @@ $arp_menu_cmp2.Visible= $False
 
 $arp_menu_cmp2.Add_Click({
  try{
-	Arpchange_menu $this.Text "compiler"
+	Arpchange_value "compiler" $this.Text
+	Arpmenu_build "compiler"
+	Arpstus_build
  }catch{
 	echo $_.exception
  }
@@ -2776,7 +2806,37 @@ $arp_menu_cmp3.Visible= $False
 
 $arp_menu_cmp3.Add_Click({
  try{
-	Arpchange_menu $this.Text "compiler"
+	Arpchange_value "compiler" $this.Text
+	Arpmenu_build "compiler"
+	Arpstus_build
+ }catch{
+	echo $_.exception
+ }
+})
+
+$arp_menu_cmp4= New-Object System.Windows.Forms.ToolStripMenuItem
+#$arp_menu_cmp4.Text= "4.exe"
+$arp_menu_cmp4.Visible= $False
+
+$arp_menu_cmp4.Add_Click({
+ try{
+	Arpchange_value "compiler" $this.Text
+	Arpmenu_build "compiler"
+	Arpstus_build
+ }catch{
+	echo $_.exception
+ }
+})
+
+$arp_menu_cmp5= New-Object System.Windows.Forms.ToolStripMenuItem
+#$arp_menu_cmp5.Text= "5.exe"
+$arp_menu_cmp5.Visible= $False
+
+$arp_menu_cmp5.Add_Click({
+ try{
+	Arpchange_value "compiler" $this.Text
+	Arpmenu_build "compiler"
+	Arpstus_build
  }catch{
 	echo $_.exception
  }
@@ -2788,7 +2848,9 @@ $arp_menu_ply0.Visible= $False
 
 $arp_menu_ply0.Add_Click({
  try{
-	Arpchange_menu $this.Text "player"
+	Arpchange_value "player" $this.Text
+	Arpmenu_build "player"
+	Arpstus_build
  }catch{
 	echo $_.exception
  }
@@ -2800,7 +2862,9 @@ $arp_menu_ply1.Visible= $False
 
 $arp_menu_ply1.Add_Click({
  try{
-	Arpchange_menu $this.Text "player"
+	Arpchange_value "player" $this.Text
+	Arpmenu_build "player"
+	Arpstus_build
  }catch{
 	echo $_.exception
  }
@@ -2812,7 +2876,9 @@ $arp_menu_ply2.Visible= $False
 
 $arp_menu_ply2.Add_Click({
  try{
-	Arpchange_menu $this.Text "player"
+	Arpchange_value "player" $this.Text
+	Arpmenu_build "player"
+	Arpstus_build
  }catch{
 	echo $_.exception
  }
@@ -2824,7 +2890,9 @@ $arp_menu_ply3.Visible= $False
 
 $arp_menu_ply3.Add_Click({
  try{
-	Arpchange_menu $this.Text "player"
+	Arpchange_value "player" $this.Text
+	Arpmenu_build "player"
+	Arpstus_build
  }catch{
 	echo $_.exception
  }
@@ -2836,7 +2904,9 @@ $arp_menu_dos0.Visible= $False
 
 $arp_menu_dos0.Add_Click({
  try{
-	Arpchange_menu $this.Text "dos"
+	Arpchange_value "dos" $this.Text
+	Arpmenu_build "dos"
+	Arpstus_build
  }catch{
 	echo $_.exception
  }
@@ -2848,7 +2918,9 @@ $arp_menu_dos1.Visible= $False
 
 $arp_menu_dos1.Add_Click({
  try{
-	Arpchange_menu $this.Text "dos"
+	Arpchange_value "dos" $this.Text
+	Arpmenu_build "dos"
+	Arpstus_build
  }catch{
 	echo $_.exception
  }
@@ -2860,7 +2932,9 @@ $arp_menu_dos2.Visible= $False
 
 $arp_menu_dos2.Add_Click({
  try{
-	Arpchange_menu $this.Text "dos"
+	Arpchange_value "dos" $this.Text
+	Arpmenu_build "dos"
+	Arpstus_build
  }catch{
 	echo $_.exception
  }
@@ -2872,7 +2946,9 @@ $arp_menu_dos3.Visible= $False
 
 $arp_menu_dos3.Add_Click({
  try{
-	Arpchange_menu $this.Text "dos"
+	Arpchange_value "dos" $this.Text
+	Arpmenu_build "dos"
+	Arpstus_build
  }catch{
 	echo $_.exception
  }
@@ -2884,7 +2960,9 @@ $arp_menu_edt0.Visible= $False
 
 $arp_menu_edt0.Add_Click({
  try{
-	Arpchange_menu $this.Text "editor"
+	Arpchange_value "editor" $this.Text
+	Arpmenu_build "editor"
+	Arpstus_build
  }catch{
 	echo $_.exception
  }
@@ -2896,7 +2974,9 @@ $arp_menu_edt1.Visible= $False
 
 $arp_menu_edt1.Add_Click({
  try{
-	Arpchange_menu $this.Text "editor"
+	Arpchange_value "editor" $this.Text
+	Arpmenu_build "editor"
+	Arpstus_build
  }catch{
 	echo $_.exception
  }
@@ -2908,7 +2988,9 @@ $arp_menu_edt2.Visible= $False
 
 $arp_menu_edt2.Add_Click({
  try{
-	Arpchange_menu $this.Text "editor"
+	Arpchange_value "editor" $this.Text
+	Arpmenu_build "editor"
+	Arpstus_build
  }catch{
 	echo $_.exception
  }
@@ -2920,12 +3002,14 @@ $arp_menu_edt3.Visible= $False
 
 $arp_menu_edt3.Add_Click({
  try{
-	Arpchange_menu $this.Text "editor"
+	Arpchange_value "editor" $this.Text
+	Arpmenu_build "editor"
+	Arpstus_build
  }catch{
 	echo $_.exception
  }
 })
- 
+ 	
 $arp_menu_m= New-Object System.Windows.Forms.ToolStripMenuItem 
 $arp_menu_m.Text= "Octave"
 
@@ -3181,7 +3265,7 @@ $mml_grp.Controls.AddRange(@($label_prefix,$label_apeg,$label_exp,$label_oct,$la
 $mml_grp.Controls.AddRange(@($comb_apeg,$comb_prefix,$comb_trk,$comb_oct,$comb_tai,$nmud_trk,$nmud_tai))
 $mml_grp.Controls.AddRange(@($lisn_btn,$stop_btn,$box_trk,$box_apeg,$box_mml,$box_mtr))
 
-$arp_menu_comp.DropDownItems.AddRange(@($arp_menu_cmp0,$arp_menu_cmp1,$arp_menu_cmp2,$arp_menu_cmp3))
+$arp_menu_comp.DropDownItems.AddRange(@($arp_menu_cmp0,$arp_menu_cmp1,$arp_menu_cmp2,$arp_menu_cmp3,$arp_menu_cmp4,$arp_menu_cmp5))
 $arp_menu_play.DropDownItems.AddRange(@($arp_menu_ply0,$arp_menu_ply1,$arp_menu_ply2,$arp_menu_ply3))
 $arp_menu_dosv.DropDownItems.AddRange(@($arp_menu_dos0,$arp_menu_dos1,$arp_menu_dos2,$arp_menu_dos3))
 $arp_menu_edit.DropDownItems.AddRange(@($arp_menu_edt0,$arp_menu_edt1,$arp_menu_edt2,$arp_menu_edt3))
@@ -3215,11 +3299,14 @@ $frm_arp.Controls.AddRange(@($arp_mnu,$chd_grp,$flet_grp,$mml_grp,$arp_stus))
 
   # 連想配列化
 
+  # menu tame only memory <- setting.xml
+  $comp=@{}; $play=@{}; $dosv=@{}; $edit=@{};
+
+
   $val=@{}; $opt=@{}; $key=@{};
-  $comp=@{}; $play=@{}; $dosv=@{}; $edit=@{}; # only memory<- setting.xml
   $header=@{};
 
-  # cat -> Out-String(改行あり)でstringへ
+   # cat -> Out-String(改行あり)でstringへ
   $header["arp_header_mck"]= (cat '.\header\arp_header_mck' | Out-String)
   $header["arp_header_nsd"]= (cat '.\header\arp_header_nsd' | Out-String)
   $header["arp_header_pmd"]= (cat '.\header\arp_header_pmd' | Out-String)
@@ -3234,7 +3321,6 @@ $frm_arp.Controls.AddRange(@($arp_mnu,$chd_grp,$flet_grp,$mml_grp,$arp_stus))
 	$set_xml= [xml](cat '.\setting.xml')
 
 	Setxml_read $script:set_xml.table # hash化
-
  }
 
 
@@ -3257,15 +3343,15 @@ $frm_arp.Controls.AddRange(@($arp_mnu,$chd_grp,$flet_grp,$mml_grp,$arp_stus))
 
   [string]$lis= ""
 
-  [array]$chord_select=	$comb_key.SelectedItem,
-			$comb_chd.SelectedItem,
-			$comb_genn.SelectedItem,
-			$check_open.CheckState
+  [array]$chord_select= $comb_key.SelectedItem,
+		$comb_chd.SelectedItem,
+		$comb_genn.SelectedItem,
+		$check_open.CheckState
 
   [array]$flet_setting= Chd_chk $chord_select $cd
 
 
-  [array]$blk=	$comb_ab.SelectedItem,
+  [array]$blk= $comb_ab.SelectedItem,
 		$comb_bb.SelectedItem,
 		$comb_db.SelectedItem,
 		$comb_eb.SelectedItem,

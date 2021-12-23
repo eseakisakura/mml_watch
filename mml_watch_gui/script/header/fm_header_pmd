@@ -1,10 +1,11 @@
-﻿#LoopDefault 2
+﻿#LoopDefault 2 
 
 ABCD C192 t150
 ABCD %trk_param% q6 v16 l4 @1
 
-A <d&d r >   e&err <
-; B >f&fr    g+&g+rr <
+A <e&e r >   d&drr
+; B >g+&g+r    b&brr <
 
-; replace parameter 
+; replace parameter
 %fm_param%
+ 

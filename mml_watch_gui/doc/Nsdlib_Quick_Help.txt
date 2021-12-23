@@ -85,9 +85,17 @@ TR29 		制御用トラック(音符は発音しない)
 /*~*/	範囲コメント (入れ子不可)
 
 |	小節線
- 
+	
+;	nsdlib bug 
+
+TR1  ^
+だと、落ちる
+
+TR1  o4Ev20 Q2 l8 v15 @2
+のみだと、playerが100%になる
+  
 ヘッダ////// 
-	 
+	
 #title "str" 		タイトル名 
 #composer "str" 	作曲者
 #copyright "str" 	著作権者
@@ -183,7 +191,7 @@ id = volume		[APU1,APU2,VRC6,VRC7,FDS,MMC5,N163,SN5B]
 			0: Fadeしない
   
 定義ブロック////// 
-	 
+	
 BGM(num){~}	BGM シーケンス(sqr)記述ブロック 
 SE(num){~}	SE シーケンス(sqr)記述ブロック
  
@@ -337,7 +345,7 @@ MML command//////
 	 
 t	Tempo	t[num] 
 t_	相対テンポ
- 
+ 	
 a~g	音符	a[length] 
 	a4
 	a%24
@@ -493,7 +501,7 @@ NC	n16xのch数指定(sample長、ch数によりoct.が変動)
 
 
 F	Sunsoft5B env周波数 F[frequency]、F1000
- 	
+ 
 E@	音色env、E@[num] 
 	(@numで無効)
 

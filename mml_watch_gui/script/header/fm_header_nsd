@@ -5,9 +5,10 @@
 BGM(0){ t150
 TR6,7,8,9 %trk_param% @0 @V100 Q4 l4 v15
 
-TR6  Rv15 d^w > e^rr <
-//TR7  Rv15 >f^w  g+^rr <
+TR6  Rv15 <e^w> d^rr
+// TR7  Rv15 >g+^w  b^rr <
  }
 
 ; replace parameter
 %fm_param%
+ 

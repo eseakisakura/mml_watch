@@ -3,10 +3,10 @@
 #EX-NAMCO106 4
 
 ABCDGHIJKLab t150
-A v15 @vr20 q2 o3 @2 l4 ab >cde fga<
+A v15 @vr20 q2 o3 @2 l4 [ab >cde fga<]2
 
-C EP10 l8 o8 [brrf brrr]2 //BD
-D  EP20 @v20 l8 o9 [rre^ rre^]2 //Sn
+C EP10 l8 o8 [brrf brrr  bfrb frrr]2 //BD
+D  EP20 @v20 l8 o9 [rre^ rre^]4 //Sn
 
 //G OP0 @@0 v15 q8 o3 l1 b2 b2 b2 >c2< //FM”g
 //P @@20 o5 q8 v15 a1 //TRI

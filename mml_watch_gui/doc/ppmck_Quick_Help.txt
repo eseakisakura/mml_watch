@@ -43,16 +43,20 @@ ab	MMC5音源
 /*~*/		範囲コメント
 
 
- 
-ヘッダ////// 
 	
-#TITLE [str] 		タイトル 
+;	ppmck bug 
+
+A v15 @vr20 q2 o3 @2 l4
+のみだと、playerが100%になる
+  
+ヘッダ////// 
+	 
+#TITLE [str] 			タイトル 
 
 #COMPOSER [str]		作曲者名
-#MAKER [str]		原著作者名
-#PROGRAMER [str]	打ち込み者名
-
- 
+#MAKER [str]			原著作者名
+#PROGRAMER [str]		打ち込み者名
+ 	
 #OCTAVE-REV [0,1]	oct.変更記号反転[0,1](off,on)(def:0) 
 #GATE-DENOM [num]	quantize分母指定(def:8)
 
@@ -315,7 +319,7 @@ k	Key off
 
 	キーオフ信号を送る
 	(休符のバリエーション?)
- 	
+ 
 o	oct.(def:4) 
 
 	ABC	[2~8]	矩形波,三角波

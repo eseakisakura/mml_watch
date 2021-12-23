@@ -49,8 +49,8 @@ R	Rythm定義(\~)
  
 ヘッダ////// 
 	 
-#Title [str]		曲のタイトル 
-#Composer [str]		作曲者名
+#Title [str]			曲のタイトル 
+#Composer [str]	作曲者名
 #Arranger [str]		編曲者名
 #Memo [str]		メモ
  
@@ -63,7 +63,7 @@ R	Rythm定義(\~)
 #FFFile [EFFEC.FF]	音色(.FF)ファイル名
 
 #PPZFile [file.pvi]	PPZパートで使用するPCM、
-			(.PVI/.PZI)ファイル名
+				(.PVI/.PZI)ファイル名
 
 #Include [file.mml]	#Include行にMMLファイルを読み込む
 
@@ -152,7 +152,7 @@ exp.
  031 005 007 007 002 000 002 003 005 000
   
 MML command////// 
-	
+	 
 t	テンポ 
 	t[18~255,相対+,-]
 

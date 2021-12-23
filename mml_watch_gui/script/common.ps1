@@ -1,4 +1,4 @@
-<# common.ps1 #> 
+ï»¿<# common.ps1 #> 
  
 $ErrorActionPreference= "Stop" 
 
@@ -11,15 +11,15 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
   $write_JIS= [System.Text.Encoding]::GetEncoding(932) # shiftJIS
 
 
-  # Xml–¼‘O‹óŠÔWriterSettingƒNƒ‰ƒX
+  # Xmlåå‰ç©ºé–“WriterSettingã‚¯ãƒ©ã‚¹
   $write_xml= New-Object System.Xml.XmlWriterSettings
 
-  # ƒNƒ‰ƒX‚ÌƒvƒƒpƒeƒB
+  # ã‚¯ãƒ©ã‚¹ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
   $write_xml.Indent= $True
   $write_xml.IndentChars= ("`t") # \t
   $write_xml.Encoding= [Text.Encoding]::UTF8
 
-  # $write_xml.Encoding= [Text.Encoding]::default # shiftJIS‚Æ‚È‚é
+  # $write_xml.Encoding= [Text.Encoding]::default # shiftJISã¨ãªã‚‹
   # default -> .net4 shift_jis / .net5 utf8lessbom
  
 function Mml_writer([string]$lis,[string]$out,[int]$sw){ 
@@ -47,9 +47,9 @@ function File_writer($x, [string]$xml_file){
 
   try{
 	# $x= $script:xml
-	# write-host $x.OuterXml # ƒ`ƒFƒbƒNŽž
+	# write-host $x.OuterXml # ãƒã‚§ãƒƒã‚¯æ™‚
 
-	# static Xml.XmlWriter Ã“Iƒƒ“ƒo‚Ì‚½‚ß
+	# static Xml.XmlWriter é™çš„ãƒ¡ãƒ³ãƒã®ãŸã‚
 	$xml_sav= [Xml.XmlWriter]::Create($xml_file, $write_xml)
 
 	$x.Save($xml_sav)
@@ -64,7 +64,7 @@ function File_writer($x, [string]$xml_file){
  
 Function Chk_path([string]$file){ 
 
-	if($file -eq ''){
+	if($file -eq ""){
 
 		return 2
 		# Test-Path path bind err fuuji
@@ -77,13 +77,13 @@ Function Chk_path([string]$file){
 		return 0
 	}
  } #func
- 
+ 	
 Function Split_path([string]$f){ 
 
   [string[]]$out= "","","",""
 
   if($f -eq ""){ $f= "unknown" }
-  # path‚È‚¢‚Æ’Ê‚ç‚È‚¢Žd—l‚½‚ß
+  # pathãªã„ã¨é€šã‚‰ãªã„ä»•æ§˜ãŸã‚
 
   $out[0]= [System.IO.Path]::GetFileName($f)
   $out[1]= [System.IO.Path]::GetDirectoryName($f)
@@ -101,15 +101,15 @@ function Eor_open([string]$path_chk,[string]$name){
 	switch(Chk_path $path_chk){
 	2{
 		[string[]]$ff= "","","",""
-		$ff= Split_path $path_chk # unkhowno—Í
+		$ff= Split_path $path_chk # unkhownå‡ºåŠ›
 
 
-		$tt=  ('"'+ $name+ '"‘I‘ð‚³‚ê‚Ä‚Ü‚¹‚ñ: '+ $ff[0])
+		$tt=  ('"'+ $ff[0]+  '": '+ $name+ 'é¸æŠžã•ã‚Œã¦ã¾ã›ã‚“')
 		Write-Host (">"+ $tt)
 
 		break;
 	}1{
-		$tt= ('"'+ $name+ 'ƒpƒXæ‚ª‚ ‚è‚Ü‚¹‚ñ: '+ $path_chk)
+		$tt= ('"'+ $name+ 'ãƒ‘ã‚¹å…ˆãŒã‚ã‚Šã¾ã›ã‚“: '+ $path_chk)
 		Write-Host (">"+ $tt)
 
 		break;
@@ -147,7 +147,7 @@ function Editor_open([string]$edt_path,[string]$file_path){
 
 	return $ss[2]
 } #func
- 	
+ 
 function Folder_open([int]$sw,[string]$path){ 
 
 	[string[]]$tt= "Folder","File"
@@ -180,7 +180,7 @@ function Icon_read([string]$tt){
   switch(Chk_path $tt){
   0{
 	[System.Drawing.Icon]::ExtractAssociatedIcon($tt)
-	#Ã“Iƒƒ\ƒbƒhŽØ—p
+	#é™çš„ãƒ¡ã‚½ãƒƒãƒ‰å€Ÿç”¨
   }
   } #sw
 } #func
@@ -189,145 +189,169 @@ function Icon_read([string]$tt){
  
 function Mkmck([string[]]$arg){ # mkmck.ps1 
 
-# $arg // mml,bin,dmc,cmdline
+ # $arg // mml,bin,dmc,cmdline
 
-[string]$mml= $arg[0]
-[string]$bin= $arg[1]
-[string]$dmc= $arg[2]
-[string[]]$cmdline= $arg[3] -split " "
-# write-host ("check1:"+$cmdline)
+ [string]$mml= $arg[0]
+ [string]$bin= $arg[1]
+ [string]$dmc= $arg[2]
+ [string[]]$cmdline= $arg[3] -split " "
+ # write-host ("check1:"+$cmdline)
 
-[string[]]$arr= Split_path $bin
-#[string[]]$ary= Split_path $arr[1] # e‚Ìe -> •s—v
+ [string[]]$arr= Split_path $bin
+ #[string[]]$ary= Split_path $arr[1] # è¦ªã®è¦ª -> ä¸è¦
 
 
-[string[]]$out= "","","" # errlevel,ppmckc,nesasm
+ [string[]]$out= "","","" # errlevel, ppmckc, nesasm
 
   if((Chk_path $mml) -ne 0){
 
-	$out[0]= ('Mkmck>>"'+ $mml+ '": mml‚ªƒpƒXã‚É‚ ‚è‚Ü‚¹‚ñ')
+	$out[0]= ('Mkmck>>"'+ $mml+ '": mmlãŒãƒ‘ã‚¹ä¸Šã«ã‚ã‚Šã¾ã›ã‚“')
 	Write-Host ("`r`n"+ $out[0])
 
 
-  }elseif ($arr[0] -notmatch '^.*ppmckc.*\.exe'){	# compiler path chk
+  }elseif ($arr[0] -notmatch "ppmckc.*\.exe"){	# compiler path chk
 
-	$out[0]= ('Mkmck>>"'+ $arr[0]+ '": ppmckc.exe‚Å‚Í‚ ‚è‚Ü‚¹‚ñ')
+	$out[0]= ('Mkmck>>"'+ $arr[0]+ '": ppmckc.exeã§ã¯ã‚ã‚Šã¾ã›ã‚“')
 	Write-Host ("`r`n"+ $out[0])
 
 
   }elseif((Chk_path $bin) -ne 0){	# compiler path chk
 
-	$out[0]= ('Mkmck>>"'+ $bin+ '": ppmckc.exe‚ªƒpƒXã‚É‚ ‚è‚Ü‚¹‚ñ')
+	$out[0]= ('Mkmck>>"'+ $bin+ '": ppmckc.exeãŒãƒ‘ã‚¹ä¸Šã«ã‚ã‚Šã¾ã›ã‚“')
 	Write-Host ("`r`n"+ $out[0])
 
-
   }else{
+
 	[string]$exe_ppmckc= '.\'+ $arr[0]
 	[string]$exe_nesasm= '.\nesasm.exe'
 
-	[string]$Env:DMC_INCLUDE= $dmc	# ƒpƒX‘Î‰ž‘f‚Å‚æ‚µ
+	[string]$Env:DMC_INCLUDE= $dmc	# ãƒ‘ã‚¹å¯¾å¿œç´ ã§ã‚ˆã—
 	[string]$Env:PPMCK_BASEDIR= '..\'
 	[string]$Env:NES_INCLUDE= '..\nes_include'
 
 	[string[]]$brr= Split_path $mml
 	[string]$dpn= Join-Path $brr[1] $brr[2]
 
-	pushd $arr[1]
+	pushd $arr[1] # binã®ã‚«ãƒ¬ãƒ³ãƒˆ
 
     try{
-	if((Test-Path .\effect.h) -eq $true){ del .\effect.h }
-	# ‘O‚Ìƒtƒ@ƒCƒ‹Á‚·
 
-	# esc["`""] ‚Å‹ó”’ƒpƒX‘Î‰ž -> ['"']
+	if((Test-Path .\effect.h) -eq $true){ del .\effect.h }
+	# å‰ã®ãƒ•ã‚¡ã‚¤ãƒ«æ¶ˆã™
+
 	# & $exe_ppmckc -i ('"'+ $dpn+ '.mml"') | Write-Host
+	# esc["`""] ã§ç©ºç™½ãƒ‘ã‚¹å¯¾å¿œ -> ['"']
+
 	$out[1]= & $exe_ppmckc $cmdline ("`""+ $dpn+ ".mml`"") | Out-String
+	# ->$dpn.h
 	Write-Host $out[1]
 
-	sleep -m 120
+	sleep -m 33
 
 	if($LASTEXITCODE -eq 0){
 
 		if((Test-Path $exe_nesasm) -eq $false){
 
-			$out[0]= ( 'Mkmck>>"'+ $exe_nesasm+ '": nesasm.exe‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ')
+			$out[0]= ( 'Mkmck>>"'+ $exe_nesasm+ '": nesasm.exeãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“')
 			Write-Host ("`r`n"+ $out[0])
 
 		}else{
+
 			if((Test-Path .\ppmck.nes) -eq $true){ del .\ppmck.nes }
-			# ‘O‚Ìƒtƒ@ƒCƒ‹Á‚·
+			# å‰ã®ãƒ•ã‚¡ã‚¤ãƒ«æ¶ˆã™
 
 			# & $exe_nesasm -s -raw .\ppmck.asm | Write-Host # Command
+
 			$out[2]= & $exe_nesasm -s -raw .\ppmck.asm | Out-String
+			# ->ppmck.nes, effect.h, define.inc
+
 			Write-Host $out[2]
-			sleep -m 120
+			sleep -m 33
 
-			if((Test-Path .\ppmck.nes) -eq $true){
-			#if($LASTEXITCODE -eq 0){ # nesasm‚ÍCODE“f‚©‚È‚¢
-			#try{
-				# move‚Å‚«‚È‚¢‚Æ“ä‚Ìerro—Í‚½‚ßtry catch‚¾‚Æ‚¢‚Ü‚¢‚¿
+			#if($LASTEXITCODE -eq 0){ # nesasmã¯CODEåã‹ãªã„
+			#try{ã€€# moveã§ããªã„ã¨ã€è¬Žã®errå‡ºåŠ›ãŸã‚try catchã ã¨ã„ã¾ã„ã¡
+
+
+			if((Test-Path .\ppmck.nes) -eq $false){
+
+				$out[0]= ( 'Mkmck>>"ppmck.nes -> '+ ($brr[2]+ '.nsf')+'" OverWrite ERR' )
+
+
+				[int]$count_chk= [System.Text.Encoding]::GetEncoding("shift_jis").GetByteCount($dpn+ '.h')
+
+				if($count_chk -gt 106){
+
+					$out[0]+= ("`r`n"+ 'Mkmck>>"'+ $count_chk+ 'byte" : ãƒ‘ã‚¹ãŒ106byteã‚’è¶…ãˆã¦ã„ã¾ã™')
+				}
+
+				Write-Host ("`r`n"+ $out[0])
+
+			}else{
 				move -force .\ppmck.nes ($dpn+ '.nsf')
-				#Ä¶Žžƒtƒ@ƒCƒ‹ƒƒbƒN‚ ‚ç‚ÎƒGƒ‰[‚Æ‚È‚é’ˆÓ
+				#å†ç”Ÿæ™‚ãƒ•ã‚¡ã‚¤ãƒ«ãƒ­ãƒƒã‚¯ã‚ã‚‰ã°ã‚¨ãƒ©ãƒ¼ã¨ãªã‚‹æ³¨æ„
 
-				# del .\effect.h
+				del .\effect.h
 				del .\define.inc
 				del ($dpn+ '.h')
+
 			#}catch{
-			}else{
 			#	echo $_.exception
-				$out[0]= ( 'Mkmck>>"ppmck.nes -> '+ ($brr[2]+ '.nsf')+'" OverWrite ERR' )
-				Write-Host ("`r`n"+ $out[0])
 			}
 		}
 	}
 
     }catch{
 	echo $_.exception
+
 	$out[0]= ( 'Mkmck>>"'+ ($brr[2]+ '.mml')+ ' -> '+ ($brr[2]+ '.nsf')+'" Compile ERR' )
 	Write-Host ("`r`n"+ $out[0])
     }
-	popd # mml_watch‚Ö
+	popd # mml_watchã¸
   }
 
-return $out
-# exit $LASTEXITCODE
+ $out[1]+= "`r`n"+ $out[2]
+ return $out
+
+ # exit $LASTEXITCODE
 
  } #func
  
 function Mknsd([string[]]$arg){ # mknsd.ps1 
 
-# $arg // mml,bin,dmc,cmdline
+ # $arg // mml,bin,dmc,cmdline
 
-[string]$mml= $arg[0]
-[string]$bin= $arg[1]
-[string]$dmc= $arg[2]
-[string[]]$cmdline= $arg[3] -split " "
-# write-host ("check1:"+$cmdline)
+ [string]$mml= $arg[0]
+ [string]$bin= $arg[1]
+ [string]$dmc= $arg[2]
+ [string[]]$cmdline= $arg[3] -split " "
+ # write-host ("check1:"+$cmdline)
 
-[string[]]$arr= Split_path $bin
+ [string[]]$arr= Split_path $bin
 
-[string[]]$out= "",""
+ [string[]]$out= "",""
+
 
   if((Chk_path $mml) -ne 0){
 
-	$out[0]= ('Mknsd>>"'+ $mml+ '": mml‚ªƒpƒXã‚É‚ ‚è‚Ü‚¹‚ñ')
+	$out[0]= ('Mknsd>>"'+ $mml+ '": mmlãŒãƒ‘ã‚¹ä¸Šã«ã‚ã‚Šã¾ã›ã‚“')
 	Write-Host ("`r`n"+ $out[0])
 
 
-  }elseif($arr[0] -notmatch '^.*nsc.*\.exe'){	# compiler chk
+  }elseif($arr[0] -notmatch "nsc[0-9]*\.exe"){	# compiler chk
 
-	$out[0]= ('Mknsd>>"'+ $arr[0]+ '": nsc.exe‚Å‚Í‚ ‚è‚Ü‚¹‚ñ')
+	$out[0]= ('Mknsd>>"'+ $arr[0]+ '": nscxx.exeã§ã¯ã‚ã‚Šã¾ã›ã‚“')
 	Write-Host ("`r`n"+ $out[0])
 
 
   }elseif((Chk_path $bin) -ne 0){	# compiler path chk
 
-	$out[0]= ('Mknsd>>"'+ $bin+ '": nsc.exe‚ªƒpƒXã‚É‚ ‚è‚Ü‚¹‚ñ')
+	$out[0]= ('Mknsd>>"'+ $bin+ '": nscxx.exeãŒãƒ‘ã‚¹ä¸Šã«ã‚ã‚Šã¾ã›ã‚“')
 	Write-Host ("`r`n"+ $out[0])
 
 
   }else{
 	[string]$exe_nsc= '.\'+ $arr[0]
-	[string]$Env:DMC_INCLUDE= $dmc	# ƒpƒX‘Î‰ž‘f‚Å‚æ‚µ
+	[string]$Env:DMC_INCLUDE= $dmc	# ãƒ‘ã‚¹å¯¾å¿œç´ ã§ã‚ˆã—
 
 	[string[]]$brr= Split_path $mml
 	[string]$dpn= Join-Path $brr[1] $brr[2]
@@ -335,78 +359,78 @@ function Mknsd([string[]]$arg){ # mknsd.ps1
 	pushd $arr[1]
 
     try{
-	# [System.IO.Directory]::SetCurrentDirectory((pwd))	# nsc ’[––ƒJƒŒƒ“ƒg”FŽ¯‚ ‚ç‚ÎƒZƒbƒg
+	# [System.IO.Directory]::SetCurrentDirectory((pwd))	# nsc ç«¯æœ«ã‚«ãƒ¬ãƒ³ãƒˆèªè­˜ã‚ã‚‰ã°ã‚»ãƒƒãƒˆ
 	# write-host "[System.IO.Directory]::GetCurrentDirectory()"	# cd chk
 
 
-	# & $exe_nsc -n ('"'+ $r[0]+ '.mml"') | write-host	# CommandŽžA[&]•K—v
-	$out[1]= & $exe_nsc $cmdline ('"'+ $dpn+ '.mml"') | Out-String
+	# & $exe_nsc -n ('"'+ $r[0]+ '.mml"') | write-host	# Commandæ™‚ã€[&]å¿…è¦
+	$out[1]= & $exe_nsc $cmdline ('"'+ $dpn+ '.mml"') | Out-String # æ”¹è¡Œä»˜ãå‡ºåŠ›
 
 	Write-Host $out[1]
 
-	sleep -m 33	# ˆÙíŽž—pƒEƒFƒCƒg
+	sleep -m 33	# ç•°å¸¸æ™‚ç”¨ã‚¦ã‚§ã‚¤ãƒˆ
 
 	# [System.IO.Directory]::SetCurrentDirectory([Environment]::CurrentDirectory)
-	# mml_watch‚Ö
+	# mml_watchã¸
 
     }catch{
 	echo $_.exception
 	$out[0]= ( 'Mknsd>>"'+ ($brr[2]+ '.mml')+ ' -> '+ ($brr[2]+ '.nsf')+'" Compile ERR' )
 	Write-Host ("`r`n"+ $out[0])
     }
-	popd	# mml_watch‚Ö
+	popd	# mml_watchã¸
   }
 
-return $out
-# exit $LASTEXITCODE
+ return $out
+ # exit $LASTEXITCODE
 
  } #func
  
 function Mkpmd([string[]]$arg){ # mkpmd.ps1 
 
-# $arg // mml,bin,dmc,cmdline,dos,x64
+ # $arg // mml,bin,dmc,cmdline,dos,x64
 
-[string]$mml= $arg[0]
-[string]$bin= $arg[1]
-[string]$dmc= $arg[2]
-[string[]]$cmdline= $arg[3] -split " " # string[]‚Å—ˆ‚é‚½‚ß
-[string]$dos= $arg[4]
-[string]$x64= $arg[5]
-# write-host ("check:"+$cmdline)
+ [string]$mml= $arg[0]
+ [string]$bin= $arg[1]
+ [string]$dmc= $arg[2]
+ [string[]]$cmdline= $arg[3] -split " " # string[]ã§æ¥ã‚‹ãŸã‚
+ [string]$dos= $arg[4]
+ [string]$x64= $arg[5]
+ # write-host ("check:"+$cmdline)
 
-[string[]]$arr= Split_path $bin
-[string[]]$frr= Split_path $dos
+ [string[]]$arr= Split_path $bin
+ [string[]]$frr= Split_path $dos
 
 
-[string[]]$out= "",""
+ [string[]]$out= "",""
 
   if((Chk_path $mml) -ne 0){
 
-	$out[0]= ('Mkpmd>>"'+ $mml+ '": mml‚ªƒpƒXã‚É‚ ‚è‚Ü‚¹‚ñ')
+	$out[0]= ('Mkpmd>>"'+ $mml+ '": mmlãŒãƒ‘ã‚¹ä¸Šã«ã‚ã‚Šã¾ã›ã‚“')
 	Write-Host ("`r`n"+ $out[0])
 
 
-  }elseif($arr[0] -notmatch '^.*MC.*\.EXE'){	# compiler chk
+  }elseif($arr[0] -notmatch "MC.*\.EXE"){	# compiler chk
 
-	$out[0]= ('Mkpmd>>"'+ $arr[0]+ '": MC.EXE‚Å‚Í‚ ‚è‚Ü‚¹‚ñ')
+	$out[0]= ('Mkpmd>>"'+ $arr[0]+ '": MC.EXEã§ã¯ã‚ã‚Šã¾ã›ã‚“')
 	Write-Host ("`r`n"+ $out[0])
 
 
-  }elseif((Chk_path $bin) -ne 0){	# compiler path chk # pushd‚ÌƒGƒ‰[‰ñ”ð
+  }elseif((Chk_path $bin) -ne 0){	# compiler path chk # pushdã®ã‚¨ãƒ©ãƒ¼å›žé¿
 
-	$out[0]= ('Mkpmd>>"'+ $bin+ '": MC.EXE‚ªƒpƒXã‚É‚ ‚è‚Ü‚¹‚ñ')
+	$out[0]= ('Mkpmd>>"'+ $bin+ '": MC.EXEãŒãƒ‘ã‚¹ä¸Šã«ã‚ã‚Šã¾ã›ã‚“')
 	Write-Host ("`r`n"+ $out[0])
 
 
   }elseif($frr[0] -notmatch '^.*msdos.*\.exe' -and $x64 -eq 'Checked'){	# dos chk
 
-	$out[0]= ('Mkpmd>>"'+ $frr[0]+ '": msdos.exe‚Å‚Í‚ ‚è‚Ü‚¹‚ñ')
+	$out[0]= ('Mkpmd>>"'+ $frr[0]+ '": msdos.exeã§ã¯ã‚ã‚Šã¾ã›ã‚“')
 	Write-Host ("`r`n"+ $out[0])
 
 
   }elseif((Chk_path $dos) -ne 0 -and $x64 -eq 'Checked'){	# dos path chk
 
-	$out[0]= ('Mkpmd>>"'+ $dos+ '": msdos.exe‚ªƒpƒXã‚É‚ ‚è‚Ü‚¹‚ñ')
+	$out[0]= ('Mkpmd>>"'+ $dos+ '": msdos.exeãŒãƒ‘ã‚¹ä¸Šã«ã‚ã‚Šã¾ã›ã‚“')
 	Write-Host ("`r`n"+ $out[0])
 
 
@@ -414,7 +438,7 @@ function Mkpmd([string[]]$arg){ # mkpmd.ps1
 	[string]$exe_mc= '.\'+ $arr[0]
 	[string]$exe_dos= ""
 	$exe_dos= $dos
-	[string]$Env:PMD= $dmc	# ƒpƒX‘Î‰ž‘f‚Å‚æ‚µ
+	[string]$Env:PMD= $dmc	# ãƒ‘ã‚¹å¯¾å¿œç´ ã§ã‚ˆã—
 
 	[string[]]$brr= Split_path $mml
 	[string]$dpn= Join-Path $brr[1] $brr[2]
@@ -423,14 +447,14 @@ function Mkpmd([string[]]$arg){ # mkpmd.ps1
 
     try{
 	copy -force -literalpath ($dpn+ '.mml') -destination '.\tmp.mml'
-	# “¯‚¶ƒtƒHƒ‹ƒ_‚Å‚È‚¢‚ÆƒRƒ“ƒpƒCƒ‹‚Å‚«‚È‚¢‚½‚ß
+	# åŒã˜ãƒ•ã‚©ãƒ«ãƒ€ã§ãªã„ã¨ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã§ããªã„ãŸã‚
 
 
 	if($x64 -eq "Checked"){
 
 		# & $exe_dos $exe_mc /v $opt 'tmp.mml' | Write-Host
 		$out[1]= & $exe_dos $exe_mc $cmdline 'tmp.mml' | Out-String
-		# CommandŽžA[&]•K—v
+		# Commandæ™‚ã€[&]å¿…è¦
 	}else{
 		# & $exe_mc /v $opt 'tmp.mml' | Write-Host
 		$out[1]= & $exe_mc $cmdline 'tmp.mml' | Out-String
@@ -444,7 +468,7 @@ function Mkpmd([string[]]$arg){ # mkpmd.ps1
 	if($LASTEXITCODE -eq 0){
 
 		move -force -literalpath '.\tmp.m' -destination ($dpn+ '.m')
-		# Œ³—ˆ‚Ìmml‚ÌêŠ‚ÉˆÚ“®
+		# å…ƒæ¥ã®mmlã®å ´æ‰€ã«ç§»å‹•
 
 		if((Test-Path '.\tmp.mml') -eq $true){ del '.\tmp.mml' }
 	}
@@ -454,11 +478,11 @@ function Mkpmd([string[]]$arg){ # mkpmd.ps1
 	$out[0]= ( 'Mkpmd>>"'+ ($brr[2]+ '.mml')+ ' -> '+ ($brr[2]+ '.m')+'" Compile ERR' )
 	Write-Host ("`r`n"+ $out[0])
     }
-	popd	# mml_watch‚Ö
+	popd	# mml_watchã¸
   }
 
-return $out
-# exit $LASTEXITCODE
+ return $out
+ # exit $LASTEXITCODE
 
  } #func
  
@@ -475,27 +499,23 @@ function Player_open([int]$num,[string]$plyer,[string]$path){
 		}1{
 			[string[]]$s= Split_path $plyer
 
-			# fmpmd /sƒ_ƒCƒAƒƒO‚ÅŽ~‚Ü‚é
-			# nsfplay2.4 -> errƒ_ƒCƒAƒƒOo—Í
+			# fmpmd /sãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã§æ­¢ã¾ã‚‹
+			# nsfplay2.4 -> errãƒ€ã‚¤ã‚¢ãƒ­ã‚°å‡ºåŠ›
 
 			switch($s[0]){
 			'winamp.exe'{	& $plyer /stop; break;
-			}'foobar.exe'{	& $plyer /stop
+			}'foobar2000.exe'{	& $plyer /stop
 			}
-			} #sw
+			} # #sw
 
 			break;
 		}2{	& $plyer $path
 		}
 		} #sw
-
-	}else{
-		switch($num){
-		0{	return $ss;
-		}
-		} #sw
 	}
-} #func
+
+	return $ss;
+ } #func
  
 # ------ main 
 
