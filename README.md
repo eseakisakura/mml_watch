@@ -14,7 +14,7 @@ GUI部も含めて、総Powershellで組まれています。<br/>
 </tr></table>
 
 <h4>
-必要となるソフトウェアのリンク <br/>
+説明書及び、必須ソフトウェアのリンク <br/>
 ・<a href="https://eseakisakura.github.io/mml_watch_gui/"> Mml Watch GUI - download</a><br/>
 <h4>
 
