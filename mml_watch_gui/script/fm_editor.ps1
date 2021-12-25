@@ -3009,7 +3009,7 @@ function MSop_checker([int]$i, [string]$ss){ # Mask,SSG
  } #func
   
 # Panel 
-	 
+	
 function Enable_chk([string]$s){ 
 
 	[int[]]$num= 0,0
@@ -6393,7 +6393,7 @@ $tab_mck.Add_VisibleChanged({
 })
  
 $tab_vrc= New-Object System.Windows.Forms.TabPage 
-$tab_vrc.Text= "vrc7"
+$tab_vrc.Text= "nsd"
 
 $tab_vrc.Add_VisibleChanged({
  try{
@@ -11659,7 +11659,7 @@ $fm_menu_edt3.Add_Click({
 	echo $_.exception
  }
 })
- 	
+ 
 $fm_menu_m= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_m.Text= "Octave"
 
@@ -11833,7 +11833,7 @@ $fm_menu_oct8.Add_Click({
 })
  
 $fm_menu_b= New-Object System.Windows.Forms.ToolStripMenuItem 
-$fm_menu_b.Text= "Clipboard"
+$fm_menu_b.Text= "TextBox"
 
 $fm_menu_put= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_put.Text= "Output"
@@ -12021,7 +12021,7 @@ $fm_menu_style_mxdrv.Add_Click({
 
 $fm_menu_mmlun= New-Object System.Windows.Forms.ToolStripSeparator
 $fm_menu_mml= New-Object System.Windows.Forms.ToolStripMenuItem
-$fm_menu_mml.Text= "TextBox"
+$fm_menu_mml.Text= "Voice"
 
 $fm_menu_mml.Add_Click({
  try{
@@ -12033,7 +12033,7 @@ $fm_menu_mml.Add_Click({
 })
 
 $fm_menu_copy= New-Object System.Windows.Forms.ToolStripMenuItem
-$fm_menu_copy.Text= "header+ MML"
+$fm_menu_copy.Text= "header+ Voice"
 $fm_menu_copy.ForeColor= "Black"
 
 $fm_menu_copy.Add_Click({
@@ -12082,11 +12082,11 @@ $fm_menu_whelp.Text= "FMToneEditor Help"
 $fm_menu_whelp.Add_Click({
  try{
 
-  if($edit["sted.exe"] -eq $null){
+  if((Chk_path $edit["sted.exe"]) -eq 0){
 
-	[string]$retn= Editor_open $val["editor"] "..\doc\FM_Tone_Editor.txt"
-  }else{
 	[string]$retn= Editor_open $edit["sted.exe"] "..\doc\FM_Tone_Editor.txt"
+  }else{
+	[string]$retn= Editor_open $val["editor"] "..\doc\FM_Tone_Editor.txt"
   }
 
   if($retn -ne ''){
@@ -12173,7 +12173,7 @@ $fm_menu_pmdh.Add_Click({
 	echo $_.exception
  }
 })
-  
+ 	 
 $fm_menu_lad.DropDownItems.AddRange(@($fm_lad_a,$fm_lad_b,$fm_lad_c,$fm_lad_d,$fm_lad_e,$fm_lad_f,$fm_lad_g,$fm_lad_h)) 
 $fm_menu_sav.DropDownItems.AddRange(@($fm_sav_a,$fm_sav_b,$fm_sav_c,$fm_sav_d,$fm_sav_e,$fm_sav_f,$fm_sav_g,$fm_sav_h))
 
@@ -12209,7 +12209,7 @@ $fm_stus.Items.AddRange(@($fm_label))
 $frm_fm.Controls.AddRange(@($fm_mnu,$fm_panel,$fm_box,$fm_stus))
    
 # Global variable ====== 
-	
+	 
 # color setting 
 
  try{
@@ -12281,9 +12281,9 @@ $pastelgreen= [System.Drawing.Color]::FromArgb(190,140,220,61)	# 0,235,104
 $yellow= [System.Drawing.Color]::FromName("orange")		# RGup de yellow
 $gold= [System.Drawing.Color]::FromArgb(210,255,215,0)		# gold 255,215,0
 $darkorange= [System.Drawing.Color]::FromArgb(195,201,203,9)	# 206,211,16
-$vividorange= [System.Drawing.Color]::FromArgb(220,244,254,48)	# 242,246,25
-$naturalorange= [System.Drawing.Color]::FromArgb(241,244,252,89) # 239,254,48
-$pastelorange= [System.Drawing.Color]::FromArgb(190,255,249,18) # 254,255,21
+$vividorange= [System.Drawing.Color]::FromArgb(220,248,254,48)	# 242,246,25
+$naturalorange= [System.Drawing.Color]::FromArgb(241,240,252,89) # 239,254,48
+$pastelorange= [System.Drawing.Color]::FromArgb(190,254,248,28) # 254,255,21
 
 $magenta= [System.Drawing.Color]::FromName("magenta")
 $pink= [System.Drawing.Color]::FromArgb(210,255,182,193)	# lightpink

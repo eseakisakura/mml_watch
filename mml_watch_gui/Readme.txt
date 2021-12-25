@@ -18,10 +18,10 @@
 　・レジストリは使わず、iniの代りに、xml環境ファイルを書き出します。
 
 
-　XP+ PS2, win10(20H2)+ PS5 において、起動確認済み
+　・XP+ PS2, win10(21H2)+ PS5 において、起動確認済み
 
-　※ mml_watch.exeなどのバイナリ起動の場合、
-　.NET Framework4.0以上が必要です。
+　　※ mml_watch.exeなどのバイナリ起動の場合、
+　　.NET Framework4.0以上が必要です。
 
 
 　・MMLファイルの文字コードについて
@@ -62,7 +62,7 @@
 　　$Env:Path+= ";pwsh.exeへのフォルダ"
 
 　# 永続的なパス
-　(win10 Oct20 Update ver20H2の場合)
+　(win10 21H2の場合)
 
 　　[設定] - システム - 詳細情報 - システムの詳細設定
 

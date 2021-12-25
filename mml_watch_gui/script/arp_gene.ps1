@@ -415,7 +415,7 @@ $rot["4D"]=	"4313 1313",
 		"432 123 132 132"
  
 # gui 
-	 
+	
 function Trayarp_hide([string]$t){ 
 
 	switch($t){
@@ -835,7 +835,7 @@ function Mml_select([string]$sw){
  } #func
   
 # Hash Xml 
-	 
+	
 function Setxml_read($x){ # hash読み込み 
 
   # $x= $script:set_xml.table
@@ -3009,7 +3009,7 @@ $arp_menu_edt3.Add_Click({
 	echo $_.exception
  }
 })
- 	
+ 
 $arp_menu_m= New-Object System.Windows.Forms.ToolStripMenuItem 
 $arp_menu_m.Text= "Octave"
 
@@ -3126,12 +3126,12 @@ $arp_menu_oct8.Add_Click({
 })
  
 $arp_menu_b= New-Object System.Windows.Forms.ToolStripMenuItem 
-$arp_menu_b.Text= "Clipboard"
+$arp_menu_b.Text= "TextBox"
 
 
 $arp_menu_mlun=New-Object System.Windows.Forms.ToolStripSeparator
 $arp_menu_mml= New-Object System.Windows.Forms.ToolStripMenuItem
-$arp_menu_mml.Text= "TextBox"
+$arp_menu_mml.Text= "MML"
 
 $arp_menu_mml.Add_Click({
  try{
@@ -3167,11 +3167,11 @@ $arp_menu_whelp.Text= "GtArpeggioGenerator Help"
 $arp_menu_whelp.Add_Click({
  try{
 
-  if($edit["sted.exe"] -eq $null){
+  if((Chk_path $edit["sted.exe"]) -eq 0){
 
-	[string]$retn= Editor_open $val["editor"] "..\doc\Gt_Arpeggio_Generator.txt"
-  }else{
 	[string]$retn= Editor_open $edit["sted.exe"] "..\doc\Gt_Arpeggio_Generator.txt"
+  }else{
+	[string]$retn= Editor_open $val["editor"] "..\doc\Gt_Arpeggio_Generator.txt"
   }
 
   if($retn -ne ''){
@@ -3258,7 +3258,7 @@ $arp_menu_pmdh.Add_Click({
 	echo $_.exception
  }
 })
-  
+ 	 
 $chd_grp.Controls.AddRange(@($label_key,$label_kata,$label_genn,$comb_key,$comb_chd,$comb_genn,$check_open,$Pictbox)) 
 $flet_grp.Controls.AddRange(@($comb_ab,$comb_bb,$comb_db,$comb_eb,$comb_gb,$label_chd,$label_flet,$box_flet,$box_chd))
 $mml_grp.Controls.AddRange(@($label_prefix,$label_apeg,$label_exp,$label_oct,$label_mtr,$label_tainum,$label_taimark))

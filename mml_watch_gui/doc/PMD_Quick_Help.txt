@@ -53,7 +53,7 @@ R	Rythm定義(\~)
 #Composer [str]	作曲者名
 #Arranger [str]		編曲者名
 #Memo [str]		メモ
- 
+ 	
 #Filename [file.M]	出力ファイル名 
 
 #PPSFile [file.PPS]	SSGPCMファイル名
@@ -68,7 +68,7 @@ R	Rythm定義(\~)
 #Include [file.mml]	#Include行にMMLファイルを読み込む
 
 #Option [/L/S/A/O]	コンパイラオプション
- 	
+ 
 #Tempo [18~255]		テンポ指定(C96時、2分音符回数/min) 
 			[->t command]
 
@@ -152,7 +152,7 @@ exp.
  031 005 007 007 002 000 002 003 005 000
   
 MML command////// 
-	 
+	
 t	テンポ 
 	t[18~255,相対+,-]
 

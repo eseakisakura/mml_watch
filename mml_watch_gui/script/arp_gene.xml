@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<table>
+	<opt>
+		<tray value="True" />
+		<oct value="o4" />
+		<osc value="PMD" />
+		<bit value="Checked" />
+	</opt>
+	<val>
+		<!-- 拡張性の加味 -->
+		<mck value="..\ppmck\bin\ppmckc.exe" />
+		<nsd value="..\nsdlib\bin\nsc.exe" />
+		<pmd value="..\pmd\MC.EXE" />
+		<cmp value="..\pmd\MC.EXE" />
+		<ply value="" />
+		<dos value="..\msdos\msdos.exe" />
+		<edt value="C:\Programs\Tools\Text\Mery\Mery.exe" />
+	</val>
+</table>

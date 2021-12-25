@@ -31,7 +31,7 @@ $xml_watch= @'
 '@
  
 # nsf_trans 
-	 
+	
 function Mck_trans([string]$file){ 
 
 
@@ -86,7 +86,7 @@ function Mck_trans([string]$file){
 		}
 	}
  } #func
- 	
+ 
 function Nsd_trans([string]$file){ 
 
 
@@ -910,7 +910,7 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 [Environment]::CurrentDirectory= pwd # working_dir set
  
 # Form 
-	
+	 
 $err_box= New-Object System.Windows.Forms.TextBox 
 $err_box.Size= "220,55"
 $err_box.Location= "10,55"
@@ -1283,11 +1283,11 @@ $menu_whelp.Text= "MmlWatch Help"
 $menu_whelp.Add_Click({
  try{
 
-  if($edit["sted.exe"] -eq $null){
+  if((Chk_path $edit["sted.exe"]) -eq 0){
 
-	[string]$retn= Editor_open $val["editor"] "..\doc\Mml_Watch.txt"
-  }else{
 	[string]$retn= Editor_open $edit["sted.exe"] "..\doc\Mml_Watch.txt"
+  }else{
+	[string]$retn= Editor_open $val["editor"] "..\doc\Mml_Watch.txt"
   }
 
   if($retn -ne ""){ $err_box.Text= $retn }
@@ -1303,11 +1303,11 @@ $menu_phelp.Text= "PMD Quick Help"
 $menu_phelp.Add_Click({
  try{
 
-  if($edit["sted.exe"] -eq $null){
+  if((Chk_path $edit["sted.exe"]) -eq 0){
 
-	[string]$retn= Editor_open $val["editor"] "..\doc\PMD_Quick_Help.txt"
-  }else{
 	[string]$retn= Editor_open $edit["sted.exe"] "..\doc\PMD_Quick_Help.txt"
+  }else{
+	[string]$retn= Editor_open $val["editor"] "..\doc\PMD_Quick_Help.txt"
   }
 
   if($retn -ne ""){ $err_box.Text= $retn }
@@ -1323,11 +1323,11 @@ $menu_nhelp.Text= "NSDlib Quick Help"
 $menu_nhelp.Add_Click({
  try{
 
-  if($edit["sted.exe"] -eq $null){
+  if((Chk_path $edit["sted.exe"]) -eq 0){
 
-	[string]$retn= Editor_open $val["editor"] "..\doc\Nsdlib_Quick_Help.txt"
-  }else{
 	[string]$retn= Editor_open $edit["sted.exe"] "..\doc\Nsdlib_Quick_Help.txt"
+  }else{
+	[string]$retn= Editor_open $val["editor"] "..\doc\Nsdlib_Quick_Help.txt"
   }
 
   if($retn -ne ""){ $err_box.Text= $retn }
@@ -1343,11 +1343,11 @@ $menu_mhelp.Text= "ppmck Quick Help"
 $menu_mhelp.Add_Click({
  try{
 
-  if($edit["sted.exe"] -eq $null){
+  if((Chk_path $edit["sted.exe"]) -eq 0){
 
-	[string]$retn= Editor_open $val["editor"] "..\doc\ppmck_Quick_Help.txt"
-  }else{
 	[string]$retn= Editor_open $edit["sted.exe"] "..\doc\ppmck_Quick_Help.txt"
+  }else{
+	[string]$retn= Editor_open $val["editor"] "..\doc\ppmck_Quick_Help.txt"
   }
 
   if($retn -ne ""){ $err_box.Text= $retn }
@@ -1356,7 +1356,7 @@ $menu_mhelp.Add_Click({
 	echo $_.exception
  }
 })
-  
+ 	 
 $menu_f.DropDownItems.AddRange(@($menu_e,$menu_d,$menu_spy,$menu_py,$menu_sn,$menu_n)) 
 $menu_ka.DropDownItems.AddRange(@($menu_eo,$menu_eor,$menu_r,$menu_sr,$menu_ty))
 

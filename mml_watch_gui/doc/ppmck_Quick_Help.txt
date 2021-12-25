@@ -258,7 +258,7 @@ $	1•¶šƒ}ƒNƒ’è‹` [ppmck release9ex3~]
 	$[A-Z] mml
   
 MML command////// 
-	 
+	
 t	Tempo 
 	t[1~255](def:120)
 
