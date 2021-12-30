@@ -75,7 +75,7 @@
 
 
 　2.　各リストボックスに、必要となるファイル、プログラムを登録します。
-　　　bin,player,dos,editorタブに、D&Dで順に登録していきます。
+　　　binary,player,editor,dosタブに、D&Dで順に登録していきます。
 　　　(PMDを64bitOSでの使用の場合、x64にチェックを入れて下さい。)
 
 

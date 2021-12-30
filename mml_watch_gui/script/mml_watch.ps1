@@ -910,7 +910,7 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 [Environment]::CurrentDirectory= pwd # working_dir set
  
 # Form 
-	 
+	
 $err_box= New-Object System.Windows.Forms.TextBox 
 $err_box.Size= "220,55"
 $err_box.Location= "10,55"
@@ -1131,7 +1131,7 @@ $frm.Add_DragDrop({
 })
  
 $mnu= New-Object System.Windows.Forms.MenuStrip 
-	 
+	
 $menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $menu_f.Text= "File"
 
@@ -1356,7 +1356,7 @@ $menu_mhelp.Add_Click({
 	echo $_.exception
  }
 })
- 	 
+  
 $menu_f.DropDownItems.AddRange(@($menu_e,$menu_d,$menu_spy,$menu_py,$menu_sn,$menu_n)) 
 $menu_ka.DropDownItems.AddRange(@($menu_eo,$menu_eor,$menu_r,$menu_sr,$menu_ty))
 

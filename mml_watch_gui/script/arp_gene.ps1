@@ -1656,7 +1656,7 @@ function Apeg([string]$tt){
 } #func
   
 # Exp 
-	 
+	
 function Prefixarp_mml([string]$t, [string]$g){ 
 
 	[int]$trk_num= $nmud_trk.Value
@@ -2648,7 +2648,7 @@ $frm_arp.Add_FormClosing({
 })
  
 $arp_mnu= New-Object System.Windows.Forms.MenuStrip 
-	 
+	
 $arp_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $arp_menu_f.Text= "File"
 
@@ -3258,7 +3258,7 @@ $arp_menu_pmdh.Add_Click({
 	echo $_.exception
  }
 })
- 	 
+  
 $chd_grp.Controls.AddRange(@($label_key,$label_kata,$label_genn,$comb_key,$comb_chd,$comb_genn,$check_open,$Pictbox)) 
 $flet_grp.Controls.AddRange(@($comb_ab,$comb_bb,$comb_db,$comb_eb,$comb_gb,$label_chd,$label_flet,$box_flet,$box_chd))
 $mml_grp.Controls.AddRange(@($label_prefix,$label_apeg,$label_exp,$label_oct,$label_mtr,$label_tainum,$label_taimark))

@@ -46,7 +46,7 @@ $setting_xml= @'
 	<dos name= "" param= ""/>
 </table>
 '@
- 	
+ 
 # hash 
 	
 function Xml_read($x){ 
@@ -1308,7 +1308,7 @@ $pram_mnu.Items.AddRange(@($parm_menu_f))
 $pram_frm.Controls.AddRange(@($pram_mnu,$pram_tab))
   
 # sub Form 
-	 
+	
 $baloon= New-Object System.Windows.Forms.Tooltip 
 $baloon.ShowAlways= $False
 # $baloon.ToolTipIcon= "Info"
@@ -1320,7 +1320,7 @@ $tab.Size= "225,205"
 $tab.Location= "5,25"
  
 # tab_mml 
-	 
+	
 $tab_mml= New-Object System.Windows.Forms.TabPage 
 $tab_mml.Text= "mml"
 
@@ -2101,7 +2101,7 @@ $sub_f.Add_FormClosing({
 })
  
 $sub_mnu= New-Object System.Windows.Forms.MenuStrip 
-	 
+	
 $sub_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $sub_menu_f.Text= "File"
 

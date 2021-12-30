@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<table>
+	<!-- listbox / nameは変動値 -->
+	<mml name="mml_new.mml" param="C:\Documents and Settings\sl(4\デスクトップ\テンプファイル\mml_new.mml" />
+	<mml name="" param="" />
+	<mml name="" param="" />
+	<mml name="" param="" />
+	<br />
+	<mck name="ppmckc.exe" param="..\ppmck\bin\ppmckc.exe" />
+	<mck name="" param="" />
+	<mck name="" param="" />
+	<mck name="" param="" />
+	<br />
+	<nsd name="nsc.exe" param="..\nsdlib\bin\nsc.exe" />
+	<nsd name="" param="" />
+	<nsd name="" param="" />
+	<nsd name="" param="" />
+	<br />
+	<pmd name="MC.EXE" param="..\pmd\MC.EXE" />
+	<pmd name="" param="" />
+	<pmd name="" param="" />
+	<pmd name="" param="" />
+	<br />
+	<ply name="MDPlayer.exe" param="..\mdplayer\MDPlayer.exe" />
+	<ply name="FMPMD.exe" param="..\fmpmd\FMPMD.exe" />
+	<ply name="nsfplay.exe" param="..\nsfplay\nsfplay.exe" />
+	<ply name="winamp.exe" param="..\winamp\winamp.exe" />
+	<br />
+	<dmc name="" param="" />
+	<dmc name="" param="" />
+	<dmc name="" param="" />
+	<dmc name="" param="" />
+	<br />
+	<edt name="Mery.exe" param="C:\Programs\Tools\Text\Mery\Mery.exe" />
+	<edt name="sted_mdi.exe" param="C:\Programs\Tools\Text\Sted - mdi\sted_mdi.exe" />
+	<edt name="" param="" />
+	<edt name="" param="" />
+	<br />
+	<dos name="msdos.exe" param="..\msdos\msdos.exe" />
+	<dos name="" param="" />
+	<dos name="" param="" />
+	<dos name="" param="" />
+</table>

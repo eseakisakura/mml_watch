@@ -50,7 +50,7 @@
 　2.　各リストボックスに、必要となるファイル、
 　　　プログラムを登録します。
 
-　　　bin,player,dos,editorタブに、順に登録します。
+　　　binary,player,editor,dosタブに、順に登録します。
 　　　(PMDを64bitOSで使用の場合、x64にチェックを入れて下さい。)
 
 

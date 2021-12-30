@@ -99,6 +99,7 @@ TR1  o4Ev20 Q2 l8 v15 @2
 #title "str" 		タイトル名 
 #composer "str" 	作曲者
 #copyright "str" 	著作権者
+
 #maker "str"(nsf2)	製作者を設定
 #text "str"(nsf2)	テキストを設定
 

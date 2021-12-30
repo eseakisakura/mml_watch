@@ -77,7 +77,7 @@ Function Chk_path([string]$file){
 		return 0
 	}
  } #func
- 	
+ 
 Function Split_path([string]$f){ 
 
   [string[]]$out= "","","",""
