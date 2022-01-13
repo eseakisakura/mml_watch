@@ -3,10 +3,10 @@
 #wait 1
 
 BGM(0){ t150
-TR6,7,8,9 %trk_param% @0 @V100 Q4 l4 v15
+TR6,7,8,9 %trk_param% @0 @V100 Q4 l8 v15
 
-TR6  Rv15 <e^w> d^rr
-// TR7  Rv15 >g+^w  b^rr <
+TR6  Rv15 <a16r16 a^w> d16r16 d^^rr
+// TR7  Rv15 e16r16 e^w  a16r16 a^^rr
  }
 
 ; replace parameter

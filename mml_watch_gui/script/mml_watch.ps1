@@ -21,7 +21,6 @@ $xml_watch= @'
 		<radio_bin value= "nsd"/>
 		<chk_dos value= "Checked"/>
 		<chk_stop value= "UnChecked"/>
-		<chk_thru value= "UnChecked"/>
 		<chk_auto value= "True"/>
 		<edt_open value= "False"/>
 		<chk_tray value= "True"/>
@@ -29,9 +28,9 @@ $xml_watch= @'
 	</opt>
 </table>
 '@
- 
+ 	
 # nsf_trans 
-	
+	 
 function Mck_trans([string]$file){ 
 
 
@@ -197,6 +196,8 @@ function Pmd_trans([string]$file){
 	}
  } #func
  
+<# 
+ 
 function Thru_trans([string]$file){ 
 
 	$err_box.Text= ""
@@ -212,22 +213,26 @@ function Thru_trans([string]$file){
 	Player_open 2 $val["player"] ('"'+ $dpn+ '.mml"') > $null
  } #func
  
+#> 
+ 
 function Play_nsf([string]$file){ 
 
 	$watch.Start()
 
-	if($opt["chk_thru"] -eq 'Checked'){
+	##if($opt["chk_thru"] -eq 'Checked'){
 
-		[string]$sw= "thru"
-	}else{
-		[string]$sw= $opt["radio_bin"]
-	}
+	##	[string]$sw= "thru"
+	##}else{
+
+	[string]$sw= $opt["radio_bin"]
+
+	##}
 
 	switch($sw){
 	'mck'{	 Mck_trans $file; break;
 	}'nsd'{	 Nsd_trans $file; break;
-	}'pmd'{	 Pmd_trans $file; break;
-	}'thru'{ Thru_trans $file
+	}'pmd'{	 Pmd_trans $file  ##; break;
+	##}'thru'{ Thru_trans $file
 	}
 	} #sw
 
@@ -260,7 +265,7 @@ function Watches_nsf([string]$eor){
  } #func
   
 # chk_path 
-	
+	 
 function Status_build(){ 
 
 	[int[]]$err= 0,0,0,0
@@ -351,12 +356,14 @@ function Status_cheker(){
 	[string]$d= ""
 
 
-	if($opt["chk_thru"] -eq 'Checked'){
+	##if($opt["chk_thru"] -eq 'Checked'){
 
-		[string]$sw= "thru"
-	}else{
-		[string]$sw= $opt["radio_bin"]
-	}
+	##	[string]$sw= "thru"
+	##}else{
+
+	[string]$sw= $opt["radio_bin"]
+
+	##}
 
 	switch($sw){
 
@@ -370,10 +377,10 @@ function Status_cheker(){
 
 		}'pmd'{	$m= '"P.M.D"'
 			$k= $comlin[2]
-			break;
+			## break;
 
-		}'thru'{ $m= '"direct"'
-			 $k= ""
+		##}'thru'{ $m= '"direct"'
+		##	 $k= ""
 		}
 	} #sw
 
@@ -473,7 +480,7 @@ function Wait_setpath(){
 } #func
   
 # toggle 
-	
+	 
 function Toggle_label(){ 
 
 
@@ -657,7 +664,7 @@ function Watch_Drop(){
  } #func
   
 # gui 
-	
+	 
 function Contxt_chg([string]$sw,[int]$chg){ 
 
 	switch($sw){
@@ -762,7 +769,7 @@ function Auto_start([string]$t){
  } #func
   
 # hash 
-	
+	 
 function Helpxml_read($x){ 
 
   # $x= $script:set_xml.table
@@ -796,7 +803,7 @@ function Wthxml_read($x,$y){
 	$script:opt["radio_bin"]= $y.radio_bin.value
 	$script:opt["chk_dos"]= $y.chk_dos.value
 	$script:opt["chk_stop"]= $y.chk_stop.value
-	$script:opt["chk_thru"]= $y.chk_thru.value
+	##$script:opt["chk_thru"]= $y.chk_thru.value
 
 	# メニュー切換
 	$script:opt["chk_topmost"]= Top_most $y.chk_topmost.value
@@ -826,7 +833,7 @@ function Wthwrite_xml($x,$y){
 	$y.radio_bin.value= [string]$opt["radio_bin"]
 	$y.chk_dos.value= [string]$opt["chk_dos"]
 	$y.chk_stop.value= [string]$opt["chk_stop"]
-	$y.chk_thru.value= [string]$opt["chk_thru"]
+	##$y.chk_thru.value= [string]$opt["chk_thru"]
 
 	$y.chk_topmost.value= [string]$opt["chk_topmost"]
 	$y.chk_auto.value= [string]$opt["chk_auto"]
@@ -842,7 +849,7 @@ function Param_join([array]$rr){
 
 		if($rr[$i] -ne ""){
 
-			if($s -ne ""){ $s+= " " }
+			if($s -ne ""){ $s+= " " } # array ari nashi
 
 			$s+= $rr[$i]
 		}
@@ -910,7 +917,7 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 [Environment]::CurrentDirectory= pwd # working_dir set
  
 # Form 
-	
+	 
 $err_box= New-Object System.Windows.Forms.TextBox 
 $err_box.Size= "220,55"
 $err_box.Location= "10,55"
@@ -1131,7 +1138,7 @@ $frm.Add_DragDrop({
 })
  
 $mnu= New-Object System.Windows.Forms.MenuStrip 
-	
+	 
 $menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $menu_f.Text= "File"
 
@@ -1197,7 +1204,7 @@ $menu_a.Add_Click({ # 環境設定
 
  }catch{
 	echo $_.exception
-    	Write-Host '"ERROR: Safety Stopper >> call .\setting.ps1"'
+    	Write-Host '"ERROR: Safety Stopper >> call Watch_Setting"'
  }
 })
 

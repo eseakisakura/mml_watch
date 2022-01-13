@@ -1656,7 +1656,7 @@ function Apeg([string]$tt){
 } #func
   
 # Exp 
-	
+	 
 function Prefixarp_mml([string]$t, [string]$g){ 
 
 	[int]$trk_num= $nmud_trk.Value
@@ -1780,17 +1780,17 @@ function Lisnarp_nsf([int]$sw, [string]$lis){
 function Keydown_arp([string]$t){ 
 
   switch($t){
-  'F10'{
+  'F6'{
 	Lisnarp_nsf 1 # stop
 
-  }'F12'{
+  }'F5'{
 
 	$script:lis= Prefixarp_mml $opt["oct"] $box_mtr.Text
 	Lisnarp_nsf 0 $lis
   }
   } #sw
 } #func
- 
+ 	
 function Unredo_arp([int]$n){ 
 
   switch($n){
@@ -2181,7 +2181,7 @@ $mml_grp.Text= "MML arpeggio"
 $mml_grp.Size= "530,415"
 $mml_grp.Location= "10,130"
 $mml_grp.FlatStyle= "Flat"
-	
+	 
 $label_apeg= New-Object System.Windows.Forms.Label 
 $label_apeg.Text= "Arpeggio"
 $label_apeg.Size= "75,20"

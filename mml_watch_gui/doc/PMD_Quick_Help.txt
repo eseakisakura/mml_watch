@@ -48,12 +48,12 @@ R	Rythm定義(\~)
 [全角文字]	コメント扱い
  
 ヘッダ////// 
-	 
+	
 #Title [str]			曲のタイトル 
 #Composer [str]	作曲者名
 #Arranger [str]		編曲者名
 #Memo [str]		メモ
- 	
+ 
 #Filename [file.M]	出力ファイル名 
 
 #PPSFile [file.PPS]	SSGPCMファイル名
@@ -152,7 +152,7 @@ exp.
  031 005 007 007 002 000 002 003 005 000
   
 MML command////// 
-	
+	 
 t	テンポ 
 	t[18~255,相対+,-]
 
@@ -226,6 +226,7 @@ a =	記法のバリエーション(l4al=2 -> a2)
 	tai(_flag)は、音符の後、タイ(&)のon,off
 	gate(_time)は、最後をclock分、休符とする
 	cycle(_volume)は、一周時の変化量(Vコマンドレベル)
+
 
 exp.	{{<a>e}}1,%6,,,-1; (ラミの高速アルペジオ(6clock))
  
@@ -335,7 +336,7 @@ R2	@256c
 
 	exp.
 	J	@0,100,-50,-50
- 
+ 	
 P	Tone,Noise選択 
 	P[num]
 
