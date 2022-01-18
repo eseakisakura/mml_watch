@@ -19,6 +19,7 @@ $xml_watch= @'
 	<opt>
 		<option value= "10000 00000, 01200 11000, 01000 00000"/>
 		<radio_bin value= "nsd"/>
+		<chk_pass value= "True"/>
 		<chk_dos value= "Checked"/>
 		<chk_stop value= "UnChecked"/>
 		<chk_auto value= "True"/>
@@ -28,9 +29,9 @@ $xml_watch= @'
 	</opt>
 </table>
 '@
- 	
+ 
 # nsf_trans 
-	 
+	
 function Mck_trans([string]$file){ 
 
 
@@ -39,7 +40,7 @@ function Mck_trans([string]$file){
 		Player_open 1 $val["player"] > $null
 	}
 
-	Write-Host ''
+	Write-Host ""
 
 	[string[]]$eor= "",""
 	[string[]]$output= "",""
@@ -75,13 +76,15 @@ function Mck_trans([string]$file){
 
 			$eor[1]= ('ERROR: '+ $arr[0]+ '>> '+ $arr[2]+ '.nsf')
 			Write-Host $eor[1]
-			Write-Host ''
+			Write-Host ""
 
 			$err_box.Text+= $eor[1]+ "`r`n"
 
 		}else{
+			if($opt["play_open"] -eq "True"){
 
-			Player_open 2 $val["player"] ('"'+ $dpn+ '.nsf"') > $null
+				Player_open 2 $val["player"] ('"'+ $dpn+ '.nsf"') > $null
+			}
 		}
 	}
  } #func
@@ -94,7 +97,7 @@ function Nsd_trans([string]$file){
 		Player_open 1 $val["player"] > $null
 	}
 
-	Write-Host '' # 改行
+	Write-Host ""
 
 	[string[]]$eor= "",""
 	[string[]]$output= "",""
@@ -130,13 +133,15 @@ function Nsd_trans([string]$file){
 
 			$eor[1]= ('ERROR: '+ $arr[0]+ '>> '+ $arr[2]+ '.nsf')
 			Write-Host $eor[1]
-			Write-Host ''
+			Write-Host ""
 
 			$err_box.Text+= $eor[1]+ "`r`n"
 
 		}else{
-			# '"' 空白パス対応
-			Player_open 2 $val["player"] ('"'+ $dpn+ '.nsf"') > $null
+			if($opt["play_open"] -eq "True"){
+				# '"' 空白パス対応
+				Player_open 2 $val["player"] ('"'+ $dpn+ '.nsf"') > $null
+			}
 		}
 	}
  } #func
@@ -149,7 +154,7 @@ function Pmd_trans([string]$file){
 		Player_open 1 $val["player"] > $null
 	}
 
-	Write-Host ''
+	Write-Host ""
 
 	[string[]]$eor= "",""
 	[string[]]$output= "",""
@@ -185,54 +190,29 @@ function Pmd_trans([string]$file){
 
 			$eor[1]= ('ERROR: '+ $arr[0]+ '>> '+ $arr[2]+ '.m')
 			Write-Host $eor[1]
-			Write-Host ''
+			Write-Host ""
 
 			$err_box.Text+= $eor[1]+ "`r`n"
 
 		}else{
+			if($opt["play_open"] -eq "True"){
 
-			Player_open 2 $val["player"] ('"'+ $dpn+ '.m"') > $null
+				Player_open 2 $val["player"] ('"'+ $dpn+ '.m"') > $null
+			}
 		}
 	}
  } #func
- 
-<# 
- 
-function Thru_trans([string]$file){ 
-
-	$err_box.Text= ""
-
-	$script:scroll_text= "compiler thru"+ "`r`n"+ "mml -> player direct"+ "`r`n"
-
-	$csl_box.Text= $scroll_text
-
-
-	[string[]]$arr= Split_path $file
-	[string]$dpn= Join-Path $arr[1] $arr[2]
-
-	Player_open 2 $val["player"] ('"'+ $dpn+ '.mml"') > $null
- } #func
- 
-#> 
  
 function Play_nsf([string]$file){ 
 
 	$watch.Start()
 
-	##if($opt["chk_thru"] -eq 'Checked'){
-
-	##	[string]$sw= "thru"
-	##}else{
-
 	[string]$sw= $opt["radio_bin"]
-
-	##}
 
 	switch($sw){
 	'mck'{	 Mck_trans $file; break;
 	}'nsd'{	 Nsd_trans $file; break;
-	}'pmd'{	 Pmd_trans $file  ##; break;
-	##}'thru'{ Thru_trans $file
+	}'pmd'{	 Pmd_trans $file
 	}
 	} #sw
 
@@ -244,7 +224,7 @@ function Play_nsf([string]$file){
 
 	[string]$ss= "[Elapsed] :{0:0}.{1:000}sec." -f $ts.Seconds,$ts.Milliseconds # -f フォーマット演算子
 
-	Write-Host ''
+	Write-Host ""
 	Write-Host $ss
 
 	$csl_box.Text+= $ss # +"`r`n" fuyou
@@ -252,21 +232,10 @@ function Play_nsf([string]$file){
 	$csl_box.ScrollToCaret()
 
  } #func
- 
-function Watches_nsf([string]$eor){ 
-
-	Write-Host ''
-	Write-Host $eor
-
-	$err_box.Text+= $eor # " last de `r`n"不要
-
-	$err_box.SelectionStart= $err_box.Text.Length
-	$err_box.ScrollToCaret()
- } #func
   
 # chk_path 
-	 
-function Status_build(){ 
+	
+function Err_build(){ 
 
 	[int[]]$err= 0,0,0,0
 
@@ -276,6 +245,21 @@ function Status_build(){
 	$err[3]= Chk_path $val["dmcdir"]
 
 	return $err
+ } #func
+ 
+Function Status_build([string]$exe, [string]$option){ 
+
+	[string]$ss= ""
+
+	if($opt["play_open"] -eq "True"){
+
+		$ss= "  "+ "ply: "+ $exe+ $option
+	}else{
+		$ss= "  "+ "player thru"+ $option
+	}
+
+	$stus_label.Text= $ss
+
  } #func
  
 function Console_out([string[]]$ph){ 
@@ -295,7 +279,7 @@ function Console_out([string[]]$ph){
 
 	[string[]]$rot= "","","",""
 
-	[int[]]$err= Status_build
+	[int[]]$err= Err_build
 
 	switch($err[0]){
 	2{	$rot[0]= '> mmlファイル 選択されてません';		break;
@@ -305,32 +289,32 @@ function Console_out([string[]]$ph){
 	} #sw
 	switch($err[1]){
 	2{	$rot[1]= '> binaryファイル 選択されてません';		break;
-	}1{	$rot[1]= '> binaryファイル パス先がありません';		break;
+	}1{	$rot[1]= '> binaryファイル パス先がありません';	break;
 	}0{	$rot[1]= '< binaryファイル'
 	}
 	} #sw
 	switch($err[2]){
 	2{	$rot[2]= '> Playerファイル 選択されてません';		break;
-	}1{	$rot[2]= '> Playerファイル パス先がありません';		break;
+	}1{	$rot[2]= '> Playerファイル パス先がありません';	break;
 	}0{	$rot[2]= '< Playerファイル'
 	}
 	} #sw
 	switch($err[3]){
-	2{	$rot[3]= '> Includeフォルダ 選択されてません';		break;
+	2{	$rot[3]= '> Includeフォルダ 選択されてません';	break;
 	}1{	$rot[3]= '> Includeフォルダ パス先がありません';	break;
 	}0{	$rot[3]= '< Includeフォルダ'
 	}
 	} #sw
 
-	Write-Host '' # 改行
+	Write-Host "" # 改行
 	Write-Host $ph[0]
 	Write-Host ($ph[1]+ $ph[2])
-	Write-Host ''
+	Write-Host ""
 	Write-Host ($rot[0]+ "`r`n"+ $val["mmlfile"]) # full path
 	Write-Host ($rot[1]+ "`r`n"+ $val["compiler"])
 	Write-Host ($rot[2]+ "`r`n"+ $val["player"])
 	Write-Host ($rot[3]+ "`r`n"+ $val["dmcdir"])
-	Write-Host ''
+	Write-Host ""
 
 
 	$csl_box.Lines= $ph[0],
@@ -341,9 +325,9 @@ function Console_out([string[]]$ph){
 			$rot[3],(" : "+ $f[3][0]),"" # 改行分
 
 
-	$stus_label.Text= "  "+ "ply: "+ $f[2][0]+ $ph[2]
-
 	$script:scroll_text= $csl_box.Text
+
+	Status_build $f[2][0] $ph[2]
 
  } #func
  
@@ -356,31 +340,22 @@ function Status_cheker(){
 	[string]$d= ""
 
 
-	##if($opt["chk_thru"] -eq 'Checked'){
-
-	##	[string]$sw= "thru"
-	##}else{
-
 	[string]$sw= $opt["radio_bin"]
 
-	##}
 
 	switch($sw){
 
 		'mck'{	$m= '"ppmck"' # esc["`""] -> ['"']
-			$k= $comlin[0]
-			break;
+				$k= $comlin[0]
+				break;
 
 		}'nsd'{	$m= '"NSDlib"'
-			$k= $comlin[1]
-			break;
+				$k= $comlin[1]
+				break;
 
 		}'pmd'{	$m= '"P.M.D"'
-			$k= $comlin[2]
-			## break;
+				$k= $comlin[2]
 
-		##}'thru'{ $m= '"direct"'
-		##	 $k= ""
 		}
 	} #sw
 
@@ -389,11 +364,17 @@ function Status_cheker(){
 		$g= " /x64対応"
 	}
 
-	if($opt["chk_stop"] -eq 'Checked'){
+	if($opt["play_open"] -eq "True"){
 
-		$c= " /stopコマンド付"
+		if($opt["chk_stop"] -eq 'Checked'){
+
+			$c= " /stopコマンド付"
+		}
+
+	}else{
+			$c= " /コンパイルのみ"
+
 	}
-
 
 	[string[]]$ss= (' ['+ $m+ '] '+ $k),$g,$c
 
@@ -404,8 +385,13 @@ function Status_cheker(){
 function Play_setpath(){ 
 
 
-	[int[]]$r= Status_build
-	[int]$stus= $r[0]+ $r[1]+ $r[2] # $r[3] cancel
+	[int[]]$r= Err_build
+	[int]$stus= $r[0]+ $r[1] # $r[3] cancel
+
+	if($opt["play_open"] -eq "True"){
+
+		$stus+= $r[2] # $r[3] cancel
+	}
 
 	if($stus -ne 0){
 
@@ -425,8 +411,8 @@ function Wait_setpath(){
 
 	[int]$stus= Play_setpath
 
-	[int]$err= 0
 	[string]$eor= ""
+	[int]$err= 0	# $chk_mml if(0) def. -> if(1)
 
 
 	if($stus -eq 0){
@@ -477,7 +463,7 @@ function Wait_setpath(){
 	} #sw
 
 	return $err
-} #func
+ } #func
   
 # toggle 
 	 
@@ -512,24 +498,9 @@ function Toggle_label(){
 	} #sw
  } #func
  
-function Toggle_sw([int]$num,[string]$c){ 
+function Toggle_sw([string]$sw){ 
 
- if($num -eq 1){ # w_console out cancel
-
-	switch($c){
-
-	'true'{
-		if($wait.EnableRaisingEvents -ne $True){  $num= 0 }
-		break;
-	}'false'{
-		if($wait.EnableRaisingEvents -ne $False){ $num= 0 }
-	}
-	} #sw
- }
-
- if($num -eq 0){ # <- $num= 0
-
-	switch($c){
+	switch($sw){
 
 	'true'{
 		$frm.Text= ("["+ $wait.Filter+ "] - mml watch")
@@ -546,7 +517,6 @@ function Toggle_sw([int]$num,[string]$c){
 	} #sw
 
 	Write-Host ('RaisingEvents: '+ $wait.EnableRaisingEvents)
- }
 
  } #func
  
@@ -554,10 +524,20 @@ function Watch_Setting(){
 
 	[bool]$bool_sw= $tray.Visible
 	$tray.Visible= $False # tray側のコントロール不可にする
+
 	$frm.AllowDrop= $False
 
 
-	Toggle_sw 1 "false"	# ファイル更新キャンセラー
+	if($wait.EnableRaisingEvents -eq $True){
+
+		$err_box.Text= "" # .Clear()
+
+		Watches_nsf ('> Pause: '+ $wait.Filter)
+
+		Toggle_sw "false" # ファイル更新キャンセラー
+
+		Toggle_label
+	}
 
 
 	[array]$args_set= "",""
@@ -572,33 +552,41 @@ function Watch_Setting(){
 	Status_cheker
 	$script:chk_mml= Wait_setpath
 
-	# Watches_nsf $wait.Filter # Wait_setpath
+	if($chk_mml){ # $wait_btn canceller
 
-	if($chk_mml -eq $True){ # $wait_btn canceller
-
-		Toggle_sw 1 "true"
+		Toggle_sw "true"
 	}
-
 	Toggle_label
 
-	if((Test-Path '.\setting.xml') -eq $True){
+
+	if((Chk_path '.\setting.xml') -eq 0){
 
 		$script:set_xml= [xml](cat '.\setting.xml')
 
-		$script:edit=@{};
-
+		$script:edit=@{}; #sted tame
 		Helpxml_read $script:set_xml.table # hash化
+
 	}
 
 	$frm.AllowDrop= $True
 	$tray.Visible= $bool_sw
  } #func
  
+function Watches_nsf([string]$eor){ 
+
+	Write-Host ""
+	Write-Host $eor
+
+	$err_box.Text+= $eor # " last de `r`n"不要
+
+	$err_box.SelectionStart= $err_box.Text.Length
+	$err_box.ScrollToCaret()
+ } #func
+ 
 function Watch_Start(){ 
 
-	[int]$stus= Play_setpath
 
-  if($stus -eq 0){
+  if($chk_mml){
 
 	switch($wait.EnableRaisingEvents){ # トグル
 	$False{
@@ -612,7 +600,7 @@ function Watch_Start(){
 
 		Watches_nsf ('< Watches: '+ $wait.Filter)
 
-		Toggle_sw 1 "true"
+		Toggle_sw "true"
 
 		break;
 	}$True{
@@ -621,17 +609,28 @@ function Watch_Start(){
 
 		Watches_nsf ('> Pause: '+ $wait.Filter)
 
-		Toggle_sw 1 "false"
+		Toggle_sw "false"
 	}
 	} #sw
 
 	Toggle_label
   }
+
  } #func
  
 function Watch_Drop(){ 
 
-	Toggle_sw 1 "false"
+	if($wait.EnableRaisingEvents -eq $True){
+
+		$err_box.Text= "" # .Clear()
+
+		Watches_nsf ('> Pause: '+ $wait.Filter)
+
+		Toggle_sw "false"
+
+		Toggle_label
+	}
+
 
 	[string[]]$args_path= $_.Data.GetData("FileDrop")
 
@@ -641,30 +640,29 @@ function Watch_Drop(){
 	2{	Write-Host ('ERROR: Null >> FileDrop Form')
 		break;
 
-	}1{	Write-Host ('ERROR: Test-Path >> FileDrop Form')
+	}1{	Write-Host ('ERROR: Chk_path >> FileDrop Form')
 		break;
 
 	}0{	$script:val["mmlfile"]= $args_path[0]
 	}
 	} #sw
 
-	Write-Host '' # 改行
+	Write-Host ""
 
 	Status_cheker
 	$script:chk_mml= Wait_setpath
 
-	if($chk_mml -eq $True){
+	if($chk_mml){
 
-		Toggle_sw 1 "true"
+		Toggle_sw "true"
 	}
 
-	# Watches_nsf $wait.Filter # Wait_setpath
-
 	Toggle_label
+
  } #func
-  
+ 	 
 # gui 
-	 
+	
 function Contxt_chg([string]$sw,[int]$chg){ 
 
 	switch($sw){
@@ -738,7 +736,7 @@ function Tray_hide([string]$t){
  } #func
 
  
-function Edit_open([string]$t){ 
+function Open_edit([string]$t){ 
 
 	switch($t){
 	'true'{
@@ -746,6 +744,20 @@ function Edit_open([string]$t){
 		break;
 	}'false'{
 		$menu_eo.Text= "起動時、エディタオープン"
+	}
+	} #sw
+
+	return $t
+ } #func
+ 
+function Open_play([string]$t){ 
+
+	switch($t){
+	'true'{
+		$menu_pas.Text= "MMLコンパイルのみ"
+		break;
+	}'false'{
+		$menu_pas.Text= "v MMLコンパイルのみ"
 	}
 	} #sw
 
@@ -769,7 +781,7 @@ function Auto_start([string]$t){
  } #func
   
 # hash 
-	 
+	
 function Helpxml_read($x){ 
 
   # $x= $script:set_xml.table
@@ -799,19 +811,18 @@ function Wthxml_read($x,$y){
 	$script:val["dos"]= $x.dos.value
 
 
+	# メニュー切換
+	$script:opt["play_open"]= Open_play $y.chk_pass.value
+	$script:opt["chk_topmost"]= Top_most $y.chk_topmost.value
+	$script:opt["chk_auto"]= Auto_start $y.chk_auto.value
+	$script:opt["chk_tray"]= Tray_hide $y.chk_tray.value
+	$script:opt["edt_open"]= Open_edit $y.edt_open.value
+	# -> next $frm.Add_Shown
+
 	$script:opt["option"]= $y.option.value
 	$script:opt["radio_bin"]= $y.radio_bin.value
 	$script:opt["chk_dos"]= $y.chk_dos.value
 	$script:opt["chk_stop"]= $y.chk_stop.value
-	##$script:opt["chk_thru"]= $y.chk_thru.value
-
-	# メニュー切換
-	$script:opt["chk_topmost"]= Top_most $y.chk_topmost.value
-	$script:opt["chk_auto"]= Auto_start $y.chk_auto.value
-	$script:opt["chk_tray"]= Tray_hide $y.chk_tray.value
-
-	$script:opt["edt_open"]= Edit_open $y.edt_open.value
-	# -> next $frm.Add_Shown
  } #func
  
 function Wthwrite_xml($x,$y){ 
@@ -831,9 +842,9 @@ function Wthwrite_xml($x,$y){
 
 	$y.option.value= [string]$opt["option"]
 	$y.radio_bin.value= [string]$opt["radio_bin"]
+	$y.chk_pass.value= [string]$opt["play_open"]
 	$y.chk_dos.value= [string]$opt["chk_dos"]
 	$y.chk_stop.value= [string]$opt["chk_stop"]
-	##$y.chk_thru.value= [string]$opt["chk_thru"]
 
 	$y.chk_topmost.value= [string]$opt["chk_topmost"]
 	$y.chk_auto.value= [string]$opt["chk_auto"]
@@ -1219,10 +1230,40 @@ $menu_ty.Add_Click({
  try{
 	switch($opt["chk_tray"]){ # トグル
 
-	'True'{		$script:opt["chk_tray"]= Tray_hide "False";	break;
+	'True'{	$script:opt["chk_tray"]= Tray_hide "False";	break;
 	}'False'{	$script:opt["chk_tray"]= Tray_hide "True"
 	}
 	} #sw
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_pasr= New-Object System.Windows.Forms.ToolStripSeparator
+$menu_pas=  New-Object System.Windows.Forms.ToolStripMenuItem
+# $menu_pas.Text= "v コンパイルのみ"
+
+$menu_pas.Add_Click({
+ try{
+	switch($opt["play_open"]){
+
+	'True'{	$script:opt["play_open"]= Open_play "False";	break;
+	}'False'{	$script:opt["play_open"]= Open_play "True"
+	}
+	} #sw
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+
+	Toggle_label
+
  }catch{
 	echo $_.exception
  }
@@ -1236,8 +1277,8 @@ $menu_eo.Add_Click({
  try{
 	switch($opt["edt_open"]){ # トグル
 
-	'True'{		$script:opt["edt_open"]= Edit_open "False";	break;
-	}'False'{	$script:opt["edt_open"]= Edit_open "True"
+	'True'{	$script:opt["edt_open"]= Open_edit "False";	break;
+	}'False'{	$script:opt["edt_open"]= Open_edit "True"
 	}
 	} #sw
  }catch{
@@ -1253,7 +1294,7 @@ $menu_r.Add_Click({
  try{
 	switch($opt["chk_auto"]){ # トグル
 
-	'True'{		$script:opt["chk_auto"]= Auto_start "False";	break;
+	'True'{	$script:opt["chk_auto"]= Auto_start "False";	break;
 	}'False'{	$script:opt["chk_auto"]= Auto_start "True"
 	}
 	} #sw
@@ -1270,7 +1311,7 @@ $menu_t.Add_Click({
  try{
 	switch($opt["chk_topmost"]){ # トグル
 
-	'True'{		$script:opt["chk_topmost"]= Top_most "False";	break;
+	'True'{	$script:opt["chk_topmost"]= Top_most "False";	break;
 	}'False'{	$script:opt["chk_topmost"]= Top_most "True"
 	}
 	} #sw
@@ -1365,7 +1406,7 @@ $menu_mhelp.Add_Click({
 })
   
 $menu_f.DropDownItems.AddRange(@($menu_e,$menu_d,$menu_spy,$menu_py,$menu_sn,$menu_n)) 
-$menu_ka.DropDownItems.AddRange(@($menu_eo,$menu_eor,$menu_r,$menu_sr,$menu_ty))
+$menu_ka.DropDownItems.AddRange(@($menu_eo,$menu_eor,$menu_r,$menu_sr,$menu_pas,$menu_pasr,$menu_ty))
 
 $menu_o.DropDownItems.AddRange(@($menu_t,$menu_st,$menu_ka,$menu_kar,$menu_a))
 $menu_h.DropDownItems.AddRange(@($menu_mhelp,$menu_nhelp,$menu_phelp,$menu_sw,$menu_whelp))
@@ -1407,7 +1448,7 @@ $wait.Add_Changed({	# event func入れ子は一段が理想..
 		# $_ | Write-Host  # [= FileSystemEventArgsクラス]
 
 		Write-Host ('Updated: '+ $_.ChangeType)
-		Write-Host ''
+		Write-Host ""
 
 		Play_nsf $_.FullPath # $err_box.Text
 		Watches_nsf ('< Watches: '+ $_.Name)
@@ -1423,28 +1464,28 @@ $wait.Add_Changed({	# event func入れ子は一段が理想..
  
 # ------ main 
 
- try{
+  try{
 
- [string[]]$args_str= $Args
+	[string[]]$args_str= $Args
 
- # キャスト
+  # キャスト
 
- if((Test-Path '.\mml_watch.xml') -eq $True){
+	if((Chk_path '.\mml_watch.xml') -eq 0){
 
-	$wth_xml= [xml](cat '.\mml_watch.xml')
- }else{
-	$wth_xml= [xml]$xml_watch
- }
+		$wth_xml= [xml](cat '.\mml_watch.xml')
+	}else{
+		$wth_xml= [xml]$xml_watch
+	}
 
 
- # 連想配列化
+  # 連想配列化
 
- $val= @{}; $opt= @{};
- $edit=@{};
+	$val= @{}; $opt= @{};
+	$edit=@{};
 
- Wthxml_read $script:wth_xml.table.val $script:wth_xml.table.opt
+	Wthxml_read $script:wth_xml.table.val $script:wth_xml.table.opt
 
- [string[]]$comlin= Comline $opt["option"]
+	[string[]]$comlin= Comline $opt["option"]
 
 
 	switch(Chk_path $args_str[0]){
@@ -1452,7 +1493,7 @@ $wait.Add_Changed({	# event func入れ子は一段が理想..
 	2{	Write-Host ('FileDrop >> Null')
 		break;
 
-	}1{	Write-Host ('FileDrop >> Test-Path Error')
+	}1{	Write-Host ('FileDrop >> Chk_path Error')
 		break;
 
 	}0{	$script:val["mmlfile"]= $args_str[0]
@@ -1460,51 +1501,51 @@ $wait.Add_Changed({	# event func入れ子は一段が理想..
 	} #sw
 
 
- # 状態チェック
- Status_cheker
- [bool]$chk_mml= Wait_setpath # $wait.Filter
+  # 状態チェック
+	Status_cheker
+	[int]$chk_mml= Wait_setpath # $wait.Filter
 
- # $wait_btn canceller
- if($chk_mml -eq $True){
+	# $wait_btn canceller
+	if($chk_mml){
 
-	Toggle_sw 0 "true"
- }else{
-	Toggle_sw 0 "false"
- }
-
- Toggle_label
-
- # readのみ - Helpため
- if((Test-Path '.\setting.xml') -eq $True){
-
-	$set_xml= [xml](cat '.\setting.xml')
-
-	Helpxml_read $script:set_xml.table # hash化
- }
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+	Toggle_label
 
 
- [string]$chk_time= ""
- [string]$lated_time= ""
+  # readのみ - Helpため
+	if((Chk_path '.\setting.xml') -eq 0){
 
- [string]$scroll_text= "" # $csl_box 一つ前の履歴
+		$set_xml= [xml](cat '.\setting.xml')
+
+		Helpxml_read $script:set_xml.table # hash化
+	}
 
 
- $frm.ShowDialog() > $null
+	[string]$chk_time= ""
+	[string]$lated_time= ""
+
+	[string]$scroll_text= "" # $csl_box 一つ前の履歴
 
 
- # | Out-Null -> > $null # cancel標準出力抑制
+	$frm.ShowDialog() > $null
 
- Write-Host ("`r`n"+"`"mml watch`"を終了します"+"`r`n")
 
- }catch{
+	# | Out-Null -> > $null # cancel標準出力抑制
+
+	Write-Host ("`r`n"+"`"mml watch`"を終了します"+"`r`n")
+
+  }catch{
 	echo $_.exception
 	Write-Host '"ERROR: Safety Stopper >> $frm.ShowDialog()"'
 
- }finally{
+  }finally{
 
 	$wait.Dispose()
 	$tray.Dispose() # 必要
- }
+  }
  
 # ハッシュ名追加の場合 
 # $xml_watch= @'

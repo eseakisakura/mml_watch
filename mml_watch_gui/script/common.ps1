@@ -77,7 +77,7 @@ Function Chk_path([string]$file){
 		return 0
 	}
  } #func
- 
+ 	
 Function Split_path([string]$f){ 
 
   [string[]]$out= "","","",""
@@ -236,7 +236,7 @@ function Mkmck([string[]]$arg){ # mkmck.ps1
 
     try{
 
-	if((Test-Path .\effect.h) -eq $true){ del .\effect.h }
+	if((Chk_path .\effect.h) -eq 0){ del .\effect.h }
 	# 前のファイル消す
 
 	# & $exe_ppmckc -i ('"'+ $dpn+ '.mml"') | Write-Host
@@ -250,14 +250,14 @@ function Mkmck([string[]]$arg){ # mkmck.ps1
 
 	if($LASTEXITCODE -eq 0){
 
-		if((Test-Path $exe_nesasm) -eq $false){
+		if((Chk_path $exe_nesasm) -ne 0){
 
 			$out[0]= ( 'Mkmck>>"'+ $exe_nesasm+ '": nesasm.exeが見つかりません')
 			Write-Host ("`r`n"+ $out[0])
 
 		}else{
 
-			if((Test-Path .\ppmck.nes) -eq $true){ del .\ppmck.nes }
+			if((Chk_path .\ppmck.nes) -eq 0){ del .\ppmck.nes }
 			# 前のファイル消す
 
 			# & $exe_nesasm -s -raw .\ppmck.asm | Write-Host # Command
@@ -272,7 +272,7 @@ function Mkmck([string[]]$arg){ # mkmck.ps1
 			#try{　# moveできないと、謎のerr出力ためtry catchだといまいち
 
 
-			if((Test-Path .\ppmck.nes) -eq $false){
+			if((Chk_path .\ppmck.nes) -ne 0){
 
 				$out[0]= ( 'Mkmck>>"ppmck.nes -> '+ ($brr[2]+ '.nsf')+'" OverWrite ERR' )
 
@@ -470,7 +470,7 @@ function Mkpmd([string[]]$arg){ # mkpmd.ps1
 		move -force -literalpath '.\tmp.m' -destination ($dpn+ '.m')
 		# 元来のmmlの場所に移動
 
-		if((Test-Path '.\tmp.mml') -eq $true){ del '.\tmp.mml' }
+		if((Chk_path '.\tmp.mml') -eq 0){ del '.\tmp.mml' }
 	}
 
     }catch{
