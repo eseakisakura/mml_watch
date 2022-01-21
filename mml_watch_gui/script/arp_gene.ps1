@@ -1,6 +1,6 @@
-<# arp_gene.ps1 #> 
+Ôªø<# arp_gene.ps1 #> 
 
-Write-Host ('"ï™éUÉRÅ[ÉhÉGÉfÉBÉ^"ÇãNìÆÇµÇ‹Ç∑'+ "`r`n")
+Write-Host ('"ÂàÜÊï£„Ç≥„Éº„Éâ„Ç®„Éá„Ç£„Çø"„ÇíËµ∑Âãï„Åó„Åæ„Åô'+ "`r`n")
  
 $xml_arpeg= @' 
 <table>
@@ -11,7 +11,7 @@ $xml_arpeg= @'
 		<bit value="Checked"/>
 	</opt>
 	<val>
-		<!-- ägí£ê´ÇÃâ¡ñ° -->
+		<!-- Êã°ÂºµÊÄß„ÅÆÂä†Âë≥ -->
 		<mck value=""/>
 		<nsd value=""/>
 		<pmd value=""/>
@@ -438,14 +438,14 @@ function Contxtarp_state([string]$t,[int[]]$ss){
 
   switch($t){
 
-  'ç≈è¨âª'{
+  'ÊúÄÂ∞èÂåñ'{
 
     $contxt_trayarp.Items.Clear()
-    [void]$contxt_trayarp.Items.Add("å≥Ç…ñﬂÇ∑")
-    [void]$contxt_trayarp.Items.Add("ä¬ã´ê›íË")
-    [void]$contxt_trayarp.Items.Add("èIóπ")
+    [void]$contxt_trayarp.Items.Add("ÂÖÉ„Å´Êàª„Åô")
+    [void]$contxt_trayarp.Items.Add("Áí∞Â¢ÉË®≠ÂÆö")
+    [void]$contxt_trayarp.Items.Add("ÁµÇ‰∫Ü")
 
-    $ss[0]= 1 # è¨ÅAå≥
+    $ss[0]= 1 # Â∞è„ÄÅÂÖÉ
 
     if($frm_arp.WindowState -eq 'Normal'){
 	$ss[1]= 1; $frm_arp.WindowState= "Minimized"
@@ -454,12 +454,12 @@ function Contxtarp_state([string]$t,[int[]]$ss){
     return $ss
     break;
 
-  }'å≥Ç…ñﬂÇ∑'{
+  }'ÂÖÉ„Å´Êàª„Åô'{
 
     $contxt_trayarp.Items.Clear()
-    [void]$contxt_trayarp.Items.Add("ç≈è¨âª")
-    [void]$contxt_trayarp.Items.Add("ä¬ã´ê›íË")
-    [void]$contxt_trayarp.Items.Add("èIóπ")
+    [void]$contxt_trayarp.Items.Add("ÊúÄÂ∞èÂåñ")
+    [void]$contxt_trayarp.Items.Add("Áí∞Â¢ÉË®≠ÂÆö")
+    [void]$contxt_trayarp.Items.Add("ÁµÇ‰∫Ü")
 
     if($ss[1] -eq 1){ $frm_arp.WindowState= "Normal" }
 
@@ -468,11 +468,11 @@ function Contxtarp_state([string]$t,[int[]]$ss){
     return $ss
     break;
 
-  }'ä¬ã´ê›íË'{
+  }'Áí∞Â¢ÉË®≠ÂÆö'{
     $arp_menu_set.PerformClick()
     break;
 
-  }'èIóπ'{
+  }'ÁµÇ‰∫Ü'{
     $arp_menu_n.PerformClick()
   }
   } #sw
@@ -819,7 +819,7 @@ function Mml_select([string]$sw){
   
 # Hash Xml 
 	
-function Setxml_read($x){ # hashì«Ç›çûÇ› 
+function Setxml_read($x){ # hashË™≠„ÅøËæº„Åø 
 
   # $x= $script:set_xml.table
 
@@ -853,7 +853,7 @@ function Setxml_read($x){ # hashì«Ç›çûÇ›
   } #
  } #func
  
-function Arpxml_read($x,$y){ # ÉèÅ[ÉNì«Ç›çûÇ› 
+function Arpxml_read($x,$y){ # „ÉØ„Éº„ÇØË™≠„ÅøËæº„Åø 
 
 	# $x= $script:arp_xml.table.val
 	# $y= $script:arp_xml.table.opt
@@ -891,7 +891,7 @@ function Arpwrite_xml($x,$y){
 	$x.mck.value= [string]$val["mck"]
 	$x.nsd.value= [string]$val["nsd"]
 	$x.pmd.value= [string]$val["pmd"]
-	$x.cmp.value= [string]$val["compiler"] # $xmlÇÕ[string]ÉLÉÉÉXÉgïKóv
+	$x.cmp.value= [string]$val["compiler"] # $xml„ÅØ[string]„Ç≠„É£„Çπ„ÉàÂøÖË¶Å
 
 	$x.ply.value= [string]$val["player"]
 	$x.dos.value= [string]$val["dos"]
@@ -944,7 +944,7 @@ function Flet_num([int]$flet, [array]$chd){
 
 			$tt[$j]= $chd[$j] + $flet
 
-			if($tt[$j] -lt 0){ $s= 1 } # É}ÉCÉiÉXílÉ`ÉFÉbÉN
+			if($tt[$j] -lt 0){ $s= 1 } # „Éû„Ç§„Éä„ÇπÂÄ§„ÉÅ„Çß„ÉÉ„ÇØ
 		}
 		$j++;
 	} #
@@ -955,7 +955,7 @@ function Flet_num([int]$flet, [array]$chd){
 		while($j -lt 6){
 			if($chd[$j] -ne 'x'){
 
-				$tt[$j]+= 12 # 12ÉtÉåÉbÉgâ∫Ç÷
+				$tt[$j]+= 12 # 12„Éï„É¨„ÉÉ„Éà‰∏ã„Å∏
 			}
 			$j++;
 		} #
@@ -966,31 +966,31 @@ function Flet_num([int]$flet, [array]$chd){
  
 function Chd_chk([array]$chd_select,$cd){ 
 
- [string]$k= $chd_select[0] # $keys
- [string]$d= $chd_select[1] # $chords
- [string]$s= $chd_select[2] # $root strings
- [string]$p= $chd_select[3] # $open chord
+  [string]$k= $chd_select[0] # $keys
+  [string]$d= $chd_select[1] # $chords
+  [string]$s= $chd_select[2] # $root strings
+  [string]$p= $chd_select[3] # $open chord
 
 
- switch -CaseSensitive ($d){ # [-c] M7,m7,genmitsu ni. hash deha tabunn dekinai
- 'M7'{		$d= "Maj7";	break;
- }'m7'{		$d= "min7";	break;
- }'M79'{	$d= "Maj79";	break;
- }'m79'{	$d= "min79";	break;
- }'M7#5'{	$d= "Maj7#5";	break;
- }'m7#5'{	$d= "min7#5";	break;
- }'M7b5'{	$d= "Maj7b5";	break;
- }'m7b5'{	$d= "min7b5";	break;
+  switch -CaseSensitive ($d){ # [-c] M7,m7,genmitsu ni. hash deha tabunn dekinai
+  'M7'{		$d= "Maj7";	break;
+  }'m7'{		$d= "min7";	break;
+  }'M79'{	$d= "Maj79";	break;
+  }'m79'{	$d= "min79";	break;
+  }'M7#5'{	$d= "Maj7#5";	break;
+  }'m7#5'{	$d= "min7#5";	break;
+  }'M7b5'{	$d= "Maj7b5";	break;
+  }'m7b5'{	$d= "min7b5";	break;
 
- }'711'{	$d= "7sus4";	break;
- }'913'{	$d= "69";	break;
- }'#9b13'{	$d= "min7#5";	break;
- }'7#5'{	$d= "aug7"
- }
- } #sw
+  }'711'{	$d= "7sus4";	break;
+  }'913'{	$d= "69";	break;
+  }'#9b13'{	$d= "min7#5";	break;
+  }'7#5'{	$d= "aug7"
+  }
+  } #sw
 
 
- if($p -eq 'Checked'){ # $open chord
+  if($p -eq 'Checked'){ # $open chord
 
 	switch($d){
 	'Maj'{
@@ -1084,25 +1084,26 @@ function Chd_chk([array]$chd_select,$cd){
 		if($s -eq '5A'-and $k -eq 'B'){ $s= "b5A" }
 	}
 	} #sw
- }
+  }
 
 
- if($s -eq '6E' -or $s -eq '5A' -or $s -eq '4D'){
+  if($s -eq '6E' -or $s -eq '5A' -or $s -eq '4D'){
 
 	$Pictbox.Image= [System.Drawing.Image]::FromFile(".\img\blue.png")
 
 	[int]$flet= Gen_num $k $s
-
 	[array]$arr= Flet_num $flet $cd[$d][$s]
 
-	return $arr
- }else{
-
+  }else{
 	$Pictbox.Image= [System.Drawing.Image]::FromFile(".\img\orange.png")
 
-	return $cd[$d][$s] # $open chord
- }
-} #func
+	[array]$arr= $cd[$d][$s] # $open chord
+  }
+
+  $box_flet.Text= $arr -join '  '
+
+  return $arr
+ } #func
  
 function Flet_chk([array]$b,[array]$flet){ 
 
@@ -1148,71 +1149,183 @@ $rr[0]=	'"e', '"f',('"'+ $b[4]),'"g',('"'+ $b[0]),'"a',('"'+ $b[1]),'"b', 'c',$b
 
 				$qq[$i]= $rr[$i][$num]  # num -> ab
 			}else{
-				Write-Host 'err >> ÉtÉåÉbÉgêîÇ™ÉIÅ[ÉoÅ['
+				Write-Host 'err >> „Éï„É¨„ÉÉ„ÉàÊï∞„Åå„Ç™„Éº„Éê„Éº'
 			}
 		}
 		} #sw
 	} #
 
-	return $qq
+	$box_chd.Text= $qq -join ''
 
+	return $qq
 } #func
   
 # MML arpeggio 
 	 
-function Trk_split([int]$k,[string]$ww){ 
+function Trk_split([string]$mm){ 
 
-[string[]]$qq= @() # karachi
-[string]$tt= ""
-[int]$i= 0
+	[string[]]$qq= @() # karachi
+	[string]$tt= ""
+	[int]$i= 0
 
-[array]$rr= $ww.ToCharArray()
+	[array]$rr= $mm.ToCharArray()
 
-foreach($d in $rr){
+	foreach($dd in $rr){
 
-	if($i -ge 2){ # >= space 2 kode
+		if($i -ge 2){ # >= space 2 kode
 
-		$qq+= $tt; $tt= $d; $i= 0
-
-	}else{
-
-		if($d -eq ' '){
-
-			$i++;
+			$qq+= $tt
+			$tt= $dd
+			$i= 0
 		}else{
-			$tt+= $d
+			if($dd -eq ' '){
+
+				$i++;
+			}else{
+				$tt+= $dd
+			}
 		}
-	}
- } #
+	} #
 
-$qq+= $tt # atoshimatsu
-
-
-[string[]]$pp= ""
-$pp*= $k # $nmud_trk.Value
+	$qq+= $tt # atoshimatsu
 
 
-for([int]$j= 0; $j -lt $k; $j++){
+	[int]$trk= $nmud_trk.Value
+	[string[]]$uu= ""; $uu*= $trk
 
-	if($j -lt $qq.Length){ # $qq ga nai case
+	[string]$pre= $comb_trk.SelectedItem	
 
-		$pp[$j]= $qq[$j]+ ' '
-	}else{
-		$pp[$j]= ' '
-	}
-} #
+	for([int]$j= 0; $j -lt $trk; $j++){
 
-return $pp
+		if($j -lt $qq.Length){
 
+			$uu[$j]= $pre+ $qq[$j]+ ' '
+		}else{
+			$uu[$j]= $pre+ ' ' # tr number ga nai
+		}
+	} #
+
+	return $uu # $script:track_parm
  } #func
- 	
+ 
+function Oct_number([int]$num, [string]$aa, [string]$bb){ 
+
+	[string]$xx= ""; [int]$i= 0
+
+	if($num -lt 0){ $xx= $aa; $i= -$num }
+	if($num -gt 0){ $xx= $bb; $i= $num }
+
+	$xx*= $i
+
+	return $xx
+ } #func
+ 
+function Oct_hogen([string]$mm){ 
+
+	[array]$rr= $mm.ToCharArray()
+	[string]$output= ""
+	[string]$dd= ""
+	[int]$i= 0
+	[int]$j= 0
+	[int]$sw= 0
+	foreach($dd in $rr){
+
+		switch($dd){
+		'"'{ $i--; break
+		}'`'{ $i++; break
+		}'a'{ $sw= 1; break
+		}'b'{ $sw= 1; break
+		}'c'{ $sw= 1; break
+		}'d'{ $sw= 1; break
+		}'e'{ $sw= 1; break
+		}'f'{ $sw= 1; break
+		}'g'{ $sw= 1; break
+		}default{ $output+= $dd
+		}
+		} #sw
+
+		if($sw){
+			$j= -$j+ $i	# -2= 1 -1 # 2= -1 1
+			$output+= Oct_number $j "<" ">"
+
+			$j= $i # real point
+			$i= 0
+
+			$output+= $dd
+			$sw= 0
+		}
+	} #
+
+	$j= -$j+ $i
+	$output+= Oct_number $j "<" ">"
+
+	return $output
+ } #func
+ 
+function Tai_hogen([string]$mm){ 
+
+	[array]$rr= $mm.ToCharArray()
+	[string]$output= ""
+	[string]$store= ""
+	[string]$dd= ""
+	[int]$sw= 0
+
+	foreach($dd in $rr){
+
+		switch($dd){
+		'a'{ $sw= 1; break
+		}'b'{ $sw= 1; break
+		}'c'{ $sw= 1; break
+		}'d'{ $sw= 1; break
+		}'e'{ $sw= 1; break
+		}'f'{ $sw= 1; break
+		}'g'{ $sw= 1; break
+		}'#'{ $sw= 2; break
+		}'+'{ $sw= 2; break
+		}'-'{ $sw= 2; break
+		}'^'{ $sw= 3; break
+		}default{ $output+= $dd
+		}
+		} #sw
+
+		switch($sw){
+		1{
+			$output+= $dd
+			$store= $dd
+			$sw= 0
+			break
+		}2{
+			$output+= $dd
+			$store+= $dd
+			$sw= 0
+			break
+		}3{
+			$output+= ('&'+ $store)
+			$sw= 0
+		}
+		} #sw
+	} #
+
+	return $output
+ } #func
+ 
+function Wait_hogen([string]$mm){ 
+
+
+	# $mm= $mm -replace '^', 'w' # <- bug
+	$mm= $mm.Replace('^', 'w')
+
+	return $mm
+ } #func
+ 
 function Importer([string]$ww){ 
 
 	[array]$rr= $ww.ToCharArray()
 	[string]$dd= ""
 	[string]$output= ""
-	[int]$i= 0
 	[int]$sw= 0
+	[int]$i= 0
+
 	foreach($dd in $rr){
 
 		switch($dd){
@@ -1238,124 +1351,63 @@ function Importer([string]$ww){
 	return $output
  } #func
  
-function Oct_number([int]$num, [string]$aa, [string]$bb){ 
+function Xyz_sorter([string]$mm){ 
 
-	[string]$xx= ""; [int]$i= 0
-
-	if($num -lt 0){ $xx= $aa; $i= -$num }
-	if($num -gt 0){ $xx= $bb; $i= $num }
-
-	$xx*= $i
-
-	return $xx
- } #func
- 
-function Futogo_trk([string]$ww){ 
-
-	[array]$rr= $ww.ToCharArray()
-	[string]$output= ""
+	[array]$rr= $mm.ToCharArray()
 	[string]$dd= ""
+	[string]$out= ""
+	[array]$cc= @()
+	[array]$ss= @() # space insert
 	[int]$i= 0
-	[int]$j= 0
-	[int]$sw= 0
+
 	foreach($dd in $rr){
-
 		switch($dd){
-		'"'{ $i--; break
-		}'`'{ $i++; break
-		}'a'{ $sw= 1; break
-		}'b'{ $sw= 1; break
-		}'c'{ $sw= 1; break
-		}'d'{ $sw= 1; break
-		}'e'{ $sw= 1; break
-		}'f'{ $sw= 1; break
-		}'g'{ $sw= 1; break
-		}'^'{ $sw= 2; break
-		}default{ $output+= $dd
+		'x'{	$cc+= $dd; break
+		}'y'{	$cc+= $dd; break
+		}'z'{	$cc+= $dd; break
+		}' '{	$ss+= $i; break
+		}default{
+			$cc= $cc | sort
+			$out+= $cc -join ""
+			$cc= @()
+
+			$out+= $dd
 		}
 		} #sw
 
-		switch($sw){
-		1{
-			$j= -$j+ $i	# -2= 1 -1 # 2= -1 1
-			$output+= Oct_number $j "<" ">"
-			$output+= $dd
-			$store= $dd
-			$j= $i # real point
-			$i= 0
-			$sw= 0
-			break
-		}2{
-			$output+= ('&'+ $store)
-			$sw= 0
-		}
-		} #sw
+		$i++
 	} #
 
-	$j= -$j+ $i
-	$output+= Oct_number $j "<" ">"
+	$cc= $cc | sort
+	$out+= $cc -join ""
 
-	return $output
- } #func
+	for([int]$j= 0; $j -lt $ss.Length; $j++){
+			$out= $out.Insert($ss[$j], " ")
+	}
+ #
 
- 
-function Single_trk([string]$ss, [array]$rr){ 
 
-	$ss= $ss -replace "6", $rr[0]
-	$ss= $ss -replace "5", $rr[1]
-	$ss= $ss -replace "4", $rr[2]
-	$ss= $ss -replace "3", $rr[3]
-	$ss= $ss -replace "2", $rr[4]
-	$ss= $ss -replace "1", $rr[5]
-
-	return $ss
-
+	return $out
  } #func
  
-function Multi_trk([int]$count, [int]$num, [string]$ww){ 
+function Mml_gene([int]$trk, [int]$tai_count, [string]$mm){ 
 
-	[array]$rr= $ww.ToCharArray()
-	[string]$ss= ""
-	[string]$tt= ""
+	[array]$brr= $mm.ToCharArray()
+	[array]$brr+= "$" # last $num= 0 tame
 	[string]$dd= ""
-	[array]$tcc= 0; $tcc*= $num # 0 reset
-	[array]$rcc= 0; $rcc*= $num
-	[array]$output= ""; $output*= $num
+
+	[array]$taic= 0;		$taic*= $trk
+	[array]$rest= "s";	$rest*= $trk
+	[array]$out= "";	$out*= $trk
+
 	[int]$i= 0
+	[string]$tt= ""
+	[int]$num= 0
 	[int]$sw= 0
-	foreach($dd in $rr){
 
-		if($sw -eq 4){
+	foreach($dd in $brr){
 
-			switch($dd){
-			'0'{ $ss+= $dd; break
-			}'1'{ $ss+= $dd; break
-			}'2'{ $ss+= $dd; break
-			}'3'{ $ss+= $dd; break
-			}'4'{ $ss+= $dd; break
-			}'5'{ $ss+= $dd; break
-			}'6'{ $ss+= $dd; break
-			}'7'{ $ss+= $dd; break
-			}'8'{ $ss+= $dd; break
-			}'9'{ $ss+= $dd; break
-			}'-'{ $ss+= $dd; break
-			}'+'{ $ss+= $dd; break
-			}'^'{ $ss+= $dd; break
-			}'='{ $ss+= $dd; break
-			}default{
-				# a4 -8, a -8
-
-				if($ss.Length -ne 0){
-
-					$output[$i]+= (" "+ $ss)
-					$ss= ""
-				}
-				$sw= 5
-			}
-			} #sw
-		}
-		if($sw -eq 3){
-
+		if($num -eq 5){ # a4
 			switch($dd){
 			'0'{ $tt+= $dd; break
 			}'1'{ $tt+= $dd; break
@@ -1367,175 +1419,303 @@ function Multi_trk([int]$count, [int]$num, [string]$ww){
 			}'7'{ $tt+= $dd; break
 			}'8'{ $tt+= $dd; break
 			}'9'{ $tt+= $dd; break
-			}','{ $tt+= $dd; break
-			}'-'{ $tt+= $dd; break
-			}'+'{ $tt+= $dd; break
-			}'#'{ $tt+= $dd; break
-			}' '{
-				if($comb_prefix.SelectedItem -eq 'PMD'){
-					$sw= 4
-					$output[$i]+= $tt
-					$tt= ""
-				}
-				break
 			}default{
-				$output[$i]+= $tt
+				for([int]$j= 0; $j -lt $trk; $j++){
+
+					if(($i% $trk) -eq $j){
+
+						$out[$j]+= $tt
+						$rest[$j]= "x"
+						$taic[$j]= $tai_count
+					}else{
+
+						if($rest[$j] -ne "s"){
+							if($taic[$j] -eq 0){ $rest[$j]= "z" }
+						}
+						$out[$j]+= $rest[$j]
+						$taic[$j]--
+					}
+				} #
+				$i++
 				$tt= ""
-				$sw= 5
+				$num= 0
+
 			}
 			} #sw
+
 		}
-		if($sw -eq 5){
-			$i++;
-			if($i -ge $num){ $i= 0 } # 0 reset
-			$sw= 0
-		}
-		if($sw -eq 0){
+		if($num -eq 0){
+
+			if($dd -eq '$'){ break; } # loop break
 
 			switch($dd){
-			'a'{ $sw= 1; break
-			}'b'{ $sw= 1; break
-			}'c'{ $sw= 1; break
-			}'d'{ $sw= 1; break
-			}'e'{ $sw= 1; break
-			}'f'{ $sw= 1; break
-			}'g'{ $sw= 1; break
-			}'^'{ $sw= 2; break
-			}' '{ break
-			}default{ $tt+= $dd
+			'^'{
+				for([int]$j= 0; $j -lt $trk; $j++){
+
+					if($rest[$j] -ne "s"){
+						$out[$j]+= "y"
+					}else{
+						$out[$j]+= "s"
+					}
+				} #
+				break
+			}'r'{
+				for([int]$j= 0; $j -lt $trk; $j++){
+					$out[$j]+= "z"
+					$rest[$j]= "z"
+				} #
+				break
+			}' '{
+				for([int]$j= 0; $j -lt $trk; $j++){
+					$out[$j]+= " "
+				} #
+				break
+			}'a'{	$sw= 1; break
+			}'b'{	$sw= 1; break
+			}'c'{	$sw= 1; break
+			}'d'{	$sw= 1; break
+			}'e'{	$sw= 1; break
+			}'f'{	$sw= 1; break
+			}'g'{	$sw= 1; break
+			}default{	$tt+= $dd
 			}
 			} #sw
 
+			if($sw){
+				$tt+= $dd
+				$sw= 0
+				$num= 5
+			}
 		}
-		if($sw -eq 1){
 
-			$tt+= $dd
+	} #
 
-			[string]$tai= "^"; $tai*= $tcc[$i]
-			[string]$rest= "r"; $rest*= ($rcc[$i]- $tcc[$i])
+	if($sw -ne 0){ Write-Host ("Mml_gene ERR : "+ $sw) }
+	#write-host $out[0]
+	#write-host $out[1]
+	#write-host $out[2]
+	#write-host $out[3]
 
-			$output[$i]+= ($tai+ $rest+ $tt) # ^^rra
+	return $out
 
-			$tt= ""
-			$tcc[$i]= $count # tai num reset
+ } #func
+ 	
+function Mml_replace([string]$ss){ 
 
-			for([int]$j= 0; $j -lt $num; $j++){
-				if($j -ne $i){
-					$rcc[$j]+= 1 # a~a no counter
-				}else{
-					$rcc[$j]= 0
-				}
-			} #
-			$sw= 3
+	$ss= Importer $ss
+	#write-host $ss
+
+	[int]$trk= $nmud_trk.Value
+	[int]$tai_count= $nmud_tai.Value
+
+	[array]$rr= ""; $rr*= $trk
+	$rr= Mml_gene $trk $tai_count $ss
+
+
+	for([int]$i= 0; $i -lt $trk; $i++){
+
+
+		$rr[$i]= Xyz_sorter $rr[$i]
+
+		$rr[$i]= $rr[$i].Replace('s', 'r')
+		$rr[$i]= $rr[$i].Replace('x', '^')
+		$rr[$i]= $rr[$i].Replace('y', '^')
+		$rr[$i]= $rr[$i].Replace('z', 'r')
+
+		if($comb_oct.SelectedItem -eq "< >"){
+			$rr[$i]= Oct_hogen $rr[$i]
 		}
-		if($sw -eq 2){
 
-			for([int]$j= 0; $j -lt $num; $j++){
+		if($comb_tai.SelectedItem -eq "&"){
+			$rr[$i]= Tai_hogen $rr[$i]
 
-				$tcc[$j]+= 1
-				$rcc[$j]+= 1
-			} #
-			$sw= 0
+		}elseif($comb_tai.SelectedItem -eq "w"){
+			$rr[$i]= Wait_hogen $rr[$i]
+		}
+
+		if($comb_prefix.SelectedItem -ne 'none'){
+			$rr[$i]= $track_parm[$i]+ $rr[$i]
 		}
 	} #
 
-	#write-host $rcc
-	#write-host $tcc
-
-	for([int]$j= 0; $j -lt $num; $j++){
-
-		[string]$tai= "^"
-		[int]$k= $tcc[$j]- $rcc[$j]
-
-		if($k -ge 0){
-			$tai*= $rcc[$j]
-		}else{
-			$tai*= $tcc[$j]
-		}
-
-		[string]$rest= "r"
-		[int]$k= $rcc[$j]- $tcc[$j]
-
-		if($k -lt 0){ $k= 0 }
-		$rest*= $k
-
-
-		$output[$j]+= ($tai+ $rest)
-	} #
-
-	return $output
+	return ($rr -join "`r`n")
  } #func
  
-function Apeg([int]$sw, [string]$tt){ 
+function Apeg_mml([string]$mm){ 
 
-	[string[]]$gyoh= $tt -split "`r`n" # $box_apeg.Text
+	[string[]]$ss= $mm -split "`r`n"
 
-	[int]$Lgth= $gyoh.Length
+	[int]$gth= $ss.Length
 
-	[array]$arr= ""; $arr*= $Lgth
-	[array]$brr= ""; $brr*= $Lgth
+	[array]$mrr= ""; $mrr*= $gth
+
+	for([int]$i= 0; $i -lt $gth; $i++){ # gyoh tann i
+
+		if($ss[$i].Length -ne 0){ # kuh gyoh
+
+			$mrr[$i]= Mml_replace $ss[$i]
+		}
+	} #
+
+	$box_mtr.Text= $mrr -join "`r`n"
+ } #func
+ 
+function Number_gene([int]$trk, [int]$tai_count, [string]$mm){ 
+
+#	gene
+#	5xzz 1xzz
+#	s3xz z3xz
+#	ss1x zz1x
+#	sss3 xzz3
+
+	[array]$brr= $mm.ToCharArray()
+	[string]$dd= ""
+
+	[array]$taic= 0;		$taic*= $trk
+	[array]$rest= "s";	$rest*= $trk
+	[array]$out= "";	$out*= $trk
+
+	[int]$i= 0
+
+	foreach($dd in $brr){
+
+		switch($dd){
+		'^'{
+			for([int]$j= 0; $j -lt $trk; $j++){
+
+				if($rest[$j] -ne "s"){
+					$out[$j]+= "y"
+				}else{
+					$out[$j]+= "s"
+				}
+			} #
+			break
+		}'r'{
+			for([int]$j= 0; $j -lt $trk; $j++){
+				$out[$j]+= "z"
+				$rest[$j]= "z"
+			} #
+			break
+		}' '{
+			for([int]$j= 0; $j -lt $trk; $j++){
+				$out[$j]+= " "
+			} #
+			break
+		}default{
+			for([int]$j= 0; $j -lt $trk; $j++){
+				if(($i% $trk) -eq $j){
+
+					$out[$j]+= $dd
+					$rest[$j]= "x"
+					$taic[$j]= $tai_count
+				}else{
+
+					if($rest[$j] -ne "s"){
+						if($taic[$j] -eq 0){ $rest[$j]= "z" }
+					}
+					$out[$j]+= $rest[$j]
+					$taic[$j]--
+				}
+			} #
+			$i++
+		}
+		} #sw
+
+	} #
+	#write-host $out[0]
+	#write-host $out[1]
+	#write-host $out[2]
+	#write-host $out[3]
+
+	return $out
+ } #func
+ 
+function Number_replace([string]$ss){ 
 
 
 	[int]$trk= $nmud_trk.Value
+	[int]$tai_count= $nmud_tai.Value
+	[array]$qq= $mml_setting
 
-	for([int]$j= 0; $j -lt $Lgth; $j++){
+	[array]$rr= ""; $rr*= $trk
+	$rr= Number_gene $trk $tai_count $ss
 
-		$brr[$j]*= $trk
+
+	for([int]$i= 0; $i -lt $trk; $i++){
+
+
+		$rr[$i]= Xyz_sorter $rr[$i]
+
+		$rr[$i]= $rr[$i].Replace('6', $qq[0])
+		$rr[$i]= $rr[$i].Replace('5', $qq[1])
+		$rr[$i]= $rr[$i].Replace('4', $qq[2])
+		$rr[$i]= $rr[$i].Replace('3', $qq[3])
+		$rr[$i]= $rr[$i].Replace('2', $qq[4])
+		$rr[$i]= $rr[$i].Replace('1', $qq[5])
+		$rr[$i]= $rr[$i].Replace('s', 'r')
+		$rr[$i]= $rr[$i].Replace('x', '^')
+		$rr[$i]= $rr[$i].Replace('y', '^')
+		$rr[$i]= $rr[$i].Replace('z', 'r')
+
+		if($comb_oct.SelectedItem -eq "< >"){
+			$rr[$i]= Oct_hogen $rr[$i]
+		}
+
+		if($comb_tai.SelectedItem -eq "&"){
+			$rr[$i]= Tai_hogen $rr[$i]
+
+		}elseif($comb_tai.SelectedItem -eq "w"){
+			$rr[$i]= Wait_hogen $rr[$i]
+		}
+
+		if($comb_prefix.SelectedItem -ne 'none'){
+			$rr[$i]= $track_parm[$i]+ $rr[$i]
+		}
 	} #
 
-	[string[]]$prefix= Trk_split $trk $box_trk.Text # A+space to naru
+	return ($rr -join "`r`n")
+ } #func
+ 
+function Thru_replace([string]$ss){ 
 
+	[array]$qq= $mml_setting
 
-	for([int]$i= 0; $i -lt $Lgth; $i++){ # gyoh tann i
+	$ss= $ss.Replace('6', $qq[0])
+	$ss= $ss.Replace('5', $qq[1])
+	$ss= $ss.Replace('4', $qq[2])
+	$ss= $ss.Replace('3', $qq[3])
+	$ss= $ss.Replace('2', $qq[4])
+	$ss= $ss.Replace('1', $qq[5])
 
-		if($gyoh[$i].Length -ne 0){ # kuh gyoh
+	return $ss
+ } #func
+ 
+function Apeg([string]$mm){ 
 
-			if($sw -ne 1){
-				$arr[$i]= Single_trk $gyoh[$i] $mml_setting
-			}else{
-				$arr[$i]= Importer $gyoh[$i]
-			}
+	[string[]]$ss= $mm -split "`r`n"
 
-			$brr[$i]= Multi_trk $nmud_tai.Value $nmud_trk.Value $arr[$i]
+	[int]$gth= $ss.Length
 
-			if($comb_oct.SelectedItem -eq '< >'){ # ['< >','" `']
+	[array]$srr= ""; $srr*= $gth
+	[array]$mrr= ""; $mrr*= $gth
 
-				$arr[$i]= Futogo_trk $arr[$i]
+	for([int]$i= 0; $i -lt $gth; $i++){ # gyoh tann i
 
-				for([int]$j= 0; $j -lt $trk; $j++){
+		if($ss[$i].Length -ne 0){ # kuh gyoh
 
-					$brr[$i][$j]= Futogo_trk $brr[$i][$j]
-				} #
-			}
-
-			for([int]$j= 0; $j -lt $trk; $j++){
-
-				$brr[$i][$j]= $comb_trk.SelectedItem+ $prefix[$j]+ $brr[$i][$j]
-			} #
+			$srr[$i]= Thru_replace $ss[$i]
+			$mrr[$i]= Number_replace $ss[$i]
 		}
 	} #
 
 
-	[array]$ss= ""; $ss*= $Lgth
-
-	for([int]$j= 0; $j -lt $Lgth; $j++){
-
-		$ss[$j]= $brr[$j] -join "`r`n"
-	} #
-
-	$box_mtr.Text= $ss -join "`r`n"
-	$box_mml.Text= $arr -join "`r`n"
-
-} #func
+	$box_mml.Text= $srr -join "`r`n"
+	$box_mtr.Text= $mrr -join "`r`n"
+ } #func
   
 # Exp 
-	 
-function Prefixarp_mml([string]$t, [string]$g){ 
-
-	[int]$trk_num= $nmud_trk.Value
-	[string]$u= $comb_trk.SelectedItem # TR
-
-	[string[]]$prefix= Trk_Split $trk_num $box_trk.Text # A+space to naru
+	
+function Prefixarp_mml([string]$oct, [string]$ss){ 
 
 	[string]$hh= ""
 
@@ -1543,7 +1723,7 @@ function Prefixarp_mml([string]$t, [string]$g){
 
 	'ppmck'{	$hh= $header["arp_header_mck"]; break;
 	}'NSDlib'{	$hh= $header["arp_header_nsd"]; break;
-	}'PMD'{		$hh= $header["arp_header_pmd"]
+	}'PMD'{	$hh= $header["arp_header_pmd"]
 	}
 	} #sw
 
@@ -1553,15 +1733,15 @@ function Prefixarp_mml([string]$t, [string]$g){
 	[string]$line= ""
 
 	[int]$j= 0
-	while($j -lt $trk_num){
+	while($j -lt $track_parm.Length){
 
-		$line+= $u+ $prefix[$j]+ $t+ $tr+ "`r`n"
+		$line+= $track_parm[$j]+ $oct+ $tr+ "`r`n"
 		$j++;
 	} #
 
-	## [string]$lis= $hh -replace "%tr_param%",$line -replace "%mml_param%",$g
+	## [string]$lis= $hh -replace "%tr_param%",$line -replace "%mml_param%",$ss
 	$hh= $hh.Replace("%tr_param%",$line)
-	$hh= $hh.Replace("%mml_param%",$g)
+	$hh= $hh.Replace("%mml_param%",$ss)
 
 	return $hh
 } #func
@@ -1613,12 +1793,12 @@ function Lisnarp_nsf([int]$sw, [string]$lis){
 	}
 	} #sw
 
-	sleep -m 33	# àŸèÌéûópÉEÉFÉCÉg
+	sleep -m 33	# Áï∞Â∏∏ÊôÇÁî®„Ç¶„Çß„Ç§„Éà
 
 	if($output[0] -ne ""){
 
 		[string]$retn= [Windows.Forms.MessageBox]::Show(
-		("compiler setting error : "+ $output[0]), "ämîF", "OK","Information","Button1"
+		("compiler setting error : "+ $output[0]), "Á¢∫Ë™ç", "OK","Information","Button1"
 		)
 	}else{
 
@@ -1628,19 +1808,19 @@ function Lisnarp_nsf([int]$sw, [string]$lis){
 			Write-Host ("`r`n"+ 'ERROR: '+ $arr[0]+ ' >> '+ $arr[2]+ $ext)
 
 			[string]$retn= [Windows.Forms.MessageBox]::Show(
-			("ÉRÉìÉpÉCÉãÇ…é∏îs : "+ $arr[0]+ " >> "+ $arr[2]+ $ext), "ämîF", "OK","Information","Button1"
+			("„Ç≥„É≥„Éë„Ç§„É´„Å´Â§±Êïó : "+ $arr[0]+ " >> "+ $arr[2]+ $ext), "Á¢∫Ë™ç", "OK","Information","Button1"
 			)
 
 		}else{
 
-			# '"' ãÛîíÉpÉXëŒâû
+			# '"' Á©∫ÁôΩ„Éë„ÇπÂØæÂøú
 
 			[string]$tt= Player_open 2 $val["player"] ('"'+ $dpn+ $ext+ '"')
 
 			if($tt -ne ""){
 
 				[string]$retn= [Windows.Forms.MessageBox]::Show(
-				("player setting error : "+ $tt), "ämîF", "OK","Information","Button1"
+				("player setting error : "+ $tt), "Á¢∫Ë™ç", "OK","Information","Button1"
 				)
 			}
 		}
@@ -1696,7 +1876,7 @@ function Unredo_arp([int]$n){
 
 	break;
 
-  }0{ # do .Add_EnterÇ≈do (menu->objÇ≈ÇÕçƒenterÇ∆ÇÕÇ»ÇÁÇ»Ç¢)
+  }0{ # do .Add_Enter„Åßdo (menu->obj„Åß„ÅØÂÜçenter„Å®„ÅØ„Å™„Çâ„Å™„ÅÑ)
 
 	# undo buffer dochiraka ni
 	$script:undo[$undo[2][0]][0]= $box_apeg.Text
@@ -1729,7 +1909,7 @@ function Arpadv_edit([string]$t){
 
 	[string]$retn= [Windows.Forms.MessageBox]::Show(
 
-	$ss, "ämîF", "OK","Information","Button1"
+	$ss, "Á¢∫Ë™ç", "OK","Information","Button1"
 	)
   }
 
@@ -1772,8 +1952,6 @@ $comb_key.Add_SelectedValueChanged({
 
 	$script:flet_setting= Chd_chk $chord_select $cd
 
-	$box_flet.Text= $flet_setting -join '  '
-
  }catch{
 	echo $_.exception
  }
@@ -1810,8 +1988,6 @@ $comb_chd.Add_SelectedValueChanged({
 
 	$script:flet_setting= Chd_chk $chord_select $cd
 
-	$box_flet.Text= $flet_setting -join '  '
-
  }catch{
 	echo $_.exception
  }
@@ -1838,8 +2014,6 @@ $comb_genn.Add_SelectedValueChanged({
 
 	$script:flet_setting= Chd_chk $chord_select $cd
 
-	$box_flet.Text= $flet_setting -join '  '
-
 	$comb_apeg.Items.Clear()
 	[void]$comb_apeg.Items.AddRange($rot[$this.SelectedItem])
 
@@ -1861,8 +2035,6 @@ $check_open.Add_CheckStateChanged({
 	$script:chord_select[3]= $this.CheckState
 
 	$script:flet_setting= Chd_chk $chord_select $cd
-
-	$box_flet.Text= $flet_setting -join '  '
 
  }catch{
 	echo $_.exception
@@ -1896,15 +2068,13 @@ $box_flet= New-Object System.Windows.Forms.TextBox
 $box_flet.Size= "135,20"
 $box_flet.Location= "20,20"
 $box_flet.BorderStyle= "FixedSingle"
+# $box_flet.Text= "0  3  2  0  1  0"
 
 $box_flet.Add_TextChanged({
-
  try{
 	$script:flet_setting= $this.Text -split '  '
 
 	$script:mml_setting= Flet_chk $blk $flet_setting
-
-	$box_chd.Text= $mml_setting -join '' #  ' ' space ha irenaii houkou
 
  }catch{
 	echo $_.exception
@@ -1921,15 +2091,16 @@ $box_chd= New-Object System.Windows.Forms.TextBox
 $box_chd.Size= "135,20"
 $box_chd.Location= "20,45"
 $box_chd.BorderStyle= "FixedSingle"
-$box_chd.ReadOnly= "True"
+# $box_chd.ReadOnly= "True"
 $box_chd.ForeColor= "Gray"
 $box_chd.BackColor= "White"
-
+#$box_chd.Text= '"eceg`c`e'
 $box_chd.Add_TextChanged({
 
  try{
-	if($box_apeg.Text.Length -ne 0){ Apeg 0 $box_apeg.Text }
-
+	if($box_apeg.Text.Length -ne 0){ #def. de hyoji shinai
+		Apeg $box_apeg.Text
+	}
  }catch{
 	echo $_.exception
  }
@@ -1950,8 +2121,6 @@ $comb_db.Add_SelectedValueChanged({
 	$script:blk[2]= $this.SelectedItem
 
 	$script:mml_setting= Flet_chk $blk $flet_setting
-
-	$box_chd.Text= $mml_setting -join ''
 
  }catch{
 	echo $_.exception
@@ -1974,8 +2143,6 @@ $comb_eb.Add_SelectedValueChanged({
 
 	$script:mml_setting= Flet_chk $blk $flet_setting
 
-	$box_chd.Text= $mml_setting -join ''
-
  }catch{
 	echo $_.exception
  }
@@ -1996,8 +2163,6 @@ $comb_gb.Add_SelectedValueChanged({
 	$script:blk[4]= $this.SelectedItem
 
 	$script:mml_setting= Flet_chk $blk $flet_setting
-
-	$box_chd.Text= $mml_setting -join ''
 
  }catch{
 	echo $_.exception
@@ -2020,8 +2185,6 @@ $comb_ab.Add_SelectedValueChanged({
 
 	$script:mml_setting= Flet_chk $blk $flet_setting
 
-	$box_chd.Text= $mml_setting -join ''
-
  }catch{
 	echo $_.exception
  }
@@ -2043,8 +2206,6 @@ $comb_bb.Add_SelectedValueChanged({
 
 	$script:mml_setting= Flet_chk $blk $flet_setting
 
-	$box_chd.Text= $mml_setting -join ''
-
  }catch{
 	echo $_.exception
  }
@@ -2055,7 +2216,7 @@ $mml_grp.Text= "MML arpeggio"
 $mml_grp.Size= "530,415"
 $mml_grp.Location= "10,130"
 $mml_grp.FlatStyle= "Flat"
-	 
+	
 $label_apeg= New-Object System.Windows.Forms.Label 
 $label_apeg.Text= "Arpeggio"
 $label_apeg.Size= "75,20"
@@ -2097,7 +2258,7 @@ $lisn_btn.FlatStyle= "Popup"
 $lisn_btn.Image= [System.Drawing.Image]::FromFile(".\img\play.png")
 # $lisn_btn.Text= ">"
 
-$lisn_btn.Add_Click({ # ééíÆ
+$lisn_btn.Add_Click({ # Ë©¶ËÅ¥
 
  try{
 	$script:lis= Prefixarp_mml $opt["oct"] $box_mtr.Text
@@ -2113,9 +2274,9 @@ $stop_btn.Location= "240,20"
 $stop_btn.Size= "20,20"
 $stop_btn.FlatStyle= "Popup"
 $stop_btn.Image= [System.Drawing.Image]::FromFile(".\img\stop.png")
-# $stop_btn.Text= "Å†"
+# $stop_btn.Text= "‚ñ°"
 
-$stop_btn.Add_Click({ # ÉXÉgÉbÉv
+$stop_btn.Add_Click({ # „Çπ„Éà„ÉÉ„Éó
 
 
  try{
@@ -2136,7 +2297,7 @@ $import_btn.Image= [System.Drawing.Image]::FromFile(".\img\convert.png")
 $import_btn.Add_Click({
 
  try{
-	Apeg 1 $box_mml.Text
+	Apeg_mml $box_mml.Text
 
  }catch{
 	echo $_.exception
@@ -2169,14 +2330,13 @@ $comb_prefix.DropDownStyle= "DropDownList"
 $comb_prefix.SelectedIndex= 2
 
 $comb_prefix.Add_SelectedValueChanged({
-
  try{
 	Mml_select $this.SelectedItem
+	# $script:track_parm= Trk_split $box_trk.Text
+	# Apeg $box_apeg.Text
+
 	Arpmenu_build "compiler"
 	Arpstus_build
-
-	Apeg 0 $box_apeg.Text
-
  }catch{
 	echo $_.exception
  }
@@ -2192,10 +2352,9 @@ $comb_trk.DropDownStyle= "DropDownList"
 $comb_trk.SelectedIndex= 2
 
 $comb_trk.Add_SelectedValueChanged({
-
  try{
-	Apeg 0 $box_apeg.Text
-
+	$script:track_parm= Trk_split $box_trk.Text
+	Apeg $box_apeg.Text
  }catch{
 	echo $_.exception
  }
@@ -2208,10 +2367,9 @@ $box_trk.BorderStyle= "FixedSingle"
 $box_trk.Text= "1  2  15  16"
 
 $box_trk.Add_TextChanged({
-
  try{
-	Apeg 0 $box_apeg.Text
-
+	$script:track_parm= Trk_split $box_trk.Text
+	Apeg $box_apeg.Text
  }catch{
 	echo $_.exception
  }
@@ -2236,10 +2394,8 @@ $comb_oct.DropDownStyle= "DropDownList"
 $comb_oct.SelectedIndex= 1
 
 $comb_oct.Add_SelectedValueChanged({
-
  try{
-	Apeg 0 $box_apeg.Text
-
+	Apeg $box_apeg.Text
  }catch{
 	echo $_.exception
  }
@@ -2261,10 +2417,8 @@ $comb_tai.DropDownStyle= "DropDownList"
 $comb_tai.SelectedIndex= 2
 
 $comb_tai.Add_SelectedValueChanged({
-
  try{
-	Apeg 0 $box_apeg.Text
-
+	Apeg $box_apeg.Text
  }catch{
 	echo $_.exception
  }
@@ -2289,12 +2443,10 @@ $nmud_trk.Maximum= "16"
 $nmud_trk.BorderStyle= "FixedSingle"
 
 $nmud_trk.Add_ValueChanged({
-
-	$nmud_tai.Maximum= $nmud_trk.Value- 1 # $this ka
-
  try{
-	Apeg 0 $box_apeg.Text
-
+	$nmud_tai.Maximum= $nmud_trk.Value- 1 # $this ka
+	$script:track_parm= Trk_split $box_trk.Text
+	Apeg $box_apeg.Text
  }catch{
 	echo $_.exception
  }
@@ -2317,12 +2469,9 @@ $nmud_tai.Value= "1"
 $nmud_tai.BorderStyle= "FixedSingle"
 
 $nmud_tai.Add_ValueChanged({
-
-	$nmud_tai.Maximum= $nmud_trk.Value- 1 # $this ka
-
  try{
-	Apeg 0 $box_apeg.Text
-
+	$nmud_tai.Maximum= $nmud_trk.Value- 1 # $this ka
+	Apeg $box_apeg.Text
  }catch{
 	echo $_.exception
  }
@@ -2346,16 +2495,14 @@ $box_apeg.Add_Enter({ # konrann surutame reset
 })
 
 $box_apeg.Add_TextChanged({
-
  try{
-	Apeg 0 $box_apeg.Text
-
+	Apeg $box_apeg.Text
  }catch{
 	echo $_.exception
  }
 })
 
-$box_apeg.Add_KeyDown({ # ééíÆ
+$box_apeg.Add_KeyDown({ # Ë©¶ËÅ¥
  try{
 	Keydown_arp $_.KeyCode
 
@@ -2377,7 +2524,7 @@ $box_mml.BackColor= "White"
 $box_mml.font= $Fon
 # $box_mml.Text= 'cg`eg  `eg`eg'
 
-$box_mml.Add_KeyDown({ # ééíÆ
+$box_mml.Add_KeyDown({ # Ë©¶ËÅ¥
  try{
 	Keydown_arp $_.KeyCode
 
@@ -2393,12 +2540,12 @@ $box_mtr.WordWrap= "False"
 $box_mtr.Multiline= "True"
 $box_mtr.ScrollBars= "Both"
 $box_mtr.BorderStyle= "FixedSingle"
-#$box_mtr.ReadOnly= "True"
-#$box_mtr.ForeColor= "Gray"
+# $box_mtr.ReadOnly= "True"
+# $box_mtr.ForeColor= "Gray"
 $box_mtr.BackColor= "White"
 $box_mtr.font= $Fon
 
-$box_mtr.Add_KeyDown({ # ééíÆ
+$box_mtr.Add_KeyDown({ # Ë©¶ËÅ¥
  try{
 	Keydown_arp $_.KeyCode
 
@@ -2415,15 +2562,15 @@ $arp_label= New-Object System.Windows.Forms.ToolStripStatusLabel
 # $arp_label.Font= $Fon
  
 $contxt_trayarp= New-Object System.Windows.Forms.ContextMenuStrip 
-# $contxt objÇì«Ç›çûÇÒÇæå„$NotifyIcon objÇ™à¿ëS
+# $contxt obj„ÇíË™≠„ÅøËæº„Çì„Å†Âæå$NotifyIcon obj„ÅåÂÆâÂÖ®
 
-[void]$contxt_trayarp.Items.Add("ç≈è¨âª")
-[void]$contxt_trayarp.Items.Add("ä¬ã´ê›íË")
-[void]$contxt_trayarp.Items.Add("èIóπ")
+[void]$contxt_trayarp.Items.Add("ÊúÄÂ∞èÂåñ")
+[void]$contxt_trayarp.Items.Add("Áí∞Â¢ÉË®≠ÂÆö")
+[void]$contxt_trayarp.Items.Add("ÁµÇ‰∫Ü")
 
 $contxt_trayarp.Add_ItemClicked({
   try{
-	# $_.ClickedItem # ÉLÉÉÉXÉgïsóv
+	# $_.ClickedItem # „Ç≠„É£„Çπ„Éà‰∏çË¶Å
 
 	$script:frm_state= Contxtarp_state $_.ClickedItem $frm_state
 
@@ -2443,21 +2590,21 @@ $tray_arp.ContextMenuStrip= $contxt_trayarp
 $tray_arp.Add_MouseDown({
  try{
 
-  switch([string]$_.Button){ # ÉLÉÉÉXÉg
+  switch([string]$_.Button){ # „Ç≠„É£„Çπ„Éà
 
   'Left'{
 
 	switch($frm_state[0]){
 	0{
-		$script:frm_state= Contxtarp_state "ç≈è¨âª" $frm_state
+		$script:frm_state= Contxtarp_state "ÊúÄÂ∞èÂåñ" $frm_state
 		break;
 	}1{
-		$script:frm_state= Contxtarp_state "å≥Ç…ñﬂÇ∑" $frm_state
+		$script:frm_state= Contxtarp_state "ÂÖÉ„Å´Êàª„Åô" $frm_state
 	}
 	} #sw
 
 #	break;
-#  }'Right'{ # ïsóv ÉÇÅ[É_Éãî≠ê∂ -> $tray_arp.ContextMenuStrip
+#  }'Right'{ # ‰∏çË¶Å „É¢„Éº„ÉÄ„É´Áô∫Áîü -> $tray_arp.ContextMenuStrip
 #	$contxt_trayarp.Show([Windows.Forms.Cursor]::Position)
   }
   } #sw
@@ -2495,14 +2642,14 @@ $frm_arp.Add_SizeChanged({
 	switch($frm_arp.WindowState){
 	'Minimized'{
 		$contxt_trayarp.Items.Clear()
-		[void]$contxt_trayarp.Items.Add("å≥Ç…ñﬂÇ∑")
-		[void]$contxt_trayarp.Items.Add("èIóπ")
+		[void]$contxt_trayarp.Items.Add("ÂÖÉ„Å´Êàª„Åô")
+		[void]$contxt_trayarp.Items.Add("ÁµÇ‰∫Ü")
 		break;
 
 	}'Normal'{
 		$contxt_trayarp.Items.Clear()
-		[void]$contxt_trayarp.Items.Add("ç≈è¨âª")
-		[void]$contxt_trayarp.Items.Add("èIóπ")
+		[void]$contxt_trayarp.Items.Add("ÊúÄÂ∞èÂåñ")
+		[void]$contxt_trayarp.Items.Add("ÁµÇ‰∫Ü")
 	}
 	} #sw
 })
@@ -2512,12 +2659,12 @@ $frm_arp.Add_SizeChanged({
 	switch($frm_arp.WindowState){
 	'Minimized'{
 		$script:frm_state[1]= 1
-		$script:frm_state= Contxtarp_state "ç≈è¨âª" $frm_state
+		$script:frm_state= Contxtarp_state "ÊúÄÂ∞èÂåñ" $frm_state
 
 		break;
 	}'Normal'{
 		$script:frm_state[1]= 0
-		$script:frm_state= Contxtarp_state "å≥Ç…ñﬂÇ∑" $frm_state
+		$script:frm_state= Contxtarp_state "ÂÖÉ„Å´Êàª„Åô" $frm_state
 	}
 	} #sw
 
@@ -2551,7 +2698,7 @@ $menu_aty= New-Object System.Windows.Forms.ToolStripMenuItem
 
 $menu_aty.Add_Click({
   try{
-	switch($key["tray"]){ # ÉgÉOÉã
+	switch($key["tray"]){ # „Éà„Ç∞„É´
 
 	'True'{		$script:key["tray"]= Trayarp_hide "False";	break;
 	}'False'{	$script:key["tray"]= Trayarp_hide "True"
@@ -2629,9 +2776,9 @@ $arp_menu_set.Add_Click({
 
 		$script:comp=@{}; $script:play=@{}; $script:dosv=@{}; $script:edit=@{};
 
-		Setxml_read $script:set_xml.table # hashâª script: ga hitsuyo
+		Setxml_read $script:set_xml.table # hashÂåñ script: ga hitsuyo
 	}else{
-		Write-Host ("`r`n"+ '"setting.xml" ì«Ç›çûÇ›ÉGÉâÅ[')
+		Write-Host ("`r`n"+ '"setting.xml" Ë™≠„ÅøËæº„Åø„Ç®„É©„Éº')
 	}
 
 	Mml_select $comb_prefix.SelectedItem
@@ -2651,7 +2798,7 @@ $arp_menu_set.Add_Click({
 
 $arp_menu_cmp0= New-Object System.Windows.Forms.ToolStripMenuItem
 #$arp_menu_cmp0.Text= "0.exe"
-$arp_menu_cmp0.Visible= $False # .Hide() ïsâ¬
+$arp_menu_cmp0.Visible= $False # .Hide() ‰∏çÂèØ
 
 $arp_menu_cmp0.Add_Click({
  try{
@@ -3069,7 +3216,7 @@ $arp_menu_whelp.Add_Click({
 
 	$retn= [Windows.Forms.MessageBox]::Show(
 
-	$retn, "ämîF", "OK","Information","Button1"
+	$retn, "Á¢∫Ë™ç", "OK","Information","Button1"
 	)
   }
 
@@ -3089,7 +3236,7 @@ $arp_menu_py.Add_Click({
 	if($retn -ne ""){
 
 		$retn= [Windows.Forms.MessageBox]::Show(
-		$retn, "ämîF", "OK","Information","Button1"
+		$retn, "Á¢∫Ë™ç", "OK","Information","Button1"
 		)
 	}
  }catch{
@@ -3106,10 +3253,10 @@ $arp_menu_rld.Add_Click({
 	$script:header["arp_header_nsd"]= (cat '.\header\arp_header_nsd' | Out-String)
 	$script:header["arp_header_pmd"]= (cat '.\header\arp_header_pmd' | Out-String)
 
-	Write-Host '<< headerÇÉäÉçÅ[ÉhÇµÇ‹ÇµÇΩ'
+	Write-Host '<< header„Çí„É™„É≠„Éº„Éâ„Åó„Åæ„Åó„Åü'
 
 	$retn= [Windows.Forms.MessageBox]::Show(
-	"headerÇÉäÉçÅ[ÉhÇµÇ‹ÇµÇΩ", "ämîF", "OK","Information","Button1"
+	"header„Çí„É™„É≠„Éº„Éâ„Åó„Åæ„Åó„Åü", "Á¢∫Ë™ç", "OK","Information","Button1"
 	)
  }catch{
 	echo $_.exception
@@ -3179,7 +3326,7 @@ $frm_arp.Controls.AddRange(@($arp_mnu,$chd_grp,$flet_grp,$mml_grp,$arp_stus))
 
  try{
 
-  # ÉLÉÉÉXÉg
+  # „Ç≠„É£„Çπ„Éà
 
   if((Chk_path '.\arp_gene.xml') -eq 0){
 
@@ -3188,7 +3335,7 @@ $frm_arp.Controls.AddRange(@($arp_mnu,$chd_grp,$flet_grp,$mml_grp,$arp_stus))
 	$arp_xml= [xml]$xml_arpeg
   }
 
-  # òAëzîzóÒâª
+  # ÈÄ£ÊÉ≥ÈÖçÂàóÂåñ
 
   # menu tame only memory <- setting.xml
   $comp=@{}; $play=@{}; $dosv=@{}; $edit=@{};
@@ -3197,7 +3344,7 @@ $frm_arp.Controls.AddRange(@($arp_mnu,$chd_grp,$flet_grp,$mml_grp,$arp_stus))
   $val=@{}; $opt=@{}; $key=@{};
   $header=@{};
 
-   # cat -> Out-String(â¸çsÇ†ÇË)Ç≈stringÇ÷
+   # cat -> Out-String(ÊîπË°å„ÅÇ„Çä)„Åßstring„Å∏
   $header["arp_header_mck"]= (cat '.\header\arp_header_mck' | Out-String)
   $header["arp_header_nsd"]= (cat '.\header\arp_header_nsd' | Out-String)
   $header["arp_header_pmd"]= (cat '.\header\arp_header_pmd' | Out-String)
@@ -3206,12 +3353,12 @@ $frm_arp.Controls.AddRange(@($arp_mnu,$chd_grp,$flet_grp,$mml_grp,$arp_stus))
   Arpxml_read $script:arp_xml.table.val $script:arp_xml.table.opt
 
 
-  # readÇÃÇ› - MenuÇÃÇΩÇﬂ
+  # read„ÅÆ„Åø - Menu„ÅÆ„Åü„ÇÅ
   if((Chk_path '.\setting.xml') -eq 0){
 
 	$set_xml= [xml](cat '.\setting.xml')
 
-	Setxml_read $script:set_xml.table # hashâª
+	Setxml_read $script:set_xml.table # hashÂåñ
  }
 
 
@@ -3248,15 +3395,15 @@ $frm_arp.Controls.AddRange(@($arp_mnu,$chd_grp,$flet_grp,$mml_grp,$arp_stus))
 		$comb_eb.SelectedItem,
 		$comb_gb.SelectedItem
 
+  [array]$mml_setting= Flet_chk $blk $flet_setting
 
-  [array]$mml_setting= ""
+  [array]$track_parm= Trk_split $box_trk.Text
 
-  $box_flet.Text= $flet_setting -join '  '
 
   [void]$comb_apeg.Items.AddRange($rot[$comb_genn.SelectedItem])
 
 
-  # array objçÇë¨âª
+  # array objÈ´òÈÄüÂåñ
   [array]$undo= "","",""
   [array]$undo[0]= $null,"0" # omote
   [array]$undo[1]= $null,"0" # ura
@@ -3269,7 +3416,7 @@ $frm_arp.Controls.AddRange(@($arp_mnu,$chd_grp,$flet_grp,$mml_grp,$arp_stus))
 
   $frm_arp.ShowDialog() > $null
 
-  Write-Host ('"ï™éUÉRÅ[ÉhÉGÉfÉBÉ^"ÇèIóπÇµÇ‹Ç∑'+ "`r`n")
+  Write-Host ('"ÂàÜÊï£„Ç≥„Éº„Éâ„Ç®„Éá„Ç£„Çø"„ÇíÁµÇ‰∫Ü„Åó„Åæ„Åô'+ "`r`n")
 
  }catch{
 	echo $_.exception

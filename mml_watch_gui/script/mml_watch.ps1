@@ -660,7 +660,7 @@ function Watch_Drop(){
 	Toggle_label
 
  } #func
- 	 
+  
 # gui 
 	
 function Contxt_chg([string]$sw,[int]$chg){ 
@@ -781,7 +781,7 @@ function Auto_start([string]$t){
  } #func
   
 # hash 
-	
+	 
 function Helpxml_read($x){ 
 
   # $x= $script:set_xml.table
@@ -871,7 +871,7 @@ function Param_join([array]$rr){
  
 function Comline([string]$t){ 
 
-	$s= $t -replace " ",""
+	$s= $t.Replace(" ","")
 
 	[array]$rr= $s -split ","
 
@@ -919,7 +919,7 @@ function Comline([string]$t){
 
 	return $ss
 } #func
-  
+ 	 
 Add-Type -AssemblyName System.Windows.Forms > $null 
 
 $ErrorActionPreference= "Stop"

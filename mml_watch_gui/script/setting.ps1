@@ -227,7 +227,7 @@ function Pamamter_reset([string]$sw){
 	[string]$t= "10000 00000"
 			#i m1 w
 
-	[string]$s= $t -replace " ",""
+	[string]$s= $t.Replace(" ","")
 
 	[string[]]$m= $s.ToCharArray()
 
@@ -239,7 +239,7 @@ function Pamamter_reset([string]$sw){
 	[string]$t= "01200 11000"
 		#a n v1 x od+ oo- os- e s
 
-	[string]$s= $t -replace " ",""
+	[string]$s= $t.Replace(" ","")
 
 	[string[]]$n= $s.ToCharArray()
 
@@ -260,7 +260,7 @@ function Pamamter_reset([string]$sw){
 	[string]$t= "01000 00000"
 			#NLMT V C
 
-	[string]$s= $t -replace " ",""
+	[string]$s= $t.Replace(" ","")
 
 	[string[]]$p= $s.ToCharArray()
 
@@ -282,7 +282,7 @@ function Pamamter_reset([string]$sw){
 function Pamamter_read([string]$t){ 
 
 
-	[string]$s= $t -replace " ",""
+	[string]$s= $t.Replace(" ","")
 
 	[array]$rr= $s -split ","
 
@@ -321,7 +321,7 @@ function Pamamter_read([string]$t){
 	$part_chk_pmd.CheckState= $p[2]
 
 } #func
- 
+ 	
 function Pamamter_write(){ 
 
 	[array]$a= "","",""
@@ -2378,4 +2378,4 @@ $sub_f.AcceptButton= $ok_btn		# [Enter]
  }finally{
 	$pram_frm.Dispose()
  }
- 	
+ 
