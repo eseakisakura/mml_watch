@@ -3,29 +3,29 @@
 Chiptune MMLコンパイラへ、GUIを提供するフロントエンドです。<br/>
 "ppmck", "nsdLib", "P.M.D"へ対応します。<br/>
 <br/>
-GUI部も含めて、総Powershellで組まれています。<br/>
-<br/>
+GUI部も含めて、総Powershellで組まれており、<br/>
 それぞれがスタンドアロン(単体)で起動します。<br/>
 <br/>
+
 <h4>
 説明書及び、必須ソフトウェアのリンク <br/>
 ・<a href="https://eseakisakura.github.io/mml_watch_gui/"> Mml Watch GUI - download</a><br/>
-<h4>
+</h4>
 <br/>
-<table><tr><td>・Mml Watch GUI</td><td>mmlチップチューンのfront end</td>
-</tr><tr><td>・FM Synthesis Chip - Tone Editor</td><td>2op.4op.対応FM音源音色エディタ</td>
-</tr><tr><td>・Guitar Arpeggio - MML Generator</td><td>ギターアルペジオジェネレータ</td>
-</tr></table>
+
 <h5>起動済み確認環境: <br/>
 winXP+ Powershell2(.NET Framework3.5)<br/>
 win10(21H2)+ Powershell5(.NET Framework4.8)<br/>
 win10(21H2)+ Powershell7(.NET5) - Alpha版<br/>
 </h5>
 
+<table><tr><td>・Mml Watch GUI</td><td>mmlチップチューンのfront end</td>
+</tr><tr><td>・FM Synthesis Chip - Tone Editor</td><td>2op.4op.対応FM音源音色エディタ</td>
+</tr><tr><td>・Guitar Arpeggio - MML Generator</td><td>ギターアルペジオジェネレータ</td>
+</tr></table>
 ※Watch.cmdなどのバッチファイルによる起動であれば、.NET Framework3.5以上、PowerShell2以上なら動くと思います。<br/>
 <br/>
 ※mml_watch.exeなどのバイナリ起動の場合、.NET Framework4.0以上が必要となります。<br/>
-<br/>
 ※各起動バイナリexeについて<br/>
 powershell scriptを呼び出すための、c#によるラッパーとなっています。<br/>
 
