@@ -369,8 +369,8 @@ $cd["dim7"]["4D"]= "x","x",0, 1,0,1
  
 $rot= @{} 
 
-$rot["6E"]=	"6313 1313",
-		"6323 1232",
+$rot["6E"]=	"6323 1232",
+		"6313 1313",
 		"6312 4312",
 		"6321 4321",
 
@@ -384,8 +384,8 @@ $rot["6E"]=	"6313 1313",
 		"632 123 432 123",
 		"632 123 132 132"
 
-$rot["5A"]=	"5313 1313",
-		"5323 1232",
+$rot["5A"]=	"5323 1232",
+		"5313 1313",
 		"5312 4312",
 		"5321 4321",
 
@@ -399,8 +399,8 @@ $rot["5A"]=	"5313 1313",
 		"532 123 432 123",
 		"532 123 132 132"
 
-$rot["4D"]=	"4313 1313",
-		"4323 1232",
+$rot["4D"]=	"4323 1232",
+		"4313 1313",
 		"4312 4312",
 		"4321 4321",
 
@@ -900,7 +900,7 @@ function Arpwrite_xml($x,$y){
  } #func
   
 # Chord select 
-	
+	 
 function Gen_num([string]$kk,[string]$gg){ 
 
 	$r= @{}
@@ -964,7 +964,7 @@ function Flet_num([int]$flet, [array]$chd){
 	return $tt
 } #func
  
-function Chd_chk([array]$chd_select,$cd){ 
+function Fret_build([array]$chd_select,$cd){ 
 
   [string]$k= $chd_select[0] # $keys
   [string]$d= $chd_select[1] # $chords
@@ -1105,7 +1105,7 @@ function Chd_chk([array]$chd_select,$cd){
   return $arr
  } #func
  
-function Flet_chk([array]$b,[array]$flet){ 
+function Chd_build([array]$b,[array]$flet){ 
 
 
   [array]$rr= @("","","", "","","")  # jag
@@ -1145,9 +1145,9 @@ $rr[0]=	'"e', '"f',('"'+ $b[4]),'"g',('"'+ $b[0]),'"a',('"'+ $b[1]),'"b', 'c',$b
 			# [int]$num= $flet[$i] -as [int]  # chikarazuku cast
 			[int]$num= [int]::Parse($flet[$i])
 
-			if($num -le 15){ # hairetsu 15 made
+			if($num -le 15){ # hairetsu 15 fret made
 
-				$qq[$i]= $rr[$i][$num]  # num -> ab
+				$qq[$i]= $rr[$i][$num]  # num -> abc
 			}else{
 				Write-Host 'err >> フレット数がオーバー'
 			}
@@ -1155,10 +1155,73 @@ $rr[0]=	'"e', '"f',('"'+ $b[4]),'"g',('"'+ $b[0]),'"a',('"'+ $b[1]),'"b', 'c',$b
 		} #sw
 	} #
 
-	$box_chd.Text= $qq -join ''
+	if($comb_oct.SelectedItem -eq "< >"){
+
+		$box_chd.Text= Oct_hogen ($qq -join '')
+	}else{
+		$box_chd.Text= $qq -join ''
+	}
 
 	return $qq
-} #func
+ } #func
+ 
+function Importer_chd([string]$mm){ 
+
+	[array]$rr= $mm.ToCharArray()
+	[string]$dd= ""
+	[string]$ss= ""
+	[array]$out= @()
+	[int]$sw= 0
+	[int]$i= 0
+
+	foreach($dd in $rr){
+
+		switch($dd){
+		'<'{ $i--; break
+		}'>'{ $i++; break
+		}'a'{ $sw= 1; break
+		}'b'{ $sw= 1; break
+		}'c'{ $sw= 1; break
+		}'d'{ $sw= 1; break
+		}'e'{ $sw= 1; break
+		}'f'{ $sw= 1; break
+		}'g'{ $sw= 1; break
+		}default{ $ss+= $dd
+		}
+		} #sw
+
+		if($sw){
+			$ss+= (Oct_number $i '"' '`')
+			$ss+= $dd
+			$out+= $ss
+			$ss= ""
+			$sw= 0
+		}
+	} #
+
+	if($comb_oct.SelectedItem -eq "< >"){
+		$box_chd.Text= Oct_hogen ($out -join '')
+	}else{
+		$box_chd.Text= $out -join ''
+	}
+
+	return $out
+ } #func
+ 
+function Keydown_chd_arp([string]$t){ 
+
+  switch($t){
+  'F12'{
+		$lisn_btn.PerformClick()
+		break
+  }'F11'{
+		$stop_btn.PerformClick()
+		break
+  }'F5'{
+		$import_chd_btn.PerformClick()
+  }
+  } #sw
+ } #func
   
 # MML arpeggio 
 	 
@@ -1193,7 +1256,7 @@ function Trk_split([string]$mm){
 	[int]$trk= $nmud_trk.Value
 	[string[]]$uu= ""; $uu*= $trk
 
-	[string]$pre= $comb_trk.SelectedItem	
+	[string]$pre= $comb_trk.SelectedItem
 
 	for([int]$j= 0; $j -lt $trk; $j++){
 
@@ -1210,7 +1273,8 @@ function Trk_split([string]$mm){
  
 function Oct_number([int]$num, [string]$aa, [string]$bb){ 
 
-	[string]$xx= ""; [int]$i= 0
+	[string]$xx= ""
+	[int]$i= 0
 
 	if($num -lt 0){ $xx= $aa; $i= -$num }
 	if($num -gt 0){ $xx= $bb; $i= $num }
@@ -1223,11 +1287,16 @@ function Oct_number([int]$num, [string]$aa, [string]$bb){
 function Oct_hogen([string]$mm){ 
 
 	[array]$rr= $mm.ToCharArray()
-	[string]$output= ""
+	## [string]$output= ""
+
 	[string]$dd= ""
 	[int]$i= 0
 	[int]$j= 0
 	[int]$sw= 0
+
+	[int]$kk= 0
+	[string]$out= $mm
+
 	foreach($dd in $rr){
 
 		switch($dd){
@@ -1240,35 +1309,60 @@ function Oct_hogen([string]$mm){
 		}'e'{ $sw= 1; break
 		}'f'{ $sw= 1; break
 		}'g'{ $sw= 1; break
-		}default{ $output+= $dd
+		}default{ ## $output+= $dd
 		}
 		} #sw
 
 		if($sw){
-			$j= -$j+ $i	# -2= 1 -1 # 2= -1 1
-			$output+= Oct_number $j "<" ">"
+			$j= -$j+ $i		# -2= 1 -1 # 2= -1 1
 
-			$j= $i # real point
+			if($j -ne 0){
+
+				## $output+= (Oct_number $j "<" ">")
+
+				$out= $out.Insert($kk, (Oct_number $j "<" ">"))
+
+				if($j -lt 0){
+					$kk+= -$j # "<<" -2 zure add
+				}else{
+					$kk+= $j # ">>" 2 zure add
+				}
+			}
+
+			## $output+= $dd
+
+			$j= $i # point store
 			$i= 0
-
-			$output+= $dd
 			$sw= 0
 		}
+
+		$kk++
 	} #
 
-	$j= -$j+ $i
-	$output+= Oct_number $j "<" ">"
+	##$j= -$j ##+ $i
+	## $output+= (Oct_number $j "<" ">")
 
-	return $output
+	##if($j -ne 0){
+	$out= $out.Insert($kk, (Oct_number -$j "<" ">"))
+	##}
+	$out= $out.Replace('"', '')
+	$out= $out.Replace('`', '')
+
+
+	##return $output
+	return $out
  } #func
  
 function Tai_hogen([string]$mm){ 
 
 	[array]$rr= $mm.ToCharArray()
-	[string]$output= ""
+	## [string]$output= ""
+
 	[string]$store= ""
 	[string]$dd= ""
 	[int]$sw= 0
+	[int]$kk= 0
+	[string]$out= $mm
 
 	foreach($dd in $rr){
 
@@ -1284,29 +1378,36 @@ function Tai_hogen([string]$mm){
 		}'+'{ $sw= 2; break
 		}'-'{ $sw= 2; break
 		}'^'{ $sw= 3; break
-		}default{ $output+= $dd
+		}default{ ## $output+= $dd
 		}
 		} #sw
 
 		switch($sw){
 		1{
-			$output+= $dd
+			## $output+= $dd
 			$store= $dd
 			$sw= 0
 			break
 		}2{
-			$output+= $dd
+			## $output+= $dd
 			$store+= $dd
 			$sw= 0
 			break
 		}3{
-			$output+= ('&'+ $store)
+			## $output+= ('&'+ $store)
+			$out= $out.Insert($kk, ('&'+ $store))
+			$kk+= 1+ $store.Length
 			$sw= 0
 		}
 		} #sw
+
+		$kk++
 	} #
 
-	return $output
+	$out= $out.Replace('^', '')
+
+	## return $output
+	return $out
  } #func
  
 function Wait_hogen([string]$mm){ 
@@ -1318,11 +1419,11 @@ function Wait_hogen([string]$mm){
 	return $mm
  } #func
  
-function Importer([string]$ww){ 
+function Importer([string]$mm){ 
 
-	[array]$rr= $ww.ToCharArray()
+	[array]$rr= $mm.ToCharArray()
 	[string]$dd= ""
-	[string]$output= ""
+	[string]$out= ""
 	[int]$sw= 0
 	[int]$i= 0
 
@@ -1338,17 +1439,17 @@ function Importer([string]$ww){
 		}'e'{ $sw= 1; break
 		}'f'{ $sw= 1; break
 		}'g'{ $sw= 1; break
-		}default{ $output+= $dd
+		}default{ $out+= $dd
 		}
 		} #sw
 
 		if($sw){
-			$output+= Oct_number $i '"' '`'
-			$output+= $dd
+			$out+= (Oct_number $i '"' '`')
+			$out+= $dd
 			$sw= 0
 		}
 	} #
-	return $output
+	return $out
  } #func
  
 function Xyz_sorter([string]$mm){ 
@@ -1362,10 +1463,10 @@ function Xyz_sorter([string]$mm){
 
 	foreach($dd in $rr){
 		switch($dd){
-		'x'{	$cc+= $dd; break
+		'v'{	$cc+= $dd; break
 		}'y'{	$cc+= $dd; break
 		}'z'{	$cc+= $dd; break
-		}' '{	$ss+= $i; break
+		}' '{	$ss+= $i; break # kasann chi ga toreru
 		}default{
 			$cc= $cc | sort
 			$out+= $cc -join ""
@@ -1383,9 +1484,7 @@ function Xyz_sorter([string]$mm){
 
 	for([int]$j= 0; $j -lt $ss.Length; $j++){
 			$out= $out.Insert($ss[$j], " ")
-	}
- #
-
+	} #
 
 	return $out
  } #func
@@ -1393,108 +1492,114 @@ function Xyz_sorter([string]$mm){
 function Mml_gene([int]$trk, [int]$tai_count, [string]$mm){ 
 
 	[array]$brr= $mm.ToCharArray()
+
 	[array]$brr+= "$" # last $num= 0 tame
 	[string]$dd= ""
 
 	[array]$taic= 0;		$taic*= $trk
-	[array]$rest= "s";	$rest*= $trk
 	[array]$out= "";	$out*= $trk
 
-	[int]$i= 0
-	[string]$tt= ""
-	[int]$num= 0
+	[int]$set= 0
 	[int]$sw= 0
+	[string]$tt= ""
+
+	[int]$i= 0
+	[int]$num= 0 # "^" tame
 
 	foreach($dd in $brr){
 
-		if($num -eq 5){ # a4
-			switch($dd){
-			'0'{ $tt+= $dd; break
-			}'1'{ $tt+= $dd; break
-			}'2'{ $tt+= $dd; break
-			}'3'{ $tt+= $dd; break
-			}'4'{ $tt+= $dd; break
-			}'5'{ $tt+= $dd; break
-			}'6'{ $tt+= $dd; break
-			}'7'{ $tt+= $dd; break
-			}'8'{ $tt+= $dd; break
-			}'9'{ $tt+= $dd; break
-			}default{
-				for([int]$j= 0; $j -lt $trk; $j++){
+	  if($set -eq 5){ # a4
 
-					if(($i% $trk) -eq $j){
+		switch($dd){
+		'0'{ $tt+= $dd; break
+		}'1'{ $tt+= $dd; break
+		}'2'{ $tt+= $dd; break
+		}'3'{ $tt+= $dd; break
+		}'4'{ $tt+= $dd; break
+		}'5'{ $tt+= $dd; break
+		}'6'{ $tt+= $dd; break
+		}'7'{ $tt+= $dd; break
+		}'8'{ $tt+= $dd; break
+		}'9'{ $tt+= $dd; break
+		}default{
+			$num= $i% $trk
 
-						$out[$j]+= $tt
-						$rest[$j]= "x"
-						$taic[$j]= $tai_count
+			for([int]$j= 0; $j -lt $trk; $j++){
+				if($num -ne $j){
+
+					if($taic[$j] -le 0){ # <=
+						$out[$j]+= "z"
 					}else{
-
-						if($rest[$j] -ne "s"){
-							if($taic[$j] -eq 0){ $rest[$j]= "z" }
-						}
-						$out[$j]+= $rest[$j]
-						$taic[$j]--
+						$out[$j]+= "v"
 					}
-				} #
-				$i++
-				$tt= ""
-				$num= 0
+					$taic[$j]--
 
-			}
-			} #sw
+				}else{
+					$out[$j]+= $tt
+					$taic[$j]= $tai_count
+				}
+			} #
+			$i++
 
+			$tt= ""
+			$set= 0
 		}
-		if($num -eq 0){
+		} #sw
 
-			if($dd -eq '$'){ break; } # loop break
+	  }
+	  if($set -eq 0){
 
-			switch($dd){
-			'^'{
-				for([int]$j= 0; $j -lt $trk; $j++){
+		if($dd -eq '$'){ break; } # loop break
 
-					if($rest[$j] -ne "s"){
+		switch($dd){
+		'^'{
+			for([int]$j= 0; $j -lt $trk; $j++){
+				if($num -ne $j){
+
+					if($taic[$j] -le 0){ # <=
+						$out[$j]+= "z"
+					}else{
+						$out[$j]+= "v"
+					}
+					$taic[$j]--
+
+				}else{
 						$out[$j]+= "y"
-					}else{
-						$out[$j]+= "s"
-					}
-				} #
-				break
-			}'r'{
-				for([int]$j= 0; $j -lt $trk; $j++){
-					$out[$j]+= "z"
-					$rest[$j]= "z"
-				} #
-				break
-			}' '{
-				for([int]$j= 0; $j -lt $trk; $j++){
-					$out[$j]+= " "
-				} #
-				break
-			}'a'{	$sw= 1; break
-			}'b'{	$sw= 1; break
-			}'c'{	$sw= 1; break
-			}'d'{	$sw= 1; break
-			}'e'{	$sw= 1; break
-			}'f'{	$sw= 1; break
-			}'g'{	$sw= 1; break
-			}default{	$tt+= $dd
-			}
-			} #sw
+				}
+			} #
+			break
+		}'r'{
+			for([int]$j= 0; $j -lt $trk; $j++){
+				$out[$j]+= "z"
+				$taic[$j]= 0
+			} #
+			break
+		}' '{
+			for([int]$j= 0; $j -lt $trk; $j++){
+				$out[$j]+= " "
+			} #
+			break
 
-			if($sw){
-				$tt+= $dd
-				$sw= 0
-				$num= 5
-			}
+		}'a'{	$sw= 1; break
+		}'b'{	$sw= 1; break
+		}'c'{	$sw= 1; break
+		}'d'{	$sw= 1; break
+		}'e'{	$sw= 1; break
+		}'f'{	$sw= 1; break
+		}'g'{	$sw= 1; break
+		}default{	$tt+= $dd
 		}
+		} #sw
 
+		if($sw){
+			$tt+= $dd
+			$sw= 0
+			$set= 5
+		}
+	  }
 	} #
 
-	if($sw -ne 0){ Write-Host ("Mml_gene ERR : "+ $sw) }
-	#write-host $out[0]
-	#write-host $out[1]
-	#write-host $out[2]
-	#write-host $out[3]
+	if($sw -ne 0){ Write-Host ("Mml_gene err >> "+ $sw) }
 
 	return $out
 
@@ -1517,8 +1622,7 @@ function Mml_replace([string]$ss){
 
 		$rr[$i]= Xyz_sorter $rr[$i]
 
-		$rr[$i]= $rr[$i].Replace('s', 'r')
-		$rr[$i]= $rr[$i].Replace('x', '^')
+		$rr[$i]= $rr[$i].Replace('v', '^')
 		$rr[$i]= $rr[$i].Replace('y', '^')
 		$rr[$i]= $rr[$i].Replace('z', 'r')
 
@@ -1562,38 +1666,44 @@ function Apeg_mml([string]$mm){
  
 function Number_gene([int]$trk, [int]$tai_count, [string]$mm){ 
 
-#	gene
-#	5xzz 1xzz
-#	s3xz z3xz
-#	ss1x zz1x
-#	sss3 xzz3
+#	5^4^3^5^
+#	5yvvzzzz
+#	zz4yvvzz
+#	zzzz3yvv
+#	zzzzzz5y
 
 	[array]$brr= $mm.ToCharArray()
 	[string]$dd= ""
 
 	[array]$taic= 0;		$taic*= $trk
-	[array]$rest= "s";	$rest*= $trk
 	[array]$out= "";	$out*= $trk
 
 	[int]$i= 0
+	[int]$num= 0 # "^" tame
 
 	foreach($dd in $brr){
 
 		switch($dd){
 		'^'{
 			for([int]$j= 0; $j -lt $trk; $j++){
+				if($num -ne $j){
 
-				if($rest[$j] -ne "s"){
-					$out[$j]+= "y"
+					if($taic[$j] -le 0){ # <=
+						$out[$j]+= "z"
+					}else{
+						$out[$j]+= "v"
+					}
+					$taic[$j]--
+
 				}else{
-					$out[$j]+= "s"
+						$out[$j]+= "y"
 				}
 			} #
 			break
 		}'r'{
 			for([int]$j= 0; $j -lt $trk; $j++){
 				$out[$j]+= "z"
-				$rest[$j]= "z"
+				$taic[$j]= 0
 			} #
 			break
 		}' '{
@@ -1602,19 +1712,21 @@ function Number_gene([int]$trk, [int]$tai_count, [string]$mm){
 			} #
 			break
 		}default{
+			$num= $i% $trk
+
 			for([int]$j= 0; $j -lt $trk; $j++){
-				if(($i% $trk) -eq $j){
+				if($num -ne $j){
 
-					$out[$j]+= $dd
-					$rest[$j]= "x"
-					$taic[$j]= $tai_count
-				}else{
-
-					if($rest[$j] -ne "s"){
-						if($taic[$j] -eq 0){ $rest[$j]= "z" }
+					if($taic[$j] -le 0){ # <=
+						$out[$j]+= "z"
+					}else{
+						$out[$j]+= "v"
 					}
-					$out[$j]+= $rest[$j]
 					$taic[$j]--
+
+				}else{
+					$out[$j]+= $dd
+					$taic[$j]= $tai_count
 				}
 			} #
 			$i++
@@ -1622,6 +1734,7 @@ function Number_gene([int]$trk, [int]$tai_count, [string]$mm){
 		} #sw
 
 	} #
+	#write-host ""
 	#write-host $out[0]
 	#write-host $out[1]
 	#write-host $out[2]
@@ -1652,8 +1765,7 @@ function Number_replace([string]$ss){
 		$rr[$i]= $rr[$i].Replace('3', $qq[3])
 		$rr[$i]= $rr[$i].Replace('2', $qq[4])
 		$rr[$i]= $rr[$i].Replace('1', $qq[5])
-		$rr[$i]= $rr[$i].Replace('s', 'r')
-		$rr[$i]= $rr[$i].Replace('x', '^')
+		$rr[$i]= $rr[$i].Replace('v', '^')
 		$rr[$i]= $rr[$i].Replace('y', '^')
 		$rr[$i]= $rr[$i].Replace('z', 'r')
 
@@ -1687,6 +1799,17 @@ function Thru_replace([string]$ss){
 	$ss= $ss.Replace('2', $qq[4])
 	$ss= $ss.Replace('1', $qq[5])
 
+	if($comb_oct.SelectedItem -eq "< >"){
+		$ss= Oct_hogen $ss
+	}
+
+	if($comb_tai.SelectedItem -eq "&"){
+		$ss= Tai_hogen $ss
+
+	}elseif($comb_tai.SelectedItem -eq "w"){
+		$ss= Wait_hogen $ss
+	}
+
 	return $ss
  } #func
  
@@ -1714,7 +1837,7 @@ function Apeg([string]$mm){
  } #func
   
 # Exp 
-	
+	 
 function Prefixarp_mml([string]$oct, [string]$ss){ 
 
 	[string]$hh= ""
@@ -1930,7 +2053,7 @@ $chd_grp.Text= "Chord select"
 $chd_grp.Size= "250,100"
 $chd_grp.Location= "10,30"
 $chd_grp.FlatStyle= "Flat"
-	
+	 
 $label_key= New-Object System.Windows.Forms.Label 
 $label_key.Text= "Keys"
 $label_key.Size= "70,20"
@@ -1946,11 +2069,12 @@ $comb_key.DropDownStyle= "DropDownList"
 $comb_key.SelectedIndex= 3
 
 $comb_key.Add_SelectedValueChanged({
-
  try{
 	$script:chord_select[0]= $this.SelectedItem
 
-	$script:flet_setting= Chd_chk $chord_select $cd
+	$script:flet_setting= Fret_build $chord_select $cd
+	$script:mml_setting= Chd_build $blk $flet_setting
+	Apeg $box_apeg.Text
 
  }catch{
 	echo $_.exception
@@ -1986,7 +2110,9 @@ $comb_chd.Add_SelectedValueChanged({
  try{
 	$script:chord_select[1]= $this.SelectedItem
 
-	$script:flet_setting= Chd_chk $chord_select $cd
+	$script:flet_setting= Fret_build $chord_select $cd
+	$script:mml_setting= Chd_build $blk $flet_setting
+	Apeg $box_apeg.Text
 
  }catch{
 	echo $_.exception
@@ -2012,7 +2138,9 @@ $comb_genn.Add_SelectedValueChanged({
  try{
 	$script:chord_select[2]= $this.SelectedItem
 
-	$script:flet_setting= Chd_chk $chord_select $cd
+	$script:flet_setting= Fret_build $chord_select $cd
+	$script:mml_setting= Chd_build $blk $flet_setting
+	Apeg $box_apeg.Text
 
 	$comb_apeg.Items.Clear()
 	[void]$comb_apeg.Items.AddRange($rot[$this.SelectedItem])
@@ -2034,7 +2162,9 @@ $check_open.Add_CheckStateChanged({
  try{
 	$script:chord_select[3]= $this.CheckState
 
-	$script:flet_setting= Chd_chk $chord_select $cd
+	$script:flet_setting= Fret_build $chord_select $cd
+	$script:mml_setting= Chd_build $blk $flet_setting
+	Apeg $box_apeg.Text
 
  }catch{
 	echo $_.exception
@@ -2053,7 +2183,7 @@ $flet_grp.Text= "Flet setting"
 $flet_grp.Size= "270,100"
 $flet_grp.Location= "270,30"
 $flet_grp.FlatStyle= "Flat"
-	
+	 
 $label_flet= New-Object System.Windows.Forms.Label 
 $label_flet.Text= "Flet Number"
 $label_flet.Size= "70,20"
@@ -2064,28 +2194,39 @@ $label_flet.TextAlign= "BottomLeft"
 # MiddleLeft,MiddleCenter,MiddleRight,
 # BottomLeft,BottomCenter,BottomRight
  
-$box_flet= New-Object System.Windows.Forms.TextBox 
-$box_flet.Size= "135,20"
-$box_flet.Location= "20,20"
-$box_flet.BorderStyle= "FixedSingle"
-# $box_flet.Text= "0  3  2  0  1  0"
-
-$box_flet.Add_TextChanged({
- try{
-	$script:flet_setting= $this.Text -split '  '
-
-	$script:mml_setting= Flet_chk $blk $flet_setting
-
- }catch{
-	echo $_.exception
- }
-})
- 
 $label_chd= New-Object System.Windows.Forms.Label 
 $label_chd.Text= "MML Chord"
 $label_chd.Size= "70,20"
 $label_chd.Location= "160,45"
 $label_chd.TextAlign= "BottomLeft"
+ 
+$box_flet= New-Object System.Windows.Forms.TextBox 
+$box_flet.Size= "135,20"
+$box_flet.Location= "20,20"
+$box_flet.BorderStyle= "FixedSingle"
+# $box_flet.ReadOnly= "True"
+# $box_flet.Text= "0  3  2  0  1  0"
+
+$box_flet.Add_TextChanged({ # textbox key input gi
+ try{
+	$script:flet_setting= $this.Text -split "  "
+
+	$script:mml_setting= Chd_build $blk $flet_setting
+	Apeg $box_apeg.Text
+
+ }catch{
+	echo $_.exception
+ }
+})
+
+$box_flet.Add_KeyDown({
+ try{
+	Keydown_chd_arp $_.KeyCode
+
+ }catch{
+    echo $_.exception
+ }
+})
  
 $box_chd= New-Object System.Windows.Forms.TextBox 
 $box_chd.Size= "135,20"
@@ -2095,12 +2236,35 @@ $box_chd.BorderStyle= "FixedSingle"
 $box_chd.ForeColor= "Gray"
 $box_chd.BackColor= "White"
 #$box_chd.Text= '"eceg`c`e'
-$box_chd.Add_TextChanged({
 
+# $box_chd.Add_TextChanged({
+#  try{
+#  }catch{
+#	echo $_.exception
+#  }
+# })
+
+$box_chd.Add_KeyDown({
  try{
-	if($box_apeg.Text.Length -ne 0){ #def. de hyoji shinai
-		Apeg $box_apeg.Text
-	}
+	Keydown_chd_arp $_.KeyCode
+
+ }catch{
+    echo $_.exception
+ }
+})
+ 
+$import_chd_btn= New-Object System.Windows.Forms.Button 
+$import_chd_btn.Location= "235,45"
+$import_chd_btn.Size= "20,20"
+$import_chd_btn.FlatStyle= "Popup"
+$import_chd_btn.Image= [System.Drawing.Image]::FromFile(".\img\convert.png")
+# $import_chd_btn.Text= ">>"
+
+$import_chd_btn.Add_Click({
+ try{
+	$script:mml_setting= Importer_chd $box_chd.Text
+	Apeg $box_apeg.Text
+
  }catch{
 	echo $_.exception
  }
@@ -2120,7 +2284,8 @@ $comb_db.Add_SelectedValueChanged({
  try{
 	$script:blk[2]= $this.SelectedItem
 
-	$script:mml_setting= Flet_chk $blk $flet_setting
+	$script:mml_setting= Chd_build $blk $flet_setting
+	Apeg $box_apeg.Text
 
  }catch{
 	echo $_.exception
@@ -2141,7 +2306,8 @@ $comb_eb.Add_SelectedValueChanged({
  try{
 	$script:blk[3]= $this.SelectedItem
 
-	$script:mml_setting= Flet_chk $blk $flet_setting
+	$script:mml_setting= Chd_build $blk $flet_setting
+	Apeg $box_apeg.Text
 
  }catch{
 	echo $_.exception
@@ -2162,7 +2328,8 @@ $comb_gb.Add_SelectedValueChanged({
  try{
 	$script:blk[4]= $this.SelectedItem
 
-	$script:mml_setting= Flet_chk $blk $flet_setting
+	$script:mml_setting= Chd_build $blk $flet_setting
+	Apeg $box_apeg.Text
 
  }catch{
 	echo $_.exception
@@ -2183,7 +2350,8 @@ $comb_ab.Add_SelectedValueChanged({
  try{
 	$script:blk[0]= $this.SelectedItem
 
-	$script:mml_setting= Flet_chk $blk $flet_setting
+	$script:mml_setting= Chd_build $blk $flet_setting
+	Apeg $box_apeg.Text
 
  }catch{
 	echo $_.exception
@@ -2204,7 +2372,8 @@ $comb_bb.Add_SelectedValueChanged({
  try{
 	$script:blk[1]= $this.SelectedItem
 
-	$script:mml_setting= Flet_chk $blk $flet_setting
+	$script:mml_setting= Chd_build $blk $flet_setting
+	Apeg $box_apeg.Text
 
  }catch{
 	echo $_.exception
@@ -2332,6 +2501,7 @@ $comb_prefix.SelectedIndex= 2
 $comb_prefix.Add_SelectedValueChanged({
  try{
 	Mml_select $this.SelectedItem
+	# ValueChanged
 	# $script:track_parm= Trk_split $box_trk.Text
 	# Apeg $box_apeg.Text
 
@@ -2395,7 +2565,15 @@ $comb_oct.SelectedIndex= 1
 
 $comb_oct.Add_SelectedValueChanged({
  try{
+	if($this.SelectedItem -eq "< >"){
+
+		$box_chd.Text= Oct_hogen ($mml_setting -join '')
+	}else{
+		$box_chd.Text= $mml_setting -join ''
+	}
+
 	Apeg $box_apeg.Text
+
  }catch{
 	echo $_.exception
  }
@@ -3298,7 +3476,7 @@ $arp_menu_pmdh.Add_Click({
 })
   
 $chd_grp.Controls.AddRange(@($label_key,$label_kata,$label_genn,$comb_key,$comb_chd,$comb_genn,$check_open,$Pictbox)) 
-$flet_grp.Controls.AddRange(@($comb_ab,$comb_bb,$comb_db,$comb_eb,$comb_gb,$label_chd,$label_flet,$box_flet,$box_chd))
+$flet_grp.Controls.AddRange(@($comb_ab,$comb_bb,$comb_db,$comb_eb,$comb_gb,$label_chd,$label_flet,$box_flet,$box_chd,$import_chd_btn))
 $mml_grp.Controls.AddRange(@($label_prefix,$label_apeg,$label_exp,$label_oct,$label_mtr,$label_tainum,$label_taimark))
 $mml_grp.Controls.AddRange(@($comb_apeg,$comb_prefix,$comb_trk,$comb_oct,$comb_tai,$nmud_trk,$nmud_tai))
 $mml_grp.Controls.AddRange(@($lisn_btn,$stop_btn,$import_btn,$box_trk,$box_apeg,$box_mml,$box_mtr))
@@ -3386,7 +3564,7 @@ $frm_arp.Controls.AddRange(@($arp_mnu,$chd_grp,$flet_grp,$mml_grp,$arp_stus))
 		$comb_genn.SelectedItem,
 		$check_open.CheckState
 
-  [array]$flet_setting= Chd_chk $chord_select $cd
+  [array]$flet_setting= Fret_build $chord_select $cd
 
 
   [array]$blk= $comb_ab.SelectedItem,
@@ -3395,7 +3573,7 @@ $frm_arp.Controls.AddRange(@($arp_mnu,$chd_grp,$flet_grp,$mml_grp,$arp_stus))
 		$comb_eb.SelectedItem,
 		$comb_gb.SelectedItem
 
-  [array]$mml_setting= Flet_chk $blk $flet_setting
+  [array]$mml_setting= Chd_build $blk $flet_setting
 
   [array]$track_parm= Trk_split $box_trk.Text
 
