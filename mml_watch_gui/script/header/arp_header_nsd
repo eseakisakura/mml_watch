@@ -1,7 +1,7 @@
-﻿// track_parameter %%Ev20 Q2 l8 v15 @2%% 
-#Code "nsd_all.bin"
+﻿#Code "nsd_all.bin" 
 #Bank
 #timebase 24 //l4
+// track_parameter %%Ev20 Q2 l8 v15 @2%%
 
 BGM(0){ t150
 // replace parameter

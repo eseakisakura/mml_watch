@@ -1,6 +1,6 @@
 ﻿<# mml_watch.ps1 #> 
 
-Write-Host ('"mml watch"を起動します'+ "`r`n")
+Write-Host ('"mml watch"を起動します')
  
 $xml_watch= @' 
 <table>
@@ -466,7 +466,7 @@ function Wait_setpath(){
  } #func
   
 # toggle 
-	 
+	
 function Toggle_label(){ 
 
 
@@ -781,7 +781,7 @@ function Auto_start([string]$t){
  } #func
   
 # hash 
-	 
+	
 function Helpxml_read($x){ 
 
   # $x= $script:set_xml.table
@@ -919,7 +919,7 @@ function Comline([string]$t){
 
 	return $ss
 } #func
- 	 
+  
 Add-Type -AssemblyName System.Windows.Forms > $null 
 
 $ErrorActionPreference= "Stop"
@@ -928,7 +928,7 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 [Environment]::CurrentDirectory= pwd # working_dir set
  
 # Form 
-	 
+	
 $err_box= New-Object System.Windows.Forms.TextBox 
 $err_box.Size= "220,55"
 $err_box.Location= "10,55"
@@ -1553,13 +1553,13 @@ $wait.Add_Changed({	# event func入れ子は一段が理想..
 # function Wthwrite_xml($x,$y){
 # $opt $script:opt
  
-#			xml.string 
-#			reset
-#			v
+#				xml.string 
+#				reset
+#				v
 # xml.file	show->	xml.mem		->hash		->List
-# $val[""]				[key,value]	[key]
-#					foreach etc.
+# $val[""]			[key,value]	[key]
+#				foreach etc.
 #
-#		<- ok			<-close
-#		X- cancel
- 
+#			<- ok			<-close
+#			X- cancel
+ 	

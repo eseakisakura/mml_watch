@@ -1,6 +1,6 @@
-﻿// track_parameter %%@vr20 q4 l8 v15 @2%% 
-#EX-VRC7
+﻿#EX-VRC7 
 #EX-MMC5
+// track_parameter %%@vr20 q4 l8 v15 @2%%
 
 ABCDEGHIJKLab t150 ; @t4,24 tempo
 

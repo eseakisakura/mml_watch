@@ -1,6 +1,6 @@
 ﻿<# fm_editor.ps1 #> 
 
-Write-Host ('"FM音色エディタ"を起動します'+ "`r`n")
+Write-Host ('"FM音色エディタ"を起動します')
  
 $xml_editor= @' 
 <table>
@@ -31,7 +31,7 @@ $xml_editor= @'
 		<dos value=""/>
 		<edt value=""/>
 	</val>
-	<presetstore name="" param="">
+	<presetstore name="" number="" param="">
 	<!-- preset importため -->
 		<vrc>
 			<M1 value="" />
@@ -54,7 +54,7 @@ $xml_editor= @'
 			<CA value="" />
 		</opm>
 	</presetstore>
-	<resetting name="" param="">
+	<resetting name="" number="" param="">
 	<!-- Reset Parameter用、正常chkため -->
 		<vrc>
 			<M1 value="" />
@@ -77,7 +77,7 @@ $xml_editor= @'
 			<CA value="" />
 		</opm>
 	</resetting>
-	<autosave name="" param="">
+	<autosave name="" number="" param="">
 		<vrc>
 			<M1 value="" />
 			<CA value="" />
@@ -100,49 +100,49 @@ $xml_editor= @'
 		</opm>
 	</autosave>
 	<slot>
-		<A name="" param="">
+		<A name="" number="" param="">
 			<M3 value="" />
 			<M2 value="" />
 			<M1 value="" />
 			<CA value="" />
 		</A>
-		<B name="" param="">
+		<B name="" number="" param="">
 			<M3 value="" />
 			<M2 value="" />
 			<M1 value="" />
 			<CA value="" />
 		</B>
-		<C name="" param="">
+		<C name="" number="" param="">
 			<M3 value="" />
 			<M2 value="" />
 			<M1 value="" />
 			<CA value="" />
 		</C>
-		<D name="" param="">
+		<D name="" number="" param="">
 			<M3 value="" />
 			<M2 value="" />
 			<M1 value="" />
 			<CA value="" />
 		</D>
-		<E name="" param="">
+		<E name="" number="" param="">
 			<M3 value="" />
 			<M2 value="" />
 			<M1 value="" />
 			<CA value="" />
 		</E>
-		<F name="" param="">
+		<F name="" number="" param="">
 			<M3 value="" />
 			<M2 value="" />
 			<M1 value="" />
 			<CA value="" />
 		</F>
-		<G name="" param="">
+		<G name="" number="" param="">
 			<M3 value="" />
 			<M2 value="" />
 			<M1 value="" />
 			<CA value="" />
 		</G>
-		<H name="" param="">
+		<H name="" number="" param="">
 			<M3 value="" />
 			<M2 value="" />
 			<M1 value="" />
@@ -155,7 +155,7 @@ $xml_editor= @'
 # function ====== 
  
 # poly 
-	
+	 
 function Monotone_select([string]$out){ 
 
 	switch($key["color"]){
@@ -1204,7 +1204,7 @@ function Sin_chg(){
  } #func
   
 # alg 
-	
+	 
 function Attend_alg([int]$j){ 
 
 	switch($j){
@@ -2147,7 +2147,7 @@ function All_chg(){ # $vrc_svn[][] ha "__1" no string
 # ------ 
  
 # load save 
-	
+	 
 function Autoload($x){ 
 
 	if($comb_fm.SelectedItem -ne $x.name){
@@ -2155,6 +2155,9 @@ function Autoload($x){
 		# $comb_fm.Add_SelectedValueChanged
 		$comb_fm.SelectedItem= $x.name
 	}
+
+	Opmap_change $x.number
+
 
 	[array]$r= @("","")
 	$r[0]= $x.vrc.M1.value -split ","
@@ -2189,6 +2192,7 @@ function Autoload($x){
 function Autosave($x){ 
 
 	$x.name= $comb_fm.SelectedItem
+	$x.number= [string](Idx)
 	$x.param= "AutoSave : "+ (Get-Date).ToString("yyyy/MM/dd HH:mm")
 
 
@@ -2236,6 +2240,7 @@ function Write_slot([string]$sw){
 	} #sw
 
 	$x.name= $comb_fm.SelectedItem
+	$x.number= [string](Idx)
 	$x.param= $sub_sav_box.Text+ " : "+ (Get-Date).ToString("yyyy/MM/dd HH:mm")
 
 
@@ -2391,27 +2396,35 @@ function Load_value($x, [string]$sw){
 
   switch($sw){
   'A'{	$comb_fm.SelectedItem= $x.A.name # $comb_fm change
+	Opmap_change $x.A.number
 	Slot_read $x.A
 	break;
   }'B'{	$comb_fm.SelectedItem= $x.B.name
+	Opmap_change $x.B.number
 	Slot_read $x.B
 	break;
   }'C'{	$comb_fm.SelectedItem= $x.C.name
+	Opmap_change $x.C.number
 	Slot_read $x.C
 	break;
   }'D'{	$comb_fm.SelectedItem= $x.D.name
+	Opmap_change $x.D.number
 	Slot_read $x.D
 	break;
   }'E'{	$comb_fm.SelectedItem= $x.E.name
+	Opmap_change $x.E.number
 	Slot_read $x.E
 	break;
   }'F'{	$comb_fm.SelectedItem= $x.F.name
+	Opmap_change $x.F.number
 	Slot_read $x.F
 	break;
   }'G'{	$comb_fm.SelectedItem= $x.G.name
+	Opmap_change $x.G.number
 	Slot_read $x.G
 	break;
   }'H'{	$comb_fm.SelectedItem= $x.H.name
+	Opmap_change $x.H.number
 	Slot_read $x.H
   }
   } #sw
@@ -2430,7 +2443,7 @@ function Load_value($x, [string]$sw){
  } #func
   
 # hash 
-	
+	 
 function Fmxml_read($x,$y){ # hash設定 
 
 	# $x= $script:fm_xml.table.val
@@ -2536,7 +2549,7 @@ function Fmwrite_xml($x,$y){
  } #func
   
 # gui 
-	
+	 
 function Trayfm_hide([string]$t){ 
 
 	switch($t){
@@ -3009,7 +3022,7 @@ function MSop_checker([int]$i, [string]$ss){ # Mask,SSG
  } #func
   
 # Panel 
-	
+	 
 function Enable_chk([string]$s){ 
 
 	[int[]]$num= 0,0
@@ -3640,7 +3653,7 @@ function Panel_chg([string]$sw){
  } #func
   
 # Lis 
-	 
+	
 function Adv_edit([string]$t){ 
 
   switch($t){
@@ -4134,7 +4147,7 @@ function Key_down([string]$t){
   }
   } #sw
  } #func
- 	
+ 
 function Key_play([string]$t){ 
 
   switch($t){
@@ -5978,7 +5991,7 @@ $sb_alg.Add_FormClosing({
 })
  
 $sb_mnu= New-Object System.Windows.Forms.MenuStrip 
-	
+	 
 $sb_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $sb_menu_f.Text= "File"
 
@@ -8982,7 +8995,7 @@ $opl_alg_grp.Controls.AddRange(@($opl_trkbar_alg,$opl_nmud_alg,$opl_lbl_alg))
 $opl_alg_grp.Controls.AddRange(@($opl_trkbar_fb,$opl_nmud_fb,$opl_lbl_fb))
   
 # OPN 
-	 
+	
 $opn_eg_grp= New-Object System.Windows.Forms.GroupBox 
 $opn_eg_grp.Location= "10,30"
 $opn_eg_grp.Size= "230,200"
@@ -9869,14 +9882,14 @@ $opn_alg_grp.Controls.AddRange(@($opn_trkbar_alg,$opn_nmud_alg,$opn_lbl_alg))
 $opn_alg_grp.Controls.AddRange(@($opn_trkbar_fb,$opn_nmud_fb,$opn_lbl_fb))
   
 # OPM 
-	 
+	
 $opm_eg_grp= New-Object System.Windows.Forms.GroupBox 
 $opm_eg_grp.Location= "10,30"
 $opm_eg_grp.Size= "230,200"
 $opm_eg_grp.Text= "Envelope"
 $opm_eg_grp.FlatStyle= "Flat"
 #$opm_eg_grp.Hide() #$eg_grp.Show()
-	 
+	
 # ------ AR - AttackRate 31-0 
  
 $opm_trkbar_ar= New-Object System.Windows.Forms.TrackBar 
@@ -10148,7 +10161,7 @@ $opm_lev_grp.Location= "10,235"
 $opm_lev_grp.Size= "230,80"
 $opm_lev_grp.Text= "Sustain Level"
 $opm_lev_grp.FlatStyle= "Flat"
-	 
+	
 # ------ SL - SustainLevel 0-15 
  
 $opm_trkbar_sl= New-Object System.Windows.Forms.TrackBar 
@@ -10222,7 +10235,7 @@ $opm_ring_grp.Location= "250,30"
 $opm_ring_grp.Size= "230,140"
 $opm_ring_grp.Text= "Effects Control"
 $opm_ring_grp.FlatStyle= "Flat"
-	 
+	
 # ------ KS - KeyScaling 0-3 / env length 
  
 $opm_trkbar_ks= New-Object System.Windows.Forms.TrackBar 
@@ -10478,7 +10491,7 @@ $opm_op_grp.Location= "250,175"
 $opm_op_grp.Size= "230,140"
 $opm_op_grp.Text= "Frequency Modulation"
 $opm_op_grp.FlatStyle= "Flat"
-	 
+	
 # ------ ML - Multiple 0-15 
  
 $opm_trkbar_ml= New-Object System.Windows.Forms.TrackBar 
@@ -10618,7 +10631,7 @@ $opm_alg_grp.Location= "10,320"
 $opm_alg_grp.Size= "285,80"
 $opm_alg_grp.Text= "Algorithm / Feedback"
 $opm_alg_grp.FlatStyle= "Flat"
-	 
+	
 # ------ ALG - Algorithm 0-7 
  
 $opm_trkbar_alg= New-Object System.Windows.Forms.TrackBar 
@@ -12371,7 +12384,7 @@ $fm_stus.Items.AddRange(@($fm_label))
 $frm_fm.Controls.AddRange(@($fm_mnu,$fm_panel,$fm_box,$fm_stus))
    
 # Global variable ====== 
-	 
+	
 # color setting 
 
  try{
@@ -12936,7 +12949,7 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
   $header["fm_header_nsd"]= (cat '.\header\fm_header_nsd' | Out-String)
   $header["fm_header_pmd"]= (cat '.\header\fm_header_pmd' | Out-String)
 
-  # box header 読み込み
+  # box header メモリ読み込み
   $box_header["vrc"]= (cat '.\header\fm_box_vrc' | Out-String)
   $box_header["vrc_mckreg"]= (cat '.\header\fm_box_vrc_mckreg' | Out-String)
   $box_header["vrc_nsdreg"]= (cat '.\header\fm_box_vrc_nsdreg' | Out-String)
@@ -13005,7 +13018,7 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 
   if($fm_xml.table.autosave.name -eq ""){ # 初回起動ため
 
-	Autosave $script:fm_xml.table.autosave # 空値を埋めておく
+	Autosave $script:fm_xml.table.autosave # 初動の値で埋めておく debug
   }
 
   if($key["autosave"] -eq 'True'){
@@ -13014,6 +13027,7 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
   }else{
 	Autoload $fm_xml.table.resetting # auto:off
   }
+
 
 
   [bool]$event_change= $True # 多重ロード防止
