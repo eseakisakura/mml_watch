@@ -1,33 +1,33 @@
-alpha�łɂ���.txt ------
+﻿alpha版について.txt ------
 
-�@==== alpha�łɂ��� ====
+　==== alpha版について ====
 
-�@�EPowershell 7.0(.NET5)�ȏ�ł̉^�p
+　・Powershell 7.0(.NET5)以上での運用
 
-�@���݁Amml_watch�Ŏg�p����pwsh����"filesystemwatcher"�̎����ɖ�肪���邽�߁A
-�@mml�t�@�C�����㏑������ƁA�������肪����܂��B
+　現在、mml_watchで使用するpwsh側の"filesystemwatcher"の実装に問題があるため、
+　mmlファイルを上書きすると、落ちる問題があります。
 
-�@�����e�X�g����̂ł���΁A"alpha�t�H���_"�ɂ���e�N���t�@�C�����A
-�@mml_watch.exe�̂���t�H���_�ֈړ����Ďg�p���܂��B
-
-
-�@---- "pwsh.exe"�ւ�Path��ǉ�����ꍇ ----
-
-�@# �ꎞ�p�X
-�@�@$Env:Path+= ";pwsh.exe�ւ̃t�H���_"
-
-�@# �i���I�ȃp�X
-�@(win10 21H2�̏ꍇ)
-
-�@�@[�ݒ�] - �V�X�e�� - �ڍ׏�� - �V�X�e���̏ڍאݒ�
-
-�@�@[�V�X�e���̃v���p�e�B] - ���ϐ� - Path
-
-�@�@Path���ϐ���"pwsh.exe�ւ̃t�H���_"��ǉ�����B
-
-�@---- ----
+　テストするのであれば、"alphaフォルダ"にある各起動ファイルを、
+　mml_watch.exeのあるフォルダへ移動して使用します。
 
 
-�@==== �N���X�v���b�g�t�H�[���Ή��ɂ��� ====
+　---- "pwsh.exe"へのPathの追加 ----
 
-�@�N���X�N���v�g"Watch.sh"���Q�l�ɂ��Ă݂ĉ������B
+　# 一時パス
+　　$Env:Path+= ";pwsh.exeへのフォルダ"
+
+　# 永続的なパス
+　(win10 21H2の場合)
+
+　　[設定] - システム - 詳細情報 - システムの詳細設定
+
+　　[システムのプロパティ] - 環境変数 - Path
+
+　　Path環境変数に"pwsh.exeへのフォルダ"を追加する。
+
+　---- ----
+
+
+　==== クロスプラットフォーム対応について ====
+
+　起動スクリプト"Watch.sh"を参考にしてみて下さい。

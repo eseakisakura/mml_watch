@@ -593,9 +593,9 @@
 	10		Reg_exp,Fmx_expのerr popup部修正
 
 	11 25	初動からの安定性を上げた、Change_value周りの最適化
-	12 3		$fm_menu_type_mckreg.Add_Click周りのイベントbugfix
-			Presetのtab変更時のイベントbugfix
-	17		初動時のPreset_readエラーbugfix
+	12 3		$fm_menu_type_mckreg.Add_Click周りのイベントコンパイラ選択bugfix
+			Presetのtab変更時のイベントコンパイラ選択bugfix
+	17		初動時のPreset_readエラーによる処理落ちbugfix
 
 '22	1 11		send機能を付けた
 	24		セーブ時、Operator numberを記録するようにした

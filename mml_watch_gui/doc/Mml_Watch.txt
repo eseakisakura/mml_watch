@@ -571,7 +571,7 @@
 			Mkmckのパス106byte overのエラーを出力するようにした
 
 '22	1 13		player directを廃止、player,editor登録を8つへ拡張した
-	15		コンパイルのみを追加した、Watch_Startのbugfix、Toggle_sw周りの修正
+	15		コンパイルのみを追加した、Watch_Start真偽のbugfix、Toggle_sw周りの修正
 			Test-PathをChk_pathへ全て変更した
 
 			4.5正式版として、Githubへupload

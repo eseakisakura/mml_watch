@@ -799,7 +799,7 @@ function Mml_select([string]$sw){
 
 		$arp_menu_fix.Enabled= $False
 
-		$box_trk.Text= "A0  B0  C0  D0"
+		$box_trk.Text= "A0  A1  A2  A3"
 		$comb_trk.SelectedIndex= 1
 
 		$comb_oct.SelectedItem= "< >"
@@ -905,7 +905,7 @@ function Arpwrite_xml($x,$y){
  } #func
   
 # Chord select 
-	
+	 
 function Gen_num([string]$kk,[string]$gg){ 
 
 	$r= @{}
@@ -1135,7 +1135,7 @@ $rr[0]=	'"e', '"f',('"'+ $b[4]),'"g',('"'+ $b[0]),'"a',('"'+ $b[1]),'"b', 'c',$b
 
 
 
-	[array]$qq= "x","x","x", "x","x","x"
+	[array]$qq= "z","z","z", "z","z","z"
 
 	for([int]$i= 0; $i -lt 6; $i++){
 
@@ -1173,36 +1173,64 @@ $rr[0]=	'"e', '"f',('"'+ $b[4]),'"g',('"'+ $b[0]),'"a',('"'+ $b[1]),'"b', 'c',$b
 function Importer_chd([string]$mm){ 
 
 	[array]$rr= $mm.ToCharArray()
+	$rr+= "$"
+
 	[string]$dd= ""
 	[string]$ss= ""
+
 	[array]$out= @()
 	[int]$sw= 0
 	[int]$i= 0
 
-	foreach($dd in $rr){
+  foreach($dd in $rr){
 
+	  if($sw -eq 5){ # a4
 		switch($dd){
-		'<'{ $i--; break
-		}'>'{ $i++; break
-		}'a'{ $sw= 1; break
-		}'b'{ $sw= 1; break
-		}'c'{ $sw= 1; break
-		}'d'{ $sw= 1; break
-		}'e'{ $sw= 1; break
-		}'f'{ $sw= 1; break
-		}'g'{ $sw= 1; break
-		}default{ $ss+= $dd
-		}
-		} #sw
+		'+'{ $ss+= $dd; break
+		}'-'{ $ss+= $dd; break
+		}'#'{ $ss+= $dd; break
+		}default{
+			$i+= $j
+			$ss= (Oct_number $i '"' '`')+ $ss
+			$i= 0
 
-		if($sw){
-			$ss+= (Oct_number $i '"' '`')
-			$ss+= $dd
 			$out+= $ss
 			$ss= ""
 			$sw= 0
 		}
-	} #
+		} #sw
+	}
+	if($sw -eq 0){
+		if($dd -eq '$'){ break; }
+
+		switch($dd){
+		'<'{ $j--; break
+		}'>'{ $j++; break
+		}'"'{ $i--; break
+		}'`'{ $i++; break
+		}'a'{ $ss+= $dd; $sw= 5; break
+		}'b'{ $ss+= $dd; $sw= 5; break
+		}'c'{ $ss+= $dd; $sw= 5; break
+		}'d'{ $ss+= $dd; $sw= 5; break
+		}'e'{ $ss+= $dd; $sw= 5; break
+		}'f'{ $ss+= $dd; $sw= 5; break
+		}'g'{ $ss+= $dd; $sw= 5; break
+		}'z'{ $ss+= $dd; $sw= 5; break
+		}default{ # ' ' etc.
+		}
+		} #sw
+	}
+  } #
+
+	if($sw -ne 0){ Write-Host ("Importer_chd ERR >> "+ $sw) }
+
+	if($out.Length -lt 6){
+
+		[int]$len= 6- $out.Length
+		for([int]$i= 0; $i -lt $len; $i++){
+			$out+= "z"
+		} #
+	}
 
 	if($comb_oct.SelectedItem -eq "< >"){
 		$box_chd.Text= Oct_hogen ($out -join '')
@@ -1344,12 +1372,16 @@ function Oct_hogen([string]$mm){
 		$kk++
 	} #
 
-	##$j= -$j ##+ $i
-	## $output+= (Oct_number $j "<" ">")
 
+	$j= -$j # koreo irenaito err
+
+	## $output+= (Oct_number $j "<" ">")
 	##if($j -ne 0){
-	$out= $out.Insert($kk, (Oct_number -$j "<" ">"))
+
+	$out= $out.Insert($kk, (Oct_number $j "<" ">")) # -$j deha err
+
 	##}
+
 	$out= $out.Replace('"', '')
 	$out= $out.Replace('`', '')
 
@@ -1427,16 +1459,23 @@ function Wait_hogen([string]$mm){
 function Importer([string]$mm){ 
 
 	[array]$rr= $mm.ToCharArray()
+	$rr+= "$"
+
 	[string]$dd= ""
 	[string]$out= ""
 	[int]$sw= 0
 	[int]$i= 0
+	[int]$j= 0
 
 	foreach($dd in $rr){
 
+		if($dd -eq '$'){ break; } # loop break
+
 		switch($dd){
-		'<'{ $i--; break
-		}'>'{ $i++; break
+		'<'{ $j--; break
+		}'>'{ $j++; break
+		}'"'{ $i--; break
+		}'`'{ $i++; break
 		}'a'{ $sw= 1; break
 		}'b'{ $sw= 1; break
 		}'c'{ $sw= 1; break
@@ -1449,11 +1488,14 @@ function Importer([string]$mm){
 		} #sw
 
 		if($sw){
+			$i+= $j
 			$out+= (Oct_number $i '"' '`')
 			$out+= $dd
+			$i= 0
 			$sw= 0
 		}
 	} #
+
 	return $out
  } #func
  
@@ -1497,8 +1539,8 @@ function Xyz_sorter([string]$mm){
 function Mml_gene([int]$trk, [int]$tai_count, [string]$mm){ 
 
 	[array]$brr= $mm.ToCharArray()
+	$brr+= "$" # last $num= 0 tame
 
-	[array]$brr+= "$" # last $num= 0 tame
 	[string]$dd= ""
 
 	[array]$taic= 0;		$taic*= $trk
@@ -1515,12 +1557,19 @@ function Mml_gene([int]$trk, [int]$tai_count, [string]$mm){
 
 foreach($dd in $brr){
 
-  if($sw -eq 5){ # a4
+  if($sw -eq 10){ # a+
 	switch($dd){
 	'+'{ $tt+= $dd; break
 	}'-'{ $tt+= $dd; break
 	}'#'{ $tt+= $dd; break
-	}'0'{ $ss+= $dd; break
+	}default{
+		$sw= 5
+	}
+	} #sw
+  }
+  if($sw -eq 5){ # a+4
+	switch($dd){
+	'0'{ $ss+= $dd; break
 	}'1'{ $ss+= $dd; break
 	}'2'{ $ss+= $dd; break
 	}'3'{ $ss+= $dd; break
@@ -1589,18 +1638,16 @@ foreach($dd in $brr){
 	'^'{	$set= $dd; $sw= 5; break
 	}'r'{	$set= $dd; $sw= 5; break
 
-	}'<'{	$tt+= $dd;	break
-	}'>'{	$tt+= $dd;	break
 	}'"'{	$tt+= $dd;	break
 	}'`'{	$tt+= $dd;	break
 
-	}'a'{	$tt+= $dd; $set= "a-g"; $sw= 5; break
-	}'b'{	$tt+= $dd; $set= "a-g"; $sw= 5; break
-	}'c'{	$tt+= $dd; $set= "a-g"; $sw= 5; break
-	}'d'{	$tt+= $dd; $set= "a-g"; $sw= 5; break
-	}'e'{	$tt+= $dd; $set= "a-g"; $sw= 5; break
-	}'f'{	$tt+= $dd; $set= "a-g"; $sw= 5; break
-	}'g'{	$tt+= $dd; $set= "a-g"; $sw= 5; break
+	}'a'{	$tt+= $dd; $set= "a-g"; $sw= 10; break
+	}'b'{	$tt+= $dd; $set= "a-g"; $sw= 10; break
+	}'c'{	$tt+= $dd; $set= "a-g"; $sw= 10; break
+	}'d'{	$tt+= $dd; $set= "a-g"; $sw= 10; break
+	}'e'{	$tt+= $dd; $set= "a-g"; $sw= 10; break
+	}'f'{	$tt+= $dd; $set= "a-g"; $sw= 10; break
+	}'g'{	$tt+= $dd; $set= "a-g"; $sw= 10; break
 	}' '{
 		for([int]$j= 0; $j -lt $trk; $j++){
 			$out[$j]+= " "
@@ -1622,15 +1669,11 @@ foreach($dd in $brr){
  	
 function Mml_replace([string]$ss){ 
 
-	$ss= Importer $ss
-	#write-host $ss
-
 	[int]$trk= $nmud_trk.Value
 	[int]$tai_count= $nmud_tai.Value
 
 	[array]$rr= ""; $rr*= $trk
 	$rr= Mml_gene $trk $tai_count $ss
-
 
 	for([int]$i= 0; $i -lt $trk; $i++){
 
@@ -1660,22 +1703,43 @@ function Mml_replace([string]$ss){
 	return ($rr -join "`r`n")
  } #func
  
+function Mml_Thru([string]$ss){ 
+
+	if($comb_oct.SelectedItem -eq "< >"){
+		$ss= Oct_hogen $ss
+	}
+
+	if($comb_tai.SelectedItem -eq "&"){
+		$ss= Tai_hogen $ss
+
+	}elseif($comb_tai.SelectedItem -eq "w"){
+		$ss= Wait_hogen $ss
+	}
+
+	return $ss
+ } #func
+ 
 function Apeg_mml([string]$mm){ # <- $box_mml.Text 
 
 	[string[]]$ss= $mm -split "`r`n"
 
 	[int]$gth= $ss.Length
 
+	[array]$srr= ""; $srr*= $gth
 	[array]$mrr= ""; $mrr*= $gth
 
 	for([int]$i= 0; $i -lt $gth; $i++){ # gyoh tann i
 
 		if($ss[$i].Length -ne 0){ # kuh gyoh
 
+			$ss[$i]= Importer $ss[$i]
+
+			$srr[$i]= Mml_Thru $ss[$i]
 			$mrr[$i]= Mml_replace $ss[$i]
 		}
 	} #
 
+	$box_mml.Text= $srr -join "`r`n"
 	$box_mtr.Text= $mrr -join "`r`n"
  } #func
  
@@ -1688,6 +1752,8 @@ function Number_gene([int]$trk, [int]$tai_count, [string]$mm){
 #	zzzzzz5y
 
 	[array]$brr= $mm.ToCharArray()
+	$brr+= "$"
+
 	[string]$dd= ""
 
 	[array]$taic= 0;		$taic*= $trk
@@ -1697,6 +1763,8 @@ function Number_gene([int]$trk, [int]$tai_count, [string]$mm){
 	[int]$num= 0 # "^" tame
 
 	foreach($dd in $brr){
+
+		if($dd -eq '$'){ break; }
 
 		switch($dd){
 		'^'{
@@ -1803,7 +1871,7 @@ function Number_replace([string]$ss){
 	return ($rr -join "`r`n")
  } #func
  
-function Thru_replace([string]$ss){ 
+function Number_thru([string]$ss){ 
 
 	[array]$qq= $mml_setting
 
@@ -1828,7 +1896,7 @@ function Thru_replace([string]$ss){
 	return $ss
  } #func
  
-function Apeg([string]$mm){ 
+function Apeg([string]$mm){ # <- $box_apeg.Text 
 
 	[string[]]$ss= $mm -split "`r`n"
 
@@ -1841,7 +1909,7 @@ function Apeg([string]$mm){
 
 		if($ss[$i].Length -ne 0){ # kuh gyoh
 
-			$srr[$i]= Thru_replace $ss[$i]
+			$srr[$i]= Number_thru $ss[$i]
 			$mrr[$i]= Number_replace $ss[$i]
 		}
 	} #
@@ -1982,7 +2050,7 @@ function Keydown_arp([string]$t){
   } #sw
  } #func
  
-function Unredo_arp([int]$n){ 
+function Unredo_arp([int]$n){ 	
 
   switch($n){
   2{
@@ -2672,8 +2740,8 @@ $import_btn.Add_Click({
 })
  
 $label_mml_exp= New-Object System.Windows.Forms.Label 
-$label_mml_exp.Text= '[l q]["`<>] [a-g] [#+-] [0-9] [ ^ ] [ r ]'
-$label_mml_exp.Size= "200,20"
+$label_mml_exp.Text= '["`<>] [a-g] [#+-] [0-9] [ ^ ] [ r ]'
+$label_mml_exp.Size= "180,20"
 $label_mml_exp.Location= "45,170"
 $label_mml_exp.ForeColor= "Gray"
 $label_mml_exp.TextAlign= "BottomLeft"
