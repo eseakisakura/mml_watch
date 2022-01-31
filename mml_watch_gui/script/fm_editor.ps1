@@ -155,7 +155,7 @@ $xml_editor= @'
 # function ====== 
  
 # poly 
-	 
+	
 function Monotone_select([string]$out){ 
 
 	switch($key["color"]){
@@ -771,7 +771,7 @@ function Poly_chw(){
  } #func
   
 # sine 
-	
+	 
 function Reso([int]$b){ 
 
 	[int]$script:count= $img[0]/ $b
@@ -892,13 +892,15 @@ function Sin_4op([array]$rc,[int]$alg,[int]$fbj){ # 4op sin render
 
 # -0.75dB* [0-127] として計算
 
+ [float]$atai= -0.75/ $adj_value
 
  [float[]]$rdus= @(0,0,0,0)
 
- $rdus[0]= [Math]::Pow(10, (-0.0375* $tl[0]))* $adj_value
- $rdus[1]= [Math]::Pow(10, (-0.0375* $tl[1]))* $adj_value
- $rdus[2]= [Math]::Pow(10, (-0.0375* $tl[2]))* $adj_value
- $rdus[3]= [Math]::Pow(10, (-0.0375* $tl[3]))* $adj_value
+ $rdus[0]= [Math]::Pow(10, ($atai* $tl[0]))* $adj_value
+ $rdus[1]= [Math]::Pow(10, ($atai* $tl[1]))* $adj_value
+ $rdus[2]= [Math]::Pow(10, ($atai* $tl[2]))* $adj_value
+ $rdus[3]= [Math]::Pow(10, ($atai* $tl[3]))* $adj_value
+ ## $rdus[0]= [Math]::Pow(10, (-0.0375* $tl[0]))* $adj_value
  # [Math]::Pow(10, (-0.0375* 0))= 1
 
 
@@ -1023,7 +1025,7 @@ function Sin_4op([array]$rc,[int]$alg,[int]$fbj){ # 4op sin render
  
 function Sin_2op([array]$rc,[int]$alg,[int]$fbj){ # 2op sin render 
 
- [int]$adj_value= $key["adjust"]
+ [int]$adj_value= $key["adjust"] # <- (-0.75*$tl[0]/ [[20]])
  [array]$color_pen= @($Mpen,$Cpen)
 
 
@@ -1031,8 +1033,9 @@ function Sin_2op([array]$rc,[int]$alg,[int]$fbj){ # 2op sin render
  [float]$adjv= $height/ $adj_value # 度合い
 
 
- [float[]]$feb= @(0, 0.0625, 0.125, 0.25, 0.5, 1,2,4) # 変調度 0,(1/16),(1/8),(1/4), (1/2),1,2,4
- [float]$feedback= $feb[$fbj]* $radian/ $adj_value # あらかじめ等倍化
+ [float[]]$feb= @(0, 0.0625, 0.125, 0.25, 0.5, 1,2,4)
+ # 変調度 0,(1/16),(1/8),(1/4), (1/2), 1,2,4
+ [float]$feedback= $feb[$fbj]* $radian/ $adj_value # 移動平均ため
 
 
  [int[]]$dist= @($rc[0][2],$rc[1][2]) # 半整流
@@ -1045,11 +1048,13 @@ function Sin_2op([array]$rc,[int]$alg,[int]$fbj){ # 2op sin render
 
 # -0.75dB* [0-63] として計算
 
+ [float]$atai= -0.75/ $adj_value
 
  [float[]]$rdus= @(0,0)
 
- $rdus[0]= [Math]::Pow(10, (-0.0375* $tl[0]))* $adj_value # (-0.75*$tl[0]/ 20) -> -0.0375
- $rdus[1]= [Math]::Pow(10, (-0.0375* $tl[1]))* $adj_value
+ $rdus[0]= [Math]::Pow(10, ($atai* $tl[0]))* $adj_value
+ $rdus[1]= [Math]::Pow(10, ($atai* $tl[1]))* $adj_value
+ ## $rdus[0]= [Math]::Pow(10, (-0.0375* $tl[0]))* $adj_value # (-0.75*$tl[0]/ 20) -> -0.0375
 
  if($bai -ne 1){
 
@@ -1060,7 +1065,7 @@ function Sin_2op([array]$rc,[int]$alg,[int]$fbj){ # 2op sin render
  [float[]]$ye= @(0,0,0) # 2op
 
  [int]$loop= $count
- [array]$xy= $sin_pos # "0"のブロック
+ [array]$xy= $sin_pos # "0"の変数ブロック
  [array]$sine= $sin_map # gbl -> localへメモリアクセス
 
  [int]$i= 0
@@ -1114,7 +1119,7 @@ function Sin_2op([array]$rc,[int]$alg,[int]$fbj){ # 2op sin render
  $buffx.Graphics.DrawLines($color_pen[1], $pointing[1])
 
  } #func
- 
+ 	
 # ------ 
  
 function Sin_chw(){ 
@@ -1204,7 +1209,7 @@ function Sin_chg(){
  } #func
   
 # alg 
-	 
+	
 function Attend_alg([int]$j){ 
 
 	switch($j){
@@ -2147,7 +2152,7 @@ function All_chg(){ # $vrc_svn[][] ha "__1" no string
 # ------ 
  
 # load save 
-	 
+	
 function Autoload($x){ 
 
 	if($comb_fm.SelectedItem -ne $x.name){
@@ -2549,7 +2554,7 @@ function Fmwrite_xml($x,$y){
  } #func
   
 # gui 
-	 
+	
 function Trayfm_hide([string]$t){ 
 
 	switch($t){
@@ -3022,7 +3027,7 @@ function MSop_checker([int]$i, [string]$ss){ # Mask,SSG
  } #func
   
 # Panel 
-	 
+	
 function Enable_chk([string]$s){ 
 
 	[int[]]$num= 0,0
@@ -7093,7 +7098,7 @@ $sub_sav.CancelButton= $sub_sav_cancel_Btn	# [ESC]
 $sub_sav.AcceptButton= $sub_sav_ok_Btn		# [Enter]
   
 # Main forms 
-	 
+	
 # VRC7 
 	
 $vrc_eg_grp= New-Object System.Windows.Forms.GroupBox 
@@ -12384,7 +12389,7 @@ $fm_stus.Items.AddRange(@($fm_label))
 $frm_fm.Controls.AddRange(@($fm_mnu,$fm_panel,$fm_box,$fm_stus))
    
 # Global variable ====== 
-	
+	 
 # color setting 
 
  try{
@@ -12899,7 +12904,7 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
  try{
 	[double]$radian= [Math]::PI
 
-	[string[]]$adjr= "14","16","18","20","22","24","26"
+	[string[]]$adjr= "17","18","19","20","21","22","23"
 
 	[int[]]$img= 160,100 # 160, 50*2 / write pict
 

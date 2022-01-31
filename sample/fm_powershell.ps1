@@ -123,7 +123,7 @@ Function Sinwave([int[]]$ttlev,[float[]]$mlpul,[int]$fedb,$pen,$lpen){
 
 
 　[double]$pi= [Math]::PI # 180度のラジアン値
-　[int]$adj_value= 20
+　[int]$adj_value= 20 # 電圧比の定数
 
 　[int]$xmax= $IMG[0]        # x軸の最終値
 　[int]$yheight= $IMG[1]/ 2  # 振幅
@@ -131,14 +131,14 @@ Function Sinwave([int[]]$ttlev,[float[]]$mlpul,[int]$fedb,$pen,$lpen){
 
 　[float[]]$rdus= @(0,0) # op.1とop.2
 
-　$rdus[0]= [Math]::Pow(10, (-0.75* $ttlev[0]/ 20))* $adj_value
-　$rdus[1]= [Math]::Pow(10, (-0.75* $ttlev[1]/ 20))* $adj_value
+　$rdus[0]= [Math]::Pow(10, (-0.75* $ttlev[0]/ $adj_value))* $adj_value # 積算
+　$rdus[1]= [Math]::Pow(10, (-0.75* $ttlev[1]/ $adj_value))* $adj_value
 
 
 　[float[]]$feb= @(0, 0.0625, 0.125, 0.25, 0.5, 1,2,4)
 　# 変調度 0,(1/16),(1/8),(1/4), (1/2),1,2,4
 
-　[float]$feedback= $feb[$fedb]* $pi/ $adj_value # あらかじめ等倍化
+　[float]$feedback= $feb[$fedb]* $pi/ $adj_value # ここは除算
 
 　[float[]]$xs= @(0,0)
 　[float[]]$ys= @(0,0)
@@ -159,8 +159,7 @@ Function Sinwave([int[]]$ttlev,[float[]]$mlpul,[int]$fedb,$pen,$lpen){
 
 　　　$ye[1]= $rdus[1]* [Math]::Sin($rad[1]+ $ye[0]) # Op2
 
-
-　　　$ye[0]= $yheight- $ye[0]* $yheight/ $adj_value # ここで$adj_valueを割って等倍化
+　　　$ye[0]= $yheight- $ye[0]* $yheight/ $adj_value # ここで除算
 　　　$ye[1]= $yheight- $ye[1]* $yheight/ $adj_value
 
 　　　$buff.Graphics.DrawLine( $pen,$xs[0],$ys[0], $i,$ye[0]) # バッファ書き込み
@@ -174,7 +173,7 @@ Function Sinwave([int[]]$ttlev,[float[]]$mlpul,[int]$fedb,$pen,$lpen){
 　　} #
 
 　} #func
- 
+ 	
 # FM波形出力の呼出し 
 
 Function Grf([string]$sw){
