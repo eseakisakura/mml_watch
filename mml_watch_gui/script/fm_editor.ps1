@@ -156,63 +156,88 @@ $xml_editor= @'
  
 # poly 
 	
+Function Line_highlight([array]$rr){ 
+
+	switch(Itm){ # Chip_position $script:xye2
+	'2op'{
+		$buffw.Graphics.FillRectangle($rr[0],$xye2[0],$xye2[1],$xye2[2],$xye2[3])
+		$buffw.Graphics.FillRectangle($rr[0],$xye2[4],$xye2[5],$xye2[6],$xye2[7])
+		$buffw.Render($gpw); $Pictbw.Refresh()
+
+		sleep -m 166
+
+		$buffw.Graphics.FillRectangle($rr[1],$xye2[0],$xye2[1],$xye2[2],$xye2[3])
+		$buffw.Graphics.FillRectangle($rr[1],$xye2[4],$xye2[5],$xye2[6],$xye2[7])
+		$buffw.Render($gpw); $Pictbw.Refresh()
+
+		break;
+	}'4op'{
+		$buffb.Graphics.FillRectangle($rr[0],$xye4[0],$xye4[1],$xye4[2],$xye4[3])
+		$buffb.Graphics.FillRectangle($rr[0],$xye4[4],$xye4[5],$xye4[6],$xye4[7])
+		$buffb.Render($gpb); $Pictbg.Refresh()
+
+		sleep -m 166
+
+		$buffb.Graphics.FillRectangle($rr[1],$xye4[0],$xye4[1],$xye4[2],$xye4[3])
+		$buffb.Graphics.FillRectangle($rr[1],$xye4[4],$xye4[5],$xye4[6],$xye4[7])
+		$buffb.Render($gpb); $Pictbg.Refresh()
+	}
+	} #sw
+ } # func
+ 
 function Monotone_select([string]$out){ 
 
 	switch($key["color"]){
-	'dark'{		[int]$o= 0; break;
+	'dark'{	[int]$o= 0; break;
 	}'natural'{	[int]$o= 1; break;
 	}'pastel'{	[int]$o= 0; break;
 	}'vivid'{	[int]$o= 1
 	}
 	} #sw
 
-  switch($out){
-  'Alg_'{ # BG_set
+	switch($out){
+ 	'Alg_'{			# BG_set
 
-	switch($o){
-	0{	[array]$rr= @($Whwpen,$Whbrush,$black); break;
-	}1{	[array]$rr= @($Blwpen,$Blbrush,$white)
-	}
-	} #sw
+		switch($o){
+		0{
+			[array]$qq= @($Whwpen,$Whbrush,$black,$Blsolid)
+			break;
+		}1{
+			[array]$qq= @($Blwpen,$Blbrush,$white,$Whsolid)
+		}
+		} #sw
 
-	return $rr
-	break;
-
-  }default{ # "lisn_btn"
-
-	if($out -eq "conv_btn"){ $o+= 2 } # conv_btn sw 2,3
-
-	switch($o){
-	0{	[array]$rr= @($Tbrush,$Blsolid); break;
-	}1{	[array]$rr= @($Tbrush,$Whsolid); break;
-	}2{	[array]$rr= @($Pbrush,$Blsolid); break;
-	}3{	[array]$rr= @($Pbrush,$Whsolid)
-	}
-	} #sw
-
-	switch(Itm){ # Chip_position $script:xye2
-	'2op'{
-		$buffw.Graphics.FillRectangle($rr[0],$xye2[0],$xye2[1],$xye2[2],$xye2[3])
-		$buffw.Render($gpw); $Pictbw.Refresh()
-
-		sleep -m 166
-
-		$buffw.Graphics.FillRectangle($rr[1],$xye2[0],$xye2[1],$xye2[2],$xye2[3])
-		$buffw.Render($gpw); $Pictbw.Refresh()
-
+		return $qq
 		break;
-	}'4op'{
-		$buffb.Graphics.FillRectangle($rr[0],$xye4[0],$xye4[1],$xye4[2],$xye4[3])
-		$buffb.Render($gpb); $Pictbg.Refresh()
 
-		sleep -m 166
+	}'lisn_btn'{
 
-		$buffb.Graphics.FillRectangle($rr[1],$xye4[0],$xye4[1],$xye4[2],$xye4[3])
-		$buffb.Render($gpb); $Pictbg.Refresh()
+		switch($o){
+		0{
+			[array]$qq= @($Tbrush,$Blsolid)
+			break;
+		}1{
+			[array]$qq= @($Tbrush,$Whsolid)
+		}
+		} #sw
+
+		Line_highlight $qq
+		break;
+
+	}'conv_btn'{
+
+		switch($o){
+		0{
+			[array]$qq= @($Pbrush,$Blsolid)
+			break;
+		}1{
+			[array]$qq= @($Pbrush,$Whsolid)
+		}
+		} #sw
+
+		Line_highlight $qq
 	}
 	} #sw
-  }
-  } #sw
  } #func
  
 function Color_select([string]$out){ 
@@ -221,7 +246,7 @@ function Color_select([string]$out){
   '2op'{
 	switch($key["color"]){
 
-	'dark'{		[array]$color= @($darkblue, $darkred); break;
+	'dark'{	[array]$color= @($darkblue, $darkred); break;
 	}'natural'{	[array]$color= @($naturalblue, $naturalred); break;
 	}'pastel'{	[array]$color= @($pastelblue, $pastelred); break;
 	}'vivid'{	[array]$color= @($vividblue, $vividred)
@@ -233,7 +258,7 @@ function Color_select([string]$out){
 
 	switch($key["color"]){
 
-	'dark'{		[array]$color= @($darkblue, $darkgreen, $darkorange, $darkred); break;
+	'dark'{	[array]$color= @($darkblue, $darkgreen, $darkorange, $darkred); break;
 	}'natural'{	[array]$color= @($naturalblue,$naturalgreen, $naturalorange, $naturalred); break;
 	}'pastel'{	[array]$color= @($pastelblue, $pastelgreen, $pastelorange, $pastelred); break;
 	}'vivid'{	[array]$color= @($vividblue, $vividgreen, $vividorange, $vividred)
@@ -251,7 +276,7 @@ function Color_select([string]$out){
 
 	switch($key["color"]){
 
-	'dark'{		$brush= $Whbrush; break;
+	'dark'{	$brush= $Whbrush; break;
 	}'natural'{	$brush= $Blbrush; break;
 	}'pastel'{	$brush= $Whbrush; break;
 	}'vivid'{	$brush= $Blbrush
@@ -771,7 +796,7 @@ function Poly_chw(){
  } #func
   
 # sine 
-	 
+	
 function Reso([int]$b){ 
 
 	[int]$script:count= $img[0]/ $b
@@ -903,8 +928,9 @@ function Sin_4op([array]$rc,[int]$alg,[int]$fbj){ # 4op sin render
  ## $rdus[0]= [Math]::Pow(10, (-0.0375* $tl[0]))* $adj_value
  # [Math]::Pow(10, (-0.0375* 0))= 1
 
+ [int]$bai_value= $bai
 
- if($bai -ne 1){
+ if($bai_value -ne 1){
 
   $rdus[0]= [Math]::Round($rdus[0],4,"ToEven") # MidpointRounding.ToEven / ginkohya marume
   $rdus[1]= [Math]::Round($rdus[1],4,"ToEven")
@@ -999,10 +1025,10 @@ function Sin_4op([array]$rc,[int]$alg,[int]$fbj){ # 4op sin render
 	$ye[2]= $height- $ye[2]* $adjv
 	$ye[3]= $height- $ye[3]* $adjv
 
-	$xy[0][$i]= ($i* $bai), $ye[0]
-	$xy[1][$i]= ($i* $bai), $ye[1]
-	$xy[2][$i]= ($i* $bai), $ye[2]
-	$xy[3][$i]= ($i* $bai), $ye[3]
+	$xy[0][$i]= ($i* $bai_value), $ye[0]
+	$xy[1][$i]= ($i* $bai_value), $ye[1]
+	$xy[2][$i]= ($i* $bai_value), $ye[2]
+	$xy[3][$i]= ($i* $bai_value), $ye[3]
 
  } #
 
@@ -1054,9 +1080,12 @@ function Sin_2op([array]$rc,[int]$alg,[int]$fbj){ # 2op sin render
 
  $rdus[0]= [Math]::Pow(10, ($atai* $tl[0]))* $adj_value
  $rdus[1]= [Math]::Pow(10, ($atai* $tl[1]))* $adj_value
- ## $rdus[0]= [Math]::Pow(10, (-0.0375* $tl[0]))* $adj_value # (-0.75*$tl[0]/ 20) -> -0.0375
+ # $rdus[0]= [Math]::Pow(10, (-0.0375* $tl[0]))* $adj_value
+ # (-0.75*$tl[0]/ 20) -> -0.0375
 
- if($bai -ne 1){
+ [int]$bai_value= $bai
+
+ if($bai_value -ne 1){
 
   $rdus[0]= [Math]::Round($rdus[0],4,"ToEven") # MidpointRounding.ToEven / ginkohya marume
   $rdus[1]= [Math]::Round($rdus[1],4,"ToEven")
@@ -1106,8 +1135,8 @@ function Sin_2op([array]$rc,[int]$alg,[int]$fbj){ # 2op sin render
 	$ye[0]= $height- $ye[0]* $adjv
 	$ye[1]= $height- $ye[1]* $adjv
 
-	$xy[0][$i]= ($i* $bai), $ye[0]
-	$xy[1][$i]= ($i* $bai), $ye[1]
+	$xy[0][$i]= ($i* $bai_value), $ye[0]
+	$xy[1][$i]= ($i* $bai_value), $ye[1]
  } #
 
  sleep -m $key["wait"]
@@ -1119,7 +1148,7 @@ function Sin_2op([array]$rc,[int]$alg,[int]$fbj){ # 2op sin render
  $buffx.Graphics.DrawLines($color_pen[1], $pointing[1])
 
  } #func
- 	
+ 
 # ------ 
  
 function Sin_chw(){ 
@@ -1355,16 +1384,16 @@ function Chip_position([string]$k){
 		$script:xyi= Chip_view 325 21
 		$script:xytwo= 20,145
 		$script:xyfour= 20,375
-		$script:xye2= 0,276,480,4
-		$script:xye4= 0,526,480,4
+		# $script:xye2= 0,0,480,4
+		# $script:xye4= 0,0,480,4
 		break;
 	}'reverse'{
 		$script:xyp= Chip_view 20 360 # x,y
 		$script:xyi= Chip_view 20 146
 		$script:xyfour= 365,20
 		$script:xytwo= 365,20
-		$script:xye2= 0,0,480,4
-		$script:xye4= 0,0,480,4
+		# $script:xye2= 0,276,480,4
+		# $script:xye4= 0,526,480,4
 	}
 	} #sw
  } #func
@@ -1394,14 +1423,15 @@ function Alg_cable([int]$alg){
 
 
  [array]$rr= Monotone_select "Alg_"
-
  $pen= $rr[0]
  $brush= $rr[1]
  $board= $rr[2]
+ $line= $rr[3]
 
  $buffb.Graphics.Clear($board)
+ $buffb.Graphics.FillRectangle($line,$xye4[0],$xye4[1],$xye4[2],$xye4[3])
+ $buffb.Graphics.FillRectangle($line,$xye4[4],$xye4[5],$xye4[6],$xye4[7])
  $buffb.Graphics.DrawString($tt,$Fona,$brush, $xyfour[0],$xyfour[1]) # $script:xyfour
-
 
  [array]$color_pen= @($XBpen,$XGpen,$XOpen,$XRpen)
  [array]$cable= @($Ppen,$Bpen,$Gpen,$Open,$Rpen)
@@ -1871,10 +1901,12 @@ function Alg_cablw([int]$alg){
  $pen= $rr[0]
  $brush= $rr[1]
  $board= $rr[2]
+ $line= $rr[3]
 
  $buffw.Graphics.Clear($board)
+ $buffw.Graphics.FillRectangle($line,$xye2[0],$xye2[1],$xye2[2],$xye2[3])
+ $buffw.Graphics.FillRectangle($line,$xye2[4],$xye2[5],$xye2[6],$xye2[7])
  $buffw.Graphics.DrawString($tt,$Fona,$brush, $xytwo[0],$xytwo[1]) # $script:xytwo
-
 
  [array]$color_pen= @($XBpen,$XRpen)
  [array]$cable= @($Ppen,$Bpen,$Rpen)
@@ -2448,7 +2480,7 @@ function Load_value($x, [string]$sw){
  } #func
   
 # hash 
-	 
+	
 function Fmxml_read($x,$y){ # hash設定 
 
 	# $x= $script:fm_xml.table.val
@@ -5511,7 +5543,7 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 [Environment]::CurrentDirectory= pwd # working_dir set
  
 # Sub forms 
-	 
+	
 $bgimg= New-Object System.Drawing.Bitmap(480,530) # bg 4op 
 $bgimw= New-Object System.Drawing.Bitmap(480,280) # bg 2op
 
@@ -5996,7 +6028,7 @@ $sb_alg.Add_FormClosing({
 })
  
 $sb_mnu= New-Object System.Windows.Forms.MenuStrip 
-	 
+	
 $sb_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $sb_menu_f.Text= "File"
 
@@ -10792,7 +10824,7 @@ $opm_alg_grp.Controls.AddRange(@($opm_trkbar_alg,$opm_nmud_alg,$opm_lbl_alg))
 $opm_alg_grp.Controls.AddRange(@($opm_trkbar_fb,$opm_nmud_fb,$opm_lbl_fb))
   
 # forms 
-	 
+	
 $osc_grp= New-Object System.Windows.Forms.GroupBox 
 $osc_grp.Text= "FM OSC"
 $osc_grp.Size= "175,80"
@@ -11139,7 +11171,7 @@ $frm_fm.Add_FormClosing({
 })
  
 $fm_mnu= New-Object System.Windows.Forms.MenuStrip 
-	 
+	
 $fm_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_f.Text= "File"
 
@@ -12417,7 +12449,7 @@ $Whbrush= New-Object System.Drawing.Drawing2D.LinearGradientBrush($poix,$poia,$d
 $Whbrush.InterpolationColors= $Cdbrend
 
 # 'black' set =====
-$black= [System.Drawing.Color]::FromArgb(236,34,61,66)		# 暗黒色改 Aは高級感のため
+$black= [System.Drawing.Color]::FromArgb(236,34,62,68)		# 暗黒色改 Aは高級感のため
 $naturalblack= [System.Drawing.Color]::FromArgb(216,0,11,0)	# 濡羽色 A:236
 $gr_black= [System.Drawing.Color]::FromArgb(124,0,11,0)		# a:184
 
@@ -12460,10 +12492,10 @@ $pastelgreen= [System.Drawing.Color]::FromArgb(190,140,220,61)	# 0,235,104
 
 $yellow= [System.Drawing.Color]::FromName("orange")		# RGup de yellow
 $gold= [System.Drawing.Color]::FromArgb(210,255,215,0)		# gold 255,215,0
-$darkorange= [System.Drawing.Color]::FromArgb(195,201,203,9)	# 206,211,16
-$vividorange= [System.Drawing.Color]::FromArgb(220,248,254,48)	# 242,246,25
-$naturalorange= [System.Drawing.Color]::FromArgb(241,240,252,89) # 239,254,48
-$pastelorange= [System.Drawing.Color]::FromArgb(190,255,249,29) # 254,255,21
+$darkorange= [System.Drawing.Color]::FromArgb(185,209,211,17)	# 206,211,16
+$vividorange= [System.Drawing.Color]::FromArgb(220,248,250,44)	# 242,246,25
+$naturalorange= [System.Drawing.Color]::FromArgb(241,236,248,85) # 239,254,48
+$pastelorange= [System.Drawing.Color]::FromArgb(190,251,249,29) # 254,255,21
 
 $magenta= [System.Drawing.Color]::FromName("magenta")
 $pink= [System.Drawing.Color]::FromArgb(210,255,182,193)	# lightpink
@@ -12517,7 +12549,7 @@ $Rpen= New-Object System.Drawing.Pen($pink, 7)
 	echo $_.exception
 	Write-Host '"ERROR: Safety Stopper >> Color object err"'
  }
- 
+ 	
 # cable pointer 
 
 # pos / 480,530
@@ -12918,11 +12950,13 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 
 	[array]$xyi= @() # Chip_position 定数的ため
 	[int[]]$xytwo= 0,0
-	[int[]]$xye2= 0,0,0,0
+	# [int[]]$xye2= 0,0,0,0
+	[int[]]$xye2= 0,0,480,4,  0,276,480,4
 
 	[array]$xyp= @()
 	[int[]]$xyfour= 0,0
-	[int[]]$xye4= 0,0,0,0
+	# [int[]]$xye4= 0,0,0,0
+	[int[]]$xye4= 0,0,480,4,  0,526,480,4
 
  }catch{
 	echo $_.exception
