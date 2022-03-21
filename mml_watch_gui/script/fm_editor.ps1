@@ -1238,7 +1238,7 @@ function Sin_chg(){
  } #func
   
 # alg 
-	
+	 
 function Attend_alg([int]$j){ 
 
 	switch($j){
@@ -6050,6 +6050,8 @@ $sb_menu_w0.Add_Click({
 		}'4op'{ Sin_chg
 		}
 		} #sw
+
+		Stus_alg
 	}
  }catch{
 	echo $_.exception
@@ -6063,7 +6065,7 @@ $sb_menu_w1.Add_Click({
 	if($bai -ne 2){
 
 		$script:bai= Attend_alg 2
-		Peralg_build $bai
+		Peralg_build $bai	
 		Reso $bai
 
 		switch(Itm){
@@ -6071,6 +6073,8 @@ $sb_menu_w1.Add_Click({
 		}'4op'{ Sin_chg
 		}
 		} #sw
+
+		Stus_alg
 	}
  }catch{
 	echo $_.exception
@@ -6092,6 +6096,8 @@ $sb_menu_w2.Add_Click({
 		}'4op'{ Sin_chg
 		}
 		} #sw
+
+		Stus_alg
 	}
  }catch{
 	echo $_.exception
@@ -7130,7 +7136,7 @@ $sub_sav.CancelButton= $sub_sav_cancel_Btn	# [ESC]
 $sub_sav.AcceptButton= $sub_sav_ok_Btn		# [Enter]
   
 # Main forms 
-	
+	 
 # VRC7 
 	
 $vrc_eg_grp= New-Object System.Windows.Forms.GroupBox 
@@ -11171,7 +11177,7 @@ $frm_fm.Add_FormClosing({
 })
  
 $fm_mnu= New-Object System.Windows.Forms.MenuStrip 
-	
+	 
 $fm_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_f.Text= "File"
 
@@ -12449,7 +12455,7 @@ $Whbrush= New-Object System.Drawing.Drawing2D.LinearGradientBrush($poix,$poia,$d
 $Whbrush.InterpolationColors= $Cdbrend
 
 # 'black' set =====
-$black= [System.Drawing.Color]::FromArgb(236,34,62,68)		# 暗黒色改 Aは高級感のため
+$black= [System.Drawing.Color]::FromArgb(236,34,59,71)		# 暗黒色改 Aは高級感 236,34,62,68
 $naturalblack= [System.Drawing.Color]::FromArgb(216,0,11,0)	# 濡羽色 A:236
 $gr_black= [System.Drawing.Color]::FromArgb(124,0,11,0)		# a:184
 
@@ -12492,10 +12498,10 @@ $pastelgreen= [System.Drawing.Color]::FromArgb(190,140,220,61)	# 0,235,104
 
 $yellow= [System.Drawing.Color]::FromName("orange")		# RGup de yellow
 $gold= [System.Drawing.Color]::FromArgb(210,255,215,0)		# gold 255,215,0
-$darkorange= [System.Drawing.Color]::FromArgb(185,209,211,17)	# 206,211,16
-$vividorange= [System.Drawing.Color]::FromArgb(220,248,250,44)	# 242,246,25
-$naturalorange= [System.Drawing.Color]::FromArgb(241,236,248,85) # 239,254,48
-$pastelorange= [System.Drawing.Color]::FromArgb(190,251,249,29) # 254,255,21
+$darkorange= [System.Drawing.Color]::FromArgb(185,211,211,19)	# 206,211,16
+$vividorange= [System.Drawing.Color]::FromArgb(220,248,250,54)	# 242,246,25
+$naturalorange= [System.Drawing.Color]::FromArgb(241,236,248,69) # 239,254,48
+$pastelorange= [System.Drawing.Color]::FromArgb(190,254,244,34) # 254,255,21
 
 $magenta= [System.Drawing.Color]::FromName("magenta")
 $pink= [System.Drawing.Color]::FromArgb(210,255,182,193)	# lightpink
