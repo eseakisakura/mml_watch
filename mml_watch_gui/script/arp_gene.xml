@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<table>
+	<opt>
+		<tray value="True" />
+		<oct value="o4" />
+		<osc value="PMD" />
+		<bit value="Checked" />
+	</opt>
+	<val>
+		<!-- 拡張性の加味 -->
+		<mck value="C:\Programs\Tools\Arc\ppmck\bin\ppmckc.exe" />
+		<nsd value="C:\Programs\Tools\Arc\nsdlib130\bin\nsc.exe" />
+		<pmd value="C:\Programs\Tools\Arc\pmd\MC.EXE" />
+		<cmp value="C:\Programs\Tools\Arc\pmd\MC.EXE" />
+		<ply value="C:\Programs\Tools\Media\Winamp\winamp.exe" />
+		<dos value="C:\Programs\Tools\Arc\msdos\source\binary\i486_x86\msdos.exe" />
+		<edt value="C:\Programs\Tools\Text\Sted - mdi\sted_mdi.exe" />
+	</val>
+</table>
