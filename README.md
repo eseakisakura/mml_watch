@@ -16,7 +16,7 @@ GUI部も含めて、総Powershellで組まれており、<br/>
 <h5>起動済み確認環境: <br/>
 winXP+ Powershell2(.NET Framework3.5)<br/>
 win10(21H2)+ Powershell5(.NET Framework4.8)<br/>
-win10(21H2)+ Powershell7(.NET5) - Alpha版<br/>
+win10(21H2)+ Powershell7.2(.NET6) - Alpha版<br/>
 </h5>
 
 <table><tr><td>・Mml Watch GUI</td><td>mmlチップチューンのfront end</td>
