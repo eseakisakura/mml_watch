@@ -1,9 +1,9 @@
 　　■ PowerShell - mml watch GUI版 
 
 
-　-- 当テキストは、構造化エディタで組まれてます。
+　当テキストは、構造化エディタで組まれてます。
 
-　スクリプトも構造化エディタ対応です。--
+　-- スクリプト側も構造化エディタに対応しています。--
 
 
  
@@ -418,7 +418,10 @@
 　　http://ppmck.web.fc2.com/ppmck.html
 
 　・NSDlib / Ｓ．Ｗ．様
-　　http://shaw.la.coocan.jp/nsdl/
+　　https://github.com/Shaw02/nsdlib/releases
+
+	NSDlib github.io / 説明書
+	https://shaw02.github.io/nsdlib/
 
 　・P.M.D & PMD98用 Preset FM音色セット/ KAJA 様
 　　http://www5.airnet.ne.jp/kajapon/
@@ -484,33 +487,33 @@
 　https://github.com/eseakisakura
 
 
-'17	8 14		GUI化コーディング開始
-	10 4		仮完成、小品の予定がまさかの1200行越え..
-	10 9		ver3b 完成、beta版 upload
+'17	8 14	GUI化コーディング開始
+	10 4	仮完成、小品の予定がまさかの1200行越え..
+	10 9	ver3b 完成、beta版 upload
 
 	10		起動とok後、条件合えばMML監視になるよう変更
 	14		PSのコンソールを使用するようにした
 	23		Watcher周り直した,folder open追加
-	11 1		Listbox周り直した,最適化とか
+	11 1	Listbox周り直した,最適化とか
 	14		wait.Filter,ハイライト周り直した
 	16		mmllist自動追加,chk_path周りの直し
 	20		editor Open右ショートカット追加
 	29		ContextMenuの座標エラー修正
-	12 2		wclickの実装,toggle_sw周り直し
+	12 2	wclickの実装,toggle_sw周り直し
 	8		ver3 正式版 upload
 
 	14		sleepウェイトの調整、ShortCut削除
-'18	1 18		コンパネにエディタ追加、count overへ変更
-	2 23		caseにbreakと''追加
+'18	1 18	コンパネにエディタ追加、count overへ変更
+	2 23	caseにbreakと''追加
 	3 1		@()なくし固定長へ
-	7 11		ver3.5b、P.M.Dの追加、コード内部に手を入れた
+	7 11	ver3.5b、P.M.Dの追加、コード内部に手を入れた
 			プロセス管理機能削除、ps1をbom付きUTF8へ変更
 	8 7		コンパイル呼出し側へsleepずらす
-	9 28		ver3.5 正式版 upload
+	9 28	ver3.5 正式版 upload
 
-	11 14		FM editor a版の実装テスト、Apeg gene再コーディング開始
+	11 14	FM editor a版の実装テスト、Apeg gene再コーディング開始
 			try catchは重要部のみへ変更、mkmck.ps1のエラー段数追加
-'19	1 11		Plugin付きver4b beta版完成
+'19	1 11	Plugin付きver4b beta版完成
 	17		PMDをx64環境でも稼働できるようにした
 			test-pathのpath bind errに対応した
 	24		ver4b beta版 upload
@@ -520,9 +523,9 @@
 	14		同名ファイルdrop時の処理エラー修正、
 			$key in $mml.Keys -> $key in $arr
 	8 5		$wait.Dispose()追加、shell終了時のエラー回避のため
-	11 8		2重コンパイルを減らすため、全体のwaitを1s以上にした
+	11 8	2重コンパイルを減らすため、全体のwaitを1s以上にした
 	15		ショートカットD&Dでも、mmlListへ自動登録するようにした
-	12 5		if("") -> if('')と直した
+	12 5	if("") -> if('')と直した
 	7		メイン画面がwin10だと移動バーなしになるので、最小化を0ffにした
 			win10対応のため、eventスクリプトブロック内に$script:を挿入した
 			win10対応のため、hash,xmlの左辺、script:スコープを見直した
@@ -532,23 +535,23 @@
 	17		メインラベルにmmlコンパイラを表示、選択状態をチェックするようにした
 
 '20	1 4		リセット後、環境キャンセルのケースのため、$restoreを追加した
-	2 15		情報パネルを設置し、コンソールなしでも動かせるようにした
-	2 17		ショートカットアイコンでのドロップ起動を使用中止した
-	2 27		プラグインをスタンドアロンにするため、環境設定を分離した
+	2 15	情報パネルを設置し、コンソールなしでも動かせるようにした
+	2 17	ショートカットアイコンでのドロップ起動を使用中止した
+	2 27	プラグインをスタンドアロンにするため、環境設定を分離した
 	3 1		仮完成
-	3 15		フォルダオープン追加
-	3 26		タスクトレイアイコン追加
+	3 15	フォルダオープン追加
+	3 26	タスクトレイアイコン追加
 	4 7		ラベルクリックでも監視スタートできるようにした
 	6 7		4.0preview releaseとして、Githubへupload
 
-	7 25		環境パネルのList登録が0でも、ハッシュ出力が残る問題を修正
+	7 25	環境パネルのList登録が0でも、ハッシュ出力が残る問題を修正
 			環境パネルで不要の可能性があるset_xmlreadの$cmp,$script:cmpを消去
-	8 11		新規mmlファイルを登録できるようにした<- try catch入れ忘れを修正
-	  28		各コンパイラのへのファイル出力Text.Encodingを、
+	8 11	新規mmlファイルを登録できるようにした<- try catch入れ忘れを修正
+	  28	各コンパイラのへのファイル出力Text.Encodingを、
 			oem(Shift-JIS)へもどし、xml出力はps7対応を含めdefaultととした
-	  31		リモートバグのようになるため、
+	  31	リモートバグのようになるため、
 			環境設定時にはタスクトレイは見えないようにした
-	11 1		foobar2000pluginに対応した
+	11 1	foobar2000pluginに対応した
 			コンパイルps1にtry catchを追加してエラー対応した
 	26		HelpファイルをStedで読めるようにした
 
@@ -561,19 +564,19 @@
 	10		Toggle_labelの位置、Console_outでunknownを出力するようにした
 	4 3		環境パネルため、mck,nsd,pmdの各binaryもxmlへストアするようにした
 			新規ファイル時、自動でコンパイラ選択するようにした
-	6 18		プレイヤーopenを付けた、伴い周辺functionを最適化
-	9 19		プレイヤー起動周りをcommon処理にした
+	6 18	プレイヤーopenを付けた、伴い周辺functionを最適化
+	9 19	プレイヤー起動周りをcommon処理にした
 
 	11 17	setting Box_radioの初期設定の見直しをした
 	19		common.ps1のMknsdを -notmatch "nsc[0-9]*\.exe と修正
 
-	12 1		Mkxxxの、err出力部のコードを共通化した
+	12 1	Mkxxxの、err出力部のコードを共通化した
 			Mkmckのパス106byte overのエラーを出力するようにした
 
-'22	1 13		player directを廃止、player,editor登録を8つへ拡張した
+'22	1 13	player directを廃止、player,editor登録を8つへ拡張した
 	15		コンパイルのみを追加した、Watch_Start真偽のbugfix、Toggle_sw周りの修正
 			Test-PathをChk_pathへ全て変更した
 
-			4.5正式版として、Githubへupload
+	4 22	4.5正式版として、Githubへリリースupload
 
  	
