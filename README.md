@@ -5,7 +5,6 @@ Chiptune MMLコンパイラへ、GUIを提供するフロントエンドです�
 <br/>
 GUI部も含めて、総Powershellで組まれており、<br/>
 それぞれがスタンドアロン(単体)で起動します。<br/>
-<br/>
 
 <h5>起動済み確認環境: <br/>
 winXP+ Powershell2(.NET Framework3.5)<br/>
