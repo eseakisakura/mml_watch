@@ -7,17 +7,17 @@ GUI部も含めて、総Powershellで組まれており、<br/>
 それぞれがスタンドアロン(単体)で起動します。<br/>
 <br/>
 
-<h4>
-説明書及び、必須ソフトウェアのリンク <br/>
-・<a href="https://eseakisakura.github.io/mml_watch_gui/"> Mml Watch GUI - download</a><br/>
-</h4>
-
 <h5>起動済み確認環境: <br/>
 winXP+ Powershell2(.NET Framework3.5)<br/>
 win10(21H2)+ Powershell5(.NET Framework4.8)<br/>
 win10(21H2)+ Powershell7.2(.NET6) - Alpha版<br/>
 </h5>
 <br/>
+
+<h4>
+説明書及び、必須ソフトウェアのリンク <br/>
+・<a href="https://eseakisakura.github.io/mml_watch_gui/"> Mml Watch GUI - download</a><br/>
+</h4>
 
 <table><tr><td>・Mml Watch GUI</td><td>mmlチップチューンのfront end</td>
 </tr><tr><td>・FM Synthesis Chip - Tone Editor</td><td>2op.4op.対応FM音源音色エディタ</td>
