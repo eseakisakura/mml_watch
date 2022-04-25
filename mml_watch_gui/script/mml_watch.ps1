@@ -234,7 +234,7 @@ function Play_nsf([string]$file){
  } #func
   
 # chk_path 
-	
+	 
 function Err_build(){ 
 
 	[int[]]$err= 0,0,0,0
@@ -457,7 +457,7 @@ function Wait_setpath(){
 		$script:wait.Filter= $f[0]
 		break;
 	}0{
-		$script:wait.Path= ".\temp" # 存在するパス <- Pathエラーため
+		$script:wait.Path= ".\img" # 存在するパス <- Pathエラーため
 		$script:wait.Filter= $null
 	}
 	} #sw
@@ -781,7 +781,7 @@ function Auto_start([string]$t){
  } #func
   
 # hash 
-	
+	 
 function Helpxml_read($x){ 
 
   # $x= $script:set_xml.table
@@ -1429,7 +1429,7 @@ $wait= New-Object System.IO.FileSystemWatcher
 
 $wait.NotifyFilter= [System.IO.NotifyFilters]::LastWrite
 
-# $wait.Path= ".\temp" # 仮パス入 <- Pathエラーため
+# $wait.Path= ".\img" # 仮パス入 <- Pathエラーため
 # $wait.Filter= $null
 # $wait.EnableRaisingEvents= $False
 
@@ -1461,7 +1461,7 @@ $wait.Add_Changed({	# event func入れ子は一段が理想..
 	Write-Host '"ERROR: Safety Stopper >> FileSystemWatcher"'
  }
 })
- 
+ 	
 # ------ main 
 
   try{
@@ -1562,4 +1562,4 @@ $wait.Add_Changed({	# event func入れ子は一段が理想..
 #
 #			<- ok			<-close
 #			X- cancel
- 	
+ 
