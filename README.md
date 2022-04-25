@@ -22,7 +22,8 @@ win10(21H2)+ Powershell7.2(.NET6) - Alpha版<br/>
 </tr><tr><td>・FM Synthesis Chip - Tone Editor</td><td>2op.4op.対応FM音源音色エディタ</td>
 </tr><tr><td>・Guitar Arpeggio - MML Generator</td><td>ギターアルペジオジェネレータ</td>
 </tr></table>
-※Watch.cmdなどのバッチファイルによる起動であれば、.NET Framework3.5以上、PowerShell2以上なら動くと思います。<br/>
+※Watch.cmdなどのバッチファイルによる起動であれば、<br/>
+.NET Framework3.5以上、PowerShell2以上なら動くと思います。<br/>
 <br/>
 ※mml_watch.exeなどのバイナリ起動の場合、.NET Framework4.0以上が必要となります。<br/>
 <br/>
