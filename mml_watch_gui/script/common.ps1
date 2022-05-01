@@ -77,7 +77,7 @@ Function Chk_path([string]$file){
 		return 0
 	}
  } #func
- 	
+ 
 Function Split_path([string]$f){ 
 
   [string[]]$out= "","","",""
@@ -287,7 +287,7 @@ function Mkmck([string[]]$arg){ # mkmck.ps1
 				Write-Host ("`r`n"+ $out[0])
 
 			}else{
-				move -force .\ppmck.nes ($dpn+ '.nsf')
+				move -force -literalpath .\ppmck.nes -destination ($dpn+ '.nsf')
 				#再生時ファイルロックあらばエラーとなる注意
 
 				del .\effect.h
@@ -315,7 +315,7 @@ function Mkmck([string[]]$arg){ # mkmck.ps1
  # exit $LASTEXITCODE
 
  } #func
- 
+ 	
 function Mknsd([string[]]$arg){ # mknsd.ps1 
 
  # $arg // mml,bin,dmc,cmdline
