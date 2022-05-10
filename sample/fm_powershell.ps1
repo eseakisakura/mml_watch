@@ -119,7 +119,7 @@ $frm.Controls.AddRange(@($mnu,$Pictbox))
  
 # FM波形出力エンジン 
 
-Function Sinwave([int[]]$ttlev,[float[]]$mlpul,[int]$fedb,$pen,$lpen){
+Function Sinwave([int[]]$ttlev,[float[]]$mlpul,[int]$fedb,$darkpen,$lightpen){
 
 
 　[double]$pi= [Math]::PI # 180度のラジアン値
@@ -141,7 +141,7 @@ Function Sinwave([int[]]$ttlev,[float[]]$mlpul,[int]$fedb,$pen,$lpen){
 　[float]$feedback= $feb[$fedb]* $pi/ $adj_value # ここは除算
 
 　[float[]]$xs= @(0,0)
-　[float[]]$ys= @(0,0)
+　[float[]]$ys= @($yheight,$yheight)
 
 　[float[]]$ye= @(0,0,0) # y座標値
 　[float[]]$rad= @(0,0)
@@ -162,8 +162,8 @@ Function Sinwave([int[]]$ttlev,[float[]]$mlpul,[int]$fedb,$pen,$lpen){
 　　　$ye[0]= $yheight- $ye[0]* $yheight/ $adj_value # ここで除算
 　　　$ye[1]= $yheight- $ye[1]* $yheight/ $adj_value
 
-　　　$buff.Graphics.DrawLine( $pen,$xs[0],$ys[0], $i,$ye[0]) # バッファ書き込み
-　　　$buff.Graphics.DrawLine($lpen,$xs[1],$ys[1], $i,$ye[1])
+　　　$buff.Graphics.DrawLine( $darkpen,$xs[0],$ys[0], $i,$ye[0]) # バッファ書き込み
+　　　$buff.Graphics.DrawLine($lightpen,$xs[1],$ys[1], $i,$ye[1])
 
 　　　$xs[0]= $i
 　　　$ys[0]= $ye[0]
@@ -173,13 +173,13 @@ Function Sinwave([int[]]$ttlev,[float[]]$mlpul,[int]$fedb,$pen,$lpen){
 　　} #
 
 　} #func
- 	
+ 
 # FM波形出力の呼出し 
 
 Function Grf([string]$sw){
 
 　　$buff.Graphics.Clear($black)
-　　$buff.Graphics.DrawLine($WHPen,0,$IMG[1]/2, $IMG[0],$IMG[1]/2)
+　　$buff.Graphics.DrawLine($WHPen,0,$IMG[1]/2, $IMG[0],$IMG[1]/2) # センターライン
 
 　　switch($sw){
 　　"1"{  Sinwave $TLB $MLB $FBB $BPen $LBPen; break;
@@ -198,7 +198,7 @@ Function Grf([string]$sw){
 　　$Pictbox.Refresh()
 
 　} #func
- 
+ 	
 # メインルーチン ====== 
 
 Grf "1"
