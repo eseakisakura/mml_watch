@@ -123,7 +123,7 @@ Function Sinwave([int[]]$ttlev,[float[]]$mlpul,[int]$fedb,$darkpen,$lightpen){
 
 
 　[double]$pi= [Math]::PI # 180度のラジアン値
-　[int]$adj_value= 20 # 電圧比の定数
+　[int]$adj_value= 20 # 電圧比の定数から
 
 　[int]$xmax= $IMG[0]        # x軸の最終値
 　[int]$yheight= $IMG[1]/ 2  # 振幅
@@ -131,8 +131,8 @@ Function Sinwave([int[]]$ttlev,[float[]]$mlpul,[int]$fedb,$darkpen,$lightpen){
 
 　[float[]]$rdus= @(0,0) # op.1とop.2
 
-　$rdus[0]= [Math]::Pow(10, (-0.75* $ttlev[0]/ $adj_value))* $adj_value # 積算
-　$rdus[1]= [Math]::Pow(10, (-0.75* $ttlev[1]/ $adj_value))* $adj_value
+　$rdus[0]= [Math]::Pow(10, (-0.75* $ttlev[0]/ 20))* $adj_value # 積算
+　$rdus[1]= [Math]::Pow(10, (-0.75* $ttlev[1]/ 20))* $adj_value
 
 
 　[float[]]$feb= @(0, 0.0625, 0.125, 0.25, 0.5, 1,2,4)
@@ -173,7 +173,7 @@ Function Sinwave([int[]]$ttlev,[float[]]$mlpul,[int]$fedb,$darkpen,$lightpen){
 　　} #
 
 　} #func
- 
+ 	
 # FM波形出力の呼出し 
 
 Function Grf([string]$sw){
@@ -198,7 +198,7 @@ Function Grf([string]$sw){
 　　$Pictbox.Refresh()
 
 　} #func
- 	
+ 
 # メインルーチン ====== 
 
 Grf "1"

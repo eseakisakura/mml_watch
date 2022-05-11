@@ -796,7 +796,7 @@ function Poly_chw(){
  } #func
   
 # sine 
-	
+	 
 function Reso([int]$b){ 
 
 	[int]$script:count= $img[0]/ $b
@@ -917,16 +917,16 @@ function Sin_4op([array]$rc,[int]$alg,[int]$fbj){ # 4op sin render
 
 # -0.75dB* [0-127] として計算
 
- [float]$atai= -0.75/ $adj_value
+ ## [float]$atai= -0.75/ $adj_value
 
  [float[]]$rdus= @(0,0,0,0)
 
- $rdus[0]= [Math]::Pow(10, ($atai* $tl[0]))* $adj_value
- $rdus[1]= [Math]::Pow(10, ($atai* $tl[1]))* $adj_value
- $rdus[2]= [Math]::Pow(10, ($atai* $tl[2]))* $adj_value
- $rdus[3]= [Math]::Pow(10, ($atai* $tl[3]))* $adj_value
- ## $rdus[0]= [Math]::Pow(10, (-0.0375* $tl[0]))* $adj_value
+ ## $rdus[0]= [Math]::Pow(10, ($atai* $tl[0]))* $adj_value
  # [Math]::Pow(10, (-0.0375* 0))= 1
+ $rdus[0]= [Math]::Pow(10, (-0.0375* $tl[0]))* $adj_value
+ $rdus[1]= [Math]::Pow(10, (-0.0375* $tl[1]))* $adj_value
+ $rdus[2]= [Math]::Pow(10, (-0.0375* $tl[2]))* $adj_value
+ $rdus[3]= [Math]::Pow(10, (-0.0375* $tl[3]))* $adj_value
 
  [int]$bai_value= $bai
 
@@ -1074,14 +1074,14 @@ function Sin_2op([array]$rc,[int]$alg,[int]$fbj){ # 2op sin render
 
 # -0.75dB* [0-63] として計算
 
- [float]$atai= -0.75/ $adj_value
+ ## [float]$atai= -0.75/ $adj_value
 
  [float[]]$rdus= @(0,0)
 
- $rdus[0]= [Math]::Pow(10, ($atai* $tl[0]))* $adj_value
- $rdus[1]= [Math]::Pow(10, ($atai* $tl[1]))* $adj_value
- # $rdus[0]= [Math]::Pow(10, (-0.0375* $tl[0]))* $adj_value
+ ## $rdus[0]= [Math]::Pow(10, ($atai* $tl[0]))* $adj_value
  # (-0.75*$tl[0]/ 20) -> -0.0375
+ $rdus[0]= [Math]::Pow(10, (-0.0375* $tl[0]))* $adj_value
+ $rdus[1]= [Math]::Pow(10, (-0.0375* $tl[1]))* $adj_value
 
  [int]$bai_value= $bai
 
@@ -1148,7 +1148,7 @@ function Sin_2op([array]$rc,[int]$alg,[int]$fbj){ # 2op sin render
  $buffx.Graphics.DrawLines($color_pen[1], $pointing[1])
 
  } #func
- 
+ 	
 # ------ 
  
 function Sin_chw(){ 
@@ -1238,7 +1238,7 @@ function Sin_chg(){
  } #func
   
 # alg 
-	 
+	
 function Attend_alg([int]$j){ 
 
 	switch($j){
@@ -3690,7 +3690,7 @@ function Panel_chg([string]$sw){
  } #func
   
 # Lis 
-	
+	 
 function Adv_edit([string]$t){ 
 
   switch($t){
@@ -3832,6 +3832,10 @@ function Preset_read(){
   }
 
 
+  [string]$ret= ""
+  [string]$output= ""
+
+
   if($pp[0] -ne ""){
 
 	[string]$read= (cat $pp[0] | Out-String) # 改行付き
@@ -3850,7 +3854,10 @@ function Preset_read(){
 	[void]$list_mck.Items.AddRange(@($key))
   }else{
 
-	Write-Host '"mck.preset"ファイルがない'
+	$ret= '"mck.preset"ファイルがない'
+	Write-Host $ret
+
+	$output+= $ret+ "`r`n"
   }
 
 
@@ -3872,7 +3879,10 @@ function Preset_read(){
 	[void]$list_vrc.Items.AddRange(@($key))
   }else{
 
-	Write-Host '"vrc7.preset"ファイルがない'
+	$ret= '"vrc7.preset"ファイルがない'
+	Write-Host $ret
+
+	$output+= $ret+ "`r`n"
   }
 
 
@@ -3894,7 +3904,10 @@ function Preset_read(){
 	[void]$list_88.Items.AddRange(@($key))
   }else{
 
-	Write-Host '"PC88.MML"ファイルがない'
+	$ret= '"PC88.MML"ファイルがない'
+	Write-Host $ret
+
+	$output+= $ret+ "`r`n"
   }
 
 
@@ -3916,7 +3929,10 @@ function Preset_read(){
 	[void]$list_x68.Items.AddRange(@($key))
   }else{
 
-	Write-Host '"X68ED.MML"ファイルがない'
+	$ret= '"X68ED.MML"ファイルがない'
+	Write-Host $ret
+
+	$output+= $ret+ "`r`n"
   }
 
 
@@ -3938,8 +3954,14 @@ function Preset_read(){
 	[void]$list_efx.Items.AddRange(@($key))
   }else{
 
-	Write-Host '"EFFEC.MML"ファイルがない'
+	$ret= '"EFFEC.MML"ファイルがない'
+	Write-Host $ret
+
+	$output+= $ret+ "`r`n"
   }
+
+  return $output
+
  } #func
  
 # ------ 
@@ -6425,7 +6447,7 @@ $sb_stus.Items.AddRange(@($sb_label))
 $sb_alg.Controls.AddRange(@($sb_mnu,$pict_panel,$sb_stus))
   
 # Preset forms 
-	
+	 
 $ff_baloon= New-Object System.Windows.Forms.Tooltip 
 $ff_baloon.ShowAlways= $False
 # $ff_baloon.ToolTipIcon= "Info"
@@ -6580,7 +6602,6 @@ $tab_mck.Add_VisibleChanged({
 	Stus_build
 
 	Unredo 2
-
    }
  }catch{
 	echo $_.exception
@@ -6810,13 +6831,27 @@ $ff_menu_r.Add_Click({
 	$list_x68.Items.Clear()
 	$list_efx.Items.Clear()
 
-	Preset_read
-	Write-Host '"Preset"ファイルをreloadしました'
+	[string]$rtn= Preset_read
 
-	$retn= [Windows.Forms.MessageBox]::Show(
-	"Presetファイルをリロードしました", "確認", "OK","Information","Button1"
-	)
-})
+	if($rtn -eq ""){
+		[string]$out= '"Preset"ファイルをreloadしました'
+		Write-Host $out
+
+		$retn= [Windows.Forms.MessageBox]::Show(
+		$out, "確認", "OK","Information","Button1"
+		)
+
+	}else{
+		[string]$out= '"Preset"ファイルのreload失敗しました'
+		Write-Host $out
+
+		$out= $rtn+ $out
+
+		$retn= [Windows.Forms.MessageBox]::Show(
+		$out, "確認", "OK","Information","Button1"
+		)
+	}
+ })
 
 $ff_menu_cr= New-Object System.Windows.Forms.ToolStripSeparator
 $ff_menu_c= New-Object System.Windows.Forms.ToolStripMenuItem
@@ -10830,7 +10865,7 @@ $opm_alg_grp.Controls.AddRange(@($opm_trkbar_alg,$opm_nmud_alg,$opm_lbl_alg))
 $opm_alg_grp.Controls.AddRange(@($opm_trkbar_fb,$opm_nmud_fb,$opm_lbl_fb))
   
 # forms 
-	
+	 
 $osc_grp= New-Object System.Windows.Forms.GroupBox 
 $osc_grp.Text= "FM OSC"
 $osc_grp.Size= "175,80"
@@ -11177,7 +11212,7 @@ $frm_fm.Add_FormClosing({
 })
  
 $fm_mnu= New-Object System.Windows.Forms.MenuStrip 
-	 
+	
 $fm_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_f.Text= "File"
 
@@ -12555,7 +12590,7 @@ $Rpen= New-Object System.Drawing.Pen($pink, 7)
 	echo $_.exception
 	Write-Host '"ERROR: Safety Stopper >> Color object err"'
  }
- 	
+ 
 # cable pointer 
 
 # pos / 480,530
@@ -13028,7 +13063,7 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
   }
 
   #preset,FF読み込み
-  Preset_read  # <- $comp["MC.EXE"] <- .\setting.xml
+  Preset_read > $null  # <- $comp["MC.EXE"] <- .\setting.xml
 
 
 # write-host "------"
