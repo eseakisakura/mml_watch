@@ -321,7 +321,7 @@ function Pamamter_read([string]$t){
 	$part_chk_pmd.CheckState= $p[2]
 
 } #func
- 	
+ 
 function Pamamter_write(){ 
 
 	[array]$a= "","",""
@@ -1334,7 +1334,7 @@ $tab.Size= "225,205"
 $tab.Location= "5,25"
  
 # tab_mml 
-	
+	 
 $tab_mml= New-Object System.Windows.Forms.TabPage 
 $tab_mml.Text= "mml"
 
@@ -1346,7 +1346,7 @@ $label_mml.Location= "10,5"
  
 $contxt_mml= New-Object System.Windows.Forms.ContextMenuStrip 
 
-[void]$contxt_mml.Items.Add("Cancel")
+[void]$contxt_mml.Items.Add("Cancel") # text no baai $ de areba addrange
 [void]$contxt_mml.Items.Add("Editor")
 [void]$contxt_mml.Items.Add("Folder")
 [void]$contxt_mml.Items.Add("Remove")
@@ -1387,7 +1387,7 @@ $contxt_mml.Add_ItemClicked({
 
 	$this.Close()
 })
- 
+ 	
 $listbox_mml= New-Object System.Windows.Forms.ListBox 
 $listbox_mml.Size= "200,60"
 $listbox_mml.Location= "5,30"

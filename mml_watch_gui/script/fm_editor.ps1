@@ -293,6 +293,21 @@ function Color_select([string]$out){
  
 # ------ 
  
+function Reso([int]$b){ 
+
+	[int]$script:count= $img[0]/ $b
+
+
+	[array]$script:sin_pos= Sin_position $count # "0"の配列ブロック
+	[array]$script:sin_map= Sin_mapping $count $radian
+
+	# 参照型
+
+	[array]$script:pointed= Point_obj 8 # polygon point obj
+	[array]$script:pointsg= Point_obj 11 # polygon ssg-eg
+	[array]$script:pointing= Point_obj $count # sine
+ } #func
+ 
 function Flow_ssg([int]$num, [array]$e, [int]$width, [int]$height){ 
 
 
@@ -796,22 +811,7 @@ function Poly_chw(){
  } #func
   
 # sine 
-	 
-function Reso([int]$b){ 
-
-	[int]$script:count= $img[0]/ $b
-
-
-	[array]$script:sin_pos= Sin_position $count # "0"の配列ブロック
-	[array]$script:sin_map= Sin_mapping $count $radian
-
-	# 参照型
-
-	[array]$script:pointed= Point_obj 8 # polygon point obj
-	[array]$script:pointsg= Point_obj 11 # polygon ssg-eg
-	[array]$script:pointing= Point_obj $count # sine
- } #func
- 
+	
 function Flowtting_point([int]$cnt, [int]$opt, [array]$xy){ 
 
 	[int]$i= 0
@@ -1148,7 +1148,7 @@ function Sin_2op([array]$rc,[int]$alg,[int]$fbj){ # 2op sin render
  $buffx.Graphics.DrawLines($color_pen[1], $pointing[1])
 
  } #func
- 	
+ 
 # ------ 
  
 function Sin_chw(){ 
@@ -2586,7 +2586,7 @@ function Fmwrite_xml($x,$y){
  } #func
   
 # gui 
-	
+	 
 function Trayfm_hide([string]$t){ 
 
 	switch($t){
@@ -3690,7 +3690,7 @@ function Panel_chg([string]$sw){
  } #func
   
 # Lis 
-	 
+	
 function Adv_edit([string]$t){ 
 
   switch($t){
@@ -5565,7 +5565,7 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 [Environment]::CurrentDirectory= pwd # working_dir set
  
 # Sub forms 
-	
+	 
 $bgimg= New-Object System.Drawing.Bitmap(480,530) # bg 4op 
 $bgimw= New-Object System.Drawing.Bitmap(480,280) # bg 2op
 
@@ -6050,7 +6050,7 @@ $sb_alg.Add_FormClosing({
 })
  
 $sb_mnu= New-Object System.Windows.Forms.MenuStrip 
-	
+	 
 $sb_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $sb_menu_f.Text= "File"
 
@@ -6447,7 +6447,7 @@ $sb_stus.Items.AddRange(@($sb_label))
 $sb_alg.Controls.AddRange(@($sb_mnu,$pict_panel,$sb_stus))
   
 # Preset forms 
-	 
+	
 $ff_baloon= New-Object System.Windows.Forms.Tooltip 
 $ff_baloon.ShowAlways= $False
 # $ff_baloon.ToolTipIcon= "Info"
@@ -7171,7 +7171,7 @@ $sub_sav.CancelButton= $sub_sav_cancel_Btn	# [ESC]
 $sub_sav.AcceptButton= $sub_sav_ok_Btn		# [Enter]
   
 # Main forms 
-	 
+	
 # VRC7 
 	
 $vrc_eg_grp= New-Object System.Windows.Forms.GroupBox 
@@ -7180,7 +7180,7 @@ $vrc_eg_grp.Size= "230,200"
 $vrc_eg_grp.Text= "Envelope"
 $vrc_eg_grp.FlatStyle= "Flat"
 #$vrc_eg_grp.Hide() #$eg_grp.Show()
-	 
+	
 # ------ AR - AttackRate 15-0 
  
 $vrc_trkbar_ar= New-Object System.Windows.Forms.TrackBar 
@@ -7452,7 +7452,7 @@ $vrc_lev_grp.Location= "10,235"
 $vrc_lev_grp.Size= "230,80"
 $vrc_lev_grp.Text= "Key Scale"
 $vrc_lev_grp.FlatStyle= "Flat"
-	 
+	
 # ------ KSL - KeyScaleLevel 0-3 
  
 $vrc_trkbar_ksl= New-Object System.Windows.Forms.TrackBar 
@@ -7584,7 +7584,7 @@ $vrc_ring_grp.Location= "250,30"
 $vrc_ring_grp.Size= "230,140"
 $vrc_ring_grp.Text= "Effects Control"
 $vrc_ring_grp.FlatStyle= "Flat"
-	 
+	
 # ------ DT - Distortion 0-1 
  
 $vrc_trkbar_dt= New-Object System.Windows.Forms.TrackBar 
@@ -10865,7 +10865,7 @@ $opm_alg_grp.Controls.AddRange(@($opm_trkbar_alg,$opm_nmud_alg,$opm_lbl_alg))
 $opm_alg_grp.Controls.AddRange(@($opm_trkbar_fb,$opm_nmud_fb,$opm_lbl_fb))
   
 # forms 
-	 
+	
 $osc_grp= New-Object System.Windows.Forms.GroupBox 
 $osc_grp.Text= "FM OSC"
 $osc_grp.Size= "175,80"
@@ -13003,7 +13003,7 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 	echo $_.exception
 	Write-Host '"ERROR: Safety Stopper >> global variable err"'
  }
-  
+ 	 
 # ------ main 
 
  try{
