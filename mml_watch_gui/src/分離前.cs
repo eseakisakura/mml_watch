@@ -1,31 +1,31 @@
-using System;
+ï»¿using System;
 using System.Diagnostics;
 
 public class Wrapper
 {
-	//ƒtƒB[ƒ‹ƒh,•Ï”
+	//ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰,å¤‰æ•°
 	// public string Str;
-	//ƒƒ\ƒbƒh,ŠÖ”
+	//ãƒ¡ã‚½ãƒƒãƒ‰,é–¢æ•°
 	public void Open_ps()
 	{
-		//ProcessƒIƒuƒWƒFƒNƒg‚ğ¶¬
+		//Processã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆ
 		var dp= new ProcessStartInfo();
 
-		//Processw’è
+		//ProcessæŒ‡å®š
 		dp.FileName= "powershell.exe";
 
-		//ƒVƒFƒ‹‹@”\
-		dp.UseShellExecute= false; // ƒRƒƒ“ƒgƒAƒEƒg‚ÅƒfƒoƒbƒO
+		//ã‚·ã‚§ãƒ«æ©Ÿèƒ½
+		dp.UseShellExecute= false; // ã‚³ãƒ¡ãƒ³ãƒˆã‚¢ã‚¦ãƒˆã§ãƒ‡ãƒãƒƒã‚°
 
-		//ƒRƒ“ƒ\[ƒ‹EƒEƒBƒ“ƒhƒE‚ğŠJ‚©‚È‚¢
-		dp.CreateNoWindow= true; // ƒRƒƒ“ƒgƒAƒEƒg‚ÅƒfƒoƒbƒO
+		//ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ãƒ»ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‹ã‹ãªã„
+		dp.CreateNoWindow= true; // ã‚³ãƒ¡ãƒ³ãƒˆã‚¢ã‚¦ãƒˆã§ãƒ‡ãƒãƒƒã‚°
 
-		// -NoExit ‚ÅƒfƒoƒbƒN // @ ha \ no tame
+		// -NoExit ã§ãƒ‡ãƒãƒƒã‚¯ // @ ha \ no tame
 		string ph= @" -ExecutionPolicy RemoteSigned -Sta -File .\script\mml_watch.ps1";
 		// option
 		dp.Arguments= ph;
 
-		//‹N“®
+		//èµ·å‹•
 		var p= Process.Start(dp);
 
 
@@ -36,12 +36,12 @@ public class Wrapper
 
 class Program
 {
-	//ƒGƒ“ƒgƒŠƒ|ƒCƒ“ƒg
+	//ã‚¨ãƒ³ãƒˆãƒªãƒã‚¤ãƒ³ãƒˆ
 	static void Main()
 	{
 	     try
 	    {
-			//ƒCƒ“ƒXƒ^ƒ“ƒX‰»
+			//ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–
 			Wrapper psr= new Wrapper();
 
 			// psr.Str= "";

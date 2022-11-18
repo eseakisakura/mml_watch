@@ -8,14 +8,9 @@ echo $Env:Path
 cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 [Environment]::CurrentDirectory= pwd # working_dir set
 
-csc -target:winexe -win32icon:MW_icon.ico .\new_mml_watch.cs
-#csc -target:winexe -win32icon:MW_icon.ico .\mml_watch.cs
-#csc -target:winexe -win32icon:FE_icon.ico .\fm_editor.cs
-#csc -target:winexe -win32icon:AG_icon.ico .\arp_gene.cs
-
-#csc -target:winexe -win32icon:MW_icon.ico .\mml_watch_pwsh.cs
-#csc -target:winexe -win32icon:FE_icon.ico .\fm_editor_pwsh.cs
-#csc -target:winexe -win32icon:AG_icon.ico .\arp_gene_pwsh.cs
+csc -target:winexe -win32icon:MW_icon.ico .\new_watch.cs
+csc -target:winexe -win32icon:FE_icon.ico .\new_fm.cs
+csc -target:winexe -win32icon:AG_icon.ico .\new_arp.cs
 
 
 # ----不使用

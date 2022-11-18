@@ -1,202 +1,202 @@
--- Nsdlib_Quick_Help.txt 
+ï»¿-- Nsdlib_Quick_Help.txt 
 
--- NSDL(NES Sound Driver Library)‚æ‚è”²ˆAˆê•”‰Á•M‚µ‚Ä‚¢‚Ü‚·
+-- NSDL(NES Sound Driver Library)ã‚ˆã‚ŠæŠœç²‹ã€ä¸€éƒ¨åŠ ç­†ã—ã¦ã„ã¾ã™
 http://shaw.la.coocan.jp/nsdl/doc/index.html
 
--- “–ƒeƒLƒXƒg‚ÍA\‘¢‰»ƒGƒfƒBƒ^‚Å‘g‚Ü‚ê‚Ä‚Ü‚·B
+-- å½“ãƒ†ã‚­ã‚¹ãƒˆã¯ã€æ§‹é€ åŒ–ã‚¨ãƒ‡ã‚£ã‚¿ã§çµ„ã¾ã‚Œã¦ã¾ã™ã€‚
  
-ƒgƒ‰ƒbƒNw’è -- #code "romcode" 
+ãƒˆãƒ©ãƒƒã‚¯æŒ‡å®š -- #code "romcode" 
 
-‡™PCMƒoƒ“ƒNØ‘Ö”ñ‘Î‰----
+âŠ¿PCMãƒãƒ³ã‚¯åˆ‡æ›¿éå¯¾å¿œ----
 
 #code "nsd.bin"
-TR1,2	APU(2A03) ƒpƒ‹ƒX”g ch1,2
-TR3	APU(2A03) OŠp”g
-TR4	APU(2A03) ƒmƒCƒY
-TR5	APU(2A03) ‡™PCM
+TR1,2	APU(2A03) ãƒ‘ãƒ«ã‚¹æ³¢ ch1,2
+TR3	APU(2A03) ä¸‰è§’æ³¢
+TR4	APU(2A03) ãƒã‚¤ã‚º
+TR5	APU(2A03) âŠ¿PCM
 
 #code "nsd_fds.bin"
-TR6	FDS(ƒfƒBƒXƒNƒVƒXƒeƒ€‰¹Œ¹)
+TR6	FDS(ãƒ‡ã‚£ã‚¹ã‚¯ã‚·ã‚¹ãƒ†ãƒ éŸ³æº)
 
 #code "nsd_vrc6.bin"
-TR6,7	VRC6 ƒpƒ‹ƒX”g ch1,2
-TR8	VRC6 ‹˜”g
+TR6,7	VRC6 ãƒ‘ãƒ«ã‚¹æ³¢ ch1,2
+TR8	VRC6 é‹¸æ³¢
 
 #code "nsd_vrc7.bin"
-TR6~11	VRC7(FM‰¹Œ¹) ch1~6
+TR6~11	VRC7(FMéŸ³æº) ch1~6
 
 #code "nsd_mmc5.bin"
-TR6,7	MMC5 ƒpƒ‹ƒX”g ch1,2
+TR6,7	MMC5 ãƒ‘ãƒ«ã‚¹æ³¢ ch1,2
 
 #code "nsd_n163.bin"
-TR6~13	n16x(”gŒ`ƒƒ‚ƒŠ‰¹Œ¹) ch8~1
+TR6~13	n16x(æ³¢å½¢ãƒ¡ãƒ¢ãƒªéŸ³æº) ch8~1
 
 #code "nsd_s5b.bin"
 TR6,7,8	Sunsoft 5B(Tone& Noise) ch1,2,3
 
 
-‡™PCMƒoƒ“ƒNØ‘Ö‘Î‰----
+âŠ¿PCMãƒãƒ³ã‚¯åˆ‡æ›¿å¯¾å¿œ----
 
 #code "nsd_all.bin"
-TR6,7 		VRC6 ƒpƒ‹ƒX”g ch1,2
-TR8 		VRC6 ‹˜”g
-TR9~14 		VRC7 (FM‰¹Œ¹) ch1~6
-TR15,16 	MMC5 ƒpƒ‹ƒX”g ch1,2
-TR17~24		n16x (”gŒ`ƒƒ‚ƒŠ‰¹Œ¹) ch8~1
+TR6,7 		VRC6 ãƒ‘ãƒ«ã‚¹æ³¢ ch1,2
+TR8 		VRC6 é‹¸æ³¢
+TR9~14 		VRC7 (FMéŸ³æº) ch1~6
+TR15,16 	MMC5 ãƒ‘ãƒ«ã‚¹æ³¢ ch1,2
+TR17~24		n16x (æ³¢å½¢ãƒ¡ãƒ¢ãƒªéŸ³æº) ch8~1
 TR25,26,27	Sunsoft 5B(Tone& Noise) ch1,2,3
-TR28 		§Œä—pƒgƒ‰ƒbƒN(‰¹•„‚Í”­‰¹‚µ‚È‚¢)
-		‹È‘S‘Ì‚ÌƒRƒ}ƒ“ƒh(ƒeƒ“ƒ|‚âAVRC7, n16x‚Ì
-		‰¹Fİ’è“™)‚ğ‹Lq‚Å‚«‚Ü‚·B
+TR28 		åˆ¶å¾¡ç”¨ãƒˆãƒ©ãƒƒã‚¯(éŸ³ç¬¦ã¯ç™ºéŸ³ã—ãªã„)
+		æ›²å…¨ä½“ã®ã‚³ãƒãƒ³ãƒ‰(ãƒ†ãƒ³ãƒã‚„ã€VRC7, n16xã®
+		éŸ³è‰²è¨­å®šç­‰)ã‚’è¨˜è¿°ã§ãã¾ã™ã€‚
 
 #code "nsd_all2.bin"
-TR6 		FDS (ƒfƒBƒXƒNƒVƒXƒeƒ€‰¹Œ¹)
-TR7,8 		VRC6 ƒpƒ‹ƒX”g ch1,2
-TR9 		VRC6 ‹˜”g
-TR10~15 	VRC7 (FM‰¹Œ¹) ch1~6
-TR16,17 	MMC5 ƒpƒ‹ƒX”g ch1,2
-TR18~25 	n16x (”gŒ`ƒƒ‚ƒŠ‰¹Œ¹) ch8~1
+TR6 		FDS (ãƒ‡ã‚£ã‚¹ã‚¯ã‚·ã‚¹ãƒ†ãƒ éŸ³æº)
+TR7,8 		VRC6 ãƒ‘ãƒ«ã‚¹æ³¢ ch1,2
+TR9 		VRC6 é‹¸æ³¢
+TR10~15 	VRC7 (FMéŸ³æº) ch1~6
+TR16,17 	MMC5 ãƒ‘ãƒ«ã‚¹æ³¢ ch1,2
+TR18~25 	n16x (æ³¢å½¢ãƒ¡ãƒ¢ãƒªéŸ³æº) ch8~1
 TR26,27,28	Sunsoft 5B(Tone& Noise) ch1,2,3
-TR29 		§Œä—pƒgƒ‰ƒbƒN(‰¹•„‚Í”­‰¹‚µ‚È‚¢)
-		‹È‘S‘Ì‚ÌƒRƒ}ƒ“ƒh(ƒeƒ“ƒ|‚âAVRC7, n16x‚Ì
-		‰¹Fİ’è“™)‚ğ‹Lq‚Å‚«‚Ü‚·B
+TR29 		åˆ¶å¾¡ç”¨ãƒˆãƒ©ãƒƒã‚¯(éŸ³ç¬¦ã¯ç™ºéŸ³ã—ãªã„)
+		æ›²å…¨ä½“ã®ã‚³ãƒãƒ³ãƒ‰(ãƒ†ãƒ³ãƒã‚„ã€VRC7, n16xã®
+		éŸ³è‰²è¨­å®šç­‰)ã‚’è¨˜è¿°ã§ãã¾ã™ã€‚
  
-”’l‚Ì‹L–@ ---- 
+æ•°å€¤ã®è¨˜æ³• ---- 
 
-	0~9‚Ån‚Ü‚é”’l‚ÍA10i”
-	$‚Ån‚Ü‚é”’l‚ÍA16i”
-	%‚Ån‚Ü‚é”’l‚ÍA2i”
+	0~9ã§å§‹ã¾ã‚‹æ•°å€¤ã¯ã€10é€²æ•°
+	$ã§å§‹ã¾ã‚‹æ•°å€¤ã¯ã€16é€²æ•°
+	%ã§å§‹ã¾ã‚‹æ•°å€¤ã¯ã€2é€²æ•°
 
 	a[length]
 	a4	Length
 	a%24	tick	(#timebase 24)
 
 
-	Šî–{’PˆÊ‚Ítick
+	åŸºæœ¬å˜ä½ã¯tick
 
 	1frame= 1tick #timebase 24 t150
 	(1min= 60frame* 60s= 24tick* t150)
 
 	(1frame= 1/60s)
  
-;	1scomment 
+;	1è¡Œcomment 
 
-//	1sƒRƒƒ“ƒg
+//	1è¡Œã‚³ãƒ¡ãƒ³ãƒˆ
 
-/*~*/	”ÍˆÍƒRƒƒ“ƒg (“ü‚êq•s‰Â)
+/*~*/	ç¯„å›²ã‚³ãƒ¡ãƒ³ãƒˆ (å…¥ã‚Œå­ä¸å¯)
 
-|	¬ßü
+|	å°ç¯€ç·š
 	
 ;	nsdlib bug 
 
 TR1  ^
-‚¾‚ÆA—‚¿‚é
+ã ã¨ã€è½ã¡ã‚‹
 
 TR1  o4Ev20 Q2 l8 v15 @2
-‚Ì‚İ‚¾‚ÆAplayer‚ª100%‚É‚È‚é
+ã®ã¿ã ã¨ã€playerãŒ100%ã«ãªã‚‹
   
-ƒwƒbƒ_////// 
+ãƒ˜ãƒƒãƒ€////// 
 	 
-#title "str" 		ƒ^ƒCƒgƒ‹–¼ 
-#composer "str" 	ì‹ÈÒ
-#copyright "str" 	’˜ìŒ Ò
+#title "str" 		ã‚¿ã‚¤ãƒˆãƒ«å 
+#composer "str" 	ä½œæ›²è€…
+#copyright "str" 	è‘—ä½œæ¨©è€…
 
-#maker "str"(nsf2)	»ìÒ‚ğİ’è
-#text "str"(nsf2)	ƒeƒLƒXƒg‚ğİ’è
-
-
-#code "romcode"		romcode(~.bin)w’è
-
-#Bank			‡™PCM‚Ìƒoƒ“ƒNØ‘Ö‚Ö‘Î‰‚·‚é
-			nsd_all.binA
-			nsd_all2.bin‚È‚Ç‚Í•K{
-
-#External num		nsfƒwƒbƒ_[‚Éİ’è‚·‚é
-			(Šg’£‰¹Œ¹ƒtƒ‰ƒO‘‚«Š·‚¦)
+#maker "str"(nsf2)	è£½ä½œè€…ã‚’è¨­å®š
+#text "str"(nsf2)	ãƒ†ã‚­ã‚¹ãƒˆã‚’è¨­å®š
 
 
-#VRC7 num (nsf2)	VRC7,OPLL[0,1]‚ÌŠ·‘•
-			(‘Î‰player‚Ì‚İ‰Â)
+#code "romcode"		romcode(~.bin)æŒ‡å®š
 
-#mixe {			Šg’£‰¹Œ¹‚Ì‰¹—Êƒoƒ‰ƒ“ƒXw’è[+,-]
-id = volume,		id: ‰¹Œ¹ƒ^ƒCƒv
+#Bank			âŠ¿PCMã®ãƒãƒ³ã‚¯åˆ‡æ›¿ã¸å¯¾å¿œã™ã‚‹
+			nsd_all.binã€
+			nsd_all2.binãªã©ã¯å¿…é ˆ
+
+#External num		nsfãƒ˜ãƒƒãƒ€ãƒ¼ã«è¨­å®šã™ã‚‹
+			(æ‹¡å¼µéŸ³æºãƒ•ãƒ©ã‚°æ›¸ãæ›ãˆ)
+
+
+#VRC7 num (nsf2)	VRC7,OPLL[0,1]ã®æ›è£…
+			(å¯¾å¿œplayerã®ã¿å¯)
+
+#mixe {			æ‹¡å¼µéŸ³æºã®éŸ³é‡ãƒãƒ©ãƒ³ã‚¹æŒ‡å®š[+,-]
+id = volume,		id: éŸ³æºã‚¿ã‚¤ãƒ—
 id = volume		[APU1,APU2,VRC6,VRC7,FDS,MMC5,N163,SN5B]
 }(nsf2)
 
 
 
  	
-#QMax num		"Q"‚Ì•ª•ê‚Ìİ’è(def:8) 
-#QReverse		"Q"‚Æ"q"‚ğ“ü‘Ö‚¦
+#QMax num		"Q"ã®åˆ†æ¯ã®è¨­å®š(def:8) 
+#QReverse		"Q"ã¨"q"ã‚’å…¥æ›¿ãˆ
 
-#octaveReverse		"<"‚Æ">"‚ğ“ü‘Ö‚¦
+#octaveReverse		"<"ã¨">"ã‚’å…¥æ›¿ãˆ
 
-#RepeatMode mode	ƒŠƒs[ƒgA"[:]"Še‹L–@‚ÌƒRƒ“ƒpƒCƒ‹•û–@
+#RepeatMode mode	ãƒªãƒ”ãƒ¼ãƒˆA"[:]"å„è¨˜æ³•ã®ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«æ–¹æ³•
 			[0~2](def:0)
-			0: ©“®ƒ‚[ƒh
-			1: ‹L–@1driver,‹L–@2compiler
-			2: ‹L–@2driver,‹L–@1compiler
-			(ƒƒ‚ƒŠ§–ñ‚ª‚ ‚éê‡)
+			0: è‡ªå‹•ãƒ¢ãƒ¼ãƒ‰
+			1: è¨˜æ³•1driver,è¨˜æ³•2compiler
+			2: è¨˜æ³•2driver,è¨˜æ³•1compiler
+			(ãƒ¡ãƒ¢ãƒªåˆ¶ç´„ãŒã‚ã‚‹å ´åˆ)
 
-#TieMode num		"^"‚ÌƒRƒ“ƒpƒCƒ‹•û–@‚Ìİ’è
+#TieMode num		"^"ã®ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«æ–¹æ³•ã®è¨­å®š
 			[0,1](def:0)
 			0 :tai only
-			1 :tai+length‚ª‚ ‚é‚ÆŒ©‚é
+			1 :tai+lengthãŒã‚ã‚‹ã¨è¦‹ã‚‹
 
-#rest num		"r"‚ÌƒRƒ“ƒpƒCƒ‹•û–@‚Ìİ’è
+#rest num		"r"ã®ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«æ–¹æ³•ã®è¨­å®š
 			[0~3](def:2)
 			0: v0
-			1: R@,Rv‚Ìİ’è’l
-			2: ƒŠƒŠ[ƒXƒpƒ^[ƒ“
-			3: Rm‚Ìİ’è’l
+			1: R@,Rvã®è¨­å®šå€¤
+			2: ãƒªãƒªãƒ¼ã‚¹ãƒ‘ã‚¿ãƒ¼ãƒ³
+			3: Rmã®è¨­å®šå€¤
 
-#wait num		"w"‚ÌƒRƒ“ƒpƒCƒ‹•û–@‚Ìİ’è
+#wait num		"w"ã®ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«æ–¹æ³•ã®è¨­å®š
 			[0~3](def:0)
-			ã‹L“¯
+			ä¸Šè¨˜åŒ
 
-#ReleaseVolume num	"Rv"ƒRƒ}ƒ“ƒh‚Ì‰Šú’l‚Ìİ’è
+#ReleaseVolume num	"Rv"ã‚³ãƒãƒ³ãƒ‰ã®åˆæœŸå€¤ã®è¨­å®š
 			[0~15](def:2)
  
-#offsetE@ [+n,-n]	"E@[num]"‚Ìnum‚ğAn‚¾‚¯‰ÁŒ¸‚·‚é 
-#offsetEv [+n,-n]	"Ev[num]"‚Ìnum‚ğAn‚¾‚¯‰ÁŒ¸‚·‚é
-#offsetEm [+n,-n]	"Em[num]"‚Ìnum‚ğAn‚¾‚¯‰ÁŒ¸‚·‚é
-#offsetEn [+n,-n]	"En[num]"‚Ìnum‚ğAn‚¾‚¯‰ÁŒ¸‚·‚é
+#offsetE@ [+n,-n]	"E@[num]"ã®numã‚’ã€nã ã‘åŠ æ¸›ã™ã‚‹ 
+#offsetEv [+n,-n]	"Ev[num]"ã®numã‚’ã€nã ã‘åŠ æ¸›ã™ã‚‹
+#offsetEm [+n,-n]	"Em[num]"ã®numã‚’ã€nã ã‘åŠ æ¸›ã™ã‚‹
+#offsetEn [+n,-n]	"En[num]"ã®numã‚’ã€nã ã‘åŠ æ¸›ã™ã‚‹
 			[def:0]
 
-#offsetPCM address	‡™PCM‚ğ”z’u‚·‚éƒAƒhƒŒƒX‚ğw’è
-			(#Bank‚Í•s—v)
-			[def:$10000](‡™PCM–³‚µ)
+#offsetPCM address	âŠ¿PCMã‚’é…ç½®ã™ã‚‹ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’æŒ‡å®š
+			(#Bankæ™‚ã¯ä¸è¦)
+			[def:$10000](âŠ¿PCMç„¡ã—)
 
 			exp. #offsetPCM $C000
  
-#include "file"		ŠO•”ƒtƒ@ƒCƒ‹‚ÌŒÄ‚İ 
+#include "file"		å¤–éƒ¨ãƒ•ã‚¡ã‚¤ãƒ«ã®å‘¼è¾¼ã¿ 
 
-#bgm num		[def:1] BGM(‹È)”‚Ìİ’è
-#se num			[def:0] SE(Œø‰Ê‰¹)”‚Ìİ’è
+#bgm num		[def:1] BGM(æ›²)æ•°ã®è¨­å®š
+#se num			[def:0] SE(åŠ¹æœéŸ³)æ•°ã®è¨­å®š
 
-#plst {n,n,n}(nsf2)	BGM‚Ì‰‰‘t‡”Ô[n:0~255]
-#psfx {n,n,n}(nsf2)	SE‚Ì‰‰‘t‡”Ô[n:0~255]
+#plst {n,n,n}(nsf2)	BGMã®æ¼”å¥é †ç•ª[n:0~255]
+#psfx {n,n,n}(nsf2)	SEã®æ¼”å¥é †ç•ª[n:0~255]
 
-#priority num		+[0~3]-(def:0) ˆÈ~‚ÌSE(Œø‰Ê‰¹)—Dæ“x‚Ìİ’è
+#priority num		+[0~3]-(def:0) ä»¥é™ã®SE(åŠ¹æœéŸ³)å„ªå…ˆåº¦ã®è¨­å®š
 
-#timebase num		(def:24) 4•ª‰¹•„•ª‰ğ”\‚Ìİ’è
-			(ƒV[ƒPƒ“ƒX(sqr)ƒuƒƒbƒN(BGM,SE,Sub)‚Ö“K—p‰Â)
+#timebase num		(def:24) 4åˆ†éŸ³ç¬¦åˆ†è§£èƒ½ã®è¨­å®š
+			(éšæ™‚ã‚·ãƒ¼ã‚±ãƒ³ã‚¹(sqr)ãƒ–ãƒ­ãƒƒã‚¯(BGM,SE,Sub)ã¸é©ç”¨å¯)
 
 
-#label "str"(nsf2)	sqrƒuƒƒbƒN‚Ì‹È–¼‚ğİ’è
-#author "str"(nsf2)	sqrƒuƒƒbƒN‚Ìì‹ÈÒ‚ğİ’è
+#label "str"(nsf2)	sqrãƒ–ãƒ­ãƒƒã‚¯ã®æ›²åã‚’è¨­å®š
+#author "str"(nsf2)	sqrãƒ–ãƒ­ãƒƒã‚¯ã®ä½œæ›²è€…ã‚’è¨­å®š
 
-#time n (nsf2)		(def:-1)sqrƒuƒƒbƒN‚Ì‰‰‘tŠÔ‚ğmsec‚Åİ’è
-			0: ’¼‚¿‚ÉFade out
+#time n (nsf2)		(def:-1)sqrãƒ–ãƒ­ãƒƒã‚¯ã®æ¼”å¥æ™‚é–“ã‚’msecã§è¨­å®š
+			0: ç›´ã¡ã«Fade out
 
-#fade n (nsf2)		(def:-1)sqrƒuƒƒbƒN‚ÌFade outŠÔ‚ğmsec‚Åİ’è
-			0: Fade‚µ‚È‚¢
+#fade n (nsf2)		(def:-1)sqrãƒ–ãƒ­ãƒƒã‚¯ã®Fade outæ™‚é–“ã‚’msecã§è¨­å®š
+			0: Fadeã—ãªã„
   
-’è‹`ƒuƒƒbƒN////// 
+å®šç¾©ãƒ–ãƒ­ãƒƒã‚¯////// 
 	
-BGM(num){~}	BGM ƒV[ƒPƒ“ƒX(sqr)‹LqƒuƒƒbƒN 
-SE(num){~}	SE ƒV[ƒPƒ“ƒX(sqr)‹LqƒuƒƒbƒN
+BGM(num){~}	BGM ã‚·ãƒ¼ã‚±ãƒ³ã‚¹(sqr)è¨˜è¿°ãƒ–ãƒ­ãƒƒã‚¯ 
+SE(num){~}	SE ã‚·ãƒ¼ã‚±ãƒ³ã‚¹(sqr)è¨˜è¿°ãƒ–ãƒ­ãƒƒã‚¯
  
-Sub(num){~}	ƒTƒuƒ‹[ƒ`ƒ“‹LqƒuƒƒbƒN 
+Sub(num){~}	ã‚µãƒ–ãƒ«ãƒ¼ãƒãƒ³è¨˜è¿°ãƒ–ãƒ­ãƒƒã‚¯ 
 S(num){~}
 
 exp.
@@ -206,9 +206,9 @@ BGM(20){
 	S20
  }
  
-$name{~}	ƒ}ƒNƒ(ƒV[ƒPƒ“ƒXŠO•”‚Å’è‹`) 
+$name{~}	ãƒã‚¯ãƒ­(ã‚·ãƒ¼ã‚±ãƒ³ã‚¹å¤–éƒ¨ã§å®šç¾©) 
 
-$$name{~}	ƒ[ƒJƒ‹ƒ}ƒNƒ(ƒV[ƒPƒ“ƒX“à•”‚Å’è‹`)
+$$name{~}	ãƒ­ãƒ¼ã‚«ãƒ«ãƒã‚¯ãƒ­(ã‚·ãƒ¼ã‚±ãƒ³ã‚¹å†…éƒ¨ã§å®šç¾©)
 
 exp.
 $macro1{aa}
@@ -219,14 +219,14 @@ BGM(20){
 	$macro1 $macro2
  }
  
-Envelop(num){ value~ }	ƒGƒ“ƒxƒ[ƒv’è‹` 
+Envelop(num){ value~ }	ã‚¨ãƒ³ãƒ™ãƒ­ãƒ¼ãƒ—å®šç¾© 
 E(num){ value }
 
-	--‰¹’ö(Note) -> En
-	’Êí
+	--éŸ³ç¨‹(Note) -> En
+	é€šå¸¸
 	value	[-64~63]
 
-	APU Noise(Note num‚Ì‰ºˆÊ4bit)
+	APU Noise(Note numã®ä¸‹ä½4bit)
 	value
 		[o5c~o5d+](o1a,o2a,o3a,o4d)
 		[o5e~o5g](o4a,o5d,o5a,o6c)
@@ -235,26 +235,26 @@ E(num){ value }
 
 
 
-	--ü”g”(Pitch)	-> Em
+	--å‘¨æ³¢æ•°(Pitch)	-> Em
 
-	value	[-64~63](16= 100cent(”¼‰¹))
-
-
-
-	--‰¹F	-> E@
-
-	value[MML command - "@"QÆ]
+	value	[-64~63](16= 100cent(åŠéŸ³))
 
 
 
-	--‰¹—Ê	-> Ev
+	--éŸ³è‰²	-> E@
+
+	value[MML command - "@"å‚ç…§]
+
+
+
+	--éŸ³é‡	-> Ev
 
 	value	[0~15]
 
 	APU TRI	[0~4] <-> s[0~127]
 		(Mute, 4.17, 8.33, 12.5msec)
-		(4: 16.7msec [“–ŠYframeŠÔAí‚É”­‰¹])
-		ƒŠƒjƒAƒJƒEƒ“ƒ^[
+		(4: 16.7msec [å½“è©²frameé–“ã€å¸¸ã«ç™ºéŸ³])
+		ãƒªãƒ‹ã‚¢ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼
 
 	FDS 	[0~63] Carrier.Gain
 
@@ -264,7 +264,7 @@ E(num){ value }
 exp.
 E(20){ (8,15,3),(15,8,100) L8  R (8,0,3) L0 }
  
-Patch(num){~}	ƒpƒbƒ`’è‹`(KeyAssgin) 
+Patch(num){~}	ãƒ‘ãƒƒãƒå®šç¾©(KeyAssgin) 
 P(num){~}
 
 exp.
@@ -282,7 +282,7 @@ P(20){
 
 
  
-DPCM{~}		‡™PCM‚Ì’è‹` 
+DPCM{~}		âŠ¿PCMã®å®šç¾© 
 @DPCM{~}
 
 exp.
@@ -300,7 +300,7 @@ DPCM{
 
 
  
-FDSC(num){~} 	FDS career”gŒ`’è‹` 
+FDSC(num){~} 	FDS careeræ³¢å½¢å®šç¾© 
 
 exp.
 FDSC(20){
@@ -310,7 +310,7 @@ FDSC(20){
 	60 52 43 32  24 19 16 14  11 09 07 06  04 03 02 01
  }
 
-FDSM(num){~} 	FDS modulator”gŒ`’è‹`
+FDSM(num){~} 	FDS modulatoræ³¢å½¢å®šç¾©
 
 exp.
 FDSM(20){
@@ -318,7 +318,7 @@ FDSM(20){
 	0,1,0,1, 0,1,0,1, 0,7,0,7, 0,7,0,7
  }
  
-VRC7(num){~} 	VRC7ƒ†[ƒU[‰¹F’è‹` 
+VRC7(num){~} 	VRC7ãƒ¦ãƒ¼ã‚¶ãƒ¼éŸ³è‰²å®šç¾© 
 
 exp.
 VRC7(20){	//Piano
@@ -329,7 +329,7 @@ VRC7(20){	//Piano
 		15  2  3  1  0  1  0  0  0  1  0
  }
  
-N163(num){~}	n16x”gŒ`’è‹` 
+N163(num){~}	n16xæ³¢å½¢å®šç¾© 
 @N(n){~}
 
 exp.
@@ -338,76 +338,76 @@ N163(20){	//Pipe Organ  32Sample(16Byte)
 	4, 1, 0, 1,  4,10, 5, 7,  7, 9,14,11, 10,15, 9,13
  }
 
-	ŒÄo‚µ -> NC4 @NL64,20 @NS64
+	å‘¼å‡ºã— -> NC4 @NL64,20 @NS64
 
 	@NL64,0 /*= @N16,0 */ @NS64,32 /*= @16 s56 */
   
 MML command////// 
 	
 t	Tempo	t[num] 
-t_	‘Š‘Îƒeƒ“ƒ|
+t_	ç›¸å¯¾ãƒ†ãƒ³ãƒ
  
-a~g	‰¹•„	a[length] 
+a~g	éŸ³ç¬¦	a[length] 
 	a4
 	a%24
 
 a+,a#	#
 a-	b
-a=,a*	ƒiƒ`ƒ…ƒ‰ƒ‹
+a=,a*	ãƒŠãƒãƒ¥ãƒ©ãƒ«
 
-a..	•t“_	a4&a8&a16
+a..	ä»˜ç‚¹	a4&a8&a16
 
 
-a+(,a^)	‰ÁZ	a2+4(,l2a^4)(¦#TieMode:1‚ğİ’è)
-a-,a~	Œ¸Z	a1-4,l1a~4
+a+(,a^)	åŠ ç®—	a2+4(,l2a^4)(â€»#TieMode:1ã‚’è¨­å®š)
+a-,a~	æ¸›ç®—	a1-4,l1a~4
 
  
-a^	ƒ^ƒC 
+a^	ã‚¿ã‚¤ 
 
-a&b	ƒXƒ‰[
+a&b	ã‚¹ãƒ©ãƒ¼
  
-P	ƒ|ƒ‹ƒ^ƒƒ“ƒg(sweep) 
+P	ãƒãƒ«ã‚¿ãƒ¡ãƒ³ãƒˆ(sweep) 
 	P[delay,rate,depth,target]
 	exp.P20,1,-7,-24
 
-{~}	ƒ|ƒ‹ƒ^ƒƒ“ƒg2
+{~}	ãƒãƒ«ã‚¿ãƒ¡ãƒ³ãƒˆ2
 	exp.
 	{c#2&>c#}
 	{c#2>c#}&
 	{c#&>c#}2
 	{c#>c#}2&
  
-r,w	‹x•„ rest,wait 
-	(¦rest‚ªwait“I‚ÈU•‘ <- def.İ’è)
+r,w	ä¼‘ç¬¦ rest,wait 
+	(â€»restãŒwaitçš„ãªæŒ¯èˆ <- def.è¨­å®š)
 
 	r-	:v0
-	r+,r#	:R@, Rv‚Ìİ’è’l
-	r=	:ƒŠƒŠ[ƒXƒpƒ^[ƒ“
-	r*	:Rm‚Ìİ’è’l
+	r+,r#	:R@, Rvã®è¨­å®šå€¤
+	r=	:ãƒªãƒªãƒ¼ã‚¹ãƒ‘ã‚¿ãƒ¼ãƒ³
+	r*	:Rmã®è¨­å®šå€¤
 
 	exp. v15 Rv15 a1 s11,5 r=1 s11,13 w1+
  
 o	Octave	o[1~8] 
 
->,<	‘Š‘Îoct. [-1,+1]
-",`	ˆêoct. [-1,+1]
+>,<	ç›¸å¯¾oct. [-1,+1]
+",`	ä¸€æ™‚oct. [-1,+1]
  
-l	Length ‰¹’· l[length] 
+l	Length éŸ³é•· l[length] 
  
-v	‰¹—Ê	v[0~15] ‹¤’Ê (APU[TRI,DPCM]w’è•s‰Â) 
-),(	‘Š‘Îvol [-1,+1]
+v	éŸ³é‡	v[0~15] å…±é€š (APU[TRI,DPCM]æŒ‡å®šä¸å¯) 
+),(	ç›¸å¯¾vol [-1,+1]
 
-	APU TRI -> Ev ƒŠƒjƒAƒJƒEƒ“ƒ^[
+	APU TRI -> Ev ãƒªãƒ‹ã‚¢ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼
 	FDS 	-> Ev [0~63] Carrier.Gain
 	VRC6 SAW-> Ev [0~63]
  
-Q	gate-quantize	(q:‹^—–½—ß) 
+Q	gate-quantize	(q:ç–‘ä¼¼å‘½ä»¤) 
 
-q	[tick]Œ¸ZƒQ[ƒg
+q	[tick]æ¸›ç®—ã‚²ãƒ¼ãƒˆ
 
-u	length‚ÌƒQ[ƒg
+u	lengthã®ã‚²ãƒ¼ãƒˆ
  
-@	‰¹F	@[num]A@2 
+@	éŸ³è‰²	@[num]ã€@2 
 
 	APU SQ   [0~3]	(12.5, 25, 50, 75%)
 	    Noise[0,1]	long,short
@@ -429,17 +429,17 @@ u	length‚ÌƒQ[ƒg
 
 	VRC7 [0,1~15]	(User,Preset)
 
-	     Preset‰¹F	1~3	(Synth,E.Guitar,Piano)
+	     PresetéŸ³è‰²	1~3	(Synth,E.Guitar,Piano)
 			4~7	(Flute,Clarinet,Bell,Trumpet)
 			8~11	(Violin,Horn,MusicBox,Vibraphone)
 			12~15	(SAW,AcousticBs,SynthBs1,SynthBs2)
 
-	     [32~47]	Modulator.ML	(-32‚Ì’l)
-	     [48~63]	Carrier.ML	(-48‚Ì’l)
-	     [64~127]	Modulator.TL	(-64‚Ì’l)
+	     [32~47]	Modulator.ML	(-32ã®å€¤)
+	     [48~63]	Carrier.ML	(-48ã®å€¤)
+	     [64~127]	Modulator.TL	(-64ã®å€¤)
 
 
-exp.	(@0 @V100; vrc7UserŒÄo‚µ)
+exp.	(@0 @V100; vrc7Userå‘¼å‡ºã—)
 
 #Code "nsd_all.bin"
 #Bank
@@ -454,42 +454,42 @@ VRC7(100){
 E(300){ (127,64,30) L64 } // E@ Modulator.TL
 BGM(0){ TR9 @0 @V100 E@300 v15 Q8 [ f1r1 ]4 }
  
-@FC	FDS‰¹Œ¹career”gŒ` 
+@FC	FDSéŸ³æºcareeræ³¢å½¢ 
 	@FC[num] <- FDSC(num)
 
-@FF	FDS‰¹Œ¹modulatorü”g”
-	@FF[0:mute,1~4095]A@FF16
+@FF	FDSéŸ³æºmodulatorå‘¨æ³¢æ•°
+	@FF[0:mute,1~4095]ã€@FF16
 
-@FM	FDS‰¹Œ¹modulator”gŒ`
+@FM	FDSéŸ³æºmodulatoræ³¢å½¢
 	@FMnum <- FDSM(num)
 
-@FV	FDSƒ}ƒXƒ^[‰¹—Ê
-	@FV[def.0~3]A@FV3
+@FV	FDSãƒã‚¹ã‚¿ãƒ¼éŸ³é‡
+	@FV[def.0~3]ã€@FV3
 	(1/1, 2/3, 1/2, 2/5)
 
 
-NC	n16x‚Ìch”w’è(sample’·Ach”‚É‚æ‚èoct.‚ª•Ï“®)
-	NC[1~8]ANC4
+NC	n16xã®chæ•°æŒ‡å®š(sampleé•·ã€chæ•°ã«ã‚ˆã‚Šoct.ãŒå¤‰å‹•)
+	NC[1~8]ã€NC4
 
 	exp.NC4 @NL64,20 @NS64 //32sample(16Byte)
 
 	    @NL64,20 /*= @N16,20 */ @NS64,32 /*= @16 s56 */
 
-@N	n16x‰¹F”gŒ`‚ÌƒŒƒWƒXƒ^“]‘— @N address/2, num
+@N	n16xéŸ³è‰²æ³¢å½¢ã®ãƒ¬ã‚¸ã‚¹ã‚¿è»¢é€ @N address/2, num
 	@N16,num	// N163(num) 32Sample(16Byte)
 	@N24,num	// N163(num) 16Sample( 8Byte)
 
-@NL	n16x‰¹F”gŒ`‚Ìsample“]‘— @N address*2,num
+@NL	n16xéŸ³è‰²æ³¢å½¢ã®sampleè»¢é€ @N address*2,num
 	@NL64,num
 	@NL96,num
 
-@NS	n16x”gŒ`•sample’·w’è @NS address*2(,sample) [def:32sample]
+@NS	n16xæ³¢å½¢ï¼†sampleé•·æŒ‡å®š @NS address*2(,sample) [def:32sample]
 	@NS64	  = @16 s56
 	@NS96,16  = @24 s60
 
-	(address‚ÍÅŒã‚Ì’l‚ÅAsample•ªA‘O‚ğ“Ç‚Ş)
+	(addressã¯æœ€å¾Œã®å€¤ã§ã€sampleåˆ†ã€å‰ã‚’èª­ã‚€)
 
-	|[20] 32sample |[30] 16sample | ‚Æ“Ç‚İ‚Şê‡A
+	|[20] 32sample |[30] 16sample | ã¨èª­ã¿è¾¼ã‚€å ´åˆã€
 	|0          32 |32         48 | sample
 	|           64 |           96 | address*2
 
@@ -497,60 +497,60 @@ NC	n16x‚Ìch”w’è(sample’·Ach”‚É‚æ‚èoct.‚ª•Ï“®)
 	TR18 @NL96,30 @NS96,16
 
 
-@V	vrc7user’è‹`‰¹F @VnumA@0 @V20
-	(VRC7‚Ì"user‰¹F@0"‚Öƒ[ƒh)
+@V	vrc7userå®šç¾©éŸ³è‰² @Vnumã€@0 @V20
+	(VRC7ã®"useréŸ³è‰²@0"ã¸ãƒ­ãƒ¼ãƒ‰)
 
 
-F	Sunsoft5B envü”g” F[frequency]AF1000
+F	Sunsoft5B envå‘¨æ³¢æ•° F[frequency]ã€F1000
  
-E@	‰¹FenvAE@[num] 
-	(@num‚Å–³Œø)
+E@	éŸ³è‰²envã€E@[num] 
+	(@numã§ç„¡åŠ¹)
 
-Ev	‰¹—ÊenvAEv[num]
-	(Ev*‚Å–³Œø)
+Ev	éŸ³é‡envã€Ev[num]
+	(Ev*ã§ç„¡åŠ¹)
 
-Em	ƒxƒ“ƒhenvAEm[num]
-	(Em*‚Å–³Œø)
+Em	ãƒ™ãƒ³ãƒ‰envã€Em[num]
+	(Em*ã§ç„¡åŠ¹)
 
-En	‰¹’öenvAEn[num]
-	(En*‚Å–³Œø)
+En	éŸ³ç¨‹envã€En[num]
+	(En*ã§ç„¡åŠ¹)
  
-R@	KeyOff‚Ì‰¹FAR@2 
-Rv	KeyOff‚Ì‰¹—ÊARv2
+R@	KeyOffæ™‚ã®éŸ³è‰²ã€R@2 
+Rv	KeyOffæ™‚ã®éŸ³é‡ã€Rv2
 
-Rm	KeyOff‚Ìˆ—ARm[mode]
+Rm	KeyOffæ™‚ã®å‡¦ç†ã€Rm[mode]
 	mode
-	0 :v0(‡™PCM‚ÍKeyOff)
-	1 :R@, Rv‚Ìİ’è’l
-	2 :ƒŠƒŠ[ƒXƒpƒ^[ƒ“(Default)
+	0 :v0(âŠ¿PCMã¯KeyOff)
+	1 :R@, Rvã®è¨­å®šå€¤
+	2 :ãƒªãƒªãƒ¼ã‚¹ãƒ‘ã‚¿ãƒ¼ãƒ³(Default)
  
-k	KeyShift k[-128~127](_:‹^—–½—ß) 
-k_	‘Š‘ÎƒL[ƒVƒtƒg
+k	KeyShift k[-128~127](_:ç–‘ä¼¼å‘½ä»¤) 
+k_	ç›¸å¯¾ã‚­ãƒ¼ã‚·ãƒ•ãƒˆ
 
 _	transpose _[-128~127]
-__	‘Š‘Î“]’²
+__	ç›¸å¯¾è»¢èª¿
 
-K{~}	ˆÚ’²	K{-eab} //Min scale
-		K{=eab} //’²†‚È‚µ
+K{~}	ç§»èª¿	K{-eab} //Min scale
+		K{=eab} //èª¿å·ãªã—
 
  
-D	Detune(cent’PˆÊ) D[-128~127]AD3 
-D%	ƒfƒ`ƒ…[ƒ“(register’PˆÊ) D%[-128~127]
+D	Detune(centå˜ä½) D[-128~127]ã€D3 
+D%	ãƒ‡ãƒãƒ¥ãƒ¼ãƒ³(registerå˜ä½) D%[-128~127]
  
-EC	‹^—ƒGƒR[ 
-	EC[delay,volume(,length)]AEC2,4
+EC	ç–‘ä¼¼ã‚¨ã‚³ãƒ¼ 
+	EC[delay,volume(,length)]ã€EC2,4
 
-	delay	[0:’¼‘O‰¹~] (‰½‰¹‘O‚©)
-	volume	[-1:ƒXƒ‰[,0~15]
-	length	[-1:r‹x•„‚Ìecho,‰¹’·Œ¸echo:1~255](def.-1)
-	(EC*‚Å–³Œø)
+	delay	[0:ç›´å‰éŸ³~] (ä½•éŸ³å‰ã‹)
+	volume	[-1:ã‚¹ãƒ©ãƒ¼,0~15]
+	length	[-1:rä¼‘ç¬¦ã®echo,éŸ³é•·æ¸›echo:1~255](def.-1)
+	(EC*ã§ç„¡åŠ¹)
 
 	exp. v15 EC1,5 l8 arbr crdrer arbr crdrer
-	(¦w‚¾‚ÆƒGƒR[‚µ‚È‚¢ <- def.İ’è)
+	(â€»wã ã¨ã‚¨ã‚³ãƒ¼ã—ãªã„ <- def.è¨­å®š)
  
-s	Šg’£–½—ß s[num,num] 
+s	æ‹¡å¼µå‘½ä»¤ s[num,num] 
 
-	--APU SQ ƒXƒC[ƒv s[speed,depth]
+	--APU SQ ã‚¹ã‚¤ãƒ¼ãƒ— s[speed,depth]
 
 	speed
 		[0~7]	off(Default)
@@ -562,26 +562,26 @@ s	Šg’£–½—ß s[num,num]
 		[0~7]	(0,-7,-6,-5, -4,-3,-2,-1)
 		[8~15]	(0,7,6,5, 4,3,2,1)
 
-	(sweep‰ğœ: s0,8)
-	s9,7; sweep‚ğİ’è
+	(sweepè§£é™¤: s0,8)
+	s9,7; sweepã‚’è¨­å®š
 	exp. TR1 s9,7 c2 s9,15 ^2 s0,8
 
 
-	--APU TRI ƒŠƒjƒAƒJƒEƒ“ƒ^ s[time]
+	--APU TRI ãƒªãƒ‹ã‚¢ã‚«ã‚¦ãƒ³ã‚¿ s[time]
 
-	240Hz’PˆÊ‚ÅAƒn[ƒhƒEƒFƒA‚É‚æ‚éA
-	©“®“I‚ÈKeyOff‚ªs‚¦‚é
+	240Hzå˜ä½ã§ã€ãƒãƒ¼ãƒ‰ã‚¦ã‚§ã‚¢ã«ã‚ˆã‚‹ã€
+	è‡ªå‹•çš„ãªKeyOffãŒè¡Œãˆã‚‹
 
 	time
 		[128]	  mute
-		[0~127]	  ƒŠƒjƒAƒJƒEƒ“ƒ^(0~529msec)
+		[0~127]	  ãƒªãƒ‹ã‚¢ã‚«ã‚¦ãƒ³ã‚¿(0~529msec)
 		[129~255] off(Default)
 
-	(Ev–¢g—pAs‚Åw’è‚·‚é)
+	(Evæœªä½¿ç”¨æ™‚ã€sã§æŒ‡å®šã™ã‚‹)
 	s64;
 
 
-	--FDS bias ƒXƒC[ƒv s[num]
+	--FDS bias ã‚¹ã‚¤ãƒ¼ãƒ— s[num]
 
 	num
 		[0~127](def:0)
@@ -590,13 +590,13 @@ s	Šg’£–½—ß s[num,num]
 	s64;
 
 
-	--VRC7 KeyOff sustain —]‰C‚Ì§Œä s[num]
+	--VRC7 KeyOff sustain ä½™éŸ»ã®åˆ¶å¾¡ s[num]
 
 	num
-		s0: hard,env. –³Œø
-		s1: hard,env. —LŒø RR= 5
-		s2: env. –³Œø
-		s3: env. —LŒø
+		s0: hard,env. ç„¡åŠ¹
+		s1: hard,env. æœ‰åŠ¹ RR= 5
+		s2: env. ç„¡åŠ¹
+		s3: env. æœ‰åŠ¹
 
 
 	--n16x s[num]	Sample Length	MaxTR
@@ -612,39 +612,39 @@ s	Šg’£–½—ß s[num,num]
 	@16 s56	//32sample(16Byte)
 
 
-	--Sunsoft5B ƒn[ƒhƒEƒFƒAenv. s[switch,form]
+	--Sunsoft5B ãƒãƒ¼ãƒ‰ã‚¦ã‚§ã‚¢env. s[switch,form]
 
-	switch	[0,1](off,on)	ƒn[ƒhƒEƒFƒAenv.
-	form	(def.0)		env.‚ÌŒ`ó
+	switch	[0,1](off,on)	ãƒãƒ¼ãƒ‰ã‚¦ã‚§ã‚¢env.
+	form	(def.0)		env.ã®å½¢çŠ¶
 
 	s1,0;
  
-y	ƒƒ‚ƒŠ‘‚«‚İ y[address,data] (‘g‚İ‚İŒü‚¯) 
+y	ãƒ¡ãƒ¢ãƒªæ›¸ãè¾¼ã¿ y[address,data] (çµ„ã¿è¾¼ã¿å‘ã‘) 
 
 
-yV	VRC7‚ÌƒŒƒWƒXƒ^‚ğ’@‚­ê—p yV[address,data]
+yV	VRC7ã®ãƒ¬ã‚¸ã‚¹ã‚¿ã‚’å©ãå°‚ç”¨ yV[address,data]
 
 	address	[0~63]
 	data	[0~255]
  
-$	ƒ}ƒNƒAƒ[ƒJƒ‹ƒ}ƒNƒŒÄ‚Ño‚µ $[name] 
+$	ãƒã‚¯ãƒ­ã€ãƒ­ãƒ¼ã‚«ãƒ«ãƒã‚¯ãƒ­å‘¼ã³å‡ºã— $[name] 
 
-S	ƒTƒuƒ‹[ƒ`ƒ“ŒÄo‚µ S[num]
+S	ã‚µãƒ–ãƒ«ãƒ¼ãƒãƒ³å‘¼å‡ºã— S[num]
 
-@P	‰¹Fƒpƒbƒ` @P[num]
+@P	éŸ³è‰²ãƒ‘ãƒƒãƒ @P[num]
 
-SE	Œø‰Ê‰¹ŒÄo‚µ SE[num]
+SE	åŠ¹æœéŸ³å‘¼å‡ºã— SE[num]
  
-L		–³ŒÀƒ‹[ƒv 
+L		ç„¡é™ãƒ«ãƒ¼ãƒ— 
 
-[num : ]num	(MML‹L–@1)ƒŠƒs[ƒgA
-[:num : :]num	(MML‹L–@2)
+[num : ]num	(MMLè¨˜æ³•1)ãƒªãƒ”ãƒ¼ãƒˆA
+[:num : :]num	(MMLè¨˜æ³•2)
 
-|: \ :|	:|	(Šy•ˆ‹L–@)ƒŠƒs[ƒgB
+|: \ :|	:|	(æ¥½è­œè¨˜æ³•)ãƒªãƒ”ãƒ¼ãƒˆB
  
 j	Jump [1,0] (on,off) 
-	(‘Sƒgƒ‰ƒbƒNADriverÀ‘•)
+	(å…¨ãƒˆãƒ©ãƒƒã‚¯ã€Driverå®Ÿè£…)
 
-J	ƒWƒƒƒ“ƒv‘‘—‚è
-	(w’è‚Ìƒgƒ‰ƒbƒN‚Ì‚İA‹^—–½—ß)
+J	ã‚¸ãƒ£ãƒ³ãƒ—æ—©é€ã‚Š
+	(æŒ‡å®šã®ãƒˆãƒ©ãƒƒã‚¯ã®ã¿ã€ç–‘ä¼¼å‘½ä»¤)
   

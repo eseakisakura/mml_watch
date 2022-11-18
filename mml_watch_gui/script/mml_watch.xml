@@ -2,22 +2,22 @@
 <table>
 	<!-- タグ value -->
 	<val>
-		<mmlfile value="C:\data\XP HD 22 3 28\テンプファイル\MML\pmd\testers.mml" />
-		<mck value="C:\programs\arc\ppmck\bin\ppmckc.exe" />
-		<nsd value="C:\programs\arc\test nsdlib\bin\nsc.exe" />
-		<pmd value="C:\programs\arc\pmd\MC.EXE" />
-		<compiler value="C:\programs\arc\pmd\MC.EXE" />
-		<player value="C:\programs\media\Fmpmd\FMPMD.exe" />
+		<mmlfile value="" />
+		<mck value="" />
+		<nsd value="" />
+		<pmd value="" />
+		<compiler value="" />
+		<player value="" />
 		<dmcdir value="" />
-		<editor value="C:\programs\text\Sted - mdi\sted.exe" />
-		<dos value="C:\programs\arc\msdos\source\binary\i486_x64\msdos.exe" />
+		<editor value="" />
+		<dos value="" />
 	</val>
 	<opt>
 		<option value="10000 00000, 01200 11000, 01000 00000" />
-		<radio_bin value="pmd" />
+		<radio_bin value="nsd" />
 		<chk_pass value="True" />
 		<chk_dos value="Checked" />
-		<chk_stop value="Checked" />
+		<chk_stop value="UnChecked" />
 		<chk_auto value="True" />
 		<edt_open value="False" />
 		<chk_tray value="True" />

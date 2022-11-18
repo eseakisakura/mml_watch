@@ -4,16 +4,17 @@
 		<tray value="True" />
 		<oct value="o4" />
 		<osc value="NSDlib" />
-		<bit value="Checked" />
+		<chk_dos value="Checked" />
+		<radio_bin value="nsd" />
 	</opt>
 	<val>
 		<!-- 拡張性の加味 -->
-		<mck value="C:\Programs\Tools\Arc\ppmck\bin\ppmckc.exe" />
-		<nsd value="C:\programs\arc\nsdlib\bin\nsc64.exe" />
-		<pmd value="C:\Programs\Tools\Arc\pmd\MC.EXE" />
-		<cmp value="C:\programs\arc\nsdlib\bin\nsc64.exe" />
-		<ply value="C:\programs\media\Winamp\winamp.exe" />
-		<dos value="C:\Programs\Tools\Arc\msdos\source\binary\i486_x86\msdos.exe" />
-		<edt value="C:\programs\text\Sted - mdi\sted.exe" />
+		<mck value="" />
+		<nsd value="" />
+		<pmd value="" />
+		<cmp value="" />
+		<ply value="" />
+		<dos value="" />
+		<edt value="" />
 	</val>
 </table>

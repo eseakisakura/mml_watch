@@ -1,10 +1,10 @@
--- PMD_Quick_Help.txt 
+ï»¿-- PMD_Quick_Help.txt 
 
--- PMDMML.MAN‚æ‚è”²ˆAˆê•”‰Á•M‚µ‚Ä‚¢‚Ü‚·
+-- PMDMML.MANã‚ˆã‚ŠæŠœç²‹ã€ä¸€éƒ¨åŠ ç­†ã—ã¦ã„ã¾ã™
 
--- “–ƒeƒLƒXƒg‚ÍA\‘¢‰»ƒGƒfƒBƒ^‚Å‘g‚Ü‚ê‚Ä‚Ü‚·B
+-- å½“ãƒ†ã‚­ã‚¹ãƒˆã¯ã€æ§‹é€ åŒ–ã‚¨ãƒ‡ã‚£ã‚¿ã§çµ„ã¾ã‚Œã¦ã¾ã™ã€‚
  
-ƒp[ƒgŽw’è(Track) 
+ãƒ‘ãƒ¼ãƒˆæŒ‡å®š(Track) 
 
 A	FM
 B	FM
@@ -16,14 +16,14 @@ G	SSG
 H	SSG
 I	SSG(Rythm K,R)
 J	PCM
-K	RythmŽw’è(R0~,\V,\v,\l)
-R	Rythm’è‹`(\~)
+K	RythmæŒ‡å®š(R0~,\V,\v,\l)
+R	Rythmå®šç¾©(\~)
  
-”’l‚Ì‹L–@ ---- 
+æ•°å€¤ã®è¨˜æ³• ---- 
 
-	0~9‚ÅŽn‚Ü‚é”’l‚ÍA10i”
-	$‚ÅŽn‚Ü‚é”’l‚ÍA16i”
-	%‚ÅŽn‚Ü‚é”’l‚ÍAclock”
+	0~9ã§å§‹ã¾ã‚‹æ•°å€¤ã¯ã€10é€²æ•°
+	$ã§å§‹ã¾ã‚‹æ•°å€¤ã¯ã€16é€²æ•°
+	%ã§å§‹ã¾ã‚‹æ•°å€¤ã¯ã€clockæ•°
 
 	a[length]
 	a4	Length
@@ -34,113 +34,113 @@ R	Rythm’è‹`(\~)
 	ql4	Length
 
 
-	Šî–{’PˆÊ‚Íclock
+	åŸºæœ¬å˜ä½ã¯clock
 
 	C96/ clock:48= l2; C96/4= timebase:24
 	C192/ clock:48= l4; C192/4= timebase:48
 
  
 ;		comment 
-[tab]		s“ªƒRƒƒ“ƒg
-[space]		s“ªƒRƒƒ“ƒg
+[tab]		è¡Œé ­ã‚³ãƒ¡ãƒ³ãƒˆ
+[space]		è¡Œé ­ã‚³ãƒ¡ãƒ³ãƒˆ
 
-`~`		”ÍˆÍƒRƒƒ“ƒg
-[‘SŠp•¶Žš]	ƒRƒƒ“ƒgˆµ‚¢
+`~`		ç¯„å›²ã‚³ãƒ¡ãƒ³ãƒˆ
+[å…¨è§’æ–‡å­—]	ã‚³ãƒ¡ãƒ³ãƒˆæ‰±ã„
  
-ƒwƒbƒ_////// 
+ãƒ˜ãƒƒãƒ€////// 
 	
-#Title [str]			‹È‚Ìƒ^ƒCƒgƒ‹ 
-#Composer [str]	ì‹ÈŽÒ–¼
-#Arranger [str]		•Ò‹ÈŽÒ–¼
-#Memo [str]		ƒƒ‚
+#Title [str]			æ›²ã®ã‚¿ã‚¤ãƒˆãƒ« 
+#Composer [str]	ä½œæ›²è€…å
+#Arranger [str]		ç·¨æ›²è€…å
+#Memo [str]		ãƒ¡ãƒ¢
  
-#Filename [file.M]	o—Íƒtƒ@ƒCƒ‹–¼ 
+#Filename [file.M]	å‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«å 
 
-#PPSFile [file.PPS]	SSGPCMƒtƒ@ƒCƒ‹–¼
+#PPSFile [file.PPS]	SSGPCMãƒ•ã‚¡ã‚¤ãƒ«å
 
-#PCMFile [file.PPC]	Jƒp[ƒg‚ÌPCM–¼
+#PCMFile [file.PPC]	Jãƒ‘ãƒ¼ãƒˆã®PCMå
 
-#FFFile [EFFEC.FF]	‰¹F(.FF)ƒtƒ@ƒCƒ‹–¼
+#FFFile [EFFEC.FF]	éŸ³è‰²(.FF)ãƒ•ã‚¡ã‚¤ãƒ«å
 
-#PPZFile [file.pvi]	PPZƒp[ƒg‚ÅŽg—p‚·‚éPCMA
-				(.PVI/.PZI)ƒtƒ@ƒCƒ‹–¼
+#PPZFile [file.pvi]	PPZãƒ‘ãƒ¼ãƒˆã§ä½¿ç”¨ã™ã‚‹PCMã€
+				(.PVI/.PZI)ãƒ•ã‚¡ã‚¤ãƒ«å
 
-#Include [file.mml]	#Includes‚ÉMMLƒtƒ@ƒCƒ‹‚ð“Ç‚Ýž‚Þ
+#Include [file.mml]	#Includeè¡Œã«MMLãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚€
 
-#Option [/L/S/A/O]	ƒRƒ“ƒpƒCƒ‰ƒIƒvƒVƒ‡ƒ“
+#Option [/L/S/A/O]	ã‚³ãƒ³ãƒ‘ã‚¤ãƒ©ã‚ªãƒ—ã‚·ãƒ§ãƒ³
  
-#Tempo [18~255]		ƒeƒ“ƒ|Žw’è(C96ŽžA2•ª‰¹•„‰ñ”/min) 
+#Tempo [18~255]		ãƒ†ãƒ³ãƒæŒ‡å®š(C96æ™‚ã€2åˆ†éŸ³ç¬¦å›žæ•°/min) 
 			[->t command]
 
 #Timer [0~250]		TimerB
 			[->T command]
 
-#Zenlen [1~255]		[def.96]‘S‰¹ƒNƒƒbƒN”
+#Zenlen [1~255]		[def.96]å…¨éŸ³ã‚¯ãƒ­ãƒƒã‚¯æ•°
 			[->C command]
  
-#LoopDefault [0~255]		def.ƒ‹[ƒv”[def.0](0‚Å–³ŒÀ) 
+#LoopDefault [0~255]		def.ãƒ«ãƒ¼ãƒ—æ•°[def.0](0ã§ç„¡é™) 
 
-#Transpose [-128~+127]		‹È‘S‘Ì‚Ì“]’²
+#Transpose [-128~+127]		æ›²å…¨ä½“ã®è»¢èª¿
 				[->_M command]
 
-#Octave [Reverse,Normal]	"<",">"‚Ì”½“]
+#Octave [Reverse,Normal]	"<",">"ã®åè»¢
 				[->X command]
 
 
 
  
-#FM3Extend [XYZ‚È‚Ç]		FM‰¹Œ¹ 3ch‚Ìƒp[ƒgŠg’£ 
-				(op.‚ð•ª—£‚µ‚ÄŽg—p‚·‚é)
+#FM3Extend [XYZãªã©]		FMéŸ³æº 3chã®ãƒ‘ãƒ¼ãƒˆæ‹¡å¼µ 
+				(op.ã‚’åˆ†é›¢ã—ã¦ä½¿ç”¨ã™ã‚‹)
 
-#PPZExtend [abcdefgh‚È‚Ç]	PPZ8ƒp[ƒg‚ÌŠg’£
+#PPZExtend [abcdefghãªã©]	PPZ8ãƒ‘ãƒ¼ãƒˆã®æ‹¡å¼µ
 
-#DT2Flag [on,off]		‰¹Fƒf[ƒ^‚ÉDT2‚ðŠÜ‚Þ
+#DT2Flag [on,off]		éŸ³è‰²ãƒ‡ãƒ¼ã‚¿ã«DT2ã‚’å«ã‚€
  
-#LFOSpeed [Normal,Extend]	FM,SSG,ADPCƒ\ƒtƒgƒEƒGƒALFOA 
-				(Extend: ƒeƒ“ƒ|ˆË‘¶off)
+#LFOSpeed [Normal,Extend]	FM,SSG,ADPCã‚½ãƒ•ãƒˆã‚¦ã‚¨ã‚¢LFOã€ 
+				(Extend: ãƒ†ãƒ³ãƒä¾å­˜off)
 				[->MX command]
 
-#EnvelopeSpeed [Normal,Extend]	SSG/PCMƒ\ƒtƒgƒEƒGƒAenv.‚Ì‘¬“xA
-				(Extend: ƒeƒ“ƒ|ˆË‘¶off)
+#EnvelopeSpeed [Normal,Extend]	SSG/PCMã‚½ãƒ•ãƒˆã‚¦ã‚¨ã‚¢env.ã®é€Ÿåº¦ã€
+				(Extend: ãƒ†ãƒ³ãƒä¾å­˜off)
 				[->EX command]
 
-#Detune [Normal,Extend]		SSG‚ÌDetune/LFOA
-				(Extend: ƒL[ƒXƒP[ƒŠƒ“ƒO)
+#Detune [Normal,Extend]		SSGã®Detune/LFOã€
+				(Extend: ã‚­ãƒ¼ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°)
 				[->DX command]
 
-#Bendrange [0~255]		[def.0]ƒxƒ“ƒhƒŒƒ“ƒW
+#Bendrange [0~255]		[def.0]ãƒ™ãƒ³ãƒ‰ãƒ¬ãƒ³ã‚¸
 				[->B command]
  
-#Volumedown [FR+16,P+128,S+32]	FM,SSG,PCM,RYTHM‰¹—Êƒ_ƒEƒ“ 
-				(+‚Å‰¹—Ê‰º‚°)
+#Volumedown [FR+16,P+128,S+32]	FM,SSG,PCM,RYTHMéŸ³é‡ãƒ€ã‚¦ãƒ³ 
+				(+ã§éŸ³é‡ä¸‹ã’)
 
 				FRPS[0~255,-128~+127]
 				[->DF,DS,DP,DR command]
 
-#PCMVolume [Normal,Extend]	PCMƒp[ƒg‚Ì"v"’l->"V"’l‚Ì•ÏŠ·A
-				(Extend: V= v~16 -> V= v~v)
+#PCMVolume [Normal,Extend]	PCMãƒ‘ãƒ¼ãƒˆã®"v"å€¤->"V"å€¤ã®å¤‰æ›ã€
+				(Extend: V= vÃ—16 -> V= vÃ—v)
 
 
 
  
-#ADPCM [on,off]		PMD86ê—p,‰¹—Ê,ƒ‹[ƒv‚ð‡‚í‚¹‚é 
+#ADPCM [on,off]		PMD86å°‚ç”¨,éŸ³é‡,ãƒ«ãƒ¼ãƒ—ã‚’åˆã‚ã›ã‚‹ 
 			[->A command]
 
-#Jump [0~65535]		‰‰‘tŠJŽn¬ßŽw’è
-			(PMDí’“Žž‚Ì‚Ý)
+#Jump [0~65535]		æ¼”å¥é–‹å§‹å°ç¯€æŒ‡å®š
+			(PMDå¸¸é§æ™‚ã®ã¿)
   
-’è‹`ƒRƒ}ƒ“ƒh////// 
+å®šç¾©ã‚³ãƒžãƒ³ãƒ‰////// 
 	
-!	MML•Ï”’è‹` 
-	![string,num,‘SŠp•¶Žš]
+!	MMLå¤‰æ•°å®šç¾© 
+	![string,num,å…¨è§’æ–‡å­—]
 exp.
 	!abc dfg
 
 	A !abc -> A dfg
  
-@	FM‰¹F’è‹` 
+@	FMéŸ³è‰²å®šç¾© 
 	; comment
-	= ˆêsƒRƒƒ“ƒg(‰¹F’è‹`‚Å‚Ì‚Ý)
+	= ä¸€è¡Œã‚³ãƒ¡ãƒ³ãƒˆ(éŸ³è‰²å®šç¾©ã§ã®ã¿)
 exp.
 
 ;num alg fbl
@@ -153,151 +153,151 @@ exp.
   
 MML command////// 
 	 
-t	ƒeƒ“ƒ| 
-	t[18~255,‘Š‘Î+,-]
+t	ãƒ†ãƒ³ãƒ 
+	t[18~255,ç›¸å¯¾+,-]
 
-	clock:48‚Ì‰ñ”/min
+	clock:48ã®å›žæ•°/min
 
-	(C96 -> l2‚Ì‰ñ”/min)
-	(C192-> l4‚Ì‰ñ”/min)
+	(C96 -> l2ã®å›žæ•°/min)
+	(C192-> l4ã®å›žæ•°/min)
 
-	t+10; ƒeƒ“ƒ|’l‚ð +10
+	t+10; ãƒ†ãƒ³ãƒå€¤ã‚’ +10
 
-T	ƒeƒ“ƒ|(TIMER-B)
-	T[0~255,‘Š‘Î+,-](def.200)
+T	ãƒ†ãƒ³ãƒ(TIMER-B)
+	T[0~255,ç›¸å¯¾+,-](def.200)
 
-	T+10; Timer-B’l‚ð +10
+	T+10; Timer-Bå€¤ã‚’ +10
 
 
-C	‘S‰¹•„‚ÌƒJƒEƒ“ƒg
-	(‘S‰¹‚ÌtimebaseÝ’è)
+C	å…¨éŸ³ç¬¦ã®ã‚«ã‚¦ãƒ³ãƒˆ
+	(å…¨éŸ³ã®timebaseè¨­å®š)
 
 	C[1~255](def.96)
  
-a~g	‰¹’ö 
+a~g	éŸ³ç¨‹ 
 	a[length]
 	a4
 	a%24
 
-x	‘O‚Ì‰¹’ö—˜—p
+x	å‰ã®éŸ³ç¨‹åˆ©ç”¨
 	a4x4 -> a4a4
 
 a+	#
 	a++ -> b
 a-	b
-a=	ƒiƒ`ƒ…ƒ‰ƒ‹
-a.	•t“_
+a=	ãƒŠãƒãƒ¥ãƒ©ãƒ«
+a.	ä»˜ç‚¹
 	a2.. -> a2&a4&a8
 
-a +,a -	‘—‚è,–ß‚µ‰¹•„(l4al-8 -> a8)
+a +,a -	é€ã‚Š,æˆ»ã—éŸ³ç¬¦(l4al-8 -> a8)
 	l4a -8	-> a8
 	a4-8	-> a8
-	(a4 -4‚¾‚ÆƒGƒ‰[)
+	(a4 -4ã ã¨ã‚¨ãƒ©ãƒ¼)
 
-a^	æŽZ‰¹•„(l4al^4	-> a1)
+a^	ä¹—ç®—éŸ³ç¬¦(l4al^4	-> a1)
 	l4a^4	-> a1
 	a4^4	-> a1
 
-a =	‹L–@‚ÌƒoƒŠƒG[ƒVƒ‡ƒ“(l4al=2 -> a2)
+a =	è¨˜æ³•ã®ãƒãƒªã‚¨ãƒ¼ã‚·ãƒ§ãƒ³(l4al=2 -> a2)
 	l4a =2	-> a2
 	a4=2	-> a2
  
-&	ƒ^ƒC	(’¼‘O‰¹•„keyoff‚È‚µ) 
+&	ã‚¿ã‚¤	(ç›´å‰éŸ³ç¬¦keyoffãªã—) 
 	a2&8
 	a2&a8
-	(-> a2+8‚Æ“¯‚¶)
+	(-> a2+8ã¨åŒã˜)
 
-&&	ƒXƒ‰[	(’¼‘O‰¹•„keyoff‚ ‚è)
+&&	ã‚¹ãƒ©ãƒ¼	(ç›´å‰éŸ³ç¬¦keyoffã‚ã‚Š)
  
-{~}	ƒ|ƒ‹ƒ^ƒƒ“ƒg(sweep) 
+{~}	ãƒãƒ«ã‚¿ãƒ¡ãƒ³ãƒˆ(sweep) 
 	{cg}4
 	{cg}4,8 -> c8&{cg}8
  
-{{ }}	•ªŽU˜a‰¹ 
+{{ }}	åˆ†æ•£å’ŒéŸ³ 
 	{{~}}[len1(,len2,tai,gate,cycle)]
 
-	len1	‘S‘Ì‚Ì’·‚³[length]
-	len2	‰¹•„ˆê‚Â‚Ì’·‚³(def:%1)
+	len1	å…¨ä½“ã®é•·ã•[length]
+	len2	éŸ³ç¬¦ä¸€ã¤ã®é•·ã•(def:%1)
 
 	tai	[0,1] off,on (def:1)
 	gate	(def.0)
 	cycle	(def.+-0))
 
-	tai(_flag)‚ÍA‰¹•„‚ÌŒãAƒ^ƒC(&)‚Ìon,off
-	gate(_time)‚ÍAÅŒã‚ðclock•ªA‹x•„‚Æ‚·‚é
-	cycle(_volume)‚ÍAˆêŽüŽž‚Ì•Ï‰»—Ê(VƒRƒ}ƒ“ƒhƒŒƒxƒ‹)
+	tai(_flag)ã¯ã€éŸ³ç¬¦ã®å¾Œã€ã‚¿ã‚¤(&)ã®on,off
+	gate(_time)ã¯ã€æœ€å¾Œã‚’clockåˆ†ã€ä¼‘ç¬¦ã¨ã™ã‚‹
+	cycle(_volume)ã¯ã€ä¸€å‘¨æ™‚ã®å¤‰åŒ–é‡(Vã‚³ãƒžãƒ³ãƒ‰ãƒ¬ãƒ™ãƒ«)
 
 
-exp.	{{<a>e}}1,%6,,,-1; (ƒ‰ƒ~‚Ì‚‘¬ƒAƒ‹ƒyƒWƒI(6clock))
+exp.	{{<a>e}}1,%6,,,-1; (ãƒ©ãƒŸã®é«˜é€Ÿã‚¢ãƒ«ãƒšã‚¸ã‚ª(6clock))
  
-r	‹x•„ 
+r	ä¼‘ç¬¦ 
 	r[length]
 	r4
 	r%24
  
 o	oct.		o[1~8](def.4) 
 
-o+,-	â‘Î‰ÁŒ¸oct.	o[-7~+7]
+o+,-	çµ¶å¯¾åŠ æ¸›oct.	o[-7~+7]
 
-<,>	‘Š‘Î‰ÁŒ¸ down,up
-	(¦Äƒ‹[ƒvŽžAƒƒ‚ƒŠˆÛŽ(‰ÁŒ¸ŽZ)‚µ‚È‚¢)
+<,>	ç›¸å¯¾åŠ æ¸› down,up
+	(â€»å†ãƒ«ãƒ¼ãƒ—æ™‚ã€ãƒ¡ãƒ¢ãƒªç¶­æŒ(åŠ æ¸›ç®—)ã—ãªã„)
 
 	exp. [a>]4 -> aaaa
 
 
-X	"<",">"‚Ì”½“]
+X	"<",">"ã®åè»¢
  
-l	‰¹’·(def:4) l[length] 
+l	éŸ³é•·(def:4) l[length] 
 
-l.	•t“_
+l.	ä»˜ç‚¹
 	l2..a -> a2..
  
-Q	ƒQ[ƒg1 
+Q	ã‚²ãƒ¼ãƒˆ1 
 	Q[0~8,%0~%255](def:8)
 
-q	ƒQ[ƒg2
+q	ã‚²ãƒ¼ãƒˆ2
 	q[clock/length](def:0)
 	q[0~255/l1~l255]
 
 	exp.
-	q10	10clockŒ¸ŽZ
-	q10-6	q10,q9,q8,q7,q6‚Ü‚Å‚Ìrandom.clockŒ¸ŽZ
+	q10	10clockæ¸›ç®—
+	q10-6	q10,q9,q8,q7,q6ã¾ã§ã®random.clockæ¸›ç®—
 
-	ql8 a2	-> Q6 a2 ‚Æ“¯“™
+	ql8 a2	-> Q6 a2 ã¨åŒç­‰
 
-	ql4-l8,l16 a8 -> Q4 a8 ‘Š“–
-	(l4~l8ƒQ[ƒg”rdm.clockŒ¸ŽZA•ÛØƒQ[ƒg‚Íl16)
+	ql4-l8,l16 a8 -> Q4 a8 ç›¸å½“
+	(l4~l8ã‚²ãƒ¼ãƒˆæ•°rdm.clockæ¸›ç®—ã€ä¿è¨¼ã‚²ãƒ¼ãƒˆã¯l16)
  
-v	‰¹—Ê1 
+v	éŸ³é‡1 
 	SSG	v[0~15]
 	FM	v[0~16]
 
-V	‰¹—Ê2
+V	éŸ³é‡2
 	FM	V[0~127]
 	PCM	V[0~255]
 	SSG	V[0~15]
 
  
-v+,v-	V â‘Î‰ÁŒ¸	v[-128~+127] 
-v),v(	v â‘Î‰ÁŒ¸	v)[0~16]
+v+,v-	V çµ¶å¯¾åŠ æ¸›	v[-128~+127] 
+v),v(	v çµ¶å¯¾åŠ æ¸›	v)[0~16]
 	v)3;
 
-),(	‘Š‘Î‰ÁŒ¸	)[0~255] //(def:1)
-)%,(%	‘Š‘Î‰ÁŒ¸(VƒRƒ}ƒ“ƒhƒŒƒxƒ‹)
+),(	ç›¸å¯¾åŠ æ¸›	)[0~255] //(def:1)
+)%,(%	ç›¸å¯¾åŠ æ¸›(Vã‚³ãƒžãƒ³ãƒ‰ãƒ¬ãƒ™ãƒ«)
 	)3;
 
-)^,(^	ˆêŽž‰ÁŒ¸	)^[0~255] //(def:1)
-)^%,(^%	ˆêŽž‰ÁŒ¸(VƒRƒ}ƒ“ƒhƒŒƒxƒ‹)
+)^,(^	ä¸€æ™‚åŠ æ¸›	)^[0~255] //(def:1)
+)^%,(^%	ä¸€æ™‚åŠ æ¸›(Vã‚³ãƒžãƒ³ãƒ‰ãƒ¬ãƒ™ãƒ«)
 	)^3;
  
-@	‰¹F, Rythm‰¹F 
+@	éŸ³è‰², RythméŸ³è‰² 
 	@[num]
 
 	ABCDEF	FM	[0~255]
-	GHI	SSG	[0~9](‰¹Fenv.‘I‘ð)
+	GHI	SSG	[0~9](éŸ³è‰²env.é¸æŠž)
 	R	Rythm	[0~16383]
 
-	(¦SSGRythmŽw’è,PPSí’“Žž‚ÍSSGPCM)
+	(â€»SSGRythmæŒ‡å®š,PPSå¸¸é§æ™‚ã¯SSGPCM)
 	@1	Kick
 	@2	Snare Drum 1
 	@4	Low Tom
@@ -310,8 +310,8 @@ v),v(	v â‘Î‰ÁŒ¸	v)[0~16]
 	@512	Crash Cymbal
 	@1024	Ride Cymbal
 
-exp.	(SSGPCM‚Å‚ÍAŠe’l‚ð‘«‚µ‚Ä“¯Žž‚É–Â‚ç‚¹‚é)
-	(¦a~g‚Åon,r‚Ímute)
+exp.	(SSGPCMã§ã¯ã€å„å€¤ã‚’è¶³ã—ã¦åŒæ™‚ã«é³´ã‚‰ã›ã‚‹)
+	(â€»a~gã§on,rã¯mute)
 
 K	\V63 [[R0:R1]2 R2]2
 R0	l8 @129c@128c@2c@129c  @1c@128c@2c
@@ -324,50 +324,50 @@ R2	@256c
 
 	num	[0~255]
 
-	address(”gŒ`‚Ìenv.‚É‡‚í‚¹‚Äaddress‚ðŽw’è)
+	address(æ³¢å½¢ã®env.ã«åˆã‚ã›ã¦addressã‚’æŒ‡å®š)
 	start	[-32768~+32767]
 	end	[-32768~+32767]
 	release	[-32768~+32767]
-	(+’l‚Í‘O‚©‚ç‚ÌaddressA-’l‚ÍŒã‚©‚ç)
+	(+å€¤ã¯å‰ã‹ã‚‰ã®addressã€-å€¤ã¯å¾Œã‹ã‚‰)
 
 	@num		one shot
 	@num,start	loop(st.~FileEnd)
-	@num,start,end	loop(st.~end‚ðkey off‚Å‚à•ÛŽ)
+	@num,start,end	loop(st.~endã‚’key offã§ã‚‚ä¿æŒ)
 
 	exp.
 	J	@0,100,-50,-50
  	
-P	Tone,Noise‘I‘ð 
+P	Tone,Noiseé¸æŠž 
 	P[num]
 
 	GHI	SSG	[1,2,3](tone,noise,tone+noise)
 	H(OPM op.4) FM	[1,2](tone,noise)
 
 
-w	NoiseŽü”g”
+w	Noiseå‘¨æ³¢æ•°
 	w[num]
 
 	GHI	SSG	[0~31,-31~+31](high:0~low:31)
 	H(OPM op.4) FM	[0~31,-31~+31]
 
 
-O	FM TL’l
+O	FM TLå€¤
 	O[slot,TL]
 
 	TL[0~127,-128~+127]
 
-	O3,10; op.1,2 TL’l:10
-	O5,-2; op.1,4 TL’l‚©‚ç:-2
+	O3,10; op.1,2 TLå€¤:10
+	O5,-2; op.1,4 TLå€¤ã‹ã‚‰:-2
 
 
-FB	FM FB’l(op.1feedback)
+FB	FM FBå€¤(op.1feedback)
 	FB[0~7,-7~+7]
 
-	FB3; FB’l:3
-	FB-2; FB’l‚©‚ç:-2
+	FB3; FBå€¤:3
+	FB-2; FBå€¤ã‹ã‚‰:-2
  
-s	FMƒXƒƒbƒg(op.)‘I‘ð 
-	(#FM3ExtendŽž)
+s	FMã‚¹ãƒ­ãƒƒãƒˆ(op.)é¸æŠž 
+	(#FM3Extendæ™‚)
 	s[num]
 
 	Slot1: 1
@@ -379,49 +379,49 @@ exp.	#FM3Extend X
 	C	s3;  op.1,2
 	X	s12; op.3,4
  
-SE	SSG-EGŽw’è 
+SE	SSG-EGæŒ‡å®š 
 
 	SE[slot,value]
 	value	[0,8~15](EG type)
 
-	(SE15,0‚Å‰ðœA‘SƒXƒƒbƒg‰Šú‰»)
+	(SE15,0ã§è§£é™¤ã€å…¨ã‚¹ãƒ­ãƒƒãƒˆåˆæœŸåŒ–)
 
 	SE3,10; op.1,2 EGtype:10
  
-E	ƒ\ƒtƒgƒEƒFƒAƒGƒ“ƒxƒ[ƒvŽw’è 
+E	ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚¨ãƒ³ãƒ™ãƒ­ãƒ¼ãƒ—æŒ‡å®š 
 	ADSR		E1,-2,2,1
 	AttackLength,DecayDepth,SustainRate,ReleaseRate
 
 	ADSR SL (AL)	E31,18,4,15,2(,[def.0])
 	AttackRate,DecayRate,SustainRate,ReleaseRate,SustainLevel,AttackLevel
 
-EX	ƒGƒ“ƒxƒ[ƒv‘¬“x
-	EX[0,1](ƒeƒ“ƒ|ˆË‘¶,‘¬“xˆê’è)
+EX	ã‚¨ãƒ³ãƒ™ãƒ­ãƒ¼ãƒ—é€Ÿåº¦
+	EX[0,1](ãƒ†ãƒ³ãƒä¾å­˜,é€Ÿåº¦ä¸€å®š)
  
-_+,-	â‘Î“]’² 
+_+,-	çµ¶å¯¾è»¢èª¿ 
 	_[-128~+127]
 
-__+,-	‘Š‘Î“]’²
-	(¦Äƒ‹[ƒvŽžAƒƒ‚ƒŠˆÛŽ(‰ÁŒ¸ŽZ)‚·‚é)
+__+,-	ç›¸å¯¾è»¢èª¿
+	(â€»å†ãƒ«ãƒ¼ãƒ—æ™‚ã€ãƒ¡ãƒ¢ãƒªç¶­æŒ(åŠ æ¸›ç®—)ã™ã‚‹)
 	exp. [a __+12]4 -> a>a>a>a
 
 
-_M+,-	ƒ}ƒXƒ^[“]’²
+_M+,-	ãƒžã‚¹ã‚¿ãƒ¼è»¢èª¿
 	_M[-128~+127]
  
-_{+~}	# ˆÚ’² 
+_{+~}	# ç§»èª¿ 
 _{-~}	b
-_{=~}	ƒiƒ`ƒ…ƒ‰ƒ‹
+_{=~}	ãƒŠãƒãƒ¥ãƒ©ãƒ«
 	_{-eab} <- Min scale
  
-D	ƒfƒ`ƒ…[ƒ“ 
+D	ãƒ‡ãƒãƒ¥ãƒ¼ãƒ³ 
 	D[-32768~+32767](def:0)
 
-DD	‘Š‘Îƒfƒ`ƒ…[ƒ“
+DD	ç›¸å¯¾ãƒ‡ãƒãƒ¥ãƒ¼ãƒ³
 	DD[-32768~+32767]
 
 
-sd	ƒfƒ`ƒ…[ƒ“(FM‰¹Œ¹3chƒp[ƒgê—p)
+sd	ãƒ‡ãƒãƒ¥ãƒ¼ãƒ³(FMéŸ³æº3chãƒ‘ãƒ¼ãƒˆå°‚ç”¨)
 	sd[slot,value]
 
 	value	[-32768~+32767]
@@ -429,31 +429,31 @@ sd	ƒfƒ`ƒ…[ƒ“(FM‰¹Œ¹3chƒp[ƒgê—p)
 	sd6,-4; (op.2,3 detune:-4)
 
 
-sdd	‘Š‘Îƒfƒ`ƒ…[ƒ“
+sdd	ç›¸å¯¾ãƒ‡ãƒãƒ¥ãƒ¼ãƒ³
 	sdd[slot,value]
 
 	value	[-32768~+32767]
 
 
-DX	SSG detune/LFOƒL[ƒXƒP[ƒŠƒ“ƒO
+DX	SSG detune/LFOã‚­ãƒ¼ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°
 	DX[0,1](off,on)
 
-B	ƒxƒ“ƒh•(Žå‚ÉmidiƒCƒ“ƒ|[ƒg—p)
+B	ãƒ™ãƒ³ãƒ‰å¹…(ä¸»ã«midiã‚¤ãƒ³ãƒãƒ¼ãƒˆç”¨)
 	B[0~255]
 
-I	ƒsƒbƒ`Ý’è(ã‚É“¯‚¶)
+I	ãƒ”ãƒƒãƒè¨­å®š(ä¸Šã«åŒã˜)
 	I[-32768~+32767]
 
-DM	ƒ}ƒXƒ^[ƒfƒ`ƒ…[ƒ“
+DM	ãƒžã‚¹ã‚¿ãƒ¼ãƒ‡ãƒãƒ¥ãƒ¼ãƒ³
 	DM[-32768~+32767]
  
-S	‘•ü‰¹•„ 
+S	è£…é£¾éŸ³ç¬¦ 
 	S[speed(,depth,tai_flag)]
 
 	speed		[clock/length](0:off)
 	depth		[-128~+127](def:-1)
 	tai_flag	[0,1](off,on)(def:1)
-	(S0‚Å‰ðœ)
+	(S0ã§è§£é™¤)
 
 	exp.
 	S2,-2 e8 -> d%2 & d+%2 & e%10
@@ -461,23 +461,23 @@ S	‘•ü‰¹•„
 	S4,-3 a2 e2
 
 
-W	‹[Ž—ƒGƒR[(’P‰¹ƒGƒR[)
+W	æ“¬ä¼¼ã‚¨ã‚³ãƒ¼(å˜éŸ³ã‚¨ã‚³ãƒ¼)
 	W[delay(,depth,tai_flag)]
 
 	delay		[clock/length](0:off)
 	depth		[-128~+127,%-128~%+127](def.-1)
 	tai_flag	[0~3](def.0)
-	(W0‚Å‰ðœ)
+	(W0ã§è§£é™¤)
 
 	depth
-	’Êí‚ÍAvƒRƒ}ƒ“ƒhƒŒƒxƒ‹
-	%Žw’èŽžAVƒRƒ}ƒ“ƒhƒŒƒxƒ‹
+	é€šå¸¸ã¯ã€vã‚³ãƒžãƒ³ãƒ‰ãƒ¬ãƒ™ãƒ«
+	%æŒ‡å®šæ™‚ã€Vã‚³ãƒžãƒ³ãƒ‰ãƒ¬ãƒ™ãƒ«
 
 	tai_flag
-	0 :Ž‘±		ƒ^ƒCoff
-	1 :Ž‘±		ƒ^ƒCon
-	2 :one shot	ƒ^ƒCoff
-	3 :one shot	ƒ^ƒCon
+	0 :æŒç¶š		ã‚¿ã‚¤off
+	1 :æŒç¶š		ã‚¿ã‚¤on
+	2 :one shot	ã‚¿ã‚¤off
+	3 :one shot	ã‚¿ã‚¤on
 
 	exp.
 	W8,-2 a4 -> a%8 (^2 a%8 (^4 a%8
@@ -485,14 +485,14 @@ W	‹[Ž—ƒGƒR[(’P‰¹ƒGƒR[)
 	W24,-3 a2 e1
 
 
-sk	ƒXƒƒbƒg‚ÌkeyonƒfƒBƒŒƒC(FM‰¹Œ¹•”‚Å‚Ì‚Ý)
+sk	ã‚¹ãƒ­ãƒƒãƒˆã®keyonãƒ‡ã‚£ãƒ¬ã‚¤(FMéŸ³æºéƒ¨ã§ã®ã¿)
 	sk[slot,delay]
 
 	slot	[0,1~15](0:off)
 	delay	[clock/length]
-	(sk0‚Å‰ðœ)
+	(sk0ã§è§£é™¤)
 
-	sk12,l8; (slot3,4‚ðA8•ª‰¹•„•ªkeyon‚ð’x‚ç‚¹‚é)
+	sk12,l8; (slot3,4ã‚’ã€8åˆ†éŸ³ç¬¦åˆ†keyonã‚’é…ã‚‰ã›ã‚‹)
  
 M,MA	LFO1 
 MB	LFO2
@@ -500,74 +500,74 @@ MB	LFO2
 	M[delay,speed,depthA,depthB]
 
 	delay	[clock/length]
-	speed	[0~255](1/numŽüŠú)
-	depthA	[-128,+127](U•)
-	depthB	[0~255](”g’·)
+	speed	[0~255](1/numå‘¨æœŸ)
+	depthA	[-128,+127](æŒ¯å¹…)
+	depthB	[0~255](æ³¢é•·)
 
 	exp.
 	M0,1,24,6 MD1,1 MW1 *1 a1
 
-MW,MWA	LFO”gŒ`
+MW,MWA	LFOæ³¢å½¢
 MWB
 	MW[0~6]
 
-	0 :ŽOŠp”g1(def.)
-	1 :ƒmƒRƒMƒŠ”g
-	2 :‹éŒ`”g
-	3 :ƒ‰ƒ“ƒ_ƒ€”g
-	4 :ŽOŠp”g2(ƒgƒŒƒ‚ƒ^ƒƒEƒƒE/ƒA[ƒ~ƒ“ƒO‚È‚Ç)
-	5 :ŽOŠp”g3([‚¢ŽOŠp”g)
-	6 :ƒƒ“ƒVƒ‡ƒbƒg
+	0 :ä¸‰è§’æ³¢1(def.)
+	1 :ãƒŽã‚³ã‚®ãƒªæ³¢
+	2 :çŸ©å½¢æ³¢
+	3 :ãƒ©ãƒ³ãƒ€ãƒ æ³¢
+	4 :ä¸‰è§’æ³¢2(ãƒˆãƒ¬ãƒ¢ãƒ­ï¼ãƒ¯ã‚¦ãƒ¯ã‚¦/ã‚¢ãƒ¼ãƒŸãƒ³ã‚°ãªã©)
+	5 :ä¸‰è§’æ³¢3(æ·±ã„ä¸‰è§’æ³¢)
+	6 :ãƒ¯ãƒ³ã‚·ãƒ§ãƒƒãƒˆ
 
 
-*,*A	LFOƒXƒCƒbƒ`
+*,*A	LFOã‚¹ã‚¤ãƒƒãƒ
 *B
 	*[valueA(,valueB)]
 	*B[valueB(,valueA)]
 
 	valueA,B
 	0: LFO off(def.0)
-	1: 	‰¹’öLFO on,ƒL[ƒIƒ“sync.on
-	2: 	‰¹—ÊLFO on,ƒL[ƒIƒ“sync.on
-	3: ‰¹’ö&‰¹—ÊLFO on,ƒL[ƒIƒ“sync.on
+	1: 	éŸ³ç¨‹LFO on,ã‚­ãƒ¼ã‚ªãƒ³sync.on
+	2: 	éŸ³é‡LFO on,ã‚­ãƒ¼ã‚ªãƒ³sync.on
+	3: éŸ³ç¨‹&éŸ³é‡LFO on,ã‚­ãƒ¼ã‚ªãƒ³sync.on
 
 	4: LFO.off
-	5: 	‰¹’öLFO on,ƒL[ƒIƒ“sync.off
-	6: 	‰¹—ÊLFO on,ƒL[ƒIƒ“sync.off
-	7: ‰¹’ö&‰¹—ÊLFO on,ƒL[ƒIƒ“sync.off
+	5: 	éŸ³ç¨‹LFO on,ã‚­ãƒ¼ã‚ªãƒ³sync.off
+	6: 	éŸ³é‡LFO on,ã‚­ãƒ¼ã‚ªãƒ³sync.off
+	7: éŸ³ç¨‹&éŸ³é‡LFO on,ã‚­ãƒ¼ã‚ªãƒ³sync.off
 
 
-MM,MMA	LFO slotŽw’è(FM‰¹Œ¹ƒp[ƒgê—p)
+MM,MMA	LFO slotæŒ‡å®š(FMéŸ³æºãƒ‘ãƒ¼ãƒˆå°‚ç”¨)
 MMB
 	MM[0,slot](def.0)
-	0: ‰¹—ÊLFO‚ÍƒLƒƒƒŠƒA‚Ì‚Ý‰¹’öLFO‚Í‘S‚Ä‚Ìop.‚Ö
+	0: éŸ³é‡LFOã¯ã‚­ãƒ£ãƒªã‚¢ã®ã¿éŸ³ç¨‹LFOã¯å…¨ã¦ã®op.ã¸
 
-	C M0,1,48,12 *2 MM3 a1; (TL’l‚ÌƒXƒ‰ƒCƒh)
-	(alg4‚Åop.1,2‚Å‰¹F•Ï‰»)
+	C M0,1,48,12 *2 MM3 a1; (TLå€¤ã®ã‚¹ãƒ©ã‚¤ãƒ‰)
+	(alg4ã§op.1,2ã§éŸ³è‰²å¤‰åŒ–)
 
-MX,MXA	LFO‘¬“x
+MX,MXA	LFOé€Ÿåº¦
 MXB
-	MX[0,1](def.0)(ƒeƒ“ƒ|ˆË‘¶,‘¬“xˆê’è)
+	MX[0,1](def.0)(ãƒ†ãƒ³ãƒä¾å­˜,é€Ÿåº¦ä¸€å®š)
 
 
 
-MD,MDA	LFO[‚³(depthA)‚ÌƒtƒFƒAƒŠƒ“ƒO
+MD,MDA	LFOæ·±ã•(depthA)ã®ãƒ•ã‚§ã‚¢ãƒªãƒ³ã‚°
 MDB
 	MD[cycle(,depth,time)]
 	cycle		[0~255]
-	depth		[-128~+127](0cycleŽž‚Ì‚ÝÈ—ª‰Â)
-	time		[0~127](def:0)(0‚Å–³ŒÀ)
-	(MD0‚Å‰ðœ)
+	depth		[-128~+127](0cycleæ™‚ã®ã¿çœç•¥å¯)
+	time		[0~127](def:0)(0ã§ç„¡é™)
+	(MD0ã§è§£é™¤)
 
-	cycleŽüŠú–ˆAdepthA‚ð•Ï‰»‚³‚¹Atime‰ñŒJ‚è•Ô‚·
+	cycleå‘¨æœŸæ¯Žã€depthAã‚’å¤‰åŒ–ã•ã›ã€timeå›žç¹°ã‚Šè¿”ã™
 
-	depth’l‚ÍALFO‚ÌdepthA(U•)‚Ì•„†‚ÉŠÖ‚ç‚¸A
-	+‚Å[‚¢•ûŒüA-‚Åó‚¢•ûŒü‚Ö‚Æ•Ï‰»
+	depthå€¤ã¯ã€LFOã®depthA(æŒ¯å¹…)ã®ç¬¦å·ã«é–¢ã‚‰ãšã€
+	+ã§æ·±ã„æ–¹å‘ã€-ã§æµ…ã„æ–¹å‘ã¸ã¨å¤‰åŒ–
 
-	MD2,1;	(LFO 2cycle‚ÅAdepthA‚ð 1+)
-	MD3,2,4;(LFO 3cycle‚ÅAdepthA‚ð 2+A4‰ñŒJ•Ô‚µ)
+	MD2,1;	(LFO 2cycleã§ã€depthAã‚’ 1+)
+	MD3,2,4;(LFO 3cycleã§ã€depthAã‚’ 2+ã€4å›žç¹°è¿”ã—)
  
-MP,MPA	[def.0] ã¸/‰º~ê—p 
+MP,MPA	[def.0] ä¸Šæ˜‡/ä¸‹é™å°‚ç”¨ 
 MPB
 	MP[depth(,delay,speed)]
 
@@ -576,90 +576,90 @@ MPB
 	speed	[0~255](def:1)
 
 	exp.
-	MP-80; ƒhƒ‰ƒ€ƒp[ƒg‚É‰º~LFO
+	MP-80; ãƒ‰ãƒ©ãƒ ãƒ‘ãƒ¼ãƒˆã«ä¸‹é™LFO
 
 	MP4,0,3 a2 MP-8,0,2 e1
  
-H	ƒn[ƒhƒEƒFƒALFO 
-	PMS,AMS‚ðÝ’è(OPNA/OPMê—p)
+H	ãƒãƒ¼ãƒ‰ã‚¦ã‚§ã‚¢LFO 
+	PMS,AMSã‚’è¨­å®š(OPNA/OPMå°‚ç”¨)
 
 	H[pms(,ams,delay)]
-	PMS(‰¹’ö‚Ö‚Ì‘¬‚³)[0`7]
-	AMS(‰¹—Ê‚Ö‚Ì‘¬‚³)[0`3](def.0)
-	Delay(Keyon‚©‚çŠ|‚©‚é‚Ü‚Å‚ÌŽžŠÔ)[clock/length]
+	PMS(éŸ³ç¨‹ã¸ã®é€Ÿã•)[0ï½ž7]
+	AMS(éŸ³é‡ã¸ã®é€Ÿã•)[0ï½ž3](def.0)
+	Delay(Keyonã‹ã‚‰æŽ›ã‹ã‚‹ã¾ã§ã®æ™‚é–“)[clock/length]
 
-	H6,2,l4; (PMS:6,AMS:6,delay‚ð4•ª‰¹•„’·)
+	H6,2,l4; (PMS:6,AMS:6,delayã‚’4åˆ†éŸ³ç¬¦é•·)
 
 
-#	ƒn[ƒhƒEƒFƒALFO‚Ìon/off
-	FM‰¹Œ¹ƒp[ƒg(A~F)‚Å‹¤’Ê‚Ì’l(OPNA‚ÌFM‰¹Œ¹ê—p)
+#	ãƒãƒ¼ãƒ‰ã‚¦ã‚§ã‚¢LFOã®on/off
+	FMéŸ³æºãƒ‘ãƒ¼ãƒˆ(A~F)ã§å…±é€šã®å€¤(OPNAã®FMéŸ³æºå°‚ç”¨)
 
 	#[switch,depth]
 	switch	[0,1](off,on)(def:0)
-	depth	[0~7](switch= 0‚ÌŽž‚Ì‚ÝÈ—ª‰Â)
-	(#0‚Å‰ðœ)
+	depth	[0~7](switch= 0ã®æ™‚ã®ã¿çœç•¥å¯)
+	(#0ã§è§£é™¤)
 
-	#1,6; ƒn[ƒhƒEƒFƒALFO‚ðon‚É‚µA[‚³6‚ÉÝ’è
+	#1,6; ãƒãƒ¼ãƒ‰ã‚¦ã‚§ã‚¢LFOã‚’onã«ã—ã€æ·±ã•6ã«è¨­å®š
 
 
-##	ƒn[ƒhƒEƒFƒALFO‚ÌŽü”g”A”gŒ`A[‚³Ý’è (OPM)
-	FM‰¹Œ¹ƒp[ƒg(A~I)‚Å‹¤’Ê‚Ì’l(OPM‚ÌFM‰¹Œ¹ê—p)
+##	ãƒãƒ¼ãƒ‰ã‚¦ã‚§ã‚¢LFOã®å‘¨æ³¢æ•°ã€æ³¢å½¢ã€æ·±ã•è¨­å®š (OPM)
+	FMéŸ³æºãƒ‘ãƒ¼ãƒˆ(A~I)ã§å…±é€šã®å€¤(OPMã®FMéŸ³æºå°‚ç”¨)
 
 	##[LFOfreq,Waveform,PMD,AMD]
 
-#f	LFOfreq(Žü”g”)		[0~255]
-#w	Waveform(”gŒ`)		[0~3]
-#p	PMD(‰¹’ö‚Ö‚Ì[‚³)	[-64~+63]
-#a	AMD(‰¹—Ê‚Ö‚Ì[‚³)	[0~127]
+#f	LFOfreq(å‘¨æ³¢æ•°)		[0~255]
+#w	Waveform(æ³¢å½¢)		[0~3]
+#p	PMD(éŸ³ç¨‹ã¸ã®æ·±ã•)	[-64~+63]
+#a	AMD(éŸ³é‡ã¸ã®æ·±ã•)	[0~127]
 
 	##100,0,20,10;
-	LFO_FRQ‚ð100AWaveform‚ð0APMD‚ð+20AAMD‚ð10‚Æ‚·‚é
+	LFO_FRQã‚’100ã€Waveformã‚’0ã€PMDã‚’+20ã€AMDã‚’10ã¨ã™ã‚‹
 
 
-#D	ƒn[ƒhƒEƒFƒALFO‚ÌƒfƒBƒŒƒC
-	HƒRƒ}ƒ“ƒh‘æ3ƒpƒ‰ƒ[ƒ^‚Ì’P“ÆŽw’è
+#D	ãƒãƒ¼ãƒ‰ã‚¦ã‚§ã‚¢LFOã®ãƒ‡ã‚£ãƒ¬ã‚¤
+	Hã‚³ãƒžãƒ³ãƒ‰ç¬¬3ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®å˜ç‹¬æŒ‡å®š
 	#D[clock/length]
 
-	#D24; l4(C96Žž)Œo‚Á‚Äƒn[ƒhƒEƒFƒALFO‚ªŠ|‚©‚é
+	#D24; l4(C96æ™‚)çµŒã£ã¦ãƒãƒ¼ãƒ‰ã‚¦ã‚§ã‚¢LFOãŒæŽ›ã‹ã‚‹
  
-p	ƒpƒ“1 
+p	ãƒ‘ãƒ³1 
 	p[0~3]
 
-	FM(OPNA),PCM(AD,PPZ)	1 :‰E
-				2 :¶
-				3 :’†‰›(def.)
+	FM(OPNA),PCM(AD,PPZ)	1 :å³
+				2 :å·¦
+				3 :ä¸­å¤®(def.)
 
-	FM(OPM),PCM(68)		1 :¶
-				2 :‰E
-				3 :’†‰›(def.)
+	FM(OPM),PCM(68)		1 :å·¦
+				2 :å³
+				3 :ä¸­å¤®(def.)
 
-	PCM(86)			1 :‰E
-        			2 :¶
-				3 :’†‰›(def.)
-				0 :‹t‘Š
+	PCM(86)			1 :å³
+        			2 :å·¦
+				3 :ä¸­å¤®(def.)
+				0 :é€†ç›¸
 
-px	ƒpƒ“2
+px	ãƒ‘ãƒ³2
 	px[num1,num2]
 
-	PCM(86,PPZ)ƒp[ƒg‚Å
-	Žg—p‚µ‚½ê‡‚ÉŒÀ‚èA×‚©‚¢Žw’è‚ª‰Â”\
+	PCM(86,PPZ)ãƒ‘ãƒ¼ãƒˆã§
+	ä½¿ç”¨ã—ãŸå ´åˆã«é™ã‚Šã€ç´°ã‹ã„æŒ‡å®šãŒå¯èƒ½
 
-	PCM(86)	num1	[-128~-1] :‰EŠñ‚è
-        		[+1~+127] :¶Šñ‚è
-			0	  :’†‰›(def.)
-		num2	0	  :³‘Š
-			1	  :‹t‘Š
+	PCM(86)	num1	[-128~-1] :å³å¯„ã‚Š
+        		[+1~+127] :å·¦å¯„ã‚Š
+			0	  :ä¸­å¤®(def.)
+		num2	0	  :æ­£ç›¸
+			1	  :é€†ç›¸
  
-y	ƒŒƒWƒXƒ^o—Í 
+y	ãƒ¬ã‚¸ã‚¹ã‚¿å‡ºåŠ› 
 	y[address,data]
 
 	address	[0~255]
 	data	[0~255]
 
-	y$58,7 -> FM1ch–Ú,slot2‚Ì AR‚ð 7
+	y$58,7 -> FM1chç›®,slot2ã® ARã‚’ 7
 
 
-*	PDR(driver)§Œä(K/Rƒp[ƒgê—p)
+*	PDR(driver)åˆ¶å¾¡(K/Rãƒ‘ãƒ¼ãƒˆå°‚ç”¨)
 	*[0~5]
 
 	0: DoubleMode
@@ -669,43 +669,43 @@ y	ƒŒƒWƒXƒ^o—Í
 	4:    EI Mode
 	5:    DI Mode
 
-	*0 -> PDR‚ð Double Mode‚ÉÝ’è
+	*0 -> PDRã‚’ Double Modeã«è¨­å®š
  
-A	PCMŽd—l‘I‘ð 
+A	PCMä»•æ§˜é¸æŠž 
 	A[0,1]
-	0: PMD86ƒm[ƒ}ƒ‹Žd—l
-	1: PMDB2‚É‡‚í‚¹‚éŽd—l (‰¹—ÊAƒ‹[ƒvŽw’è‚ª•Ï‚í‚è‚Ü‚·)
+	0: PMD86ãƒŽãƒ¼ãƒžãƒ«ä»•æ§˜
+	1: PMDB2ã«åˆã‚ã›ã‚‹ä»•æ§˜ (éŸ³é‡ã€ãƒ«ãƒ¼ãƒ—æŒ‡å®šãŒå¤‰ã‚ã‚Šã¾ã™)
 
-N	FMŒø‰Ê‰¹”­‰¹
+N	FMåŠ¹æžœéŸ³ç™ºéŸ³
 	N[0~255]
-	(N0‚Å‰ðœ)
+	(N0ã§è§£é™¤)
 
 
-n	SSGŒø‰Ê‰¹”­‰¹
+n	SSGåŠ¹æžœéŸ³ç™ºéŸ³
 	n[0~255]
 
-	SSGŒø‰Ê‰¹	[1~127]
-	SSGPCMŒø‰Ê‰¹	[128~255](+128‚Ì’l)(PPSí’“Žž)
-	(n0‚Å‰ðœ)
+	SSGåŠ¹æžœéŸ³	[1~127]
+	SSGPCMåŠ¹æžœéŸ³	[128~255](+128ã®å€¤)(PPSå¸¸é§æ™‚)
+	(n0ã§è§£é™¤)
 
 
-Z	[def.96]¬ß’·‚³(‘g‚Ýž‚Ý“¯Šú‚È‚Ç)
-	Z72; (C96Žž)3/4”Žq‚Å‚ ‚é
+Z	[def.96]å°ç¯€é•·ã•(çµ„ã¿è¾¼ã¿åŒæœŸãªã©)
+	Z72; (C96æ™‚)3/4æ‹å­ã§ã‚ã‚‹
 
 
-~	Status1‚Ö‚Ì”’l‘ž‚Ý‘g‚Ýž‚Ý‚½‚ß
+~	Status1ã¸ã®æ•°å€¤æ›¸è¾¼ã¿çµ„ã¿è¾¼ã¿ãŸã‚
 	~[0~255,-128~+127]
 
 
  
-R	Rythmƒpƒ^[ƒ“ 
+R	Rythmãƒ‘ã‚¿ãƒ¼ãƒ³ 
 	R[0~255]
 
 
-\b \s \c \h \t \i	Rythm‰¹Œ¹‚ðo—Í
-\bp \sp \cp \hp \tp \ip	Rythm‰¹Œ¹‚Ì’âŽ~
+\b \s \c \h \t \i	RythméŸ³æºã‚’å‡ºåŠ›
+\bp \sp \cp \hp \tp \ip	RythméŸ³æºã®åœæ­¢
 
-	(¦YM2608 RythmŽw’è)
+	(â€»YM2608 RythmæŒ‡å®š)
 	b: Kick
 	s: SnareDrum
 	c: Cymbal
@@ -713,88 +713,88 @@ R	Rythmƒpƒ^[ƒ“
 	t: Tom
 	i: RimShot
 
-exp.	(¦r‚Åclock‚ð‘—‚é)
+exp.	(â€»rã§clockã‚’é€ã‚‹)
 
 K \V63\vb31\vs31\vc27\rs\lc R0
 R0 l8 [\c\br \hr16\cpr16 \sr \br  \br \hr \sr \hr]4
 
 
 
-\V	Rythm‰¹Œ¹ƒ}ƒXƒ^ƒ{ƒŠƒ…[ƒ€(Kƒp[ƒg‚à‰Â)
-	\V[0~63,‘Š‘Î+,-](def:48)
+\V	RythméŸ³æºãƒžã‚¹ã‚¿ãƒœãƒªãƒ¥ãƒ¼ãƒ (Kãƒ‘ãƒ¼ãƒˆã‚‚å¯)
+	\V[0~63,ç›¸å¯¾+,-](def:48)
 
-	\V63; ƒ}ƒXƒ^[ƒ{ƒŠƒ…[ƒ€MAX
-
-
-\vb \vs \vc \vh \vt \vi	Rythm‰¹Œ¹ŒÂ•Ê‰¹—Ê
-	\vs[0~31,‘Š‘Î+,-]
-
-	\vb25; Kick‚Ì‰¹—Ê‚ð 25
+	\V63; ãƒžã‚¹ã‚¿ãƒ¼ãƒœãƒªãƒ¥ãƒ¼ãƒ MAX
 
 
-\lb \ls \lc \lh \lt \li	Rythm‰¹Œ¹‚Ìƒpƒ“
+\vb \vs \vc \vh \vt \vi	RythméŸ³æºå€‹åˆ¥éŸ³é‡
+	\vs[0~31,ç›¸å¯¾+,-]
+
+	\vb25; Kickã®éŸ³é‡ã‚’ 25
+
+
+\lb \ls \lc \lh \lt \li	RythméŸ³æºã®ãƒ‘ãƒ³
 \mb \ms \mc \mh \mt \mi
 \rb \rs \rc \rh \rt \ri
 
-	l	Left(¶)
-	r	Right(‰E)
-	m	Center(’†‰›)
+	l	Left(å·¦)
+	r	Right(å³)
+	m	Center(ä¸­å¤®)
 
-	\lh; Hi-Hat‚Ìo—Í‚ð¶‚ÉÝ’è
+	\lh; Hi-Hatã®å‡ºåŠ›ã‚’å·¦ã«è¨­å®š
  
-!	’è‹`•Ï”“Çž‚Ý 
+!	å®šç¾©å¤‰æ•°èª­è¾¼ã¿ 
 
 	exp.
 	!abc	@0<a>
 	!123	@1c
-	!‘SŠp	@2e
+	!å…¨è§’	@2e
 
-	A	!abc !123 !‘SŠp
+	A	!abc !123 !å…¨è§’
 	-> @0<a> @1c @2e
 
  
-L		‘S‘Ìƒ‹[ƒv 
+L		å…¨ä½“ãƒ«ãƒ¼ãƒ— 
 
 
-[ : ]num	‹ÇŠƒ‹[ƒv
+[ : ]num	å±€æ‰€ãƒ«ãƒ¼ãƒ—
 
-		¦Äƒ‹[ƒvŽžAƒƒ‚ƒŠˆÛŽ(‰ÁŒ¸ŽZ)‚µ‚È‚¢€–Ú
-		o >< X :oct.ŠÖ˜A
-		l :‰¹’·
-		S :‘•ü‰¹•„
-		W :‹[Ž—ƒGƒR[
-		C :‘S‰¹•„’·
-		_{ } :ˆÚ’²
+		â€»å†ãƒ«ãƒ¼ãƒ—æ™‚ã€ãƒ¡ãƒ¢ãƒªç¶­æŒ(åŠ æ¸›ç®—)ã—ãªã„é …ç›®
+		o >< X :oct.é–¢é€£
+		l :éŸ³é•·
+		S :è£…é£¾éŸ³ç¬¦
+		W :æ“¬ä¼¼ã‚¨ã‚³ãƒ¼
+		C :å…¨éŸ³ç¬¦é•·
+		_{ } :ç§»èª¿
 
  
-m	ƒp[ƒgƒ}ƒXƒN(TrackMute) 
+m	ãƒ‘ãƒ¼ãƒˆãƒžã‚¹ã‚¯(TrackMute) 
 	m[0,1](off,on)
 
-	m1; ƒp[ƒgƒ}ƒXƒNon
+	m1; ãƒ‘ãƒ¼ãƒˆãƒžã‚¹ã‚¯on
 
 
-F	ƒtƒF[ƒhƒAƒEƒg	F[0~127]
+F	ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆ	F[0~127]
 
 
-DF DS DP DR	‰¹Œ¹•Ê‰¹—Êƒ_ƒEƒ“
+DF DS DP DR	éŸ³æºåˆ¥éŸ³é‡ãƒ€ã‚¦ãƒ³
 
 	DF[0~255,-128~+127]
 
-	DF: FM‰¹Œ¹
-	DS: SSG‰¹Œ¹
-	DP: PCM‰¹Œ¹
-	DR: Rythm‰¹Œ¹
+	DF: FMéŸ³æº
+	DS: SSGéŸ³æº
+	DP: PCMéŸ³æº
+	DR: RythméŸ³æº
 
 	G [cdefgab>c< DS+16]8;
 
-	(SSG‰¹Œ¹‘S‘Ì‚ª 1ƒ‹[ƒv‚·‚é–ˆA
-	‰¹—Ê‚ª’iX‰º‚ª‚é)
+	(SSGéŸ³æºå…¨ä½“ãŒ 1ãƒ«ãƒ¼ãƒ—ã™ã‚‹æ¯Žã€
+	éŸ³é‡ãŒæ®µã€…ä¸‹ãŒã‚‹)
  
-/	ƒRƒ“ƒpƒCƒ‹‘Å‚¿Ø‚è 
+/	ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«æ‰“ã¡åˆ‡ã‚Š 
 
 
-"~"	MMLƒXƒLƒbƒv§Œä1
-	‰¹’·‚ ‚éƒRƒ}ƒ“ƒh‚ªƒXƒLƒbƒv
+"~"	MMLã‚¹ã‚­ãƒƒãƒ—åˆ¶å¾¡1
+	éŸ³é•·ã‚ã‚‹ã‚³ãƒžãƒ³ãƒ‰ãŒã‚¹ã‚­ãƒƒãƒ—
 
 	exp.
 	" ;skip start
@@ -808,16 +808,16 @@ DF DS DP DR	‰¹Œ¹•Ê‰¹—Êƒ_ƒEƒ“
 	  B	@1 v13 o4 <ggg>
 
 
-'	MMLƒXƒLƒbƒv§Œä1
-	ƒXƒLƒbƒvó‘Ô‚ðA‹­§“I‚ÉI—¹
+'	MMLã‚¹ã‚­ãƒƒãƒ—åˆ¶å¾¡1
+	ã‚¹ã‚­ãƒƒãƒ—çŠ¶æ…‹ã‚’ã€å¼·åˆ¶çš„ã«çµ‚äº†
 
 	exp.
 	G	"t80 v12 cder'def"
 	->G	t80 v12 def
 
 
-|	ƒp[ƒgŒÀ’èŽw’è
-|!	Žw’è‚µ‚½ƒp[ƒgˆÈŠO‚Ìƒp[ƒg‚ÉŒÀ’è
+|	ãƒ‘ãƒ¼ãƒˆé™å®šæŒ‡å®š
+|!	æŒ‡å®šã—ãŸãƒ‘ãƒ¼ãƒˆä»¥å¤–ã®ãƒ‘ãƒ¼ãƒˆã«é™å®š
 
 	exp.
 	ABC @12v11o4l2 |A D0ccd |B D3efg |C D-3gab |!C >c& |C g4e4 | c

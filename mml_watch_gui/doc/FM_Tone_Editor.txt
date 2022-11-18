@@ -1,414 +1,414 @@
-�@�@�� PowerShell / FM Synthesis Chip - Tone Editor 
+﻿　　■ PowerShell / FM Synthesis Chip - Tone Editor 
 
 
-�@���e�L�X�g�́A�\�����G�f�B�^�őg�܂�Ă܂��B
+　当テキストは、構造化エディタで組まれてます。
 
-�@-- �X�N���v�g�����\�����G�f�B�^�ɑΉ����Ă��܂��B--
-
- 
-�@�@�� �T�v 
-
-
-�@�@FM�����̃��W�X�^�l�≹�F�}�g���N�X�w����A
-�@�X���C�_�[�ŕύX�ł���悤�ɂ������̂ł��B
-
-�@VRC7,OPL,OPN,OPM�̊e�}�g���N�X�ɑΉ����A
-�@�ύX�̂��A�����Ɏ����ł���̂������ł��B
-
-
-�@FM�����g�`�����o�I�ɑ������A
-�@���F�Â���ɏW���ł���悤�ɂ��܂����B
-
+　-- スクリプト側も構造化エディタに対応しています。--
 
  
-�@�@�� ���ӓ_�ɂ��� 
+　　□ 概要 
 
 
-�@�Eppmck,NSDlib�̃��W�X�^�L�ڂɂ��vrc7���F���o�͂���ꍇ�A
-�@�@���j���[�̐؂芷�����K�v�ł��B
+　　FM音源のレジスタ値や音色マトリクス指定を、
+　スライダーで変更できるようにしたものです。
 
-�@�Emucom,fmp7,mxdrv�`���̃}�g���N�X���F�o�͂�I���ł��܂����A
-�@�@�����I�ɂ́APMD�o�͂ƂȂ��Ă��܂��B
-
-�@�EFM Operator �E�B���h�E�́A�eop.��ADSR�G���x���[�v�\���́A
-�@�@���o�I�Ɍ������𑨂������̂ł��B
+　VRC7,OPL,OPN,OPMの各マトリクスに対応し、
+　変更のち、すぐに試聴できるのが特徴です。
 
 
-�@�EMask��SSG-EG�@�\�́Aopn,opm���p�ƂȂ��Ă��܂��B
-
-�@�ESSG-EG�̃G���x���[�v�́A�Œ�\���ƂȂ��Ă܂��B
-
-
-�@�EFM�����̃T�C���g�\���́A�o�͔g�`�Ƃ̎C�荇�킹���s�������߁A
-�@�@�ߎ��l�͏o�Ă܂����A���S�ȍČ���ڎw�������̂ł͂���܂���B
-
-�@�E�T�C���g�`�̃O���t�\���́AML�̔{���l�������ƌ덷���o�܂��B
-�@�@�O�p�֐����p�ɂ�鉉�Z���ׂ��y�����邽�߁Afloat�������Ă��邽�߂ł��B
-
-
-�@�EMultiple�� 0.5�{�̂Ƃ��́A
-�@�@�O���̔g�`�̂ݕ\�����A�㔼�̔g�`�͕\������܂���B
-�@�@(���̏ꍇ�Ⴆ�΁AModulator x2��1�{�ACarrier�� x2�Ƃ���Ό���܂��B
-�@�@�{�����ł����A�O�㔼�̔g�`���\������܂��B
-
-�@�@�� / [M:0.5, C:2] -> [M:1, C:4] / [M:4, C:0.5] -> [M:8, C:1])
-
-
-�@�E�����N���ł��Ȃ��ꍇ�́A
-�@�@script�t�H���_��fm_editor.xml���t�@�C�����폜���ĉ������B
-
-�@�@�����ݒ�Ɠ����ɂȂ�܂��B
-
+　FM合成波形を視覚的に捉えられ、
+　音色づくりに集中できるようにしました。
 
 
  
-�@�@�� ��{�ݒ� - �N�C�b�N�X�^�[�g 
+　　□ 注意点について 
 
 
-�@�܂��A���ݒ肩��n�߂܂��B
+　・ppmck,NSDlibのレジスタ記載によるvrc7音色を出力する場合、
+　　メニューの切り換えが必要です。
+
+　・mucom,fmp7,mxdrv形式のマトリクス音色出力を選択できますが、
+　　内部的には、PMD出力となっています。
+
+　・FM Operator ウィンドウの、各op.のADSRエンベロープ表示は、
+　　視覚的に減衰率を捉えたものです。
 
 
+　・MaskとSSG-EG機能は、opn,opm共用となっています。
 
-�@1.�@fm_editor���N�����A�I�v�V�������� setting���N���b�N�A
-�@�@�@���ݒ肪�����オ��܂��B
-
-
-�@2.�@�e���X�g�{�b�N�X�ɁA�K�v�ƂȂ�t�@�C���A�v���O������o�^���܂��B
-�@�@�@binary,player,editor,dos�^�u�ɁAD&D�ŏ��ɓo�^���Ă����܂��B
-�@�@�@(PMD��64bitOS�ł̎g�p�̏ꍇ�Ax64�Ƀ`�F�b�N�����ĉ������B)
+　・SSG-EGのエンベロープは、固定表示となってます。
 
 
-�@3.�@�Đ��{�^���������āAFM�ϒ��g�̉����o��Ί�{�I�Ȑݒ�͊����ł��B
-�@�@�@���������o�Ȃ��ꍇ�́A�I�v�V��������A�Đ��ł���v���C���[�̑I�������Ă݂ĉ������B
+　・FM合成のサイン波表示は、出力波形との擦り合わせを行ったため、
+　　近似値は出てますが、完全な再現を目指したものではありません。
+
+　・サイン波形のグラフ表示は、MLの倍数値が高いと誤差が出ます。
+　　三角関数多用による演算負荷を軽減するため、float処理しているためです。
+
+
+　・Multipleが 0.5倍のときは、
+　　前半の波形のみ表示し、後半の波形は表示されません。
+　　(この場合例えば、Modulator x2の1倍、Carrierも x2とすれば見れます。
+　　倍周期ですが、前後半の波形が表示されます。
+
+　　例 / [M:0.5, C:2] -> [M:1, C:4] / [M:4, C:0.5] -> [M:8, C:1])
+
+
+　・もし起動できない場合は、
+　　scriptフォルダのfm_editor.xml環境ファイルを削除して下さい。
+
+　　初期設定と同じになります。
+
 
 
  
-�@�@�� �e�@�\�̐��� 
+　　□ 基本設定 - クイックスタート 
+
+
+　まず、環境設定から始めます。
+
+
+
+　1.　fm_editorを起動し、オプションから settingをクリック、
+　　　環境設定が立ち上がります。
+
+
+　2.　各リストボックスに、必要となるファイル、プログラムを登録します。
+　　　binary,player,editor,dosタブに、D&Dで順に登録していきます。
+　　　(PMDを64bitOSでの使用の場合、x64にチェックを入れて下さい。)
+
+
+　3.　再生ボタンを押して、FM変調波の音が出れば基本的な設定は完了です。
+　　　もし音が出ない場合は、オプションから、再生できるプレイヤーの選択をしてみて下さい。
+
+
+ 
+　　□ 各機能の説明 
 
 
 	 
-�@�@�E���j���[ 
+　　・メニュー 
 
-�@�EPreset
+　・Preset
 
-�@�v���Z�b�g�g�`�E�B���h�E���J���܂��B
-
-
-�@�EAutosave
-
-�@vrc7,opl,opn,opm�́A�Ō�̏�Ԃ�ۑ����܂��B
-
-�@(�����N�����s����̏ꍇ�A���̃I�v�V�������O���Ă݂ĉ������B
-�@���Z�b�g��Ԃł̋N���ƂȂ�܂��B)
+　プリセット波形ウィンドウを開きます。
 
 
-�@�EAutosave Parameter
+　・Autosave
 
-�@�X���C�_�[�̃p�����[�^�[��autosave���֖߂��܂��B
+　vrc7,opl,opn,opmの、最後の状態を保存します。
 
-
-�@�EReset Parameter
-
-�@�X���C�_�[�̃p�����[�^�[��������Ԃɖ߂��܂��B
+　(もし起動が不安定の場合、このオプションを外してみて下さい。
+　リセット状態での起動となります。)
 
 
+　・Autosave Parameter
 
-�@�ESetting
+　スライダーのパラメーターをautosave時へ戻します。
 
-�@�@���ݒ�ł��B
-�@�@�e���X�g�{�b�N�X�ɁA�t�@�C���h���b�v�œo�^���܂��B
+
+　・Reset Parameter
+
+　スライダーのパラメーターを初期状態に戻します。
 
 
 
-�@�E4op Mask (PMD�̂ݑΉ����܂�)
+　・Setting
 
-�@�������ɁA�I�y���[�^�}�X�N�����܂��B
-�@�`�F�b�N�I�t�ŁA�e�I�y���[�^���~���[�g���܂��B
-
-
-�@�������ɁASSG-EG���g�p���܂��B(PMD 4.8s�ȍ~�̂�)
-
-�@�h���b�v�_�E�����j���[�ŁAEG�^�C�v��I���A
-�@�`�F�b�N�I���ŁA�e�I�y���[�^��SSG-EG���A�T�C�����܂��B
-�@(4.8r�ȑO��PMD�ł́AThru��I�����ĉ������B)
+　　環境設定です。
+　　各リストボックスに、ファイルドロップで登録します。
 
 
-�@�E�I�N�^�[�u
 
-�@�������̃I�N�^�[�u�w��ł��B
+　・4op Mask (PMDのみ対応します)
 
-
-�@�EFM OP window
-
-�@FM Operator �E�B���h�E���N�����܂��B
+　試聴時に、オペレータマスクをします。
+　チェックオフで、各オペレータをミュートします。
 
 
-�@�E2op Type
+　試聴時に、SSG-EGを使用します。(PMD 4.8s以降のみ)
 
-�@nsd, ppmck:reg, nsd:reg�̌`���ŕ\���ł��܂��B
-
-�@�܂��A�\���`����؂芷�����ꍇ�A
-�@�e�`���ɑΉ������C���|�[�g���ł��܂��B
-
-
-�@�E4op Style
-
-�@pmd, mucom, fmp7, mxdrv�̌`���ŕ\�����܂��B
-�@�e�`���ɑΉ������C���|�[�g���\�ł��B
+　ドロップダウンメニューで、EGタイプを選択、
+　チェックオンで、各オペレータにSSG-EGをアサインします。
+　(4.8r以前のPMDでは、Thruを選択して下さい。)
 
 
-�@�Esend
+　・オクターブ
 
-�@vrc7����opl�Aopn����opm�ȂǁA�f�[�^�𑗏o���܂��B
-
-
-�@�EVoice
-
-�@�N���b�v�{�[�h��TextBox���R�s�[���܂��B
+　試聴時のオクターブ指定です。
 
 
-�@�EAdvanced(�㋉�Ҍ���)
+　・FM OP window
 
-�@����mml��ύX����ꍇ
-
-�@"mck_header" / vrc7 mck
-�@"nsd_header" / vrc7 nsd
-�@"pmd_header" / opl,opn,opm
+　FM Operator ウィンドウを起動します。
 
 
-�@�EHead reload
+　・2op Type
 
-�@�@����mml�̏C���𔽉f�����邽�߂̂��̂ł��B
-�@�@header�t�@�C���������[�h���܂��B
+　nsd, ppmck:reg, nsd:regの形式で表示できます。
+
+　また、表示形式を切り換えた場合、
+　各形式に対応したインポートもできます。
+
+
+　・4op Style
+
+　pmd, mucom, fmp7, mxdrvの形式で表示します。
+　各形式に対応したインポートも可能です。
+
+
+　・send
+
+　vrc7からopl、opnからopmなど、データを送出します。
+
+
+　・Voice
+
+　クリップボードへTextBoxをコピーします。
+
+
+　・Advanced(上級者向け)
+
+　試聴mmlを変更する場合
+
+　"mck_header" / vrc7 mck
+　"nsd_header" / vrc7 nsd
+　"pmd_header" / opl,opn,opm
+
+
+　・Head reload
+
+　　試聴mmlの修正を反映させるためのものです。
+　　headerファイルをリロードします。
 
 
  
-�@�@�E�{�̃p�l���̐��� 
+　　・本体パネルの説明 
 
 
-�@�E�e��X���C�h�o�[
+　・各種スライドバー
 
-�@�e��p�����[�^��ύX���܂��B
+　各種パラメータを変更します。
 
-�@��{�I�ɍ��㑤�ɂ́A�@�ׂȉ��F�Â���ɕK�v�Ȃ��́A
-�@�E�����ɁA�ω��̌��������̂��W�߂Ă��܂��B
-
-
-�@�EFM�I�y���[�^�[ / ���[���I��
-
-�@�I�y���[�^�[��؂芷���܂��B
-�@�؂芷���邲�ƂɁA�e�I�y���[�^�[�̃X���C�_�[��\�����܂��B
-�@
-
-�@�EFM�����`�b�v / ���[���I��
-
-�@vrc7,opl,opn,opm��I�����܂��B
+　基本的に左上側には、繊細な音色づくりに必要なもの、
+　右下側に、変化の激しいものを集めています。
 
 
-�@�E�Đ��{�^��
+　・FMオペレーター / ロール選択
 
-�@�����{�^���ł��B
+　オペレーターを切り換えます。
+　切り換えるごとに、各オペレーターのスライダーを表示します。
+　
 
-�@(�X���C�h�o�[�Ƀt�H�[�J�X����΁A[Space],[F12]�ł������Đ����܂��B)
+　・FM音源チップ / ロール選択
 
-
-�@�E���F�f�[�^�C���|�[�g�{�^��
-
-�@���F�C���|�[�g�{�^���ł��B
-�@�e�L�X�g�{�b�N�X�̒��g��ǂݍ��݂܂��B
-
-�@("TextBox"�Ƀt�H�[�J�X����΁A[F5�L�[]�ł��C���|�[�g���܂��B)
+　vrc7,opl,opn,opmを選択します。
 
 
-�@�E�e�L�X�g�{�b�N�X
+　・再生ボタン
 
-�@���F�f�[�^���o�͂���܂��B
+　試聴ボタンです。
 
-�@(���F�C���|�[�g�̏ꍇ�A���̃{�b�N�X�ɗ������݂܂��B)
-
-
- 
-�@�@�EPreset�g�` �E�B���h�E 
+　(スライドバーにフォーカスあらば、[Space],[F12]でも試聴再生します。)
 
 
-�@�v���Z�b�g�g�`�̎����ƁA�{�̂փC���|�[�g���ł��܂��B
+　・音色データインポートボタン
+
+　音色インポートボタンです。
+　テキストボックスの中身を読み込みます。
+
+　("TextBox"にフォーカスあらば、[F5キー]でもインポートします。)
 
 
-�@�� PMD�v���Z�b�g�g�`�f�[�^�̓Ǎ��� ------
+　・テキストボックス
 
-�@PMD98�p Preset FM���F�Z�b�g���_�E�����[�h���܂��B
-�@[PMD98_PresetVoices.zip]
+　音色データが出力されます。
 
-�@PC88.MML,X68ED.MML,EFFEC.MML
-�@����3�̃t�@�C�����A
-
-�@"MC.EXE"������t�H���_�ɒu���܂��B
-�@(�܂��́A"\mml_watch_gui\script\preset"�t�H���_�֒u��)
-�@
-�@�v���O������"�N�� or �v���Z�b�g�����[�h"���ɁA�e�v���Z�b�g���F�t�@�C����ǂݍ��݂܂��B
-
-
-�@�E���X�g�{�b�N�X
-
-�@���X�g���́A@000�Ȃǂ�"�N���b�N"����ƁA�����ł��܂��B
-�@(�E�N���b�N�ŁA���F�f�[�^��\�����܂��B)
-
-�@�E�C���|�[�g�{�^��
-
-�@�C���|�[�g�{�^���������ƁAFM�g�`�G�f�B�^�֓ǂݍ��݂܂��B
-
-
-
+　(音色インポートの場合、このボックスに流し込みます。)
 
 
  
-�@�@�EOperator Mask �E�B���h�E 
+　　・Preset波形 ウィンドウ 
 
 
-�@4op���A�e�I�y���[�^�[�̃}�X�N��SSG-EG��؂�ւ��܂��B
+　プリセット波形の試聴と、本体へインポートができます。
 
 
-�@�EMask
+　※ PMDプリセット波形データの読込み ------
 
-�@�`�F�b�Noff�ŁA�I�y���[�^�[�o�͂��~���܂��B
+　PMD98用 Preset FM音色セットをダウンロードします。
+　[PMD98_PresetVoices.zip]
+
+　PC88.MML,X68ED.MML,EFFEC.MML
+　この3つのファイルを、
+
+　"MC.EXE"があるフォルダに置きます。
+　(または、"\mml_watch_gui\script\preset"フォルダへ置く)
+　
+　プログラムの"起動 or プリセットリロード"時に、各プリセット音色ファイルを読み込みます。
 
 
-�@�ESSG-EG
+　・リストボックス
 
-�@�`�F�b�Non�ŁASSG�G���x���[�v���g�p�ł��܂��B
+　リスト内の、@000などを"クリック"すると、試聴できます。
+　(右クリックで、音色データを表示します。)
 
-�@�h���b�v�_�E�����j���[����ASSG�G���x���[�v�t�B���^�[��I�����܂��B
-�@(PMD ver.4.8s�ȍ~�ł���΁A�K�p�ł��܂��B)
+　・インポートボタン
 
-�@Thru���ASE15,0�𔭍s���ASSG-EG���������Ă��܂��B
+　インポートボタンを押すと、FM波形エディタへ読み込みます。
+
+
 
 
 
  
-�@�@�EFM Operator �E�B���h�E 
+　　・Operator Mask ウィンドウ 
 
 
-�@FM�ϒ��g�`��ADSR�G���x���[�v�����o�I�Ɍ�����E�B���h�E�ł��B
+　4op時、各オペレーターのマスクやSSG-EGを切り替えます。
 
 
-�@�e�I�y���[�^��"Click"���āA�G�f�B�b�gOp.��I�����܂��B
-�@([�E�N���b�N]�́Aoct.�I��)
+　・Mask
 
-�@�w�i��"�_�u��Click"����ƁA�����Đ����܂��B
-�@([�E�N���b�N]�́A�A���S���Y���I��)
-
-�@"�E�B���h�E����"�Ƀt�H�[�J�X����΁A[Space]�ł������Đ����܂��B
+　チェックoffで、オペレーター出力を停止します。
 
 
-�@�EProperty
+　・SSG-EG
 
-�@FM�g�`�̐��x�����߂܂��B
+　チェックonで、SSGエンベロープを使用できます。
 
-�@1/2���x�ł́A�T���v���|�C���g�� 2px�P�� 80point�ƂȂ�܂��B
+　ドロップダウンメニューから、SSGエンベロープフィルターを選択します。
+　(PMD ver.4.8s以降であれば、適用できます。)
 
-
-�@�EAdjust
-
-�@Sine�g�`�̃O���t�o�͒����ł��B
-�@�������o�Ǝ��o�̃Y�����C�荇�킹�邽�߂̂��̂ł��B
-
-�@�d���Q�C���W��20 [10^(A/20)]���AA/[17-23]�֕ύX�A
-�@���W�����[�V��������L�����A�ւ́A���W�����[�g���x���̕ύX�A
-�@�y�сA�t�B�[�h�o�b�N���x���̕ύX���s���܂��B
-
-�@(�ʏ�́Adefault�l��20�ƂȂ�܂��B)
+　Thru時、SE15,0を発行し、SSG-EGを解除しています。
 
 
-�@�EWait
 
-�@�@Sine�g�`�\���܂ł̃E�F�C�g�ł��B
-�@�@1/1���x�Ȃǂ̕��ׂ��d�����A���X�|���X�̒x���^�C���̎w������܂��B
+ 
+　　・FM Operator ウィンドウ 
+
+
+　FM変調波形とADSRエンベロープを視覚的に見せるウィンドウです。
+
+
+　各オペレータを"Click"して、エディットOp.を選択します。
+　([右クリック]は、oct.選択)
+
+　背景を"ダブルClick"すると、試聴再生します。
+　([右クリック]は、アルゴリズム選択)
+
+　"ウィンドウ自体"にフォーカスあらば、[Space]でも試聴再生します。
+
+
+　・Property
+
+　FM波形の精度を決めます。
+
+　1/2精度では、サンプルポイントは 2px単位 80pointとなります。
+
+
+　・Adjust
+
+　Sine波形のグラフ出力調整です。
+　音声感覚と視覚のズレを擦り合わせるためのものです。
+
+　電圧ゲイン係数20 [10^(A/20)]を、A/[17-23]へ変更、
+　モジュレーションからキャリアへの、モジュレートレベルの変更、
+　及び、フィードバックレベルの変更を行います。
+
+　(通常は、default値の20となります。)
+
+
+　・Wait
+
+　　Sine波形表示までのウェイトです。
+　　1/1精度などの負荷が重い時、レスポンスの遅延タイムの指定をします。
 
 
   
-�@�@�� Tips 
+　　□ Tips 
 
 
 	 
-�@�E�y�킲�Ƃ̃A���S���Y���I���̖ڈ� 
+　・楽器ごとのアルゴリズム選択の目安 
 
 
-�@0: �f�B�X�g�[�V�����M�^�[�A�`���b�p�[�x�[�X�A�n�C�n�b�g
-�@1: �n�[�v�APSG(programmable sound generator)
-�@2: �s�A�m�A�u���X�A�G���N�g���b�N�M�^�[�A�x�[�X�A�E�b�h
-�@3: �X�g�����O�X�A�`���C���A�t�H�[�N�M�^�[
-�@4: �R�[���X�A�t���[�g�A�x���A�p�X�h�����A�X�l�A�h�����A�^���^��
-�@5: �u���X�A�I���K��
-�@6: �I���K���A�V���z���A�r�u���z���A�x�[�X�h�����A�X�l�A�h�����A�^���^��
-�@7: �p�C�v�I���K��
-
-
-
-
- 
-�@�E2op�ł�Bass�̉��Â��� 
-
-
-�@���W�����[�V�����̃}���`�v����0 (1/2�g��)�Ƃ��A
-�@�g�[�^�����x����K�v�Ȃ����グ�܂��B(15���炢)
-
-�@�L�����A�̃}���`�v�����グ�āA(3���炢)�K�v�ƂȂ�n�C�g�[���𑫂��܂��B
-�@�t�B�[�h�o�b�N�ŁA�G���N�g���b�N�x�[�X���𑫂��܂��B(4���炢)
-
-�@(�L�����A�ŉ��ʂ����߁A���W�����[�V�����ŉ��Â��肪��{�ł��B)
-
-
-
- 
-�@�E4op�ɂ�����A3op+ 1op�ł̊y��g�`�̍Č��� 
-
-
-�@�A���S���Y��2���g�p���܂��B
-�@���op2��op3�ŉ��F�ƂȂ�{������������܂��B
-
-�@op3�̃g�[�^�����x���́A40�Ƃ��܂��B
-�@op2�̃g�[�^�����x�����グ�A�K�v�ƂȂ�{�������𑫂��܂��B
-
-�@op1�ƃt�B�[�h�o�b�N���g���A�g�`�S�̂��˂��Ȃ��A
-�@�����̃T���v���g�`�ɋ߂Â��܂��B
-
-
-�@���W�����[�^�[�̃}���`�v���̒l�́A�L�����A�ɑ΂��āA
-�@1,3,5 : 1, �����{��(�m�R�M���g)�A2,4,6 : 1, ��{��(��`�g)���ӎ����邱�ƂŁA
-�@���y��̉��F�ɋ߂Â��Ă����܂��B
+　0: ディストーションギター、チョッパーベース、ハイハット
+　1: ハープ、PSG(programmable sound generator)
+　2: ピアノ、ブラス、エレクトリックギター、ベース、ウッド
+　3: ストリングス、チャイム、フォークギター
+　4: コーラス、フルート、ベル、パスドラム、スネアドラム、タムタム
+　5: ブラス、オルガン
+　6: オルガン、シロホン、ビブラホン、ベースドラム、スネアドラム、タムタム
+　7: パイプオルガン
 
 
 
 
  
-�@�E�����̉��F�f�[�^���g�p���ĉ��Â��肵���� 
+　・2opでのBassの音づくり 
 
 
-�@�e�L�X�g�{�b�N�X����A�ݒ�l����荞�ނ��Ƃ��ł��܂��B
+　モジュレーションのマルチプルを0 (1/2波長)とし、
+　トータルレベルを必要なだけ上げます。(15ぐらい)
 
-�@�e�L�X�g�{�b�N�X�ɁAFM���F�}�g���N�X�𗬂����݁A
-�@���F�f�[�^�C���|�[�g�{�^���������ĉ������B
+　キャリアのマルチプルを上げて、(3くらい)必要となるハイトーンを足します。
+　フィードバックで、エレクトリックベース感を足します。(4くらい)
 
-
-�@4op style�ύX�ɂ��AFMP7,MUCOM, MXDRV �e�`���̃C���|�[�g�ɑΉ����܂��B
-�@�o�͂��ꂽ���׏��Ɠ����z�u�̓��͒l�ł���΁A
-�@���̌`�ŁA�C���|�[�g���܂��B
-
-�@�ǂݍ��ލہA���F�f�[�^�`���̃J�E���g�����`�F�b�N���܂��B
-�@(opn�ŁA42[10*4+2]�Aopm�̏ꍇ�A46[11*4+2]�ł�)
+　(キャリアで音量を決め、モジュレーションで音づくりが基本です。)
 
 
-�@���K�\��(?<=^|;|:|,|\s)(?:-)?[0-9]+?(?=;|:|,|\s|\n|$)�Ƃ��āA
-�@���l���ǂݍ��ގd�l�ł��B
 
-�@(�ǂݍ��ݎ��s�́A�K�v�Ȑ��l�̑O�ɃX�y�[�X���Ȃ��P�[�X�������ł��B)
+ 
+　・4opにおける、3op+ 1opでの楽器波形の再現例 
 
 
-�@---- �C���|�[�g�� ----
+　アルゴリズム2を使用します。
+　主にop2とop3で音色となる倍音成分をつくります。
 
-�@opn / 4op style: PMD
+　op3のトータルレベルは、40とします。
+　op2のトータルレベルを上げ、必要となる倍音成分を足します。
 
-  @100   5   5 # �t�B�[�h�o�b�N�x�[�X[opn,o2]
+　op1とフィードバックを使い、波形全体をねじ曲げ、
+　実音のサンプル波形に近づけます。
+
+
+　モジュレーターのマルチプルの値は、キャリアに対して、
+　1,3,5 : 1, 整数倍音(ノコギリ波)、2,4,6 : 1, 奇数倍音(矩形波)を意識することで、
+　より楽器の音色に近づいていきます。
+
+
+
+
+ 
+　・既存の音色データを使用して音づくりしたい 
+
+
+　テキストボックスから、設定値を取り込むことができます。
+
+　テキストボックスに、FM音色マトリクスを流し込み、
+　音色データインポートボタンを押して下さい。
+
+
+　4op style変更により、FMP7,MUCOM, MXDRV 各形式のインポートに対応します。
+　出力された並べ順と同じ配置の入力値であれば、
+　この形で、インポートします。
+
+　読み込む際、音色データ形式のカウント数をチェックします。
+　(opnで、42[10*4+2]、opmの場合、46[11*4+2]です)
+
+
+　正規表現(?<=^|;|:|,|\s)(?:-)?[0-9]+?(?=;|:|,|\s|\n|$)として、
+　数値列を読み込む仕様です。
+
+　(読み込み失敗は、必要な数値の前にスペースがないケースが多いです。)
+
+
+　---- インポート例 ----
+
+　opn / 4op style: PMD
+
+  @100   5   5 # フィードバックベース[opn,o2]
     NM ALG  FB
  012 008 007 005 010 014 000 000 000 000
   21, 18, 10, 05, 08, 19, 00, 00, 00, 00,
@@ -416,192 +416,195 @@
   19   6  18   5   7   0   0   5   0   0
   AR  DR  SR  RR  SL  TL  KS  ML  DT AMS
 
-�@---- ----
+　---- ----
 
   
-�@�@�� �d�l�ɂ��� 
+　　□ 仕様について 
 
 
-�@���F�w��̃}�C�i�X�l�� 0�ɕϊ�����܂��B
+　音色指定のマイナス値は 0に変換されます。
 
-�@(opn,opm��DT1��value�́A0 - 7�͈̔͂Ŏw�肵�ĉ������B
-�@�e�L�X�g�{�b�N�X���ŁA-3 -> +3�Ƃ��Ĕ͈͎w����s���ƁA
-�@-3,-2,-1�̒l�� 0�ɕϊ�����܂��B)
-
-
-�@�O���t�\���͐��x��������ƁA
-�@�v���C���[�o�͂ɔ�ׁA�c�݂������o��X��������܂��B
+　(opn,opmのDT1のvalueは、0 - 7の範囲で指定して下さい。
+　テキストボックス内で、-3 -> +3として範囲指定を行うと、
+　-3,-2,-1の値は 0に変換されます。)
 
 
-�@�v���C���[�ɐ��`�⊮�⃍�[�p�X�t�B���^�������Ă���P�[�X�ł́A
-�@�G�f�B�^�̔g�`�o�͂Ǝ��ۂ̔g�`�Ɋ������ꂪ�����܂��B
-
-�@(�t�B�[�h�o�b�N���A�t�B���^���U�̏��(2��,4�΂ł����Ă��A
-�@�v���C���[���̔g�`�⊮������ƁA���₩�ȏo�͂ƂȂ邱�Ƃ��������Ă܂��B)
-
-�@[1/1���x�̃O���t���ɁAPMDWin.dll�̐��`�⊮���O���Ƌߎ��l���o�邽�߁B]
+　グラフ表示は精度を下げると、
+　プレイヤー出力に比べ、歪みが強く出る傾向があります。
 
 
+　プレイヤーに線形補完やローパスフィルタが入っているケースでは、
+　エディタの波形出力と実際の波形に幾分ずれが生じます。
 
-�@�ȉ��A�v�Z���̊T���ƂȂ�܂��B
+　(フィードバックが、フィルタ発振の状態(2?,4?であっても、
+　プレイヤー側の波形補完が入ると、穏やかな出力となることが分かってます。)
 
-�@---- �f�V�x������d���E������ւ̕ϊ���
+　[1/1精度のグラフ時に、PMDWin.dllの線形補完を外すと近似値が出るため。]
+
+
+
+　以下、計算式の概略となります。
+
+　---- デシベルから電圧・音圧比への変換式
   V2/V1 = 10^(A/20)
-�@v2= 10^(a/20)* v1
-�@v2= 10^(-0.75dB* TL/ 20)* v1
+　v2= 10^(a/20)* v1
+　v2= 10^(-0.75dB* TL/ 20)* v1
 
-�@---- ����ڑ��ł́AFM�ϒ��̌v�Z��
-�@F(t)= A(t)* sin(��ct+ ( I(t)* sin��mt) )�ƂȂ��Ă��܂��B
-�@c:�L�����A
-�@m:���W�����[�V����
+　---- 直列接続での、FM変調の計算式
+　F(t)= A(t)* sin(?ct+ ( I(t)* sin?mt) )となっています。
+　c:キャリア
+　m:モジュレーション
 
-�@---- �t�B�[�h�o�b�N�̌v�Z��
-�@F1(t)=  I(t)* sin( ��mt+��* F1(t) )�Ƃ��Ă��܂��B
-�@��:�A�җ�
-
-
- 
-�@�@�� �ӎ� / �Q�ƃ����N 
-
-
-�@�ȉ��̃y�[�W�l�̃f�[�^���Q�Ƃ��Ă��܂��B
-
-�@�EMck wiki / �g�`��` - vrc7�̉��F��
-�@�@https://wikiwiki.jp/mck/
-
-
-�@�EP.M.D [����c�[���̂�����] - (PMD98�p Preset FM���F�Z�b�g) / KAJA �l
-�@�@http://www5.airnet.ne.jp/kajapon/
-
-
-�@�EVal sound FM-Sound Library / Takeshi Abo�l
-�@�@http://www.valsound.com/
+　---- フィードバックの計算式
+　F1(t)=  I(t)* sin( ?mt+?* F1(t) )としています。
+　?:帰還率
 
 
  
-�@�@�� �Ɛӎ��� /�g�p���� /���쌠�Ȃ� 
+　　□ 謝辞 / 参照リンク 
 
 
-�@�EApache���C�Z���X2.0��K�p���ĉ�����
+　以下のページ様のデータを参照しています。
 
-�@�E���X�N���v�g�Q���g�p���ĉ��炩�̖�肪�N�����Ă��A�ӔC��v�����Ȃ�����
-
-�@�E�Ĕz�z����ۂ́A���h�L�������g�t�@�C�����ێ����ĉ�����
-
-
-�@= �����g���� =
-�@https://twitter.com/huangbaihonglan
-
-�@Copyright(C) 04coreworks
-�@https://github.com/eseakisakura
+　・Mck wiki / 波形定義 - vrc7の音色例
+　　https://wikiwiki.jp/mck/
 
 
-'19	2 28	F12�L�[�Ŏ����ł���悤�ɂ���
-	3 14	Operator window��ǉ�����
-			��window��showdialog����show/hide�ɂ���
+　・P.M.D [自作ツールのお部屋] - (PMD98用 Preset FM音色セット) / KAJA 様
+　　http://www5.airnet.ne.jp/kajapon/
 
-	7 5		����mml��header�t�H���_����ǂނ悤�ɂ���
-			op2,3,4�ł�alg,fb��ς�����悤�ɂ���
 
-	8 5		2op����window�T�C�Y�������������A�`��̃`���c�L���Ȃ�����
-	10		�T�C���J�[�u�v�Z�̒���
+　・Val sound FM-Sound Library / Takeshi Abo様
+　　http://www.valsound.com/
 
-	11 17	�e�L�X�g�{�b�N�X����̃C���|�[�g�ɑΉ�����
-			All_sz��string�z��̓ǂݍ��݂ɂ���
-			�`�惌�W���[���ʒu�̍œK��������
 
-	22		sin�g�̍������ɁA���W�����[�g�������ł���悤�ɂ���
-			sl�l���t�������̂ŏC������
-			�`��C�����A�K�v�ƂȂ�all_chg�����𒼂���
-			�v���O�C���Ăяo���Ή��̂��߁Aglobal:����script:�֕ύX����
+ 
+　　□ 免責事項 /使用条件 /著作権など 
 
-	26		�t�B�[�h�o�b�N�̍\���𒼂���
-			�����l�ɋ߂����W�����[�g�o�͂ɕύX����
-			�O���[�o���ϐ���S�Ĉꂩ���ɏW�߂�
 
-	28		x���̐F�������炻�ꂼ���op�ɑΉ�������
-			�C�x���g��try catch�\����������
+　・Apacheライセンス2.0を適用して下さい
 
-	29		Op window�̃}�E�X�N���b�N��op,alg��ύX�ł���悤�ɂ���
+　・当スクリプト群を使用して何らかの問題が起こっても、責任を要求しないこと
 
-	12  1	�T�C���A�G���x���[�v�̍��W��dot�ʒu�C��
-			op2�G���x���[�v��eg on���A�v�Z�ԈႢ����
-			�J�����gop�ɘg��t����
-	2		�J���[obj���炵�N���𑬂�����
-			light�J���[�̍Ē���
-	5		if("") -> if('')�ƒ�����
-	7		win10�Ή��̂��߁Aevent�X�N���v�g�u���b�N����$script:��}������
-			win10�Ή��̂��߁Ahash,xml�̍��ӁAscript:�X�R�[�v����������
-			func�̈�����$x= $script:^^^�Ƃ��āAfunc�փ��[�J���o�^�Ƃ���
-	16		contxt menu���`�F�b�N�t���ɂ���
-	25		���F�o�͂Ƀ[�����߂ƃA�X�e���X�N��t������悤�ɂ���
-	27		mmlwatch����Ăяo�����Aselect�@�\�̊ԈႢ���C��
+　・再配布する際は、当ドキュメントファイルを維持して下さい
 
-'20	1 10	2op��EGT�\���̊ԈႢ���C��
-	12		Advanced�Ŏ���mml���Ăяo����悤�ɂ���
-			preset���F�ǉ�
-	16		Undo�o�b�t�@�ǉ�
-	18		4opFM���Fstyle���Ƃɓ��o�͂ł���悤�ɂ���
-	22		vrc7��type�ʃ��W�X�^�l����o�͂ł���悤�ɂ���
-	24		$0���̂��߁A-replace��.Replace�֕ύX�A
-			mck�������ł���悤�ɂ���
-			Change_menu��-match��.Contains�֕ύX
-	31		GUI�Ή��̃G���[�o�͂ɂ���
 
-	2 3		layout�ύX�ł���悤�ɂ������߁AChip_position�̒ǉ�
-	2 5		�K�v�ƂȂ�Unredo 2�̒ǉ��Amain��autosave�ǂݏo���C���A
-			PointObj�Ƃ���func���A$boxs["wait"] value��1,2,4�֕ύX
-			Boxs_read�Ńo���o���̕ϐ����n�b�V��������
-	2 8		�x�����o�Ă���$fm_box���œK�������AUndo��obj�ɂ��č���������
-	27		autoload�̈��������ƁA$x.name��$�����G���[�C��
-			_vrc�̋�z����R�s�[���Ďg���悤�ɂ���
-			�X�^���h�A�����ɂ����A���ݒ�����O�łł���悤�ɂ����B
-	3 1		autosave�@�\��on,off���ł���悤�ɂ���
-			autosave��2op��4op���ꂼ��ʁX�ɋL�^����悤�ɂ���
-	5		�C���|�[�g���̃J�E���g�`�F�b�N�������ɂ���
-	22		Op.mask�E�B���h�E��ǉ�����
-	23		SSG-EG���w��ł���悤�ɂ���
-	26		2.0�ȍ~�̂��߁AClosing����FormClosing�֕ύX
-	4 1		SSG-EG�ɌŒ�G���x���[�v��t����
-	3		mask��SSG-EG�̏�Ԃ��}�g���N�X�ɃR�����g�o�͂���悤�ɂ���
+　= 黄白紅藍玄 =
+　https://twitter.com/huangbaihonglan
 
-	7 25	menu_build�̎��s�_�A�n�b�V���̏������A���j���[�̃��Z�b�g���C��
-	8 17	vrc7,PC88.MML,X68ED.MML,EFFEC.MML���F�f�[�^���Apreset�Ƃ��ēǂ߂�悤�ɂ���
-	  29	trayicon��ǉ��A��ԃ`�F�b�N�t���ŏ����Ƃ���
-	11 26	Help�t�@�C����Sted�œǂ߂�悤�ɂ���
+　Copyright(C) 04coreworks
+　https://github.com/eseakisakura
 
-'21	1 12	main���AAutoload�ł�Panel_chg��2�d�ǂݍ��݂��C��
-			op�`�F���W���A�t�����g�p�l���J���[��ύX����悤�ɂ���
-			�Đ����A���ہA�G�N�X�|�[�g���v�����ۂ��\�������悤�ɂ���
-	17		���x�����ł��؂芷������悤�ɂ���
-			���̍ہASin_position�̋�z��m�ۂ̒v���I�~�X���C��
-			PictBox��2op��4op�𕪗������B�؂芷�����̌����ڃA�b�v�B
-			feedback���d�l�ʂ�A2sample�ƕς��Aadj��20�ӂ�Ƃ���
-	21		trayicon��\���@�\����
-			PS7���߁Aps1�Ɠǂݍ���file��utf8(app����bom�L��)�Ƃ���(mml�o���͂�shiftJIS�̂܂�)
-			mml���C�^��common.ps1�ֈړ�����(utf8 bom�����֑Ή����邽��)
 
-	2 1		[cat]�t�@�C���ǂݍ��݉񐔂��ł��邾�����炵��
-	5		preset��I������ƁAOPwindow���A�����ĕω�����悤�ɂ���
-			Autoload�APanel_chg������C��
-	25		Preset���A4op�X�^�C���͕ێ��֒����Atextbox�̓O���C���Ƃ���
-			Mask thru�ŁASE15,0�𔭍s����ɕς����Aboxheader����C��
-			mucom�X�^�C����ǉ�����
-	3 6		compiler����̓ǂݍ��ݕ���ς����B
+'19	2 28	F12キーで試聴できるようにした
+	3 14	Operator windowを追加した
+			別windowをshowdialogからshow/hideにした
 
-	6 21	�T�X�e�B�����x���̊ԈႢ�A0max-15min�֑S�ďC������
-	6 25	�v���C���[�I�[�v������������
-	9 4		bug fix - header+MML��true,false�ԈႢ
-	10		Reg_exp,Fmx_exp��err popup���C��
+	7 5		試聴mmlをheaderフォルダから読むようにした
+			op2,3,4でもalg,fbを変えられるようにした
 
-	11 25	��������̈��萫���グ���AChange_value����̍œK��
-	12 3	$fm_menu_type_mckreg.Add_Click����̃C�x���g�R���p�C���I��bugfix
-			Preset��tab�ύX���̃C�x���g�R���p�C���I��bugfix
-	17		��������Preset_read�G���[�ɂ�鏈������bugfix
+	8 5		2op時のwindowサイズを小さくした、描画のチラツキ少なくした
+	10		サインカーブ計算の訂正
 
-'22	1 11	send�@�\��t����
-	24		�Z�[�u���AOperator number���L�^����悤�ɂ���
+	11 17	テキストボックスからのインポートに対応した
+			All_szをstring配列の読み込みにした
+			描画レジューム位置の最適化をした
 
-	5 5		���j���[��preset load���A�G���[����Ε\������悤�ɂ���
-			�d���萔�̃e�X�g�����܂܂����ɂ��ǂ���
+	22		sin波の合成時に、モジュレート調整ができるようにした
+			sl値が逆だったので修正した
+			描画修正時、必要となるall_chg抜けを直した
+			プラグイン呼び出し対応のため、global:からscript:へ変更した
+
+	26		フィードバックの構文を直した
+			実測値に近いモジュレート出力に変更した
+			グローバル変数を全て一か所に集めた
+
+	28		x軸の色を黒からそれぞれのopに対応させた
+			イベントにtry catch構文を加えた
+
+	29		Op windowのマウスクリックでop,algを変更できるようにした
+
+	12  1	サイン、エンベロープの座標のdot位置修正
+			op2エンベロープのeg on時、計算間違い訂正
+			カレントopに枠を付けた
+	2		カラーobj減らし起動を速くした
+			lightカラーの再調整
+	5		if("") -> if('')と直した
+	7		win10対応のため、eventスクリプトブロック内に$script:を挿入した
+			win10対応のため、hash,xmlの左辺、script:スコープを見直した
+			funcの引数を$x= $script:^^^として、funcへローカル登録とした
+	16		contxt menuをチェック付きにした
+	25		音色出力にゼロ埋めとアステリスクを付けられるようにした
+	27		mmlwatchから呼び出し時、select機能の間違いを修正
+
+'20	1 10	2opのEGT表現の間違いを修正
+	12		Advancedで試聴mmlを呼び出せるようにした
+			preset音色追加
+	16		Undoバッファ追加
+	18		4opFM音色styleごとに入出力できるようにした
+	22		vrc7のtype別レジスタ値を入出力できるようにした
+	24		$0問題のため、-replaceを.Replaceへ変更、
+			mckを試聴できるようにした
+			Change_menuの-matchを.Containsへ変更
+	31		GUI対応のエラー出力にした
+
+	2 3		layout変更できるようにしたため、Chip_positionの追加
+	2 5		必要となるUnredo 2の追加、mainのautosave読み出し修正、
+			PointObjとしてfunc化、$boxs["wait"] valueを1,2,4へ変更
+			Boxs_readでバラバラの変数をハッシュ化した
+	2 8		遅延が出ていた$fm_boxを最適化した、Undoをobjにして高速化した
+	27		autoloadの引数抜けと、$x.nameの$抜けエラー修正
+			_vrcの空配列をコピーして使うようにした
+			スタンドアロンにした、環境設定を自前でできるようにした。
+	3 1		autosave機能のon,offをできるようにした
+			autosaveを2opや4opそれぞれ別々に記録するようにした
+	5		インポート時のカウントチェックを厳密にした
+	22		Op.maskウィンドウを追加した
+	23		SSG-EGを指定できるようにした
+	26		2.0以降のため、ClosingからFormClosingへ変更
+	4 1		SSG-EGに固定エンベロープを付けた
+	3		maskとSSG-EGの状態をマトリクスにコメント出力するようにした
+
+	7 25	menu_buildの失敗点、ハッシュの初期化、メニューのリセットを修正
+	8 17	vrc7,PC88.MML,X68ED.MML,EFFEC.MML音色データを、presetとして読めるようにした
+	  29	trayiconを追加、状態チェック付き最小化とした
+	11 26	HelpファイルをStedで読めるようにした
+
+'21	1 12	main時、AutoloadでのPanel_chgの2重読み込みを修正
+			opチェンジ時、フロントパネルカラーを変更するようにした
+			再生時、黒丸、エクスポート時プラム丸が表示されるようにした
+	17		精度をいつでも切り換えられるようにした
+			この際、Sin_positionの空配列確保の致命的ミスを修正
+			PictBoxを2opと4opを分離した。切り換え時の見た目アップ。
+			feedbackを仕様通り、2sampleと変え、adjは20辺りとした
+	21		trayicon非表示機能つけた
+			PS7ため、ps1と読み込みfileはutf8(appためbom有り)とした(mml出入力はshiftJISのまま)
+			mmlライタをcommon.ps1へ移動した(utf8 bom無しへ対応するため)
+
+	2 1		[cat]ファイル読み込み回数をできるだけ減らした
+	5		presetを選択すると、OPwindowが連動して変化するようにした
+			Autoload、Panel_chg周りを修正
+	25		Preset時、4opスタイルは保持へ直し、textboxはグレイ化とした
+			Mask thruで、SE15,0を発行するに変えた、boxheader周り修正
+			mucomスタイルを追加した
+	3 6		compiler周りの読み込み方を変えた。
+
+	6 21	サスティンレベルの間違い、0max-15minへ全て修正した
+	6 25	プレイヤーオープンを実装した
+	9 4		bug fix - header+MMLのtrue,false間違い
+	10		Reg_exp,Fmx_expのerr popup部修正
+
+	11 25	初動からの安定性を上げた、Change_value周りの最適化
+	12 3	$fm_menu_type_mckreg.Add_Click周りのイベントコンパイラ選択bugfix
+			Presetのtab変更時のイベントコンパイラ選択bugfix
+	17		初動時のPreset_readエラーによる処理落ちbugfix
+
+'22	1 11	send機能を付けた
+	24		セーブ時、Operator numberを記録するようにした
+
+	5 5		メニューのpreset load時、エラーあらば表示するようにした
+			電圧定数のテストしたままを元にもどした
+
+	11 13	ps7対応のため、パーツの座標を修正した。
+	16	コンパイラメニュー部を直した。
  	

@@ -175,7 +175,7 @@ function Folder_open([int]$sw,[string]$path){
 	return $ss
 } #func
  
-function Icon_read([string]$tt){ 	
+function Icon_read([string]$tt){ 
 
   switch(Chk_path $tt){
   0{
@@ -242,7 +242,7 @@ function Mkmck([string[]]$arg){ # mkmck.ps1
 	# & $exe_ppmckc -i ('"'+ $dpn+ '.mml"') | Write-Host
 	# esc["`""] で空白パス対応 -> ['"']
 
-	$out[1]= & $exe_ppmckc $cmdline ("`""+ $dpn+ ".mml`"") | Out-String
+	$out[1]= & $exe_ppmckc $cmdline ($dpn+ '.mml') | Out-String
 	# ->$dpn.h
 	Write-Host $out[1]
 
@@ -364,7 +364,7 @@ function Mknsd([string[]]$arg){ # mknsd.ps1
 
 
 	# & $exe_nsc -n ('"'+ $r[0]+ '.mml"') | write-host	# Command時、[&]必要
-	$out[1]= & $exe_nsc $cmdline ('"'+ $dpn+ '.mml"') | Out-String # 改行付き出力
+	$out[1]= & $exe_nsc $cmdline ($dpn+ '.mml') | Out-String # 改行付き出力
 
 	Write-Host $out[1]
 

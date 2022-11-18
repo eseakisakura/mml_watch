@@ -1,292 +1,294 @@
-�@�@�� PowerShell - Guitar Arpeggio MML Generator 
+﻿　　■ PowerShell - Guitar Arpeggio MML Generator 
 
 
-�@���e�L�X�g�́A�\�����G�f�B�^�őg�܂�Ă܂��B
+　当テキストは、構造化エディタで組まれてます。
 
-�@-- �X�N���v�g�����\�����G�f�B�^�ɑΉ����Ă��܂��B--
-
-
- 
-�@�@�� �T�v 
-
-
-�@�@�M�^�[�̃t���b�g�̉�������MML Chord�֕ϊ����A
-�@�M�^�[�A���y�W�I���A�}���`�g���b�N�ōČ�������̂ł��B
-�@
-�@ppmck,NSDlib,P.M.D�A�ꕔFmp7,Sakura_mml�ɑΉ����܂��B
-�@�^�C�𐶂������������̌��ʂ��A�����ł���̂������ł��B
-
-
-�@�A���y�W�I���ɑł��Ă���A�R�[�h�A�T�C������悤�Ȏg������z�肵�Ă܂��B
- 
-�@�@�� ���ӓ_�ɂ��� 
-
-
-�@�EFmp7,sakura_mml�́A�����ł��܂���B
-
-
-�@�Eg+�łȂ�g#�̂悤�ȏo�͂��ł����A�R���p�C���ɂ���Ă͎󂯕t���܂���B
-
-�@�E�����N���ł��Ȃ��ꍇ�́A
-�@�@script�t�H���_�ɂ���arp_gene.xml���t�@�C�����폜���ĉ������B
-
-�@�@�����ݒ�Ɠ����ɂȂ�܂��B
+　-- スクリプト側も構造化エディタに対応しています。--
 
 
  
-�@�@�� ��{�ݒ� - �N�C�b�N�X�^�[�g 
+　　□ 概要 
 
 
-�@�܂��A���ݒ肩��n�߂܂��B
+　　ギターのフレットの押さえをMML Chordへ変換し、
+　ギターアルペジオを、マルチトラックで再現するものです。
+　
+　ppmck,NSDlib,P.M.D、一部Fmp7,Sakura_mmlに対応します。
+　タイを生かした串抜きの効果を、試聴できるのが特徴です。
 
 
-
-�@1.�@arp_gene���N�����A�I�v�V�������� setting���N���b�N�A
-�@�@�@���ݒ肪�����オ��܂��B
-
-
-�@2.�@�e���X�g�{�b�N�X�ɁA�K�v�ƂȂ�t�@�C���A�v���O������o�^���܂��B
-
-�@�@�@binary,player,editor,dos�^�u�ɁA���ɓo�^���܂��B
-�@�@�@(PMD��64bitOS�Ŏg�p�̏ꍇ�Ax64�Ƀ`�F�b�N�����ĉ������B)
+　アルペジオを先に打ってから、コードアサインするような使い方を想定してます。
+ 
+　　□ 注意点について 
 
 
-�@3.�@�A���y�W�I�̃��[������A5313 1313�̂悤�Ȑ�����I�т܂��B
+　・Fmp7,sakura_mmlは、試聴できません。
 
 
-�@4.�@�Đ��{�^���������āA�A���y�W�I�̉����o��Ί�{�I�Ȑݒ�͊����ł��B
-�@�@�@���������o�Ȃ��ꍇ�́A�I�v�V��������A�Đ��ł���v���C���[�̑I�������Ă݂ĉ������B
+　・g+でなくg#のような出力も可ですが、コンパイラによっては受け付けません。
+
+　・もし起動できない場合は、
+　　scriptフォルダにあるarp_gene.xml環境ファイルを削除して下さい。
+
+　　初期設定と同じになります。
 
 
  
-�@�@�� �e�@�\�̐��� 
+　　□ 基本設定 - クイックスタート 
+
+
+　まず、環境設定から始めます。
+
+
+
+　1.　arp_geneを起動し、オプションから settingをクリック、
+　　　環境設定が立ち上がります。
+
+
+　2.　各リストボックスに、必要となるファイル、プログラムを登録します。
+
+　　　binary,player,editor,dosタブに、順に登録します。
+　　　(PMDを64bitOSで使用の場合、x64にチェックを入れて下さい。)
+
+
+　3.　アルペジオのロールから、5313 1313のような数字を選びます。
+
+
+　4.　再生ボタンを押して、アルペジオの音が出れば基本的な設定は完了です。
+　　　もし音が出ない場合は、オプションから、再生できるプレイヤーの選択をしてみて下さい。
+
+
+ 
+　　□ 各機能の説明 
 
 	 
-�@�@�E���j���[ 
+　　・メニュー 
 
-�@�Esetting
+　・setting
 
-�@�@���ݒ�ł��B
-�@�@�e���X�g�{�b�N�X�ɁA�t�@�C���h���b�v�œo�^���܂��B
-
-
-�@�E�I�N�^�[�u
-
-�@�������̃I�N�^�[�u�w��ł��B
-
-�@�EMML
-
-�@�N���b�v�{�[�h��TextBox���R�s�[���܂��B
+　　環境設定です。
+　　各リストボックスに、ファイルドロップで登録します。
 
 
-�@�EAdvanced(�㋉�Ҍ���)
+　・オクターブ
 
-�@�������鉹��ς���Ƃ��Ɏg�p���܂��B
+　試聴時のオクターブ指定です。
 
-�@"mck_header"�́Appmck �̎���mml�ł��B
-�@"nsd_header"�́ANSDlib �̎���mml�ł��B
-�@"pmd_header"�́APMD �̎���mml�ł��B
+　・MML
+
+　クリップボードへTextBoxをコピーします。
+
+
+　・Advanced(上級者向け)
+
+　試聴する音を変えるときに使用します。
+
+　"mck_header"は、ppmck の試聴mmlです。
+　"nsd_header"は、NSDlib の試聴mmlです。
+　"pmd_header"は、PMD の試聴mmlです。
 
 
 
  
-�@�@�E�{�̃p�l���̐��� 
+　　・本体パネルの説明 
 
 
-�@�E�R�[�h�Z���N�g
+　・コードセレクト
 
-�@�L�[�w�� [A-G]�A�R�[�h�I�� [M7,m7,..]�A���[�g�I��[6-4]������ƁA
-�@�M�^�[�̃t���b�g�i���o�[��\�����܂��B
-
-
-�@�E�I�[�v���R�[�h�`�F�b�N�{�b�N�X
-
-�@�I�[�v���R�[�h���g�p����ꍇ�A�`�F�b�N�����܂��B
-
-�@�I�[�v���|�W�V����������΁A�I�����W�����v�A
-�@�Ȃ���΁A�u���[�����v�ƂȂ�N���[�Y�h�|�W�V�������I������܂��B
+　キー指定 [A-G]、コード選択 [M7,m7,..]、ルート選択[6-4]をすると、
+　ギターのフレットナンバーを表示します。
 
 
-�@�Emml chord �C���|�[�g�{�^��
+　・オープンコードチェックボックス
 
-�@mml chord�𒼐ڕҏW���A����𔽉f���������Ƃ��g�p���܂��B
+　オープンコードを使用する場合、チェックを入れます。
 
-
-�@�E�t���b�g�Z�b�e�B���O
-
-�@�M�^�[�̃t���b�g�i���o�[�̏o�͂ƁA���΂���MML�R�[�h���o�͂���܂��B
-
-�@�����͂��ꂼ��A�t���b�g[-]���V���[�v[+,#]�̑I�����ł��܂��B
+　オープンポジションがあれば、オレンジランプ、
+　なければ、ブルーランプとなりクローズドポジションが選択されます。
 
 
+　・mml chord インポートボタン
+
+　mml chordを直接編集し、これを反映させたいとき使用します。
 
 
-�@�EMML�A���y�W�I
+　・フレットセッティング
 
-�@�A���y�W�I�i���o�[����͂��܂��B
-�@������镶����[6-1] [^] [r] �݂̂ł��B
+　ギターのフレットナンバーの出力と、相対するMMLコードが出力されます。
 
-�@�E�Đ��{�^��
-
-�@�����{�^���ł��B
-�@(�����o�Ȃ��ꍇ�A�v���C���[�A�T�C�����m�F���ĉ������B)
-
-�@�e"TextBox"�Ƀt�H�[�J�X����΁A[F12�L�[]��@���Ă��Đ����܂��B
+　黒鍵はそれぞれ、フラット[-]かシャープ[+,#]の選択ができます。
 
 
-�@�E�X�g�b�v�{�^��
-
-�@�����~�߂܂��Bnsfplay2.3,winamp�p�B
-�@FMPMD�ł́A�X�g�b�v�R�}���h�Ƒ������������߉����Ă��ω����܂���B
-
-�@�e"TextBox"�Ƀt�H�[�J�X����΁A[F11�L�[]�ł��~�܂�܂��B
 
 
-�@�Emml�C���|�[�g�{�^��
+　・MMLアルペジオ
 
-�@mml�𒼐ڕҏW���A���U�R�[�h�ɔ��f���������Ƃ��A�g�p���܂��B
-�@"TextBox"�Ƀt�H�[�J�X����΁A[F5�L�[]�ł��C���|�[�g���܂��B
+　アルペジオナンバーを入力します。
+　許される文字は[6-1] [^] [r] のみです。
 
-�@�Ȉ�mml�������ϊ����\�ł��B
-�@�^�C������g���b�N�����Z�b�g��ATextBox�֗�������ŉ������B
+　・再生ボタン
 
-�@�Ή����Ă��镶���́A[l q <> ` " [a-g] +-# [0-9] ^ r]�ł��B ( exp. "l16 a8^^r >e-4r< )
+　試聴ボタンです。
+　(音が出ない場合、プレイヤーアサインを確認して下さい。)
 
-�@�E�g���b�N�w�b�_
-
-�@�e�R���p�C���̃g���b�N�w�b�_��I�����܂��B
-�@�ړ�����ǉ�����ꍇ�A1  2  15  16 �̂悤�ɁA�󔒂�񕶎�����ĉ������B
+　各"TextBox"にフォーカスあらば、[F12キー]を叩いても再生します。
 
 
-�@�E�����E�B���h�E
+　・ストップボタン
 
-�@���U�a�����o�͂���܂��B�R�s�y�ȂǂŃG�f�B�^�֗�������ŉ������B
-�@�@
+　音を止めます。nsfplay2.3,winamp用。
+　FMPMDでは、ストップコマンドと相性が悪いため押しても変化しません。
+
+　各"TextBox"にフォーカスあらば、[F11キー]でも止まります。
+
+
+　・mmlインポートボタン
+
+　mmlを直接編集し、分散コードに反映させたいとき、使用します。
+　"TextBox"にフォーカスあらば、[F5キー]でもインポートします。
+
+　簡易mml串抜き変換も可能です。
+　タイ文字やトラック数をセット後、TextBoxへ流し込んで下さい。
+
+　対応している文字は、[l q <> ` " [a-g] +-# [0-9] ^ r]です。 ( exp. "l16 a8^^r >e-4r< )
+
+　・トラックヘッダ
+
+　各コンパイラのトラックヘッダを選択します。
+　接頭辞を追加する場合、1  2  15  16 のように、空白を二文字入れて下さい。
+
+
+　・下部ウィンドウ
+
+　分散和音が出力されます。コピペなどでエディタへ流し込んで下さい。
+　　
 
   
-�@�@�� Tips 
+　　□ Tips 
 
 
 	
-�@�E�A���y�W�I�̃R�c 
+　・アルペジオのコツ 
 
-�@�x�[�X�ƂȂ郋�[�g�����ŏ��ɖ炵�A
-�@������123���ɂ�镪�U�a������{�X�^�C���ƂȂ�܂��B
-
-
-�@r���������ނ��ƂŁA�^�C��S�~���[�g���A
-�@����ςȂ�������U�d�؂蒼���̂���̎�ł��B
+　ベースとなるルート音を最初に鳴らし、
+　続いて123弦による分散和音が基本スタイルとなります。
 
 
+　rを差し込むことで、タイを全ミュートし、
+　鳴りっぱなし感を一旦仕切り直すのも一つの手です。
 
- 
-�@�E�R�[�h�O�̉����g������ 
 
-�@�R�[�h�O�̉����g�������ꍇ�A
-�@�t���b�g�i���o�[�̐����𒼐ڕҏW���邱�ƂŁAMML�R�[�h��ύX�ł��܂��B
-
-�@�@0 3 2 0 1 0 -> 0 3 2 0 1 1
-�@�@"eceg`c[`e] -> "eceg`c[`f]
-
-�@MML�R�[�h���̂�ҏW�A�C���|�[�g�{�^���ł��ł��B
-
-�@�@"eceg`c[`e] -> "eceg`c[`f]
 
  
-�@�E�e�g���b�N�̌��ɁA���̕��U�R�[�h�̏o�͂��Ȃ����� 
+　・コード外の音が使いたい 
 
-�@�P�̂ł͂ł��܂���B
-�@Editor���̋�`�I�����g���Ή��Ƃ��Ȃ�܂��B
+　コード外の音が使いたい場合、
+　フレットナンバーの数字を直接編集することで、MMLコードを変更できます。
 
-�@Mery�̏ꍇ�A�Ƃ肠�����������݁A
-�@Alt+ �J�[�\�����AAlt+ �}�E�X�ŋ�`�I���̂��A
-�@�Ȃ������ꏊ�Ńy�[�X�g����΁A���֌q�����Ƃ��ł��܂��B
+　　0 3 2 0 1 0 -> 0 3 2 0 1 1
+　　"eceg`c[`e] -> "eceg`c[`f]
+
+　MMLコード自体を編集、インポートボタンでも可です。
+
+　　"eceg`c[`e] -> "eceg`c[`f]
+
+ 
+　・各トラックの後ろに、次の分散コードの出力をつなげたい 
+
+　単体ではできません。
+　Editor側の矩形選択を使えば何とかなります。
+
+　Meryの場合、とりあえず流し込み、
+　Alt+ カーソルか、Alt+ マウスで矩形選択のち、
+　つなげたい場所でペーストすれば、後ろへ繋ぐことができます。
 
 
   
-�@�@�� �d�l�ɂ��� 
+　　□ 仕様について 
 
 
-�@�Z�[�u�@�\�͂���܂���B
-�@Arpeggio�{�b�N�X���琔�l���E���āA�G�f�B�^�Ȃǂŕۑ����ĉ������B
+　セーブ機能はありません。
+　Arpeggioボックスから数値を拾って、エディタなどで保存して下さい。
 
-�@[arp_gene�́A�K��reset��ԂŋN�����邽�߂ł��B]
+　[arp_geneは、必ずreset状態で起動するためです。]
 
 
 
  
-�@�@���ӎ� / �Q�ƃ����N 
+　　□謝辞 / 参照リンク 
 
 
-�@�R�[�h�|�W�V�����́A�ȉ��̃y�[�W�l���Q�Ƃ��Ă��܂��B
+　コードポジションは、以下のページ様を参照しています。
 
-�@http://www9.ocn.ne.jp/~knatsu/chords/chords.html
-�@http://www.ishibashi.co.jp/academic/Chord_Guitar/C.htm
-�@�h�~�i���g9th - 8monji-guitar.com
+　http://www9.ocn.ne.jp/~knatsu/chords/chords.html
+　http://www.ishibashi.co.jp/academic/Chord_Guitar/C.htm
+　ドミナント9th - 8monji-guitar.com
 
-�@http://www.naru-gakki.com/guitar-opentuning/
-�@http://guitar-hakase.com/tuning/
-�@http://www.aki-f.com/kouza/b_kouza/kouza5/kouza5_2.htm
+　http://www.naru-gakki.com/guitar-opentuning/
+　http://guitar-hakase.com/tuning/
+　http://www.aki-f.com/kouza/b_kouza/kouza5/kouza5_2.htm
  
-�@�@�� �Ɛӎ��� /�g�p���� /���쌠�Ȃ� 
+　　□ 免責事項 /使用条件 /著作権など 
 
 
-�@�EApache���C�Z���X2.0��K�p���ĉ�����
+　・Apacheライセンス2.0を適用して下さい
 
-�@�E���X�N���v�g�Q���g�p���ĉ��炩�̖�肪�N�����Ă��A�ӔC��v�����Ȃ�����
+　・当スクリプト群を使用して何らかの問題が起こっても、責任を要求しないこと
 
-�@�E�Ĕz�z����ۂ́A���h�L�������g�t�@�C�����ێ����ĉ�����
-
-
-�@= �����g���� =
-�@https://twitter.com/huangbaihonglan
-
-�@Copyright(C) 04coreworks
-�@https://github.com/eseakisakura
+　・再配布する際は、当ドキュメントファイルを維持して下さい
 
 
-'19	3 14	F2�AF12�L�[�Ŏ����ł���悤�ɂ���
-	5 18	M7b5��ǉ�����
-	7 5		����mml��header�t�H���_����ǂނ悤�ɂ���
-	9 14	m7b5,11�̃|�W�V�����ԈႢ�C��
-	12 5	if("") -> if('')�ƒ�����
-	7		win10�Ή��̂��߁Aevent�X�N���v�g�u���b�N����$script:��}������
-			win10�Ή��̂��߁Ahash,xml�̍��ӁAscript:�X�R�[�v����������
-			func�̈�����$x= $script:^^^�Ƃ��āAfunc�փ��[�J���o�^�Ƃ���
+　= 黄白紅藍玄 =
+　https://twitter.com/huangbaihonglan
 
-'20	1 12	Advanced�Ŏ���mml���Ăяo����悤�ɂ���
-	31		GUI�Ή��̃G���[�o�͂ɂ���
-	2 7		$box_apeg.SelectedText�̍œK��������
-			Undo�@�\�ǉ�
-	2 27	�X�^���h�A�����ɂ����A���ݒ�����O�łł���悤�ɂ���
-	4 19	6sus2��ǉ�����
+　Copyright(C) 04coreworks
+　https://github.com/eseakisakura
 
-	7 25	menu_build�̎��s�_�A�n�b�V���̏������A���j���[�̃��Z�b�g���C��
-	8 31	�g���C�A�C�R����t����
-	11 26	Help�t�@�C����Sted�œǂ߂�悤�ɂ���
 
-'21	1 21	trayicon��\���@�\����
-			PS7���߁Aps1�Ɠǂݍ���file��utf8(app����bom�L��)�Ƃ���(mml�o���͂�shiftJIS�̂܂�)
-			mml���C�^��common.ps1�ֈړ�����(utf8 bom�����֑Ή����邽��)
-	2 1		[cat]�t�@�C���ǂݍ��݉񐔂��ł��邾�����炵��
-	3 6		compiler����̓ǂݍ��ݕ���ς���
+'19	3 14	F2、F12キーで試聴できるようにした
+	5 18	M7b5を追加した
+	7 5		試聴mmlをheaderフォルダから読むようにした
+	9 14	m7b5,11のポジション間違い修正
+	12 5	if("") -> if('')と直した
+	7		win10対応のため、eventスクリプトブロック内に$script:を挿入した
+			win10対応のため、hash,xmlの左辺、script:スコープを見直した
+			funcの引数を$x= $script:^^^として、funcへローカル登録とした
 
-	6 25	�v���C���[�I�[�v������������
-	11 25	��������̈��萫���グ���AArpchange_value����̍œK��
+'20	1 12	Advancedで試聴mmlを呼び出せるようにした
+	31		GUI対応のエラー出力にした
+	2 7		$box_apeg.SelectedTextの最適化をした
+			Undo機能追加
+	2 27	スタンドアロンにした、環境設定を自前でできるようにした
+	4 19	6sus2を追加した
 
-'22	1 17	Apeg�o�͂̃G���W������S�ĕύX�ANumber_gene�ŃW�F�l���[�g��Areplace�Ƃ���
-			�C���|�[�g�{�^����ǉ�����
+	7 25	menu_buildの失敗点、ハッシュの初期化、メニューのリセットを修正
+	8 31	トレイアイコンを付けた
+	11 26	HelpファイルをStedで読めるようにした
 
-	21		Apeg�o�͏����n�̌������A
-			�ϐ��m�یďo���ł̍������A�d�������̍ו���������
-			mml chord���C���|�[�g�ł���悤�ɂ���
+'21	1 21	trayicon非表示機能つけた
+			PS7ため、ps1と読み込みfileはutf8(appためbom有り)とした(mml出入力はshiftJISのまま)
+			mmlライタをcommon.ps1へ移動した(utf8 bom無しへ対応するため)
+	2 1		[cat]ファイル読み込み回数をできるだけ減らした
+	3 6		compiler周りの読み込み方を変えた
 
-	22		TextChanged��ValueChanged�̋����Ⴂ�ɂ��A�C�x���g�n���h���ďo����bugfix
-			����string�������AInsert���\�b�h�ɂ�鍂����������
-			�^�C�ǉ������̊ԈႢ���C��������
-			Chd_build��"z"(r�֒u��)�̏������ɂ��A
-			���A�T�C�����Ȃ��Ă��x���Ƃ��čĐ�����悤�ɂ���
+	6 25	プレイヤーオープンを実装した
+	11 25	初動からの安定性を上げた、Arpchange_value周りの最適化
 
-	27		import��Oct�����̏C���AOct_hogen -$j �Ƃ���Ə�����������bugfix
+'22	1 17	Apeg出力のエンジン部を全て変更、Number_geneでジェネレート後、replaceとした
+			インポートボタンを追加した
 
+	21		Apeg出力処理系の見直し、
+			変数確保呼出しでの高速化、重い処理の細分化をした
+			mml chordをインポートできるようにした
+
+	22		TextChangedとValueChangedの挙動違いによる、イベントハンドラ呼出しのbugfix
+			長文string処理を、Insertメソッドによる高速化をした
+			タイ追加処理の間違いを修正をした
+			Chd_buildで"z"(rへ置換)の初期化により、
+			弦アサインがなくても休符として再生するようにした
+
+	27		importのOct処理の修正、Oct_hogen -$j とすると処理落ちするbugfix
+
+	11 13	ps7対応のため、パーツの座標を修正した。
+	16	コンパイラメニュー部を直した。
  	

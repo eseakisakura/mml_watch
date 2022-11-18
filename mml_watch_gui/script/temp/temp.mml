@@ -1,19 +1,20 @@
-#LoopDefault 2 
+#EX-VRC7 
+#EX-MMC5
+// track_parameter %%@vr20 q4 l8 v15 @2%%
 
-ABCD C192 t150
-ABCD o4 q6 v16 l8 @1
+ABCDEGHIJKLab t150 ; @t4,24 tempo
 
-A <a16r16 a&a r >   d16r16 d&d&drr
-	B e16r16 e&er   a16r16 a&a&arr
+// replace parameter
+A o4@vr20 q4 l8 v15 @2
+B o4@vr20 q4 l8 v15 @2
+a o4@vr20 q4 l8 v15 @2
+b o4@vr20 q4 l8 v15 @2
 
-; replace parameter
-; nm alg fbl
-@001 002 007				=	EPiano3
-; ar  dr  sr  rr  sl  tl  ks  ml  dt ams
- 028 004 003 007 001 033 002 001 003 000
- 027 009 001 002 000 071 003 012 000 000
- 028 004 003 006 000 049 002 004 006 000
- 026 003 000 005 010 000 003 001 000 000
+A c^rr e^rr  c^rr r>c^r  r<g^r rg^r  rg^r rrg^
+B rg^r rg^r  rg^r rrg^  rr>c^ rrc^  rrc^ rrrc<
+a rr>c^ rrc^  rrc^ rrrc  ^rre ^rre  ^rre ^^rr<
+b rrr>e ^rre  ^rre ^^rr  <c^rr e^rr  c^rr r>c^r<
 
+@v20= { 15 15 15  15 15 15  12 12 10 10  8 8  6 6 6 6  4 4 4 4  2 2 2 2 2 | 2 }
  
 

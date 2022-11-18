@@ -19,7 +19,8 @@ $xml_editor= @'
 		<wait value="2"/>
 		<layout value="nomal"/>
 		<color value="natural"/>
-		<bit value="Checked"/>
+		<chk_dos value="Checked"/>
+		<radio_bin value="nsd" />
 	</opt>
 	<val>
 		<!-- 拡張性の加味 -->
@@ -2361,17 +2362,7 @@ function Slot_build($x, [string]$s){
  
 function Save_value([string]$sw){ 
 
-  switch($sw){
-  'A'{	$sub_sav_label.Text= "slot A:";	break;
-  }'B'{	$sub_sav_label.Text= "slot B:";	break;
-  }'C'{	$sub_sav_label.Text= "slot C:";	break;
-  }'D'{	$sub_sav_label.Text= "slot D:";	break;
-  }'E'{	$sub_sav_label.Text= "slot E:";	break;
-  }'F'{	$sub_sav_label.Text= "slot F:";	break;
-  }'G'{	$sub_sav_label.Text= "slot G:";	break;
-  }'H'{	$sub_sav_label.Text= "slot H:"
-  }
-  } #sw
+  $sub_sav_grp.Text= ("slot "+ $sw)
 
   [string]$retn= $sub_sav.ShowDialog()
 
@@ -2481,6 +2472,62 @@ function Load_value($x, [string]$sw){
   
 # hash 
 	
+function Fmchange_value([string]$sw, [string]$name){ 
+
+  # if($name -match '[v]' -eq $False){
+
+	switch($sw){
+	'mck'{		$script:val[$sw]= $mck[$name];	break;
+	}'nsd'{		$script:val[$sw]= $nsd[$name];	break;
+	}'pmd'{		$script:val[$sw]= $pmd[$name];	break;
+	}'compiler'{	$script:val[$sw]= $val[$name];	break;
+
+	}'player'{		$script:val[$sw]= $play[$name];	break;
+	}'dos'{		$script:val[$sw]= $dos[$name];	break;
+	}'editor'{		$script:val[$sw]= $edit[$name]
+	}
+	} #sw
+  # }
+ } #func
+ 
+function Setxml_read($x){ 
+
+  # $x= $script:set_xml.table
+
+  for([int]$i=7; $i -ge 0; $i--){
+
+	if($x.ply[$i].name -ne ''){
+
+		$script:play[$x.ply[$i].name]= $x.ply[$i].param
+	}
+	if($x.edt[$i].name -ne ''){
+
+		$script:edit[$x.edt[$i].name]= $x.edt[$i].param
+	}
+
+    if($i -le 3){
+
+	if($x.mck[$i].name -ne ''){
+
+		$script:mck[$x.mck[$i].name]= $x.mck[$i].param
+	}
+	if($x.nsd[$i].name -ne ''){
+
+		$script:nsd[$x.nsd[$i].name]= $x.nsd[$i].param
+	}
+	if($x.pmd[$i].name -ne ''){
+
+		$script:pmd[$x.pmd[$i].name]= $x.pmd[$i].param
+	}
+	if($x.dos[$i].name -ne ''){
+
+		$script:dos[$x.dos[$i].name]= $x.dos[$i].param
+	}
+    }
+
+  } #
+ } #func
+ 
 function Fmxml_read($x,$y){ # hash設定 
 
 	# $x= $script:fm_xml.table.val
@@ -2494,7 +2541,8 @@ function Fmxml_read($x,$y){ # hash設定
 	$script:val["dos"]= $x.dos.value
 	$script:val["editor"]= $x.edt.value
 
-	$script:opt["chk_dos"]= $y.bit.value
+	$script:opt["chk_dos"]= $y.chk_dos.value
+	$script:opt["radio_bin"]= $y.radio_bin.value
 
 	$script:key["mask"]= "15"		# non save
 	$script:key["ssg"]= "0"			#
@@ -2517,40 +2565,6 @@ function Fmxml_read($x,$y){ # hash設定
 	$script:key["open"]= $y.open.value # -> $frm_fm.Add_Shown
  } #func
  
-function Setxml_read($x){ 
-
-  # $x= $script:set_xml.table
-
-  for([int]$i=3; $i -ge 0; $i--){
-
-	if($x.mck[$i].name -ne ''){
-
-		$script:comp[$x.mck[$i].name]= $x.mck[$i].param
-	}
-	if($x.nsd[$i].name -ne ''){
-
-		$script:comp[$x.nsd[$i].name]= $x.nsd[$i].param
-	}
-	if($x.pmd[$i].name -ne ''){
-
-		$script:comp[$x.pmd[$i].name]= $x.pmd[$i].param
-	}
-
-	if($x.ply[$i].name -ne ''){
-
-		$script:play[$x.ply[$i].name]= $x.ply[$i].param
-	}
-	if($x.edt[$i].name -ne ''){
-
-		$script:edit[$x.edt[$i].name]= $x.edt[$i].param
-	}
-	if($x.dos[$i].name -ne ''){
-
-		$script:dosv[$x.dos[$i].name]= $x.dos[$i].param
-	}
-  } #
- } #func
- 
 function Fmwrite_xml($x,$y){ 
 
 	# $x= $script:fm_xml.table.val
@@ -2564,7 +2578,8 @@ function Fmwrite_xml($x,$y){
 	$x.dos.value= [string]$val["dos"]
 	$x.edt.value= [string]$val["editor"]
 
-	$y.bit.value= [string]$opt["chk_dos"]
+	$y.chk_dos.value= [string]$opt["chk_dos"]
+	$y.radio_bin.value= [string]$opt["radio_bin"]
 
 	$y.tray.value= [string]$key["tray"]
 	$y.autosave.value= [string]$key["autosave"] # $xmlは[string]キャスト必要
@@ -2586,7 +2601,385 @@ function Fmwrite_xml($x,$y){
  } #func
   
 # gui 
-	 
+	
+function Menu_comp_build([string]$t){ 
+
+	$fm_menu_cmck.Text= "MCK"
+	$fm_menu_cnsd.Text= "NSD"
+	$fm_menu_cpmd.Text= "PMD"
+
+	switch($t){
+	'none'{
+		break;
+	}'mck'{
+		$fm_menu_cmck.Text= "[v] MCK"
+		break;
+	}'nsd'{
+		$fm_menu_cnsd.Text= "[v] NSD"
+		break;
+	}'pmd'{
+		$fm_menu_cpmd.Text= "[v] PMD"
+	}
+	} #sw
+
+	return $t
+ } #func
+ 
+function Menu_build([string]$sw){ 	
+
+  [string]$d= "[v] "
+
+  [string[]]$n= Split_path $val[$sw]
+
+  switch($sw){
+  'mck'{
+	[array]$w= $mck.Keys
+
+	$fm_menu_mck0.Visible= $False
+	$fm_menu_mck1.Visible= $False
+	$fm_menu_mck2.Visible= $False
+	$fm_menu_mck3.Visible= $False
+
+	if($w.Length -ge 1){
+
+		$fm_menu_mck0.Visible= $True
+
+		if($n[0] -eq $w[0]){ $fm_menu_mck0.Text= $d+ $w[0]
+		}else{ $fm_menu_mck0.Text= $w[0]
+		}
+
+		if($w.Length -ge 2){
+
+		$fm_menu_mck1.Visible= $True
+
+		if($n[0] -eq $w[1]){ $fm_menu_mck1.Text= $d+ $w[1]
+		}else{ $fm_menu_mck1.Text= $w[1]
+		}
+
+			if($w.Length -ge 3){
+
+		$fm_menu_mck2.Visible= $True
+
+		if($n[0] -eq $w[2]){ $fm_menu_mck2.Text= $d+ $w[2]
+		}else{ $fm_menu_mck2.Text= $w[2]
+		}
+
+				if($w.Length -ge 4){
+
+		$fm_menu_mck3.Visible= $True
+
+		if($n[0] -eq $w[3]){ $fm_menu_mck3.Text= $d+ $w[3]
+		}else{ $fm_menu_mck3.Text= $w[3]
+		}
+				}
+			}
+		}
+	}
+	break;
+
+  }'nsd'{
+	[array]$w= $nsd.Keys
+
+	$fm_menu_nsd0.Visible= $False
+	$fm_menu_nsd1.Visible= $False
+	$fm_menu_nsd2.Visible= $False
+	$fm_menu_nsd3.Visible= $False
+
+	if($w.Length -ge 1){
+
+		$fm_menu_nsd0.Visible= $True
+
+		if($n[0] -eq $w[0]){ $fm_menu_nsd0.Text= $d+ $w[0]
+		}else{ $fm_menu_nsd0.Text= $w[0]
+		}
+
+		if($w.Length -ge 2){
+
+		$fm_menu_nsd1.Visible= $True
+
+		if($n[0] -eq $w[1]){ $fm_menu_nsd1.Text= $d+ $w[1]
+		}else{ $fm_menu_nsd1.Text= $w[1]
+		}
+
+			if($w.Length -ge 3){
+
+		$fm_menu_nsd2.Visible= $True
+
+		if($n[0] -eq $w[2]){ $fm_menu_nsd2.Text= $d+ $w[2]
+		}else{ $fm_menu_nsd2.Text= $w[2]
+		}
+
+				if($w.Length -ge 4){
+
+		$fm_menu_nsd3.Visible= $True
+
+		if($n[0] -eq $w[3]){ $fm_menu_nsd3.Text= $d+ $w[3]
+		}else{ $fm_menu_nsd3.Text= $w[3]
+		}
+				}
+			}
+		}
+	}
+	break;
+
+  }'pmd'{
+	[array]$w= $pmd.Keys
+
+	$fm_menu_pmd0.Visible= $False
+	$fm_menu_pmd1.Visible= $False
+	$fm_menu_pmd2.Visible= $False
+	$fm_menu_pmd3.Visible= $False
+
+	if($w.Length -ge 1){
+
+		$fm_menu_pmd0.Visible= $True
+
+		if($n[0] -eq $w[0]){ $fm_menu_pmd0.Text= $d+ $w[0]
+		}else{ $fm_menu_pmd0.Text= $w[0]
+		}
+
+		if($w.Length -ge 2){
+
+		$fm_menu_pmd1.Visible= $True
+
+		if($n[0] -eq $w[1]){ $fm_menu_pmd1.Text= $d+ $w[1]
+		}else{ $fm_menu_pmd1.Text= $w[1]
+		}
+
+			if($w.Length -ge 3){
+
+		$fm_menu_pmd2.Visible= $True
+
+		if($n[0] -eq $w[2]){ $fm_menu_pmd2.Text= $d+ $w[2]
+		}else{ $fm_menu_pmd2.Text= $w[2]
+		}
+
+				if($w.Length -ge 4){
+
+		$fm_menu_pmd3.Visible= $True
+
+		if($n[0] -eq $w[3]){ $fm_menu_pmd3.Text= $d+ $w[3]
+		}else{ $fm_menu_pmd3.Text= $w[3]
+		}
+				}
+			}
+		}
+	}
+	break;
+
+  }'player'{
+	[array]$w= $play.Keys
+
+	$fm_menu_ply0.Visible= $False
+	$fm_menu_ply1.Visible= $False
+	$fm_menu_ply2.Visible= $False
+	$fm_menu_ply3.Visible= $False
+	$fm_menu_ply4.Visible= $False
+	$fm_menu_ply5.Visible= $False
+	$fm_menu_ply6.Visible= $False
+	$fm_menu_ply7.Visible= $False
+
+	if($w.Length -ge 1){
+
+		$fm_menu_ply0.Visible= $True
+
+		if($n[0] -eq $w[0]){ $fm_menu_ply0.Text= $d+ $w[0]
+		}else{ $fm_menu_ply0.Text= $w[0]
+		}
+
+		if($w.Length -ge 2){
+
+		$fm_menu_ply1.Visible= $True
+
+		if($n[0] -eq $w[1]){ $fm_menu_ply1.Text= $d+ $w[1]
+		}else{ $fm_menu_ply1.Text= $w[1]
+		}
+
+			if($w.Length -ge 3){
+
+		$fm_menu_ply2.Visible= $True
+
+		if($n[0] -eq $w[2]){ $fm_menu_ply2.Text= $d+ $w[2]
+		}else{ $fm_menu_ply2.Text= $w[2]
+		}
+
+				if($w.Length -ge 4){
+
+		$fm_menu_ply3.Visible= $True
+
+		if($n[0] -eq $w[3]){ $fm_menu_ply3.Text= $d+ $w[3]
+		}else{ $fm_menu_ply3.Text= $w[3]
+		}
+					if($w.Length -ge 5){
+
+		$fm_menu_ply4.Visible= $True
+
+		if($n[0] -eq $w[4]){ $fm_menu_ply4.Text= $d+ $w[4]
+		}else{ $fm_menu_ply4.Text= $w[4]
+		}
+						if($w.Length -ge 6){
+
+		$fm_menu_ply5.Visible= $True
+
+		if($n[0] -eq $w[5]){ $fm_menu_ply5.Text= $d+ $w[5]
+		}else{ $fm_menu_ply5.Text= $w[5]
+		}
+							if($w.Length -ge 7){
+
+		$fm_menu_ply6.Visible= $True
+
+		if($n[0] -eq $w[6]){ $fm_menu_ply6.Text= $d+ $w[6]
+		}else{ $fm_menu_ply6.Text= $w[6]
+		}
+								if($w.Length -ge 8){
+
+		$fm_menu_ply7.Visible= $True
+
+		if($n[0] -eq $w[7]){ $fm_menu_ply7.Text= $d+ $w[7]
+		}else{ $fm_menu_ply7.Text= $w[7]
+		}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	break;
+
+  }'dos'{
+	[array]$w= $dos.Keys
+
+	$fm_menu_dos0.Visible= $False
+	$fm_menu_dos1.Visible= $False
+	$fm_menu_dos2.Visible= $False
+	$fm_menu_dos3.Visible= $False
+
+	if($w.Length -ge 1){
+
+		$fm_menu_dos0.Visible= $True
+
+		if($n[0] -eq $w[0]){ $fm_menu_dos0.Text= $d+ $w[0]
+		}else{ $fm_menu_dos0.Text= $w[0]
+		}
+
+		if($w.Length -ge 2){
+
+		$fm_menu_dos1.Visible= $True
+
+		if($n[0] -eq $w[1]){ $fm_menu_dos1.Text= $d+ $w[1]
+		}else{ $fm_menu_dos1.Text= $w[1]
+		}
+
+			if($w.Length -ge 3){
+
+		$fm_menu_dos2.Visible= $True
+
+		if($n[0] -eq $w[2]){ $fm_menu_dos2.Text= $d+ $w[2]
+		}else{ $fm_menu_dos2.Text= $w[2]
+		}
+
+				if($w.Length -ge 4){
+
+		$fm_menu_dos3.Visible= $True
+
+		if($n[0] -eq $w[3]){ $fm_menu_dos3.Text= $d+ $w[3]
+		}else{ $fm_menu_dos3.Text= $w[3]
+		}
+				}
+			}
+		}
+	}
+	break;
+
+  }'editor'{
+	[array]$w= $edit.Keys
+
+	$fm_menu_edt0.Visible= $False
+	$fm_menu_edt1.Visible= $False
+	$fm_menu_edt2.Visible= $False
+	$fm_menu_edt3.Visible= $False
+	$fm_menu_edt4.Visible= $False
+	$fm_menu_edt5.Visible= $False
+	$fm_menu_edt6.Visible= $False
+	$fm_menu_edt7.Visible= $False
+
+	if($w.Length -ge 1){
+
+		$fm_menu_edt0.Visible= $True
+
+		if($n[0] -eq $w[0]){ $fm_menu_edt0.Text= $d+ $w[0]
+		}else{ $fm_menu_edt0.Text= $w[0]
+		}
+
+		if($w.Length -ge 2){
+
+		$fm_menu_edt1.Visible= $True
+
+		if($n[0] -eq $w[1]){ $fm_menu_edt1.Text= $d+ $w[1]
+		}else{ $fm_menu_edt1.Text= $w[1]
+		}
+
+			if($w.Length -ge 3){
+
+		$fm_menu_edt2.Visible= $True
+
+		if($n[0] -eq $w[2]){ $fm_menu_edt2.Text= $d+ $w[2]
+		}else{ $fm_menu_edt2.Text= $w[2]
+		}
+
+				if($w.Length -ge 4){
+
+		$fm_menu_edt3.Visible= $True
+
+		if($n[0] -eq $w[3]){ $fm_menu_edt3.Text= $d+ $w[3]
+		}else{ $fm_menu_edt3.Text= $w[3]
+		}
+
+					if($w.Length -ge 5){
+
+		$fm_menu_edt4.Visible= $True
+
+		if($n[0] -eq $w[4]){ $fm_menu_edt4.Text= $d+ $w[4]
+		}else{ $fm_menu_edt4.Text= $w[4]
+		}
+
+						if($w.Length -ge 6){
+
+		$fm_menu_edt5.Visible= $True
+
+		if($n[0] -eq $w[5]){ $fm_menu_edt5.Text= $d+ $w[5]
+		}else{ $fm_menu_edt5.Text= $w[5]
+		}
+
+							if($w.Length -ge 7){
+
+		$fm_menu_edt6.Visible= $True
+
+		if($n[0] -eq $w[6]){ $fm_menu_edt6.Text= $d+ $w[6]
+		}else{ $fm_menu_edt6.Text= $w[6]
+		}
+
+								if($w.Length -ge 8){
+
+		$fm_menu_edt7.Visible= $True
+
+		if($n[0] -eq $w[7]){ $fm_menu_edt7.Text= $d+ $w[7]
+		}else{ $fm_menu_edt7.Text= $w[7]
+		}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+  }
+  } #sw
+ } #func
+ 
 function Trayfm_hide([string]$t){ 
 
 	switch($t){
@@ -3094,7 +3487,7 @@ function Type_sw([string]$t){
   switch($t){
   'mckreg'{	$fm_menu_type_mckreg.Text= "[v] MCK Reg";	break;
   }'nsdreg'{	$fm_menu_type_nsdreg.Text= "[v] NSD Reg";	break;
-  }'nsd'{	$fm_menu_type_nsd.Text= "[v] NSD"
+  }'nsd'{	$fm_menu_type_nsd.Text= "[v] NSD Op"
   }
   } #sw
 
@@ -3414,232 +3807,22 @@ function All_sz([array]$r,[int]$j){
  
 # ------ 
  
-function Menu_build([string]$sw){ 
-
-  [string]$d= "[v] "
-
-  [string[]]$n= Split_path $val[$sw]
-
-  switch($sw){
-  'compiler'{
-
-	[array]$w= $comp.Keys
-
-	$fm_menu_cmp0.Visible= $False
-	$fm_menu_cmp1.Visible= $False
-	$fm_menu_cmp2.Visible= $False
-	$fm_menu_cmp3.Visible= $False
-	$fm_menu_cmp4.Visible= $False
-	$fm_menu_cmp5.Visible= $False
-
-	if($w.Length -ge 1){ # if nomi de add kousei
-
-		$fm_menu_cmp0.Visible= $True
-
-		if($n[0] -eq $w[0]){ $fm_menu_cmp0.Text= $d+ $w[0]
-		}else{ $fm_menu_cmp0.Text= $w[0]
-		}
-
-		if($w.Length -ge 2){
-
-		$fm_menu_cmp1.Visible= $True
-
-		if($n[0] -eq $w[1]){ $fm_menu_cmp1.Text= $d+ $w[1]
-		}else{ $fm_menu_cmp1.Text= $w[1]
-		}
-
-			if($w.Length -ge 3){
-
-		$fm_menu_cmp2.Visible= $True
-
-		if($n[0] -eq $w[2]){ $fm_menu_cmp2.Text= $d+ $w[2]
-		}else{ $fm_menu_cmp2.Text= $w[2]
-		}
-
-				if($w.Length -ge 4){
-
-		$fm_menu_cmp3.Visible= $True
-
-		if($n[0] -eq $w[3]){ $fm_menu_cmp3.Text= $d+ $w[3]
-		}else{ $fm_menu_cmp3.Text= $w[3]
-		}
-
-					if($w.Length -ge 5){
-
-		$fm_menu_cmp4.Visible= $True
-
-		if($n[0] -eq $w[4]){ $fm_menu_cmp4.Text= $d+ $w[4]
-		}else{ $fm_menu_cmp4.Text= $w[4]
-		}
-
-						if($w.Length -ge 6){
-
-		$fm_menu_cmp5.Visible= $True
-
-		if($n[0] -eq $w[5]){ $fm_menu_cmp5.Text= $d+ $w[5]
-		}else{ $fm_menu_cmp5.Text= $w[5]
-		}
-						}
-					}
-				}
-			}
-		}
-	}
-
-	break;
-
-  }'player'{
-	[array]$w= $play.Keys
-
-	$fm_menu_ply0.Visible= $False
-	$fm_menu_ply1.Visible= $False
-	$fm_menu_ply2.Visible= $False
-	$fm_menu_ply3.Visible= $False
-
-	if($w.Length -ge 1){
-
-		$fm_menu_ply0.Visible= $True
-
-		if($n[0] -eq $w[0]){ $fm_menu_ply0.Text= $d+ $w[0]
-		}else{ $fm_menu_ply0.Text= $w[0]
-		}
-
-		if($w.Length -ge 2){
-
-		$fm_menu_ply1.Visible= $True
-
-		if($n[0] -eq $w[1]){ $fm_menu_ply1.Text= $d+ $w[1]
-		}else{ $fm_menu_ply1.Text= $w[1]
-		}
-
-			if($w.Length -ge 3){
-
-		$fm_menu_ply2.Visible= $True
-
-		if($n[0] -eq $w[2]){ $fm_menu_ply2.Text= $d+ $w[2]
-		}else{ $fm_menu_ply2.Text= $w[2]
-		}
-
-				if($w.Length -ge 4){
-
-		$fm_menu_ply3.Visible= $True
-
-		if($n[0] -eq $w[3]){ $fm_menu_ply3.Text= $d+ $w[3]
-		}else{ $fm_menu_ply3.Text= $w[3]
-		}
-				}
-			}
-		}
-	}
-
-	break;
-
-  }'dos'{
-	[array]$w= $dosv.Keys
-
-	$fm_menu_dos0.Visible= $False
-	$fm_menu_dos1.Visible= $False
-	$fm_menu_dos2.Visible= $False
-	$fm_menu_dos3.Visible= $False
-
-	if($w.Length -ge 1){
-
-		$fm_menu_dos0.Visible= $True
-
-		if($n[0] -eq $w[0]){ $fm_menu_dos0.Text= $d+ $w[0]
-		}else{ $fm_menu_dos0.Text= $w[0]
-		}
-
-		if($w.Length -ge 2){
-
-		$fm_menu_dos1.Visible= $True
-
-		if($n[0] -eq $w[1]){ $fm_menu_dos1.Text= $d+ $w[1]
-		}else{ $fm_menu_dos1.Text= $w[1]
-		}
-
-			if($w.Length -ge 3){
-
-		$fm_menu_dos2.Visible= $True
-
-		if($n[0] -eq $w[2]){ $fm_menu_dos2.Text= $d+ $w[2]
-		}else{ $fm_menu_dos2.Text= $w[2]
-		}
-
-				if($w.Length -ge 4){
-
-		$fm_menu_dos3.Visible= $True
-
-		if($n[0] -eq $w[3]){ $fm_menu_dos3.Text= $d+ $w[3]
-		}else{ $fm_menu_dos3.Text= $w[3]
-		}
-				}
-			}
-		}
-	}
-
-	break;
-
-  }'editor'{
-	[array]$w= $edit.Keys
-
-	$fm_menu_edt0.Visible= $False
-	$fm_menu_edt1.Visible= $False
-	$fm_menu_edt2.Visible= $False
-	$fm_menu_edt3.Visible= $False
-
-	if($w.Length -ge 1){
-
-		$fm_menu_edt0.Visible= $True
-
-		if($n[0] -eq $w[0]){ $fm_menu_edt0.Text= $d+ $w[0]
-		}else{ $fm_menu_edt0.Text= $w[0]
-		}
-
-		if($w.Length -ge 2){
-
-		$fm_menu_edt1.Visible= $True
-
-		if($n[0] -eq $w[1]){ $fm_menu_edt1.Text= $d+ $w[1]
-		}else{ $fm_menu_edt1.Text= $w[1]
-		}
-
-			if($w.Length -ge 3){
-
-		$fm_menu_edt2.Visible= $True
-
-		if($n[0] -eq $w[2]){ $fm_menu_edt2.Text= $d+ $w[2]
-		}else{ $fm_menu_edt2.Text= $w[2]
-		}
-
-				if($w.Length -ge 4){
-
-		$fm_menu_edt3.Visible= $True
-
-		if($n[0] -eq $w[3]){ $fm_menu_edt3.Text= $d+ $w[3]
-		}else{ $fm_menu_edt3.Text= $w[3]
-		}
-				}
-			}
-		}
-	}
-  }
-  } #sw
- } #func
- 
 function Change_value([string]$sw, [string]$name){ 
 
-
-  if($name -match '[v]' -eq $False){ # .Contains() moka
+  # if($name -match '[v]' -eq $False){ # .Contains() moka
 
 	switch($sw){
-	'compiler'{	$script:val[$sw]= $comp[$name]; break;
-	}'player'{	$script:val[$sw]= $play[$name];	break;
-	}'dos'{	$script:val[$sw]= $dosv[$name];	break;
-	}'editor'{	$script:val[$sw]= $edit[$name]
+	'mck'{		$script:val[$sw]= $mck[$name];	break;
+	}'nsd'{		$script:val[$sw]= $nsd[$name];	break;
+	}'pmd'{		$script:val[$sw]= $pmd[$name];	break;
+	}'compiler'{	$script:val[$sw]= $val[$name];	break;
+
+	}'player'{		$script:val[$sw]= $play[$name];	break;
+	}'dos'{		$script:val[$sw]= $dos[$name];	break;
+	}'editor'{		$script:val[$sw]= $edit[$name]
 	}
 	} #sw
-  }
+  # }
  } #func
  
 function Stus_build(){ 
@@ -3647,11 +3830,11 @@ function Stus_build(){
 	[string[]]$t= Split_path $val["compiler"]
 	[string[]]$s= Split_path $val["player"]
 
-	[string]$q= "  cmp: "+ $t[0]+ " | ply: "+ $s[0]+ " | oct: "+ $key["oct"]
+	[string]$q= "  comp: "+ $t[0]+ " | play: "+ $s[0]+ " | oct: "+ $key["oct"]
 	[string]$b= " | "+ $comb_fm.SelectedItem+ ": "
 
 	switch($comb_fm.SelectedItem){
-	'vrc7 2op'{	$b+= $key["type"];	break;
+	'vrc7 2op'{	$b+= $key["type"];		break;
 	}'opl 2op'{	$b+= "pmd";		break;
 	}'opn 4op'{
 			$q+= " | mask: "+ $key["mask"]
@@ -3670,12 +3853,12 @@ function Panel_chg([string]$sw){
 
 	switch($sw){
 	'vrc7 2op'{
-			switch($key["type"]){
-			'mckreg'{	$script:val["compiler"]= $val["mck"]; break;
-			}default{	$script:val["compiler"]= $val["nsd"]
-			}
-			} #sw
-			break;
+		switch($key["type"]){
+		'mckreg'{	$script:val["compiler"]= $val["mck"]; break;
+		}default{	$script:val["compiler"]= $val["nsd"]
+		}
+		} #sw
+		break;
 
 	}default{	$script:val["compiler"]= $val["pmd"]
 	}
@@ -3790,8 +3973,7 @@ function Read_ff([int]$j,$xx,[array]$yy){
  
 function Preset_read(){ 
 
-  [string[]]$ss= Split_path $comp["MC.EXE"]
-
+  [string[]]$ss= Split_path $pmd["MC.EXE"]
 
   [string[]]$pp= @("","","","","")
 
@@ -4147,7 +4329,7 @@ function Lisnfm_nsf([int]$sw, [string]$t){
 		}else{
 			# '"' 空白パス対応
 
-			[string]$tt= Player_open 2 $val["player"] ('"'+ $dpn+ $ext+ '"')
+			[string]$tt= Player_open 2 $val["player"] ($dpn+ $ext)
 
 			if($tt -ne ""){
 
@@ -5565,7 +5747,7 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 [Environment]::CurrentDirectory= pwd # working_dir set
  
 # Sub forms 
-	 
+	
 $bgimg= New-Object System.Drawing.Bitmap(480,530) # bg 4op 
 $bgimw= New-Object System.Drawing.Bitmap(480,280) # bg 2op
 
@@ -6050,7 +6232,7 @@ $sb_alg.Add_FormClosing({
 })
  
 $sb_mnu= New-Object System.Windows.Forms.MenuStrip 
-	 
+	
 $sb_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $sb_menu_f.Text= "File"
 
@@ -6087,7 +6269,7 @@ $sb_menu_w1.Add_Click({
 	if($bai -ne 2){
 
 		$script:bai= Attend_alg 2
-		Peralg_build $bai	
+		Peralg_build $bai
 		Reso $bai
 
 		switch(Itm){
@@ -6455,8 +6637,8 @@ $ff_baloon.ToolTipTitle= "Voice: "
 $ff_baloon.AutomaticDelay= 667
  
 $list_mck= New-Object System.Windows.Forms.ListBox 
-$list_mck.Size= "200,120"
-$list_mck.Location= "5,30"
+$list_mck.Size= "220,190"
+$list_mck.Location= "5,25"
 
 $list_mck.Add_Enter({
 
@@ -6480,8 +6662,8 @@ $list_mck.Add_MouseDown({
 })
  
 $list_vrc= New-Object System.Windows.Forms.ListBox 
-$list_vrc.Size= "200,120"
-$list_vrc.Location= "5,30"
+$list_vrc.Size= "220,190"
+$list_vrc.Location= "5,25"
 
 $list_vrc.Add_Enter({
 
@@ -6505,8 +6687,8 @@ $list_vrc.Add_MouseDown({
 })
  
 $list_88= New-Object System.Windows.Forms.ListBox 
-$list_88.Size= "200,120"
-$list_88.Location= "5,30"
+$list_88.Size= "220,190"
+$list_88.Location= "5,25"
 
 $list_88.Add_Enter({
 
@@ -6530,8 +6712,8 @@ $list_88.Add_MouseDown({
 })
  
 $list_x68= New-Object System.Windows.Forms.ListBox 
-$list_x68.Size= "200,120"
-$list_x68.Location= "5,30"
+$list_x68.Size= "220,190"
+$list_x68.Location= "5,25"
 
 $list_x68.Add_Enter({
 
@@ -6555,8 +6737,8 @@ $list_x68.Add_MouseDown({
 })
  
 $list_efx= New-Object System.Windows.Forms.ListBox 
-$list_efx.Size= "200,120"
-$list_efx.Location= "5,30"
+$list_efx.Size= "220,190"
+$list_efx.Location= "5,25"
 
 $list_efx.Add_Enter({
 
@@ -6582,7 +6764,7 @@ $list_efx.Add_MouseDown({
 # ------ 
  
 $ff_tab= New-Object System.Windows.Forms.TabControl 
-$ff_tab.Size= "225,205"
+$ff_tab.Size= "245,255"
 $ff_tab.Location= "5,25"
  
 $tab_mck= New-Object System.Windows.Forms.TabPage 
@@ -6693,8 +6875,8 @@ $tab_efx.Add_VisibleChanged({
  
 $import_btn= New-Object System.Windows.Forms.Button 
 $import_btn.Text= "Import"
-$import_btn.Size= "75,25"
-$import_btn.Location= "65,234"
+$import_btn.Size= "90,30"
+$import_btn.Location= "65,284"
 
 
 $import_btn.Add_Click({
@@ -6732,8 +6914,8 @@ $import_btn.Add_Click({
  
 $close_btn= New-Object System.Windows.Forms.Button 
 $close_btn.Text= "Close"
-$close_btn.Size= "75,25"
-$close_btn.Location= "145,234"
+$close_btn.Size= "90,30"
+$close_btn.Location= "160,284"
 
 
 $close_btn.Add_Click({
@@ -6746,7 +6928,7 @@ $close_btn.Add_Click({
  
 $ff_frm= New-Object System.Windows.Forms.Form 
 $ff_frm.Text= "Preset波形"
-$ff_frm.Size= "248,302"
+$ff_frm.Size= "268,362"
 $ff_frm.Location= "500,0"
 
 $ff_frm.FormBorderStyle= "FixedSingle"
@@ -6792,7 +6974,7 @@ $ff_menu_b= New-Object System.Windows.Forms.ToolStripMenuItem
 $ff_menu_b.Text= "Clipboard"
 
 $ff_menu_cb= New-Object System.Windows.Forms.ToolStripMenuItem
-$ff_menu_cb.Text= "Voice copy"
+$ff_menu_cb.Text= "Voice Value Copy"
 
 $ff_menu_cb.Add_Click({
  try{
@@ -6877,7 +7059,7 @@ $ff_frm.Controls.AddRange(@($ff_mnu,$ff_tab,$import_btn,$close_btn))
 	
 $sub_mask= New-Object System.Windows.Forms.Form 
 $sub_mask.Text= "Operator Mask"
-$sub_mask.Size= "242,142"
+$sub_mask.Size= "272,172"
 $sub_mask.Location= "500,0"
 
 $sub_mask.FormBorderStyle= "FixedSingle"
@@ -6908,14 +7090,15 @@ $sub_mask.Add_FormClosing({
  
 $sub_mask_grp= New-Object System.Windows.Forms.GroupBox 
 $sub_mask_grp.Text= "Mask"
-$sub_mask_grp.Size= "75,95" # 215,95"
+$sub_mask_grp.Size= "95,125" # 215,95"
 $sub_mask_grp.Location= "10,3"
 
 
-$sub_mask_chk0= New-Object System.Windows.Forms.CheckBox
+	
+$sub_mask_chk0= New-Object System.Windows.Forms.CheckBox 
 $sub_mask_chk0.Text= "Op.1"
 $sub_mask_chk0.Size= "60,20"
-$sub_mask_chk0.Location= "10,12"
+$sub_mask_chk0.Location= "10,22"
 $sub_mask_chk0.CheckState= "Checked"
 
 $sub_mask_chk0.Add_Click({
@@ -6933,7 +7116,7 @@ $sub_mask_chk0.Add_Click({
 $sub_mask_chk1= New-Object System.Windows.Forms.CheckBox
 $sub_mask_chk1.Text= "Op.2"
 $sub_mask_chk1.Size= "60,20"
-$sub_mask_chk1.Location= "10,32"
+$sub_mask_chk1.Location= "10,42"
 $sub_mask_chk1.CheckState= "Checked"
 
 $sub_mask_chk1.Add_Click({
@@ -6951,7 +7134,7 @@ $sub_mask_chk1.Add_Click({
 $sub_mask_chk2= New-Object System.Windows.Forms.CheckBox
 $sub_mask_chk2.Text= "Op.3"
 $sub_mask_chk2.Size= "60,20"
-$sub_mask_chk2.Location= "10,52"
+$sub_mask_chk2.Location= "10,62"
 $sub_mask_chk2.CheckState= "Checked"
 
 $sub_mask_chk2.Add_Click({
@@ -6969,7 +7152,7 @@ $sub_mask_chk2.Add_Click({
 $sub_mask_chk3= New-Object System.Windows.Forms.CheckBox
 $sub_mask_chk3.Text= "Op.4"
 $sub_mask_chk3.Size= "60,20"
-$sub_mask_chk3.Location= "10,72"
+$sub_mask_chk3.Location= "10,82"
 $sub_mask_chk3.CheckState= "Checked"
 
 $sub_mask_chk3.Add_Click({
@@ -6983,40 +7166,16 @@ $sub_mask_chk3.Add_Click({
 		All_chg
 	}
 })
- 
+  
 $sub_ssg_grp= New-Object System.Windows.Forms.GroupBox 
 $sub_ssg_grp.Text= "SSG-EG(4.8s later)"
-$sub_ssg_grp.Size= "135,95" # 215,95"
-$sub_ssg_grp.Location= "90,3"
-
-
-$sub_ssg_comb= New-Object System.Windows.Forms.Combobox
-$sub_ssg_comb.Size= "50,20"
-$sub_ssg_comb.Location= "70,42"
-$sub_ssg_comb.FlatStyle= "Popup"
-
-[void]$sub_ssg_comb.Items.AddRange(@('Thru','0','8','9','10','11','12','13','14','15'))
-$sub_ssg_comb.DropDownStyle= "DropDownList"
-$sub_ssg_comb.SelectedIndex= 0
-
-$sub_ssg_comb.Add_SelectedValueChanged({
- try{
-	$script:key["eg_type"]= $this.SelectedItem
-
-	Box_write
-
-	if($sb_alg.Visible){
-		All_chg
-	}
- }catch{
-	echo $_.exception
- }
-})
-
-$sub_ssg_chk0= New-Object System.Windows.Forms.CheckBox
+$sub_ssg_grp.Size= "135,125" # 215,95"
+$sub_ssg_grp.Location= "110,3"
+	
+$sub_ssg_chk0= New-Object System.Windows.Forms.CheckBox 
 $sub_ssg_chk0.Text= "Op.1"
 $sub_ssg_chk0.Size= "60,20"
-$sub_ssg_chk0.Location= "10,12"
+$sub_ssg_chk0.Location= "10,22"
 $sub_ssg_chk0.CheckState= "Unchecked"
 
 $sub_ssg_chk0.Add_Click({
@@ -7036,7 +7195,7 @@ $sub_ssg_chk0.Add_Click({
 $sub_ssg_chk1= New-Object System.Windows.Forms.CheckBox
 $sub_ssg_chk1.Text= "Op.2"
 $sub_ssg_chk1.Size= "60,20"
-$sub_ssg_chk1.Location= "10,32"
+$sub_ssg_chk1.Location= "10,42"
 $sub_ssg_chk1.CheckState= "Unchecked"
 
 $sub_ssg_chk1.Add_Click({
@@ -7056,7 +7215,7 @@ $sub_ssg_chk1.Add_Click({
 $sub_ssg_chk2= New-Object System.Windows.Forms.CheckBox
 $sub_ssg_chk2.Text= "Op.3"
 $sub_ssg_chk2.Size= "60,20"
-$sub_ssg_chk2.Location= "10,52"
+$sub_ssg_chk2.Location= "10,62"
 $sub_ssg_chk2.CheckState= "Unchecked"
 
 $sub_ssg_chk2.Add_Click({
@@ -7076,7 +7235,7 @@ $sub_ssg_chk2.Add_Click({
 $sub_ssg_chk3= New-Object System.Windows.Forms.CheckBox
 $sub_ssg_chk3.Text= "Op.4"
 $sub_ssg_chk3.Size= "60,20"
-$sub_ssg_chk3.Location= "10,72"
+$sub_ssg_chk3.Location= "10,82"
 $sub_ssg_chk3.CheckState= "Unchecked"
 
 $sub_ssg_chk3.Add_Click({
@@ -7093,6 +7252,29 @@ $sub_ssg_chk3.Add_Click({
  }
 })
  
+$sub_ssg_comb= New-Object System.Windows.Forms.Combobox 
+$sub_ssg_comb.Size= "60,20"
+$sub_ssg_comb.Location= "65,50"
+$sub_ssg_comb.FlatStyle= "Popup"
+
+[void]$sub_ssg_comb.Items.AddRange(@('Thru','0','8','9','10','11','12','13','14','15'))
+$sub_ssg_comb.DropDownStyle= "DropDownList"
+$sub_ssg_comb.SelectedIndex= 0
+
+$sub_ssg_comb.Add_SelectedValueChanged({
+ try{
+	$script:key["eg_type"]= $this.SelectedItem
+
+	Box_write
+
+	if($sb_alg.Visible){
+		All_chg
+	}
+ }catch{
+	echo $_.exception
+ }
+})
+  
 $sub_mask_grp.Controls.AddRange(@($sub_mask_chk0,$sub_mask_chk1,$sub_mask_chk2,$sub_mask_chk3)) 
 $sub_ssg_grp.Controls.AddRange(@($sub_ssg_comb,$sub_ssg_chk0,$sub_ssg_chk1,$sub_ssg_chk2,$sub_ssg_chk3))
 
@@ -7101,27 +7283,27 @@ $sub_mask.Controls.AddRange(@($sub_mask_grp,$sub_ssg_grp))
 # Sav forms 
 	
 $sub_sav_grp= New-Object System.Windows.Forms.GroupBox 
-$sub_sav_grp.Text= "Save Name"
-$sub_sav_grp.Size= "165,65"
-$sub_sav_grp.Location= "60,5"
+# $sub_sav_grp.Text= "Save Name"
+$sub_sav_grp.Size= "242,82"
+$sub_sav_grp.Location= "10,5"
  
-$sub_sav_label = New-Object System.Windows.Forms.Label 
-$sub_sav_label.Location= "5,16"
-$sub_sav_label.Size= "45,20"
-$sub_sav_label.TextAlign= "BottomCenter"
-# $sub_sav_label.Text= "Slot"
+$sub_sav_label= New-Object System.Windows.Forms.Label 
+$sub_sav_label.Location= "10,20"
+$sub_sav_label.Size= "100,20"
+$sub_sav_label.TextAlign= "BottomLeft"
+$sub_sav_label.Text= "Save Name"
  
 $sub_sav_box= New-Object System.Windows.Forms.TextBox 
-$sub_sav_box.Location= "5,21"
-$sub_sav_box.Size= "150,20"
+$sub_sav_box.Location= "10,45"
+$sub_sav_box.Size= "220,25"
 $sub_sav_box.BorderStyle= "FixedSingle"
 $sub_sav_box.Text= ""
 $sub_sav_box.Multiline= "False"
 $sub_sav_box.ImeMode= "Disable"
  
 $sub_sav_ok_Btn= New-Object System.Windows.Forms.Button 
-$sub_sav_ok_Btn.Location= "60,75"
-$sub_sav_ok_Btn.Size= "75,25"
+$sub_sav_ok_Btn.Location= "65,95"
+$sub_sav_ok_Btn.Size= "90,30"
 $sub_sav_ok_Btn.Text= "OK"
 $sub_sav_ok_Btn.DialogResult= "OK"
 # $sub_sav_ok_Btn.Flatstyle= "Popup"
@@ -7132,8 +7314,8 @@ $sub_sav_ok_Btn.Add_Click({
 })
  
 $sub_sav_cancel_Btn= New-Object System.Windows.Forms.Button 
-$sub_sav_cancel_Btn.Location= "140,75"
-$sub_sav_cancel_Btn.Size= "75,25"
+$sub_sav_cancel_Btn.Location= "160,95"
+$sub_sav_cancel_Btn.Size= "90,30"
 $sub_sav_cancel_Btn.Text= "Cancel"
 $sub_sav_cancel_Btn.DialogResult= "Cancel"
 # $sub_sav_cancel_Btn.Flatstyle= "Popup"
@@ -7145,7 +7327,7 @@ $sub_sav_cancel_Btn.Add_Click({
  
 $sub_sav= New-Object System.Windows.Forms.Form 
 $sub_sav.Text= "Save"
-$sub_sav.Size= "242,142"
+$sub_sav.Size= "272,172"
 $sub_sav.Location= "500,0"
 $sub_sav.FormBorderStyle= "FixedSingle"
 $sub_sav.StartPosition= "WindowsDefaultLocation"
@@ -7164,19 +7346,19 @@ $sub_sav.Add_Shown({
 #$sub_sav.Add_FormClosing({
 #})
  
-$sub_sav_grp.Controls.AddRange(@($sub_sav_box)) 
-$sub_sav.Controls.AddRange(@($sub_sav_label,$sub_sav_grp,$sub_sav_ok_Btn,$sub_sav_cancel_Btn))
+$sub_sav_grp.Controls.AddRange(@($sub_sav_label,$sub_sav_box)) 
+$sub_sav.Controls.AddRange(@($sub_sav_grp,$sub_sav_ok_Btn,$sub_sav_cancel_Btn))
 
 $sub_sav.CancelButton= $sub_sav_cancel_Btn	# [ESC]
-$sub_sav.AcceptButton= $sub_sav_ok_Btn		# [Enter]
+$sub_sav.AcceptButton= $sub_sav_ok_Btn	# [Enter]
   
 # Main forms 
-	
+	 
 # VRC7 
 	
 $vrc_eg_grp= New-Object System.Windows.Forms.GroupBox 
 $vrc_eg_grp.Location= "10,30"
-$vrc_eg_grp.Size= "230,200"
+$vrc_eg_grp.Size= "255,220"
 $vrc_eg_grp.Text= "Envelope"
 $vrc_eg_grp.FlatStyle= "Flat"
 #$vrc_eg_grp.Hide() #$eg_grp.Show()
@@ -7184,8 +7366,8 @@ $vrc_eg_grp.FlatStyle= "Flat"
 # ------ AR - AttackRate 15-0 
  
 $vrc_trkbar_ar= New-Object System.Windows.Forms.TrackBar 
-$vrc_trkbar_ar.Location= "10,40"
-$vrc_trkbar_ar.Size= "45,125"
+$vrc_trkbar_ar.Location= "10,50"
+$vrc_trkbar_ar.Size= "55,125"
 $vrc_trkbar_ar.AutoSize= $False
 $vrc_trkbar_ar.Orientation= "Vertical" # Horizontal
 $vrc_trkbar_ar.TickStyle= "TopLeft" # None,Both,BottomRight
@@ -7216,7 +7398,7 @@ $vrc_trkbar_ar.Add_KeyDown({
  
 $vrc_nmud_ar= New-Object System.Windows.Forms.NumericUpDown 
 $vrc_nmud_ar.location= "10,20"
-$vrc_nmud_ar.Size= "45,20"
+$vrc_nmud_ar.Size= "55,20"
 $vrc_nmud_ar.TextAlign= "Right"
 $vrc_nmud_ar.UpDownAlign= "Right"
 $vrc_nmud_ar.BorderStyle= "FixedSingle"
@@ -7243,15 +7425,15 @@ $vrc_nmud_ar.Add_ValueChanged({
 })
  
 $vrc_lbl_ar= New-Object System.Windows.Forms.Label 
-$vrc_lbl_ar.Location= "10,165"
-$vrc_lbl_ar.Size= "45,30"
+$vrc_lbl_ar.Location= "10,175"
+$vrc_lbl_ar.Size= "55,35"
 $vrc_lbl_ar.Text= "Attack"
  
 # ------ DR - DecayRate 0-15 
  
 $vrc_trkbar_dr= New-Object System.Windows.Forms.TrackBar 
-$vrc_trkbar_dr.Location= "65,40"
-$vrc_trkbar_dr.Size= "45,125"
+$vrc_trkbar_dr.Location= "70,50"
+$vrc_trkbar_dr.Size= "55,125"
 $vrc_trkbar_dr.AutoSize= $False
 $vrc_trkbar_dr.Orientation= "Vertical"
 $vrc_trkbar_dr.TickStyle= "TopLeft"
@@ -7281,8 +7463,8 @@ $vrc_trkbar_dr.Add_KeyDown({
 })
  
 $vrc_nmud_dr= New-Object System.Windows.Forms.NumericUpDown 
-$vrc_nmud_dr.location= "65,20"
-$vrc_nmud_dr.Size= "45,20"
+$vrc_nmud_dr.location= "70,20"
+$vrc_nmud_dr.Size= "55,20"
 $vrc_nmud_dr.TextAlign= "Right"
 $vrc_nmud_dr.UpDownAlign= "Right"
 $vrc_nmud_dr.BorderStyle= "FixedSingle"
@@ -7309,15 +7491,15 @@ $vrc_nmud_dr.Add_ValueChanged({
 })
  
 $vrc_lbl_dr= New-Object System.Windows.Forms.Label 
-$vrc_lbl_dr.Location= "65,165"
-$vrc_lbl_dr.Size= "45,30"
+$vrc_lbl_dr.Location= "70,175"
+$vrc_lbl_dr.Size= "55,35"
 $vrc_lbl_dr.Text= "Decay"
  
 # ------ RR - ReleaseRate 0-15 
  
 $vrc_trkbar_rr= New-Object System.Windows.Forms.TrackBar 
-$vrc_trkbar_rr.Location= "175,40"
-$vrc_trkbar_rr.Size= "45,125"
+$vrc_trkbar_rr.Location= "130,50"
+$vrc_trkbar_rr.Size= "55,125"
 $vrc_trkbar_rr.AutoSize= $False
 $vrc_trkbar_rr.Orientation= "Vertical"
 $vrc_trkbar_rr.TickStyle= "TopLeft"
@@ -7347,8 +7529,8 @@ $vrc_trkbar_rr.Add_KeyDown({
 })
  
 $vrc_nmud_rr= New-Object System.Windows.Forms.NumericUpDown 
-$vrc_nmud_rr.location= "175,20"
-$vrc_nmud_rr.Size= "45,20"
+$vrc_nmud_rr.location= "130,20"
+$vrc_nmud_rr.Size= "55,20"
 $vrc_nmud_rr.TextAlign= "Right"
 $vrc_nmud_rr.UpDownAlign= "Right"
 $vrc_nmud_rr.BorderStyle= "FixedSingle"
@@ -7375,15 +7557,15 @@ $vrc_nmud_rr.Add_ValueChanged({
 })
  
 $vrc_lbl_rr= New-Object System.Windows.Forms.Label 
-$vrc_lbl_rr.Location= "170,165"
-$vrc_lbl_rr.Size= "45,30"
+$vrc_lbl_rr.Location= "130,175"
+$vrc_lbl_rr.Size= "55,35"
 $vrc_lbl_rr.Text= "Release"
  
 # ------ SL - SustainLevel 15-0 
  
 $vrc_trkbar_sl= New-Object System.Windows.Forms.TrackBar 
-$vrc_trkbar_sl.Location= "120,40"
-$vrc_trkbar_sl.Size= "45,125"
+$vrc_trkbar_sl.Location= "190,50"
+$vrc_trkbar_sl.Size= "55,125"
 $vrc_trkbar_sl.AutoSize= $False
 $vrc_trkbar_sl.Orientation= "Vertical"
 $vrc_trkbar_sl.TickStyle= "TopLeft"
@@ -7413,8 +7595,8 @@ $vrc_trkbar_sl.Add_KeyDown({
 })
  
 $vrc_nmud_sl= New-Object System.Windows.Forms.NumericUpDown 
-$vrc_nmud_sl.location= "120,20"
-$vrc_nmud_sl.Size= "45,20"
+$vrc_nmud_sl.location= "190,20"
+$vrc_nmud_sl.Size= "55,20"
 $vrc_nmud_sl.TextAlign= "Right"
 $vrc_nmud_sl.UpDownAlign= "Right"
 $vrc_nmud_sl.BorderStyle= "FixedSingle"
@@ -7441,23 +7623,23 @@ $vrc_nmud_sl.Add_ValueChanged({
 })
  
 $vrc_lbl_sl= New-Object System.Windows.Forms.Label 
-$vrc_lbl_sl.Location= "120,165"
-$vrc_lbl_sl.Size= "45,30"
+$vrc_lbl_sl.Location= "190,175"
+$vrc_lbl_sl.Size= "55,35"
 $vrc_lbl_sl.Text= "SustainLevel"
  
 # ------ 
   
 $vrc_lev_grp= New-Object System.Windows.Forms.GroupBox 
-$vrc_lev_grp.Location= "10,235"
-$vrc_lev_grp.Size= "230,80"
+$vrc_lev_grp.Location= "10,250"
+$vrc_lev_grp.Size= "255,120"
 $vrc_lev_grp.Text= "Key Scale"
 $vrc_lev_grp.FlatStyle= "Flat"
 	
 # ------ KSL - KeyScaleLevel 0-3 
  
 $vrc_trkbar_ksl= New-Object System.Windows.Forms.TrackBar 
-$vrc_trkbar_ksl.Location= "10,35"
-$vrc_trkbar_ksl.Size= "95,40"
+$vrc_trkbar_ksl.Location= "10,45"
+$vrc_trkbar_ksl.Size= "110,40"
 $vrc_trkbar_ksl.AutoSize= $False
 $vrc_trkbar_ksl.Orientation= "Horizontal"
 $vrc_trkbar_ksl.TickStyle= "BottomRight"
@@ -7487,8 +7669,8 @@ $vrc_trkbar_ksl.Add_KeyDown({
 })
  
 $vrc_nmud_ksl= New-Object System.Windows.Forms.NumericUpDown 
-$vrc_nmud_ksl.location= "60,15"
-$vrc_nmud_ksl.Size= "45,20"
+$vrc_nmud_ksl.location= "65,15"
+$vrc_nmud_ksl.Size= "55,20"
 $vrc_nmud_ksl.TextAlign= "Right"
 $vrc_nmud_ksl.UpDownAlign= "Right"
 $vrc_nmud_ksl.BorderStyle= "FixedSingle"
@@ -7512,14 +7694,14 @@ $vrc_nmud_ksl.Add_ValueChanged({
  
 $vrc_lbl_ksl= New-Object System.Windows.Forms.Label 
 $vrc_lbl_ksl.Location= "10,15"
-$vrc_lbl_ksl.Size= "80,20"
+$vrc_lbl_ksl.Size= "60,20"
 $vrc_lbl_ksl.Text= "KSLevel"
  
 # ------ KSR - KeyScaleRate 0-1 
  
 $vrc_trkbar_ksr= New-Object System.Windows.Forms.TrackBar 
-$vrc_trkbar_ksr.Location= "125,35"
-$vrc_trkbar_ksr.Size= "95,40"
+$vrc_trkbar_ksr.Location= "135,45"
+$vrc_trkbar_ksr.Size= "110,40"
 $vrc_trkbar_ksr.AutoSize= $False
 $vrc_trkbar_ksr.Orientation= "Horizontal"
 $vrc_trkbar_ksr.TickStyle= "BottomRight"
@@ -7549,8 +7731,8 @@ $vrc_trkbar_ksr.Add_KeyDown({
 })
  
 $vrc_nmud_ksr= New-Object System.Windows.Forms.NumericUpDown 
-$vrc_nmud_ksr.location= "175,15"
-$vrc_nmud_ksr.Size= "45,20"
+$vrc_nmud_ksr.location= "190,15"
+$vrc_nmud_ksr.Size= "55,20"
 $vrc_nmud_ksr.TextAlign= "Right"
 $vrc_nmud_ksr.UpDownAlign= "Right"
 $vrc_nmud_ksr.BorderStyle= "FixedSingle"
@@ -7573,23 +7755,23 @@ $vrc_nmud_ksr.Add_ValueChanged({
 })
  
 $vrc_lbl_ksr= New-Object System.Windows.Forms.Label 
-$vrc_lbl_ksr.Location= "125,15"
-$vrc_lbl_ksr.Size= "80,20"
+$vrc_lbl_ksr.Location= "135,15"
+$vrc_lbl_ksr.Size= "60,20"
 $vrc_lbl_ksr.Text= "KSRate"
  
 # ------ 
   
 $vrc_ring_grp= New-Object System.Windows.Forms.GroupBox 
-$vrc_ring_grp.Location= "250,30"
-$vrc_ring_grp.Size= "230,140"
+$vrc_ring_grp.Location= "270,30"
+$vrc_ring_grp.Size= "255,165"
 $vrc_ring_grp.Text= "Effects Control"
 $vrc_ring_grp.FlatStyle= "Flat"
 	
 # ------ DT - Distortion 0-1 
  
 $vrc_trkbar_dt= New-Object System.Windows.Forms.TrackBar 
-$vrc_trkbar_dt.Location= "175,40"
-$vrc_trkbar_dt.Size= "45,65"
+$vrc_trkbar_dt.Location= "190,50"
+$vrc_trkbar_dt.Size= "55,65"
 $vrc_trkbar_dt.AutoSize= $False
 $vrc_trkbar_dt.Orientation= "Vertical"
 $vrc_trkbar_dt.TickStyle= "TopLeft"
@@ -7619,8 +7801,8 @@ $vrc_trkbar_dt.Add_KeyDown({
 })
  
 $vrc_nmud_dt= New-Object System.Windows.Forms.NumericUpDown 
-$vrc_nmud_dt.location= "175,20"
-$vrc_nmud_dt.Size= "45,20"
+$vrc_nmud_dt.location= "190,20"
+$vrc_nmud_dt.Size= "55,20"
 $vrc_nmud_dt.TextAlign= "Right"
 $vrc_nmud_dt.UpDownAlign= "Right"
 $vrc_nmud_dt.BorderStyle= "FixedSingle"
@@ -7647,16 +7829,15 @@ $vrc_nmud_dt.Add_ValueChanged({
 })
  
 $vrc_lbl_dt= New-Object System.Windows.Forms.Label 
-$vrc_lbl_dt.Location= "175,105"
-$vrc_lbl_dt.Size= "45,30"
+$vrc_lbl_dt.Location= "190,115"
+$vrc_lbl_dt.Size= "55,40"
 $vrc_lbl_dt.Text= "Distortion"
-
  
 # ------ EG - EnvelopeGeneratorType 0-1 / SR=0 off,on 
  
 $vrc_trkbar_eg= New-Object System.Windows.Forms.TrackBar 
-$vrc_trkbar_eg.Location= "120,40"
-$vrc_trkbar_eg.Size= "45,65"
+$vrc_trkbar_eg.Location= "130,50"
+$vrc_trkbar_eg.Size= "55,65"
 $vrc_trkbar_eg.AutoSize= $False
 $vrc_trkbar_eg.Orientation= "Vertical"
 $vrc_trkbar_eg.TickStyle= "TopLeft"
@@ -7686,8 +7867,8 @@ $vrc_trkbar_eg.Add_KeyDown({
 })
  
 $vrc_nmud_eg= New-Object System.Windows.Forms.NumericUpDown 
-$vrc_nmud_eg.location= "120,20"
-$vrc_nmud_eg.Size= "45,20"
+$vrc_nmud_eg.location= "130,20"
+$vrc_nmud_eg.Size= "55,20"
 $vrc_nmud_eg.TextAlign= "Right"
 $vrc_nmud_eg.UpDownAlign= "Right"
 $vrc_nmud_eg.BorderStyle= "FixedSingle"
@@ -7714,15 +7895,15 @@ $vrc_nmud_eg.Add_ValueChanged({
 })
  
 $vrc_lbl_eg= New-Object System.Windows.Forms.Label 
-$vrc_lbl_eg.Location= "120,105"
-$vrc_lbl_eg.Size= "45,30"
+$vrc_lbl_eg.Location= "130,115"
+$vrc_lbl_eg.Size= "55,40"
 $vrc_lbl_eg.Text= "EnvGeneType"
  
 # ------ VIB - Vibrato 0-1 
  
 $vrc_trkbar_vib= New-Object System.Windows.Forms.TrackBar 
-$vrc_trkbar_vib.Location= "65,40"
-$vrc_trkbar_vib.Size= "45,65"
+$vrc_trkbar_vib.Location= "70,50"
+$vrc_trkbar_vib.Size= "55,65"
 $vrc_trkbar_vib.AutoSize= $False
 $vrc_trkbar_vib.Orientation= "Vertical"
 $vrc_trkbar_vib.TickStyle= "TopLeft"
@@ -7752,8 +7933,8 @@ $vrc_trkbar_vib.Add_KeyDown({
 })
  
 $vrc_nmud_vib= New-Object System.Windows.Forms.NumericUpDown 
-$vrc_nmud_vib.location= "65,20"
-$vrc_nmud_vib.Size= "45,20"
+$vrc_nmud_vib.location= "70,20"
+$vrc_nmud_vib.Size= "55,20"
 $vrc_nmud_vib.TextAlign= "Right"
 $vrc_nmud_vib.UpDownAlign= "Right"
 $vrc_nmud_vib.BorderStyle= "FixedSingle"
@@ -7776,15 +7957,15 @@ $vrc_nmud_vib.Add_ValueChanged({
 })
  
 $vrc_lbl_vib= New-Object System.Windows.Forms.Label 
-$vrc_lbl_vib.Location= "65,105"
-$vrc_lbl_vib.Size= "45,30"
+$vrc_lbl_vib.Location= "70,115"
+$vrc_lbl_vib.Size= "55,40"
 $vrc_lbl_vib.Text= "Vibrato"
  
 # ------ AM - AmplitudeModulation Enable Switch 0-1 
  
 $vrc_trkbar_ams= New-Object System.Windows.Forms.TrackBar 
-$vrc_trkbar_ams.Location= "10,40"
-$vrc_trkbar_ams.Size= "45,65"
+$vrc_trkbar_ams.Location= "10,50"
+$vrc_trkbar_ams.Size= "55,65"
 $vrc_trkbar_ams.AutoSize= $False
 $vrc_trkbar_ams.Orientation= "Vertical"
 $vrc_trkbar_ams.TickStyle= "TopLeft"
@@ -7815,7 +7996,7 @@ $vrc_trkbar_ams.Add_KeyDown({
  
 $vrc_nmud_ams= New-Object System.Windows.Forms.NumericUpDown 
 $vrc_nmud_ams.location= "10,20"
-$vrc_nmud_ams.Size= "45,20"
+$vrc_nmud_ams.Size= "55,20"
 $vrc_nmud_ams.TextAlign= "Right"
 $vrc_nmud_ams.UpDownAlign= "Right"
 $vrc_nmud_ams.BorderStyle= "FixedSingle"
@@ -7838,23 +8019,23 @@ $vrc_nmud_ams.Add_ValueChanged({
 })
  
 $vrc_lbl_ams= New-Object System.Windows.Forms.Label 
-$vrc_lbl_ams.Location= "10,105"
-$vrc_lbl_ams.Size= "45,30"
+$vrc_lbl_ams.Location= "10,115"
+$vrc_lbl_ams.Size= "55,40"
 $vrc_lbl_ams.Text= "AM Switch"
  
 # ------ 
   
 $vrc_op_grp= New-Object System.Windows.Forms.GroupBox 
-$vrc_op_grp.Location= "250,175"
-$vrc_op_grp.Size= "230,140"
+$vrc_op_grp.Location= "270,195"
+$vrc_op_grp.Size= "255,175"
 $vrc_op_grp.Text= "Frequency Modulation"
 $vrc_op_grp.FlatStyle= "Flat"
-	 
+	
 # ------ ML - Multiple 0-15 
  
 $vrc_trkbar_ml= New-Object System.Windows.Forms.TrackBar 
-$vrc_trkbar_ml.Location= "10,35"
-$vrc_trkbar_ml.Size= "210,40"
+$vrc_trkbar_ml.Location= "10,45"
+$vrc_trkbar_ml.Size= "235,40"
 $vrc_trkbar_ml.AutoSize= $False
 $vrc_trkbar_ml.Orientation= "Horizontal"
 $vrc_trkbar_ml.TickStyle= "BottomRight"
@@ -7884,8 +8065,8 @@ $vrc_trkbar_ml.Add_KeyDown({
 })
  
 $vrc_nmud_ml= New-Object System.Windows.Forms.NumericUpDown 
-$vrc_nmud_ml.location= "175,15"
-$vrc_nmud_ml.Size= "45,20"
+$vrc_nmud_ml.location= "190,15"
+$vrc_nmud_ml.Size= "55,20"
 $vrc_nmud_ml.TextAlign= "Right"
 $vrc_nmud_ml.UpDownAlign= "Right"
 $vrc_nmud_ml.BorderStyle= "FixedSingle"
@@ -7919,8 +8100,8 @@ $vrc_lbl_ml.Text= "Multiple - overtone"
 # ------ TL - TotalLevel 63-0 
  
 $vrc_trkbar_tl= New-Object System.Windows.Forms.TrackBar 
-$vrc_trkbar_tl.Location= "10,95"
-$vrc_trkbar_tl.Size= "210,40"
+$vrc_trkbar_tl.Location= "10,120"
+$vrc_trkbar_tl.Size= "235,40"
 $vrc_trkbar_tl.AutoSize= $False
 $vrc_trkbar_tl.Orientation= "Horizontal"
 $vrc_trkbar_tl.TickStyle= "BottomRight"
@@ -7950,8 +8131,8 @@ $vrc_trkbar_tl.Add_KeyDown({
 })
  
 $vrc_nmud_tl= New-Object System.Windows.Forms.NumericUpDown 
-$vrc_nmud_tl.location= "175,75"
-$vrc_nmud_tl.Size= "45,20"
+$vrc_nmud_tl.location= "190,90"
+$vrc_nmud_tl.Size= "55,20"
 $vrc_nmud_tl.TextAlign= "Right"
 $vrc_nmud_tl.UpDownAlign= "Right"
 $vrc_nmud_tl.BorderStyle= "FixedSingle"
@@ -7978,23 +8159,23 @@ $vrc_nmud_tl.Add_ValueChanged({
 })
  
 $vrc_lbl_tl= New-Object System.Windows.Forms.Label 
-$vrc_lbl_tl.Location= "10,75"
+$vrc_lbl_tl.Location= "10,95"
 $vrc_lbl_tl.Size= "165,20"
 $vrc_lbl_tl.Text= "Total Level / 0max - 63min"
  
 # ------ 
   
 $vrc_alg_grp= New-Object System.Windows.Forms.GroupBox 
-$vrc_alg_grp.Location= "10,320"
-$vrc_alg_grp.Size= "285,80"
+$vrc_alg_grp.Location= "10,370"
+$vrc_alg_grp.Size= "315,105"
 $vrc_alg_grp.Text= "Algorithm / Feedback"
 $vrc_alg_grp.FlatStyle= "Flat"
-	
+	 
 # ------ ALG - Algorithm $False 
  
 $vrc_trkbar_alg= New-Object System.Windows.Forms.TrackBar 
-$vrc_trkbar_alg.Location= "10,35"
-$vrc_trkbar_alg.Size= "120,40"
+$vrc_trkbar_alg.Location= "10,50"
+$vrc_trkbar_alg.Size= "140,40"
 $vrc_trkbar_alg.AutoSize= $False
 $vrc_trkbar_alg.Orientation= "Horizontal"
 $vrc_trkbar_alg.TickStyle= "BottomRight"
@@ -8015,8 +8196,8 @@ $vrc_trkbar_alg.Add_KeyDown({
 })
  
 $vrc_nmud_alg= New-Object System.Windows.Forms.NumericUpDown 
-$vrc_nmud_alg.location= "85,15"
-$vrc_nmud_alg.Size= "45,20"
+$vrc_nmud_alg.location= "95,20"
+$vrc_nmud_alg.Size= "55,20"
 $vrc_nmud_alg.TextAlign= "Right"
 $vrc_nmud_alg.UpDownAlign= "Right"
 $vrc_nmud_alg.BorderStyle= "FixedSingle"
@@ -8037,8 +8218,8 @@ $vrc_lbl_alg.Enabled= $False
 # ------ FB - Feedback 0-7 
  
 $vrc_trkbar_fb= New-Object System.Windows.Forms.TrackBar 
-$vrc_trkbar_fb.Location= "155,35"
-$vrc_trkbar_fb.Size= "120,40"
+$vrc_trkbar_fb.Location= "165,50"
+$vrc_trkbar_fb.Size= "140,40"
 $vrc_trkbar_fb.AutoSize= $False
 $vrc_trkbar_fb.Orientation= "Horizontal"
 $vrc_trkbar_fb.TickStyle= "BottomRight"
@@ -8068,8 +8249,8 @@ $vrc_trkbar_fb.Add_KeyDown({
 })
  
 $vrc_nmud_fb= New-Object System.Windows.Forms.NumericUpDown 
-$vrc_nmud_fb.location= "230,15"
-$vrc_nmud_fb.Size= "45,20"
+$vrc_nmud_fb.location= "250,20"
+$vrc_nmud_fb.Size= "55,20"
 $vrc_nmud_fb.TextAlign= "Right"
 $vrc_nmud_fb.UpDownAlign= "Right"
 $vrc_nmud_fb.BorderStyle= "FixedSingle"
@@ -8096,8 +8277,8 @@ $vrc_nmud_fb.Add_ValueChanged({
 })
  
 $vrc_lbl_fb= New-Object System.Windows.Forms.Label 
-$vrc_lbl_fb.Location= "155,20"
-$vrc_lbl_fb.Size= "60,20"
+$vrc_lbl_fb.Location= "165,20"
+$vrc_lbl_fb.Size= "75,20"
 $vrc_lbl_fb.Text= "Feedback"
  
 # ------ 
@@ -8126,7 +8307,7 @@ $vrc_alg_grp.Controls.AddRange(@($vrc_trkbar_fb,$vrc_nmud_fb,$vrc_lbl_fb))
 	
 $opl_eg_grp= New-Object System.Windows.Forms.GroupBox 
 $opl_eg_grp.Location= "10,30"
-$opl_eg_grp.Size= "230,200"
+$opl_eg_grp.Size= "255,220"
 $opl_eg_grp.Text= "Envelope"
 $opl_eg_grp.FlatStyle= "Flat"
 #$opl_eg_grp.Hide() #$eg_grp.Show()
@@ -8134,8 +8315,8 @@ $opl_eg_grp.FlatStyle= "Flat"
 # ------ AR - AttackRate 15-0 
  
 $opl_trkbar_ar= New-Object System.Windows.Forms.TrackBar 
-$opl_trkbar_ar.Location= "10,40"
-$opl_trkbar_ar.Size= "45,125"
+$opl_trkbar_ar.Location= "10,50"
+$opl_trkbar_ar.Size= "55,125"
 $opl_trkbar_ar.AutoSize= $False
 $opl_trkbar_ar.Orientation= "Vertical"
 $opl_trkbar_ar.TickStyle= "TopLeft"
@@ -8166,7 +8347,7 @@ $opl_trkbar_ar.Add_KeyDown({
  
 $opl_nmud_ar= New-Object System.Windows.Forms.NumericUpDown 
 $opl_nmud_ar.location= "10,20"
-$opl_nmud_ar.Size= "45,20"
+$opl_nmud_ar.Size= "55,20"
 $opl_nmud_ar.TextAlign= "Right"
 $opl_nmud_ar.UpDownAlign= "Right"
 $opl_nmud_ar.BorderStyle= "FixedSingle"
@@ -8193,15 +8374,15 @@ $opl_nmud_ar.Add_ValueChanged({
 })
  
 $opl_lbl_ar= New-Object System.Windows.Forms.Label 
-$opl_lbl_ar.Location= "10,165"
-$opl_lbl_ar.Size= "45,30"
+$opl_lbl_ar.Location= "10,175"
+$opl_lbl_ar.Size= "55,35"
 $opl_lbl_ar.Text= "Attack"
  
 # ------ DR - DecayRate 0-15 
  
 $opl_trkbar_dr= New-Object System.Windows.Forms.TrackBar 
-$opl_trkbar_dr.Location= "65,40"
-$opl_trkbar_dr.Size= "45,125"
+$opl_trkbar_dr.Location= "70,50"
+$opl_trkbar_dr.Size= "55,125"
 $opl_trkbar_dr.AutoSize= $False
 $opl_trkbar_dr.Orientation= "Vertical"
 $opl_trkbar_dr.TickStyle= "TopLeft"
@@ -8231,8 +8412,8 @@ $opl_trkbar_dr.Add_KeyDown({
 })
  
 $opl_nmud_dr= New-Object System.Windows.Forms.NumericUpDown 
-$opl_nmud_dr.location= "65,20"
-$opl_nmud_dr.Size= "45,20"
+$opl_nmud_dr.location= "70,20"
+$opl_nmud_dr.Size= "55,20"
 $opl_nmud_dr.TextAlign= "Right"
 $opl_nmud_dr.UpDownAlign= "Right"
 $opl_nmud_dr.BorderStyle= "FixedSingle"
@@ -8259,15 +8440,15 @@ $opl_nmud_dr.Add_ValueChanged({
 })
  
 $opl_lbl_dr= New-Object System.Windows.Forms.Label 
-$opl_lbl_dr.Location= "65,165"
-$opl_lbl_dr.Size= "45,30"
+$opl_lbl_dr.Location= "70,175"
+$opl_lbl_dr.Size= "55,35"
 $opl_lbl_dr.Text= "Decay"
  
 # ------ RR - ReleaseRate 0-15 
  
 $opl_trkbar_rr= New-Object System.Windows.Forms.TrackBar 
-$opl_trkbar_rr.Location= "175,40"
-$opl_trkbar_rr.Size= "45,125"
+$opl_trkbar_rr.Location= "130,50"
+$opl_trkbar_rr.Size= "55,125"
 $opl_trkbar_rr.AutoSize= $False
 $opl_trkbar_rr.Orientation= "Vertical"
 $opl_trkbar_rr.TickStyle= "TopLeft"
@@ -8297,8 +8478,8 @@ $opl_trkbar_rr.Add_KeyDown({
 })
  
 $opl_nmud_rr= New-Object System.Windows.Forms.NumericUpDown 
-$opl_nmud_rr.location= "175,20"
-$opl_nmud_rr.Size= "45,20"
+$opl_nmud_rr.location= "130,20"
+$opl_nmud_rr.Size= "55,20"
 $opl_nmud_rr.TextAlign= "Right"
 $opl_nmud_rr.UpDownAlign= "Right"
 $opl_nmud_rr.BorderStyle= "FixedSingle"
@@ -8325,15 +8506,15 @@ $opl_nmud_rr.Add_ValueChanged({
 })
  
 $opl_lbl_rr= New-Object System.Windows.Forms.Label 
-$opl_lbl_rr.Location= "170,165"
-$opl_lbl_rr.Size= "45,30"
+$opl_lbl_rr.Location= "130,175"
+$opl_lbl_rr.Size= "55,35"
 $opl_lbl_rr.Text= "Release"
  
 # ------ SL - SustainLevel 15-0 
  
 $opl_trkbar_sl= New-Object System.Windows.Forms.TrackBar 
-$opl_trkbar_sl.Location= "120,40"
-$opl_trkbar_sl.Size= "45,125"
+$opl_trkbar_sl.Location= "190,50"
+$opl_trkbar_sl.Size= "55,125"
 $opl_trkbar_sl.AutoSize= $False
 $opl_trkbar_sl.Orientation= "Vertical"
 $opl_trkbar_sl.TickStyle= "TopLeft"
@@ -8363,8 +8544,8 @@ $opl_trkbar_sl.Add_KeyDown({
 })
  
 $opl_nmud_sl= New-Object System.Windows.Forms.NumericUpDown 
-$opl_nmud_sl.location= "120,20"
-$opl_nmud_sl.Size= "45,20"
+$opl_nmud_sl.location= "190,20"
+$opl_nmud_sl.Size= "55,20"
 $opl_nmud_sl.TextAlign= "Right"
 $opl_nmud_sl.UpDownAlign= "Right"
 $opl_nmud_sl.BorderStyle= "FixedSingle"
@@ -8391,23 +8572,23 @@ $opl_nmud_sl.Add_ValueChanged({
 })
  
 $opl_lbl_sl= New-Object System.Windows.Forms.Label 
-$opl_lbl_sl.Location= "120,165"
-$opl_lbl_sl.Size= "45,30"
+$opl_lbl_sl.Location= "190,175"
+$opl_lbl_sl.Size= "55,35"
 $opl_lbl_sl.Text= "SustainLevel"
  
 # ------ 
   
 $opl_lev_grp= New-Object System.Windows.Forms.GroupBox 
-$opl_lev_grp.Location= "10,235"
-$opl_lev_grp.Size= "230,80"
+$opl_lev_grp.Location= "10,250"
+$opl_lev_grp.Size= "255,120"
 $opl_lev_grp.Text= "Key Scale"
 $opl_lev_grp.FlatStyle= "Flat"
 	
 # ------ KSL - KeyScaleLevel 0-3 
  
 $opl_trkbar_ksl= New-Object System.Windows.Forms.TrackBar 
-$opl_trkbar_ksl.Location= "10,35"
-$opl_trkbar_ksl.Size= "95,40"
+$opl_trkbar_ksl.Location= "10,45"
+$opl_trkbar_ksl.Size= "110,40"
 $opl_trkbar_ksl.AutoSize= $False
 $opl_trkbar_ksl.Orientation= "Horizontal"
 $opl_trkbar_ksl.TickStyle= "BottomRight"
@@ -8437,8 +8618,8 @@ $opl_trkbar_ksl.Add_KeyDown({
 })
  
 $opl_nmud_ksl= New-Object System.Windows.Forms.NumericUpDown 
-$opl_nmud_ksl.location= "60,15"
-$opl_nmud_ksl.Size= "45,20"
+$opl_nmud_ksl.location= "65,15"
+$opl_nmud_ksl.Size= "55,20"
 $opl_nmud_ksl.TextAlign= "Right"
 $opl_nmud_ksl.UpDownAlign= "Right"
 $opl_nmud_ksl.BorderStyle= "FixedSingle"
@@ -8468,8 +8649,8 @@ $opl_lbl_ksl.Text= "KSLevel"
 # ------ KSR - KeyScaleRate 0-1 
  
 $opl_trkbar_ksr= New-Object System.Windows.Forms.TrackBar 
-$opl_trkbar_ksr.Location= "125,35"
-$opl_trkbar_ksr.Size= "95,40"
+$opl_trkbar_ksr.Location= "135,45"
+$opl_trkbar_ksr.Size= "110,40"
 $opl_trkbar_ksr.AutoSize= $False
 $opl_trkbar_ksr.Orientation= "Horizontal"
 $opl_trkbar_ksr.TickStyle= "BottomRight"
@@ -8499,8 +8680,8 @@ $opl_trkbar_ksr.Add_KeyDown({
 })
  
 $opl_nmud_ksr= New-Object System.Windows.Forms.NumericUpDown 
-$opl_nmud_ksr.location= "175,15"
-$opl_nmud_ksr.Size= "45,20"
+$opl_nmud_ksr.location= "190,15"
+$opl_nmud_ksr.Size= "55,20"
 $opl_nmud_ksr.TextAlign= "Right"
 $opl_nmud_ksr.UpDownAlign= "Right"
 $opl_nmud_ksr.BorderStyle= "FixedSingle"
@@ -8523,23 +8704,23 @@ $opl_nmud_ksr.Add_ValueChanged({
 })
  
 $opl_lbl_ksr= New-Object System.Windows.Forms.Label 
-$opl_lbl_ksr.Location= "125,15"
-$opl_lbl_ksr.Size= "80,20"
+$opl_lbl_ksr.Location= "135,15"
+$opl_lbl_ksr.Size= "60,20"
 $opl_lbl_ksr.Text= "KSRate"
  
 # ------ 
   
 $opl_ring_grp= New-Object System.Windows.Forms.GroupBox 
-$opl_ring_grp.Location= "250,30"
-$opl_ring_grp.Size= "230,140"
+$opl_ring_grp.Location= "270,30"
+$opl_ring_grp.Size= "255,165"
 $opl_ring_grp.Text= "Effects Control"
 $opl_ring_grp.FlatStyle= "Flat"
 	
 # ------ DT - Distortion 0-1 
  
 $opl_trkbar_dt= New-Object System.Windows.Forms.TrackBar 
-$opl_trkbar_dt.Location= "175,40"
-$opl_trkbar_dt.Size= "45,65"
+$opl_trkbar_dt.Location= "190,50"
+$opl_trkbar_dt.Size= "55,65"
 $opl_trkbar_dt.AutoSize= $False
 $opl_trkbar_dt.Orientation= "Vertical"
 $opl_trkbar_dt.TickStyle= "TopLeft"
@@ -8560,8 +8741,8 @@ $opl_trkbar_dt.Add_KeyDown({
 })
  
 $opl_nmud_dt= New-Object System.Windows.Forms.NumericUpDown 
-$opl_nmud_dt.location= "175,20"
-$opl_nmud_dt.Size= "45,20"
+$opl_nmud_dt.location= "190,20"
+$opl_nmud_dt.Size= "55,20"
 $opl_nmud_dt.TextAlign= "Right"
 $opl_nmud_dt.UpDownAlign= "Right"
 $opl_nmud_dt.BorderStyle= "FixedSingle"
@@ -8574,16 +8755,16 @@ $opl_nmud_dt.Add_ValueChanged({
 })
  
 $opl_lbl_dt= New-Object System.Windows.Forms.Label 
-$opl_lbl_dt.Location= "175,105"
-$opl_lbl_dt.Size= "45,30"
+$opl_lbl_dt.Location= "190,115"
+$opl_lbl_dt.Size= "55,40"
 $opl_lbl_dt.Text= "Distortion"
 $opl_lbl_dt.Enabled= $False
  
 # ------ EG - EnvelopeGeneratorType 0-1 / SR=0 off,on 
  
 $opl_trkbar_eg= New-Object System.Windows.Forms.TrackBar 
-$opl_trkbar_eg.Location= "120,40"
-$opl_trkbar_eg.Size= "45,65"
+$opl_trkbar_eg.Location= "130,50"
+$opl_trkbar_eg.Size= "55,65"
 $opl_trkbar_eg.AutoSize= $False
 $opl_trkbar_eg.Orientation= "Vertical"
 $opl_trkbar_eg.TickStyle= "TopLeft"
@@ -8613,8 +8794,8 @@ $opl_trkbar_eg.Add_KeyDown({
 })
  
 $opl_nmud_eg= New-Object System.Windows.Forms.NumericUpDown 
-$opl_nmud_eg.location= "120,20"
-$opl_nmud_eg.Size= "45,20"
+$opl_nmud_eg.location= "130,20"
+$opl_nmud_eg.Size= "55,20"
 $opl_nmud_eg.TextAlign= "Right"
 $opl_nmud_eg.UpDownAlign= "Right"
 $opl_nmud_eg.BorderStyle= "FixedSingle"
@@ -8641,15 +8822,15 @@ $opl_nmud_eg.Add_ValueChanged({
 })
  
 $opl_lbl_eg= New-Object System.Windows.Forms.Label 
-$opl_lbl_eg.Location= "120,105"
-$opl_lbl_eg.Size= "45,30"
+$opl_lbl_eg.Location= "130,115"
+$opl_lbl_eg.Size= "55,40"
 $opl_lbl_eg.Text= "EnvGeneType"
  
 # ------ VIB - Vibrato 0-1 
  
 $opl_trkbar_vib= New-Object System.Windows.Forms.TrackBar 
-$opl_trkbar_vib.Location= "65,40"
-$opl_trkbar_vib.Size= "45,65"
+$opl_trkbar_vib.Location= "70,50"
+$opl_trkbar_vib.Size= "55,65"
 $opl_trkbar_vib.AutoSize= $False
 $opl_trkbar_vib.Orientation= "Vertical"
 $opl_trkbar_vib.TickStyle= "TopLeft"
@@ -8679,8 +8860,8 @@ $opl_trkbar_vib.Add_KeyDown({
 })
  
 $opl_nmud_vib= New-Object System.Windows.Forms.NumericUpDown 
-$opl_nmud_vib.location= "65,20"
-$opl_nmud_vib.Size= "45,20"
+$opl_nmud_vib.location= "70,20"
+$opl_nmud_vib.Size= "55,20"
 $opl_nmud_vib.TextAlign= "Right"
 $opl_nmud_vib.UpDownAlign= "Right"
 $opl_nmud_vib.BorderStyle= "FixedSingle"
@@ -8703,15 +8884,15 @@ $opl_nmud_vib.Add_ValueChanged({
 })
  
 $opl_lbl_vib= New-Object System.Windows.Forms.Label 
-$opl_lbl_vib.Location= "65,105"
-$opl_lbl_vib.Size= "45,30"
+$opl_lbl_vib.Location= "70,115"
+$opl_lbl_vib.Size= "55,40"
 $opl_lbl_vib.Text= "Vibrato"
  
 # ------ AM - AmplitudeModulation Enable Switch 0-1 
  
 $opl_trkbar_ams= New-Object System.Windows.Forms.TrackBar 
-$opl_trkbar_ams.Location= "10,40"
-$opl_trkbar_ams.Size= "45,65"
+$opl_trkbar_ams.Location= "10,50"
+$opl_trkbar_ams.Size= "55,65"
 $opl_trkbar_ams.AutoSize= $False
 $opl_trkbar_ams.Orientation= "Vertical"
 $opl_trkbar_ams.TickStyle= "TopLeft"
@@ -8742,7 +8923,7 @@ $opl_trkbar_ams.Add_KeyDown({
  
 $opl_nmud_ams= New-Object System.Windows.Forms.NumericUpDown 
 $opl_nmud_ams.location= "10,20"
-$opl_nmud_ams.Size= "45,20"
+$opl_nmud_ams.Size= "55,20"
 $opl_nmud_ams.TextAlign= "Right"
 $opl_nmud_ams.UpDownAlign= "Right"
 $opl_nmud_ams.BorderStyle= "FixedSingle"
@@ -8765,23 +8946,23 @@ $opl_nmud_ams.Add_ValueChanged({
 })
  
 $opl_lbl_ams= New-Object System.Windows.Forms.Label 
-$opl_lbl_ams.Location= "10,105"
-$opl_lbl_ams.Size= "45,30"
+$opl_lbl_ams.Location= "10,115"
+$opl_lbl_ams.Size= "55,40"
 $opl_lbl_ams.Text= "AM Switch"
  
 # ------ 
   
 $opl_op_grp= New-Object System.Windows.Forms.GroupBox 
-$opl_op_grp.Location= "250,175"
-$opl_op_grp.Size= "230,140"
+$opl_op_grp.Location= "270,195"
+$opl_op_grp.Size= "255,175"
 $opl_op_grp.Text= "Frequency Modulation"
 $opl_op_grp.FlatStyle= "Flat"
 	
 # ------ ML - Multiple 0-15 
  
 $opl_trkbar_ml= New-Object System.Windows.Forms.TrackBar 
-$opl_trkbar_ml.Location= "10,35"
-$opl_trkbar_ml.Size= "210,40"
+$opl_trkbar_ml.Location= "10,45"
+$opl_trkbar_ml.Size= "235,40"
 $opl_trkbar_ml.AutoSize= $False
 $opl_trkbar_ml.Orientation= "Horizontal"
 $opl_trkbar_ml.TickStyle= "BottomRight"
@@ -8811,8 +8992,8 @@ $opl_trkbar_ml.Add_KeyDown({
 })
  
 $opl_nmud_ml= New-Object System.Windows.Forms.NumericUpDown 
-$opl_nmud_ml.location= "175,15"
-$opl_nmud_ml.Size= "45,20"
+$opl_nmud_ml.location= "190,15"
+$opl_nmud_ml.Size= "55,20"
 $opl_nmud_ml.TextAlign= "Right"
 $opl_nmud_ml.UpDownAlign= "Right"
 $opl_nmud_ml.BorderStyle= "FixedSingle"
@@ -8846,8 +9027,8 @@ $opl_lbl_ml.Text= "Multiple - overtone"
 # ------ TL - TotalLevel 63-0 
  
 $opl_trkbar_tl= New-Object System.Windows.Forms.TrackBar 
-$opl_trkbar_tl.Location= "10,95"
-$opl_trkbar_tl.Size= "210,40"
+$opl_trkbar_tl.Location= "10,120"
+$opl_trkbar_tl.Size= "235,40"
 $opl_trkbar_tl.AutoSize= $False
 $opl_trkbar_tl.Orientation= "Horizontal"
 $opl_trkbar_tl.TickStyle= "BottomRight"
@@ -8877,8 +9058,8 @@ $opl_trkbar_tl.Add_KeyDown({
 })
  
 $opl_nmud_tl= New-Object System.Windows.Forms.NumericUpDown 
-$opl_nmud_tl.location= "175,75"
-$opl_nmud_tl.Size= "45,20"
+$opl_nmud_tl.location= "190,90"
+$opl_nmud_tl.Size= "55,20"
 $opl_nmud_tl.TextAlign= "Right"
 $opl_nmud_tl.UpDownAlign= "Right"
 $opl_nmud_tl.BorderStyle= "FixedSingle"
@@ -8905,23 +9086,23 @@ $opl_nmud_tl.Add_ValueChanged({
 })
  
 $opl_lbl_tl= New-Object System.Windows.Forms.Label 
-$opl_lbl_tl.Location= "10,75"
+$opl_lbl_tl.Location= "10,95"
 $opl_lbl_tl.Size= "165,20"
 $opl_lbl_tl.Text= "Total Level / 0max - 63min"
  
 # ------ 
   
 $opl_alg_grp= New-Object System.Windows.Forms.GroupBox 
-$opl_alg_grp.Location= "10,320"
-$opl_alg_grp.Size= "285,80"
+$opl_alg_grp.Location= "10,370"
+$opl_alg_grp.Size= "315,105"
 $opl_alg_grp.Text= "Algorithm / Feedback"
 $opl_alg_grp.FlatStyle= "Flat"
-	
+	 
 # ------ ALG - Algorithm 0-1 
  
 $opl_trkbar_alg= New-Object System.Windows.Forms.TrackBar 
-$opl_trkbar_alg.Location= "10,35"
-$opl_trkbar_alg.Size= "120,40"
+$opl_trkbar_alg.Location= "10,50"
+$opl_trkbar_alg.Size= "140,40"
 $opl_trkbar_alg.AutoSize= $False
 $opl_trkbar_alg.Orientation= "Horizontal"
 $opl_trkbar_alg.TickStyle= "BottomRight"
@@ -8951,8 +9132,8 @@ $opl_trkbar_alg.Add_KeyDown({
 })
  
 $opl_nmud_alg= New-Object System.Windows.Forms.NumericUpDown 
-$opl_nmud_alg.location= "85,15"
-$opl_nmud_alg.Size= "45,20"
+$opl_nmud_alg.location= "95,20"
+$opl_nmud_alg.Size= "55,20"
 $opl_nmud_alg.TextAlign= "Right"
 $opl_nmud_alg.UpDownAlign= "Right"
 $opl_nmud_alg.BorderStyle= "FixedSingle"
@@ -8987,8 +9168,8 @@ $opl_lbl_alg.Text= "Algorithm"
 # ------ FB - Feedback 0-7 
  
 $opl_trkbar_fb= New-Object System.Windows.Forms.TrackBar 
-$opl_trkbar_fb.Location= "155,35"
-$opl_trkbar_fb.Size= "120,40"
+$opl_trkbar_fb.Location= "165,50"
+$opl_trkbar_fb.Size= "140,40"
 $opl_trkbar_fb.AutoSize= $False
 $opl_trkbar_fb.Orientation= "Horizontal"
 $opl_trkbar_fb.TickStyle= "BottomRight"
@@ -9018,8 +9199,8 @@ $opl_trkbar_fb.Add_KeyDown({
 })
  
 $opl_nmud_fb= New-Object System.Windows.Forms.NumericUpDown 
-$opl_nmud_fb.location= "230,15"
-$opl_nmud_fb.Size= "45,20"
+$opl_nmud_fb.location= "250,20"
+$opl_nmud_fb.Size= "55,20"
 $opl_nmud_fb.TextAlign= "Right"
 $opl_nmud_fb.UpDownAlign= "Right"
 $opl_nmud_fb.BorderStyle= "FixedSingle"
@@ -9046,7 +9227,7 @@ $opl_nmud_fb.Add_ValueChanged({
 })
  
 $opl_lbl_fb= New-Object System.Windows.Forms.Label 
-$opl_lbl_fb.Location= "155,20"
+$opl_lbl_fb.Location= "165,20"
 $opl_lbl_fb.Size= "75,20"
 $opl_lbl_fb.Text= "Feedback"
  
@@ -9076,16 +9257,16 @@ $opl_alg_grp.Controls.AddRange(@($opl_trkbar_fb,$opl_nmud_fb,$opl_lbl_fb))
 	
 $opn_eg_grp= New-Object System.Windows.Forms.GroupBox 
 $opn_eg_grp.Location= "10,30"
-$opn_eg_grp.Size= "230,200"
+$opn_eg_grp.Size= "255,220"
 $opn_eg_grp.Text= "Envelope"
 $opn_eg_grp.FlatStyle= "Flat"
 #$opn_eg_grp.Hide() #$eg_grp.Show()
-	
+	 
 # ------ AR - AttackRate 31-0 
  
 $opn_trkbar_ar= New-Object System.Windows.Forms.TrackBar 
-$opn_trkbar_ar.Location= "10,40"
-$opn_trkbar_ar.Size= "45,125"
+$opn_trkbar_ar.Location= "10,50"
+$opn_trkbar_ar.Size= "55,125"
 $opn_trkbar_ar.AutoSize= $False
 $opn_trkbar_ar.Orientation= "Vertical"
 $opn_trkbar_ar.TickStyle= "TopLeft"
@@ -9116,7 +9297,7 @@ $opn_trkbar_ar.Add_KeyDown({
  
 $opn_nmud_ar= New-Object System.Windows.Forms.NumericUpDown 
 $opn_nmud_ar.location= "10,20"
-$opn_nmud_ar.Size= "45,20"
+$opn_nmud_ar.Size= "55,20"
 $opn_nmud_ar.TextAlign= "Right"
 $opn_nmud_ar.UpDownAlign= "Right"
 $opn_nmud_ar.BorderStyle= "FixedSingle"
@@ -9143,15 +9324,15 @@ $opn_nmud_ar.Add_ValueChanged({
 })
  
 $opn_lbl_ar= New-Object System.Windows.Forms.Label 
-$opn_lbl_ar.Location= "10,165"
-$opn_lbl_ar.Size= "45,30"
+$opn_lbl_ar.Location= "10,175"
+$opn_lbl_ar.Size= "55,35"
 $opn_lbl_ar.Text= "Attack"
  
 # ------ DR - DecayRate 0-31 
  
 $opn_trkbar_dr= New-Object System.Windows.Forms.TrackBar 
-$opn_trkbar_dr.Location= "65,40"
-$opn_trkbar_dr.Size= "45,125"
+$opn_trkbar_dr.Location= "70,50"
+$opn_trkbar_dr.Size= "55,125"
 $opn_trkbar_dr.AutoSize= $False
 $opn_trkbar_dr.Orientation= "Vertical"
 $opn_trkbar_dr.TickStyle= "TopLeft"
@@ -9181,8 +9362,8 @@ $opn_trkbar_dr.Add_KeyDown({
 })
  
 $opn_nmud_dr= New-Object System.Windows.Forms.NumericUpDown 
-$opn_nmud_dr.location= "65,20"
-$opn_nmud_dr.Size= "45,20"
+$opn_nmud_dr.location= "70,20"
+$opn_nmud_dr.Size= "55,20"
 $opn_nmud_dr.TextAlign= "Right"
 $opn_nmud_dr.UpDownAlign= "Right"
 $opn_nmud_dr.BorderStyle= "FixedSingle"
@@ -9209,15 +9390,15 @@ $opn_nmud_dr.Add_ValueChanged({
 })
  
 $opn_lbl_dr= New-Object System.Windows.Forms.Label 
-$opn_lbl_dr.Location= "65,165"
-$opn_lbl_dr.Size= "45,30"
+$opn_lbl_dr.Location= "70,175"
+$opn_lbl_dr.Size= "55,35"
 $opn_lbl_dr.Text= "Decay"
  
 # ------ SR - SustainRate 0-31 
  
 $opn_trkbar_sr= New-Object System.Windows.Forms.TrackBar 
-$opn_trkbar_sr.Location= "120,40"
-$opn_trkbar_sr.Size= "45,125"
+$opn_trkbar_sr.Location= "130,50"
+$opn_trkbar_sr.Size= "55,125"
 $opn_trkbar_sr.AutoSize= $False
 $opn_trkbar_sr.Orientation= "Vertical"
 $opn_trkbar_sr.TickStyle= "TopLeft"
@@ -9247,8 +9428,8 @@ $opn_trkbar_sr.Add_KeyDown({
 })
  
 $opn_nmud_sr= New-Object System.Windows.Forms.NumericUpDown 
-$opn_nmud_sr.location= "120,20"
-$opn_nmud_sr.Size= "45,20"
+$opn_nmud_sr.location= "130,20"
+$opn_nmud_sr.Size= "55,20"
 $opn_nmud_sr.TextAlign= "Right"
 $opn_nmud_sr.UpDownAlign= "Right"
 $opn_nmud_sr.BorderStyle= "FixedSingle"
@@ -9275,15 +9456,15 @@ $opn_nmud_sr.Add_ValueChanged({
 })
  
 $opn_lbl_sr= New-Object System.Windows.Forms.Label 
-$opn_lbl_sr.Location= "120,165"
-$opn_lbl_sr.Size= "45,30"
+$opn_lbl_sr.Location= "130,175"
+$opn_lbl_sr.Size= "55,35"
 $opn_lbl_sr.Text= "Sustain Rate"
  
 # ------ RR - ReleaseRate 0-15 
  
 $opn_trkbar_rr= New-Object System.Windows.Forms.TrackBar 
-$opn_trkbar_rr.Location= "175,40"
-$opn_trkbar_rr.Size= "45,125"
+$opn_trkbar_rr.Location= "190,50"
+$opn_trkbar_rr.Size= "55,125"
 $opn_trkbar_rr.AutoSize= $False
 $opn_trkbar_rr.Orientation= "Vertical"
 $opn_trkbar_rr.TickStyle= "TopLeft"
@@ -9313,8 +9494,8 @@ $opn_trkbar_rr.Add_KeyDown({
 })
  
 $opn_nmud_rr= New-Object System.Windows.Forms.NumericUpDown 
-$opn_nmud_rr.location= "175,20"
-$opn_nmud_rr.Size= "45,20"
+$opn_nmud_rr.location= "190,20"
+$opn_nmud_rr.Size= "55,20"
 $opn_nmud_rr.TextAlign= "Right"
 $opn_nmud_rr.UpDownAlign= "Right"
 $opn_nmud_rr.BorderStyle= "FixedSingle"
@@ -9341,23 +9522,23 @@ $opn_nmud_rr.Add_ValueChanged({
 })
  
 $opn_lbl_rr= New-Object System.Windows.Forms.Label 
-$opn_lbl_rr.Location= "170,165"
-$opn_lbl_rr.Size= "45,30"
+$opn_lbl_rr.Location= "190,175"
+$opn_lbl_rr.Size= "55,35"
 $opn_lbl_rr.Text= "Release"
  
 # ------ 
   
 $opn_lev_grp= New-Object System.Windows.Forms.GroupBox 
-$opn_lev_grp.Location= "10,235"
-$opn_lev_grp.Size= "230,80"
+$opn_lev_grp.Location= "10,250"
+$opn_lev_grp.Size= "255,120"
 $opn_lev_grp.Text= "Sustain Level"
 $opn_lev_grp.FlatStyle= "Flat"
 	
 # ------ SL - SustainLevel 15-0 
  
 $opn_trkbar_sl= New-Object System.Windows.Forms.TrackBar 
-$opn_trkbar_sl.Location= "10,35"
-$opn_trkbar_sl.Size= "210,40"
+$opn_trkbar_sl.Location= "10,45"
+$opn_trkbar_sl.Size= "235,40"
 $opn_trkbar_sl.AutoSize= $False
 $opn_trkbar_sl.Orientation= "Horizontal"
 $opn_trkbar_sl.TickStyle= "BottomRight"
@@ -9387,8 +9568,8 @@ $opn_trkbar_sl.Add_KeyDown({
 })
  
 $opn_nmud_sl= New-Object System.Windows.Forms.NumericUpDown 
-$opn_nmud_sl.location= "175,15"
-$opn_nmud_sl.Size= "45,20"
+$opn_nmud_sl.location= "190,15"
+$opn_nmud_sl.Size= "55,20"
 $opn_nmud_sl.TextAlign= "Right"
 $opn_nmud_sl.UpDownAlign= "Right"
 $opn_nmud_sl.BorderStyle= "FixedSingle"
@@ -9422,16 +9603,16 @@ $opn_lbl_sl.Text= "Sustain Level / 0max - 15min"
 # ------ 
   
 $opn_ring_grp= New-Object System.Windows.Forms.GroupBox 
-$opn_ring_grp.Location= "250,30"
-$opn_ring_grp.Size= "230,140"
+$opn_ring_grp.Location= "270,30"
+$opn_ring_grp.Size= "255,165"
 $opn_ring_grp.Text= "Effects Control"
 $opn_ring_grp.FlatStyle= "Flat"
-	 
+	
 # ------ KS - KeyScaling 0-3 / env length 
  
 $opn_trkbar_ks= New-Object System.Windows.Forms.TrackBar 
-$opn_trkbar_ks.Location= "10,40"
-$opn_trkbar_ks.Size= "45,65"
+$opn_trkbar_ks.Location= "10,50"
+$opn_trkbar_ks.Size= "55,65"
 $opn_trkbar_ks.AutoSize= $False
 $opn_trkbar_ks.Orientation= "Vertical"
 $opn_trkbar_ks.TickStyle= "TopLeft"
@@ -9462,7 +9643,7 @@ $opn_trkbar_ks.Add_KeyDown({
  
 $opn_nmud_ks= New-Object System.Windows.Forms.NumericUpDown 
 $opn_nmud_ks.location= "10,20"
-$opn_nmud_ks.Size= "45,20"
+$opn_nmud_ks.Size= "55,20"
 $opn_nmud_ks.TextAlign= "Right"
 $opn_nmud_ks.UpDownAlign= "Right"
 $opn_nmud_ks.BorderStyle= "FixedSingle"
@@ -9485,15 +9666,15 @@ $opn_nmud_ks.Add_ValueChanged({
 })
  
 $opn_lbl_ks= New-Object System.Windows.Forms.Label 
-$opn_lbl_ks.Location= "10,105"
-$opn_lbl_ks.Size= "45,30"
+$opn_lbl_ks.Location= "10,115"
+$opn_lbl_ks.Size= "55,40"
 $opn_lbl_ks.Text= "Key Scaling"
  
 # ------ DT1 - DeTune1 0-7 [0,1,2,3, 0,-1,-2,-3] 
  
 $opn_trkbar_dt1= New-Object System.Windows.Forms.TrackBar 
-$opn_trkbar_dt1.Location= "65,40"
-$opn_trkbar_dt1.Size= "45,65"
+$opn_trkbar_dt1.Location= "70,50"
+$opn_trkbar_dt1.Size= "55,65"
 $opn_trkbar_dt1.AutoSize= $False
 $opn_trkbar_dt1.Orientation= "Vertical"
 $opn_trkbar_dt1.TickStyle= "TopLeft"
@@ -9523,8 +9704,8 @@ $opn_trkbar_dt1.Add_KeyDown({
 })
  
 $opn_nmud_dt1= New-Object System.Windows.Forms.NumericUpDown 
-$opn_nmud_dt1.location= "65,20"
-$opn_nmud_dt1.Size= "45,20"
+$opn_nmud_dt1.location= "70,20"
+$opn_nmud_dt1.Size= "55,20"
 $opn_nmud_dt1.TextAlign= "Right"
 $opn_nmud_dt1.UpDownAlign= "Right"
 $opn_nmud_dt1.BorderStyle= "FixedSingle"
@@ -9547,15 +9728,15 @@ $opn_nmud_dt1.Add_ValueChanged({
 })
  
 $opn_lbl_dt1= New-Object System.Windows.Forms.Label 
-$opn_lbl_dt1.Location= "65,105"
-$opn_lbl_dt1.Size= "45,30"
+$opn_lbl_dt1.Location= "70,115"
+$opn_lbl_dt1.Size= "55,40"
 $opn_lbl_dt1.Text= "Detune1"
  
 # ------ DT2 - DeTune2 Enabled= $False 
  
 $opn_trkbar_dt2= New-Object System.Windows.Forms.TrackBar 
-$opn_trkbar_dt2.Location= "120,40"
-$opn_trkbar_dt2.Size= "45,65"
+$opn_trkbar_dt2.Location= "130,50"
+$opn_trkbar_dt2.Size= "55,65"
 $opn_trkbar_dt2.AutoSize= $False
 $opn_trkbar_dt2.Orientation= "Vertical"
 $opn_trkbar_dt2.TickStyle= "TopLeft"
@@ -9576,8 +9757,8 @@ $opn_trkbar_dt2.Add_KeyDown({
 })
  
 $opn_nmud_dt2= New-Object System.Windows.Forms.NumericUpDown 
-$opn_nmud_dt2.location= "120,20"
-$opn_nmud_dt2.Size= "45,20"
+$opn_nmud_dt2.location= "130,20"
+$opn_nmud_dt2.Size= "55,20"
 $opn_nmud_dt2.TextAlign= "Right"
 $opn_nmud_dt2.UpDownAlign= "Right"
 $opn_nmud_dt2.BorderStyle= "FixedSingle"
@@ -9590,16 +9771,16 @@ $opn_nmud_dt2.Add_ValueChanged({
 })
  
 $opn_lbl_dt2= New-Object System.Windows.Forms.Label 
-$opn_lbl_dt2.Location= "120,105"
-$opn_lbl_dt2.Size= "45,30"
+$opn_lbl_dt2.Location= "130,115"
+$opn_lbl_dt2.Size= "55,40"
 $opn_lbl_dt2.Text= "Detune2"
 $opn_lbl_dt2.Enabled= $False
  
 # ------ AMS - AmplitudeModulationSensitivity 0-3 
  
 $opn_trkbar_ams= New-Object System.Windows.Forms.TrackBar 
-$opn_trkbar_ams.Location= "175,40"
-$opn_trkbar_ams.Size= "45,65"
+$opn_trkbar_ams.Location= "190,50"
+$opn_trkbar_ams.Size= "55,65"
 $opn_trkbar_ams.AutoSize= $False
 $opn_trkbar_ams.Orientation= "Vertical"
 $opn_trkbar_ams.TickStyle= "TopLeft"
@@ -9629,8 +9810,8 @@ $opn_trkbar_ams.Add_KeyDown({
 })
  
 $opn_nmud_ams= New-Object System.Windows.Forms.NumericUpDown 
-$opn_nmud_ams.location= "175,20"
-$opn_nmud_ams.Size= "45,20"
+$opn_nmud_ams.location= "190,20"
+$opn_nmud_ams.Size= "55,20"
 $opn_nmud_ams.TextAlign= "Right"
 $opn_nmud_ams.UpDownAlign= "Right"
 $opn_nmud_ams.BorderStyle= "FixedSingle"
@@ -9653,23 +9834,23 @@ $opn_nmud_ams.Add_ValueChanged({
 })
  
 $opn_lbl_ams= New-Object System.Windows.Forms.Label 
-$opn_lbl_ams.Location= "175,105"
-$opn_lbl_ams.Size= "45,30"
+$opn_lbl_ams.Location= "190,115"
+$opn_lbl_ams.Size= "55,40"
 $opn_lbl_ams.Text= "AM Sens"
  
 # ------ 
   
 $opn_op_grp= New-Object System.Windows.Forms.GroupBox 
-$opn_op_grp.Location= "250,175"
-$opn_op_grp.Size= "230,140"
+$opn_op_grp.Location= "270,195"
+$opn_op_grp.Size= "255,175"
 $opn_op_grp.Text= "Frequency Modulation"
 $opn_op_grp.FlatStyle= "Flat"
-	 
+	
 # ------ ML - Multiple 0-15 
  
 $opn_trkbar_ml= New-Object System.Windows.Forms.TrackBar 
-$opn_trkbar_ml.Location= "10,35"
-$opn_trkbar_ml.Size= "210,40"
+$opn_trkbar_ml.Location= "10,45"
+$opn_trkbar_ml.Size= "235,40"
 $opn_trkbar_ml.AutoSize= $False
 $opn_trkbar_ml.Orientation= "Horizontal"
 $opn_trkbar_ml.TickStyle= "BottomRight"
@@ -9699,8 +9880,8 @@ $opn_trkbar_ml.Add_KeyDown({
 })
  
 $opn_nmud_ml= New-Object System.Windows.Forms.NumericUpDown 
-$opn_nmud_ml.location= "175,15"
-$opn_nmud_ml.Size= "45,20"
+$opn_nmud_ml.location= "190,15"
+$opn_nmud_ml.Size= "55,20"
 $opn_nmud_ml.TextAlign= "Right"
 $opn_nmud_ml.UpDownAlign= "Right"
 $opn_nmud_ml.BorderStyle= "FixedSingle"
@@ -9734,8 +9915,8 @@ $opn_lbl_ml.Text= "Multiple - overtone"
 # ------ TL - TotalLevel 127-0 
  
 $opn_trkbar_tl= New-Object System.Windows.Forms.TrackBar 
-$opn_trkbar_tl.Location= "10,95"
-$opn_trkbar_tl.Size= "210,40"
+$opn_trkbar_tl.Location= "10,120"
+$opn_trkbar_tl.Size= "235,40"
 $opn_trkbar_tl.AutoSize= $False
 $opn_trkbar_tl.Orientation= "Horizontal"
 $opn_trkbar_tl.TickStyle= "BottomRight"
@@ -9765,8 +9946,8 @@ $opn_trkbar_tl.Add_KeyDown({
 })
  
 $opn_nmud_tl= New-Object System.Windows.Forms.NumericUpDown 
-$opn_nmud_tl.location= "175,75"
-$opn_nmud_tl.Size= "45,20"
+$opn_nmud_tl.location= "190,90"
+$opn_nmud_tl.Size= "55,20"
 $opn_nmud_tl.TextAlign= "Right"
 $opn_nmud_tl.UpDownAlign= "Right"
 $opn_nmud_tl.BorderStyle= "FixedSingle"
@@ -9793,23 +9974,23 @@ $opn_nmud_tl.Add_ValueChanged({
 })
  
 $opn_lbl_tl= New-Object System.Windows.Forms.Label 
-$opn_lbl_tl.Location= "10,75"
+$opn_lbl_tl.Location= "10,95"
 $opn_lbl_tl.Size= "165,20"
 $opn_lbl_tl.Text= "Total Level / 0max - 127min"
  
 # ------ 
   
 $opn_alg_grp= New-Object System.Windows.Forms.GroupBox 
-$opn_alg_grp.Location= "10,320"
-$opn_alg_grp.Size= "285,80"
+$opn_alg_grp.Location= "10,370"
+$opn_alg_grp.Size= "315,105"
 $opn_alg_grp.Text= "Algorithm / Feedback"
 $opn_alg_grp.FlatStyle= "Flat"
 	 
 # ------ ALG - Algorithm 0-7 
  
 $opn_trkbar_alg= New-Object System.Windows.Forms.TrackBar 
-$opn_trkbar_alg.Location= "10,35"
-$opn_trkbar_alg.Size= "120,40"
+$opn_trkbar_alg.Location= "10,50"
+$opn_trkbar_alg.Size= "140,40"
 $opn_trkbar_alg.AutoSize= $False
 $opn_trkbar_alg.Orientation= "Horizontal"
 $opn_trkbar_alg.TickStyle= "BottomRight"
@@ -9839,8 +10020,8 @@ $opn_trkbar_alg.Add_KeyDown({
 })
  
 $opn_nmud_alg= New-Object System.Windows.Forms.NumericUpDown 
-$opn_nmud_alg.location= "85,15"
-$opn_nmud_alg.Size= "45,20"
+$opn_nmud_alg.location= "95,20"
+$opn_nmud_alg.Size= "55,20"
 $opn_nmud_alg.TextAlign= "Right"
 $opn_nmud_alg.UpDownAlign= "Right"
 $opn_nmud_alg.BorderStyle= "FixedSingle"
@@ -9875,8 +10056,8 @@ $opn_lbl_alg.Text= "Algorithm"
 # ------ FB - Feedback 0-7 
  
 $opn_trkbar_fb= New-Object System.Windows.Forms.TrackBar 
-$opn_trkbar_fb.Location= "155,35"
-$opn_trkbar_fb.Size= "120,40"
+$opn_trkbar_fb.Location= "165,50"
+$opn_trkbar_fb.Size= "140,40"
 $opn_trkbar_fb.AutoSize= $False
 $opn_trkbar_fb.Orientation= "Horizontal"
 $opn_trkbar_fb.TickStyle= "BottomRight"
@@ -9906,8 +10087,8 @@ $opn_trkbar_fb.Add_KeyDown({
 })
  
 $opn_nmud_fb= New-Object System.Windows.Forms.NumericUpDown 
-$opn_nmud_fb.location= "230,15"
-$opn_nmud_fb.Size= "45,20"
+$opn_nmud_fb.location= "250,20"
+$opn_nmud_fb.Size= "55,20"
 $opn_nmud_fb.TextAlign= "Right"
 $opn_nmud_fb.UpDownAlign= "Right"
 $opn_nmud_fb.BorderStyle= "FixedSingle"
@@ -9934,7 +10115,7 @@ $opn_nmud_fb.Add_ValueChanged({
 })
  
 $opn_lbl_fb= New-Object System.Windows.Forms.Label 
-$opn_lbl_fb.Location= "155,20"
+$opn_lbl_fb.Location= "165,20"
 $opn_lbl_fb.Size= "75,20"
 $opn_lbl_fb.Text= "Feedback"
  
@@ -9963,7 +10144,7 @@ $opn_alg_grp.Controls.AddRange(@($opn_trkbar_fb,$opn_nmud_fb,$opn_lbl_fb))
 	
 $opm_eg_grp= New-Object System.Windows.Forms.GroupBox 
 $opm_eg_grp.Location= "10,30"
-$opm_eg_grp.Size= "230,200"
+$opm_eg_grp.Size= "255,220"
 $opm_eg_grp.Text= "Envelope"
 $opm_eg_grp.FlatStyle= "Flat"
 #$opm_eg_grp.Hide() #$eg_grp.Show()
@@ -9971,8 +10152,8 @@ $opm_eg_grp.FlatStyle= "Flat"
 # ------ AR - AttackRate 31-0 
  
 $opm_trkbar_ar= New-Object System.Windows.Forms.TrackBar 
-$opm_trkbar_ar.Location= "10,40"
-$opm_trkbar_ar.Size= "45,125"
+$opm_trkbar_ar.Location= "10,50"
+$opm_trkbar_ar.Size= "55,125"
 $opm_trkbar_ar.AutoSize= $False
 $opm_trkbar_ar.Orientation= "Vertical"
 $opm_trkbar_ar.TickStyle= "TopLeft"
@@ -10003,7 +10184,7 @@ $opm_trkbar_ar.Add_KeyDown({
  
 $opm_nmud_ar= New-Object System.Windows.Forms.NumericUpDown 
 $opm_nmud_ar.location= "10,20"
-$opm_nmud_ar.Size= "45,20"
+$opm_nmud_ar.Size= "55,20"
 $opm_nmud_ar.TextAlign= "Right"
 $opm_nmud_ar.UpDownAlign= "Right"
 $opm_nmud_ar.BorderStyle= "FixedSingle"
@@ -10030,15 +10211,15 @@ $opm_nmud_ar.Add_ValueChanged({
 })
  
 $opm_lbl_ar= New-Object System.Windows.Forms.Label 
-$opm_lbl_ar.Location= "10,165"
-$opm_lbl_ar.Size= "45,30"
+$opm_lbl_ar.Location= "10,175"
+$opm_lbl_ar.Size= "55,35"
 $opm_lbl_ar.Text= "Attack"
  
 # ------ DR - DecayRate 0-31 
  
 $opm_trkbar_dr= New-Object System.Windows.Forms.TrackBar 
-$opm_trkbar_dr.Location= "65,40"
-$opm_trkbar_dr.Size= "45,125"
+$opm_trkbar_dr.Location= "70,50"
+$opm_trkbar_dr.Size= "55,125"
 $opm_trkbar_dr.AutoSize= $False
 $opm_trkbar_dr.Orientation= "Vertical"
 $opm_trkbar_dr.TickStyle= "TopLeft"
@@ -10068,8 +10249,8 @@ $opm_trkbar_dr.Add_KeyDown({
 })
  
 $opm_nmud_dr= New-Object System.Windows.Forms.NumericUpDown 
-$opm_nmud_dr.location= "65,20"
-$opm_nmud_dr.Size= "45,20"
+$opm_nmud_dr.location= "70,20"
+$opm_nmud_dr.Size= "55,20"
 $opm_nmud_dr.TextAlign= "Right"
 $opm_nmud_dr.UpDownAlign= "Right"
 $opm_nmud_dr.BorderStyle= "FixedSingle"
@@ -10096,15 +10277,15 @@ $opm_nmud_dr.Add_ValueChanged({
 })
  
 $opm_lbl_dr= New-Object System.Windows.Forms.Label 
-$opm_lbl_dr.Location= "65,165"
-$opm_lbl_dr.Size= "45,30"
+$opm_lbl_dr.Location= "70,175"
+$opm_lbl_dr.Size= "55,35"
 $opm_lbl_dr.Text= "Decay"
  
 # ------ SR - SustainRate 0-31 
  
 $opm_trkbar_sr= New-Object System.Windows.Forms.TrackBar 
-$opm_trkbar_sr.Location= "120,40"
-$opm_trkbar_sr.Size= "45,125"
+$opm_trkbar_sr.Location= "130,50"
+$opm_trkbar_sr.Size= "55,125"
 $opm_trkbar_sr.AutoSize= $False
 $opm_trkbar_sr.Orientation= "Vertical"
 $opm_trkbar_sr.TickStyle= "TopLeft"
@@ -10134,8 +10315,8 @@ $opm_trkbar_sr.Add_KeyDown({
 })
  
 $opm_nmud_sr= New-Object System.Windows.Forms.NumericUpDown 
-$opm_nmud_sr.location= "120,20"
-$opm_nmud_sr.Size= "45,20"
+$opm_nmud_sr.location= "130,20"
+$opm_nmud_sr.Size= "55,20"
 $opm_nmud_sr.TextAlign= "Right"
 $opm_nmud_sr.UpDownAlign= "Right"
 $opm_nmud_sr.BorderStyle= "FixedSingle"
@@ -10162,15 +10343,15 @@ $opm_nmud_sr.Add_ValueChanged({
 })
  
 $opm_lbl_sr= New-Object System.Windows.Forms.Label 
-$opm_lbl_sr.Location= "120,165"
-$opm_lbl_sr.Size= "45,30"
+$opm_lbl_sr.Location= "130,175"
+$opm_lbl_sr.Size= "55,35"
 $opm_lbl_sr.Text= "Sustain Rate"
  
 # ------ RR - ReleaseRate 0-15 
  
 $opm_trkbar_rr= New-Object System.Windows.Forms.TrackBar 
-$opm_trkbar_rr.Location= "175,40"
-$opm_trkbar_rr.Size= "45,125"
+$opm_trkbar_rr.Location= "190,50"
+$opm_trkbar_rr.Size= "55,125"
 $opm_trkbar_rr.AutoSize= $False
 $opm_trkbar_rr.Orientation= "Vertical"
 $opm_trkbar_rr.TickStyle= "TopLeft"
@@ -10200,8 +10381,8 @@ $opm_trkbar_rr.Add_KeyDown({
 })
  
 $opm_nmud_rr= New-Object System.Windows.Forms.NumericUpDown 
-$opm_nmud_rr.location= "175,20"
-$opm_nmud_rr.Size= "45,20"
+$opm_nmud_rr.location= "190,20"
+$opm_nmud_rr.Size= "55,20"
 $opm_nmud_rr.TextAlign= "Right"
 $opm_nmud_rr.UpDownAlign= "Right"
 $opm_nmud_rr.BorderStyle= "FixedSingle"
@@ -10228,23 +10409,23 @@ $opm_nmud_rr.Add_ValueChanged({
 })
  
 $opm_lbl_rr= New-Object System.Windows.Forms.Label 
-$opm_lbl_rr.Location= "170,165"
-$opm_lbl_rr.Size= "45,30"
+$opm_lbl_rr.Location= "190,175"
+$opm_lbl_rr.Size= "55,35"
 $opm_lbl_rr.Text= "Release"
  
 # ------ 
   
 $opm_lev_grp= New-Object System.Windows.Forms.GroupBox 
-$opm_lev_grp.Location= "10,235"
-$opm_lev_grp.Size= "230,80"
+$opm_lev_grp.Location= "10,250"
+$opm_lev_grp.Size= "255,120"
 $opm_lev_grp.Text= "Sustain Level"
 $opm_lev_grp.FlatStyle= "Flat"
 	
 # ------ SL - SustainLevel 0-15 
  
 $opm_trkbar_sl= New-Object System.Windows.Forms.TrackBar 
-$opm_trkbar_sl.Location= "10,35"
-$opm_trkbar_sl.Size= "210,40"
+$opm_trkbar_sl.Location= "10,45"
+$opm_trkbar_sl.Size= "235,40"
 $opm_trkbar_sl.AutoSize= $False
 $opm_trkbar_sl.Orientation= "Horizontal"
 $opm_trkbar_sl.TickStyle= "BottomRight"
@@ -10274,8 +10455,8 @@ $opm_trkbar_sl.Add_KeyDown({
 })
  
 $opm_nmud_sl= New-Object System.Windows.Forms.NumericUpDown 
-$opm_nmud_sl.location= "175,15"
-$opm_nmud_sl.Size= "45,20"
+$opm_nmud_sl.location= "190,15"
+$opm_nmud_sl.Size= "55,20"
 $opm_nmud_sl.TextAlign= "Right"
 $opm_nmud_sl.UpDownAlign= "Right"
 $opm_nmud_sl.BorderStyle= "FixedSingle"
@@ -10309,16 +10490,16 @@ $opm_lbl_sl.Text= "Sustain Level / 0max - 15min"
 # ------ 
   
 $opm_ring_grp= New-Object System.Windows.Forms.GroupBox 
-$opm_ring_grp.Location= "250,30"
-$opm_ring_grp.Size= "230,140"
+$opm_ring_grp.Location= "270,30"
+$opm_ring_grp.Size= "255,165"
 $opm_ring_grp.Text= "Effects Control"
 $opm_ring_grp.FlatStyle= "Flat"
 	
 # ------ KS - KeyScaling 0-3 / env length 
  
 $opm_trkbar_ks= New-Object System.Windows.Forms.TrackBar 
-$opm_trkbar_ks.Location= "10,40"
-$opm_trkbar_ks.Size= "45,65"
+$opm_trkbar_ks.Location= "10,50"
+$opm_trkbar_ks.Size= "55,65"
 $opm_trkbar_ks.AutoSize= $False
 $opm_trkbar_ks.Orientation= "Vertical"
 $opm_trkbar_ks.TickStyle= "TopLeft"
@@ -10349,7 +10530,7 @@ $opm_trkbar_ks.Add_KeyDown({
  
 $opm_nmud_ks= New-Object System.Windows.Forms.NumericUpDown 
 $opm_nmud_ks.location= "10,20"
-$opm_nmud_ks.Size= "45,20"
+$opm_nmud_ks.Size= "55,20"
 $opm_nmud_ks.TextAlign= "Right"
 $opm_nmud_ks.UpDownAlign= "Right"
 $opm_nmud_ks.BorderStyle= "FixedSingle"
@@ -10372,15 +10553,15 @@ $opm_nmud_ks.Add_ValueChanged({
 })
  
 $opm_lbl_ks= New-Object System.Windows.Forms.Label 
-$opm_lbl_ks.Location= "10,105"
-$opm_lbl_ks.Size= "45,30"
+$opm_lbl_ks.Location= "10,115"
+$opm_lbl_ks.Size= "55,40"
 $opm_lbl_ks.Text= "Key Scaling"
  
 # ------ DT1 - DeTune1 0-7 [0,1,2,3, 0,-1,-2,-3] 
  
 $opm_trkbar_dt1= New-Object System.Windows.Forms.TrackBar 
-$opm_trkbar_dt1.Location= "65,40"
-$opm_trkbar_dt1.Size= "45,65"
+$opm_trkbar_dt1.Location= "70,50"
+$opm_trkbar_dt1.Size= "55,65"
 $opm_trkbar_dt1.AutoSize= $False
 $opm_trkbar_dt1.Orientation= "Vertical"
 $opm_trkbar_dt1.TickStyle= "TopLeft"
@@ -10410,8 +10591,8 @@ $opm_trkbar_dt1.Add_KeyDown({
 })
  
 $opm_nmud_dt1= New-Object System.Windows.Forms.NumericUpDown 
-$opm_nmud_dt1.location= "65,20"
-$opm_nmud_dt1.Size= "45,20"
+$opm_nmud_dt1.location= "70,20"
+$opm_nmud_dt1.Size= "55,20"
 $opm_nmud_dt1.TextAlign= "Right"
 $opm_nmud_dt1.UpDownAlign= "Right"
 $opm_nmud_dt1.BorderStyle= "FixedSingle"
@@ -10434,15 +10615,15 @@ $opm_nmud_dt1.Add_ValueChanged({
 })
  
 $opm_lbl_dt1= New-Object System.Windows.Forms.Label 
-$opm_lbl_dt1.Location= "65,105"
-$opm_lbl_dt1.Size= "45,30"
+$opm_lbl_dt1.Location= "70,115"
+$opm_lbl_dt1.Size= "55,40"
 $opm_lbl_dt1.Text= "Detune1"
  
 # ------ DT2 - DeTune2 0-3 
  
 $opm_trkbar_dt2= New-Object System.Windows.Forms.TrackBar 
-$opm_trkbar_dt2.Location= "120,40"
-$opm_trkbar_dt2.Size= "45,65"
+$opm_trkbar_dt2.Location= "130,50"
+$opm_trkbar_dt2.Size= "55,65"
 $opm_trkbar_dt2.AutoSize= $False
 $opm_trkbar_dt2.Orientation= "Vertical"
 $opm_trkbar_dt2.TickStyle= "TopLeft"
@@ -10472,8 +10653,8 @@ $opm_trkbar_dt2.Add_KeyDown({
 })
  
 $opm_nmud_dt2= New-Object System.Windows.Forms.NumericUpDown 
-$opm_nmud_dt2.location= "120,20"
-$opm_nmud_dt2.Size= "45,20"
+$opm_nmud_dt2.location= "130,20"
+$opm_nmud_dt2.Size= "55,20"
 $opm_nmud_dt2.TextAlign= "Right"
 $opm_nmud_dt2.UpDownAlign= "Right"
 $opm_nmud_dt2.BorderStyle= "FixedSingle"
@@ -10496,15 +10677,15 @@ $opm_nmud_dt2.Add_ValueChanged({
 })
  
 $opm_lbl_dt2= New-Object System.Windows.Forms.Label 
-$opm_lbl_dt2.Location= "120,105"
-$opm_lbl_dt2.Size= "45,30"
+$opm_lbl_dt2.Location= "130,115"
+$opm_lbl_dt2.Size= "55,40"
 $opm_lbl_dt2.Text= "Detune2"
  
 # ------ AMS - AmplitudeModulationSensitivity 0-3 
  
 $opm_trkbar_ams= New-Object System.Windows.Forms.TrackBar 
-$opm_trkbar_ams.Location= "175,40"
-$opm_trkbar_ams.Size= "45,65"
+$opm_trkbar_ams.Location= "190,50"
+$opm_trkbar_ams.Size= "55,65"
 $opm_trkbar_ams.AutoSize= $False
 $opm_trkbar_ams.Orientation= "Vertical"
 $opm_trkbar_ams.TickStyle= "TopLeft"
@@ -10534,8 +10715,8 @@ $opm_trkbar_ams.Add_KeyDown({
 })
  
 $opm_nmud_ams= New-Object System.Windows.Forms.NumericUpDown 
-$opm_nmud_ams.location= "175,20"
-$opm_nmud_ams.Size= "45,20"
+$opm_nmud_ams.location= "190,20"
+$opm_nmud_ams.Size= "55,20"
 $opm_nmud_ams.TextAlign= "Right"
 $opm_nmud_ams.UpDownAlign= "Right"
 $opm_nmud_ams.BorderStyle= "FixedSingle"
@@ -10558,23 +10739,23 @@ $opm_nmud_ams.Add_ValueChanged({
 })
  
 $opm_lbl_ams= New-Object System.Windows.Forms.Label 
-$opm_lbl_ams.Location= "175,105"
-$opm_lbl_ams.Size= "45,30"
+$opm_lbl_ams.Location= "190,115"
+$opm_lbl_ams.Size= "55,40"
 $opm_lbl_ams.Text= "AM Sens"
  
 # ------ 
   
 $opm_op_grp= New-Object System.Windows.Forms.GroupBox 
-$opm_op_grp.Location= "250,175"
-$opm_op_grp.Size= "230,140"
+$opm_op_grp.Location= "270,195"
+$opm_op_grp.Size= "255,175"
 $opm_op_grp.Text= "Frequency Modulation"
 $opm_op_grp.FlatStyle= "Flat"
 	
 # ------ ML - Multiple 0-15 
  
 $opm_trkbar_ml= New-Object System.Windows.Forms.TrackBar 
-$opm_trkbar_ml.Location= "10,35"
-$opm_trkbar_ml.Size= "210,40"
+$opm_trkbar_ml.Location= "10,45"
+$opm_trkbar_ml.Size= "235,40"
 $opm_trkbar_ml.AutoSize= $False
 $opm_trkbar_ml.Orientation= "Horizontal"
 $opm_trkbar_ml.TickStyle= "BottomRight"
@@ -10604,8 +10785,8 @@ $opm_trkbar_ml.Add_KeyDown({
 })
  
 $opm_nmud_ml= New-Object System.Windows.Forms.NumericUpDown 
-$opm_nmud_ml.location= "175,15"
-$opm_nmud_ml.Size= "45,20"
+$opm_nmud_ml.location= "190,15"
+$opm_nmud_ml.Size= "55,20"
 $opm_nmud_ml.TextAlign= "Right"
 $opm_nmud_ml.UpDownAlign= "Right"
 $opm_nmud_ml.BorderStyle= "FixedSingle"
@@ -10639,8 +10820,8 @@ $opm_lbl_ml.Text= "Multiple - overtone"
 # ------ TL - TotalLevel 127-0 
  
 $opm_trkbar_tl= New-Object System.Windows.Forms.TrackBar 
-$opm_trkbar_tl.Location= "10,95"
-$opm_trkbar_tl.Size= "210,40"
+$opm_trkbar_tl.Location= "10,120"
+$opm_trkbar_tl.Size= "235,40"
 $opm_trkbar_tl.AutoSize= $False
 $opm_trkbar_tl.Orientation= "Horizontal"
 $opm_trkbar_tl.TickStyle= "BottomRight"
@@ -10670,8 +10851,8 @@ $opm_trkbar_tl.Add_KeyDown({
 })
  
 $opm_nmud_tl= New-Object System.Windows.Forms.NumericUpDown 
-$opm_nmud_tl.location= "175,75"
-$opm_nmud_tl.Size= "45,20"
+$opm_nmud_tl.location= "190,90"
+$opm_nmud_tl.Size= "55,20"
 $opm_nmud_tl.TextAlign= "Right"
 $opm_nmud_tl.UpDownAlign= "Right"
 $opm_nmud_tl.BorderStyle= "FixedSingle"
@@ -10698,23 +10879,23 @@ $opm_nmud_tl.Add_ValueChanged({
 })
  
 $opm_lbl_tl= New-Object System.Windows.Forms.Label 
-$opm_lbl_tl.Location= "10,75"
+$opm_lbl_tl.Location= "10,95"
 $opm_lbl_tl.Size= "165,20"
 $opm_lbl_tl.Text= "Total Level / 0max - 127min"
  
 # ------ 
   
 $opm_alg_grp= New-Object System.Windows.Forms.GroupBox 
-$opm_alg_grp.Location= "10,320"
-$opm_alg_grp.Size= "285,80"
+$opm_alg_grp.Location= "10,370"
+$opm_alg_grp.Size= "315,105"
 $opm_alg_grp.Text= "Algorithm / Feedback"
 $opm_alg_grp.FlatStyle= "Flat"
-	
+	 
 # ------ ALG - Algorithm 0-7 
  
 $opm_trkbar_alg= New-Object System.Windows.Forms.TrackBar 
-$opm_trkbar_alg.Location= "10,35"
-$opm_trkbar_alg.Size= "120,40"
+$opm_trkbar_alg.Location= "10,50"
+$opm_trkbar_alg.Size= "140,40"
 $opm_trkbar_alg.AutoSize= $False
 $opm_trkbar_alg.Orientation= "Horizontal"
 $opm_trkbar_alg.TickStyle= "BottomRight"
@@ -10744,8 +10925,8 @@ $opm_trkbar_alg.Add_KeyDown({
 })
  
 $opm_nmud_alg= New-Object System.Windows.Forms.NumericUpDown 
-$opm_nmud_alg.location= "85,15"
-$opm_nmud_alg.Size= "45,20"
+$opm_nmud_alg.location= "95,20"
+$opm_nmud_alg.Size= "55,20"
 $opm_nmud_alg.TextAlign= "Right"
 $opm_nmud_alg.UpDownAlign= "Right"
 $opm_nmud_alg.BorderStyle= "FixedSingle"
@@ -10780,8 +10961,8 @@ $opm_lbl_alg.Text= "Algorithm"
 # ------ FB - Feedback 0-7 
  
 $opm_trkbar_fb= New-Object System.Windows.Forms.TrackBar 
-$opm_trkbar_fb.Location= "155,35"
-$opm_trkbar_fb.Size= "120,40"
+$opm_trkbar_fb.Location= "165,50"
+$opm_trkbar_fb.Size= "140,40"
 $opm_trkbar_fb.AutoSize= $False
 $opm_trkbar_fb.Orientation= "Horizontal"
 $opm_trkbar_fb.TickStyle= "BottomRight"
@@ -10811,8 +10992,8 @@ $opm_trkbar_fb.Add_KeyDown({
 })
  
 $opm_nmud_fb= New-Object System.Windows.Forms.NumericUpDown 
-$opm_nmud_fb.location= "230,15"
-$opm_nmud_fb.Size= "45,20"
+$opm_nmud_fb.location= "250,20"
+$opm_nmud_fb.Size= "55,20"
 $opm_nmud_fb.TextAlign= "Right"
 $opm_nmud_fb.UpDownAlign= "Right"
 $opm_nmud_fb.BorderStyle= "FixedSingle"
@@ -10839,7 +11020,7 @@ $opm_nmud_fb.Add_ValueChanged({
 })
  
 $opm_lbl_fb= New-Object System.Windows.Forms.Label 
-$opm_lbl_fb.Location= "155,20"
+$opm_lbl_fb.Location= "165,20"
 $opm_lbl_fb.Size= "75,20"
 $opm_lbl_fb.Text= "Feedback"
  
@@ -10865,16 +11046,15 @@ $opm_alg_grp.Controls.AddRange(@($opm_trkbar_alg,$opm_nmud_alg,$opm_lbl_alg))
 $opm_alg_grp.Controls.AddRange(@($opm_trkbar_fb,$opm_nmud_fb,$opm_lbl_fb))
   
 # forms 
-	
+	 
 $osc_grp= New-Object System.Windows.Forms.GroupBox 
 $osc_grp.Text= "FM OSC"
-$osc_grp.Size= "175,80"
-$osc_grp.Location= "305,320"
-
+$osc_grp.Size= "195,105"
+$osc_grp.Location= "330,370"
  
 $lisn_btn= New-Object System.Windows.Forms.Button 
-$lisn_btn.Location= "10,15"
-$lisn_btn.Size= "20,20"
+$lisn_btn.Location= "10,20"
+$lisn_btn.Size= "25,25"
 $lisn_btn.FlatStyle= "Popup"
 $lisn_btn.Image= [System.Drawing.Image]::FromFile(".\img\play.png")
 # $lisn_btn.Text= ">"
@@ -10889,8 +11069,8 @@ $lisn_btn.Add_Click({ # 試聴
 })
  
 $conv_btn= New-Object System.Windows.Forms.Button 
-$conv_btn.Location= "10,45"
-$conv_btn.Size= "20,20"
+$conv_btn.Location= "10,55"
+$conv_btn.Size= "25,25"
 $conv_btn.FlatStyle= "Popup"
 $conv_btn.Image= [System.Drawing.Image]::FromFile(".\img\convert.png")
 # $conv_btn.Text= ">>"
@@ -10920,8 +11100,8 @@ $conv_btn.Add_Click({ # text convert
 })
  
 $comb_vrc= New-Object System.Windows.Forms.Combobox 
-$comb_vrc.Size= "125,20"
-$comb_vrc.Location= "40,15"
+$comb_vrc.Size= "140,20"
+$comb_vrc.Location= "45,20"
 $comb_vrc.FlatStyle= "Popup"
 
 [void]$comb_vrc.Items.AddRange(@("Operator1", "Operator2"))
@@ -10948,8 +11128,8 @@ $comb_vrc.Add_SelectedValueChanged({
 
  
 $comb_opl= New-Object System.Windows.Forms.Combobox 
-$comb_opl.Size= "125,20"
-$comb_opl.Location= "40,15"
+$comb_opl.Size= "140,20"
+$comb_opl.Location= "45,20"
 $comb_opl.FlatStyle= "Popup"
 
 [void]$comb_opl.Items.AddRange(@("Operator1", "Operator2"))
@@ -10975,8 +11155,8 @@ $comb_opl.Add_SelectedValueChanged({
 })
  
 $comb_opn= New-Object System.Windows.Forms.Combobox 
-$comb_opn.Size= "125,20"
-$comb_opn.Location= "40,15"
+$comb_opn.Size= "140,20"
+$comb_opn.Location= "45,20"
 $comb_opn.FlatStyle= "Popup"
 
 [void]$comb_opn.Items.AddRange(@("Operator1", "Operator2", "Operator3", "Operator4"))
@@ -11002,8 +11182,8 @@ $comb_opn.Add_SelectedValueChanged({
 })
  
 $comb_opm= New-Object System.Windows.Forms.Combobox 
-$comb_opm.Size= "125,20"
-$comb_opm.Location= "40,15"
+$comb_opm.Size= "140,20"
+$comb_opm.Location= "45,20"
 $comb_opm.FlatStyle= "Popup"
 
 [void]$comb_opm.Items.AddRange(@("Operator1", "Operator2", "Operator3", "Operator4"))
@@ -11029,8 +11209,8 @@ $comb_opm.Add_SelectedValueChanged({
 })
  
 $comb_fm= New-Object System.Windows.Forms.Combobox 
-$comb_fm.Size= "125,20"
-$comb_fm.Location= "40,45"
+$comb_fm.Size= "140,20"
+$comb_fm.Location= "45,55"
 $comb_fm.FlatStyle= "Popup"
 
 [void]$comb_fm.Items.AddRange(@("vrc7 2op", "opl 2op", "opn 4op", "opm 4op"))
@@ -11061,12 +11241,12 @@ $comb_fm.Add_SelectedValueChanged({ # Event
  
 $fm_panel= New-Object System.Windows.Forms.Panel 
 $fm_panel.Location= "0,0"
-$fm_panel.Size= "500,410"
+$fm_panel.Size= "530,485"
 # $fm_panel.BackColor= "orange"
  
 $fm_box= New-Object System.Windows.Forms.TextBox 
-$fm_box.Size= "470,145"
-$fm_box.Location= "10,420"
+$fm_box.Size= "530,155"
+$fm_box.Location= "10,495"
 $fm_box.WordWrap= "False"
 $fm_box.Multiline= "True"
 $fm_box.ScrollBars= "Both"
@@ -11080,8 +11260,8 @@ $fm_box.Add_Enter({ # kaki komi de undo reset
  try{
 	Unredo 0
 
-	$fm_box.ForeColor= "black"
-	$fm_box.BackColor= "white"
+	$this.ForeColor= "black"
+	$this.BackColor= "white"
  }catch{
 	echo $_.exception
  }
@@ -11089,8 +11269,8 @@ $fm_box.Add_Enter({ # kaki komi de undo reset
 
 $fm_box.Add_Leave({
 
-	$fm_box.ForeColor= "dimgray"
-	$fm_box.BackColor= "white" # "gainsboro"
+	$this.ForeColor= "dimgray"
+	$this.BackColor= "white" # "gainsboro"
 })
 
 $fm_box.Add_KeyDown({ # インポート
@@ -11101,7 +11281,6 @@ $fm_box.Add_KeyDown({ # インポート
 	echo $_.exception
  }
 })
-
  
 $fm_stus= New-Object System.Windows.Forms.StatusStrip 
 $fm_stus.SizingGrip= $false
@@ -11164,7 +11343,7 @@ $tray_fm.Add_MouseDown({
  
 $frm_fm= New-Object System.Windows.Forms.Form 
 $frm_fm.Text= "FM Synthesis Chip - Tone Editor"
-$frm_fm.Size= "502,627"
+$frm_fm.Size= "547,717"
 $frm_fm.FormBorderStyle= "FixedSingle"
 $frm_fm.StartPosition= "WindowsDefaultLocation"
 $frm_fm.Icon= Icon_read "..\fm_editor.exe"
@@ -11212,7 +11391,7 @@ $frm_fm.Add_FormClosing({
 })
  
 $fm_mnu= New-Object System.Windows.Forms.MenuStrip 
-	
+	 
 $fm_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_f.Text= "File"
 
@@ -11609,7 +11788,8 @@ $fm_menu_set.Add_Click({
 
 		$script:set_xml= [xml](cat '.\setting.xml')
 
-		$script:comp=@{}; $script:play=@{}; $script:dosv=@{}; $script:edit=@{};
+		$script:mck= @{}; $script:nsd= @{}; $script:pmd= @{};
+		$script:play= @{}; $script:dos= @{}; $script:edit= @{};
 
 		Setxml_read $script:set_xml.table # hash化 script: ga hitsuyo
 
@@ -11621,7 +11801,12 @@ $fm_menu_set.Add_Click({
 
 	Panel_chg $comb_fm.SelectedItem
 
-	Menu_build "compiler"
+ 	Menu_comp_build $opt["radio_bin"] > $null
+
+	Menu_build "mck"
+	Menu_build "nsd"
+ 	Menu_build "pmd"
+
 	Menu_build "player"
 	Menu_build "dos"
 	Menu_build "editor"
@@ -11640,7 +11825,11 @@ $fm_menu_set.Add_Click({
  }
 })
 
-$fm_menu_cmp0= New-Object System.Windows.Forms.ToolStripMenuItem
+
+	
+<# 
+ 
+$fm_menu_cmp0= New-Object System.Windows.Forms.ToolStripMenuItem 
 # $fm_menu_cmp0.Text= "0.exe"
 $fm_menu_cmp0.Visible= $False # .Hide() 不可
 
@@ -11723,16 +11912,312 @@ $fm_menu_cmp5.Add_Click({
 	echo $_.exception
  }
 })
+ 
+#> 
 
-$fm_menu_ply0= New-Object System.Windows.Forms.ToolStripMenuItem
+ 
+$fm_menu_comp=  New-Object System.Windows.Forms.ToolStripMenuItem 
+$fm_menu_comp.Text= "compiler"
+
+$fm_menu_cmck=  New-Object System.Windows.Forms.ToolStripMenuItem
+# $fm_menu_cmck.Text= "MCK"
+
+$fm_menu_cmck.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+	Fmchange_value "compiler" "mck"
+
+	$script:opt["radio_bin"]= Menu_comp_build "mck"
+	Stus_build
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$fm_menu_cnsd=  New-Object System.Windows.Forms.ToolStripMenuItem
+# $fm_menu_cnsd.Text= "NSD"
+
+$fm_menu_cnsd.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+	Fmchange_value "compiler" "nsd"
+
+	$script:opt["radio_bin"]= Menu_comp_build "nsd"
+	Stus_build
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$fm_menu_cpmd=  New-Object System.Windows.Forms.ToolStripMenuItem
+# $fm_menu_cpmd.Text= "PMD"
+
+$fm_menu_cpmd.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+ 	Fmchange_value "compiler" "pmd"
+
+	$script:opt["radio_bin"]= Menu_comp_build "pmd"
+	Stus_build
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+	
+$fm_menu_mck0= New-Object System.Windows.Forms.ToolStripMenuItem 
+#$fm_menu_mck0.Text= "0.exe"
+$fm_menu_mck0.Visible= $False
+
+$fm_menu_mck0.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+
+	Fmchange_value "mck" $this.Text
+	Fmchange_value "compiler" "mck"
+
+	$script:opt["radio_bin"]= Menu_comp_build "mck"
+	Menu_build "mck"
+	Stus_build
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$fm_menu_mck1= New-Object System.Windows.Forms.ToolStripMenuItem
+#$fm_menu_mck1.Text= "1.exe"
+$fm_menu_mck1.Visible= $False
+
+$fm_menu_mck1.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+
+	Fmchange_value "mck" $this.Text
+	Fmchange_value "compiler" "mck"
+
+	$script:opt["radio_bin"]= Menu_comp_build "mck"
+	Menu_build "mck"
+	Stus_build
+   }
+  }catch{
+	echo $_.exception
+ }
+})
+
+$fm_menu_mck2= New-Object System.Windows.Forms.ToolStripMenuItem
+#$fm_menu_mck2.Text= "2.exe"
+$fm_menu_mck2.Visible= $False
+
+$fm_menu_mck2.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+
+	Fmchange_value "mck" $this.Text
+	Fmchange_value "compiler" "mck"
+
+	$script:opt["radio_bin"]= Menu_comp_build "mck"
+	Menu_build "mck"
+	Stus_build
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$fm_menu_mck3= New-Object System.Windows.Forms.ToolStripMenuItem
+#$fm_menu_mck3.Text= "3.exe"
+$fm_menu_mck3.Visible= $False
+
+$fm_menu_mck3.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+
+	Fmchange_value "mck" $this.Text
+	Fmchange_value "compiler" "mck"
+
+	$script:opt["radio_bin"]= Menu_comp_build "mck"
+	Menu_build "mck"
+	Stus_build
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$fm_menu_nsd0= New-Object System.Windows.Forms.ToolStripMenuItem 
+#$fm_menu_nsd0.Text= "0.exe"
+$fm_menu_nsd0.Visible= $False
+
+$fm_menu_nsd0.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+
+	Fmchange_value "nsd" $this.Text
+	Fmchange_value "compiler" "nsd"
+
+	$script:opt["radio_bin"]= Menu_comp_build "nsd"
+	Menu_build "nsd"
+	Stus_build
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$fm_menu_nsd1= New-Object System.Windows.Forms.ToolStripMenuItem
+#$fm_menu_nsd1.Text= "1.exe"
+$fm_menu_nsd1.Visible= $False
+
+$fm_menu_nsd1.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+
+	Fmchange_value "nsd" $this.Text
+	Fmchange_value "compiler" "nsd"
+
+	$script:opt["radio_bin"]= Menu_comp_build "nsd"
+	Menu_build "nsd"
+	Stus_build
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$fm_menu_nsd2= New-Object System.Windows.Forms.ToolStripMenuItem
+#$fm_menu_nsd2.Text= "2.exe"
+$fm_menu_nsd2.Visible= $False
+
+$fm_menu_nsd2.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+
+	Fmchange_value "nsd" $this.Text
+	Fmchange_value "compiler" "nsd"
+
+	$script:opt["radio_bin"]= Menu_comp_build "nsd"
+	Menu_build "nsd"
+	Stus_build
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$fm_menu_nsd3= New-Object System.Windows.Forms.ToolStripMenuItem
+#$fm_menu_nsd3.Text= "3.exe"
+$fm_menu_nsd3.Visible= $False
+
+$fm_menu_nsd3.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+
+	Fmchange_value "nsd" $this.Text
+	Fmchange_value "compiler" "nsd"
+
+	$script:opt["radio_bin"]= Menu_comp_build "nsd"
+	Menu_build "nsd"
+	Stus_build
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$fm_menu_pmd0= New-Object System.Windows.Forms.ToolStripMenuItem 
+#$fm_menu_pmd0.Text= "0.exe"
+$fm_menu_pmd0.Visible= $False
+
+$fm_menu_pmd0.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+
+	Fmchange_value "pmd" $this.Text
+	Fmchange_value "compiler" "pmd"
+
+	$script:opt["radio_bin"]= Menu_comp_build "pmd"
+	Menu_build "pmd"
+	Stus_build
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$fm_menu_pmd1= New-Object System.Windows.Forms.ToolStripMenuItem
+#$fm_menu_pmd1.Text= "1.exe"
+$fm_menu_pmd1.Visible= $False
+
+$fm_menu_pmd1.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+
+	Fmchange_value "pmd" $this.Text
+	Fmchange_value "compiler" "pmd"
+
+	$script:opt["radio_bin"]= Menu_comp_build "pmd"
+	Menu_build "pmd"
+	Stus_build
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$fm_menu_pmd2= New-Object System.Windows.Forms.ToolStripMenuItem
+#$fm_menu_pmd2.Text= "2.exe"
+$fm_menu_pmd2.Visible= $False
+
+$fm_menu_pmd2.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+
+	Fmchange_value "pmd" $this.Text
+	Fmchange_value "compiler" "pmd"
+
+	$script:opt["radio_bin"]= Menu_comp_build "pmd"
+	Menu_build "pmd"
+	Stus_build
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$fm_menu_pmd3= New-Object System.Windows.Forms.ToolStripMenuItem
+#$fm_menu_pmd3.Text= "3.exe"
+$fm_menu_pmd3.Visible= $False
+
+$fm_menu_pmd3.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+
+	Fmchange_value "pmd" $this.Text
+	Fmchange_value "compiler" "pmd"
+
+	$script:opt["radio_bin"]= Menu_comp_build "pmd"
+	Menu_build "pmd"
+	Stus_build
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+  
+$fm_menu_ply0= New-Object System.Windows.Forms.ToolStripMenuItem 
 # $fm_menu_ply0.Text= "0.exe"
 $fm_menu_ply0.Visible= $False
 
 $fm_menu_ply0.Add_Click({
  try{
+  if($this.Text.Contains("[v]") -eq $False){
 	Change_value "player" $this.Text
 	Menu_build "player"
 	Stus_build
+  }
  }catch{
 	echo $_.exception
  }
@@ -11744,9 +12229,11 @@ $fm_menu_ply1.Visible= $False
 
 $fm_menu_ply1.Add_Click({
  try{
+  if($this.Text.Contains("[v]") -eq $False){
 	Change_value "player" $this.Text
 	Menu_build "player"
 	Stus_build
+  }
  }catch{
 	echo $_.exception
  }
@@ -11758,9 +12245,11 @@ $fm_menu_ply2.Visible= $False
 
 $fm_menu_ply2.Add_Click({
  try{
+  if($this.Text.Contains("[v]") -eq $False){
 	Change_value "player" $this.Text
 	Menu_build "player"
 	Stus_build
+  }
  }catch{
 	echo $_.exception
  }
@@ -11772,23 +12261,91 @@ $fm_menu_ply3.Visible= $False
 
 $fm_menu_ply3.Add_Click({
  try{
+  if($this.Text.Contains("[v]") -eq $False){
 	Change_value "player" $this.Text
 	Menu_build "player"
 	Stus_build
+  }
  }catch{
 	echo $_.exception
  }
 })
 
-$fm_menu_dos0= New-Object System.Windows.Forms.ToolStripMenuItem
+$fm_menu_ply4= New-Object System.Windows.Forms.ToolStripMenuItem
+# $fm_menu_ply4.Text= "4.exe"
+$fm_menu_ply4.Visible= $False
+
+$fm_menu_ply4.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+	Change_value "player" $this.Text
+	Menu_build "player"
+	Stus_build
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$fm_menu_ply5= New-Object System.Windows.Forms.ToolStripMenuItem
+# $fm_menu_ply5.Text= "5.exe"
+$fm_menu_ply5.Visible= $False
+
+$fm_menu_ply5.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+	Change_value "player" $this.Text
+	Menu_build "player"
+	Stus_build
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$fm_menu_ply6= New-Object System.Windows.Forms.ToolStripMenuItem
+# $fm_menu_ply6.Text= "6.exe"
+$fm_menu_ply6.Visible= $False
+
+$fm_menu_ply6.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+	Change_value "player" $this.Text
+	Menu_build "player"
+	Stus_build
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$fm_menu_ply7= New-Object System.Windows.Forms.ToolStripMenuItem
+# $fm_menu_ply7.Text= "7.exe"
+$fm_menu_ply7.Visible= $False
+
+$fm_menu_ply7.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+	Change_value "player" $this.Text
+	Menu_build "player"
+	Stus_build
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$fm_menu_dos0= New-Object System.Windows.Forms.ToolStripMenuItem 
 # $fm_menu_dos0.Text= "0.exe"
 $fm_menu_dos0.Visible= $False
 
 $fm_menu_dos0.Add_Click({
  try{
+  if($this.Text.Contains("[v]") -eq $False){
 	Change_value "dos" $this.Text
 	Menu_build "dos"
 	Stus_build
+  }
  }catch{
 	echo $_.exception
  }
@@ -11800,9 +12357,11 @@ $fm_menu_dos1.Visible= $False
 
 $fm_menu_dos1.Add_Click({
  try{
+  if($this.Text.Contains("[v]") -eq $False){
 	Change_value "dos" $this.Text
 	Menu_build "dos"
 	Stus_build
+  }
  }catch{
 	echo $_.exception
  }
@@ -11814,9 +12373,11 @@ $fm_menu_dos2.Visible= $False
 
 $fm_menu_dos2.Add_Click({
  try{
+  if($this.Text.Contains("[v]") -eq $False){
 	Change_value "dos" $this.Text
 	Menu_build "dos"
 	Stus_build
+  }
  }catch{
 	echo $_.exception
  }
@@ -11828,23 +12389,27 @@ $fm_menu_dos3.Visible= $False
 
 $fm_menu_dos3.Add_Click({
  try{
+  if($this.Text.Contains("[v]") -eq $False){
 	Change_value "dos" $this.Text
 	Menu_build "dos"
 	Stus_build
+  }
  }catch{
 	echo $_.exception
  }
 })
-
-$fm_menu_edt0= New-Object System.Windows.Forms.ToolStripMenuItem
+ 
+$fm_menu_edt0= New-Object System.Windows.Forms.ToolStripMenuItem 
 # $fm_menu_edt0.Text= "0.exe"
 $fm_menu_edt0.Visible= $False
 
 $fm_menu_edt0.Add_Click({
  try{
+  if($this.Text.Contains("[v]") -eq $False){
 	Change_value "editor" $this.Text
 	Menu_build "editor"
 	Stus_build
+  }
  }catch{
 	echo $_.exception
  }
@@ -11856,9 +12421,11 @@ $fm_menu_edt1.Visible= $False
 
 $fm_menu_edt1.Add_Click({
  try{
+  if($this.Text.Contains("[v]") -eq $False){
 	Change_value "editor" $this.Text
 	Menu_build "editor"
 	Stus_build
+  }
  }catch{
 	echo $_.exception
  }
@@ -11870,9 +12437,11 @@ $fm_menu_edt2.Visible= $False
 
 $fm_menu_edt2.Add_Click({
  try{
+  if($this.Text.Contains("[v]") -eq $False){
 	Change_value "editor" $this.Text
 	Menu_build "editor"
 	Stus_build
+  }
  }catch{
 	echo $_.exception
  }
@@ -11884,14 +12453,80 @@ $fm_menu_edt3.Visible= $False
 
 $fm_menu_edt3.Add_Click({
  try{
+  if($this.Text.Contains("[v]") -eq $False){
 	Change_value "editor" $this.Text
 	Menu_build "editor"
 	Stus_build
+  }
  }catch{
 	echo $_.exception
  }
 })
- 
+
+$fm_menu_edt4= New-Object System.Windows.Forms.ToolStripMenuItem
+# $fm_menu_edt4.Text= "4.exe"
+$fm_menu_edt4.Visible= $False
+
+$fm_menu_edt4.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+	Change_value "editor" $this.Text
+	Menu_build "editor"
+	Stus_build
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$fm_menu_edt5= New-Object System.Windows.Forms.ToolStripMenuItem
+# $fm_menu_edt5.Text= "5.exe"
+$fm_menu_edt5.Visible= $False
+
+$fm_menu_edt5.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+	Change_value "editor" $this.Text
+	Menu_build "editor"
+	Stus_build
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$fm_menu_edt6= New-Object System.Windows.Forms.ToolStripMenuItem
+# $fm_menu_edt6.Text= "6.exe"
+$fm_menu_edt6.Visible= $False
+
+$fm_menu_edt6.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+	Change_value "editor" $this.Text
+	Menu_build "editor"
+	Stus_build
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$fm_menu_edt7= New-Object System.Windows.Forms.ToolStripMenuItem
+# $fm_menu_edt7.Text= "7.exe"
+$fm_menu_edt7.Visible= $False
+
+$fm_menu_edt7.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+	Change_value "editor" $this.Text
+	Menu_build "editor"
+	Stus_build
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+  
 $fm_menu_m= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_m.Text= "Octave"
 
@@ -12070,7 +12705,62 @@ $fm_menu_b.Text= "TextBox"
 $fm_menu_put= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_put.Text= "Output"
 
-$fm_menu_zero= New-Object System.Windows.Forms.ToolStripMenuItem
+
+$fm_menu_type= New-Object System.Windows.Forms.ToolStripMenuItem
+$fm_menu_type.Text= "vrc7 Type"
+
+
+$fm_menu_style= New-Object System.Windows.Forms.ToolStripMenuItem
+$fm_menu_style.Text= "4op Style"
+
+
+$fm_menu_sendn= New-Object System.Windows.Forms.ToolStripSeparator
+
+$fm_menu_send= New-Object System.Windows.Forms.ToolStripMenuItem
+# $fm_menu_send.Text= "send"
+
+$fm_menu_send.Add_Click({
+ try{
+	Send_build 0
+ }catch{
+	echo $_.exception
+ }
+})
+
+$fm_menu_mmlun= New-Object System.Windows.Forms.ToolStripSeparator
+
+$fm_menu_mml= New-Object System.Windows.Forms.ToolStripMenuItem
+$fm_menu_mml.Text= "Voice Value Copy"
+
+$fm_menu_mml.Add_Click({
+ try{
+	[Windows.Forms.Clipboard]::SetText($fm_box.Text, [Windows.Forms.TextDataFormat]::UnicodeText)
+
+	if($sb_alg.Visible){
+		Monotone_select "conv_btn" # line書込
+	}
+ }catch{
+	echo $_.exception
+ }
+})
+
+$fm_menu_copy= New-Object System.Windows.Forms.ToolStripMenuItem
+$fm_menu_copy.Text= "header+ Voice Copy"
+$fm_menu_copy.ForeColor= "Black"
+
+$fm_menu_copy.Add_Click({
+ try{
+	Box_listen 1
+
+	if($sb_alg.Visible){
+		Monotone_select "conv_btn"
+	}
+ }catch{
+	echo $_.exception
+ }
+})
+	 
+$fm_menu_zero= New-Object System.Windows.Forms.ToolStripMenuItem 
 #$fm_menu_zero.Text= "zero padding"
 $fm_menu_zero.Add_Click({
  try{
@@ -12103,11 +12793,8 @@ $fm_menu_ten.Add_Click({
 	echo $_.exception
  }
 })
-
-$fm_menu_type= New-Object System.Windows.Forms.ToolStripMenuItem
-$fm_menu_type.Text= "vrc7 Type"
-
-$fm_menu_type_nsd= New-Object System.Windows.Forms.ToolStripMenuItem
+ 
+$fm_menu_type_nsd= New-Object System.Windows.Forms.ToolStripMenuItem 
 #$fm_menu_type_nsd.Text= "NSD"
 $fm_menu_type_nsd.Add_Click({
  try{
@@ -12167,11 +12854,8 @@ $fm_menu_type_nsdreg.Add_Click({
 	echo $_.exception
  }
 })
-
-$fm_menu_style= New-Object System.Windows.Forms.ToolStripMenuItem
-$fm_menu_style.Text= "4op Style"
-
-$fm_menu_style_pmd= New-Object System.Windows.Forms.ToolStripMenuItem
+ 
+$fm_menu_style_pmd= New-Object System.Windows.Forms.ToolStripMenuItem 
 #$fm_menu_style_pmd.Text= "PMD"
 $fm_menu_style_pmd.Add_Click({
   try{
@@ -12250,53 +12934,7 @@ $fm_menu_style_mxdrv.Add_Click({
 	echo $_.exception
   }
 })
-
-$fm_menu_sendn= New-Object System.Windows.Forms.ToolStripSeparator
-
-$fm_menu_send= New-Object System.Windows.Forms.ToolStripMenuItem
-# $fm_menu_send.Text= "send"
-
-$fm_menu_send.Add_Click({
- try{
-	Send_build 0
- }catch{
-	echo $_.exception
- }
-})
-
-$fm_menu_mmlun= New-Object System.Windows.Forms.ToolStripSeparator
-
-$fm_menu_mml= New-Object System.Windows.Forms.ToolStripMenuItem
-$fm_menu_mml.Text= "Voice"
-
-$fm_menu_mml.Add_Click({
- try{
-	[Windows.Forms.Clipboard]::SetText($fm_box.Text, [Windows.Forms.TextDataFormat]::UnicodeText)
-
-	if($sb_alg.Visible){
-		Monotone_select "conv_btn" # line書込
-	}
- }catch{
-	echo $_.exception
- }
-})
-
-$fm_menu_copy= New-Object System.Windows.Forms.ToolStripMenuItem
-$fm_menu_copy.Text= "header+ Voice"
-$fm_menu_copy.ForeColor= "Black"
-
-$fm_menu_copy.Add_Click({
- try{
-	Box_listen 1
-
-	if($sb_alg.Visible){
-		Monotone_select "conv_btn"
-	}
- }catch{
-	echo $_.exception
- }
-})
- 
+  
 $fm_menu_w= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_w.Text= "Window"
 
@@ -12430,10 +13068,14 @@ $fm_menu_pmdh.Add_Click({
 $fm_menu_lad.DropDownItems.AddRange(@($fm_lad_a,$fm_lad_b,$fm_lad_c,$fm_lad_d,$fm_lad_e,$fm_lad_f,$fm_lad_g,$fm_lad_h)) 
 $fm_menu_sav.DropDownItems.AddRange(@($fm_sav_a,$fm_sav_b,$fm_sav_c,$fm_sav_d,$fm_sav_e,$fm_sav_f,$fm_sav_g,$fm_sav_h))
 
-$fm_menu_comp.DropDownItems.AddRange(@($fm_menu_cmp0,$fm_menu_cmp1,$fm_menu_cmp2,$fm_menu_cmp3,$fm_menu_cmp4,$fm_menu_cmp5))
-$fm_menu_play.DropDownItems.AddRange(@($fm_menu_ply0,$fm_menu_ply1,$fm_menu_ply2,$fm_menu_ply3))
+$fm_menu_cpmd.DropDownItems.AddRange(@($fm_menu_pmd0,$fm_menu_pmd1,$fm_menu_pmd2,$fm_menu_pmd3))
+$fm_menu_cnsd.DropDownItems.AddRange(@($fm_menu_nsd0,$fm_menu_nsd1,$fm_menu_nsd2,$fm_menu_nsd3))
+$fm_menu_cmck.DropDownItems.AddRange(@($fm_menu_mck0,$fm_menu_mck1,$fm_menu_mck2,$fm_menu_mck3))
+$fm_menu_comp.DropDownItems.AddRange(@($fm_menu_cmck,$fm_menu_cnsd,$fm_menu_cpmd))
+
+$fm_menu_play.DropDownItems.AddRange(@($fm_menu_ply0,$fm_menu_ply1,$fm_menu_ply2,$fm_menu_ply3,$fm_menu_ply4,$fm_menu_ply5,$fm_menu_ply6,$fm_menu_ply7))
 $fm_menu_dosv.DropDownItems.AddRange(@($fm_menu_dos0,$fm_menu_dos1,$fm_menu_dos2,$fm_menu_dos3))
-$fm_menu_edit.DropDownItems.AddRange(@($fm_menu_edt0,$fm_menu_edt1,$fm_menu_edt2,$fm_menu_edt3))
+$fm_menu_edit.DropDownItems.AddRange(@($fm_menu_edt0,$fm_menu_edt1,$fm_menu_edt2,$fm_menu_edt3,$fm_menu_edt4,$fm_menu_edt5,$fm_menu_edt6,$fm_menu_edt7))
 
 $fm_menu_type.DropDownItems.AddRange(@($fm_menu_type_nsd,$fm_menu_type_mckreg,$fm_menu_type_nsdreg))
 $fm_menu_style.DropDownItems.AddRange(@($fm_menu_style_pmd,$fm_menu_style_mucom,$fm_menu_style_fmp7,$fm_menu_style_mxdrv))
@@ -12490,7 +13132,7 @@ $Whbrush= New-Object System.Drawing.Drawing2D.LinearGradientBrush($poix,$poia,$d
 $Whbrush.InterpolationColors= $Cdbrend
 
 # 'black' set =====
-$black= [System.Drawing.Color]::FromArgb(236,34,59,71)		# 暗黒色改 Aは高級感 236,34,62,68
+$black= [System.Drawing.Color]::FromArgb(246,24,39,61) # 59,71)	# 暗黒色改 Aは高級感 236,34,62,68
 $naturalblack= [System.Drawing.Color]::FromArgb(216,0,11,0)	# 濡羽色 A:236
 $gr_black= [System.Drawing.Color]::FromArgb(124,0,11,0)		# a:184
 
@@ -12526,17 +13168,17 @@ $pastelblue= [System.Drawing.Color]::FromArgb(190,0,225,201)	#
 
 $lime= [System.Drawing.Color]::FromName("lime")
 $greenyellow= [System.Drawing.Color]::FromArgb(210,173,255,47)	# greenyellow
-$darkgreen= [System.Drawing.Color]::FromArgb(185,107,142,35) 	# olivedrab 107,142,35
+$darkgreen= [System.Drawing.Color]::FromArgb(185,107,162,35) 	# olivedrab 107,142,35
 $vividgreen= [System.Drawing.Color]::FromArgb(220,35,216,66) 	# 235,216,66
-$naturalgreen= [System.Drawing.Color]::FromArgb(241,154,205,50)	# yellowgreen
+$naturalgreen= [System.Drawing.Color]::FromArgb(241,154,215,50)	# yellowgreen
 $pastelgreen= [System.Drawing.Color]::FromArgb(190,140,220,61)	# 0,235,104
 
 $yellow= [System.Drawing.Color]::FromName("orange")		# RGup de yellow
 $gold= [System.Drawing.Color]::FromArgb(210,255,215,0)		# gold 255,215,0
-$darkorange= [System.Drawing.Color]::FromArgb(185,211,211,19)	# 206,211,16
-$vividorange= [System.Drawing.Color]::FromArgb(220,248,250,54)	# 242,246,25
-$naturalorange= [System.Drawing.Color]::FromArgb(241,236,248,69) # 239,254,48
-$pastelorange= [System.Drawing.Color]::FromArgb(190,254,244,34) # 254,255,21
+$darkorange= [System.Drawing.Color]::FromArgb(185,221,211,24)	# 206,211,16
+$vividorange= [System.Drawing.Color]::FromArgb(220,248,230,54)	# 242,246,25
+$naturalorange= [System.Drawing.Color]::FromArgb(241,241,233,75) # 239,254,48
+$pastelorange= [System.Drawing.Color]::FromArgb(190,254,248,34) # 254,255,21
 
 $magenta= [System.Drawing.Color]::FromName("magenta")
 $pink= [System.Drawing.Color]::FromArgb(210,255,182,193)	# lightpink
@@ -12590,7 +13232,7 @@ $Rpen= New-Object System.Drawing.Pen($pink, 7)
 	echo $_.exception
 	Write-Host '"ERROR: Safety Stopper >> Color object err"'
  }
- 
+ 	
 # cable pointer 
 
 # pos / 480,530
@@ -13003,7 +13645,7 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 	echo $_.exception
 	Write-Host '"ERROR: Safety Stopper >> global variable err"'
  }
- 	 
+  
 # ------ main 
 
  try{
@@ -13016,12 +13658,14 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 	$fm_xml= [xml]$xml_editor
   }
 
-
   # 連想配列化
+
   $val=@{}; $opt=@{}; $key=@{};
-  $comp=@{}; $play=@{}; $dosv=@{}; $edit=@{}; # only memory<- setting.xml
+  $mck= @{}; $nsd= @{}; $pmd= @{};
+  $play=@{}; $dos=@{}; $edit=@{};	# only memory<- setting.xml
+
   $hsmck= @{}; $hsvrc= @{}; $hs88= @{}; $hsx68= @{}; $hsefx= @{};
-  $header=@{}; $box_header=@{}; # replace mtx
+  $header=@{}; $box_header=@{};	# replace mtx
 
 
   # cat -> Out-String(改行あり)でstringへ
@@ -13063,7 +13707,7 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
   }
 
   #preset,FF読み込み
-  Preset_read > $null  # <- $comp["MC.EXE"] <- .\setting.xml
+  Preset_read > $null  # <- $pmd["MC.EXE"] <- .\setting.xml
 
 
 # write-host "------"
@@ -13109,13 +13753,18 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
   }
 
 
-
   [bool]$event_change= $True # 多重ロード防止
 
   Panel_chg $comb_fm.SelectedItem
 
   Send_build 1
-  Menu_build "compiler"
+
+  Menu_comp_build $opt["radio_bin"] > $null
+
+  Menu_build "mck"
+  Menu_build "nsd"
+  Menu_build "pmd"
+
   Menu_build "player"
   Menu_build "dos"
   Menu_build "editor"

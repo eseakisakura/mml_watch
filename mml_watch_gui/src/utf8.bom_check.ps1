@@ -44,8 +44,25 @@ function Path_read([string]$tt,[string]$xx){
 	} #
  } #func
 
+Path_read "..\" "*.txt"
+# Path_read "..\" "*.cmd"
+
 Path_read "..\script" "*.ps1"
 Path_read "..\script\preset" "*.*"
 Path_read "..\script\header" "*.*"
+Path_read "..\script\new" "*.mml"
+Path_read "..\script\temp" "*.txt"
+
+Path_read "..\src" "*.cs"
+Path_read "..\src" "*.ps1"
+
+Path_read "..\doc" "*.txt"
+
+Path_read "..\sample\mck" "*.mml"
+Path_read "..\sample\nsdlib" "*.mml"
+Path_read "..\sample\pmd" "*.mml"
+
+<#
+#>
 
 Read-Host "Fin"

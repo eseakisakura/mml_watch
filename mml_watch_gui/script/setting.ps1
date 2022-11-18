@@ -388,7 +388,6 @@ function Hash_read(){
 
 	Pamamter_read $opts["option"]
 
-	##$thru_chk.CheckState= $opts["chk_thru"]
 	$stop_chk.CheckState= $opts["chk_stop"]
 	$dos_chk.CheckState= $opts["chk_dos"]
 
@@ -469,10 +468,8 @@ function Hash_read(){
  
 function Write_hash(){ 
 
-
   $script:opts["option"]= Pamamter_write
 
-  ##$script:opts["chk_thru"]= [string]$thru_chk.CheckState
   $script:opts["chk_stop"]= [string]$stop_chk.CheckState
   $script:opts["chk_dos"]= [string]$dos_chk.CheckState
 
@@ -554,20 +551,11 @@ function Write_hash(){
  
 function Hash_read_cut(){ 
 
-
 	$sub_menu_opt.Enabled= $False # Command Line Option
-
-	$stop_label.Enabled= $False
-	##$thru_label.Enabled= $False
-
 	$stop_chk.CheckState= "Unchecked"
 	$stop_chk.Enabled= $False
 
-	##$thru_chk.CheckState= "Unchecked" # $LASTEXITCODE -> popupため不可
-	##$thru_chk.Enabled= $False
-
 	$dos_chk.CheckState= $opts["chk_dos"]
-
 
 	$listbox_mck.Items.Clear() # reset 2重読込対策
 	$listbox_nsd.Items.Clear()
@@ -638,61 +626,66 @@ function Write_hash_cut(){
 	$script:opts["chk_dos"]= [string]$dos_chk.CheckState
 
 
+  if([string]$radio_mck.Checked -eq 'True'){
+
 	switch($mck.Count){
 	0{	  $script:vals["mck"]= ""; break;
 	}1{	  $script:vals["mck"]= $mck.Values; break;
-	}default{ $script:vals["mck"]= $mck[[string]$listbox_mck.SelectedItem] # [string]キャスト必要
+	}default{	 $script:vals["mck"]= $mck[[string]$listbox_mck.SelectedItem] # [string]キャスト必要
 	}
 	} #sw
+
+	$script:opts["radio_bin"]= "mck"
+	$script:vals["compiler"]= $vals["mck"]
+
+
+  }elseif([string]$radio_nsd.Checked -eq 'True'){
 
 	switch($nsd.Count){
 	0{	  $script:vals["nsd"]= ""; break;
 	}1{	  $script:vals["nsd"]= $nsd.Values; break;
-	}default{ $script:vals["nsd"]= $nsd[[string]$listbox_nsd.SelectedItem]
+	}default{	 $script:vals["nsd"]= $nsd[[string]$listbox_nsd.SelectedItem]
 	}
 	} #sw
+
+	$script:opts["radio_bin"]= "nsd"
+	$script:vals["compiler"]= $vals["nsd"]
+
+
+  }elseif([string]$radio_pmd.Checked -eq 'True'){
 
 	switch($pmd.Count){
 	0{	  $script:vals["pmd"]= ""; break;
 	}1{	  $script:vals["pmd"]= $pmd.Values; break;
-	}default{ $script:vals["pmd"]= $pmd[[string]$listbox_pmd.SelectedItem]
+	}default{	 $script:vals["pmd"]= $pmd[[string]$listbox_pmd.SelectedItem]
 	}
 	} #sw
 
-	if([string]$radio_mck.Checked -eq 'True'){
-
-		$script:vals["compiler"]= $vals["mck"]
-
-	}elseif([string]$radio_nsd.Checked -eq 'True'){
-
-		$script:vals["compiler"]= $vals["nsd"]
-
-	}elseif([string]$radio_pmd.Checked -eq 'True'){
-
-		$script:vals["compiler"]= $vals["pmd"]
-	}
+	$script:opts["radio_bin"]= "pmd"
+	$script:vals["compiler"]= $vals["pmd"]
+  }
 
 	switch($ply.Count){
 	0{	  $script:vals["player"]= ""; break;
 	}1{	  $script:vals["player"]= $ply.Values; break;
-	}default{ $script:vals["player"]= $ply[[string]$listbox_ply.SelectedItem]
+	}default{	 $script:vals["player"]= $ply[[string]$listbox_ply.SelectedItem]
 	}
 	} #sw
 	switch($edt.Count){
 	0{	  $script:vals["editor"]= ""; break;
 	}1{	  $script:vals["editor"]= $edt.Values; break;
-	}default{ $script:vals["editor"]= $edt[[string]$listbox_edt.SelectedItem]
+	}default{	 $script:vals["editor"]= $edt[[string]$listbox_edt.SelectedItem]
 	}
 	} #sw
 
 	switch($dos.Count){
 	0{	  $script:vals["dos"]= ""; break;
 	}1{	  $script:vals["dos"]= $dos.Values; break;
-	}default{ $script:vals["dos"]= $dos[[string]$listbox_dos.SelectedItem]
+	}default{	 $script:vals["dos"]= $dos[[string]$listbox_dos.SelectedItem]
 	}
 	} #sw
  } #func
-  
+ 	 
 function Attend(){ 
 
 	[string]$ret= [Windows.Forms.MessageBox]::Show(
@@ -1079,7 +1072,7 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 	
 $pram_frm= New-Object System.Windows.Forms.Form 
 $pram_frm.Text= "Option"
-$pram_frm.Size= "248,302"
+$pram_frm.Size= "268,362"
 $pram_frm.Location= "500,0"
 
 $pram_frm.FormBorderStyle= "FixedSingle"
@@ -1110,7 +1103,7 @@ $pram_frm.Add_FormClosing({
 })
  
 $pram_tab= New-Object System.Windows.Forms.TabControl 
-$pram_tab.Size= "225,235"
+$pram_tab.Size= "245,255"
 $pram_tab.Location= "5,25"
 #$pram_tab.SelectedIndex= 0
 
@@ -1128,101 +1121,101 @@ $tab_pmd.Text= "pmd"
  
 $grp_mck= New-Object System.Windows.Forms.GroupBox 
 $grp_mck.Text= "Command Line Option"
-$grp_mck.Size= "205,130"
+$grp_mck.Size= "225,140"
 $grp_mck.Location= "5,5"
 $grp_mck.FlatStyle= "Flat"
 
 $grp_nsd= New-Object System.Windows.Forms.GroupBox
 $grp_nsd.Text= "Command Line Option"
-$grp_nsd.Size= "205,130"
+$grp_nsd.Size= "225,140"
 $grp_nsd.Location= "5,5"
 $grp_nsd.FlatStyle= "Flat"
 
 $grp_nsd2= New-Object System.Windows.Forms.GroupBox
 $grp_nsd2.Text= "Command Line Option"
-$grp_nsd2.Size= "205,150"
+$grp_nsd2.Size= "225,140"
 $grp_nsd2.Location= "5,5"
 $grp_nsd2.FlatStyle= "Flat"
 
 $grp_radio_pmd= New-Object System.Windows.Forms.GroupBox
 $grp_radio_pmd.Text= "opn,opl,opm,towns"
-$grp_radio_pmd.Size= "205,85"
+$grp_radio_pmd.Size= "225,100"
 $grp_radio_pmd.Location= "5,5"
 
 $grp_pmd= New-Object System.Windows.Forms.GroupBox
 $grp_pmd.Text= "Command Line Option"
-$grp_pmd.Size= "205,110"
-$grp_pmd.Location= "5,95"
+$grp_pmd.Size= "225,100"
+$grp_pmd.Location= "5,110"
 $grp_pmd.FlatStyle= "Flat"
  
 $radio_opn= New-Object System.Windows.Forms.RadioButton 
 $radio_opn.Text= "OPN" # /N
 $radio_opn.Size= "65,20"
-$radio_opn.Location= "20,20"
+$radio_opn.Location= "20,25"
 
 $radio_opl= New-Object System.Windows.Forms.RadioButton
 $radio_opl.Text= "OPL" # /L
 $radio_opl.Size= "65,20"
-$radio_opl.Location= "20,45"
+$radio_opl.Location= "20,55"
 
 $radio_opm= New-Object System.Windows.Forms.RadioButton
 $radio_opm.Text= "OPM" # /M
 $radio_opm.Size= "65,20"
-$radio_opm.Location= "95,20"
+$radio_opm.Location= "115,25"
 
 $radio_towns= New-Object System.Windows.Forms.RadioButton
 $radio_towns.Text= "TOWNS" # /T
 $radio_towns.Size= "65,20"
-$radio_towns.Location= "95,45"
+$radio_towns.Location= "115,55"
  
 $add_chk_pmd= New-Object System.Windows.Forms.CheckBox 
-$add_chk_pmd.Text= "/V :mへFM音色データ添付"
-$add_chk_pmd.Size= "190,20"
+$add_chk_pmd.Text= "/V : mへFM音色データ添付"
+$add_chk_pmd.Size= "210,20"
 $add_chk_pmd.Location= "10,20"
 
 $part_chk_pmd= New-Object System.Windows.Forms.CheckBox
-$part_chk_pmd.Text= "/C :パート毎の長さを表示"
-$part_chk_pmd.Size= "190,20"
+$part_chk_pmd.Text= "/C : パート毎の長さを表示"
+$part_chk_pmd.Size= "210,20"
 $part_chk_pmd.Location= "10,40"
  
 $bank_chk_nsd= New-Object System.Windows.Forms.CheckBox 
-$bank_chk_nsd.Text= "-od :バンク最適化[def.chkoff]"
-$bank_chk_nsd.Size= "190,20"
+$bank_chk_nsd.Text= "-od : バンク最適化[def.chkoff]"
+$bank_chk_nsd.Size= "210,20"
 $bank_chk_nsd.Location= "10,20"
 
 $env_chk_nsd= New-Object System.Windows.Forms.CheckBox
-$env_chk_nsd.Text= "-oo :未使用Sub,Envの削除"
-$env_chk_nsd.Size= "190,20"
+$env_chk_nsd.Text= "-oo : 未使用Sub,Envの削除"
+$env_chk_nsd.Size= "210,20"
 $env_chk_nsd.Location= "10,40"
 
 $sqr_chk_nsd= New-Object System.Windows.Forms.CheckBox
-$sqr_chk_nsd.Text= "-os :SqrDataの最適化"
-$sqr_chk_nsd.Size= "190,20"
+$sqr_chk_nsd.Text= "-os : SqrDataの最適化"
+$sqr_chk_nsd.Size= "210,20"
 $sqr_chk_nsd.Location= "10,60"
 
 $err_chk_nsd= New-Object System.Windows.Forms.CheckBox
-$err_chk_nsd.Text= "-e :err/warningをエラー出力へ"
-$err_chk_nsd.Size= "190,20"
+$err_chk_nsd.Text= "-e : err/warningをエラー出力へ"
+$err_chk_nsd.Size= "210,20"
 $err_chk_nsd.Location= "10,80"
 
 $find_chk_nsd= New-Object System.Windows.Forms.CheckBox
-$find_chk_nsd.Text= "-s :検索パスの検索結果を出力"
-$find_chk_nsd.Size= "190,20"
+$find_chk_nsd.Text= "-s : 検索パスの検索結果を出力"
+$find_chk_nsd.Size= "210,20"
 $find_chk_nsd.Location= "10,100"
  
 $asm_chk_nsd= New-Object System.Windows.Forms.CheckBox 
-$asm_chk_nsd.Text= "-a :アセンブリへ変換"
-$asm_chk_nsd.Size= "190,20"
+$asm_chk_nsd.Text= "-a : アセンブリへ変換"
+$asm_chk_nsd.Size= "210,20"
 $asm_chk_nsd.Location= "10,20"
 
 $nsf_chk_nsd= New-Object System.Windows.Forms.CheckBox
-$nsf_chk_nsd.Text= "-n :NSFへ変換"
-$nsf_chk_nsd.Size= "190,20"
+$nsf_chk_nsd.Text= "-n : NSFへ変換"
+$nsf_chk_nsd.Size= "210,20"
 $nsf_chk_nsd.Location= "10,40"
 
 $label_ver_nsd= New-Object System.Windows.Forms.Label
-$label_ver_nsd.Text= "-v :NSF version"
-$label_ver_nsd.Size= "125,20"
+$label_ver_nsd.Text= "-v : NSF version"
+$label_ver_nsd.Size= "140,20"
 $label_ver_nsd.Location= "65,65"
 $label_ver_nsd.TextAlign= "BottomLeft"
 
@@ -1235,23 +1228,23 @@ $comb_ver_nsd.DropDownStyle= "DropDownList"
 $comb_ver_nsd.SelectedIndex= 1
 
 $nsfe_chk_nsd= New-Object System.Windows.Forms.CheckBox
-$nsfe_chk_nsd.Text= "-x :NSFeへ変換"
-$nsfe_chk_nsd.Size= "190,20"
+$nsfe_chk_nsd.Text= "-x : NSFeへ変換"
+$nsfe_chk_nsd.Size= "210,20"
 $nsfe_chk_nsd.Location= "10,90"
  
 $env_chk_mck= New-Object System.Windows.Forms.CheckBox 
-$env_chk_mck.Text= '-i :"effect.h"にSqrDataを追加'
-$env_chk_mck.Size= "190,20"
+$env_chk_mck.Text= '-i : "effect.h"にSqrDataを追加'
+$env_chk_mck.Size= "210,20"
 $env_chk_mck.Location= "10,20"
 
 $lang_chk_mck= New-Object System.Windows.Forms.CheckBox
-$lang_chk_mck.Text= "-m :Languageの選択[Jpn,Eng]"
-$lang_chk_mck.Size= "190,20"
+$lang_chk_mck.Text= "-m : English Language"
+$lang_chk_mck.Size= "210,20"
 $lang_chk_mck.Location= "10,40"
 
 $warn_chk_mck= New-Object System.Windows.Forms.CheckBox
-$warn_chk_mck.Text= "-w :Warningを表示しない"
-$warn_chk_mck.Size= "190,20"
+$warn_chk_mck.Text= "-w : Warningを表示しない"
+$warn_chk_mck.Size= "210,20"
 $warn_chk_mck.Location= "10,60"
  
 $pram_mnu= New-Object System.Windows.Forms.MenuStrip 
@@ -1330,18 +1323,18 @@ $baloon.ToolTipTitle= 'Path: '
 $baloon.AutomaticDelay= 667
  
 $tab= New-Object System.Windows.Forms.TabControl 
-$tab.Size= "225,205"
+$tab.Size= "245,255"
 $tab.Location= "5,25"
  
 # tab_mml 
-	 
+	
 $tab_mml= New-Object System.Windows.Forms.TabPage 
 $tab_mml.Text= "mml"
 
  
 $label_mml= New-Object System.Windows.Forms.Label 
 $label_mml.Text= "MMLファイル"
-$label_mml.Size= "190,15"
+$label_mml.Size= "190,20"
 $label_mml.Location= "10,5"
  
 $contxt_mml= New-Object System.Windows.Forms.ContextMenuStrip 
@@ -1350,7 +1343,6 @@ $contxt_mml= New-Object System.Windows.Forms.ContextMenuStrip
 [void]$contxt_mml.Items.Add("Editor")
 [void]$contxt_mml.Items.Add("Folder")
 [void]$contxt_mml.Items.Add("Remove")
-[void]$contxt_mml.Items.Add("All Clear")
 
 $contxt_mml.Add_ItemClicked({
 
@@ -1358,11 +1350,6 @@ $contxt_mml.Add_ItemClicked({
 
 	'Cancel'{
 		$listbox_mml.SelectedItem= $null
-		break;
-
-	}'All Clear'{
-		$listbox_mml.Items.Clear()
-		$script:mml= @{}
 		break;
 
 	}'Remove'{
@@ -1387,10 +1374,10 @@ $contxt_mml.Add_ItemClicked({
 
 	$this.Close()
 })
- 	
+ 
 $listbox_mml= New-Object System.Windows.Forms.ListBox 
-$listbox_mml.Size= "200,60"
-$listbox_mml.Location= "5,30"
+$listbox_mml.Size= "220,90"
+$listbox_mml.Location= "5,25"
 
 $listbox_mml.ContextMenuStrip= $contxt_mml
 $listbox_mml.AllowDrop= $True
@@ -1422,8 +1409,8 @@ $listbox_mml.Add_DragDrop({
  
 $label_dmc= New-Object System.Windows.Forms.Label 
 $label_dmc.Text= "環境変数DMC/PMDフォルダ"
-$label_dmc.Size= "190,15"
-$label_dmc.Location= "10,95"
+$label_dmc.Size= "190,20"
+$label_dmc.Location= "10,115"
  
 $contxt_dmc= New-Object System.Windows.Forms.ContextMenuStrip 
 
@@ -1463,8 +1450,8 @@ $contxt_dmc.Add_ItemClicked({
 })
  
 $listbox_dmc= New-Object System.Windows.Forms.ListBox 
-$listbox_dmc.Size= "200,60"
-$listbox_dmc.Location= "5,120"
+$listbox_dmc.Size= "220,90"
+$listbox_dmc.Location= "5,135"
 
 $listbox_dmc.ContextMenuStrip= $contxt_dmc
 $listbox_dmc.AllowDrop= $True
@@ -1500,22 +1487,22 @@ $tab_bin= New-Object System.Windows.Forms.TabPage
 $tab_bin.Text= "binary"
  
 $radio_grp= New-Object System.Windows.Forms.GroupBox 
-$radio_grp.Text= "PMD,mck,NSD"
-$radio_grp.Size= "120,105"
+$radio_grp.Text= "mck,NSD,PMD"
+$radio_grp.Size= "140,120"
 $radio_grp.Location= "10,5"
  
 <# $label_bin= New-Object System.Windows.Forms.Label 
-$label_bin.Text= "コンパイラファイル"
+$label_bin.Text= "compilerファイル"
 $label_bin.Size= "190,15"
 $label_bin.Location= "10,95"
 #>
  
 # mck ------ 
-	 
+	
 $radio_mck= New-Object System.Windows.Forms.RadioButton 
 $radio_mck.Text= "ppmck"
-$radio_mck.Size= "65,20"
-$radio_mck.Location= "20,20"
+$radio_mck.Size= "100,20"
+$radio_mck.Location= "20,25"
 
 $radio_mck.Add_CheckedChanged({
 
@@ -1556,8 +1543,8 @@ $contxt_mck.Add_ItemClicked({
 })
  
 $listbox_mck= New-Object System.Windows.Forms.ListBox 
-$listbox_mck.Size= "200,60"
-$listbox_mck.Location= "5,120"
+$listbox_mck.Size= "220,90"
+$listbox_mck.Location= "5,135"
 
 $listbox_mck.ContextMenuStrip= $contxt_mck
 $listbox_mck.AllowDrop= $True
@@ -1588,11 +1575,11 @@ $listbox_mck.Add_DragDrop({
 })
   
 # nsd ------ 
-	 
+	
 $radio_nsd= New-Object System.Windows.Forms.RadioButton 
 $radio_nsd.Text= "NSDlib"
-$radio_nsd.Size= "65,20"
-$radio_nsd.Location= "20,45" # $from radio_grp Location
+$radio_nsd.Size= "100,20"
+$radio_nsd.Location= "20,55" # $from radio_grp Location
 
 $radio_nsd.Add_CheckedChanged({
 
@@ -1633,8 +1620,8 @@ $contxt_nsd.Add_ItemClicked({
 })
  
 $listbox_nsd= New-Object System.Windows.Forms.ListBox 
-$listbox_nsd.Size= "200,60"
-$listbox_nsd.Location= "5,120"
+$listbox_nsd.Size= "220,90"
+$listbox_nsd.Location= "5,135"
 
 $listbox_nsd.ContextMenuStrip= $contxt_nsd
 $listbox_nsd.AllowDrop= $True
@@ -1673,11 +1660,11 @@ $listbox_nsd.Add_DragDrop({
 })
   
 # pmd ------ 
-	 
+	
 $radio_pmd= New-Object System.Windows.Forms.RadioButton 
 $radio_pmd.Text= "P.M.D"
-$radio_pmd.Size= "65,20"
-$radio_pmd.Location= "20,70"
+$radio_pmd.Size= "100,20"
+$radio_pmd.Location= "20,85"
 
 $radio_pmd.Add_CheckedChanged({
 
@@ -1718,8 +1705,8 @@ $contxt_pmd.Add_ItemClicked({
 })
  
 $listbox_pmd= New-Object System.Windows.Forms.ListBox 
-$listbox_pmd.Size= "200,60"
-$listbox_pmd.Location= "5,120"
+$listbox_pmd.Size= "220,90"
+$listbox_pmd.Location= "5,135"
 
 $listbox_pmd.ContextMenuStrip= $contxt_pmd
 $listbox_pmd.AllowDrop= $True
@@ -1765,6 +1752,8 @@ $contxt_ply= New-Object System.Windows.Forms.ContextMenuStrip
 [void]$contxt_ply.Items.Add("Open")
 [void]$contxt_ply.Items.Add("Folder")
 [void]$contxt_ply.Items.Add("Remove")
+[void]$contxt_ply.Items.Add("All Clear")
+
 
 $contxt_ply.Add_ItemClicked({
 
@@ -1777,6 +1766,11 @@ $contxt_ply.Add_ItemClicked({
 	}'Remove'{
 		$script:ply.Remove([string]$listbox_ply.SelectedItem)
 		$listbox_ply.Items.Remove([string]$listbox_ply.SelectedItem)
+		break;
+
+	}'All Clear'{
+		$listbox_ply.Items.Clear()
+		$script:ply= @{}
 		break;
 
 	}'Folder'{
@@ -1798,8 +1792,8 @@ $contxt_ply.Add_ItemClicked({
 })
  
 $listbox_ply= New-Object System.Windows.Forms.ListBox 
-$listbox_ply.Size= "200,110"
-$listbox_ply.Location= "5,30"
+$listbox_ply.Size= "220,170"
+$listbox_ply.Location= "5,25"
 
 $listbox_ply.ContextMenuStrip= $contxt_ply
 $listbox_ply.AllowDrop= $True
@@ -1830,16 +1824,16 @@ $listbox_ply.Add_DragDrop({
 })
  
 $stop_chk= New-Object System.Windows.Forms.CheckBox 
-$stop_chk.Text= "/stopコマンド(winamp)"
-$stop_chk.Size= "200,20"
-$stop_chk.Location= "10,135"
+$stop_chk.Text= "/stopコマンド(for winamp )"
+$stop_chk.Size= "220,20"
+$stop_chk.Location= "10,190"
+ 
+<# 
  
 $stop_label= New-Object System.Windows.Forms.Label 
 $stop_label.Text= "※コンパイル前、stopコマンド出力"
-$stop_label.Size= "190,15"
-$stop_label.Location= "10,155"
- 
-<# 
+$stop_label.Size= "220,20"
+$stop_label.Location= "10,200"
  
 $thru_chk= New-Object System.Windows.Forms.CheckBox 
 $thru_chk.Text= "compiler内蔵プレイヤー"
@@ -1853,6 +1847,100 @@ $thru_label.Location= "10,155"
  
 #> 
   
+# tab_edt 
+	
+$tab_edt= New-Object System.Windows.Forms.TabPage 
+$tab_edt.Text= "editor"
+ 
+$label_edt= New-Object System.Windows.Forms.Label 
+$label_edt.Text= "エディタファイル"
+$label_edt.Size= "190,20"
+$label_edt.Location= "10,5"
+ 
+$contxt_edt= New-Object System.Windows.Forms.ContextMenuStrip 
+
+[void]$contxt_edt.Items.Add("Cancel")
+[void]$contxt_edt.Items.Add("Open")
+[void]$contxt_edt.Items.Add("Folder")
+[void]$contxt_edt.Items.Add("Remove")
+[void]$contxt_edt.Items.Add("All Clear")
+
+
+$contxt_edt.Add_ItemClicked({
+
+	switch([string]$_.ClickedItem){ # キャスト必要
+
+	'Cancel'{
+		$listbox_edt.SelectedItem= $null
+		break;
+
+	}'Remove'{
+		$script:edt.Remove([string]$listbox_edt.SelectedItem)
+		$listbox_edt.Items.Remove([string]$listbox_edt.SelectedItem)
+		break;
+
+	}'All Clear'{
+		$listbox_edt.Items.Clear()
+		$script:edt= @{}
+		break;
+
+	}'Folder'{
+		if($listbox_edt.SelectedItem -ne $null){
+
+			Folder_open 1 $edt[[string]$listbox_edt.SelectedItem] > $null
+		}
+		break;
+
+	}'Open'{
+		if($listbox_edt.SelectedItem -ne $null){
+
+			Folder_open 0 $edt[[string]$listbox_edt.SelectedItem] > $null
+		}
+	}
+	} #sw
+
+	$this.Close()
+})
+ 
+$listbox_edt= New-Object System.Windows.Forms.ListBox 
+$listbox_edt.Size= "220,170"
+$listbox_edt.Location= "5,25"
+
+$listbox_edt.ContextMenuStrip= $contxt_edt
+$listbox_edt.AllowDrop= $True
+
+$listbox_edt.Add_MouseUp({
+
+	if([string]$_.Button -eq 'Left'){
+
+		$baloon.SetToolTip($listbox_edt,$edt[[string]$listbox_edt.SelectedItem])
+	}
+})
+
+$listbox_edt.Add_MouseDoubleClick({
+
+	Folder_open 0 $edt[[string]$listbox_edt.SelectedItem] > $null
+})
+
+$listbox_edt.Add_DragEnter({
+
+	$_.Effect= "All"
+})
+
+$listbox_edt.Add_DragDrop({
+
+	$script:args_path= $_.Data.GetData("FileDrop")
+
+	Drag_drop "edt" $args_path
+})
+ 
+$label_edt_read= New-Object System.Windows.Forms.Label 
+$label_edt_read.Text= "※エディタ、mml リスト右クリック"
+$label_edt_read.Size= "220,20"
+$label_edt_read.Location= "10,190"
+# $label_edt_read.ForeColor= "Gray"
+# $label_edt_read.BackColor= "White"
+  
 # tab_dos 
 	
 $tab_dos= New-Object System.Windows.Forms.TabPage 
@@ -1860,7 +1948,7 @@ $tab_dos.Text= "dos"
  
 $label_dos= New-Object System.Windows.Forms.Label 
 $label_dos.Text= "ドスプロンプト"
-$label_dos.Size= "190,15"
+$label_dos.Size= "190,20"
 $label_dos.Location= "10,5"
  
 $contxt_dos= New-Object System.Windows.Forms.ContextMenuStrip 
@@ -1902,8 +1990,8 @@ $contxt_dos.Add_ItemClicked({
 })
  
 $listbox_dos= New-Object System.Windows.Forms.ListBox 
-$listbox_dos.Size= "200,60"
-$listbox_dos.Location= "5,30"
+$listbox_dos.Size= "220,90"
+$listbox_dos.Location= "5,25"
 
 $listbox_dos.ContextMenuStrip= $contxt_dos
 $listbox_dos.AllowDrop= $True
@@ -1935,101 +2023,13 @@ $listbox_dos.Add_DragDrop({
  
 $dos_chk= New-Object System.Windows.Forms.CheckBox 
 $dos_chk.Text= "x64対応"
-$dos_chk.Size= "200,20"
-$dos_chk.Location= "10,85"
+$dos_chk.Size= "190,20"
+$dos_chk.Location= "10,115"
  
 $label_dos_read= New-Object System.Windows.Forms.Label 
 $label_dos_read.Text= "※16bitPMD running 64bitOS"
-$label_dos_read.Size= "190,15"
-$label_dos_read.Location= "10,105"
-  
-# tab_edt 
-	
-$tab_edt= New-Object System.Windows.Forms.TabPage 
-$tab_edt.Text= "editor"
- 
-$label_edt= New-Object System.Windows.Forms.Label 
-$label_edt.Text= "エディタファイル"
-$label_edt.Size= "190,15"
-$label_edt.Location= "10,5"
- 
-$contxt_edt= New-Object System.Windows.Forms.ContextMenuStrip 
-
-[void]$contxt_edt.Items.Add("Cancel")
-[void]$contxt_edt.Items.Add("Open")
-[void]$contxt_edt.Items.Add("Folder")
-[void]$contxt_edt.Items.Add("Remove")
-
-$contxt_edt.Add_ItemClicked({
-
-	switch([string]$_.ClickedItem){ # キャスト必要
-
-	'Cancel'{
-		$listbox_edt.SelectedItem= $null
-		break;
-
-	}'Remove'{
-		$script:edt.Remove([string]$listbox_edt.SelectedItem)
-		$listbox_edt.Items.Remove([string]$listbox_edt.SelectedItem)
-		break;
-
-	}'Folder'{
-		if($listbox_edt.SelectedItem -ne $null){
-
-			Folder_open 1 $edt[[string]$listbox_edt.SelectedItem] > $null
-		}
-		break;
-
-	}'Open'{
-		if($listbox_edt.SelectedItem -ne $null){
-
-			Folder_open 0 $edt[[string]$listbox_edt.SelectedItem] > $null
-		}
-	}
-	} #sw
-
-	$this.Close()
-})
- 
-$listbox_edt= New-Object System.Windows.Forms.ListBox 
-$listbox_edt.Size= "200,110"
-$listbox_edt.Location= "5,30"
-
-$listbox_edt.ContextMenuStrip= $contxt_edt
-$listbox_edt.AllowDrop= $True
-
-$listbox_edt.Add_MouseUp({
-
-	if([string]$_.Button -eq 'Left'){
-
-		$baloon.SetToolTip($listbox_edt,$edt[[string]$listbox_edt.SelectedItem])
-	}
-})
-
-$listbox_edt.Add_MouseDoubleClick({
-
-	Folder_open 0 $edt[[string]$listbox_edt.SelectedItem] > $null
-})
-
-$listbox_edt.Add_DragEnter({
-
-	$_.Effect= "All"
-})
-
-$listbox_edt.Add_DragDrop({
-
-	$script:args_path= $_.Data.GetData("FileDrop")
-
-	Drag_drop "edt" $args_path
-})
- 
-$label_edt_read= New-Object System.Windows.Forms.Label 
-$label_edt_read.Text= "※エディタ、mml リスト右クリック"
-$label_edt_read.Size= "190,15"
-$label_edt_read.Location= "10,155"
-# $label_edt_read.ForeColor= "Gray"
-# $label_edt_read.BackColor= "White"
-
+$label_dos_read.Size= "220,20"
+$label_dos_read.Location= "10,135"
   
 $dia= New-Object System.Windows.Forms.SaveFileDialog 
 # ファイル選択ダイアログ
@@ -2040,8 +2040,8 @@ $dia.RestoreDirectory= "True"
  
 $ok_btn= New-Object System.Windows.Forms.Button 
 $ok_btn.Text= "OK"
-$ok_btn.Size= "75,25"
-$ok_btn.Location= "65,234"
+$ok_btn.Size= "90,30"
+$ok_btn.Location= "65,284"
 
 $ok_btn.DialogResult= "OK"
 
@@ -2052,8 +2052,8 @@ $ok_btn.Add_Click({
  
 $cancel_btn= New-Object System.Windows.Forms.Button 
 $cancel_btn.Text= "Cancel"
-$cancel_btn.Size= "75,25"
-$cancel_btn.Location= "145,234"
+$cancel_btn.Size= "90,30"
+$cancel_btn.Location= "160,284"
 
 $cancel_btn.DialogResult= "Cancel"
 
@@ -2064,7 +2064,7 @@ $cancel_btn.Add_Click({
  
 $sub_f= New-Object System.Windows.Forms.Form 
 $sub_f.Text= "環境設定"
-$sub_f.Size= "248,302"
+$sub_f.Size= "268,362"
 $sub_f.Location= "150,0"
 $sub_f.FormBorderStyle= "FixedSingle"
 $sub_f.StartPosition= "WindowsDefaultLocation"
@@ -2301,8 +2301,7 @@ $tab_mml.Controls.AddRange(@($label_mml,$listbox_mml,$label_dmc,$listbox_dmc))
 $radio_grp.Controls.AddRange(@($radio_mck,$radio_nsd,$radio_pmd))
 $tab_bin.Controls.AddRange(@($radio_grp,$listbox_mck,$listbox_nsd,$listbox_pmd))
 
-##$tab_ply.Controls.AddRange(@($label_ply,$listbox_ply,$stop_chk,$stop_label,$thru_chk,$thru_label))
-$tab_ply.Controls.AddRange(@($label_ply,$listbox_ply,$stop_chk,$stop_label))
+$tab_ply.Controls.AddRange(@($label_ply,$listbox_ply,$stop_chk))
 $tab_dos.Controls.AddRange(@($label_dos,$listbox_dos,$dos_chk,$label_dos_read))
 $tab_edt.Controls.AddRange(@($label_edt,$listbox_edt,$label_edt_read))
 
@@ -2359,8 +2358,8 @@ $sub_f.AcceptButton= $ok_btn		# [Enter]
 	$sub_menu_f.DropDownItems.AddRange(@($sub_menu_a,$sub_menu_sn,$sub_menu_n))
 
 	$script:opts["radio_bin"]= Box_radio $vals["compiler"] # radioを選択
-
 	Hash_read_cut # List化
+
   }
   } #sw
 

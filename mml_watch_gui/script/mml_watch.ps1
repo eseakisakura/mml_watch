@@ -35,9 +35,11 @@ $xml_watch= @'
 function Mck_trans([string]$file){ 
 
 
-	if($opt["chk_stop"] -eq 'Checked'){
+	if($opt["play_open"] -eq "true"){
+		if($opt["chk_stop"] -eq 'Checked'){
 
-		Player_open 1 $val["player"] > $null
+			Player_open 1 $val["player"] > $null
+		}
 	}
 
 	Write-Host ""
@@ -45,9 +47,10 @@ function Mck_trans([string]$file){
 	[string[]]$eor= "",""
 	[string[]]$output= "",""
 
-	# mml,bin,dmc
 
+	# mml,bin,dmc,param
 	[string[]]$rr= $file,$val["compiler"],$val["dmcdir"],$comlin[0]
+
 	$output= Mkmck $rr
 
 	sleep -m 33
@@ -81,9 +84,9 @@ function Mck_trans([string]$file){
 			$err_box.Text+= $eor[1]+ "`r`n"
 
 		}else{
-			if($opt["play_open"] -eq "True"){
+			if($opt["play_open"] -eq "true"){
 
-				Player_open 2 $val["player"] ('"'+ $dpn+ '.nsf"') > $null
+				Player_open 2 $val["player"] ($dpn+ '.nsf') > $null
 			}
 		}
 	}
@@ -92,9 +95,11 @@ function Mck_trans([string]$file){
 function Nsd_trans([string]$file){ 
 
 
-	if($opt["chk_stop"] -eq 'Checked'){
+	if($opt["play_open"] -eq "true"){
+		if($opt["chk_stop"] -eq 'Checked'){
 
-		Player_open 1 $val["player"] > $null
+			Player_open 1 $val["player"] > $null
+		}
 	}
 
 	Write-Host ""
@@ -102,9 +107,10 @@ function Nsd_trans([string]$file){
 	[string[]]$eor= "",""
 	[string[]]$output= "",""
 
-	# mml,bin,dmc
 	# 配列確保で通る
+	# mml,bin,dmc,param
 	[string[]]$rr= $file,$val["compiler"],$val["dmcdir"],$comlin[1]
+
 	$output= Mknsd $rr
 
 	sleep -m 33 # 異常時用ウェイト
@@ -138,9 +144,9 @@ function Nsd_trans([string]$file){
 			$err_box.Text+= $eor[1]+ "`r`n"
 
 		}else{
-			if($opt["play_open"] -eq "True"){
+			if($opt["play_open"] -eq "true"){
 				# '"' 空白パス対応
-				Player_open 2 $val["player"] ('"'+ $dpn+ '.nsf"') > $null
+				Player_open 2 $val["player"] ($dpn+ '.nsf') > $null
 			}
 		}
 	}
@@ -149,9 +155,11 @@ function Nsd_trans([string]$file){
 function Pmd_trans([string]$file){ 
 
 
-	if($opt["chk_stop"] -eq 'Checked'){
+	if($opt["play_open"] -eq "true"){
+		if($opt["chk_stop"] -eq 'Checked'){
 
-		Player_open 1 $val["player"] > $null
+			Player_open 1 $val["player"] > $null
+		}
 	}
 
 	Write-Host ""
@@ -159,9 +167,10 @@ function Pmd_trans([string]$file){
 	[string[]]$eor= "",""
 	[string[]]$output= "",""
 
-	# mml,bin,dmc
 
+	# mml,bin,dmc,param,dos,dos_chk
 	[string[]]$rr= $file,$val["compiler"],$val["dmcdir"],$comlin[2],$val["dos"],$opt["chk_dos"]
+
 	$output= Mkpmd $rr
 
 	sleep -m 33
@@ -195,9 +204,9 @@ function Pmd_trans([string]$file){
 			$err_box.Text+= $eor[1]+ "`r`n"
 
 		}else{
-			if($opt["play_open"] -eq "True"){
+			if($opt["play_open"] -eq "true"){
 
-				Player_open 2 $val["player"] ('"'+ $dpn+ '.m"') > $null
+				Player_open 2 $val["player"] ($dpn+ '.m') > $null
 			}
 		}
 	}
@@ -307,8 +316,7 @@ function Console_out([string[]]$ph){
 	} #sw
 
 	Write-Host "" # 改行
-	Write-Host $ph[0]
-	Write-Host ($ph[1]+ $ph[2])
+	Write-Host ($ph[0]+ $ph[1]+ $ph[2])
 	Write-Host ""
 	Write-Host ($rot[0]+ "`r`n"+ $val["mmlfile"]) # full path
 	Write-Host ($rot[1]+ "`r`n"+ $val["compiler"])
@@ -317,8 +325,7 @@ function Console_out([string[]]$ph){
 	Write-Host ""
 
 
-	$csl_box.Lines= $ph[0],
-			($ph[1]+ $ph[2]),
+	$csl_box.Lines= 	($ph[0]+ $ph[1]+ $ph[2]),
 			$rot[0],(" : "+ $f[0][0]), # file name
 			$rot[1],(" : "+ $f[1][0]),
 			$rot[2],(" : "+ $f[2][0]),
@@ -368,7 +375,7 @@ function Status_cheker(){
 
 		if($opt["chk_stop"] -eq 'Checked'){
 
-			$c= " /stopコマンド付"
+			$c= " /stop コマンド"
 		}
 
 	}else{
@@ -395,7 +402,7 @@ function Play_setpath(){
 
 	if($stus -ne 0){
 
-		[string]$eor= ('監視環境が不足 ERR Level>> '+ $stus)
+		[string]$eor= ('稼働環境が不足 ERR Level>> '+ $stus)
 
 		$err_box.Text= $eor+ "`r`n"
 		Write-Host $eor
@@ -466,7 +473,7 @@ function Wait_setpath(){
  } #func
   
 # toggle 
-	
+	 
 function Toggle_label(){ 
 
 
@@ -563,9 +570,25 @@ function Watch_Setting(){
 
 		$script:set_xml= [xml](cat '.\setting.xml')
 
-		$script:edit=@{}; #sted tame
-		Helpxml_read $script:set_xml.table # hash化
+		$script:mml= @{};
+		$script:play= @{};
+		$script:mck= @{};
+		$script:nsd= @{};
+		$script:pmd= @{};
+		$script:edit=@{};
+		$script:dos= @{};
 
+		Setxml_read $script:set_xml.table # hash化 # $play.Keys
+
+		Wthmenu_build "mmlfile"
+		Wthmenu_build "mck"
+		Wthmenu_build "nsd"
+		Wthmenu_build "pmd"
+		Wthmenu_build "player"
+		Wthmenu_build "editor"
+		Wthmenu_build "dos"
+
+		Menu_comp_build $opt["radio_bin"] > $null
 	}
 
 	$frm.AllowDrop= $True
@@ -662,7 +685,7 @@ function Watch_Drop(){
  } #func
   
 # gui 
-	
+	 
 function Contxt_chg([string]$sw,[int]$chg){ 
 
 	switch($sw){
@@ -779,19 +802,484 @@ function Auto_start([string]$t){
 
 	return $t
  } #func
+ 
+function Menu_comp_build([string]$t){ 
+
+	switch($t){
+	'mck'{
+		$menu_cmck.Text= "[v] MCK"
+		$menu_cnsd.Text= "NSD"
+		$menu_cpmd.Text= "PMD"
+		break;
+	}'nsd'{
+		$menu_cmck.Text= "MCK"
+		$menu_cnsd.Text= "[v] NSD"
+		$menu_cpmd.Text= "PMD"
+		break;
+	}'pmd'{
+		$menu_cmck.Text= "MCK"
+		$menu_cnsd.Text= "NSD"
+		$menu_cpmd.Text= "[v] PMD"
+	}
+	} #sw
+
+	return $t
+ } #func
+ 
+function Wthmenu_build([string]$sw){ 
+
+  [string]$d= "[v] "
+
+  [string[]]$n= Split_path $val[$sw]
+
+  switch($sw){
+
+  'mmlfile'{
+	[array]$w= $mml.Keys
+
+	$menu_mml0.Visible= $False
+	$menu_mml1.Visible= $False
+	$menu_mml2.Visible= $False
+	$menu_mml3.Visible= $False
+
+	if($w.Length -ge 1){
+
+		$menu_mml0.Visible= $True
+
+		if($n[0] -eq $w[0]){ $menu_mml0.Text= $d+ $w[0]
+		}else{ $menu_mml0.Text= $w[0]
+		}
+
+		if($w.Length -ge 2){
+
+		$menu_mml1.Visible= $True
+
+		if($n[0] -eq $w[1]){ $menu_mml1.Text= $d+ $w[1]
+		}else{ $menu_mml1.Text= $w[1]
+		}
+
+			if($w.Length -ge 3){
+
+		$menu_mml2.Visible= $True
+
+		if($n[0] -eq $w[2]){ $menu_mml2.Text= $d+ $w[2]
+		}else{ $menu_mml2.Text= $w[2]
+		}
+
+				if($w.Length -ge 4){
+
+		$menu_mml3.Visible= $True
+
+		if($n[0] -eq $w[3]){ $menu_mml3.Text= $d+ $w[3]
+		}else{ $menu_mml3.Text= $w[3]
+		}
+				}
+			}
+		}
+	}
+	break;
+
+  }'mck'{
+	[array]$w= $mck.Keys
+
+	$menu_mck0.Visible= $False
+	$menu_mck1.Visible= $False
+	$menu_mck2.Visible= $False
+	$menu_mck3.Visible= $False
+
+	if($w.Length -ge 1){
+
+		$menu_mck0.Visible= $True
+
+		if($n[0] -eq $w[0]){ $menu_mck0.Text= $d+ $w[0]
+		}else{ $menu_mck0.Text= $w[0]
+		}
+
+		if($w.Length -ge 2){
+
+		$menu_mck1.Visible= $True
+
+		if($n[0] -eq $w[1]){ $menu_mck1.Text= $d+ $w[1]
+		}else{ $menu_mck1.Text= $w[1]
+		}
+
+			if($w.Length -ge 3){
+
+		$menu_mck2.Visible= $True
+
+		if($n[0] -eq $w[2]){ $menu_mck2.Text= $d+ $w[2]
+		}else{ $menu_mck2.Text= $w[2]
+		}
+
+				if($w.Length -ge 4){
+
+		$menu_mck3.Visible= $True
+
+		if($n[0] -eq $w[3]){ $menu_mck3.Text= $d+ $w[3]
+		}else{ $menu_mck3.Text= $w[3]
+		}
+				}
+			}
+		}
+	}
+	break;
+
+  }'nsd'{
+	[array]$w= $nsd.Keys
+
+	$menu_nsd0.Visible= $False
+	$menu_nsd1.Visible= $False
+	$menu_nsd2.Visible= $False
+	$menu_nsd3.Visible= $False
+
+	if($w.Length -ge 1){
+
+		$menu_nsd0.Visible= $True
+
+		if($n[0] -eq $w[0]){ $menu_nsd0.Text= $d+ $w[0]
+		}else{ $menu_nsd0.Text= $w[0]
+		}
+
+		if($w.Length -ge 2){
+
+		$menu_nsd1.Visible= $True
+
+		if($n[0] -eq $w[1]){ $menu_nsd1.Text= $d+ $w[1]
+		}else{ $menu_nsd1.Text= $w[1]
+		}
+
+			if($w.Length -ge 3){
+
+		$menu_nsd2.Visible= $True
+
+		if($n[0] -eq $w[2]){ $menu_nsd2.Text= $d+ $w[2]
+		}else{ $menu_nsd2.Text= $w[2]
+		}
+
+				if($w.Length -ge 4){
+
+		$menu_nsd3.Visible= $True
+
+		if($n[0] -eq $w[3]){ $menu_nsd3.Text= $d+ $w[3]
+		}else{ $menu_nsd3.Text= $w[3]
+		}
+				}
+			}
+		}
+	}
+	break;
+
+  }'pmd'{
+	[array]$w= $pmd.Keys
+
+	$menu_pmd0.Visible= $False
+	$menu_pmd1.Visible= $False
+	$menu_pmd2.Visible= $False
+	$menu_pmd3.Visible= $False
+
+	if($w.Length -ge 1){
+
+		$menu_pmd0.Visible= $True
+
+		if($n[0] -eq $w[0]){ $menu_pmd0.Text= $d+ $w[0]
+		}else{ $menu_pmd0.Text= $w[0]
+		}
+
+		if($w.Length -ge 2){
+
+		$menu_pmd1.Visible= $True
+
+		if($n[0] -eq $w[1]){ $menu_pmd1.Text= $d+ $w[1]
+		}else{ $menu_pmd1.Text= $w[1]
+		}
+
+			if($w.Length -ge 3){
+
+		$menu_pmd2.Visible= $True
+
+		if($n[0] -eq $w[2]){ $menu_pmd2.Text= $d+ $w[2]
+		}else{ $menu_pmd2.Text= $w[2]
+		}
+
+				if($w.Length -ge 4){
+
+		$menu_pmd3.Visible= $True
+
+		if($n[0] -eq $w[3]){ $menu_pmd3.Text= $d+ $w[3]
+		}else{ $menu_pmd3.Text= $w[3]
+		}
+				}
+			}
+		}
+	}
+	break;
+
+  }'player'{
+	[array]$w= $play.Keys
+
+	$menu_ply0.Visible= $False
+	$menu_ply1.Visible= $False
+	$menu_ply2.Visible= $False
+	$menu_ply3.Visible= $False
+	$menu_ply4.Visible= $False
+	$menu_ply5.Visible= $False
+	$menu_ply6.Visible= $False
+	$menu_ply7.Visible= $False
+
+	if($w.Length -ge 1){
+
+		$menu_ply0.Visible= $True
+
+		if($n[0] -eq $w[0]){ $menu_ply0.Text= $d+ $w[0]
+		}else{ $menu_ply0.Text= $w[0]
+		}
+
+		if($w.Length -ge 2){
+
+		$menu_ply1.Visible= $True
+
+		if($n[0] -eq $w[1]){ $menu_ply1.Text= $d+ $w[1]
+		}else{ $menu_ply1.Text= $w[1]
+		}
+
+			if($w.Length -ge 3){
+
+		$menu_ply2.Visible= $True
+
+		if($n[0] -eq $w[2]){ $menu_ply2.Text= $d+ $w[2]
+		}else{ $menu_ply2.Text= $w[2]
+		}
+
+				if($w.Length -ge 4){
+
+		$menu_ply3.Visible= $True
+
+		if($n[0] -eq $w[3]){ $menu_ply3.Text= $d+ $w[3]
+		}else{ $menu_ply3.Text= $w[3]
+		}
+					if($w.Length -ge 5){
+
+		$menu_ply4.Visible= $True
+
+		if($n[0] -eq $w[4]){ $menu_ply4.Text= $d+ $w[4]
+		}else{ $menu_ply4.Text= $w[4]
+		}
+						if($w.Length -ge 6){
+
+		$menu_ply5.Visible= $True
+
+		if($n[0] -eq $w[5]){ $menu_ply5.Text= $d+ $w[5]
+		}else{ $menu_ply5.Text= $w[5]
+		}
+							if($w.Length -ge 7){
+
+		$menu_ply6.Visible= $True
+
+		if($n[0] -eq $w[6]){ $menu_ply6.Text= $d+ $w[6]
+		}else{ $menu_ply6.Text= $w[6]
+		}
+								if($w.Length -ge 8){
+
+		$menu_ply7.Visible= $True
+
+		if($n[0] -eq $w[7]){ $menu_ply7.Text= $d+ $w[7]
+		}else{ $menu_ply7.Text= $w[7]
+		}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	break;
+
+  }'editor'{
+	[array]$w= $edit.Keys
+
+	$menu_edt0.Visible= $False
+	$menu_edt1.Visible= $False
+	$menu_edt2.Visible= $False
+	$menu_edt3.Visible= $False
+	$menu_edt4.Visible= $False
+	$menu_edt5.Visible= $False
+	$menu_edt6.Visible= $False
+	$menu_edt7.Visible= $False
+
+	if($w.Length -ge 1){
+
+		$menu_edt0.Visible= $True
+
+		if($n[0] -eq $w[0]){ $menu_edt0.Text= $d+ $w[0]
+		}else{ $menu_edt0.Text= $w[0]
+		}
+
+		if($w.Length -ge 2){
+
+		$menu_edt1.Visible= $True
+
+		if($n[0] -eq $w[1]){ $menu_edt1.Text= $d+ $w[1]
+		}else{ $menu_edt1.Text= $w[1]
+		}
+
+			if($w.Length -ge 3){
+
+		$menu_edt2.Visible= $True
+
+		if($n[0] -eq $w[2]){ $menu_edt2.Text= $d+ $w[2]
+		}else{ $menu_edt2.Text= $w[2]
+		}
+
+				if($w.Length -ge 4){
+
+		$menu_edt3.Visible= $True
+
+		if($n[0] -eq $w[3]){ $menu_edt3.Text= $d+ $w[3]
+		}else{ $menu_edt3.Text= $w[3]
+		}
+
+					if($w.Length -ge 5){
+
+		$menu_edt4.Visible= $True
+
+		if($n[0] -eq $w[4]){ $menu_edt4.Text= $d+ $w[4]
+		}else{ $menu_edt4.Text= $w[4]
+		}
+
+						if($w.Length -ge 6){
+
+		$menu_edt5.Visible= $True
+
+		if($n[0] -eq $w[5]){ $menu_edt5.Text= $d+ $w[5]
+		}else{ $menu_edt5.Text= $w[5]
+		}
+
+							if($w.Length -ge 7){
+
+		$menu_edt6.Visible= $True
+
+		if($n[0] -eq $w[6]){ $menu_edt6.Text= $d+ $w[6]
+		}else{ $menu_edt6.Text= $w[6]
+		}
+
+								if($w.Length -ge 8){
+
+		$menu_edt7.Visible= $True
+
+		if($n[0] -eq $w[7]){ $menu_edt7.Text= $d+ $w[7]
+		}else{ $menu_edt7.Text= $w[7]
+		}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	break;
+
+  }'dos'{
+	[array]$w= $dos.Keys
+
+	$menu_dos0.Visible= $False
+	$menu_dos1.Visible= $False
+	$menu_dos2.Visible= $False
+	$menu_dos3.Visible= $False
+
+	if($w.Length -ge 1){
+
+		$menu_dos0.Visible= $True
+
+		if($n[0] -eq $w[0]){ $menu_dos0.Text= $d+ $w[0]
+		}else{ $menu_dos0.Text= $w[0]
+		}
+
+		if($w.Length -ge 2){
+
+		$menu_dos1.Visible= $True
+
+		if($n[0] -eq $w[1]){ $menu_dos1.Text= $d+ $w[1]
+		}else{ $menu_dos1.Text= $w[1]
+		}
+
+			if($w.Length -ge 3){
+
+		$menu_dos2.Visible= $True
+
+		if($n[0] -eq $w[2]){ $menu_dos2.Text= $d+ $w[2]
+		}else{ $menu_dos2.Text= $w[2]
+		}
+
+				if($w.Length -ge 4){
+
+		$menu_dos3.Visible= $True
+
+		if($n[0] -eq $w[3]){ $menu_dos3.Text= $d+ $w[3]
+		}else{ $menu_dos3.Text= $w[3]
+		}
+				}
+			}
+		}
+	}
+  }
+  } #sw
+ } #func
   
 # hash 
 	 
-function Helpxml_read($x){ 
+function Change_value([string]$sw, [string]$name){ 
+
+ #if($name -match '[v]'  -eq $False){ # 不要 .Contains("[v]") も可
+
+	switch($sw){
+	'mck'{		$script:val[$sw]= $mck[$name]; break;
+	}'nsd'{		$script:val[$sw]= $nsd[$name]; break;
+	}'pmd'{		$script:val[$sw]= $pmd[$name]; break;
+	}'compiler'{	$script:val[$sw]= $val[$name]; break;
+
+	}'mmlfile'{	$script:val[$sw]= $mml[$name]; break;
+	}'player'{		$script:val[$sw]= $play[$name]; break;
+	}'editor'{		$script:val[$sw]= $edit[$name]; break;
+	}'dos'{		$script:val[$sw]= $dos[$name]
+	}
+	} #sw
+   # }
+ } #func
+ 
+function Setxml_read($x){ # hash読み込み 
 
   # $x= $script:set_xml.table
 
-  for([int]$i=3; $i -ge 0; $i--){
+  for([int]$i=7; $i -ge 0; $i--){
 
+	if($x.ply[$i].name -ne ''){
+		$script:play[$x.ply[$i].name]= $x.ply[$i].param
+	}
 	if($x.edt[$i].name -ne ''){
-
 		$script:edit[$x.edt[$i].name]= $x.edt[$i].param
 	}
+
+    if($i -le 3){
+
+	if($x.mml[$i].name -ne ''){
+		$script:mml[$x.mml[$i].name]= $x.mml[$i].param
+	}
+	if($x.mck[$i].name -ne ''){
+		$script:mck[$x.mck[$i].name]= $x.mck[$i].param
+	}
+	if($x.nsd[$i].name -ne ''){
+		$script:nsd[$x.nsd[$i].name]= $x.nsd[$i].param
+	}
+	if($x.pmd[$i].name -ne ''){
+		$script:pmd[$x.pmd[$i].name]= $x.pmd[$i].param
+	}
+	if($x.dos[$i].name -ne ''){
+		$script:dos[$x.dos[$i].name]= $x.dos[$i].param
+	}
+    }
+
   } #
  } #func
  
@@ -885,7 +1373,7 @@ function Comline([string]$t){
 	[string[]]$a[2]= "","","" #必要な分だけ
 
 	if($m[0] -eq '1'){ $a[0][0]= "-i" }
-	if($m[1] -eq '1'){ $a[0][1]= "-m1" }
+	if($m[1] -eq '1'){ $a[0][1]= "-m1" } # english
 	if($m[2] -eq '1'){ $a[0][2]= "-w" }
 
 	if($n[0] -eq '1'){ $a[1][0]= "-a" } #def.時は読まない
@@ -928,9 +1416,9 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 [Environment]::CurrentDirectory= pwd # working_dir set
  
 # Form 
-	
+	 
 $err_box= New-Object System.Windows.Forms.TextBox 
-$err_box.Size= "220,55"
+$err_box.Size= "240,60"
 $err_box.Location= "10,55"
 $err_box.WordWrap= "False"
 $err_box.Multiline= "True"
@@ -942,8 +1430,8 @@ $err_box.BackColor= "White"
 
  
 $csl_box= New-Object System.Windows.Forms.TextBox 
-$csl_box.Size= "220,130"
-$csl_box.Location= "10,115"
+$csl_box.Size= "240,180"
+$csl_box.Location= "10,120"
 $csl_box.WordWrap= "False"
 $csl_box.Multiline= "True"
 $csl_box.ScrollBars= "Both"
@@ -971,7 +1459,7 @@ $pic_box.Add_Click({
 })
  
 $wait_lbl= New-Object System.Windows.Forms.Label 
-$wait_lbl.Size= "150,25"
+$wait_lbl.Size= "173,25"
 #$wait_lbl.Location= "2,25"
 $wait_lbl.Location= "61,26"
 $wait_lbl.TextAlign= "MiddleCenter"
@@ -1067,7 +1555,7 @@ $tray.Add_Click({ # .Add_MouseDown
  
 $frm= New-Object System.Windows.Forms.Form 
 #$frm.Text= "mml watch"
-$frm.Size= "248,302"
+$frm.Size= "268,362"
 $frm.FormBorderStyle= "FixedSingle"
 $frm.StartPosition= "WindowsDefaultLocation"
 $frm.Icon= Icon_read "..\mml_watch.exe"
@@ -1154,7 +1642,7 @@ $menu_f= New-Object System.Windows.Forms.ToolStripMenuItem
 $menu_f.Text= "File"
 
 $menu_e= New-Object System.Windows.Forms.ToolStripMenuItem
-$menu_e.Text= "エディタ"
+$menu_e.Text= "エディタ起動"
 
 $menu_e.Add_Click({
  try{
@@ -1167,7 +1655,7 @@ $menu_e.Add_Click({
 })
 
 $menu_d= New-Object System.Windows.Forms.ToolStripMenuItem
-$menu_d.Text= "フォルダ"
+$menu_d.Text= "フォルダオープン"
 
 $menu_d.Add_Click({
  try{
@@ -1181,7 +1669,7 @@ $menu_d.Add_Click({
 
 $menu_spy= New-Object System.Windows.Forms.ToolStripSeparator
 $menu_py= New-Object System.Windows.Forms.ToolStripMenuItem
-$menu_py.Text= "プレイヤー"
+$menu_py.Text= "プレイヤー起動"
 
 $menu_py.Add_Click({
  try{
@@ -1219,7 +1707,1093 @@ $menu_a.Add_Click({ # 環境設定
  }
 })
 
-$menu_kar= New-Object System.Windows.Forms.ToolStripSeparator
+
+$menu_st= New-Object System.Windows.Forms.ToolStripSeparator
+$menu_t=  New-Object System.Windows.Forms.ToolStripMenuItem
+# $menu_t.Text= "v 最前面表示"
+
+$menu_t.Add_Click({
+ try{
+	switch($opt["chk_topmost"]){ # トグル
+
+	'True'{		$script:opt["chk_topmost"]= Top_most "False";	break;
+	}'False'{	$script:opt["chk_topmost"]= Top_most "True"
+	}
+	} #sw
+ }catch{
+	echo $_.exception
+ }
+})
+	 
+$menu_sm= New-Object System.Windows.Forms.ToolStripSeparator 
+$menu_mml=  New-Object System.Windows.Forms.ToolStripMenuItem
+$menu_mml.Text= "MML"
+
+$menu_mml0= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_mml0.Text= "0.exe"
+$menu_mml0.Visible= $False
+
+$menu_mml0.Add_Click({
+ try{
+  if($this.Text.Contains("[v]")  -eq $False){ # 不要 .Contains("[v]") も可 -match '[v]'
+
+	Change_value "mmlfile" $this.Text
+	Wthmenu_build "mmlfile"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_mml1= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_mml1.Text= "1.exe"
+$menu_mml1.Visible= $False
+
+$menu_mml1.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+
+	Change_value "mmlfile" $this.Text
+	Wthmenu_build "mmlfile"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_mml2= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_mml2.Text= "2.exe"
+$menu_mml2.Visible= $False
+
+$menu_mml2.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+
+	Change_value "mmlfile" $this.Text
+	Wthmenu_build "mmlfile"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_mml3= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_mml3.Text= "3.exe"
+$menu_mml3.Visible= $False
+
+$menu_mml3.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+
+	Change_value "mmlfile" $this.Text
+	Wthmenu_build "mmlfile"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$menu_comp=  New-Object System.Windows.Forms.ToolStripMenuItem 
+$menu_comp.Text= "コンパイラ"
+
+$menu_cmck=  New-Object System.Windows.Forms.ToolStripMenuItem
+# $menu_cmck.Text= "MCK"
+
+$menu_cmck.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+
+	Change_value "compiler" "mck"
+	Wthmenu_build "mck"
+
+	$script:opt["radio_bin"]= Menu_comp_build "mck"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+	Toggle_label
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_cnsd=  New-Object System.Windows.Forms.ToolStripMenuItem
+# $menu_cnsd.Text= "NSD"
+
+$menu_cnsd.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+
+	Change_value "compiler" "nsd"
+	Wthmenu_build "nsd"
+
+	$script:opt["radio_bin"]= Menu_comp_build "nsd"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+	Toggle_label
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_cpmd=  New-Object System.Windows.Forms.ToolStripMenuItem
+# $menu_cpmd.Text= "PMD"
+
+$menu_cpmd.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+
+	Change_value "compiler" "pmd"
+	Wthmenu_build "pmd"
+
+	$script:opt["radio_bin"]= Menu_comp_build "pmd"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+	Toggle_label
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+	 
+$menu_mck0= New-Object System.Windows.Forms.ToolStripMenuItem 
+#$menu_mck0.Text= "0.exe"
+$menu_mck0.Visible= $False
+
+$menu_mck0.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+
+	Change_value "mck" $this.Text
+	Change_value "compiler" "mck"
+	Wthmenu_build "mck"
+
+	$script:opt["radio_bin"]= Menu_comp_build "mck"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+	Toggle_label
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_mck1= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_mck1.Text= "1.exe"
+$menu_mck1.Visible= $False
+
+$menu_mck1.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+
+	Change_value "mck" $this.Text
+	Change_value "compiler" "mck"
+	Wthmenu_build "mck"
+
+	$script:opt["radio_bin"]= Menu_comp_build "mck"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+	Toggle_label
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_mck2= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_mck2.Text= "2.exe"
+$menu_mck2.Visible= $False
+
+$menu_mck2.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+
+	Change_value "mck" $this.Text
+	Change_value "compiler" "mck"
+	Wthmenu_build "mck"
+
+	$script:opt["radio_bin"]= Menu_comp_build "mck"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+	Toggle_label
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_mck3= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_mck3.Text= "3.exe"
+$menu_mck3.Visible= $False
+
+$menu_mck3.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+
+	Change_value "mck" $this.Text
+	Change_value "compiler" "mck"
+	Wthmenu_build "mck"
+
+	$script:opt["radio_bin"]= Menu_comp_build "mck"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+	Toggle_label
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$menu_nsd0= New-Object System.Windows.Forms.ToolStripMenuItem 
+#$menu_nsd0.Text= "0.exe"
+$menu_nsd0.Visible= $False
+
+$menu_nsd0.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+
+	Change_value "nsd" $this.Text
+	Change_value "compiler" "nsd"
+	Wthmenu_build "nsd"
+
+	$script:opt["radio_bin"]= Menu_comp_build "nsd"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+	Toggle_label
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_nsd1= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_nsd1.Text= "1.exe"
+$menu_nsd1.Visible= $False
+
+$menu_nsd1.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+
+	Change_value "nsd" $this.Text
+	Change_value "compiler" "nsd"
+	Wthmenu_build "nsd"
+
+	$script:opt["radio_bin"]= Menu_comp_build "nsd"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+	Toggle_label
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_nsd2= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_nsd2.Text= "2.exe"
+$menu_nsd2.Visible= $False
+
+$menu_nsd2.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+
+	Change_value "nsd" $this.Text
+	Change_value "compiler" "nsd"
+	Wthmenu_build "nsd"
+
+	$script:opt["radio_bin"]= Menu_comp_build "nsd"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+	Toggle_label
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_nsd3= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_nsd3.Text= "3.exe"
+$menu_nsd3.Visible= $False
+
+$menu_nsd3.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+
+	Change_value "nsd" $this.Text
+	Change_value "compiler" "nsd"
+	Wthmenu_build "nsd"
+
+	$script:opt["radio_bin"]= Menu_comp_build "nsd"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+	Toggle_label
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$menu_pmd0= New-Object System.Windows.Forms.ToolStripMenuItem 
+#$menu_pmd0.Text= "0.exe"
+$menu_pmd0.Visible= $False
+
+$menu_pmd0.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+
+	Change_value "pmd" $this.Text
+	Change_value "compiler" "pmd"
+	Wthmenu_build "pmd"
+
+	$script:opt["radio_bin"]= Menu_comp_build "pmd"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+	Toggle_label
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_pmd1= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_pmd1.Text= "1.exe"
+$menu_pmd1.Visible= $False
+
+$menu_pmd1.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+
+	Change_value "pmd" $this.Text
+	Change_value "compiler" "pmd"
+	Wthmenu_build "pmd"
+
+	$script:opt["radio_bin"]= Menu_comp_build "pmd"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+	Toggle_label
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_pmd2= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_pmd2.Text= "2.exe"
+$menu_pmd2.Visible= $False
+
+$menu_pmd2.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+
+	Change_value "pmd" $this.Text
+	Change_value "compiler" "pmd"
+	Wthmenu_build "pmd"
+
+	$script:opt["radio_bin"]= Menu_comp_build "pmd"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+	Toggle_label
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_pmd3= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_pmd3.Text= "3.exe"
+$menu_pmd3.Visible= $False
+
+$menu_pmd3.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+
+	Change_value "pmd" $this.Text
+	Change_value "compiler" "pmd"
+	Wthmenu_build "pmd"
+
+	$script:opt["radio_bin"]= Menu_comp_build "pmd"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+	Toggle_label
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+  
+$menu_player=  New-Object System.Windows.Forms.ToolStripMenuItem 
+$menu_player.Text= "プレイヤー"
+
+$menu_ply0= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_ply0.Text= "0.exe"
+$menu_ply0.Visible= $False
+
+$menu_ply0.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+	Change_value "player" $this.Text # $val[$sw]
+	Wthmenu_build "player"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_ply1= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_ply1.Text= "1.exe"
+$menu_ply1.Visible= $False
+
+$menu_ply1.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+	Change_value "player" $this.Text
+	Wthmenu_build "player"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_ply2= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_ply2.Text= "2.exe"
+$menu_ply2.Visible= $False
+
+$menu_ply2.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+	Change_value "player" $this.Text
+	Wthmenu_build "player"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_ply3= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_ply3.Text= "3.exe"
+$menu_ply3.Visible= $False
+
+$menu_ply3.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+	Change_value "player" $this.Text
+	Wthmenu_build "player"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_ply4= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_ply4.Text= "4.exe"
+$menu_ply4.Visible= $False
+
+$menu_ply4.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+	Change_value "player" $this.Text
+	Wthmenu_build "player"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_ply5= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_ply5.Text= "5.exe"
+$menu_ply5.Visible= $False
+
+$menu_ply5.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+	Change_value "player" $this.Text
+	Wthmenu_build "player"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_ply6= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_ply6.Text= "6.exe"
+$menu_ply6.Visible= $False
+
+$menu_ply6.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+	Change_value "player" $this.Text
+	Wthmenu_build "player"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_ply7= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_ply7.Text= "7.exe"
+$menu_ply7.Visible= $False
+
+$menu_ply7.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+	Change_value "player" $this.Text
+	Wthmenu_build "player"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$menu_editor=  New-Object System.Windows.Forms.ToolStripMenuItem 
+$menu_editor.Text= "エディタ"
+
+$menu_edt0= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_edt0.Text= "0.exe"
+$menu_edt0.Visible= $False
+
+$menu_edt0.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+	Change_value "editor" $this.Text # $val[$sw]
+	Wthmenu_build "editor"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_edt1= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_edt1.Text= "1.exe"
+$menu_edt1.Visible= $False
+
+$menu_edt1.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+	Change_value "editor" $this.Text
+	Wthmenu_build "editor"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_edt2= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_edt2.Text= "2.exe"
+$menu_edt2.Visible= $False
+
+$menu_edt2.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+	Change_value "editor" $this.Text
+	Wthmenu_build "editor"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_edt3= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_edt3.Text= "3.exe"
+$menu_edt3.Visible= $False
+
+$menu_edt3.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+	Change_value "editor" $this.Text
+	Wthmenu_build "editor"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_edt4= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_edt4.Text= "4.exe"
+$menu_edt4.Visible= $False
+
+$menu_edt4.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+	Change_value "editor" $this.Text
+	Wthmenu_build "editor"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_edt5= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_edt5.Text= "5.exe"
+$menu_edt5.Visible= $False
+
+$menu_edt5.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+	Change_value "editor" $this.Text
+	Wthmenu_build "editor"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_edt6= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_edt6.Text= "6.exe"
+$menu_edt6.Visible= $False
+
+$menu_edt6.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+	Change_value "editor" $this.Text
+	Wthmenu_build "editor"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_edt7= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_edt7.Text= "7.exe"
+$menu_edt7.Visible= $False
+
+$menu_edt7.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+	Change_value "editor" $this.Text
+	Wthmenu_build "editor"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$menu_dos=  New-Object System.Windows.Forms.ToolStripMenuItem 
+$menu_dos.Text= "ドス"
+
+$menu_dos0= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_dos0.Text= "0.exe"
+$menu_dos0.Visible= $False
+
+$menu_dos0.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+	Change_value "dos" $this.Text
+	Wthmenu_build "dos"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+	Toggle_label
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_dos1= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_dos1.Text= "1.exe"
+$menu_dos1.Visible= $False
+
+$menu_dos1.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+	Change_value "dos" $this.Text
+	Wthmenu_build "dos"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+	Toggle_label
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_dos2= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_dos2.Text= "2.exe"
+$menu_dos2.Visible= $False
+
+$menu_dos2.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+	Change_value "dos" $this.Text
+	Wthmenu_build "dos"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+	Toggle_label
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+
+$menu_dos3= New-Object System.Windows.Forms.ToolStripMenuItem
+#$menu_dos3.Text= "3.exe"
+$menu_dos3.Visible= $False
+
+$menu_dos3.Add_Click({
+ try{
+  if($this.Text.Contains("[v]") -eq $False){
+	Change_value "dos" $this.Text
+	Wthmenu_build "dos"
+
+	Status_cheker
+	$script:chk_mml= Wait_setpath
+
+	if($chk_mml){
+
+		Toggle_sw "true"
+	}else{
+		Toggle_sw "false"
+	}
+	Toggle_label
+  }
+ }catch{
+	echo $_.exception
+ }
+})
+ 	
+$menu_kar= New-Object System.Windows.Forms.ToolStripSeparator 
 $menu_ka=  New-Object System.Windows.Forms.ToolStripMenuItem
 $menu_ka.Text= "各種設定"
 
@@ -1247,8 +2821,8 @@ $menu_pas.Add_Click({
  try{
 	switch($opt["play_open"]){
 
-	'True'{	$script:opt["play_open"]= Open_play "False";	break;
-	}'False'{	$script:opt["play_open"]= Open_play "True"
+	'true'{	$script:opt["play_open"]= Open_play "false";	break;
+	}'false'{	$script:opt["play_open"]= Open_play "true"
 	}
 	} #sw
 
@@ -1277,7 +2851,7 @@ $menu_eo.Add_Click({
  try{
 	switch($opt["edt_open"]){ # トグル
 
-	'True'{	$script:opt["edt_open"]= Open_edit "False";	break;
+	'True'{		$script:opt["edt_open"]= Open_edit "False";	break;
 	}'False'{	$script:opt["edt_open"]= Open_edit "True"
 	}
 	} #sw
@@ -1294,7 +2868,7 @@ $menu_r.Add_Click({
  try{
 	switch($opt["chk_auto"]){ # トグル
 
-	'True'{	$script:opt["chk_auto"]= Auto_start "False";	break;
+	'True'{		$script:opt["chk_auto"]= Auto_start "False";	break;
 	}'False'{	$script:opt["chk_auto"]= Auto_start "True"
 	}
 	} #sw
@@ -1302,24 +2876,7 @@ $menu_r.Add_Click({
 	echo $_.exception
  }
 })
-
-$menu_st= New-Object System.Windows.Forms.ToolStripSeparator
-$menu_t=  New-Object System.Windows.Forms.ToolStripMenuItem
-# $menu_t.Text= "v 最前面表示"
-
-$menu_t.Add_Click({
- try{
-	switch($opt["chk_topmost"]){ # トグル
-
-	'True'{	$script:opt["chk_topmost"]= Top_most "False";	break;
-	}'False'{	$script:opt["chk_topmost"]= Top_most "True"
-	}
-	} #sw
- }catch{
-	echo $_.exception
- }
-})
- 
+  
 $menu_h= New-Object System.Windows.Forms.ToolStripMenuItem 
 $menu_h.Text= "Help"
 
@@ -1408,7 +2965,20 @@ $menu_mhelp.Add_Click({
 $menu_f.DropDownItems.AddRange(@($menu_e,$menu_d,$menu_spy,$menu_py,$menu_sn,$menu_n)) 
 $menu_ka.DropDownItems.AddRange(@($menu_eo,$menu_eor,$menu_r,$menu_sr,$menu_pas,$menu_pasr,$menu_ty))
 
-$menu_o.DropDownItems.AddRange(@($menu_t,$menu_st,$menu_ka,$menu_kar,$menu_a))
+$menu_mml.DropDownItems.AddRange(@($menu_mml0,$menu_mml1,$menu_mml2,$menu_mml3))
+
+$menu_cpmd.DropDownItems.AddRange(@($menu_pmd0,$menu_pmd1,$menu_pmd2,$menu_pmd3))
+$menu_cnsd.DropDownItems.AddRange(@($menu_nsd0,$menu_nsd1,$menu_nsd2,$menu_nsd3))
+$menu_cmck.DropDownItems.AddRange(@($menu_mck0,$menu_mck1,$menu_mck2,$menu_mck3))
+$menu_comp.DropDownItems.AddRange(@($menu_cmck,$menu_cnsd,$menu_cpmd))
+
+$menu_player.DropDownItems.AddRange(@($menu_ply0,$menu_ply1,$menu_ply2,$menu_ply3,$menu_ply4,$menu_ply5,$menu_ply6,$menu_ply7))
+$menu_editor.DropDownItems.AddRange(@($menu_edt0,$menu_edt1,$menu_edt2,$menu_edt3,$menu_edt4,$menu_edt5,$menu_edt6,$menu_edt7))
+
+$menu_dos.DropDownItems.AddRange(@($menu_dos0,$menu_dos1,$menu_dos2,$menu_dos3))
+
+
+$menu_o.DropDownItems.AddRange(@($menu_t,$menu_st,$menu_ka,$menu_sm,$menu_mml,$menu_comp,$menu_player,$menu_editor,$menu_dos,$menu_kar,$menu_a))
 $menu_h.DropDownItems.AddRange(@($menu_mhelp,$menu_nhelp,$menu_phelp,$menu_sw,$menu_whelp))
 $mnu.Items.AddRange(@($menu_f,$menu_o,$menu_h))
 
@@ -1461,7 +3031,7 @@ $wait.Add_Changed({	# event func入れ子は一段が理想..
 	Write-Host '"ERROR: Safety Stopper >> FileSystemWatcher"'
  }
 })
- 	
+ 
 # ------ main 
 
   try{
@@ -1477,11 +3047,11 @@ $wait.Add_Changed({	# event func入れ子は一段が理想..
 		$wth_xml= [xml]$xml_watch
 	}
 
-
   # 連想配列化
 
 	$val= @{}; $opt= @{};
-	$edit=@{};
+	$mck= @{}; $nsd= @{}; $pmd= @{};
+	$mml= @{}; $play= @{}; $edit=@{}; $dos= @{};
 
 	Wthxml_read $script:wth_xml.table.val $script:wth_xml.table.opt
 
@@ -1501,9 +3071,11 @@ $wait.Add_Changed({	# event func入れ子は一段が理想..
 	} #sw
 
 
+	[string]$scroll_text= "" # 一つ前の履歴 $csl_box  - Console_out
+
   # 状態チェック
-	Status_cheker
-	[int]$chk_mml= Wait_setpath # $wait.Filter
+	Status_cheker ## Status_build Console_out
+	[int]$script:chk_mml= Wait_setpath # $wait.Filter
 
 	# $wait_btn canceller
 	if($chk_mml){
@@ -1515,19 +3087,28 @@ $wait.Add_Changed({	# event func入れ子は一段が理想..
 	Toggle_label
 
 
-  # readのみ - Helpため
+  # readのみ - Helpやcomp_chgため
+
 	if((Chk_path '.\setting.xml') -eq 0){
 
 		$set_xml= [xml](cat '.\setting.xml')
 
-		Helpxml_read $script:set_xml.table # hash化
+		Setxml_read $script:set_xml.table # hash化
 	}
+
+	Wthmenu_build "mmlfile"
+	Wthmenu_build "mck"
+	Wthmenu_build "nsd"
+	Wthmenu_build "pmd"
+	Wthmenu_build "player"
+	Wthmenu_build "editor"
+	Wthmenu_build "dos"
+
+	Menu_comp_build $opt["radio_bin"] > $null
 
 
 	[string]$chk_time= ""
 	[string]$lated_time= ""
-
-	[string]$scroll_text= "" # $csl_box 一つ前の履歴
 
 
 	$frm.ShowDialog() > $null
