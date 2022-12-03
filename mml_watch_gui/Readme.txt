@@ -7,7 +7,7 @@
 	説明書
 	https://eseakisakura.github.io/mml_watch_gui
 
-	ver4.8正式版
+	ver5.0β版
 	Copyright(C)04coreworks
 ========================================================================
 
@@ -32,12 +32,11 @@
 　mml_watchで使用している、"filesystemwatcher"の実装に難があるため、
 　mmlファイルを上書きした瞬間、落ちる問題があります。
 
-　Powershell7.2[.NET6]以上での運用であれば、
-　問題なく動くとは思います。
+　Powershell7.2[.NET6]以上での、運用であれば問題はありません。
 　
 
 
-　==== Powershell7.2対応 _pwsh版について ====
+　==== Powershell7.3対応 _pwsh版について ====
 
 
 　※ pwsh.exeにパスを通すことで起動できます。
@@ -78,9 +77,9 @@
 　　(初期設定と同じになります。)
 
 
-　・ゾーン識別子の解除
+　・必要あらば、ゾーン識別子の解除
 
-　必要あらば、Powershellコンソール(端末)を開いて、以下のコマンドを打ちます。
+　Powershellコンソール(端末)を開いて、以下のコマンドを打ちます。
 　
   Unblock-File -Path ".\実行ファイル名"
 
