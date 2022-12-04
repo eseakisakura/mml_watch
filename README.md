@@ -7,9 +7,9 @@ GUI部も含めて、総Powershellで組まれており、<br/>
 それぞれがスタンドアロン(単体)で起動します。<br/>
 
 <h5>起動済み確認環境: <br/>
-winXP+ Powershell2(.NET Framework3.5) - 旧版 ver4.6.2<br/>
+winXP+ Powershell2(.NET Framework3.5) - 旧版 ver4.5.2<br/>
 win10(22H2)+ Powershell5(.NET Framework4.8)<br/>
-win10(22H2)+ Powershell7.2(.NET6)<br/>
+win10(22H2)+ Powershell7.3(.NET6)<br/>
 </h5>
 <br/>
 
