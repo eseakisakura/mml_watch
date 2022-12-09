@@ -1,29 +1,28 @@
-﻿#FM3Extend XYZ ;C tr.extend 
-;#FFFile EFFEC.FF
-;#LoopDefault 2
+﻿#FM3Extend XYZ;	C tr.extend 
+;	#FFFile EFFEC.FF
+;	#LoopDefault 2
 
 
 GHIABCDEFXYZ t150 C192
 
 ; SSG
-G v15 E0,-2,32,16 o4 Q2 l4 [ab>cdefga]2
-
+G v15 E0,-2,32,16 o3 Q2 l4 [a-b->cde-fga-]2
 
 ; FM Rythm
-C v16 @1 s12 o2  l8 [crrc errr  cerc errr]2
-X v16 @1 s3  o4  l8 [rrar rrar]4
+C v16 @1 s12 o2  l8 [rrrc errr  cerc errr]2
+X v16 @1 s3  o2  l8 [rrar rrar]4
 
 ; NM ALG  FB
 @001   4   7
 ; AR  DR  SR  RR  SL  TL  KS  ML  DT AMS
-   0   0   0   0   0   4   2  12   7   0
-   0  21  13   8   0   0   2   0   3   0
+  31   0   0   0   0   4   2  12   7   0
+  31  21  13   8   0   0   2   0   3   0
   31  22   1   6  15   0   0   3   0   0
   31  16   1   6  15   0   0   1   0   0
 
 
 ; Rythm
-	K \V60 l8 [R0R2 R1R3 ]2
+K \V60 l8 [R0R2 R1R3 ]2
 R0 @129c@128c@2c@129c
 R1 @129c@129c@2c@129c
 
