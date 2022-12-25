@@ -142,12 +142,12 @@ function Editor_open([string]$edt_path,[string]$file_path){
 		$ss[2]=  $ss[1]
 	}else{
 
-		& $edt_path ('"'+ $file_path+ '"')
+		& $edt_path "$file_path"
 	}
 
 	return $ss[2]
 } #func
- 
+ 	
 function Folder_open([int]$sw,[string]$path){ 
 
 	[string[]]$tt= "Folder","File"
@@ -315,7 +315,7 @@ function Mkmck([string[]]$arg){ # mkmck.ps1
  # exit $LASTEXITCODE
 
  } #func
- 	
+ 
 function Mknsd([string[]]$arg){ # mknsd.ps1 
 
  # $arg // mml,bin,dmc,cmdline
