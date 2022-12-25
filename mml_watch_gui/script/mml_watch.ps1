@@ -243,7 +243,7 @@ function Play_nsf([string]$file){
  } #func
   
 # chk_path 
-	 
+	
 function Err_build(){ 
 
 	[int[]]$err= 0,0,0,0
@@ -473,7 +473,7 @@ function Wait_setpath(){
  } #func
   
 # toggle 
-	 
+	
 function Toggle_label(){ 
 
 
@@ -685,7 +685,7 @@ function Watch_Drop(){
  } #func
   
 # gui 
-	 
+	
 function Contxt_chg([string]$sw,[int]$chg){ 
 
 	switch($sw){
@@ -1228,7 +1228,7 @@ function Wthmenu_build([string]$sw){
  } #func
   
 # hash 
-	 
+	
 function Change_value([string]$sw, [string]$name){ 
 
  #if($name -match '[v]'  -eq $False){ # 不要 .Contains("[v]") も可
@@ -1457,11 +1457,10 @@ $pic_box.Add_Click({
 	echo $_.exception
   }
 })
- 
+ 	
 $wait_lbl= New-Object System.Windows.Forms.Label 
 $wait_lbl.Size= "173,25"
-#$wait_lbl.Location= "2,25"
-$wait_lbl.Location= "61,26"
+$wait_lbl.Location= "31,27"
 $wait_lbl.TextAlign= "MiddleCenter"
 $wait_lbl.BorderStyle= "Fixed3D"
 $wait_lbl.ForeColor= "black"
@@ -1480,8 +1479,7 @@ $wait_lbl.Add_Click({
  
 $wait_btn= New-Object System.Windows.Forms.Button 
 $wait_btn.Size= "25,25"
-#$wait_btn.Location= "158,26"
-$wait_btn.Location= "31,26"
+$wait_btn.Location= "206,27"
 $wait_btn.FlatStyle= "Popup"
 # $wait_btn.Image= [System.Drawing.Image]::FromFile(".\img\stop.png")
 # $wait_btn.Image= [System.Drawing.Image]::FromFile(".\img\play.png")
@@ -1919,7 +1917,7 @@ $menu_cpmd.Add_Click({
 	echo $_.exception
  }
 })
-	 
+	
 $menu_mck0= New-Object System.Windows.Forms.ToolStripMenuItem 
 #$menu_mck0.Text= "0.exe"
 $menu_mck0.Visible= $False
@@ -2792,7 +2790,7 @@ $menu_dos3.Add_Click({
 	echo $_.exception
  }
 })
- 	
+ 
 $menu_kar= New-Object System.Windows.Forms.ToolStripSeparator 
 $menu_ka=  New-Object System.Windows.Forms.ToolStripMenuItem
 $menu_ka.Text= "各種設定"
