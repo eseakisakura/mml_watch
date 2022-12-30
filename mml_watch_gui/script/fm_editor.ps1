@@ -1240,7 +1240,7 @@ function Sin_chg(){
  } #func
   
 # alg 
-	
+	 
 function Attend_alg([int]$j){ 
 
 	switch($j){
@@ -3170,17 +3170,19 @@ function Wheel_SL([string] $sw, [int] $delta){
 	}
 	} #sw
 
+	[int] $nn= 0
 	switch($sw){
 	'Top'{
 		$script:start_value= [int] $x.Value
 		break;
 	}'Drug'{
 		if($x.Maximum -lt 4){
-			$delta= [Math]::Floor($delta/ (16/ ($x.Maximum+ 1) ) ) # $delta/ 16/4= 4px
+			$nn= 32/ ($x.Maximum+ 1) # 32/4= 8px
 		}else{
-			$delta= [Math]::Floor($delta/ (256/ ($x.Maximum+ 1) ) ) # $delta/ 256/16= 16px置き変化
+			$nn= 256/ ($x.Maximum+ 1) # 256/16= 16px置き変化
 		}
 
+		$delta= [Math]::Floor( $delta/ $nn)
 		$x.Value= [string] (Drug_chg $delta $script:start_value $x.Maximum)
 		break;
 	}'Delta'{
@@ -6435,6 +6437,9 @@ $Pictbg.Add_MouseDown({
 	switch([string]$_.Button){
 	'Right'{
 		Contxt_select "oct"
+		break;
+	}'Left'{
+		$lisn_btn.PerformClick() # メソッド
 	}
 	} #sw
  }catch{
@@ -6472,6 +6477,9 @@ $Pictbw.Add_MouseDown({
 	switch([string]$_.Button){
 	'Right'{
 		Contxt_select "oct"
+		break;
+	}'Left'{
+		$lisn_btn.PerformClick()
 	}
 	} #sw
  }catch{
@@ -6490,7 +6498,7 @@ $Pictbw.Add_DoubleClick({
 	echo $_.exception
  }
 })
- 
+ 	
 $Pictbox1a= New-Object System.Windows.Forms.PictureBox 
 $Pictbox1a.ClientSize= $image1a.Size
 $Pictbox1a.Image= $image1a
@@ -6520,18 +6528,20 @@ $Pictbox1a.Add_MouseMove({ # drag enter
 
 $Pictbox1a.Add_MouseDown({
  try{
-	$script:toppos= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
-
-	Wheel_SL "Top"
-	$script:mouse_capure= $True
-
 	Opmap_change 0 # .SelectedIndex
 
 	switch([string]$_.Button){
 	'Right'{
 		Contxt_select "boxpict"
+		break;
+	}'Left'{
+		$script:toppos= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
+
+		Wheel_SL "Top"
+		$script:mouse_capure= $True
 	}
 	} #sw
+
  }catch{
 	echo $_.exception
  }
@@ -6566,18 +6576,20 @@ $Pictbox2a.Add_MouseMove({ # drag enter
 
 $Pictbox2a.Add_MouseDown({
  try{
-	$script:toppos= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
-
-	Wheel_SL "Top"
-	$script:mouse_capure= $True
-
 	Opmap_change 1
 
 	switch([string]$_.Button){
 	'Right'{
 		Contxt_select "boxpict"
+		break;
+	}'Left'{
+		$script:toppos= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
+
+		Wheel_SL "Top"
+		$script:mouse_capure= $True
 	}
 	} #sw
+
  }catch{
 	echo $_.exception
  }
@@ -6612,18 +6624,20 @@ $Pictbox1.Add_MouseMove({ # drag enter
 
 $Pictbox1.Add_MouseDown({
  try{
-	$script:toppos= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
-
-	Wheel_SL "Top"
-	$script:mouse_capure= $True
-
 	Opmap_change 0 # .SelectedIndex
 
 	switch([string]$_.Button){
 	'Right'{
 		Contxt_select "boxpict"
+		break;
+	}'Left'{
+		$script:toppos= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
+
+		Wheel_SL "Top"
+		$script:mouse_capure= $True
 	}
 	} #sw
+
  }catch{
 	echo $_.exception
  }
@@ -6658,18 +6672,20 @@ $Pictbox2.Add_MouseMove({ # drag enter
 
 $Pictbox2.Add_MouseDown({
  try{
-	$script:toppos= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
-
-	Wheel_SL "Top"
-	$script:mouse_capure= $True
-
 	Opmap_change 1
 
 	switch([string]$_.Button){
 	'Right'{
 		Contxt_select "boxpict"
+		break;
+	}'Left'{
+		$script:toppos= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
+
+		Wheel_SL "Top"
+		$script:mouse_capure= $True
 	}
 	} #sw
+
  }catch{
 	echo $_.exception
  }
@@ -6704,18 +6720,20 @@ $Pictbox3.Add_MouseMove({ # drag enter
 
 $Pictbox3.Add_MouseDown({
  try{
-	$script:toppos= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
-
-	Wheel_SL "Top"
-	$script:mouse_capure= $True
-
 	Opmap_change 2
 
 	switch([string]$_.Button){
 	'Right'{
 		Contxt_select "boxpict"
+		break;
+	}'Left'{
+		$script:toppos= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
+
+		Wheel_SL "Top"
+		$script:mouse_capure= $True
 	}
 	} #sw
+
  }catch{
 	echo $_.exception
  }
@@ -6750,23 +6768,25 @@ $Pictbox4.Add_MouseMove({ # drag enter
 
 $Pictbox4.Add_MouseDown({
  try{
-	$script:toppos= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
-
-	Wheel_SL "Top"
-	$script:mouse_capure= $True
-
 	Opmap_change 3
 
 	switch([string]$_.Button){
 	'Right'{
 		Contxt_select "boxpict"
+		break;
+	}'Left'{
+		$script:toppos= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
+
+		Wheel_SL "Top"
+		$script:mouse_capure= $True
 	}
 	} #sw
+
  }catch{
 	echo $_.exception
  }
 })
- 	 
+  
 $gpb= [System.Drawing.Graphics]::FromImage($bgimg) # 書き込み 
 $gpw= [System.Drawing.Graphics]::FromImage($bgimw)
 
