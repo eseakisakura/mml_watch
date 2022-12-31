@@ -3271,7 +3271,7 @@ $arp_menu_set.Add_Click({
 	echo $_.exception
  }
 })
-	 
+	
 $arp_menu_comp=  New-Object System.Windows.Forms.ToolStripMenuItem 
 $arp_menu_comp.Text= "compiler"
 
@@ -3322,7 +3322,7 @@ $arp_menu_cpmd.Add_Click({
 	echo $_.exception
  }
 })
-	 
+	
 $arp_menu_mck0= New-Object System.Windows.Forms.ToolStripMenuItem 
 #$arp_menu_mck0.Text= "0.exe"
 $arp_menu_mck0.Visible= $False
@@ -3891,7 +3891,7 @@ $arp_menu_edt7.Add_Click({
 	echo $_.exception
  }
 })
- 	 
+  
 $arp_menu_m= New-Object System.Windows.Forms.ToolStripMenuItem 
 $arp_menu_m.Text= "Octave"
 
@@ -4010,6 +4010,24 @@ $arp_menu_oct8.Add_Click({
 $arp_menu_b= New-Object System.Windows.Forms.ToolStripMenuItem 
 $arp_menu_b.Text= "TextBox"
 
+$arp_menu_spy= New-Object System.Windows.Forms.ToolStripSeparator
+$arp_menu_py= New-Object System.Windows.Forms.ToolStripMenuItem
+$arp_menu_py.Text= "Player open"
+
+$arp_menu_py.Add_Click({
+ try{
+	[string]$retn= Player_open 0 $val["player"]
+
+	if($retn -ne ""){
+
+		$retn= [Windows.Forms.MessageBox]::Show(
+		$retn, "確認", "OK","Information","Button1"
+		)
+	}
+ }catch{
+	echo $_.exception
+ }
+})
 
 $arp_menu_mlun=New-Object System.Windows.Forms.ToolStripSeparator
 $arp_menu_mml= New-Object System.Windows.Forms.ToolStripMenuItem
@@ -4038,7 +4056,7 @@ $arp_menu_fix.Add_Click({
 	echo $_.exception
  }
 })
- 
+ 	
 $arp_menu_h= New-Object System.Windows.Forms.ToolStripMenuItem 
 $arp_menu_h.Text= "Help"
 
@@ -4064,25 +4082,6 @@ $arp_menu_whelp.Add_Click({
 	)
   }
 
- }catch{
-	echo $_.exception
- }
-})
-
-$arp_menu_spy= New-Object System.Windows.Forms.ToolStripSeparator
-$arp_menu_py= New-Object System.Windows.Forms.ToolStripMenuItem
-$arp_menu_py.Text= "Player open"
-
-$arp_menu_py.Add_Click({
- try{
-	[string]$retn= Player_open 0 $val["player"]
-
-	if($retn -ne ""){
-
-		$retn= [Windows.Forms.MessageBox]::Show(
-		$retn, "確認", "OK","Information","Button1"
-		)
-	}
  }catch{
 	echo $_.exception
  }
@@ -4164,8 +4163,8 @@ $arp_menu_kt.DropDownItems.AddRange(@($menu_aty))
 $arp_menu_f.DropDownItems.AddRange(@($arp_menu_kt,$arp_menu_sn,$arp_menu_n))
 $arp_menu_o.DropDownItems.AddRange(@($arp_menu_ud,$arp_menu_comn,$arp_menu_comp,$arp_menu_play,$arp_menu_dosv,$arp_menu_edit,$arp_menu_setn,$arp_menu_set))
 $arp_menu_m.DropDownItems.AddRange(@($arp_menu_oct1,$arp_menu_oct2,$arp_menu_oct3,$arp_menu_oct4,$arp_menu_oct5,$arp_menu_oct6,$arp_menu_oct7,$arp_menu_oct8))
-$arp_menu_b.DropDownItems.AddRange(@($Arp_menu_mml,$arp_menu_mlun,$Arp_menu_fix))
-$arp_menu_h.DropDownItems.AddRange(@($arp_menu_py,$arp_menu_spy,$arp_menu_adv,$arp_menu_rld,$arp_menu_srld,$arp_menu_whelp))
+$arp_menu_b.DropDownItems.AddRange(@($arp_menu_py,$arp_menu_spy,$Arp_menu_mml,$arp_menu_mlun,$Arp_menu_fix))
+$arp_menu_h.DropDownItems.AddRange(@($arp_menu_adv,$arp_menu_rld,$arp_menu_srld,$arp_menu_whelp))
 
 $arp_mnu.Items.AddRange(@($arp_menu_f,$arp_menu_o,$arp_menu_m,$arp_menu_b,$arp_menu_h))
 

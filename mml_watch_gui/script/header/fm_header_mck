@@ -4,8 +4,8 @@
 GHIJ t150
 GHIJ %trk_param%  OP0 @@0 q4 l8 v15
 
-G <a16r16 a^r>  d16r16 d^^wr
-// H c16r16 c^r    a16r16 a^^wr<
+G  a16r16 a^r  >d16r16 d^^wr<
+// H  c16r16 c^r  a16r16 a^^wr<
 
 ; replace parameter
 %fm_param%

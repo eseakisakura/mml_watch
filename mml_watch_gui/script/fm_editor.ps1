@@ -157,7 +157,7 @@ $xml_editor= @'
 # function ====== 
  
 # poly 
-	 
+	
 Function Line_highlight([array]$rr){ 
 
 	switch(Itm){ # Chip_position $script:xye2
@@ -813,7 +813,7 @@ function Poly_chw(){
  } #func
   
 # sine 
-	 
+	
 function Flowtting_point([int]$cnt, [int]$opt, [array]$xy){ 
 
 	[int]$i= 0
@@ -919,16 +919,16 @@ function Sin_4op([array]$rc,[int]$alg,[int]$fbj){ # 4op sin render
 
 # -0.75dB* [0-127] として計算
 
- ## [float]$atai= -0.75/ $adj_value
+ ## [float]$atai= -0.75/ 20
 
  [float[]]$rdus= @(0,0,0,0)
 
- ## $rdus[0]= [Math]::Pow(10, ($atai* $tl[0]))* $adj_value
+ ## $rdus[0]= [Math]::Pow(10, ($atai* $tl[0]))* 20
  # [Math]::Pow(10, (-0.0375* 0))= 1
- $rdus[0]= [Math]::Pow(10, (-0.0375* $tl[0]))* $adj_value
- $rdus[1]= [Math]::Pow(10, (-0.0375* $tl[1]))* $adj_value
- $rdus[2]= [Math]::Pow(10, (-0.0375* $tl[2]))* $adj_value
- $rdus[3]= [Math]::Pow(10, (-0.0375* $tl[3]))* $adj_value
+ $rdus[0]= [Math]::Pow(10, (-0.0375* $tl[0]))* 20
+ $rdus[1]= [Math]::Pow(10, (-0.0375* $tl[1]))* 20
+ $rdus[2]= [Math]::Pow(10, (-0.0375* $tl[2]))* 20
+ $rdus[3]= [Math]::Pow(10, (-0.0375* $tl[3]))* 20
 
  [int]$bai_value= $bai
 
@@ -1076,14 +1076,14 @@ function Sin_2op([array]$rc,[int]$alg,[int]$fbj){ # 2op sin render
 
 # -0.75dB* [0-63] として計算
 
- ## [float]$atai= -0.75/ $adj_value
+ ## [float]$atai= -0.75/ 20
 
  [float[]]$rdus= @(0,0)
 
- ## $rdus[0]= [Math]::Pow(10, ($atai* $tl[0]))* $adj_value
+ ## $rdus[0]= [Math]::Pow(10, ($atai* $tl[0]))* 20
  # (-0.75*$tl[0]/ 20) -> -0.0375
- $rdus[0]= [Math]::Pow(10, (-0.0375* $tl[0]))* $adj_value
- $rdus[1]= [Math]::Pow(10, (-0.0375* $tl[1]))* $adj_value
+ $rdus[0]= [Math]::Pow(10, (-0.0375* $tl[0]))* 20
+ $rdus[1]= [Math]::Pow(10, (-0.0375* $tl[1]))* 20
 
  [int]$bai_value= $bai
 
@@ -2184,7 +2184,7 @@ function All_chg(){ # $vrc_svn[][] ha "__1" no string
 # ------ 
  
 # load save 
-	 
+	
 function Autoload($x){ 
 
 	if($comb_fm.SelectedItem -ne $x.name){
@@ -2483,7 +2483,7 @@ function Load_value($x, [string]$sw){
  } #func
   
 # hash 
-	
+	 
 function Fmchange_value([string]$sw, [string]$name){ 
 
   # if($name -match '[v]' -eq $False){
@@ -3654,7 +3654,7 @@ function Contxt_chg_opm([string] $ss){
 	switch($ss){
 	'Attack'{
 		[void]$contxt_Mbg.Items.Add("Attack [v]")
-		[void]$contxt_Mbg.Items.Add("Decay")
+		[void]$contxt_Mbg.Items.Add("Decay")	
 		[void]$contxt_Mbg.Items.Add("SustainRate")
 		[void]$contxt_Mbg.Items.Add("Release")
 		[void]$contxt_Mbg.Items.Add("SustainLevel")
@@ -3736,7 +3736,6 @@ function Contxt_chg_opm([string] $ss){
  } #func
  
 function Contxt_octave([string]$a){ 
-
 
 	$contxt_oct.Items.Clear()
 
@@ -6318,18 +6317,18 @@ $image5a= New-Object System.Drawing.Bitmap(162,102)
 $image6a= New-Object System.Drawing.Bitmap(162,102)
  
 # $ContextMenu objを読み込んだ後$PictureBox objが安全 
-	
+	 
 $contxt_7bw= New-Object System.Windows.Forms.ContextMenuStrip 
 
 # [void]$contxt_7bw.Items.Add("Attack [v]")
 
 $contxt_7bw.Add_ItemClicked({
  try{
-   if( ([string] $_.ClickedItem).Contains("[v]")  -eq $False){
+	if( ([string] $_.ClickedItem).Contains("[v]")  -eq $False){
 
-	$script:key["wheel"][0]= ([string] $_.ClickedItem) # ( ga hitsuyo )
-	Contxt_chg_vrc $key["wheel"][0]
-    }
+		$script:key["wheel"][0]= ([string] $_.ClickedItem) # ( ga hitsuyo )
+		Contxt_chg_vrc $key["wheel"][0]
+	}
 	$this.Close()
  }catch{
 	echo $_.exception
@@ -6342,11 +6341,11 @@ $contxt_Lbw= New-Object System.Windows.Forms.ContextMenuStrip
 
 $contxt_Lbw.Add_ItemClicked({
  try{
-   if( ([string] $_.ClickedItem).Contains("[v]")  -eq $False){
+	if( ([string] $_.ClickedItem).Contains("[v]")  -eq $False){
 
-	$script:key["wheel"][1]= ([string] $_.ClickedItem)
-	Contxt_chg_opl $key["wheel"][1]
-    }
+		$script:key["wheel"][1]= ([string] $_.ClickedItem)
+		Contxt_chg_opl $key["wheel"][1]
+	}
 	$this.Close()
  }catch{
 	echo $_.exception
@@ -6359,11 +6358,11 @@ $contxt_Nbg= New-Object System.Windows.Forms.ContextMenuStrip
 
 $contxt_Nbg.Add_ItemClicked({
  try{
-   if( ([string] $_.ClickedItem).Contains("[v]")  -eq $False){
+	if( ([string] $_.ClickedItem).Contains("[v]")  -eq $False){
 
-	$script:key["wheel"][2]= ([string] $_.ClickedItem)
-	Contxt_chg_opn $key["wheel"][2]
-    }
+		$script:key["wheel"][2]= ([string] $_.ClickedItem)
+		Contxt_chg_opn $key["wheel"][2]
+	}
 	$this.Close()
  }catch{
 	echo $_.exception
@@ -6376,11 +6375,11 @@ $contxt_Mbg= New-Object System.Windows.Forms.ContextMenuStrip
 
 $contxt_Mbg.Add_ItemClicked({
  try{
-   if( ([string] $_.ClickedItem).Contains("[v]")  -eq $False){
+	if( ([string] $_.ClickedItem).Contains("[v]")  -eq $False){
 
-	$script:key["wheel"][3]= ([string] $_.ClickedItem)
-	Contxt_chg_opm $key["wheel"][3]
-   }
+		$script:key["wheel"][3]= ([string] $_.ClickedItem)
+		Contxt_chg_opm $key["wheel"][3]
+	}
 	$this.Close()
  }catch{
 	echo $_.exception
@@ -6393,21 +6392,14 @@ $contxt_oct= New-Object System.Windows.Forms.ContextMenuStrip
 
 $contxt_oct.Add_ItemClicked({
  try{
-	switch([string]$_.ClickedItem){
+	if( ([string] $_.ClickedItem).Contains("[v]")  -eq $False){
 
-	'o1'{	$fm_menu_oct1.PerformClick();	break; # メソッド
-	}'o2'{	$fm_menu_oct2.PerformClick();	break;
-	}'o3'{	$fm_menu_oct3.PerformClick();	break;
-	}'o4'{	$fm_menu_oct4.PerformClick();	break;
-	}'o5'{	$fm_menu_oct5.PerformClick();	break;
-	}'o6'{	$fm_menu_oct6.PerformClick();	break;
-	}'o7'{	$fm_menu_oct7.PerformClick();	break;
-	}'o8'{	$fm_menu_oct8.PerformClick()
+		$script:key["oct"]= Osc_sw ([string] $_.ClickedItem)
+		Stus_build
+
+		Contxt_octave $key["oct"]
 	}
-	} #sw
-
 	$this.Close()
-
  }catch{
 	echo $_.exception
  }
@@ -6418,7 +6410,7 @@ $contxt_oct.Add_ItemClicked({
 
 
 
-	 
+	
 $Pictbg= New-Object System.Windows.Forms.PictureBox 
 $Pictbg.ClientSize=  $bgimg.Size
 $Pictbg.Image= $bgimg
@@ -6498,7 +6490,7 @@ $Pictbw.Add_DoubleClick({
 	echo $_.exception
  }
 })
- 	
+ 
 $Pictbox1a= New-Object System.Windows.Forms.PictureBox 
 $Pictbox1a.ClientSize= $image1a.Size
 $Pictbox1a.Image= $image1a
@@ -8092,14 +8084,14 @@ $sub_sav.AcceptButton= $sub_sav_ok_Btn	# [Enter]
 # Main forms 
 	 
 # VRC7 
-	 
+	
 $vrc_eg_grp= New-Object System.Windows.Forms.GroupBox 
 $vrc_eg_grp.Location= "10,30"
 $vrc_eg_grp.Size= "255,220"
 $vrc_eg_grp.Text= "Envelope"
 $vrc_eg_grp.FlatStyle= "Flat"
 #$vrc_eg_grp.Hide() #$eg_grp.Show()
-	
+	 
 # ------ AR - AttackRate 15-0 
  
 $vrc_trkbar_ar= New-Object System.Windows.Forms.TrackBar 
@@ -8120,6 +8112,9 @@ $vrc_trkbar_ar.Add_Scroll({
 })
 
 $vrc_trkbar_ar.Add_Enter({
+
+	$script:key["wheel"][0]= "Attack"
+	Contxt_chg_vrc $key["wheel"][0]
 
 	Unredo 0
 })
@@ -8187,6 +8182,9 @@ $vrc_trkbar_dr.Add_Scroll({
 
 $vrc_trkbar_dr.Add_Enter({
 
+	$script:key["wheel"][0]= "Decay"
+	Contxt_chg_vrc $key["wheel"][0]
+
 	Unredo 0
 })
 
@@ -8253,6 +8251,9 @@ $vrc_trkbar_rr.Add_Scroll({
 
 $vrc_trkbar_rr.Add_Enter({
 
+	$script:key["wheel"][0]= "Release"
+	Contxt_chg_vrc $key["wheel"][0]
+
 	Unredo 0
 })
 
@@ -8318,6 +8319,9 @@ $vrc_trkbar_sl.Add_Scroll({
 })
 
 $vrc_trkbar_sl.Add_Enter({
+
+	$script:key["wheel"][0]= "Sustain"
+	Contxt_chg_vrc $key["wheel"][0]
 
 	Unredo 0
 })
@@ -8525,6 +8529,9 @@ $vrc_trkbar_dt.Add_Scroll({
 
 $vrc_trkbar_dt.Add_Enter({
 
+	$script:key["wheel"][0]= "Distortion"
+	Contxt_chg_vrc $key["wheel"][0]
+
 	Unredo 0
 })
 
@@ -8590,6 +8597,9 @@ $vrc_trkbar_eg.Add_Scroll({
 })
 
 $vrc_trkbar_eg.Add_Enter({
+
+	$script:key["wheel"][0]= "EnvGeneType"
+	Contxt_chg_vrc $key["wheel"][0]
 
 	Unredo 0
 })
@@ -8767,7 +8777,7 @@ $vrc_op_grp.Location= "270,195"
 $vrc_op_grp.Size= "255,175"
 $vrc_op_grp.Text= "Frequency Modulation"
 $vrc_op_grp.FlatStyle= "Flat"
-	
+	 
 # ------ ML - Multiple 0-15 
  
 $vrc_trkbar_ml= New-Object System.Windows.Forms.TrackBar 
@@ -8788,6 +8798,9 @@ $vrc_trkbar_ml.Add_Scroll({
 })
 
 $vrc_trkbar_ml.Add_Enter({
+
+	$script:key["wheel"][0]= "Multiple"
+	Contxt_chg_vrc $key["wheel"][0]
 
 	Unredo 0
 })
@@ -8855,6 +8868,9 @@ $vrc_trkbar_tl.Add_Scroll({
 
 $vrc_trkbar_tl.Add_Enter({
 
+	$script:key["wheel"][0]= "TotalLevel"
+	Contxt_chg_vrc $key["wheel"][0]
+
 	Unredo 0
 })
 
@@ -8907,7 +8923,7 @@ $vrc_alg_grp.Location= "10,370"
 $vrc_alg_grp.Size= "315,105"
 $vrc_alg_grp.Text= "Algorithm / Feedback"
 $vrc_alg_grp.FlatStyle= "Flat"
-	
+	 
 # ------ ALG - Algorithm $False 
  
 $vrc_trkbar_alg= New-Object System.Windows.Forms.TrackBar 
@@ -8972,6 +8988,9 @@ $vrc_trkbar_fb.Add_Scroll({
 })
 
 $vrc_trkbar_fb.Add_Enter({
+
+	$script:key["wheel"][0]= "Feedback"
+	Contxt_chg_vrc $key["wheel"][0]
 
 	Unredo 0
 })
@@ -9048,7 +9067,7 @@ $opl_eg_grp.Size= "255,220"
 $opl_eg_grp.Text= "Envelope"
 $opl_eg_grp.FlatStyle= "Flat"
 #$opl_eg_grp.Hide() #$eg_grp.Show()
-	
+	 
 # ------ AR - AttackRate 15-0 
  
 $opl_trkbar_ar= New-Object System.Windows.Forms.TrackBar 
@@ -9069,6 +9088,9 @@ $opl_trkbar_ar.Add_Scroll({
 })
 
 $opl_trkbar_ar.Add_Enter({
+
+	$script:key["wheel"][1]= "Attack"
+	Contxt_chg_opl $key["wheel"][1]
 
 	Unredo 0
 })
@@ -9136,6 +9158,9 @@ $opl_trkbar_dr.Add_Scroll({
 
 $opl_trkbar_dr.Add_Enter({
 
+	$script:key["wheel"][1]= "Decay"
+	Contxt_chg_opl $key["wheel"][1]
+
 	Unredo 0
 })
 
@@ -9202,6 +9227,9 @@ $opl_trkbar_rr.Add_Scroll({
 
 $opl_trkbar_rr.Add_Enter({
 
+	$script:key["wheel"][1]= "Release"
+	Contxt_chg_opl $key["wheel"][1]
+
 	Unredo 0
 })
 
@@ -9267,6 +9295,9 @@ $opl_trkbar_sl.Add_Scroll({
 })
 
 $opl_trkbar_sl.Add_Enter({
+
+	$script:key["wheel"][1]= "Sustain"
+	Contxt_chg_opl $key["wheel"][1]
 
 	Unredo 0
 })
@@ -9452,7 +9483,7 @@ $opl_ring_grp.Location= "270,30"
 $opl_ring_grp.Size= "255,165"
 $opl_ring_grp.Text= "Effects Control"
 $opl_ring_grp.FlatStyle= "Flat"
-	
+	 
 # ------ DT - Distortion 0-1 
  
 $opl_trkbar_dt= New-Object System.Windows.Forms.TrackBar 
@@ -9517,6 +9548,9 @@ $opl_trkbar_eg.Add_Scroll({
 })
 
 $opl_trkbar_eg.Add_Enter({
+
+	$script:key["wheel"][1]= "EnvGeneType"
+	Contxt_chg_opl $key["wheel"][1]
 
 	Unredo 0
 })
@@ -9694,7 +9728,7 @@ $opl_op_grp.Location= "270,195"
 $opl_op_grp.Size= "255,175"
 $opl_op_grp.Text= "Frequency Modulation"
 $opl_op_grp.FlatStyle= "Flat"
-	
+	 
 # ------ ML - Multiple 0-15 
  
 $opl_trkbar_ml= New-Object System.Windows.Forms.TrackBar 
@@ -9715,6 +9749,9 @@ $opl_trkbar_ml.Add_Scroll({
 })
 
 $opl_trkbar_ml.Add_Enter({
+
+	$script:key["wheel"][1]= "Multiple"
+	Contxt_chg_opl $key["wheel"][1]
 
 	Unredo 0
 })
@@ -9781,6 +9818,9 @@ $opl_trkbar_tl.Add_Scroll({
 })
 
 $opl_trkbar_tl.Add_Enter({
+
+	$script:key["wheel"][1]= "TotalLevel"
+	Contxt_chg_opl $key["wheel"][1]
 
 	Unredo 0
 })
@@ -9923,6 +9963,9 @@ $opl_trkbar_fb.Add_Scroll({
 
 $opl_trkbar_fb.Add_Enter({
 
+	$script:key["wheel"][1]= "Feedback"
+	Contxt_chg_opl $key["wheel"][1]
+
 	Unredo 0
 })
 
@@ -9998,7 +10041,7 @@ $opn_eg_grp.Size= "255,220"
 $opn_eg_grp.Text= "Envelope"
 $opn_eg_grp.FlatStyle= "Flat"
 #$opn_eg_grp.Hide() #$eg_grp.Show()
-	
+	 
 # ------ AR - AttackRate 31-0 
  
 $opn_trkbar_ar= New-Object System.Windows.Forms.TrackBar 
@@ -10019,6 +10062,9 @@ $opn_trkbar_ar.Add_Scroll({
 })
 
 $opn_trkbar_ar.Add_Enter({
+
+	$script:key["wheel"][2]= "Attack"
+	Contxt_chg_opn $key["wheel"][2]
 
 	Unredo 0
 })
@@ -10086,6 +10132,9 @@ $opn_trkbar_dr.Add_Scroll({
 
 $opn_trkbar_dr.Add_Enter({
 
+	$script:key["wheel"][2]= "Decay"
+	Contxt_chg_opn $key["wheel"][2]
+
 	Unredo 0
 })
 
@@ -10151,6 +10200,9 @@ $opn_trkbar_sr.Add_Scroll({
 })
 
 $opn_trkbar_sr.Add_Enter({
+
+	$script:key["wheel"][2]= "SustainRate"
+	Contxt_chg_opn $key["wheel"][2]
 
 	Unredo 0
 })
@@ -10218,6 +10270,9 @@ $opn_trkbar_rr.Add_Scroll({
 
 $opn_trkbar_rr.Add_Enter({
 
+	$script:key["wheel"][2]= "Release"
+	Contxt_chg_opn $key["wheel"][2]
+
 	Unredo 0
 })
 
@@ -10270,7 +10325,7 @@ $opn_lev_grp.Location= "10,250"
 $opn_lev_grp.Size= "255,120"
 $opn_lev_grp.Text= "Sustain Level"
 $opn_lev_grp.FlatStyle= "Flat"
-	
+	 
 # ------ SL - SustainLevel 15-0 
  
 $opn_trkbar_sl= New-Object System.Windows.Forms.TrackBar 
@@ -10291,6 +10346,9 @@ $opn_trkbar_sl.Add_Scroll({
 })
 
 $opn_trkbar_sl.Add_Enter({
+
+	$script:key["wheel"][2]= "SustainLevel"
+	Contxt_chg_opn $key["wheel"][2]
 
 	Unredo 0
 })
@@ -10582,7 +10640,7 @@ $opn_op_grp.Location= "270,195"
 $opn_op_grp.Size= "255,175"
 $opn_op_grp.Text= "Frequency Modulation"
 $opn_op_grp.FlatStyle= "Flat"
-	
+	 
 # ------ ML - Multiple 0-15 
  
 $opn_trkbar_ml= New-Object System.Windows.Forms.TrackBar 
@@ -10603,6 +10661,9 @@ $opn_trkbar_ml.Add_Scroll({
 })
 
 $opn_trkbar_ml.Add_Enter({
+
+	$script:key["wheel"][2]= "Multiple"
+	Contxt_chg_opn $key["wheel"][2]
 
 	Unredo 0
 })
@@ -10670,6 +10731,9 @@ $opn_trkbar_tl.Add_Scroll({
 
 $opn_trkbar_tl.Add_Enter({
 
+	$script:key["wheel"][2]= "TotalLevel"
+	Contxt_chg_opn $key["wheel"][2]
+
 	Unredo 0
 })
 
@@ -10722,7 +10786,7 @@ $opn_alg_grp.Location= "10,370"
 $opn_alg_grp.Size= "315,105"
 $opn_alg_grp.Text= "Algorithm / Feedback"
 $opn_alg_grp.FlatStyle= "Flat"
-	
+	 
 # ------ ALG - Algorithm 0-7 
  
 $opn_trkbar_alg= New-Object System.Windows.Forms.TrackBar 
@@ -10811,6 +10875,9 @@ $opn_trkbar_fb.Add_Scroll({
 
 $opn_trkbar_fb.Add_Enter({
 
+	$script:key["wheel"][2]= "Feedback"
+	Contxt_chg_opn $key["wheel"][2]
+
 	Unredo 0
 })
 
@@ -10885,7 +10952,7 @@ $opm_eg_grp.Size= "255,220"
 $opm_eg_grp.Text= "Envelope"
 $opm_eg_grp.FlatStyle= "Flat"
 #$opm_eg_grp.Hide() #$eg_grp.Show()
-	
+	 
 # ------ AR - AttackRate 31-0 
  
 $opm_trkbar_ar= New-Object System.Windows.Forms.TrackBar 
@@ -10906,6 +10973,9 @@ $opm_trkbar_ar.Add_Scroll({
 })
 
 $opm_trkbar_ar.Add_Enter({
+
+	$script:key["wheel"][3]= "Attack"
+	Contxt_chg_opm $key["wheel"][3]
 
 	Unredo 0
 })
@@ -10973,6 +11043,9 @@ $opm_trkbar_dr.Add_Scroll({
 
 $opm_trkbar_dr.Add_Enter({
 
+	$script:key["wheel"][3]= "Decay"
+	Contxt_chg_opm $key["wheel"][3]
+
 	Unredo 0
 })
 
@@ -11038,6 +11111,9 @@ $opm_trkbar_sr.Add_Scroll({
 })
 
 $opm_trkbar_sr.Add_Enter({
+
+	$script:key["wheel"][3]= "SustainRate"
+	Contxt_chg_opm $key["wheel"][3]
 
 	Unredo 0
 })
@@ -11105,6 +11181,9 @@ $opm_trkbar_rr.Add_Scroll({
 
 $opm_trkbar_rr.Add_Enter({
 
+	$script:key["wheel"][3]= "Release"
+	Contxt_chg_opm $key["wheel"][3]
+
 	Unredo 0
 })
 
@@ -11157,7 +11236,7 @@ $opm_lev_grp.Location= "10,250"
 $opm_lev_grp.Size= "255,120"
 $opm_lev_grp.Text= "Sustain Level"
 $opm_lev_grp.FlatStyle= "Flat"
-	
+	 
 # ------ SL - SustainLevel 0-15 
  
 $opm_trkbar_sl= New-Object System.Windows.Forms.TrackBar 
@@ -11178,6 +11257,9 @@ $opm_trkbar_sl.Add_Scroll({
 })
 
 $opm_trkbar_sl.Add_Enter({
+
+	$script:key["wheel"][3]= "SustainLevel"
+	Contxt_chg_opm $key["wheel"][3]
 
 	Unredo 0
 })
@@ -11487,7 +11569,7 @@ $opm_op_grp.Location= "270,195"
 $opm_op_grp.Size= "255,175"
 $opm_op_grp.Text= "Frequency Modulation"
 $opm_op_grp.FlatStyle= "Flat"
-	
+	 
 # ------ ML - Multiple 0-15 
  
 $opm_trkbar_ml= New-Object System.Windows.Forms.TrackBar 
@@ -11508,6 +11590,9 @@ $opm_trkbar_ml.Add_Scroll({
 })
 
 $opm_trkbar_ml.Add_Enter({
+
+	$script:key["wheel"][3]= "Multiple"
+	Contxt_chg_opm $key["wheel"][3]
 
 	Unredo 0
 })
@@ -11575,6 +11660,9 @@ $opm_trkbar_tl.Add_Scroll({
 
 $opm_trkbar_tl.Add_Enter({
 
+	$script:key["wheel"][3]= "TotalLevel"
+	Contxt_chg_opm $key["wheel"][3]
+
 	Unredo 0
 })
 
@@ -11627,7 +11715,7 @@ $opm_alg_grp.Location= "10,370"
 $opm_alg_grp.Size= "315,105"
 $opm_alg_grp.Text= "Algorithm / Feedback"
 $opm_alg_grp.FlatStyle= "Flat"
-	
+	 
 # ------ ALG - Algorithm 0-7 
  
 $opm_trkbar_alg= New-Object System.Windows.Forms.TrackBar 
@@ -11716,6 +11804,9 @@ $opm_trkbar_fb.Add_Scroll({
 
 $opm_trkbar_fb.Add_Enter({
 
+	$script:key["wheel"][3]= "Feedback"
+	Contxt_chg_opm $key["wheel"][3]
+
 	Unredo 0
 })
 
@@ -11783,7 +11874,7 @@ $opm_alg_grp.Controls.AddRange(@($opm_trkbar_alg,$opm_nmud_alg,$opm_lbl_alg))
 $opm_alg_grp.Controls.AddRange(@($opm_trkbar_fb,$opm_nmud_fb,$opm_lbl_fb))
   
 # forms 
-	
+	 
 $osc_grp= New-Object System.Windows.Forms.GroupBox 
 $osc_grp.Text= "FM OSC"
 $osc_grp.Size= "195,105"
@@ -12589,7 +12680,7 @@ $fm_menu_set.Add_Click({
 })
 
 
-	
+	 
 <# 
  
 $fm_menu_cmp0= New-Object System.Windows.Forms.ToolStripMenuItem 
@@ -13315,22 +13406,22 @@ $fm_menu_mask.Add_Click({
     	Write-Host '"ERROR: Safety Stopper >> $sub_mask.Show()"'
  }
 })
-	
+	 
 $fm_menu_so= New-Object System.Windows.Forms.ToolStripSeparator 
  
 $fm_menu_oct1= New-Object System.Windows.Forms.ToolStripMenuItem 
 #$fm_menu_oct1.Text= "o1"
 $fm_menu_oct1.Add_Click({
  try{
-    if($key["oct"] -ne 'o1'){
+	if($this.Text.Contains("[v]") -eq $False){
 
-	$script:key["oct"]= Osc_sw "o1"
-	Stus_build # <- $script:key["oct"] nochi
+		$script:key["oct"]= Osc_sw "o1"
+		Stus_build # <- $script:key["oct"] nochi
 
-	if($sb_alg.Visible){
-		Contxt_octave $key["oct"]
+		if($sb_alg.Visible){
+			Contxt_octave $key["oct"]
+		}
 	}
-    }
  }catch{
 	echo $_.exception
  }
@@ -13340,15 +13431,15 @@ $fm_menu_oct2= New-Object System.Windows.Forms.ToolStripMenuItem
 #$fm_menu_oct2.Text= "o2"
 $fm_menu_oct2.Add_Click({
  try{
-    if($key["oct"] -ne 'o2'){
+	if($this.Text.Contains("[v]") -eq $False){
 
-	$script:key["oct"]= Osc_sw "o2"
-	Stus_build
+		$script:key["oct"]= Osc_sw "o2"
+		Stus_build
 
-	if($sb_alg.Visible){
-		Contxt_octave $key["oct"]
+		if($sb_alg.Visible){
+			Contxt_octave $key["oct"]
+		}
 	}
-    }
  }catch{
 	echo $_.exception
  }
@@ -13358,15 +13449,15 @@ $fm_menu_oct3= New-Object System.Windows.Forms.ToolStripMenuItem
 #$fm_menu_oct3.Text= "o3"
 $fm_menu_oct3.Add_Click({
  try{
-    if($key["oct"] -ne 'o3'){
+ 	if($this.Text.Contains("[v]") -eq $False){
 
-	$script:key["oct"]= Osc_sw "o3"
-	Stus_build
+		$script:key["oct"]= Osc_sw "o3"
+		Stus_build
 
-	if($sb_alg.Visible){
-		Contxt_octave $key["oct"]
+		if($sb_alg.Visible){
+			Contxt_octave $key["oct"]
+		}
 	}
-    }
  }catch{
 	echo $_.exception
  }
@@ -13376,15 +13467,15 @@ $fm_menu_oct4= New-Object System.Windows.Forms.ToolStripMenuItem
 #$fm_menu_oct4.Text= "o4"
 $fm_menu_oct4.Add_Click({
  try{
-    if($key["oct"] -ne 'o4'){
+ 	if($this.Text.Contains("[v]") -eq $False){
 
-	$script:key["oct"]= Osc_sw "o4"
-	Stus_build
+		$script:key["oct"]= Osc_sw "o4"
+		Stus_build
 
-	if($sb_alg.Visible){
-		Contxt_octave $key["oct"]
+		if($sb_alg.Visible){
+			Contxt_octave $key["oct"]
+		}
 	}
-    }
  }catch{
 	echo $_.exception
  }
@@ -13394,15 +13485,15 @@ $fm_menu_oct5= New-Object System.Windows.Forms.ToolStripMenuItem
 #$fm_menu_oct5.Text= "o5"
 $fm_menu_oct5.Add_Click({
  try{
-    if($key["oct"] -ne 'o5'){
+ 	if($this.Text.Contains("[v]") -eq $False){
 
-	$script:key["oct"]= Osc_sw "o5"
-	Stus_build
+		$script:key["oct"]= Osc_sw "o5"
+		Stus_build
 
-	if($sb_alg.Visible){
-		Contxt_octave $key["oct"]
+		if($sb_alg.Visible){
+			Contxt_octave $key["oct"]
+		}
 	}
-    }
  }catch{
 	echo $_.exception
  }
@@ -13412,15 +13503,15 @@ $fm_menu_oct6= New-Object System.Windows.Forms.ToolStripMenuItem
 #$fm_menu_oct6.Text= "o6"
 $fm_menu_oct6.Add_Click({
  try{
-    if($key["oct"] -ne 'o6'){
+ 	if($this.Text.Contains("[v]") -eq $False){
 
-	$script:key["oct"]= Osc_sw "o6"
-	Stus_build
+		$script:key["oct"]= Osc_sw "o6"
+		Stus_build
 
-	if($sb_alg.Visible){
-		Contxt_octave $key["oct"]
+		if($sb_alg.Visible){
+			Contxt_octave $key["oct"]
+		}
 	}
-    }
  }catch{
 	echo $_.exception
  }
@@ -13430,15 +13521,15 @@ $fm_menu_oct7= New-Object System.Windows.Forms.ToolStripMenuItem
 #$fm_menu_oct7.Text= "o7"
 $fm_menu_oct7.Add_Click({
  try{
-    if($key["oct"] -ne 'o7'){
+	if($this.Text.Contains("[v]") -eq $False){
 
-	$script:key["oct"]= Osc_sw "o7"
-	Stus_build
+		$script:key["oct"]= Osc_sw "o7"
+		Stus_build
 
-	if($sb_alg.Visible){
-		Contxt_octave $key["oct"]
+		if($sb_alg.Visible){
+			Contxt_octave $key["oct"]
+		}
 	}
-    }
  }catch{
 	echo $_.exception
  }
@@ -13448,20 +13539,20 @@ $fm_menu_oct8= New-Object System.Windows.Forms.ToolStripMenuItem
 #$fm_menu_oct8.Text= "o8"
 $fm_menu_oct8.Add_Click({
  try{
-    if($key["oct"] -ne 'o8'){
+	if($this.Text.Contains("[v]") -eq $False){
 
-	$script:key["oct"]= Osc_sw "o8"
-	Stus_build
+		$script:key["oct"]= Osc_sw "o8"
+		Stus_build
 
-	if($sb_alg.Visible){
-		Contxt_octave $key["oct"]
+		if($sb_alg.Visible){
+			Contxt_octave $key["oct"]
+		}
 	}
-    }
  }catch{
 	echo $_.exception
  }
 })
-  
+ 	 
 $fm_menu_b= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_b.Text= "TextBox"
 

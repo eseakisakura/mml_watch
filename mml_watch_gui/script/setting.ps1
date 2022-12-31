@@ -56,7 +56,7 @@ $setting_xml= @'
 '@
  
 # hash 
-	 
+	
 function Xml_read($x){ 
 
   # $x= $script:xml_set.table
@@ -685,7 +685,7 @@ function Write_hash_cut(){
 	}
 	} #sw
  } #func
- 	 
+  
 function Attend(){ 
 
 	[string]$ret= [Windows.Forms.MessageBox]::Show(
@@ -1327,7 +1327,7 @@ $tab.Size= "245,255"
 $tab.Location= "5,25"
  
 # tab_mml 
-	
+	 
 $tab_mml= New-Object System.Windows.Forms.TabPage 
 $tab_mml.Text= "mml"
 
@@ -1339,7 +1339,7 @@ $label_mml.Location= "10,5"
  
 $contxt_mml= New-Object System.Windows.Forms.ContextMenuStrip 
 
-[void]$contxt_mml.Items.Add("Cancel") # text no baai $ de areba addrange
+[void]$contxt_mml.Items.Add("Cancel") # text no baai $Object de areba addrange
 [void]$contxt_mml.Items.Add("Editor")
 [void]$contxt_mml.Items.Add("Folder")
 [void]$contxt_mml.Items.Add("Remove")
@@ -1374,7 +1374,7 @@ $contxt_mml.Add_ItemClicked({
 
 	$this.Close()
 })
- 
+ 	
 $listbox_mml= New-Object System.Windows.Forms.ListBox 
 $listbox_mml.Size= "220,90"
 $listbox_mml.Location= "5,25"
