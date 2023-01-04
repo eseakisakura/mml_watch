@@ -1240,7 +1240,7 @@ function Sin_chg(){
  } #func
   
 # alg 
-	 
+	
 function Attend_alg([int]$j){ 
 
 	switch($j){
@@ -1395,8 +1395,8 @@ function Chip_position([string]$k){
 	}'reverse'{
 		$script:xyp= Chip_view 20 360 # x,y
 		$script:xyi= Chip_view 20 146
-		$script:xyfour= 365,20
-		$script:xytwo= 365,20
+		$script:xyfour= 355,20
+		$script:xytwo= 355,20
 		# $script:xye2= 0,276,480,4
 		# $script:xye4= 0,526,480,4
 	}
@@ -1422,7 +1422,7 @@ function Alg_cable([int]$alg){
  [array]$ary= @("vrc7","opl","opn","opm")
 
 
- [string]$tt= $ary[$comb_fm.SelectedIndex]+ "`r`n"+ "Alg:"+($alg -as [string])+ "`r`n"+ $arr[$sw]+ "`r`n"+ $mtx[$alg][$sw]
+ [string]$tt= $ary[$comb_fm.SelectedIndex]+ "`r`n"+ "Alg:"+($alg -as [string])+ "`r`n"+ $arr[$sw]+ "`r`n"+ $mtx[$alg][$sw]+ "`r`n"+ $key["wheel"][$comb_fm.SelectedIndex]
 
  if(Mskseg_chk){ $tt+= (Mskseg_out 2) }
 
@@ -1898,7 +1898,7 @@ function Alg_cablw([int]$alg){
  [array]$ary= @("vrc7","opl","opn","opm") # .SelectedIndex
 
 
- [string]$tt= $ary[$comb_fm.SelectedIndex]+ "`r`n"+ "Alg:"+ ($alg -as [string])+ "`r`n"+ $arr[$sw]+ "`r`n"+ $mtx[$alg][$sw]
+ [string]$tt= $ary[$comb_fm.SelectedIndex]+ "`r`n"+ "Alg:"+ ($alg -as [string])+ "`r`n"+ $arr[$sw]+ "`r`n"+ $mtx[$alg][$sw]+ "`r`n"+ $key["wheel"][$comb_fm.SelectedIndex]
 
 
  [array]$rr= Monotone_select "Alg_"
@@ -2483,7 +2483,7 @@ function Load_value($x, [string]$sw){
  } #func
   
 # hash 
-	 
+	
 function Fmchange_value([string]$sw, [string]$name){ 
 
   # if($name -match '[v]' -eq $False){
@@ -2614,7 +2614,7 @@ function Fmwrite_xml($x,$y){
  } #func
   
 # gui 
-	 
+	
 function Menu_comp_build([string]$t){ 
 
 	$fm_menu_cmck.Text= "MCK"
@@ -3170,19 +3170,25 @@ function Wheel_SL([string] $sw, [int] $delta){
 	}
 	} #sw
 
-	[int] $nn= 0
+	[array] $nn= "",""
+	[int[]] $nn[0]= 2,4,8, 16, 32, 64,128 # max
+	[int[]] $nn[1]= 4,8,16, 8,4, 2,1 # px
+	[int] $d= 0
+
 	switch($sw){
 	'Top'{
 		$script:start_value= [int] $x.Value
 		break;
 	}'Drug'{
-		if($x.Maximum -lt 4){
-			$nn= 32/ ($x.Maximum+ 1) # 32/4= 8px
-		}else{
-			$nn= 256/ ($x.Maximum+ 1) # 256/16= 16px置き変化
-		}
+		for([int] $i= 0; $i -lt $nn[0].Length; $i++){
 
-		$delta= [Math]::Floor( $delta/ $nn)
+			if($nn[0][$i] -ge ($x.Maximum+ 1)){
+				$d= $nn[1][$i]
+				break;
+			}
+		} #
+
+		$delta= [Math]::Floor( $delta/ $d)
 		$x.Value= [string] (Drug_chg $delta $script:start_value $x.Maximum)
 		break;
 	}'Delta'{
@@ -3654,7 +3660,7 @@ function Contxt_chg_opm([string] $ss){
 	switch($ss){
 	'Attack'{
 		[void]$contxt_Mbg.Items.Add("Attack [v]")
-		[void]$contxt_Mbg.Items.Add("Decay")	
+		[void]$contxt_Mbg.Items.Add("Decay")
 		[void]$contxt_Mbg.Items.Add("SustainRate")
 		[void]$contxt_Mbg.Items.Add("Release")
 		[void]$contxt_Mbg.Items.Add("SustainLevel")
@@ -4768,7 +4774,7 @@ function FF_listen([string]$ss){
  
 # ------ 
  
-function Prefixfm_mml([string]$gg){ # mml build 
+function Prefixfm_mml([string]$gg){ # fm-matrix -> mml 
 
 
 	[string]$tt= $key["oct"]
@@ -4800,8 +4806,7 @@ function Prefixfm_mml([string]$gg){ # mml build
 	$hh= $hh.Replace("%fm_param%",$gg)
 
 	return $hh
-
-} #func
+ } #func
  
 function Lisnfm_nsf([int]$sw, [string]$t){ 
 
@@ -4896,13 +4901,13 @@ function Box_listen([int]$j){
 	  switch($key["type"]){
 	  'mckreg'{	[string]$s= Reg_write;	break;
 	  }'nsdreg'{	[string]$s= Reg_write;	break;
-	  }default{	[string]$s= Fmx_light	# pmd comma less
+	  }default{		[string]$s= Fmx_light	# pmd comma less
 	  }
 	  } #sw
 
 	  break;
 
-  }default{ [string]$s= Fmx_light
+  }default{		[string]$s= Fmx_light
   }
   } #sw
 
@@ -4945,7 +4950,7 @@ function Key_play([string]$t){
  } #func
   
 # Export 
-	
+	 
 function Unredo([int]$n){ 
 
   switch($n){ # 初期化
@@ -5753,12 +5758,12 @@ function Mskseg_out([int]$sw){
 	'pmd'{
 		[string]$mk= "s"
 		[string]$eg= "SE"
-		[string]$tr= "SE15,0"
+		##[string]$tr= "SE15,0"
 		break;
 	}default{
 		[string]$mk= "Mask:"
 		[string]$eg= "SSG:"
-		[string]$tr= ""
+		##[string]$tr= ""
 	}
 	} #sw
 
@@ -5773,16 +5778,18 @@ function Mskseg_out([int]$sw){
 
 	if($key["eg_type"] -ne 'Thru'){
 
-		$ss+= $tt
-		$ss+= $eg+ $key["ssg"]+ ","+ $key["eg_type"]
+		if($comb_fm.SelectedItem -eq  'opn 4op'){
+			$ss+= $tt
+			$ss+= $eg+ $key["ssg"]+ ","+ $key["eg_type"]
+		}
 	}else{
 		if($sw -eq 0){ # Listenのみ
 
 			$ss+= $tt
-			$ss+= $tr
+			##$ss+= $tr
 		}
 	}
-
+write-host ("rrrr: "+ $ss)
 	return $ss
  } #func
  
@@ -6285,7 +6292,7 @@ Add-Type -AssemblyName System.Drawing > $null
 $ErrorActionPreference= "Stop"
 
 $Fon= New-Object System.Drawing.Font("MS Gothic",11) # Microsoft Sans Serif
-$Fona= New-Object System.Drawing.Font("Lucida Console",14) # Garamond Georgia Verdana Impact
+$Fona= New-Object System.Drawing.Font("Lucida Console",12) # Garamond Georgia Verdana Impact
 
 cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 [Environment]::CurrentDirectory= pwd # working_dir set
@@ -6317,7 +6324,7 @@ $image5a= New-Object System.Drawing.Bitmap(162,102)
 $image6a= New-Object System.Drawing.Bitmap(162,102)
  
 # $ContextMenu objを読み込んだ後$PictureBox objが安全 
-	 
+	
 $contxt_7bw= New-Object System.Windows.Forms.ContextMenuStrip 
 
 # [void]$contxt_7bw.Items.Add("Attack [v]")
@@ -6328,6 +6335,7 @@ $contxt_7bw.Add_ItemClicked({
 
 		$script:key["wheel"][0]= ([string] $_.ClickedItem) # ( ga hitsuyo )
 		Contxt_chg_vrc $key["wheel"][0]
+		Pict_chg
 	}
 	$this.Close()
  }catch{
@@ -6345,6 +6353,7 @@ $contxt_Lbw.Add_ItemClicked({
 
 		$script:key["wheel"][1]= ([string] $_.ClickedItem)
 		Contxt_chg_opl $key["wheel"][1]
+		Pict_chg
 	}
 	$this.Close()
  }catch{
@@ -6362,6 +6371,7 @@ $contxt_Nbg.Add_ItemClicked({
 
 		$script:key["wheel"][2]= ([string] $_.ClickedItem)
 		Contxt_chg_opn $key["wheel"][2]
+		Pict_chg
 	}
 	$this.Close()
  }catch{
@@ -6379,6 +6389,7 @@ $contxt_Mbg.Add_ItemClicked({
 
 		$script:key["wheel"][3]= ([string] $_.ClickedItem)
 		Contxt_chg_opm $key["wheel"][3]
+		Pict_chg
 	}
 	$this.Close()
  }catch{
@@ -7358,7 +7369,7 @@ $sb_stus.Items.AddRange(@($sb_label))
 $sb_alg.Controls.AddRange(@($sb_mnu,$pict_panel,$sb_stus))
   
 # Preset forms 
-	
+	 
 $ff_baloon= New-Object System.Windows.Forms.Tooltip 
 $ff_baloon.ShowAlways= $False
 # $ff_baloon.ToolTipIcon= "Info"
@@ -7785,7 +7796,7 @@ $ff_mnu.Items.AddRange(@($ff_menu_f,$ff_menu_b))
 $ff_frm.Controls.AddRange(@($ff_mnu,$ff_tab,$import_btn,$close_btn))
   
 # Mask forms 
-	
+	 
 $sub_mask= New-Object System.Windows.Forms.Form 
 $sub_mask.Text= "Operator Mask"
 $sub_mask.Size= "272,172"
@@ -7897,10 +7908,45 @@ $sub_mask_chk3.Add_Click({
 })
   
 $sub_ssg_grp= New-Object System.Windows.Forms.GroupBox 
-$sub_ssg_grp.Text= "SSG-EG(4.8s later)"
+$sub_ssg_grp.Text= "SSG-EG"
 $sub_ssg_grp.Size= "135,125" # 215,95"
 $sub_ssg_grp.Location= "110,3"
 	 
+$sub_ssg_comb= New-Object System.Windows.Forms.Combobox 
+$sub_ssg_comb.Size= "64,20"
+$sub_ssg_comb.Location= "65,24"
+$sub_ssg_comb.FlatStyle= "Popup"
+
+[void]$sub_ssg_comb.Items.AddRange(@('Thru','0','8','9','10','11','12','13','14','15'))
+$sub_ssg_comb.DropDownStyle= "DropDownList"
+$sub_ssg_comb.SelectedIndex= 0
+
+$sub_ssg_comb.Add_SelectedValueChanged({
+ try{
+	$script:key["eg_type"]= $this.SelectedItem
+
+	Box_write
+
+	if($sb_alg.Visible){
+		All_chg
+	}
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$sub_ssg_label2= New-Object System.Windows.Forms.Label 
+$sub_ssg_label2.Location= "65,62"
+$sub_ssg_label2.Size= "64,20"
+$sub_ssg_label2.TextAlign= "BottomLeft"
+$sub_ssg_label2.Text= "4.8s later"
+ 	
+$sub_ssg_label= New-Object System.Windows.Forms.Label 
+$sub_ssg_label.Location= "65,82"
+$sub_ssg_label.Size= "64,20"
+$sub_ssg_label.TextAlign= "BottomLeft"
+$sub_ssg_label.Text= "OPNonly"
+ 
 $sub_ssg_chk0= New-Object System.Windows.Forms.CheckBox 
 $sub_ssg_chk0.Text= "Op.1"
 $sub_ssg_chk0.Size= "60,20"
@@ -7980,37 +8026,14 @@ $sub_ssg_chk3.Add_Click({
 	echo $_.exception
  }
 })
- 
-$sub_ssg_comb= New-Object System.Windows.Forms.Combobox 
-$sub_ssg_comb.Size= "60,20"
-$sub_ssg_comb.Location= "65,50"
-$sub_ssg_comb.FlatStyle= "Popup"
-
-[void]$sub_ssg_comb.Items.AddRange(@('Thru','0','8','9','10','11','12','13','14','15'))
-$sub_ssg_comb.DropDownStyle= "DropDownList"
-$sub_ssg_comb.SelectedIndex= 0
-
-$sub_ssg_comb.Add_SelectedValueChanged({
- try{
-	$script:key["eg_type"]= $this.SelectedItem
-
-	Box_write
-
-	if($sb_alg.Visible){
-		All_chg
-	}
- }catch{
-	echo $_.exception
- }
-})
   
 $sub_mask_grp.Controls.AddRange(@($sub_mask_chk0,$sub_mask_chk1,$sub_mask_chk2,$sub_mask_chk3)) 
-$sub_ssg_grp.Controls.AddRange(@($sub_ssg_comb,$sub_ssg_chk0,$sub_ssg_chk1,$sub_ssg_chk2,$sub_ssg_chk3))
+$sub_ssg_grp.Controls.AddRange(@($sub_ssg_label2,$sub_ssg_label,$sub_ssg_comb,$sub_ssg_chk0,$sub_ssg_chk1,$sub_ssg_chk2,$sub_ssg_chk3))
 
 $sub_mask.Controls.AddRange(@($sub_mask_grp,$sub_ssg_grp))
   
 # Sav forms 
-	
+	 
 $sub_sav_grp= New-Object System.Windows.Forms.GroupBox 
 # $sub_sav_grp.Text= "Save Name"
 $sub_sav_grp.Size= "242,82"
@@ -8082,7 +8105,7 @@ $sub_sav.CancelButton= $sub_sav_cancel_Btn	# [ESC]
 $sub_sav.AcceptButton= $sub_sav_ok_Btn	# [Enter]
   
 # Main forms 
-	 
+	
 # VRC7 
 	
 $vrc_eg_grp= New-Object System.Windows.Forms.GroupBox 
@@ -9060,7 +9083,7 @@ $vrc_alg_grp.Controls.AddRange(@($vrc_trkbar_alg,$vrc_nmud_alg,$vrc_lbl_alg))
 $vrc_alg_grp.Controls.AddRange(@($vrc_trkbar_fb,$vrc_nmud_fb,$vrc_lbl_fb))
   
 # OPL 
-	
+	 
 $opl_eg_grp= New-Object System.Windows.Forms.GroupBox 
 $opl_eg_grp.Location= "10,30"
 $opl_eg_grp.Size= "255,220"
@@ -10034,7 +10057,7 @@ $opl_alg_grp.Controls.AddRange(@($opl_trkbar_alg,$opl_nmud_alg,$opl_lbl_alg))
 $opl_alg_grp.Controls.AddRange(@($opl_trkbar_fb,$opl_nmud_fb,$opl_lbl_fb))
   
 # OPN 
-	
+	 
 $opn_eg_grp= New-Object System.Windows.Forms.GroupBox 
 $opn_eg_grp.Location= "10,30"
 $opn_eg_grp.Size= "255,220"
@@ -10945,7 +10968,7 @@ $opn_alg_grp.Controls.AddRange(@($opn_trkbar_alg,$opn_nmud_alg,$opn_lbl_alg))
 $opn_alg_grp.Controls.AddRange(@($opn_trkbar_fb,$opn_nmud_fb,$opn_lbl_fb))
   
 # OPM 
-	
+	 
 $opm_eg_grp= New-Object System.Windows.Forms.GroupBox 
 $opm_eg_grp.Location= "10,30"
 $opm_eg_grp.Size= "255,220"
@@ -12220,7 +12243,7 @@ $frm_fm.Add_FormClosing({
 })
  
 $fm_mnu= New-Object System.Windows.Forms.MenuStrip 
-	 
+	
 $fm_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_f.Text= "File"
 
@@ -13406,7 +13429,7 @@ $fm_menu_mask.Add_Click({
     	Write-Host '"ERROR: Safety Stopper >> $sub_mask.Show()"'
  }
 })
-	 
+	
 $fm_menu_so= New-Object System.Windows.Forms.ToolStripSeparator 
  
 $fm_menu_oct1= New-Object System.Windows.Forms.ToolStripMenuItem 
@@ -13552,7 +13575,7 @@ $fm_menu_oct8.Add_Click({
 	echo $_.exception
  }
 })
- 	 
+  
 $fm_menu_b= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_b.Text= "TextBox"
 
