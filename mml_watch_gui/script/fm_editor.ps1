@@ -2184,7 +2184,7 @@ function All_chg(){ # $vrc_svn[][] ha "__1" no string
 # ------ 
  
 # load save 
-	
+	 
 function Autoload($x){ 
 
 	if($comb_fm.SelectedItem -ne $x.name){
@@ -2614,7 +2614,7 @@ function Fmwrite_xml($x,$y){
  } #func
   
 # gui 
-	
+	 
 function Menu_comp_build([string]$t){ 
 
 	$fm_menu_cmck.Text= "MCK"
@@ -3075,10 +3075,10 @@ function Opmap_change([int]$j){
 	# .SelectedIndex= $j event -> .Add_SelectedValueChanged
 
 	switch($comb_fm.SelectedItem){
-	'vrc7 2op'{	$comb_vrc.SelectedIndex= $j;	break; # mod select
-	}'opl 2op'{	$comb_opl.SelectedIndex= $j;	break;
-	}'opn 4op'{	$comb_opn.SelectedIndex= $j;	break;
-	}'opm 4op'{	$comb_opm.SelectedIndex= $j
+	'vrc7 2op'{	if($comb_vrc.SelectedIndex -ne $j ){ $comb_vrc.SelectedIndex= $j };	break; # mod select
+	}'opl 2op'{	if($comb_opl.SelectedIndex -ne $j ){ $comb_opl.SelectedIndex= $j };	break;
+	}'opn 4op'{	if($comb_opn.SelectedIndex -ne $j ){ $comb_opn.SelectedIndex= $j };	break;
+	}'opm 4op'{	if($comb_opm.SelectedIndex -ne $j ){ $comb_opm.SelectedIndex= $j }
 	}
 	} #sw
  } #func
@@ -4950,7 +4950,7 @@ function Key_play([string]$t){
  } #func
   
 # Export 
-	 
+	
 function Unredo([int]$n){ 
 
   switch($n){ # 初期化
@@ -6421,7 +6421,7 @@ $contxt_oct.Add_ItemClicked({
 
 
 
-	
+	 
 $Pictbg= New-Object System.Windows.Forms.PictureBox 
 $Pictbg.ClientSize=  $bgimg.Size
 $Pictbg.Image= $bgimg
@@ -6501,7 +6501,7 @@ $Pictbw.Add_DoubleClick({
 	echo $_.exception
  }
 })
- 
+ 	
 $Pictbox1a= New-Object System.Windows.Forms.PictureBox 
 $Pictbox1a.ClientSize= $image1a.Size
 $Pictbox1a.Image= $image1a
@@ -6529,10 +6529,17 @@ $Pictbox1a.Add_MouseMove({ # drag enter
     }
 })
 
+$Pictbox1a.Add_MouseHover({
+ try{
+	Opmap_change 0 # .SelectedIndex
+ }catch{
+	echo $_.exception
+ }
+})
+
 $Pictbox1a.Add_MouseDown({
  try{
 	Opmap_change 0 # .SelectedIndex
-
 	switch([string]$_.Button){
 	'Right'{
 		Contxt_select "boxpict"
@@ -6577,10 +6584,17 @@ $Pictbox2a.Add_MouseMove({ # drag enter
     }
 })
 
+$Pictbox2a.Add_MouseHover({
+ try{
+	Opmap_change 1
+ }catch{
+	echo $_.exception
+ }
+})
+
 $Pictbox2a.Add_MouseDown({
  try{
 	Opmap_change 1
-
 	switch([string]$_.Button){
 	'Right'{
 		Contxt_select "boxpict"
@@ -6625,10 +6639,17 @@ $Pictbox1.Add_MouseMove({ # drag enter
     }
 })
 
+$Pictbox1.Add_MouseHover({
+ try{
+	Opmap_change 0 # .SelectedIndex
+ }catch{
+	echo $_.exception
+ }
+})
+
 $Pictbox1.Add_MouseDown({
  try{
 	Opmap_change 0 # .SelectedIndex
-
 	switch([string]$_.Button){
 	'Right'{
 		Contxt_select "boxpict"
@@ -6673,10 +6694,17 @@ $Pictbox2.Add_MouseMove({ # drag enter
     }
 })
 
+$Pictbox2.Add_MouseHover({
+ try{
+	Opmap_change 1
+ }catch{
+	echo $_.exception
+ }
+})
+
 $Pictbox2.Add_MouseDown({
  try{
 	Opmap_change 1
-
 	switch([string]$_.Button){
 	'Right'{
 		Contxt_select "boxpict"
@@ -6721,10 +6749,17 @@ $Pictbox3.Add_MouseMove({ # drag enter
     }
 })
 
+$Pictbox3.Add_MouseHover({
+ try{
+	Opmap_change 2
+ }catch{
+	echo $_.exception
+ }
+})
+
 $Pictbox3.Add_MouseDown({
  try{
 	Opmap_change 2
-
 	switch([string]$_.Button){
 	'Right'{
 		Contxt_select "boxpict"
@@ -6769,10 +6804,17 @@ $Pictbox4.Add_MouseMove({ # drag enter
     }
 })
 
+$Pictbox4.Add_MouseHover({
+ try{
+	Opmap_change 3
+ }catch{
+	echo $_.exception
+ }
+})
+
 $Pictbox4.Add_MouseDown({
  try{
 	Opmap_change 3
-
 	switch([string]$_.Button){
 	'Right'{
 		Contxt_select "boxpict"
@@ -7940,7 +7982,7 @@ $sub_ssg_label2.Location= "65,62"
 $sub_ssg_label2.Size= "64,20"
 $sub_ssg_label2.TextAlign= "BottomLeft"
 $sub_ssg_label2.Text= "4.8s later"
- 	
+ 
 $sub_ssg_label= New-Object System.Windows.Forms.Label 
 $sub_ssg_label.Location= "65,82"
 $sub_ssg_label.Size= "64,20"
