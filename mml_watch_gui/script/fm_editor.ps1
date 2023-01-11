@@ -2932,7 +2932,7 @@ function Fmwrite_xml($x,$y){
  } #func
   
 # gui 
-	
+	 
 function Menu_comp_build([string]$t){ 
 
 	$fm_menu_cmck.Text= "MCK"
@@ -4419,7 +4419,7 @@ function MSop_checker([int]$i, [string]$ss){ # Mask,SSG
  } #func
   
 # Panel 
-	 
+	
 function Enable_chk([string]$s){ 
 
 	[int[]]$num= 0,0
@@ -6741,7 +6741,7 @@ $image5a= New-Object System.Drawing.Bitmap(162,102)
 $image6a= New-Object System.Drawing.Bitmap(162,102)
  
 # $contxt_7bwを読み込んだ後$PictureBox objが安全 
-	 
+	
 $contxt_Sep_7bw= New-Object System.Windows.Forms.ToolStripSeparator 
 $contxt_Sep_Lbw= New-Object System.Windows.Forms.ToolStripSeparator
 $contxt_Sep_Nbg= New-Object System.Windows.Forms.ToolStripSeparator
@@ -6756,6 +6756,7 @@ $contxt_7bw.Add_ItemClicked({
 	[string] $str= $_.ClickedItem # switch tame
 	switch($str){
 	'ADSR copy'{	$script:adsr= ADSR_in
+			break;
 	}'ADSR paste'{
 		Unredo 0
 
@@ -6763,6 +6764,7 @@ $contxt_7bw.Add_ItemClicked({
 		Box_write
 		Value_gui
 		All_chg
+		break;
 	}default{
 		if($str.Contains("[v]") -eq $False){
 
@@ -6778,7 +6780,7 @@ $contxt_7bw.Add_ItemClicked({
 	echo $_.exception
  }
 })
- 	
+ 
 $contxt_Lbw= New-Object System.Windows.Forms.ContextMenuStrip 
 
 # [void]$contxt_Lbw.Items.Add("Attack [v]")
@@ -6788,6 +6790,7 @@ $contxt_Lbw.Add_ItemClicked({
 	[string] $str= $_.ClickedItem
 	switch($str){
 	'ADSR copy'{	$script:adsr= ADSR_in
+			break;
 	}'ADSR paste'{
 		Unredo 0
 
@@ -6795,6 +6798,7 @@ $contxt_Lbw.Add_ItemClicked({
 		Box_write
 		Value_gui
 		All_chg
+		break;
 	}default{
 		if($str.Contains("[v]") -eq $False){
 
@@ -6820,6 +6824,7 @@ $contxt_Nbg.Add_ItemClicked({
 	[string] $str= $_.ClickedItem
 	switch($str){
 	'ADSR copy'{	$script:adsr= ADSR_in
+			break;
 	}'ADSR paste'{
 		Unredo 0
 
@@ -6827,6 +6832,7 @@ $contxt_Nbg.Add_ItemClicked({
 		Box_write
 		Value_gui
 		All_chg
+		break;
 	}default{
 		if($str.Contains("[v]") -eq $False){
 
@@ -6852,6 +6858,7 @@ $contxt_Mbg.Add_ItemClicked({
 	[string] $str= $_.ClickedItem
 	switch($str){
 	'ADSR copy'{	$script:adsr= ADSR_in
+			break;
 	}'ADSR paste'{
 		Unredo 0
 
@@ -6859,6 +6866,7 @@ $contxt_Mbg.Add_ItemClicked({
 		Box_write
 		Value_gui
 		All_chg
+		break;
 	}default{
 		if($str.Contains("[v]") -eq $False){
 
@@ -6899,7 +6907,7 @@ $contxt_oct.Add_ItemClicked({
 
 
 
-	
+	 
 $Pictbg= New-Object System.Windows.Forms.PictureBox 
 $Pictbg.ClientSize=  $bgimg.Size
 $Pictbg.Image= $bgimg
@@ -7003,7 +7011,15 @@ $Pictbox1a.Add_MouseMove({ # drag enter
     if($script:mouse_capure -eq $True){
 
 	$mscp= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
-	Wheel_SL "Drug" ( -([int] $mscp.Y)+ ([int] $script:toppos.Y) )
+
+	switch($key["wheel"][$comb_fm.SelectedIndex]){
+	'Attack'{		Wheel_SL "Drug" ( -([int] $mscp.X)+ ([int] $script:toppos.X) )	break;	
+	}'Decay'{		Wheel_SL "Drug" ( -([int] $mscp.X)+ ([int] $script:toppos.X) )	break;
+	}'Release'{		Wheel_SL "Drug" ( -([int] $mscp.X)+ ([int] $script:toppos.X) )	break;
+	}'Multiple'{	Wheel_SL "Drug" ( -([int] $mscp.X)+ ([int] $script:toppos.X) )	break;
+	}default{		Wheel_SL "Drug" ( -([int] $mscp.Y)+ ([int] $script:toppos.Y) )
+	}
+	} #sw
     }
 })
 
@@ -7063,7 +7079,15 @@ $Pictbox2a.Add_MouseMove({ # drag enter
 	if($comb_fm.SelectedIndex -eq 0 -and $comb_vrc.SelectedIndex -eq 1 -and $key["wheel"][0] -eq 'TotalLevel'){
 	}else{
 		$mscp= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
-		Wheel_SL "Drug" ( -([int] $mscp.Y)+ ([int] $script:toppos.Y) )
+
+		switch($key["wheel"][$comb_fm.SelectedIndex]){
+		'Attack'{		Wheel_SL "Drug" ( -([int] $mscp.X)+ ([int] $script:toppos.X) )	break;
+		}'Decay'{		Wheel_SL "Drug" ( -([int] $mscp.X)+ ([int] $script:toppos.X) )	break;
+		}'Release'{		Wheel_SL "Drug" ( -([int] $mscp.X)+ ([int] $script:toppos.X) )	break;
+		}'Multiple'{	Wheel_SL "Drug" ( -([int] $mscp.X)+ ([int] $script:toppos.X) )	break;
+		}default{		Wheel_SL "Drug" ( -([int] $mscp.Y)+ ([int] $script:toppos.Y) )
+		}
+		} #sw
 	}
     }
 })
@@ -7119,7 +7143,15 @@ $Pictbox1.Add_MouseMove({ # drag enter
     if($script:mouse_capure -eq $True){
 
 	$mscp= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
-	Wheel_SL "Drug" ( -([int] $mscp.Y)+ ([int] $script:toppos.Y) )
+
+	switch($key["wheel"][$comb_fm.SelectedIndex]){
+	'Attack'{		Wheel_SL "Drug" ( -([int] $mscp.X)+ ([int] $script:toppos.X) )	break;
+	}'Decay'{		Wheel_SL "Drug" ( -([int] $mscp.X)+ ([int] $script:toppos.X) )	break;
+	}'Release'{		Wheel_SL "Drug" ( -([int] $mscp.X)+ ([int] $script:toppos.X) )	break;
+	}'Multiple'{	Wheel_SL "Drug" ( -([int] $mscp.X)+ ([int] $script:toppos.X) )	break;
+	}default{		Wheel_SL "Drug" ( -([int] $mscp.Y)+ ([int] $script:toppos.Y) )
+	}
+	} #sw
     }
 })
 
@@ -7174,7 +7206,15 @@ $Pictbox2.Add_MouseMove({ # drag enter
     if($script:mouse_capure -eq $True){
 
 	$mscp= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
-	Wheel_SL "Drug" ( -([int] $mscp.Y)+ ([int] $script:toppos.Y) )
+
+	switch($key["wheel"][$comb_fm.SelectedIndex]){
+	'Attack'{		Wheel_SL "Drug" ( -([int] $mscp.X)+ ([int] $script:toppos.X) )	break;
+	}'Decay'{		Wheel_SL "Drug" ( -([int] $mscp.X)+ ([int] $script:toppos.X) )	break;
+	}'Release'{		Wheel_SL "Drug" ( -([int] $mscp.X)+ ([int] $script:toppos.X) )	break;
+	}'Multiple'{	Wheel_SL "Drug" ( -([int] $mscp.X)+ ([int] $script:toppos.X) )	break;
+	}default{		Wheel_SL "Drug" ( -([int] $mscp.Y)+ ([int] $script:toppos.Y) )
+	}
+	} #sw
     }
 })
 
@@ -7229,7 +7269,15 @@ $Pictbox3.Add_MouseMove({ # drag enter
     if($script:mouse_capure -eq $True){
 
 	$mscp= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
-	Wheel_SL "Drug" ( -([int] $mscp.Y)+ ([int] $script:toppos.Y) )
+
+	switch($key["wheel"][$comb_fm.SelectedIndex]){
+	'Attack'{		Wheel_SL "Drug" ( -([int] $mscp.X)+ ([int] $script:toppos.X) )	break;
+	}'Decay'{		Wheel_SL "Drug" ( -([int] $mscp.X)+ ([int] $script:toppos.X) )	break;
+	}'Release'{		Wheel_SL "Drug" ( -([int] $mscp.X)+ ([int] $script:toppos.X) )	break;
+	}'Multiple'{	Wheel_SL "Drug" ( -([int] $mscp.X)+ ([int] $script:toppos.X) )	break;
+	}default{		Wheel_SL "Drug" ( -([int] $mscp.Y)+ ([int] $script:toppos.Y) )
+	}
+	} #sw
     }
 })
 
@@ -7284,7 +7332,15 @@ $Pictbox4.Add_MouseMove({ # drag enter
     if($script:mouse_capure -eq $True){
 
 	$mscp= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
-	Wheel_SL "Drug" ( -([int] $mscp.Y)+ ([int] $script:toppos.Y) )
+
+	switch($key["wheel"][$comb_fm.SelectedIndex]){
+	'Attack'{		Wheel_SL "Drug" ( -([int] $mscp.X)+ ([int] $script:toppos.X) )	break;
+	}'Decay'{		Wheel_SL "Drug" ( -([int] $mscp.X)+ ([int] $script:toppos.X) )	break;
+	}'Release'{		Wheel_SL "Drug" ( -([int] $mscp.X)+ ([int] $script:toppos.X) )	break;
+	}'Multiple'{	Wheel_SL "Drug" ( -([int] $mscp.X)+ ([int] $script:toppos.X) )	break;
+	}default{		Wheel_SL "Drug" ( -([int] $mscp.Y)+ ([int] $script:toppos.Y) )
+	}
+	} #sw
     }
 })
 
@@ -7315,7 +7371,7 @@ $Pictbox4.Add_MouseDown({
 	echo $_.exception
  }
 })
-  
+ 	 
 $gpb= [System.Drawing.Graphics]::FromImage($bgimg) # 書き込み 
 $gpw= [System.Drawing.Graphics]::FromImage($bgimw)
 
@@ -13395,7 +13451,7 @@ $fm_menu_cpmd.Add_Click({
 	echo $_.exception
  }
 })
-	
+	 
 $fm_menu_mck0= New-Object System.Windows.Forms.ToolStripMenuItem 
 #$fm_menu_mck0.Text= "0.exe"
 $fm_menu_mck0.Visible= $False
@@ -13981,7 +14037,7 @@ $fm_menu_mask.Add_Click({
     	Write-Host '"ERROR: Safety Stopper >> $sub_mask.Show()"'
  }
 })
-	
+	 
 $fm_menu_so= New-Object System.Windows.Forms.ToolStripSeparator 
  
 $fm_menu_oct1= New-Object System.Windows.Forms.ToolStripMenuItem 
