@@ -7,7 +7,7 @@ GHIABCDEFXYZ t150 C192
 
 ; SSG
 G v15 E0,-2,32,16 o2 Q2 l4 [ab>cdefga]2
-H o5 [ v15 {{bge}}1,%9,1,0,-1]4
+H o5 [ v15 {{bge}}1,%8,1,0,-1]4
 
 ; FM Rythm
 C v16 @1 s12 o2  l8 [rrrc errr  cerc errr]2
@@ -29,6 +29,8 @@ R1 @129c@129c@2c@129c
 
 R2 @1c@128c@2c@1024c
 R3 @1c@128c@2c@256c
+
+
 
 
  

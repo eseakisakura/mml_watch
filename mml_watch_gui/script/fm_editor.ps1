@@ -2502,7 +2502,7 @@ function All_chg(){ # $vrc_svn[][] ha "__1" no string
 # ------ 
  
 # load save 
-	
+	 
 function Autoload($x){ 
 
 	if($comb_fm.SelectedItem -ne $x.name){
@@ -2932,7 +2932,7 @@ function Fmwrite_xml($x,$y){
  } #func
   
 # gui 
-	 
+	
 function Menu_comp_build([string]$t){ 
 
 	$fm_menu_cmck.Text= "MCK"
@@ -4835,7 +4835,7 @@ function Panel_chg([string]$sw){
 
 	Box_write	# mtx
 	Value_gui	# bar
-	Fm_osc		# 高速化で最後へ	
+	Fm_osc		# 高速化で最後へ
 
  } #func
   
@@ -6757,6 +6757,8 @@ $contxt_7bw.Add_ItemClicked({
 	switch($str){
 	'ADSR copy'{	$script:adsr= ADSR_in
 	}'ADSR paste'{
+		Unredo 0
+
 		ADSR_out $script:adsr
 		Box_write
 		Value_gui
@@ -6776,7 +6778,7 @@ $contxt_7bw.Add_ItemClicked({
 	echo $_.exception
  }
 })
- 
+ 	
 $contxt_Lbw= New-Object System.Windows.Forms.ContextMenuStrip 
 
 # [void]$contxt_Lbw.Items.Add("Attack [v]")
@@ -6787,6 +6789,8 @@ $contxt_Lbw.Add_ItemClicked({
 	switch($str){
 	'ADSR copy'{	$script:adsr= ADSR_in
 	}'ADSR paste'{
+		Unredo 0
+
 		ADSR_out $script:adsr
 		Box_write
 		Value_gui
@@ -6817,6 +6821,8 @@ $contxt_Nbg.Add_ItemClicked({
 	switch($str){
 	'ADSR copy'{	$script:adsr= ADSR_in
 	}'ADSR paste'{
+		Unredo 0
+
 		ADSR_out $script:adsr
 		Box_write
 		Value_gui
@@ -6847,6 +6853,8 @@ $contxt_Mbg.Add_ItemClicked({
 	switch($str){
 	'ADSR copy'{	$script:adsr= ADSR_in
 	}'ADSR paste'{
+		Unredo 0
+
 		ADSR_out $script:adsr
 		Box_write
 		Value_gui
@@ -6866,7 +6874,7 @@ $contxt_Mbg.Add_ItemClicked({
 	echo $_.exception
  }
 })
- 	
+ 
 $contxt_oct= New-Object System.Windows.Forms.ContextMenuStrip 
 
 ##[void]$contxt_oct.Items.Add("o1") # ->Contxt_octave
@@ -8625,7 +8633,7 @@ $sub_sav.AcceptButton= $sub_sav_ok_Btn	# [Enter]
 # Main forms 
 	 
 # VRC7 
-	 
+	
 $vrc_eg_grp= New-Object System.Windows.Forms.GroupBox 
 $vrc_eg_grp.Location= "10,30"
 $vrc_eg_grp.Size= "255,220"
@@ -11511,7 +11519,7 @@ $opn_alg_grp.Controls.AddRange(@($opn_trkbar_alg,$opn_nmud_alg,$opn_lbl_alg))
 $opn_alg_grp.Controls.AddRange(@($opn_trkbar_fb,$opn_nmud_fb,$opn_lbl_fb))
   
 # OPM 
-	 
+	
 $opm_eg_grp= New-Object System.Windows.Forms.GroupBox 
 $opm_eg_grp.Location= "10,30"
 $opm_eg_grp.Size= "255,220"
