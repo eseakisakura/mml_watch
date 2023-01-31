@@ -18,6 +18,7 @@ $xml_editor= @'
 		<adjust value="20"/>
 		<wait value="2"/>
 		<layout value="nomal"/>
+		<mode value="light"/>
 		<color value="natural"/>
 		<wheel value="Attack,Attack,Attack,Attack"/>
 		<chk_dos value="Checked"/>
@@ -277,150 +278,10 @@ function Contxt_change([int]$a){
   } #sw
  } #func
  
-#> 
- 
-# function ====== 
- 
-# color 
-	
-function Silver_convert($tt){ 
-
-	[int] $pp= $tt.A
-	[int] $nn= 255- [Math]::Floor(($tt.R+ $tt.G+ $tt.B)/ 3)
-	$mm= [System.Drawing.Color]::FromArgb($pp,$nn,$nn,$nn)
-
-	return $mm
- } #func
- 
-function Brush_Color(){ 
-
-	switch($key["color"]){
-
-	'dark'{
-		switch(Itm){
-		'2op'{
-			switch(Idx){
-			0{	$color= $darkSblue; $brush= $darkREllipse; $bgbrush= $darkBPie; break;
-			}1{	$color= $darkSred; $brush= $darkBEllipse; $bgbrush= $darkRPie
-			}
-			} #sw
-			break;
-		}'4op'{
-			switch(Idx){
-			0{	$color= $darkblue; $brush= $darkREllipse; $bgbrush= $darkBPie; break;
-			}1{	$color= $darkgreen; $brush= $darkOEllipse; $bgbrush= $naturalGPie; break;
-			}2{	$color= $darkorange; $brush= $darkGEllipse; $bgbrush= $pastelOPie; break;
-			}3{	$color= $darkred; $brush= $darkBEllipse; $bgbrush= $vividRPie
-			}
-			} #sw
-		}
-		} #sw
-		break;
-
-	}'natural'{
-		switch(Itm){
-		'2op'{
-			switch(Idx){
-			0{	$color= $naturalSblue; $brush= $naturalREllipse; $bgbrush= $naturalBPie; break;
-			}1{	$color= $naturalSred; $brush= $naturalBEllipse; $bgbrush= $naturalRPie
-			}
-			} #sw
-			break;
-		}'4op'{
-			switch(Idx){
-			0{	$color= $naturalSblue; $brush= $naturalREllipse; $bgbrush= $naturalBPie; break;
-			}1{	$color= $naturalSgreen; $brush= $naturalOEllipse; $bgbrush= $naturalGPie; break;
-			}2{	$color= $naturalSorange; $brush= $naturalGEllipse; $bgbrush= $naturalOPie; break;
-			}3{	$color= $naturalSred; $brush= $naturalBEllipse; $bgbrush= $naturalRPie
-			}
-			} #sw
-		}
-		} #sw
-		break;
-
-	}'pastel'{
-
-		switch(Itm){
-		'2op'{
-			switch(Idx){
-			0{	$color= $pastelSblue; $brush= $pastelREllipse; $bgbrush= $pastelBPie; break;
-			}1{	$color= $pastelSred; $brush= $pastelBEllipse; $bgbrush= $pastelRPie
-			}
-			} #sw
-			break;
-		}'4op'{
-			switch(Idx){
-			0{	$color= $pastelSblue; $brush= $pastelREllipse; $bgbrush= $pastelBPie; break;
-			}1{	$color= $pastelSgreen; $brush= $pastelOEllipse; $bgbrush= $pastelGPie; break;
-			}2{	$color= $pastelSorange; $brush= $pastelGEllipse; $bgbrush= $pastelOPie; break;
-			}3{	$color= $pastelSred; $brush= $pastelBEllipse; $bgbrush= $pastelRPie
-			}
-			} #sw
-		}
-		} #sw
-		break;
-
-	}'vivid'{
-
-		switch(Itm){
-		'2op'{
-			switch(Idx){
-			0{	$color= $vividSblue; $brush= $vividREllipse; $bgbrush= $vividBPie; break;
-			}1{	$color= $vividSred; $brush= $vividBEllipse; $bgbrush= $vividRPie
-			}
-			} #sw
-			break;
-		}'4op'{
-			switch(Idx){
-			0{	$color= $vividSblue; $brush= $vividREllipse; $bgbrush= $vividBPie; break;
-			}1{	$color= $vividSgreen; $brush= $vividOEllipse; $bgbrush= $vividGPie; break;
-			}2{	$color= $vividSorange; $brush= $vividGEllipse; $bgbrush= $vividOPie; break;
-			}3{	$color= $vividSred; $brush= $vividBEllipse; $bgbrush= $vividRPie
-			}
-			} #sw
-		}
-		} #sw
-	}
-	} #sw
-
-	[array]$rr= $color, $brush, $bgbrush
-
-	return $rr
-} #func
- 
-Function Line_highlight([array]$rr){ 
-
-	switch(Itm){ # Chip_position $script:xye2
-	'2op'{
-		$buffw.Graphics.FillRectangle($rr[0],$xye2[0],$xye2[1],$xye2[2],$xye2[3])
-		$buffw.Graphics.FillRectangle($rr[0],$xye2[4],$xye2[5],$xye2[6],$xye2[7])
-		$buffw.Render($gpw); $Pictbw.Refresh()
-
-		sleep -m 166
-
-		$buffw.Graphics.FillRectangle($rr[1],$xye2[0],$xye2[1],$xye2[2],$xye2[3])
-		$buffw.Graphics.FillRectangle($rr[1],$xye2[4],$xye2[5],$xye2[6],$xye2[7])
-		$buffw.Render($gpw); $Pictbw.Refresh()
-
-		break;
-	}'4op'{
-		$buffb.Graphics.FillRectangle($rr[0],$xye4[0],$xye4[1],$xye4[2],$xye4[3])
-		$buffb.Graphics.FillRectangle($rr[0],$xye4[4],$xye4[5],$xye4[6],$xye4[7])
-		$buffb.Render($gpb); $Pictbg.Refresh()
-
-		sleep -m 166
-
-		$buffb.Graphics.FillRectangle($rr[1],$xye4[0],$xye4[1],$xye4[2],$xye4[3])
-		$buffb.Graphics.FillRectangle($rr[1],$xye4[4],$xye4[5],$xye4[6],$xye4[7])
-		$buffb.Render($gpb); $Pictbg.Refresh()
-	}
-	} #sw
- } # func
- 
 function Monotone_select([string]$out){ 
 
 	switch($key["color"]){
-	'dark'{	[int]$o= 0; break;
+	'steel'{	[int]$o= 0; break;
 	}'natural'{	[int]$o= 1; break;
 	}'pastel'{	[int]$o= 0; break;
 	}'vivid'{	[int]$o= 1
@@ -472,11 +333,98 @@ function Monotone_select([string]$out){
 	} #sw
  } #func
  
+#> 
+ 
+# function ====== 
+ 
+# color 
+	 
+Function Line_highlight([array]$rr){ 
+
+	switch(Itm){ # Chip_position $script:xye2
+	'2op'{
+		$buffw.Graphics.FillRectangle($rr[0],$xye2[0],$xye2[1],$xye2[2],$xye2[3])
+		$buffw.Graphics.FillRectangle($rr[0],$xye2[4],$xye2[5],$xye2[6],$xye2[7])
+		$buffw.Render($gpw); $Pictbw.Refresh()
+
+		sleep -m 166
+
+		$buffw.Graphics.FillRectangle($rr[1],$xye2[0],$xye2[1],$xye2[2],$xye2[3])
+		$buffw.Graphics.FillRectangle($rr[1],$xye2[4],$xye2[5],$xye2[6],$xye2[7])
+		$buffw.Render($gpw); $Pictbw.Refresh()
+
+		break;
+	}'4op'{
+		$buffb.Graphics.FillRectangle($rr[0],$xye4[0],$xye4[1],$xye4[2],$xye4[3])
+		$buffb.Graphics.FillRectangle($rr[0],$xye4[4],$xye4[5],$xye4[6],$xye4[7])
+		$buffb.Render($gpb); $Pictbg.Refresh()
+
+		sleep -m 166
+
+		$buffb.Graphics.FillRectangle($rr[1],$xye4[0],$xye4[1],$xye4[2],$xye4[3])
+		$buffb.Graphics.FillRectangle($rr[1],$xye4[4],$xye4[5],$xye4[6],$xye4[7])
+		$buffb.Render($gpb); $Pictbg.Refresh()
+	}
+	} #sw
+ } # func
+ 
+function Monotone_select([string]$out){ 
+
+	switch($out){
+ 	'Alg_'{	# BG_set
+
+		switch($key["mode"]){
+		'dark'{
+			[array]$qq= @($Whwpen,$Whbrush,$black,$Blsolid)
+			break;
+		}'light'{
+			[array]$qq= @($Blwpen,$Blbrush,$white,$Whsolid)
+		}
+		} #sw
+
+		return $qq
+		break;
+
+	}'lisn_btn'{
+
+		switch($key["mode"]){
+		'dark'{
+			[array]$qq= @($Tbrush,$Blsolid)
+			break;
+		}'light'{
+			[array]$qq= @($Tbrush,$Whsolid)
+		}
+		} #sw
+
+		Line_highlight $qq
+		break;
+
+	}'conv_btn'{
+
+		switch($key["mode"]){
+		'dark'{
+			[array]$qq= @($Pbrush,$Blsolid)
+			break;
+		}'light'{
+			[array]$qq= @($Pbrush,$Whsolid)
+		}
+		} #sw
+
+		Line_highlight $qq
+	}
+	} #sw
+ } #func
+ 
 function Color_select(){ 
 
-	switch($key["color"]){
+	switch($key["mode"]){
+	'dark'{	$brush= $Whbrush; break;
+	}'light'{	$brush= $Blbrush
+	}
+	} #sw
 
-	'dark'{	$brush= $Whbrush
+	switch($key["color"]){
+	'steel'{
 		switch(Itm){
 		'2op'{	[array]$color= @($darkblue, $darkred); break;
 		}'4op'{	[array]$color= @($darkblue, $darkgreen, $darkorange, $darkred)
@@ -484,7 +432,7 @@ function Color_select(){
 		} #sw
 		break;
 
-	}'natural'{	$brush= $Blbrush
+	}'natural'{
 		switch(Itm){
 		'2op'{	[array]$color= @($naturalblue, $naturalred); break;
 		}'4op'{	[array]$color= @($naturalblue,$naturalgreen, $naturalorange, $naturalred)
@@ -492,7 +440,7 @@ function Color_select(){
 		} #sw
 		break;
 
-	}'pastel'{	$brush= $Whbrush
+	}'pastel'{
 		switch(Itm){
 		'2op'{	[array]$color= @($pastelblue, $pastelred); break;
 		}'4op'{	[array]$color= @($pastelblue, $pastelgreen, $pastelorange, $pastelred)
@@ -500,7 +448,7 @@ function Color_select(){
 		} #sw
 		break;
 
-	}'vivid'{	$brush= $Blbrush
+	}'vivid'{
 		switch(Itm){
 		'2op'{	[array]$color= @($vividblue, $vividred); break;
 		}'4op'{	[array]$color= @($vividblue, $vividgreen, $vividorange, $vividred)
@@ -512,6 +460,117 @@ function Color_select(){
 	[array]$rr= $color, $brush # 必要、echo 直だとダメ
 	return $rr
  } #func
+ 
+function Silver_convert($tt){ 
+
+	[int] $pp= $tt.A
+	[int] $nn= 255- [Math]::Floor(($tt.R+ $tt.G+ $tt.B)/ 3)
+	$mm= [System.Drawing.Color]::FromArgb($pp,$nn,$nn,$nn)
+
+	return $mm
+ } #func
+ 
+function Brush_Color(){ 
+
+	switch($script:key["mode"]){
+	'dark'{	$color= $black; break;
+	}'light'{	$color= $white248
+	}
+	} #sw
+
+	switch($key["color"]){
+
+	'steel'{
+		switch(Itm){
+		'2op'{
+			switch(Idx){
+			0{	$brush= $darkBEllipse; $bgbrush= $darkBPie; break;
+			}1{	$brush= $darkREllipse; $bgbrush= $darkRPie
+			}
+			} #sw
+			break;
+		}'4op'{
+			switch(Idx){
+			0{	$brush= $darkBEllipse; $bgbrush= $darkBPie; break;
+			}1{	$brush= $darkGEllipse; $bgbrush= $naturalGPie; break;
+			}2{	$brush= $darkOEllipse; $bgbrush= $pastelOPie; break;
+			}3{	$brush= $darkREllipse; $bgbrush= $vividRPie
+			}
+			} #sw
+		}
+		} #sw
+		break;
+
+	}'natural'{
+		switch(Itm){
+		'2op'{
+			switch(Idx){
+			0{	$brush= $naturalBEllipse; $bgbrush= $naturalBPie; break;
+			}1{	$brush= $naturalREllipse; $bgbrush= $naturalRPie
+			}
+			} #sw
+			break;
+		}'4op'{
+			switch(Idx){
+			0{	$brush= $naturalBEllipse; $bgbrush= $naturalBPie; break;
+			}1{	$brush= $naturalGEllipse; $bgbrush= $naturalGPie; break;
+			}2{	$brush= $naturalOEllipse; $bgbrush= $naturalOPie; break;
+			}3{	$brush= $naturalREllipse; $bgbrush= $naturalRPie
+			}
+			} #sw
+		}
+		} #sw
+		break;
+
+	}'pastel'{
+
+		switch(Itm){
+		'2op'{
+			switch(Idx){
+			0{	$brush= $pastelBEllipse; $bgbrush= $pastelBPie; break;
+			}1{	$brush= $pastelREllipse; $bgbrush= $pastelRPie
+			}
+			} #sw
+			break;
+		}'4op'{
+			switch(Idx){
+			0{	$brush= $pastelBEllipse; $bgbrush= $pastelBPie; break;
+			}1{	$brush= $pastelGEllipse; $bgbrush= $pastelGPie; break;
+			}2{	$brush= $pastelOEllipse; $bgbrush= $pastelOPie; break;
+			}3{	$brush= $pastelREllipse; $bgbrush= $pastelRPie
+			}
+			} #sw
+		}
+		} #sw
+		break;
+
+	}'vivid'{
+
+		switch(Itm){
+		'2op'{
+			switch(Idx){
+			0{	$brush= $vividBEllipse; $bgbrush= $vividBPie; break;
+			}1{	$brush= $vividREllipse; $bgbrush= $vividRPie
+			}
+			} #sw
+			break;
+		}'4op'{
+			switch(Idx){
+			0{	$brush= $vividBEllipse; $bgbrush= $vividBPie; break;
+			}1{	$brush= $vividGEllipse; $bgbrush= $vividGPie; break;
+			}2{	$brush= $vividOEllipse; $bgbrush= $vividOPie; break;
+			}3{	$brush= $vividREllipse; $bgbrush= $vividRPie
+			}
+			} #sw
+		}
+		} #sw
+	}
+	} #sw
+
+	[array]$rr= $color, $brush, $bgbrush
+
+	return $rr
+} #func
   
 # buffer 
 	 
@@ -535,7 +594,7 @@ function Pixcel_Select([int] $max){
 	return $d
  } #func
  
-function Mouse_druger([string] $sw, [string] $adsr, $ev){ 	
+function Mouse_druger([string] $sw, [string] $adsr, $ev){ 
 
 	switch($sw){
 	'Up'{
@@ -1400,7 +1459,7 @@ function Contxt_select([string]$s){
  } #func
   
 # poly 
-	
+	 
 function Value_out(){ 
 
 	[string[]] $ss= "","", "",""
@@ -2658,7 +2717,7 @@ function Sin_chg(){
  } #func
   
 # alg 
-	
+	 
 function Popalg_build([string]$t){ # <- $key["open"] 
 
  switch($t){
@@ -2745,15 +2804,29 @@ function Layout_alg([string]$t){
 	return $t
  } #func
  
-function Color_alg([string]$t){ 
+function Mode_alg([string] $t){ 
 
 	$sb_menu_dark.Text= "Dark"
+	$sb_menu_light.Text= "Light"
+
+	switch($t){
+	'dark'{	$sb_menu_dark.Text= "[v] Dark";	break;
+	}'light'{	$sb_menu_light.Text= "[v] Light"
+	}
+	} #sw
+
+	return $t
+ } #func
+ 
+function Color_alg([string]$t){ 
+
+	$sb_menu_steel.Text= "Steel"
 	$sb_menu_natural.Text= "Natural"
 	$sb_menu_pastel.Text= "Pastel"
 	$sb_menu_vivid.Text= "Vivid"
 
 	switch($t){
-	'dark'{	$sb_menu_dark.Text= "[v] Dark";	break;
+	'steel'{	$sb_menu_steel.Text= "[v] Steel";	break;
 	}'natural'{	$sb_menu_natural.Text= "[v] Natural";	break;
 	}'pastel'{	$sb_menu_pastel.Text= "[v] Pastel";	break;
 	}'vivid'{	$sb_menu_vivid.Text= "[v] Vivid"
@@ -2765,7 +2838,7 @@ function Color_alg([string]$t){
  
 function Stus_alg(){ # status bar 
 
-	$sb_label.Text= "  1/"+ $bai+ " | "+ "adjust: "+ $key["adjust"]+ " | "+ "wait: "+ $key["wait"]+ "ms"+ " | "+ "layout: "+ $key["layout"]+ " | "+ $key["color"]+ " color"
+	$sb_label.Text= "  1/"+ $bai+ " | "+ "adjust: "+ $key["adjust"]+ " | "+ "wait: "+ $key["wait"]+ "ms"+ " | "+ "layout: "+ $key["layout"]+ " | "+ " color: "+ $key["mode"]+", "+ $key["color"]
 
  } #func
  
@@ -3610,7 +3683,7 @@ function All_chg(){ # $vrc_svn[][] ha "__1" no string
 # ------ 
  
 # load save 
-	
+	 
 function Autoload($x){ 
 
 	if($comb_fm.SelectedItem -ne $x.name){
@@ -3909,7 +3982,7 @@ function Load_value($x, [string]$sw){
  } #func
   
 # hash 
-	
+	 
 function Fmchange_value([string]$sw, [string]$name){ 
 
   # if($name -match '[v]' -eq $False){
@@ -3998,6 +4071,7 @@ function Fmxml_read($x,$y){ # hash設定
 	$script:key["adjust"]= Adj_sw $y.adjust.value
 	$script:key["wait"]= Wait_sw $y.wait.value
 	$script:key["layout"]= Layout_alg $y.layout.value
+	$script:key["mode"]= Mode_alg $y.mode.value
 	$script:key["color"]= Color_alg $y.color.value
 	$script:key["wheel"]= [string[]] ($y.wheel.value -split ",")
 	$script:key["open"]= $y.open.value # -> $frm_fm.Add_Shown
@@ -4032,6 +4106,7 @@ function Fmwrite_xml($x,$y){
 	$y.adjust.value= [string]$key["adjust"]
 	$y.wait.value= [string]$key["wait"]
 	$y.layout.value= [string]$key["layout"]
+	$y.mode.value= [string]$key["mode"]
 	$y.color.value= [string]$key["color"]
 	$y.wheel.value= [string] ($key["wheel"] -join ",")
 
@@ -4648,7 +4723,7 @@ function MSop_checker([int]$i, [string]$ss){ # Mask,SSG
  } #func
   
 # Panel 
-	
+	 
 function Enable_chk([string]$s){ 
 
 	[int[]]$num= 0,0
@@ -5070,7 +5145,7 @@ function Panel_chg([string]$sw){
  } #func
   
 # Lis 
-	
+	 
 function Adv_edit([string]$t){ 
 
   switch($t){
@@ -7827,7 +7902,7 @@ $sb_alg.Add_FormClosing({
 })
  
 $sb_mnu= New-Object System.Windows.Forms.MenuStrip 
-	
+	 
 $sb_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $sb_menu_f.Text= "File"
 
@@ -8125,20 +8200,17 @@ $sb_menu_rev.Add_Click({
  }
 })
  
-$sb_menu_o= New-Object System.Windows.Forms.ToolStripMenuItem 
-$sb_menu_o.Text= "Color"
+$sb_menu_m= New-Object System.Windows.Forms.ToolStripMenuItem 
+$sb_menu_m.Text= "Mode"
 
-$sb_menu_natural= New-Object System.Windows.Forms.ToolStripMenuItem
-#$sb_menu_natural.Text= "natural"
+$sb_menu_dark= New-Object System.Windows.Forms.ToolStripMenuItem
+#$sb_menu_dark.Text= "dark"
 
-$sb_menu_natural.Add_Click({
+$sb_menu_dark.Add_Click({
  try{
-	if($key["color"] -ne 'natural'){
+	if($key["mode"] -ne 'dark'){
 
-		$script:key["color"]= Color_alg "natural"
-
-		[array]$rr= Brush_Color
-		$fm_panel.BackColor= $rr[0]
+		$script:key["mode"]= Mode_alg "dark"
 
 		Color_Render
 		All_chg # ura buffer no tame
@@ -8150,20 +8222,58 @@ $sb_menu_natural.Add_Click({
  }
 })
 
-$sb_menu_dark= New-Object System.Windows.Forms.ToolStripMenuItem
-#$sb_menu_dark.Text= "dark"
+$sb_menu_light= New-Object System.Windows.Forms.ToolStripMenuItem
+#$sb_menu_light.Text= "light"
 
-$sb_menu_dark.Add_Click({
+$sb_menu_light.Add_Click({
  try{
-	if($key["color"] -ne 'dark'){
+	if($key["mode"] -ne 'light'){
 
-		$script:key["color"]= Color_alg "dark"
-
-		[array]$rr= Brush_Color
-		$fm_panel.BackColor= $rr[0]
+		$script:key["mode"]= Mode_alg "light"
 
 		Color_Render
 		All_chg
+		Stus_alg
+	}
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$sb_menu_o= New-Object System.Windows.Forms.ToolStripMenuItem 
+$sb_menu_o.Text= "Color"
+
+$sb_menu_steel= New-Object System.Windows.Forms.ToolStripMenuItem
+#$sb_menu_steel.Text= "steel"
+
+$sb_menu_steel.Add_Click({
+ try{
+	if($key["color"] -ne 'steel'){
+
+		$script:key["color"]= Color_alg "steel"
+
+		Color_Render
+		All_chg
+		Stus_alg
+	}
+
+ }catch{
+	echo $_.exception
+ }
+})
+
+$sb_menu_natural= New-Object System.Windows.Forms.ToolStripMenuItem
+#$sb_menu_natural.Text= "natural"
+
+$sb_menu_natural.Add_Click({
+ try{
+	if($key["color"] -ne 'natural'){
+
+		$script:key["color"]= Color_alg "natural"
+
+		Color_Render
+		All_chg # ura buffer no tame
 		Stus_alg
 	}
 
@@ -8180,9 +8290,6 @@ $sb_menu_pastel.Add_Click({
 	if($key["color"] -ne 'pastel'){
 
 		$script:key["color"]= Color_alg "pastel"
-
-		[array]$rr= Brush_Color
-		$fm_panel.BackColor= $rr[0]
 
 		Color_Render
 		All_chg
@@ -8203,9 +8310,6 @@ $sb_menu_vivid.Add_Click({
 
 		$script:key["color"]= Color_alg "vivid"
 
-		[array]$rr= Brush_Color
-		$fm_panel.BackColor= $rr[0]
-
 		Color_Render
 		All_chg
 		Stus_alg
@@ -8224,17 +8328,18 @@ $pict_panel.Controls.AddRange(@($Pictbox1a,$Pictbox2a,$Pictbox1,$Pictbox2,$Pictb
 $sb_menu_e.DropDownItems.AddRange(@($sb_menu_one,$sb_menu_two,$sb_menu_three,$sb_menu_four,$sb_menu_five,$sb_menu_six,$sb_menu_seven))
 $sb_menu_a.DropDownItems.AddRange(@($sb_menu_a0,$sb_menu_a1,$sb_menu_a2,$sb_menu_a3,$sb_menu_a4))
 $sb_menu_y.DropDownItems.AddRange(@($sb_menu_ff,$sb_menu_rev))
-$sb_menu_o.DropDownItems.AddRange(@($sb_menu_dark,$sb_menu_natural,$sb_menu_pastel,$sb_menu_vivid))
+$sb_menu_o.DropDownItems.AddRange(@($sb_menu_steel, $sb_menu_natural, $sb_menu_pastel, $sb_menu_vivid))
+$sb_menu_m.DropDownItems.AddRange(@($sb_menu_dark, $sb_menu_light))
 $sb_menu_p.DropDownItems.AddRange(@($sb_menu_w0,$sb_menu_w1,$sb_menu_w2))
 $sb_menu_f.DropDownItems.AddRange(@($sb_menu_p,$sb_menu_sn,$sb_menu_fin))
 
-$sb_mnu.Items.AddRange(@($sb_menu_f,$sb_menu_e,$sb_menu_a,$sb_menu_y,$sb_menu_o))
+$sb_mnu.Items.AddRange(@($sb_menu_f, $sb_menu_e, $sb_menu_a, $sb_menu_y, $sb_menu_m, $sb_menu_o))
 
 $sb_stus.Items.AddRange(@($sb_label))
 $sb_alg.Controls.AddRange(@($sb_mnu,$pict_panel,$sb_stus))
   
 # Preset forms 
-	
+	 
 $ff_baloon= New-Object System.Windows.Forms.Tooltip 
 $ff_baloon.ShowAlways= $False
 # $ff_baloon.ToolTipIcon= "Info"
@@ -11163,8 +11268,9 @@ $opn_eg_grp.Location= "10,30"
 $opn_eg_grp.Size= "265,210"
 $opn_eg_grp.Text= "Envelope Rate"
 $opn_eg_grp.FlatStyle= "Flat"
+$opn_eg_grp.ForeColor= "gray"
 #$opn_eg_grp.Hide() #$eg_grp.Show()
-	 
+	
 <# 
  
 $opn_trkbar_ar= New-Object System.Windows.Forms.TrackBar 
@@ -11489,13 +11595,14 @@ $opn_lbl_rr.Text= "Release"
 $opn_lbl_rr.TextAlign= "BottomCenter"
  
 # ------ 
-  	
+  
 $opn_lev_grp= New-Object System.Windows.Forms.GroupBox 
 $opn_lev_grp.Location= "10,250"
 $opn_lev_grp.Size= "255,120"
 $opn_lev_grp.Text= "Sustain Level"
 $opn_lev_grp.FlatStyle= "Flat"
-	 
+$opn_lev_grp.ForeColor= "gray"
+	
 # ------ SL - SustainLevel 15-0 
  
 $opn_nmud_sl= New-Object System.Windows.Forms.NumericUpDown 
@@ -11539,6 +11646,7 @@ $opn_ring_grp.Location= "270,30"
 $opn_ring_grp.Size= "255,165"
 $opn_ring_grp.Text= "Effects Control"
 $opn_ring_grp.FlatStyle= "Flat"
+$opn_ring_grp.ForeColor= "gray"
 	
 # ------ KS - KeyScaling 0-3 / env length 
  
@@ -11777,6 +11885,7 @@ $opn_op_grp.Location= "270,195"
 $opn_op_grp.Size= "255,175"
 $opn_op_grp.Text= "Frequency Modulation"
 $opn_op_grp.FlatStyle= "Flat"
+$opn_op_grp.ForeColor= "gray"
 	
 # ------ ML - Multiple 0-15 
  
@@ -11925,6 +12034,7 @@ $opn_alg_grp.Location= "10,370"
 $opn_alg_grp.Size= "315,105"
 $opn_alg_grp.Text= "Algorithm / Feedback"
 $opn_alg_grp.FlatStyle= "Flat"
+$opn_alg_grp.ForeColor= "gray"
 	
 # ------ ALG - Algorithm 0-7 
  
@@ -13023,11 +13133,12 @@ $opm_alg_grp.Controls.AddRange(@($opm_trkbar_alg,$opm_nmud_alg,$opm_lbl_alg))
 $opm_alg_grp.Controls.AddRange(@($opm_trkbar_fb,$opm_nmud_fb,$opm_lbl_fb))
   
 # forms 
-	
+	 
 $osc_grp= New-Object System.Windows.Forms.GroupBox 
 $osc_grp.Text= "FM OSC"
 $osc_grp.Size= "195,105"
 $osc_grp.Location= "330,370"
+$osc_grp.ForeColor= "gray"
  
 $lisn_btn= New-Object System.Windows.Forms.Button 
 $lisn_btn.Location= "10,20"
@@ -13035,6 +13146,7 @@ $lisn_btn.Size= "25,25"
 $lisn_btn.FlatStyle= "Popup"
 $lisn_btn.Image= [System.Drawing.Image]::FromFile(".\img\play.png")
 # $lisn_btn.Text= ">"
+$lisn_btn.BackColor= "white"
 
 $lisn_btn.Add_Click({ # 試聴
  try{
@@ -13051,6 +13163,7 @@ $conv_btn.Size= "25,25"
 $conv_btn.FlatStyle= "Popup"
 $conv_btn.Image= [System.Drawing.Image]::FromFile(".\img\convert.png")
 # $conv_btn.Text= ">>"
+$conv_btn.BackColor= "white"
 
 $conv_btn.Add_Click({ # text convert
  try{
@@ -13074,7 +13187,7 @@ $conv_btn.Add_Click({ # text convert
 	echo $_.exception
  }
 })
- 
+ 	
 $comb_vrc= New-Object System.Windows.Forms.Combobox 
 $comb_vrc.Size= "140,20"
 $comb_vrc.Location= "45,20"
@@ -13368,7 +13481,7 @@ $frm_fm.Add_FormClosing({
 })
  
 $fm_mnu= New-Object System.Windows.Forms.MenuStrip 
-	
+	 
 $fm_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_f.Text= "File"
 
@@ -15105,8 +15218,10 @@ $fm_panel.Controls.AddRange(@($opm_eg_grp,$opm_ring_grp,$opm_lev_grp,$opm_op_grp
 $fm_stus.Items.AddRange(@($fm_label))
 $frm_fm.Controls.AddRange(@($fm_mnu,$fm_panel,$fm_box,$fm_stus))
    
+# Exit; 
+ 
 # Global variable ====== 
-	
+	 
 # color setting 
 
 
@@ -15116,16 +15231,18 @@ $frm_fm.Controls.AddRange(@($fm_mnu,$fm_panel,$fm_box,$fm_stus))
 
 
 
-	
+	 
  try{ 
  
 # bg,line,text ------ 
 
 $poix= New-Object System.Drawing.Point(0,0)			# グラデーションpoint obj
 $poia= New-Object System.Drawing.Point(162,0)
-	
+	 
 # 'white' set ------ 
-$white= [System.Drawing.Color]::FromArgb(248,251,250,245)	# 生成り色 A:254
+$white= [System.Drawing.Color]::FromArgb(255, 251, 250, 245)	# 生成り色 A:254
+$white248= [System.Drawing.Color]::FromArgb(248, $white.R, $white.G, $white.B)
+
 $darkwhite= [System.Drawing.Color]::FromArgb(240,255,255,252)	# 胡粉色 a:240
 $gr_white= [System.Drawing.Color]::FromArgb(199,255,255,252)	# a:224
 
@@ -15141,7 +15258,9 @@ $Whbrush= New-Object System.Drawing.Drawing2D.LinearGradientBrush($poix,$poia,$d
 $Whbrush.InterpolationColors= $Cdbrend
  
 # 'black' set ----- 
-$black= [System.Drawing.Color]::FromArgb(246,24,39,61) # 59,71)	# 暗黒色改 Aは高級感 236,34,62,68
+$black= [System.Drawing.Color]::FromArgb(255, 24, 39, 61) # 59,71)	# 暗黒色改 Aは高級感 236,34,62,68
+$black246= [System.Drawing.Color]::FromArgb(246, $black.R, $black.G, $black.B)
+
 $naturalblack= [System.Drawing.Color]::FromArgb(216,0,11,0)		# 濡羽色 A:236
 $gr_black= [System.Drawing.Color]::FromArgb(124,0,11,0)		# a:184
 
@@ -15758,6 +15877,7 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
   }else{
 	$fm_xml= [xml]$xml_editor
   }
+
 
   # 連想配列化
 
