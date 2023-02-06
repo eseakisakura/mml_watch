@@ -346,6 +346,2288 @@ function Silver_convert($tt){
   
 #> 
  
+<# 
+	
+trkbar 
+	
+$opn_trkbar_ar= New-Object System.Windows.Forms.TrackBar 
+$opn_trkbar_ar.Location= "10,50"
+$opn_trkbar_ar.Size= "55,125"
+$opn_trkbar_ar.AutoSize= $False
+$opn_trkbar_ar.Orientation= "Vertical"
+$opn_trkbar_ar.TickStyle= "TopLeft"
+$opn_trkbar_ar.TickFrequency= "4"
+$opn_trkbar_ar.LargeChange= "1"
+$opn_trkbar_ar.Maximum= "31"
+$opn_trkbar_ar.Minimum= "0"
+# $opn_trkbar_ar.Value= "0"
+
+$opn_trkbar_ar.Add_Scroll({
+
+	$opn_nmud_ar.Value= $this.Value
+})
+
+$opn_trkbar_ar.Add_Enter({
+
+	$script:key["wheel"][2]= "Attack"
+	Contxt_chg_opn $key["wheel"][2]
+	All_chg
+
+	Unredo 0
+})
+
+$opn_trkbar_ar.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opn_trkbar_dr= New-Object System.Windows.Forms.TrackBar 
+$opn_trkbar_dr.Location= "70,50"
+$opn_trkbar_dr.Size= "55,125"
+$opn_trkbar_dr.AutoSize= $False
+$opn_trkbar_dr.Orientation= "Vertical"
+$opn_trkbar_dr.TickStyle= "TopLeft"
+$opn_trkbar_dr.TickFrequency= "4"
+$opn_trkbar_dr.LargeChange= "1"
+$opn_trkbar_dr.Maximum= "31"
+$opn_trkbar_dr.Minimum= "0"
+# $opn_trkbar_dr.Value= "0"
+
+$opn_trkbar_dr.Add_Scroll({
+
+	$opn_nmud_dr.Value= $this.Value
+})
+
+$opn_trkbar_dr.Add_Enter({
+
+	$script:key["wheel"][2]= "Decay"
+	Contxt_chg_opn $key["wheel"][2]
+	All_chg
+
+	Unredo 0
+})
+
+$opn_trkbar_dr.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opn_trkbar_sr= New-Object System.Windows.Forms.TrackBar 
+$opn_trkbar_sr.Location= "130,50"
+$opn_trkbar_sr.Size= "55,125"
+$opn_trkbar_sr.AutoSize= $False
+$opn_trkbar_sr.Orientation= "Vertical"
+$opn_trkbar_sr.TickStyle= "TopLeft"
+$opn_trkbar_sr.TickFrequency= "4"
+$opn_trkbar_sr.LargeChange= "1"
+$opn_trkbar_sr.Maximum= "31"
+$opn_trkbar_sr.Minimum= "0"
+# $opn_trkbar_sr.Value= "0"
+
+$opn_trkbar_sr.Add_Scroll({
+
+	$opn_nmud_sr.Value= $this.Value
+})
+
+$opn_trkbar_sr.Add_Enter({
+
+	$script:key["wheel"][2]= "SustainRate"
+	Contxt_chg_opn $key["wheel"][2]
+	All_chg
+
+	Unredo 0
+})
+
+$opn_trkbar_sr.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opn_trkbar_rr= New-Object System.Windows.Forms.TrackBar 
+$opn_trkbar_rr.Location= "190,50"
+$opn_trkbar_rr.Size= "55,125"
+$opn_trkbar_rr.AutoSize= $False
+$opn_trkbar_rr.Orientation= "Vertical"
+$opn_trkbar_rr.TickStyle= "TopLeft"
+$opn_trkbar_rr.TickFrequency= "4"
+$opn_trkbar_rr.LargeChange= "1"
+$opn_trkbar_rr.Maximum= "15"
+$opn_trkbar_rr.Minimum= "0"
+# $opn_trkbar_rr.Value= "0"
+
+$opn_trkbar_rr.Add_Scroll({
+
+	$opn_nmud_rr.Value= $this.Value
+})
+
+$opn_trkbar_rr.Add_Enter({
+
+	$script:key["wheel"][2]= "Release"
+	Contxt_chg_opn $key["wheel"][2]
+	All_chg
+
+	Unredo 0
+})
+
+$opn_trkbar_rr.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opn_trkbar_sl= New-Object System.Windows.Forms.TrackBar 
+$opn_trkbar_sl.Location= "10,45"
+$opn_trkbar_sl.Size= "235,40"
+$opn_trkbar_sl.AutoSize= $False
+$opn_trkbar_sl.Orientation= "Horizontal"
+$opn_trkbar_sl.TickStyle= "BottomRight"
+$opn_trkbar_sl.TickFrequency= "2"
+$opn_trkbar_sl.LargeChange= "1"
+$opn_trkbar_sl.Maximum= "15"
+$opn_trkbar_sl.Minimum= "0"
+# $opn_trkbar_sl.Value= "0"
+
+$opn_trkbar_sl.Add_Scroll({
+
+	$opn_nmud_sl.Value= $this.Value
+})
+
+$opn_trkbar_sl.Add_Enter({
+
+	$script:key["wheel"][2]= "SustainLevel"
+	Contxt_chg_opn $key["wheel"][2]
+	All_chg
+
+	Unredo 0
+})
+
+$opn_trkbar_sl.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opn_trkbar_ks= New-Object System.Windows.Forms.TrackBar 
+$opn_trkbar_ks.Location= "10,50"
+$opn_trkbar_ks.Size= "55,65"
+$opn_trkbar_ks.AutoSize= $False
+$opn_trkbar_ks.Orientation= "Vertical"
+$opn_trkbar_ks.TickStyle= "TopLeft"
+$opn_trkbar_ks.TickFrequency= "1"
+$opn_trkbar_ks.LargeChange= "1"
+$opn_trkbar_ks.Maximum= "3"
+$opn_trkbar_ks.Minimum= "0"
+# $opn_trkbar_ks.Value= "0"
+
+$opn_trkbar_ks.Add_Scroll({
+
+	$opn_nmud_ks.Value= $this.Value
+})
+
+$opn_trkbar_ks.Add_Enter({
+
+	Unredo 0
+})
+
+$opn_trkbar_ks.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opn_trkbar_dt1= New-Object System.Windows.Forms.TrackBar 
+$opn_trkbar_dt1.Location= "70,50"
+$opn_trkbar_dt1.Size= "55,65"
+$opn_trkbar_dt1.AutoSize= $False
+$opn_trkbar_dt1.Orientation= "Vertical"
+$opn_trkbar_dt1.TickStyle= "TopLeft"
+$opn_trkbar_dt1.TickFrequency= "1"
+$opn_trkbar_dt1.LargeChange= "1"
+$opn_trkbar_dt1.Maximum= "7"
+$opn_trkbar_dt1.Minimum= "0"
+# $opn_trkbar_dt1.Value= "0"
+
+$opn_trkbar_dt1.Add_Scroll({
+
+	$opn_nmud_dt1.Value= $this.Value
+})
+
+$opn_trkbar_dt1.Add_Enter({
+
+	Unredo 0
+})
+
+$opn_trkbar_dt1.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opn_trkbar_dt2= New-Object System.Windows.Forms.TrackBar 
+$opn_trkbar_dt2.Location= "130,50"
+$opn_trkbar_dt2.Size= "55,65"
+$opn_trkbar_dt2.AutoSize= $False
+$opn_trkbar_dt2.Orientation= "Vertical"
+$opn_trkbar_dt2.TickStyle= "TopLeft"
+$opn_trkbar_dt2.TickFrequency= "1"
+$opn_trkbar_dt2.LargeChange= "1"
+$opn_trkbar_dt2.Maximum= "3"
+$opn_trkbar_dt2.Minimum= "0"
+$opn_trkbar_dt2.Value= "0"
+$opn_trkbar_dt2.Enabled= $False
+
+$opn_trkbar_dt2.Add_Scroll({
+})
+
+$opn_trkbar_dt2.Add_Enter({
+})
+
+$opn_trkbar_dt2.Add_KeyDown({
+})
+ 
+$opn_nmud_dt2= New-Object System.Windows.Forms.NumericUpDown 
+$opn_nmud_dt2.location= "130,20"
+$opn_nmud_dt2.Size= "55,20"
+$opn_nmud_dt2.TextAlign= "Right"
+$opn_nmud_dt2.UpDownAlign= "Right"
+$opn_nmud_dt2.BorderStyle= "FixedSingle"
+$opn_nmud_dt2.Minimum= "0"
+$opn_nmud_dt2.Maximum= "3"
+$opn_nmud_dt2.Value= $opn_trkbar_dt2.Value
+$opn_nmud_dt2.Enabled= $opn_trkbar_dt2.Enabled
+
+$opn_nmud_dt2.Add_ValueChanged({
+})
+ 
+$opn_trkbar_ams= New-Object System.Windows.Forms.TrackBar 
+$opn_trkbar_ams.Location= "190,50"
+$opn_trkbar_ams.Size= "55,65"
+$opn_trkbar_ams.AutoSize= $False
+$opn_trkbar_ams.Orientation= "Vertical"
+$opn_trkbar_ams.TickStyle= "TopLeft"
+$opn_trkbar_ams.TickFrequency= "1"
+$opn_trkbar_ams.LargeChange= "1"
+$opn_trkbar_ams.Maximum= "3"
+$opn_trkbar_ams.Minimum= "0"
+# $opn_trkbar_ams.Value= "0"
+
+$opn_trkbar_ams.Add_Scroll({
+
+	$opn_nmud_ams.Value= $this.Value
+})
+
+$opn_trkbar_ams.Add_Enter({
+
+	Unredo 0
+})
+
+$opn_trkbar_ams.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opn_trkbar_ml= New-Object System.Windows.Forms.TrackBar 
+$opn_trkbar_ml.Location= "10,45"
+$opn_trkbar_ml.Size= "235,40"
+$opn_trkbar_ml.AutoSize= $False
+$opn_trkbar_ml.Orientation= "Horizontal"
+$opn_trkbar_ml.TickStyle= "BottomRight"
+$opn_trkbar_ml.TickFrequency= "2"
+$opn_trkbar_ml.LargeChange= "1"
+$opn_trkbar_ml.Maximum= "15"
+$opn_trkbar_ml.Minimum= "0"
+# $opn_trkbar_ml.Value= "0"
+
+$opn_trkbar_ml.Add_Scroll({
+
+	$opn_nmud_ml.Value= $this.Value
+})
+
+$opn_trkbar_ml.Add_Enter({
+
+	$script:key["wheel"][2]= "Multiple"
+	Contxt_chg_opn $key["wheel"][2]
+	All_chg
+
+	Unredo 0
+})
+
+$opn_trkbar_ml.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opn_trkbar_tl= New-Object System.Windows.Forms.TrackBar 
+$opn_trkbar_tl.Location= "10,120"
+$opn_trkbar_tl.Size= "235,40"
+$opn_trkbar_tl.AutoSize= $False
+$opn_trkbar_tl.Orientation= "Horizontal"
+$opn_trkbar_tl.TickStyle= "BottomRight"
+$opn_trkbar_tl.TickFrequency= "8"
+$opn_trkbar_tl.LargeChange= "1"
+$opn_trkbar_tl.Maximum= "127"
+$opn_trkbar_tl.Minimum= "0"
+# $opn_trkbar_tl.Value= "0"
+
+$opn_trkbar_tl.Add_Scroll({
+
+	$opn_nmud_tl.Value= $this.Value
+})
+
+$opn_trkbar_tl.Add_Enter({
+
+	$script:key["wheel"][2]= "TotalLevel"
+	Contxt_chg_opn $key["wheel"][2]
+	All_chg
+
+	Unredo 0
+})
+
+$opn_trkbar_tl.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opn_trkbar_alg= New-Object System.Windows.Forms.TrackBar 
+$opn_trkbar_alg.Location= "10,50"
+$opn_trkbar_alg.Size= "140,40"
+$opn_trkbar_alg.AutoSize= $False
+$opn_trkbar_alg.Orientation= "Horizontal"
+$opn_trkbar_alg.TickStyle= "BottomRight"
+$opn_trkbar_alg.TickFrequency= "1"
+$opn_trkbar_alg.LargeChange= "1"
+$opn_trkbar_alg.Maximum= "7"
+$opn_trkbar_alg.Minimum= "0"
+# $opn_trkbar_alg.Value= "0"
+
+$opn_trkbar_alg.Add_Scroll({
+
+	$opn_nmud_alg.Value= $this.Value
+})
+
+$opn_trkbar_alg.Add_Enter({
+
+	Unredo 0
+})
+
+$opn_trkbar_alg.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opn_trkbar_fb= New-Object System.Windows.Forms.TrackBar 
+$opn_trkbar_fb.Location= "165,50"
+$opn_trkbar_fb.Size= "140,40"
+$opn_trkbar_fb.AutoSize= $False
+$opn_trkbar_fb.Orientation= "Horizontal"
+$opn_trkbar_fb.TickStyle= "BottomRight"
+$opn_trkbar_fb.TickFrequency= "1"
+$opn_trkbar_fb.LargeChange= "1"
+$opn_trkbar_fb.Maximum= "7"
+$opn_trkbar_fb.Minimum= "0"
+# $opn_trkbar_fb.Value= "0"
+
+$opn_trkbar_fb.Add_Scroll({
+
+	$opn_nmud_fb.Value= $this.Value
+})
+
+$opn_trkbar_fb.Add_Enter({
+
+	$script:key["wheel"][2]= "Feedback"
+	Contxt_chg_opn $key["wheel"][2]
+	All_chg
+
+	Unredo 0
+})
+
+$opn_trkbar_fb.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+  
+# VRC7 
+	
+$vrc_eg_grp= New-Object System.Windows.Forms.GroupBox 
+$vrc_eg_grp.Location= "10,30"
+$vrc_eg_grp.Size= "255,220"
+$vrc_eg_grp.Text= "Envelope"
+$vrc_eg_grp.FlatStyle= "Flat"
+$vrc_eg_grp.ForeColor= "gray"
+$vrc_eg_grp.Font= $FonLabel
+#$vrc_eg_grp.Hide() #$eg_grp.Show()
+	
+# ------ AR - AttackRate 15-0 
+ 
+$vrc_trkbar_ar= New-Object System.Windows.Forms.TrackBar 
+$vrc_trkbar_ar.Location= "10,50"
+$vrc_trkbar_ar.Size= "55,125"
+$vrc_trkbar_ar.AutoSize= $False
+$vrc_trkbar_ar.Orientation= "Vertical" # Horizontal
+$vrc_trkbar_ar.TickStyle= "TopLeft" # None,Both,BottomRight
+$vrc_trkbar_ar.TickFrequency= "2"
+$vrc_trkbar_ar.LargeChange= "1"
+$vrc_trkbar_ar.Maximum= "15"
+$vrc_trkbar_ar.Minimum= "0"
+# $vrc_trkbar_ar.Value= "0"
+
+$vrc_trkbar_ar.Add_Scroll({
+
+	$vrc_nmud_ar.Value= $this.Value
+})
+
+$vrc_trkbar_ar.Add_Enter({
+
+	$script:key["wheel"][0]= "Attack"
+	Contxt_chg_vrc $key["wheel"][0]
+	All_chg
+
+	Unredo 0
+})
+
+$vrc_trkbar_ar.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$vrc_lbl_ar= New-Object System.Windows.Forms.Label 
+$vrc_lbl_ar.Location= "10,175"
+$vrc_lbl_ar.Size= "55,35"
+$vrc_lbl_ar.Text= "Attack"
+ 
+# ------ DR - DecayRate 0-15 
+ 
+$vrc_trkbar_dr= New-Object System.Windows.Forms.TrackBar 
+$vrc_trkbar_dr.Location= "70,50"
+$vrc_trkbar_dr.Size= "55,125"
+$vrc_trkbar_dr.AutoSize= $False
+$vrc_trkbar_dr.Orientation= "Vertical"
+$vrc_trkbar_dr.TickStyle= "TopLeft"
+$vrc_trkbar_dr.TickFrequency= "2"
+$vrc_trkbar_dr.LargeChange= "1"
+$vrc_trkbar_dr.Maximum= "15"
+$vrc_trkbar_dr.Minimum= "0"
+# $vrc_trkbar_dr.Value= "0"
+
+$vrc_trkbar_dr.Add_Scroll({
+
+	$vrc_nmud_dr.Value= $this.Value
+})
+
+$vrc_trkbar_dr.Add_Enter({
+
+	$script:key["wheel"][0]= "Decay"
+	Contxt_chg_vrc $key["wheel"][0]
+	All_chg
+
+	Unredo 0
+})
+
+$vrc_trkbar_dr.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$vrc_lbl_dr= New-Object System.Windows.Forms.Label 
+$vrc_lbl_dr.Location= "70,175"
+$vrc_lbl_dr.Size= "55,35"
+$vrc_lbl_dr.Text= "Decay"
+ 
+# ------ SR - Sustain 15-0 
+ 
+$vrc_trkbar_sr= New-Object System.Windows.Forms.TrackBar 
+$vrc_trkbar_sr.Location= "190,50"
+$vrc_trkbar_sr.Size= "55,125"
+$vrc_trkbar_sr.AutoSize= $False
+$vrc_trkbar_sr.Orientation= "Vertical"
+$vrc_trkbar_sr.TickStyle= "TopLeft"
+$vrc_trkbar_sr.TickFrequency= "2"
+$vrc_trkbar_sr.LargeChange= "1"
+$vrc_trkbar_sr.Maximum= "15"
+$vrc_trkbar_sr.Minimum= "0"
+# $vrc_trkbar_sr.Value= "0"
+
+$vrc_trkbar_sr.Add_Scroll({
+
+	$vrc_nmud_sr.Value= $this.Value
+})
+
+$vrc_trkbar_sr.Add_Enter({
+
+	$script:key["wheel"][0]= "Sustain"
+	Contxt_chg_vrc $key["wheel"][0]
+	All_chg
+
+	Unredo 0
+})
+
+$vrc_trkbar_sr.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$vrc_lbl_sr= New-Object System.Windows.Forms.Label 
+$vrc_lbl_sr.Location= "190,175"
+$vrc_lbl_sr.Size= "55,35"
+$vrc_lbl_sr.Text= "Sustain"
+ 
+# ------ RR - ReleaseRate 0-15 
+ 
+$vrc_trkbar_rr= New-Object System.Windows.Forms.TrackBar 
+$vrc_trkbar_rr.Location= "130,50"
+$vrc_trkbar_rr.Size= "55,125"
+$vrc_trkbar_rr.AutoSize= $False
+$vrc_trkbar_rr.Orientation= "Vertical"
+$vrc_trkbar_rr.TickStyle= "TopLeft"
+$vrc_trkbar_rr.TickFrequency= "2"
+$vrc_trkbar_rr.LargeChange= "1"
+$vrc_trkbar_rr.Maximum= "15"
+$vrc_trkbar_rr.Minimum= "0"
+# $vrc_trkbar_rr.Value= "0"
+
+$vrc_trkbar_rr.Add_Scroll({
+
+	$vrc_nmud_rr.Value= $this.Value
+})
+
+$vrc_trkbar_rr.Add_Enter({
+
+	$script:key["wheel"][0]= "Release"
+	Contxt_chg_vrc $key["wheel"][0]
+	All_chg
+
+	Unredo 0
+})
+
+$vrc_trkbar_rr.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$vrc_lbl_rr= New-Object System.Windows.Forms.Label 
+$vrc_lbl_rr.Location= "130,175"
+$vrc_lbl_rr.Size= "55,35"
+$vrc_lbl_rr.Text= "Release"
+ 
+# ------ 
+  
+$vrc_lev_grp= New-Object System.Windows.Forms.GroupBox 
+$vrc_lev_grp.Location= "10,250"
+$vrc_lev_grp.Size= "255,120"
+$vrc_lev_grp.Text= "Key Scale"
+$vrc_lev_grp.FlatStyle= "Flat"
+$vrc_lev_grp.ForeColor= "gray"
+$vrc_lev_grp.Font= $FonLabel
+	
+# ------ KSL - KeyScaleLevel 0-3 
+ 
+$vrc_trkbar_ksl= New-Object System.Windows.Forms.TrackBar 
+$vrc_trkbar_ksl.Location= "10,45"
+$vrc_trkbar_ksl.Size= "110,40"
+$vrc_trkbar_ksl.AutoSize= $False
+$vrc_trkbar_ksl.Orientation= "Horizontal"
+$vrc_trkbar_ksl.TickStyle= "BottomRight"
+$vrc_trkbar_ksl.TickFrequency= "1"
+$vrc_trkbar_ksl.LargeChange= "1"
+$vrc_trkbar_ksl.Maximum= "3"
+$vrc_trkbar_ksl.Minimum= "0"
+# $vrc_trkbar_ksl.Value= "0"
+
+$vrc_trkbar_ksl.Add_Scroll({
+
+	$vrc_nmud_ksl.Value= $this.Value
+})
+
+$vrc_trkbar_ksl.Add_Enter({
+
+	Unredo 0
+})
+
+$vrc_trkbar_ksl.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+# ------ KSR - KeyScaleRate 0-1 
+ 
+$vrc_trkbar_ksr= New-Object System.Windows.Forms.TrackBar 
+$vrc_trkbar_ksr.Location= "135,45"
+$vrc_trkbar_ksr.Size= "110,40"
+$vrc_trkbar_ksr.AutoSize= $False
+$vrc_trkbar_ksr.Orientation= "Horizontal"
+$vrc_trkbar_ksr.TickStyle= "BottomRight"
+$vrc_trkbar_ksr.TickFrequency= "1"
+$vrc_trkbar_ksr.LargeChange= "1"
+$vrc_trkbar_ksr.Maximum= "1"
+$vrc_trkbar_ksr.Minimum= "0"
+# $vrc_trkbar_ksr.Value= "0"
+
+$vrc_trkbar_ksr.Add_Scroll({
+
+	$vrc_nmud_ksr.Value= $this.Value
+})
+
+$vrc_trkbar_ksr.Add_Enter({
+
+	Unredo 0
+})
+
+$vrc_trkbar_ksr.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+# ------ 
+  
+$vrc_ring_grp= New-Object System.Windows.Forms.GroupBox 
+$vrc_ring_grp.Location= "270,30"
+$vrc_ring_grp.Size= "255,165"
+$vrc_ring_grp.Text= "Effects Control"
+$vrc_ring_grp.FlatStyle= "Flat"
+$vrc_ring_grp.ForeColor= "gray"
+$vrc_ring_grp.Font= $FonLabel
+	
+# ------ DT - Distortion 0-1 
+ 
+$vrc_trkbar_dt= New-Object System.Windows.Forms.TrackBar 
+$vrc_trkbar_dt.Location= "190,50"
+$vrc_trkbar_dt.Size= "55,65"
+$vrc_trkbar_dt.AutoSize= $False
+$vrc_trkbar_dt.Orientation= "Vertical"
+$vrc_trkbar_dt.TickStyle= "TopLeft"
+$vrc_trkbar_dt.TickFrequency= "1"
+$vrc_trkbar_dt.LargeChange= "1"
+$vrc_trkbar_dt.Maximum= "1"
+$vrc_trkbar_dt.Minimum= "0"
+# $vrc_trkbar_dt.Value= "0"
+
+$vrc_trkbar_dt.Add_Scroll({
+
+	$vrc_nmud_dt.Value= $this.Value
+})
+
+$vrc_trkbar_dt.Add_Enter({
+
+	$script:key["wheel"][0]= "Distortion"
+	Contxt_chg_vrc $key["wheel"][0]
+	All_chg
+
+	Unredo 0
+})
+
+$vrc_trkbar_dt.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+# ------ EG - EnvelopeGeneratorType 0-1 / SR=0 off,on 
+ 
+$vrc_trkbar_eg= New-Object System.Windows.Forms.TrackBar 
+$vrc_trkbar_eg.Location= "130,50"
+$vrc_trkbar_eg.Size= "55,65"
+$vrc_trkbar_eg.AutoSize= $False
+$vrc_trkbar_eg.Orientation= "Vertical"
+$vrc_trkbar_eg.TickStyle= "TopLeft"
+$vrc_trkbar_eg.TickFrequency= "1"
+$vrc_trkbar_eg.LargeChange= "1"
+$vrc_trkbar_eg.Maximum= "1"
+$vrc_trkbar_eg.Minimum= "0"
+# $vrc_trkbar_eg.Value= "0"
+
+$vrc_trkbar_eg.Add_Scroll({
+
+	$vrc_nmud_eg.Value= $this.Value
+})
+
+$vrc_trkbar_eg.Add_Enter({
+
+	$script:key["wheel"][0]= "EnvGeneType"
+	Contxt_chg_vrc $key["wheel"][0]
+	All_chg
+
+	Unredo 0
+})
+
+$vrc_trkbar_eg.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+# ------ VIB - Vibrato 0-1 
+ 
+$vrc_trkbar_vib= New-Object System.Windows.Forms.TrackBar 
+$vrc_trkbar_vib.Location= "70,50"
+$vrc_trkbar_vib.Size= "55,65"
+$vrc_trkbar_vib.AutoSize= $False
+$vrc_trkbar_vib.Orientation= "Vertical"
+$vrc_trkbar_vib.TickStyle= "TopLeft"
+$vrc_trkbar_vib.TickFrequency= "1"
+$vrc_trkbar_vib.LargeChange= "1"
+$vrc_trkbar_vib.Maximum= "1"
+$vrc_trkbar_vib.Minimum= "0"
+# $vrc_trkbar_vib.Value= "0"
+
+$vrc_trkbar_vib.Add_Scroll({
+
+	$vrc_nmud_vib.Value= $this.Value
+})
+
+$vrc_trkbar_vib.Add_Enter({
+
+	Unredo 0
+})
+
+$vrc_trkbar_vib.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+# ------ AM - AmplitudeModulation Enable Switch 0-1 
+ 
+$vrc_trkbar_am= New-Object System.Windows.Forms.TrackBar 
+$vrc_trkbar_am.Location= "10,50"
+$vrc_trkbar_am.Size= "55,65"
+$vrc_trkbar_am.AutoSize= $False
+$vrc_trkbar_am.Orientation= "Vertical"
+$vrc_trkbar_am.TickStyle= "TopLeft"
+$vrc_trkbar_am.TickFrequency= "1"
+$vrc_trkbar_am.LargeChange= "1"
+$vrc_trkbar_am.Maximum= "1"
+$vrc_trkbar_am.Minimum= "0"
+# $vrc_trkbar_am.Value= "0"
+
+$vrc_trkbar_am.Add_Scroll({
+
+	$vrc_nmud_am.Value= $this.Value
+})
+
+$vrc_trkbar_am.Add_Enter({
+
+	Unredo 0
+})
+
+$vrc_trkbar_am.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+# ------ 
+  
+$vrc_op_grp= New-Object System.Windows.Forms.GroupBox 
+$vrc_op_grp.Location= "270,195"
+$vrc_op_grp.Size= "255,175"
+$vrc_op_grp.Text= "Frequency Modulation"
+$vrc_op_grp.FlatStyle= "Flat"
+$vrc_op_grp.ForeColor= "gray"
+$vrc_op_grp.Font= $FonLabel
+	
+# ------ ML - Multiple 0-15 
+ 
+$vrc_trkbar_ml= New-Object System.Windows.Forms.TrackBar 
+$vrc_trkbar_ml.Location= "10,45"
+$vrc_trkbar_ml.Size= "235,40"
+$vrc_trkbar_ml.AutoSize= $False
+$vrc_trkbar_ml.Orientation= "Horizontal"
+$vrc_trkbar_ml.TickStyle= "BottomRight"
+$vrc_trkbar_ml.TickFrequency= "2"
+$vrc_trkbar_ml.LargeChange= "1"
+$vrc_trkbar_ml.Maximum= "15"
+$vrc_trkbar_ml.Minimum= "0"
+# $vrc_trkbar_ml.Value= "0"
+
+$vrc_trkbar_ml.Add_Scroll({
+
+	$vrc_nmud_ml.Value= $this.Value
+})
+
+$vrc_trkbar_ml.Add_Enter({
+
+	$script:key["wheel"][0]= "Multiple"
+	Contxt_chg_vrc $key["wheel"][0]
+	All_chg
+
+	Unredo 0
+})
+
+$vrc_trkbar_ml.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$vrc_lbl_ml= New-Object System.Windows.Forms.Label 
+$vrc_lbl_ml.Location= "10,15"
+$vrc_lbl_ml.Size= "165,20"
+$vrc_lbl_ml.Text= "Multiple - overtone"
+ 
+# ------ TL - TotalLevel 63-0 
+ 
+$vrc_trkbar_tl= New-Object System.Windows.Forms.TrackBar 
+$vrc_trkbar_tl.Location= "10,120"
+$vrc_trkbar_tl.Size= "235,40"
+$vrc_trkbar_tl.AutoSize= $False
+$vrc_trkbar_tl.Orientation= "Horizontal"
+$vrc_trkbar_tl.TickStyle= "BottomRight"
+$vrc_trkbar_tl.TickFrequency= "4"
+$vrc_trkbar_tl.LargeChange= "1"
+$vrc_trkbar_tl.Maximum= "63"
+$vrc_trkbar_tl.Minimum= "0"
+# $vrc_trkbar_tl.Value= "0"
+
+$vrc_trkbar_tl.Add_Scroll({
+	$vrc_nmud_tl.Value= $this.Value
+})
+
+$vrc_trkbar_tl.Add_Enter({
+	$script:key["wheel"][0]= "TotalLevel"
+	Contxt_chg_vrc $key["wheel"][0]
+	All_chg
+
+	Unredo 0
+})
+
+$vrc_trkbar_tl.Add_KeyDown({
+ try{
+	if($comb_vrc.SelectedIndex -eq 0){
+		Key_play $_.KeyCode
+	}
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$vrc_lbl_tl= New-Object System.Windows.Forms.Label 
+$vrc_lbl_tl.Location= "10,95"
+$vrc_lbl_tl.Size= "165,20"
+$vrc_lbl_tl.Text= "Total Level / 0max - 63min"
+ 
+# ------ 
+  
+$vrc_alg_grp= New-Object System.Windows.Forms.GroupBox 
+$vrc_alg_grp.Location= "10,370"
+$vrc_alg_grp.Size= "315,105"
+$vrc_alg_grp.Text= "Algorithm / Feedback"
+$vrc_alg_grp.FlatStyle= "Flat"
+$vrc_alg_grp.ForeColor= "gray"
+$vrc_alg_grp.Font= $FonLabel
+	
+# ------ ALG - Algorithm $False 
+ 
+$vrc_trkbar_alg= New-Object System.Windows.Forms.TrackBar 
+$vrc_trkbar_alg.Location= "10,50"
+$vrc_trkbar_alg.Size= "140,40"
+$vrc_trkbar_alg.AutoSize= $False
+$vrc_trkbar_alg.Orientation= "Horizontal"
+$vrc_trkbar_alg.TickStyle= "BottomRight"
+$vrc_trkbar_alg.TickFrequency= "1"
+$vrc_trkbar_alg.LargeChange= "1"
+$vrc_trkbar_alg.Maximum= "0"
+$vrc_trkbar_alg.Minimum= "0"
+$vrc_trkbar_alg.Value= "0"
+$vrc_trkbar_alg.Enabled= $False
+
+$vrc_trkbar_alg.Add_Scroll({
+})
+
+$vrc_trkbar_alg.Add_Enter({
+})
+
+$vrc_trkbar_alg.Add_KeyDown({
+})
+ 
+$vrc_nmud_alg= New-Object System.Windows.Forms.NumericUpDown 
+$vrc_nmud_alg.location= "95,20"
+$vrc_nmud_alg.Size= "55,20"
+$vrc_nmud_alg.TextAlign= "Right"
+$vrc_nmud_alg.UpDownAlign= "Right"
+$vrc_nmud_alg.BorderStyle= "FixedSingle"
+$vrc_nmud_alg.Minimum= $vrc_trkbar_alg.Minimum
+$vrc_nmud_alg.Maximum= $vrc_trkbar_alg.Maximum
+$vrc_nmud_alg.Value= $vrc_trkbar_alg.Value
+$vrc_nmud_alg.Enabled= $vrc_trkbar_alg.Enabled
+
+$vrc_nmud_alg.Add_ValueChanged({
+})
+ 
+$vrc_lbl_alg= New-Object System.Windows.Forms.Label 
+$vrc_lbl_alg.Location= "10,15"
+$vrc_lbl_alg.Size= "60,20"
+$vrc_lbl_alg.Text= "Algorithm"
+$vrc_lbl_alg.Enabled= $False
+ 
+# ------ FB - Feedback 0-7 
+ 
+$vrc_trkbar_fb= New-Object System.Windows.Forms.TrackBar 
+$vrc_trkbar_fb.Location= "165,50"
+$vrc_trkbar_fb.Size= "140,40"
+$vrc_trkbar_fb.AutoSize= $False
+$vrc_trkbar_fb.Orientation= "Horizontal"
+$vrc_trkbar_fb.TickStyle= "BottomRight"
+$vrc_trkbar_fb.TickFrequency= "1"
+$vrc_trkbar_fb.LargeChange= "1"
+$vrc_trkbar_fb.Maximum= "7"
+$vrc_trkbar_fb.Minimum= "0"
+# $vrc_trkbar_fb.Value= "0"
+
+$vrc_trkbar_fb.Add_Scroll({
+
+	$vrc_nmud_fb.Value= $this.Value
+})
+
+$vrc_trkbar_fb.Add_Enter({
+
+	$script:key["wheel"][0]= "Feedback"
+	Contxt_chg_vrc $key["wheel"][0]
+	All_chg
+
+	Unredo 0
+})
+
+$vrc_trkbar_fb.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$vrc_lbl_fb= New-Object System.Windows.Forms.Label 
+$vrc_lbl_fb.Location= "165,20"
+$vrc_lbl_fb.Size= "75,20"
+$vrc_lbl_fb.Text= "Feedback"
+ 
+# ------ 
+  
+$vrc_eg_grp.Controls.AddRange(@($PictboxAR, $vrc_trkbar_ar,$vrc_nmud_ar,$vrc_lbl_ar)) 
+$vrc_eg_grp.Controls.AddRange(@($PictboxDR, $vrc_trkbar_dr,$vrc_nmud_dr,$vrc_lbl_dr))
+$vrc_eg_grp.Controls.AddRange(@($PictboxSR, $vrc_trkbar_rr,$vrc_nmud_rr,$vrc_lbl_rr))
+$vrc_eg_grp.Controls.AddRange(@($PictboxRR, $vrc_trkbar_sr, $vrc_nmud_sr, $vrc_lbl_sr))
+
+$vrc_lev_grp.Controls.AddRange(@($PictboxKSL, $vrc_trkbar_ksl,$vrc_nmud_ksl,$vrc_lbl_ksl))
+$vrc_lev_grp.Controls.AddRange(@($PictboxKSR, $vrc_trkbar_ksr,$vrc_nmud_ksr,$vrc_lbl_ksr))
+
+$vrc_ring_grp.Controls.AddRange(@($PictboxKS, $vrc_trkbar_dt,$vrc_nmud_dt,$vrc_lbl_dt))
+$vrc_ring_grp.Controls.AddRange(@($PictboxDT1, $vrc_trkbar_eg,$vrc_nmud_eg,$vrc_lbl_eg))
+$vrc_ring_grp.Controls.AddRange(@($PictboxDT2, $vrc_trkbar_vib,$vrc_nmud_vib,$vrc_lbl_vib))
+$vrc_ring_grp.Controls.AddRange(@($PictboxAMS, $vrc_trkbar_am, $vrc_nmud_am, $vrc_lbl_am))
+
+
+$vrc_op_grp.Controls.AddRange(@($PictboxML, $vrc_trkbar_ml,$vrc_lbl_ml,$vrc_nmud_ml))
+$vrc_op_grp.Controls.AddRange(@($PictboxTL, $vrc_trkbar_tl,$vrc_lbl_tl,$vrc_nmud_tl))
+
+$vrc_alg_grp.Controls.AddRange(@($vrc_trkbar_alg,$vrc_nmud_alg,$vrc_lbl_alg))
+$vrc_alg_grp.Controls.AddRange(@($PictboxFB, $vrc_trkbar_fb,$vrc_nmud_fb,$vrc_lbl_fb))
+  
+# OPL 
+	
+$opl_eg_grp= New-Object System.Windows.Forms.GroupBox 
+$opl_eg_grp.Location= "10,30"
+$opl_eg_grp.Size= "255,220"
+$opl_eg_grp.Text= "Envelope"
+$opl_eg_grp.FlatStyle= "Flat"
+#$opl_eg_grp.Hide() #$eg_grp.Show()
+	
+# ------ AR - AttackRate 15-0 
+ 
+$opl_trkbar_ar= New-Object System.Windows.Forms.TrackBar 
+$opl_trkbar_ar.Location= "10,50"
+$opl_trkbar_ar.Size= "55,125"
+$opl_trkbar_ar.AutoSize= $False
+$opl_trkbar_ar.Orientation= "Vertical"
+$opl_trkbar_ar.TickStyle= "TopLeft"
+$opl_trkbar_ar.TickFrequency= "2"
+$opl_trkbar_ar.LargeChange= "1"
+$opl_trkbar_ar.Maximum= "15"
+$opl_trkbar_ar.Minimum= "0"
+# $opl_trkbar_ar.Value= "0"
+
+$opl_trkbar_ar.Add_Scroll({
+
+	$opl_nmud_ar.Value= $this.Value
+})
+
+$opl_trkbar_ar.Add_Enter({
+
+	$script:key["wheel"][1]= "Attack"
+	Contxt_chg_opl $key["wheel"][1]
+	All_chg
+
+	Unredo 0
+})
+
+$opl_trkbar_ar.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opl_lbl_ar= New-Object System.Windows.Forms.Label 
+$opl_lbl_ar.Location= "10,175"
+$opl_lbl_ar.Size= "55,35"
+$opl_lbl_ar.Text= "Attack"
+ 
+# ------ DR - DecayRate 0-15 
+ 
+$opl_trkbar_dr= New-Object System.Windows.Forms.TrackBar 
+$opl_trkbar_dr.Location= "70,50"
+$opl_trkbar_dr.Size= "55,125"
+$opl_trkbar_dr.AutoSize= $False
+$opl_trkbar_dr.Orientation= "Vertical"
+$opl_trkbar_dr.TickStyle= "TopLeft"
+$opl_trkbar_dr.TickFrequency= "2"
+$opl_trkbar_dr.LargeChange= "1"
+$opl_trkbar_dr.Maximum= "15"
+$opl_trkbar_dr.Minimum= "0"
+# $opl_trkbar_dr.Value= "0"
+
+$opl_trkbar_dr.Add_Scroll({
+
+	$opl_nmud_dr.Value= $this.Value
+})
+
+$opl_trkbar_dr.Add_Enter({
+
+	$script:key["wheel"][1]= "Decay"
+	Contxt_chg_opl $key["wheel"][1]
+	All_chg
+
+	Unredo 0
+})
+
+$opl_trkbar_dr.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opl_lbl_dr= New-Object System.Windows.Forms.Label 
+$opl_lbl_dr.Location= "70,175"
+$opl_lbl_dr.Size= "55,35"
+$opl_lbl_dr.Text= "Decay"
+ 
+# ------ SR - Sustain 15-0 
+ 
+$opl_trkbar_sr= New-Object System.Windows.Forms.TrackBar 
+$opl_trkbar_sr.Location= "190,50"
+$opl_trkbar_sr.Size= "55,125"
+$opl_trkbar_sr.AutoSize= $False
+$opl_trkbar_sr.Orientation= "Vertical"
+$opl_trkbar_sr.TickStyle= "TopLeft"
+$opl_trkbar_sr.TickFrequency= "2"
+$opl_trkbar_sr.LargeChange= "1"
+$opl_trkbar_sr.Maximum= "15"
+$opl_trkbar_sr.Minimum= "0"
+# $opl_trkbar_sr.Value= "0"
+
+$opl_trkbar_sr.Add_Scroll({
+
+	$opl_nmud_sr.Value= $this.Value
+})
+
+$opl_trkbar_sr.Add_Enter({
+
+	$script:key["wheel"][1]= "Sustain"
+	Contxt_chg_opl $key["wheel"][1]
+	All_chg
+
+	Unredo 0
+})
+
+$opl_trkbar_sr.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opl_lbl_sr= New-Object System.Windows.Forms.Label 
+$opl_lbl_sr.Location= "190,175"
+$opl_lbl_sr.Size= "55,35"
+$opl_lbl_sr.Text= "Sustain"
+ 
+# ------ RR - ReleaseRate 0-15 
+ 
+$opl_trkbar_rr= New-Object System.Windows.Forms.TrackBar 
+$opl_trkbar_rr.Location= "130,50"
+$opl_trkbar_rr.Size= "55,125"
+$opl_trkbar_rr.AutoSize= $False
+$opl_trkbar_rr.Orientation= "Vertical"
+$opl_trkbar_rr.TickStyle= "TopLeft"
+$opl_trkbar_rr.TickFrequency= "2"
+$opl_trkbar_rr.LargeChange= "1"
+$opl_trkbar_rr.Maximum= "15"
+$opl_trkbar_rr.Minimum= "0"
+# $opl_trkbar_rr.Value= "0"
+
+$opl_trkbar_rr.Add_Scroll({
+
+	$opl_nmud_rr.Value= $this.Value
+})
+
+$opl_trkbar_rr.Add_Enter({
+
+	$script:key["wheel"][1]= "Release"
+	Contxt_chg_opl $key["wheel"][1]
+	All_chg
+
+	Unredo 0
+})
+
+$opl_trkbar_rr.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opl_lbl_rr= New-Object System.Windows.Forms.Label 
+$opl_lbl_rr.Location= "130,175"
+$opl_lbl_rr.Size= "55,35"
+$opl_lbl_rr.Text= "Release"
+ 
+# ------ 
+  
+$opl_lev_grp= New-Object System.Windows.Forms.GroupBox 
+$opl_lev_grp.Location= "10,250"
+$opl_lev_grp.Size= "255,120"
+$opl_lev_grp.Text= "Key Scale"
+$opl_lev_grp.FlatStyle= "Flat"
+	
+# ------ KSL - KeyScaleLevel 0-3 
+ 
+$opl_trkbar_ksl= New-Object System.Windows.Forms.TrackBar 
+$opl_trkbar_ksl.Location= "10,45"
+$opl_trkbar_ksl.Size= "110,40"
+$opl_trkbar_ksl.AutoSize= $False
+$opl_trkbar_ksl.Orientation= "Horizontal"
+$opl_trkbar_ksl.TickStyle= "BottomRight"
+$opl_trkbar_ksl.TickFrequency= "1"
+$opl_trkbar_ksl.LargeChange= "1"
+$opl_trkbar_ksl.Maximum= "3"
+$opl_trkbar_ksl.Minimum= "0"
+# $opl_trkbar_ksl.Value= "0"
+
+$opl_trkbar_ksl.Add_Scroll({
+
+	$opl_nmud_ksl.Value= $this.Value
+})
+
+$opl_trkbar_ksl.Add_Enter({
+
+	Unredo 0
+})
+
+$opl_trkbar_ksl.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opl_lbl_ksl= New-Object System.Windows.Forms.Label 
+$opl_lbl_ksl.Location= "10,15"
+$opl_lbl_ksl.Size= "80,20"
+$opl_lbl_ksl.Text= "KSLevel"
+ 
+# ------ KSR - KeyScaleRate 0-1 
+ 
+$opl_trkbar_ksr= New-Object System.Windows.Forms.TrackBar 
+$opl_trkbar_ksr.Location= "135,45"
+$opl_trkbar_ksr.Size= "110,40"
+$opl_trkbar_ksr.AutoSize= $False
+$opl_trkbar_ksr.Orientation= "Horizontal"
+$opl_trkbar_ksr.TickStyle= "BottomRight"
+$opl_trkbar_ksr.TickFrequency= "1"
+$opl_trkbar_ksr.LargeChange= "1"
+$opl_trkbar_ksr.Maximum= "1"
+$opl_trkbar_ksr.Minimum= "0"
+# $opl_trkbar_ksr.Value= "0"
+
+$opl_trkbar_ksr.Add_Scroll({
+
+	$opl_nmud_ksr.Value= $this.Value
+})
+
+$opl_trkbar_ksr.Add_Enter({
+
+	Unredo 0
+})
+
+$opl_trkbar_ksr.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opl_lbl_ksr= New-Object System.Windows.Forms.Label 
+$opl_lbl_ksr.Location= "135,15"
+$opl_lbl_ksr.Size= "60,20"
+$opl_lbl_ksr.Text= "KSRate"
+ 
+# ------ 
+  
+$opl_ring_grp= New-Object System.Windows.Forms.GroupBox 
+$opl_ring_grp.Location= "270,30"
+$opl_ring_grp.Size= "255,165"
+$opl_ring_grp.Text= "Effects Control"
+$opl_ring_grp.FlatStyle= "Flat"
+	
+# ------ DT - Distortion 0-1 
+ 
+$opl_trkbar_dt= New-Object System.Windows.Forms.TrackBar 
+$opl_trkbar_dt.Location= "190,50"
+$opl_trkbar_dt.Size= "55,65"
+$opl_trkbar_dt.AutoSize= $False
+$opl_trkbar_dt.Orientation= "Vertical"
+$opl_trkbar_dt.TickStyle= "TopLeft"
+$opl_trkbar_dt.TickFrequency= "1"
+$opl_trkbar_dt.LargeChange= "1"
+$opl_trkbar_dt.Maximum= "1"
+$opl_trkbar_dt.Minimum= "0"
+$opl_trkbar_dt.Value= "0"
+$opl_trkbar_dt.Enabled= $False
+
+$opl_trkbar_dt.Add_Scroll({
+})
+
+$opl_trkbar_dt.Add_Enter({
+})
+
+$opl_trkbar_dt.Add_KeyDown({
+})
+ 
+$opl_nmud_dt= New-Object System.Windows.Forms.NumericUpDown 
+$opl_nmud_dt.location= "190,20"
+$opl_nmud_dt.Size= "55,20"
+$opl_nmud_dt.TextAlign= "Right"
+$opl_nmud_dt.UpDownAlign= "Right"
+$opl_nmud_dt.BorderStyle= "FixedSingle"
+$opl_nmud_dt.Minimum= "0"
+$opl_nmud_dt.Maximum= "1"
+
+$opl_nmud_dt.Add_ValueChanged({
+})
+ 
+$opl_lbl_dt= New-Object System.Windows.Forms.Label 
+$opl_lbl_dt.Location= "190,115"
+$opl_lbl_dt.Size= "55,40"
+$opl_lbl_dt.Text= "Distortion"
+$opl_lbl_dt.Enabled= $False
+ 
+# ------ EG - EnvelopeGeneratorType 0-1 / SR=0 off,on 
+ 
+$opl_trkbar_eg= New-Object System.Windows.Forms.TrackBar 
+$opl_trkbar_eg.Location= "130,50"
+$opl_trkbar_eg.Size= "55,65"
+$opl_trkbar_eg.AutoSize= $False
+$opl_trkbar_eg.Orientation= "Vertical"
+$opl_trkbar_eg.TickStyle= "TopLeft"
+$opl_trkbar_eg.TickFrequency= "1"
+$opl_trkbar_eg.LargeChange= "1"
+$opl_trkbar_eg.Maximum= "1"
+$opl_trkbar_eg.Minimum= "0"
+# $opl_trkbar_eg.Value= "0"
+
+$opl_trkbar_eg.Add_Scroll({
+
+	$opl_nmud_eg.Value= $this.Value
+})
+
+$opl_trkbar_eg.Add_Enter({
+
+	$script:key["wheel"][1]= "EnvGeneType"
+	Contxt_chg_opl $key["wheel"][1]
+	All_chg
+
+	Unredo 0
+})
+
+$opl_trkbar_eg.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opl_lbl_eg= New-Object System.Windows.Forms.Label 
+$opl_lbl_eg.Location= "130,115"
+$opl_lbl_eg.Size= "55,40"
+$opl_lbl_eg.Text= "EnvGeneType"
+ 
+# ------ VIB - Vibrato 0-1 
+ 
+$opl_trkbar_vib= New-Object System.Windows.Forms.TrackBar 
+$opl_trkbar_vib.Location= "70,50"
+$opl_trkbar_vib.Size= "55,65"
+$opl_trkbar_vib.AutoSize= $False
+$opl_trkbar_vib.Orientation= "Vertical"
+$opl_trkbar_vib.TickStyle= "TopLeft"
+$opl_trkbar_vib.TickFrequency= "1"
+$opl_trkbar_vib.LargeChange= "1"
+$opl_trkbar_vib.Maximum= "1"
+$opl_trkbar_vib.Minimum= "0"
+# $opl_trkbar_vib.Value= "0"
+
+$opl_trkbar_vib.Add_Scroll({
+
+	$opl_nmud_vib.Value= $this.Value
+})
+
+$opl_trkbar_vib.Add_Enter({
+
+	Unredo 0
+})
+
+$opl_trkbar_vib.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opl_lbl_vib= New-Object System.Windows.Forms.Label 
+$opl_lbl_vib.Location= "70,115"
+$opl_lbl_vib.Size= "55,40"
+$opl_lbl_vib.Text= "Vibrato"
+ 
+# ------ AM - AmplitudeModulation Enable Switch 0-1 
+ 
+$opl_trkbar_am= New-Object System.Windows.Forms.TrackBar 
+$opl_trkbar_am.Location= "10,50"
+$opl_trkbar_am.Size= "55,65"
+$opl_trkbar_am.AutoSize= $False
+$opl_trkbar_am.Orientation= "Vertical"
+$opl_trkbar_am.TickStyle= "TopLeft"
+$opl_trkbar_am.TickFrequency= "1"
+$opl_trkbar_am.LargeChange= "1"
+$opl_trkbar_am.Maximum= "1"
+$opl_trkbar_am.Minimum= "0"
+# $opl_trkbar_am.Value= "0"
+
+$opl_trkbar_am.Add_Scroll({
+
+	$opl_nmud_am.Value= $this.Value
+})
+
+$opl_trkbar_am.Add_Enter({
+
+	Unredo 0
+})
+
+$opl_trkbar_am.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opl_lbl_am= New-Object System.Windows.Forms.Label 
+$opl_lbl_am.Location= "10,115"
+$opl_lbl_am.Size= "55,40"
+$opl_lbl_am.Text= "AM Switch"
+ 
+# ------ 
+  
+$opl_op_grp= New-Object System.Windows.Forms.GroupBox 
+$opl_op_grp.Location= "270,195"
+$opl_op_grp.Size= "255,175"
+$opl_op_grp.Text= "Frequency Modulation"
+$opl_op_grp.FlatStyle= "Flat"
+	
+# ------ ML - Multiple 0-15 
+ 
+$opl_trkbar_ml= New-Object System.Windows.Forms.TrackBar 
+$opl_trkbar_ml.Location= "10,45"
+$opl_trkbar_ml.Size= "235,40"
+$opl_trkbar_ml.AutoSize= $False
+$opl_trkbar_ml.Orientation= "Horizontal"
+$opl_trkbar_ml.TickStyle= "BottomRight"
+$opl_trkbar_ml.TickFrequency= "2"
+$opl_trkbar_ml.LargeChange= "1"
+$opl_trkbar_ml.Maximum= "15"
+$opl_trkbar_ml.Minimum= "0"
+# $opl_trkbar_ml.Value= "0"
+
+$opl_trkbar_ml.Add_Scroll({
+
+	$opl_nmud_ml.Value= $this.Value
+})
+
+$opl_trkbar_ml.Add_Enter({
+
+	$script:key["wheel"][1]= "Multiple"
+	Contxt_chg_opl $key["wheel"][1]
+	All_chg
+
+	Unredo 0
+})
+
+$opl_trkbar_ml.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opl_lbl_ml= New-Object System.Windows.Forms.Label 
+$opl_lbl_ml.Location= "10,15"
+$opl_lbl_ml.Size= "165,20"
+$opl_lbl_ml.Text= "Multiple - overtone"
+ 
+# ------ TL - TotalLevel 63-0 
+ 
+$opl_trkbar_tl= New-Object System.Windows.Forms.TrackBar 
+$opl_trkbar_tl.Location= "10,120"
+$opl_trkbar_tl.Size= "235,40"
+$opl_trkbar_tl.AutoSize= $False
+$opl_trkbar_tl.Orientation= "Horizontal"
+$opl_trkbar_tl.TickStyle= "BottomRight"
+$opl_trkbar_tl.TickFrequency= "4"
+$opl_trkbar_tl.LargeChange= "1"
+$opl_trkbar_tl.Maximum= "63"
+$opl_trkbar_tl.Minimum= "0"
+# $opl_trkbar_tl.Value= "0"
+
+$opl_trkbar_tl.Add_Scroll({
+
+	$opl_nmud_tl.Value= $this.Value
+})
+
+$opl_trkbar_tl.Add_Enter({
+
+	$script:key["wheel"][1]= "TotalLevel"
+	Contxt_chg_opl $key["wheel"][1]
+	All_chg
+
+	Unredo 0
+})
+
+$opl_trkbar_tl.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opl_lbl_tl= New-Object System.Windows.Forms.Label 
+$opl_lbl_tl.Location= "10,95"
+$opl_lbl_tl.Size= "165,20"
+$opl_lbl_tl.Text= "Total Level / 0max - 63min"
+ 
+# ------ 
+  
+$opl_alg_grp= New-Object System.Windows.Forms.GroupBox 
+$opl_alg_grp.Location= "10,370"
+$opl_alg_grp.Size= "315,105"
+$opl_alg_grp.Text= "Algorithm / Feedback"
+$opl_alg_grp.FlatStyle= "Flat"
+	
+# ------ ALG - Algorithm 0-1 
+ 
+$opl_trkbar_alg= New-Object System.Windows.Forms.TrackBar 
+$opl_trkbar_alg.Location= "10,50"
+$opl_trkbar_alg.Size= "140,40"
+$opl_trkbar_alg.AutoSize= $False
+$opl_trkbar_alg.Orientation= "Horizontal"
+$opl_trkbar_alg.TickStyle= "BottomRight"
+$opl_trkbar_alg.TickFrequency= "1"
+$opl_trkbar_alg.LargeChange= "1"
+$opl_trkbar_alg.Maximum= "1"
+$opl_trkbar_alg.Minimum= "0"
+# $opl_trkbar_alg.Value= "0"
+
+$opl_trkbar_alg.Add_Scroll({
+
+	$opl_nmud_alg.Value= $this.Value
+})
+
+$opl_trkbar_alg.Add_Enter({
+
+	Unredo 0
+})
+
+$opl_trkbar_alg.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opl_lbl_alg= New-Object System.Windows.Forms.Label 
+$opl_lbl_alg.Location= "10,15"
+$opl_lbl_alg.Size= "60,20"
+$opl_lbl_alg.Text= "Algorithm"
+ 
+# ------ FB - Feedback 0-7 
+ 
+$opl_trkbar_fb= New-Object System.Windows.Forms.TrackBar 
+$opl_trkbar_fb.Location= "165,50"
+$opl_trkbar_fb.Size= "140,40"
+$opl_trkbar_fb.AutoSize= $False
+$opl_trkbar_fb.Orientation= "Horizontal"
+$opl_trkbar_fb.TickStyle= "BottomRight"
+$opl_trkbar_fb.TickFrequency= "1"
+$opl_trkbar_fb.LargeChange= "1"
+$opl_trkbar_fb.Maximum= "7"
+$opl_trkbar_fb.Minimum= "0"
+# $opl_trkbar_fb.Value= "0"
+
+$opl_trkbar_fb.Add_Scroll({
+
+	$opl_nmud_fb.Value= $this.Value
+})
+
+$opl_trkbar_fb.Add_Enter({
+
+	$script:key["wheel"][1]= "Feedback"
+	Contxt_chg_opl $key["wheel"][1]
+	All_chg
+
+	Unredo 0
+})
+
+$opl_trkbar_fb.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opl_lbl_fb= New-Object System.Windows.Forms.Label 
+$opl_lbl_fb.Location= "165,20"
+$opl_lbl_fb.Size= "75,20"
+$opl_lbl_fb.Text= "Feedback"
+ 
+# ------ 
+  
+$opl_eg_grp.Controls.AddRange(@($opl_trkbar_ar,$opl_nmud_ar,$opl_lbl_ar)) 
+$opl_eg_grp.Controls.AddRange(@($opl_trkbar_dr,$opl_nmud_dr,$opl_lbl_dr))
+$opl_eg_grp.Controls.AddRange(@($opl_trkbar_rr,$opl_nmud_rr,$opl_lbl_rr))
+$opl_eg_grp.Controls.AddRange(@($opl_trkbar_sr,$opl_nmud_sr,$opl_lbl_sr))
+
+$opl_lev_grp.Controls.AddRange(@($opl_trkbar_ksl,$opl_nmud_ksl,$opl_lbl_ksl))
+$opl_lev_grp.Controls.AddRange(@($opl_trkbar_ksr,$opl_nmud_ksr,$opl_lbl_ksr))
+
+$opl_ring_grp.Controls.AddRange(@($opl_trkbar_dt,$opl_nmud_dt,$opl_lbl_dt))
+$opl_ring_grp.Controls.AddRange(@($opl_trkbar_eg,$opl_nmud_eg,$opl_lbl_eg))
+$opl_ring_grp.Controls.AddRange(@($opl_trkbar_vib,$opl_nmud_vib,$opl_lbl_vib))
+$opl_ring_grp.Controls.AddRange(@($opl_trkbar_am,$opl_nmud_am,$opl_lbl_am))
+
+
+$opl_op_grp.Controls.AddRange(@($opl_trkbar_ml,$opl_nmud_ml,$opl_lbl_ml))
+$opl_op_grp.Controls.AddRange(@($opl_trkbar_tl,$opl_nmud_tl,$opl_lbl_tl))
+
+$opl_alg_grp.Controls.AddRange(@($opl_trkbar_alg,$opl_nmud_alg,$opl_lbl_alg))
+$opl_alg_grp.Controls.AddRange(@($opl_trkbar_fb,$opl_nmud_fb,$opl_lbl_fb))
+  
+# OPM 
+	
+$opm_eg_grp= New-Object System.Windows.Forms.GroupBox 
+$opm_eg_grp.Location= "10,30"
+$opm_eg_grp.Size= "255,220"
+$opm_eg_grp.Text= "Envelope"
+$opm_eg_grp.FlatStyle= "Flat"
+#$opm_eg_grp.Hide() #$eg_grp.Show()
+	
+# ------ AR - AttackRate 31-0 
+ 
+$opm_trkbar_ar= New-Object System.Windows.Forms.TrackBar 
+$opm_trkbar_ar.Location= "10,50"
+$opm_trkbar_ar.Size= "55,125"
+$opm_trkbar_ar.AutoSize= $False
+$opm_trkbar_ar.Orientation= "Vertical"
+$opm_trkbar_ar.TickStyle= "TopLeft"
+$opm_trkbar_ar.TickFrequency= "4"
+$opm_trkbar_ar.LargeChange= "4"
+$opm_trkbar_ar.Maximum= "31"
+$opm_trkbar_ar.Minimum= "0"
+# $opm_trkbar_ar.Value= "0"
+
+$opm_trkbar_ar.Add_Scroll({
+
+	$opm_nmud_ar.Value= $this.Value
+})
+
+$opm_trkbar_ar.Add_Enter({
+
+	$script:key["wheel"][3]= "Attack"
+	Contxt_chg_opm $key["wheel"][3]
+	All_chg
+
+	Unredo 0
+})
+
+$opm_trkbar_ar.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opm_lbl_ar= New-Object System.Windows.Forms.Label 
+$opm_lbl_ar.Location= "10,175"
+$opm_lbl_ar.Size= "55,35"
+$opm_lbl_ar.Text= "Attack"
+ 
+# ------ DR - DecayRate 0-31 
+ 
+$opm_trkbar_dr= New-Object System.Windows.Forms.TrackBar 
+$opm_trkbar_dr.Location= "70,50"
+$opm_trkbar_dr.Size= "55,125"
+$opm_trkbar_dr.AutoSize= $False
+$opm_trkbar_dr.Orientation= "Vertical"
+$opm_trkbar_dr.TickStyle= "TopLeft"
+$opm_trkbar_dr.TickFrequency= "4"
+$opm_trkbar_dr.LargeChange= "4"
+$opm_trkbar_dr.Maximum= "31"
+$opm_trkbar_dr.Minimum= "0"
+# $opm_trkbar_dr.Value= "0"
+
+$opm_trkbar_dr.Add_Scroll({
+
+	$opm_nmud_dr.Value= $this.Value
+})
+
+$opm_trkbar_dr.Add_Enter({
+
+	$script:key["wheel"][3]= "Decay"
+	Contxt_chg_opm $key["wheel"][3]
+	All_chg
+
+	Unredo 0
+})
+
+$opm_trkbar_dr.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opm_lbl_dr= New-Object System.Windows.Forms.Label 
+$opm_lbl_dr.Location= "70,175"
+$opm_lbl_dr.Size= "55,35"
+$opm_lbl_dr.Text= "Decay"
+ 
+# ------ SR - SustainRate 0-31 
+ 
+$opm_trkbar_sr= New-Object System.Windows.Forms.TrackBar 
+$opm_trkbar_sr.Location= "130,50"
+$opm_trkbar_sr.Size= "55,125"
+$opm_trkbar_sr.AutoSize= $False
+$opm_trkbar_sr.Orientation= "Vertical"
+$opm_trkbar_sr.TickStyle= "TopLeft"
+$opm_trkbar_sr.TickFrequency= "4"
+$opm_trkbar_sr.LargeChange= "4"
+$opm_trkbar_sr.Maximum= "31"
+$opm_trkbar_sr.Minimum= "0"
+# $opm_trkbar_sr.Value= "0"
+
+$opm_trkbar_sr.Add_Scroll({
+
+	$opm_nmud_sr.Value= $this.Value
+})
+
+$opm_trkbar_sr.Add_Enter({
+
+	$script:key["wheel"][3]= "SustainRate"
+	Contxt_chg_opm $key["wheel"][3]
+	All_chg
+
+	Unredo 0
+})
+
+$opm_trkbar_sr.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opm_lbl_sr= New-Object System.Windows.Forms.Label 
+$opm_lbl_sr.Location= "130,175"
+$opm_lbl_sr.Size= "55,35"
+$opm_lbl_sr.Text= "Sustain Rate"
+ 
+# ------ RR - ReleaseRate 0-15 
+ 
+$opm_trkbar_rr= New-Object System.Windows.Forms.TrackBar 
+$opm_trkbar_rr.Location= "190,50"
+$opm_trkbar_rr.Size= "55,125"
+$opm_trkbar_rr.AutoSize= $False
+$opm_trkbar_rr.Orientation= "Vertical"
+$opm_trkbar_rr.TickStyle= "TopLeft"
+$opm_trkbar_rr.TickFrequency= "4"
+$opm_trkbar_rr.LargeChange= "4"
+$opm_trkbar_rr.Maximum= "15"
+$opm_trkbar_rr.Minimum= "0"
+# $opm_trkbar_rr.Value= "0"
+
+$opm_trkbar_rr.Add_Scroll({
+
+	$opm_nmud_rr.Value= $this.Value
+})
+
+$opm_trkbar_rr.Add_Enter({
+
+	$script:key["wheel"][3]= "Release"
+	Contxt_chg_opm $key["wheel"][3]
+	All_chg
+
+	Unredo 0
+})
+
+$opm_trkbar_rr.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opm_lbl_rr= New-Object System.Windows.Forms.Label 
+$opm_lbl_rr.Location= "190,175"
+$opm_lbl_rr.Size= "55,35"
+$opm_lbl_rr.Text= "Release"
+ 
+# ------ 
+  
+$opm_lev_grp= New-Object System.Windows.Forms.GroupBox 
+$opm_lev_grp.Location= "10,250"
+$opm_lev_grp.Size= "255,120"
+$opm_lev_grp.Text= "Sustain Level"
+$opm_lev_grp.FlatStyle= "Flat"
+	
+# ------ SL - SustainLevel 0-15 
+ 
+$opm_trkbar_sl= New-Object System.Windows.Forms.TrackBar 
+$opm_trkbar_sl.Location= "10,45"
+$opm_trkbar_sl.Size= "235,40"
+$opm_trkbar_sl.AutoSize= $False
+$opm_trkbar_sl.Orientation= "Horizontal"
+$opm_trkbar_sl.TickStyle= "BottomRight"
+$opm_trkbar_sl.TickFrequency= "2"
+$opm_trkbar_sl.LargeChange= "2"
+$opm_trkbar_sl.Maximum= "15"
+$opm_trkbar_sl.Minimum= "0"
+# $opm_trkbar_sl.Value= "0"
+
+$opm_trkbar_sl.Add_Scroll({
+
+	$opm_nmud_sl.Value= $this.Value
+})
+
+$opm_trkbar_sl.Add_Enter({
+
+	$script:key["wheel"][3]= "SustainLevel"
+	Contxt_chg_opm $key["wheel"][3]
+	All_chg
+
+	Unredo 0
+})
+
+$opm_trkbar_sl.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opm_lbl_sl= New-Object System.Windows.Forms.Label 
+$opm_lbl_sl.Location= "10,15"
+$opm_lbl_sl.Size= "165,20"
+$opm_lbl_sl.Text= "Sustain Level / 0max - 15min"
+ 
+# ------ 
+  
+$opm_ring_grp= New-Object System.Windows.Forms.GroupBox 
+$opm_ring_grp.Location= "270,30"
+$opm_ring_grp.Size= "255,165"
+$opm_ring_grp.Text= "Effects Control"
+$opm_ring_grp.FlatStyle= "Flat"
+	
+# ------ KS - KeyScaling 0-3 / env length 
+ 
+$opm_trkbar_ks= New-Object System.Windows.Forms.TrackBar 
+$opm_trkbar_ks.Location= "10,50"
+$opm_trkbar_ks.Size= "55,65"
+$opm_trkbar_ks.AutoSize= $False
+$opm_trkbar_ks.Orientation= "Vertical"
+$opm_trkbar_ks.TickStyle= "TopLeft"
+$opm_trkbar_ks.TickFrequency= "1"
+$opm_trkbar_ks.LargeChange= "1"
+$opm_trkbar_ks.Maximum= "3"
+$opm_trkbar_ks.Minimum= "0"
+# $opm_trkbar_ks.Value= "0"
+
+$opm_trkbar_ks.Add_Scroll({
+
+	$opm_nmud_ks.Value= $this.Value
+})
+
+$opm_trkbar_ks.Add_Enter({
+
+	Unredo 0
+})
+
+$opm_trkbar_ks.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opm_lbl_ks= New-Object System.Windows.Forms.Label 
+$opm_lbl_ks.Location= "10,115"
+$opm_lbl_ks.Size= "55,40"
+$opm_lbl_ks.Text= "Key Scaling"
+ 
+# ------ DT1 - DeTune1 0-7 [0,1,2,3, 0,-1,-2,-3] 
+ 
+$opm_trkbar_dt1= New-Object System.Windows.Forms.TrackBar 
+$opm_trkbar_dt1.Location= "70,50"
+$opm_trkbar_dt1.Size= "55,65"
+$opm_trkbar_dt1.AutoSize= $False
+$opm_trkbar_dt1.Orientation= "Vertical"
+$opm_trkbar_dt1.TickStyle= "TopLeft"
+$opm_trkbar_dt1.TickFrequency= "1"
+$opm_trkbar_dt1.LargeChange= "1"
+$opm_trkbar_dt1.Maximum= "7"
+$opm_trkbar_dt1.Minimum= "0"
+# $opm_trkbar_dt1.Value= "0"
+
+$opm_trkbar_dt1.Add_Scroll({
+
+	$opm_nmud_dt1.Value= $this.Value
+})
+
+$opm_trkbar_dt1.Add_Enter({
+
+	Unredo 0
+})
+
+$opm_trkbar_dt1.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opm_lbl_dt1= New-Object System.Windows.Forms.Label 
+$opm_lbl_dt1.Location= "70,115"
+$opm_lbl_dt1.Size= "55,40"
+$opm_lbl_dt1.Text= "Detune1"
+ 
+# ------ DT2 - DeTune2 0-3 
+ 
+$opm_trkbar_dt2= New-Object System.Windows.Forms.TrackBar 
+$opm_trkbar_dt2.Location= "130,50"
+$opm_trkbar_dt2.Size= "55,65"
+$opm_trkbar_dt2.AutoSize= $False
+$opm_trkbar_dt2.Orientation= "Vertical"
+$opm_trkbar_dt2.TickStyle= "TopLeft"
+$opm_trkbar_dt2.TickFrequency= "1"
+$opm_trkbar_dt2.LargeChange= "1"
+$opm_trkbar_dt2.Maximum= "3"
+$opm_trkbar_dt2.Minimum= "0"
+# $opm_trkbar_dt2.Value= "0"
+
+$opm_trkbar_dt2.Add_Scroll({
+
+	$opm_nmud_dt2.Value= $this.Value
+})
+
+$opm_trkbar_dt2.Add_Enter({
+
+	Unredo 0
+})
+
+$opm_trkbar_dt2.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opm_lbl_dt2= New-Object System.Windows.Forms.Label 
+$opm_lbl_dt2.Location= "130,115"
+$opm_lbl_dt2.Size= "55,40"
+$opm_lbl_dt2.Text= "Detune2"
+ 
+# ------ AMS - AmplitudeModulationSensitivity 0-3 
+ 
+$opm_trkbar_ams= New-Object System.Windows.Forms.TrackBar 
+$opm_trkbar_ams.Location= "190,50"
+$opm_trkbar_ams.Size= "55,65"
+$opm_trkbar_ams.AutoSize= $False
+$opm_trkbar_ams.Orientation= "Vertical"
+$opm_trkbar_ams.TickStyle= "TopLeft"
+$opm_trkbar_ams.TickFrequency= "1"
+$opm_trkbar_ams.LargeChange= "1"
+$opm_trkbar_ams.Maximum= "3"
+$opm_trkbar_ams.Minimum= "0"
+# $opm_trkbar_ams.Value= "0"
+
+$opm_trkbar_ams.Add_Scroll({
+
+	$opm_nmud_ams.Value= $this.Value
+})
+
+$opm_trkbar_ams.Add_Enter({
+
+	Unredo 0
+})
+
+$opm_trkbar_ams.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opm_lbl_ams= New-Object System.Windows.Forms.Label 
+$opm_lbl_ams.Location= "190,115"
+$opm_lbl_ams.Size= "55,40"
+$opm_lbl_ams.Text= "AM Sens"
+ 
+# ------ 
+  
+$opm_op_grp= New-Object System.Windows.Forms.GroupBox 
+$opm_op_grp.Location= "270,195"
+$opm_op_grp.Size= "255,175"
+$opm_op_grp.Text= "Frequency Modulation"
+$opm_op_grp.FlatStyle= "Flat"
+	
+# ------ ML - Multiple 0-15 
+ 
+$opm_trkbar_ml= New-Object System.Windows.Forms.TrackBar 
+$opm_trkbar_ml.Location= "10,45"
+$opm_trkbar_ml.Size= "235,40"
+$opm_trkbar_ml.AutoSize= $False
+$opm_trkbar_ml.Orientation= "Horizontal"
+$opm_trkbar_ml.TickStyle= "BottomRight"
+$opm_trkbar_ml.TickFrequency= "2"
+$opm_trkbar_ml.LargeChange= "2"
+$opm_trkbar_ml.Maximum= "15"
+$opm_trkbar_ml.Minimum= "0"
+# $opm_trkbar_ml.Value= "0"
+
+$opm_trkbar_ml.Add_Scroll({
+
+	$opm_nmud_ml.Value= $this.Value
+})
+
+$opm_trkbar_ml.Add_Enter({
+
+	$script:key["wheel"][3]= "Multiple"
+	Contxt_chg_opm $key["wheel"][3]
+	All_chg
+
+	Unredo 0
+})
+
+$opm_trkbar_ml.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opm_lbl_ml= New-Object System.Windows.Forms.Label 
+$opm_lbl_ml.Location= "10,15"
+$opm_lbl_ml.Size= "165,20"
+$opm_lbl_ml.Text= "Multiple - overtone"
+ 
+# ------ TL - TotalLevel 127-0 
+ 
+$opm_trkbar_tl= New-Object System.Windows.Forms.TrackBar 
+$opm_trkbar_tl.Location= "10,120"
+$opm_trkbar_tl.Size= "235,40"
+$opm_trkbar_tl.AutoSize= $False
+$opm_trkbar_tl.Orientation= "Horizontal"
+$opm_trkbar_tl.TickStyle= "BottomRight"
+$opm_trkbar_tl.TickFrequency= "8"
+$opm_trkbar_tl.LargeChange= "8"
+$opm_trkbar_tl.Maximum= "127"
+$opm_trkbar_tl.Minimum= "0"
+# $opm_trkbar_tl.Value= "0"
+
+$opm_trkbar_tl.Add_Scroll({
+
+	$opm_nmud_tl.Value= $this.Value
+})
+
+$opm_trkbar_tl.Add_Enter({
+
+	$script:key["wheel"][3]= "TotalLevel"
+	Contxt_chg_opm $key["wheel"][3]
+	All_chg
+
+	Unredo 0
+})
+
+$opm_trkbar_tl.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opm_lbl_tl= New-Object System.Windows.Forms.Label 
+$opm_lbl_tl.Location= "10,95"
+$opm_lbl_tl.Size= "165,20"
+$opm_lbl_tl.Text= "Total Level / 0max - 127min"
+ 
+# ------ 
+  
+$opm_alg_grp= New-Object System.Windows.Forms.GroupBox 
+$opm_alg_grp.Location= "10,370"
+$opm_alg_grp.Size= "315,105"
+$opm_alg_grp.Text= "Algorithm / Feedback"
+$opm_alg_grp.FlatStyle= "Flat"
+	
+# ------ ALG - Algorithm 0-7 
+ 
+$opm_trkbar_alg= New-Object System.Windows.Forms.TrackBar 
+$opm_trkbar_alg.Location= "10,50"
+$opm_trkbar_alg.Size= "140,40"
+$opm_trkbar_alg.AutoSize= $False
+$opm_trkbar_alg.Orientation= "Horizontal"
+$opm_trkbar_alg.TickStyle= "BottomRight"
+$opm_trkbar_alg.TickFrequency= "1"
+$opm_trkbar_alg.LargeChange= "1"
+$opm_trkbar_alg.Maximum= "7"
+$opm_trkbar_alg.Minimum= "0"
+# $opm_trkbar_alg.Value= "0"
+
+$opm_trkbar_alg.Add_Scroll({
+
+	$opm_nmud_alg.Value= $this.Value
+})
+
+$opm_trkbar_alg.Add_Enter({
+
+	Unredo 0
+})
+
+$opm_trkbar_alg.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opm_lbl_alg= New-Object System.Windows.Forms.Label 
+$opm_lbl_alg.Location= "10,15"
+$opm_lbl_alg.Size= "60,20"
+$opm_lbl_alg.Text= "Algorithm"
+ 
+# ------ FB - Feedback 0-7 
+ 
+$opm_trkbar_fb= New-Object System.Windows.Forms.TrackBar 
+$opm_trkbar_fb.Location= "165,50"
+$opm_trkbar_fb.Size= "140,40"
+$opm_trkbar_fb.AutoSize= $False
+$opm_trkbar_fb.Orientation= "Horizontal"
+$opm_trkbar_fb.TickStyle= "BottomRight"
+$opm_trkbar_fb.TickFrequency= "1"
+$opm_trkbar_fb.LargeChange= "1"
+$opm_trkbar_fb.Maximum= "7"
+$opm_trkbar_fb.Minimum= "0"
+# $opm_trkbar_fb.Value= "0"
+
+$opm_trkbar_fb.Add_Scroll({
+
+	$opm_nmud_fb.Value= $this.Value
+})
+
+$opm_trkbar_fb.Add_Enter({
+
+	$script:key["wheel"][3]= "Feedback"
+	Contxt_chg_opm $key["wheel"][3]
+	All_chg
+
+	Unredo 0
+})
+
+$opm_trkbar_fb.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$opm_lbl_fb= New-Object System.Windows.Forms.Label 
+$opm_lbl_fb.Location= "165,20"
+$opm_lbl_fb.Size= "75,20"
+$opm_lbl_fb.Text= "Feedback"
+ 
+# ------ 
+  
+$opm_eg_grp.Controls.AddRange(@($opm_trkbar_ar,$opm_nmud_ar,$opm_lbl_ar)) 
+$opm_eg_grp.Controls.AddRange(@($opm_trkbar_dr,$opm_nmud_dr,$opm_lbl_dr))
+$opm_eg_grp.Controls.AddRange(@($opm_trkbar_sr,$opm_nmud_sr,$opm_lbl_sr))
+$opm_eg_grp.Controls.AddRange(@($opm_trkbar_rr,$opm_nmud_rr,$opm_lbl_rr))
+
+$opm_lev_grp.Controls.AddRange(@($opm_trkbar_sl,$opm_nmud_sl,$opm_lbl_sl))
+
+$opm_ring_grp.Controls.AddRange(@($opm_trkbar_ks,$opm_nmud_ks,$opm_lbl_ks))
+$opm_ring_grp.Controls.AddRange(@($opm_trkbar_dt1,$opm_nmud_dt1,$opm_lbl_dt1))
+$opm_ring_grp.Controls.AddRange(@($opm_trkbar_dt2,$opm_nmud_dt2,$opm_lbl_dt2))
+$opm_ring_grp.Controls.AddRange(@($opm_trkbar_ams,$opm_nmud_ams,$opm_lbl_ams))
+
+
+$opm_op_grp.Controls.AddRange(@($opm_trkbar_ml,$opm_nmud_ml,$opm_lbl_ml))
+$opm_op_grp.Controls.AddRange(@($opm_trkbar_tl,$opm_nmud_tl,$opm_lbl_tl))
+
+$opm_alg_grp.Controls.AddRange(@($opm_trkbar_alg,$opm_nmud_alg,$opm_lbl_alg))
+$opm_alg_grp.Controls.AddRange(@($opm_trkbar_fb,$opm_nmud_fb,$opm_lbl_fb))
+   
+#> 
+ 	
 # function ====== 
  
 # color 
@@ -4954,7 +7236,7 @@ function MSop_checker([int]$i, [string]$ss){ # Mask,SSG
  } #func
   
 # Panel 
-	 
+	
 function Enable_chk([string]$s){ 
 
 	[int[]]$num= 0,0
@@ -5205,7 +7487,7 @@ function Fm_osc(){
 	'vrc7 2op'{
 		$ring_grp.Controls.AddRange(@($PictboxDT, $lbl_dt))
 
-		switch(Idx){	
+		switch(Idx){
 		'0'{
 			$op_grp.Controls.AddRange(@($PictboxTL, $lbl_tl))
 			break;
@@ -5379,6 +7661,7 @@ function Panel_chg([string]$sw){
 	} #sw
 
 	Fm_osc	# カラーチェンジの瞬間見せないためひとつ前
+	Box_mml_write
 	Box_write	# mtx
 	Value_gui	# bar
 
@@ -5388,24 +7671,28 @@ function Panel_chg([string]$sw){
 	
 function Adv_edit([string]$t){ 
 
-  switch($t){
-  'mck'{
-	[string]$ss= Editor_open $val["editor"] ".\header\fm_header_mck"; break;
-  }'nsd'{
-	[string]$ss= Editor_open $val["editor"] ".\header\fm_header_nsd"; break;
-  }'pmd'{
-	[string]$ss= Editor_open $val["editor"] ".\header\fm_header_pmd"
-  }
-  } #sw
+	switch($t){
+	'mck'{
+		[string]$ss= Editor_open $val["editor"] ".\header\fm_header_mck"; break;
+	}'nsd'{
+		[string]$ss= Editor_open $val["editor"] ".\header\fm_header_nsd"; break;
+	}'pmd'{
+		[string]$ss= Editor_open $val["editor"] ".\header\fm_header_pmd"; break;
+	}'mck_mml'{
+		[string]$ss= Editor_open $val["editor"] ".\header\fm_mml_mck"; break;
+	}'nsd_mml'{
+		[string]$ss= Editor_open $val["editor"] ".\header\fm_mml_nsd"; break;
+	}'pmd_mml'{
+		[string]$ss= Editor_open $val["editor"] ".\header\fm_mml_pmd"
+	}
+	} #sw
 
-  if($ss -ne ''){
+	if($ss -ne ''){
 
-	[string]$retn= [Windows.Forms.MessageBox]::Show(
-
-	$ss, "確認", "OK","Information","Button1"
-	)
-  }
-
+		[string]$retn= [Windows.Forms.MessageBox]::Show(
+		$ss, "確認", "OK","Information","Button1"
+		)
+ 	}
  } #func
  
 function Read_mck([int]$j,$xx,[array]$yy){ 
@@ -5668,10 +7955,12 @@ function Mck_listen([string]$ss){
 
 	[string]$tt= $key["oct"]
 
-	[string]$hh= $header["fm_header_mck"]
+	[string] $hh= $header["fm_header_mck"]
+	[string] $mm= $box_mml["mck"]
 
 
-	$hh= $hh.Replace("%trk_param%",$tt)
+	$hh= $hh.Replace("%oct_param%",$tt)
+	$hh= $hh.Replace("%mml_param%", $mm)
 	$hh= $hh.Replace("%fm_param%",$gg)
 
 	Param_exp 1 $ss
@@ -5692,11 +7981,13 @@ function Vrc7_listen([string]$ss){
 
 	[string]$tt= $key["oct"]
 
-	[string]$hh= $header["fm_header_nsd"]
+	[string] $hh= $header["fm_header_nsd"]
+	[string] $mm= $box_mml["nsd"]
 
 
-	$hh= $hh.Replace("%trk_param%",$tt)
-	$hh= $hh.Replace("%fm_param%",$gg)
+	$hh= $hh.Replace("%oct_param%", $tt)
+	$hh= $hh.Replace("%mml_param%", $mm)
+	$hh= $hh.Replace("%fm_param%", $gg)
 
 	Param_exp 1 $ss
 	Lisnfm_nsf 0 $hh
@@ -5719,10 +8010,12 @@ function FF_listen([string]$ss){
 	if(Mskseg_chk){ $tt+= (Mskseg_out 0) }
 
 
-	[string]$hh= $header["fm_header_pmd"]
+	[string] $hh= $header["fm_header_pmd"]
+	[string] $mm= $box_mml["pmd"]
 
-	$hh= $hh.Replace("%trk_param%",$tt)
-	$hh= $hh.Replace("%fm_param%",$gg)
+	$hh= $hh.Replace("%oct_param%", $tt)
+	$hh= $hh.Replace("%mml_param%", $mm)
+	$hh= $hh.Replace("%fm_param%", $gg)
 
 	Param_exp 2 $ss # pmdで読み込む
 	Lisnfm_nsf 0 $hh
@@ -5742,6 +8035,7 @@ function Prefixfm_mml([string]$gg){ # fm-matrix -> mml
 	[string]$tt= $key["oct"]
 
 	[string]$hh= ""
+	[string]$mm= ""
 
 	switch($comb_fm.SelectedItem){
 
@@ -5749,23 +8043,27 @@ function Prefixfm_mml([string]$gg){ # fm-matrix -> mml
 		switch($key["type"]){
 		'mckreg'{
 			$hh= $header["fm_header_mck"]
+			$mm= $box_mml["mck"]
 			break;
 		}default{
 			$hh= $header["fm_header_nsd"]
+			$mm= $box_mml["nsd"]
 		}
 		} #sw
 
 		break;
 	}default{
 		$hh= $header["fm_header_pmd"]
+		$mm= $box_mml["pmd"]
 
 		if(Mskseg_chk){ $tt+= (Mskseg_out 0) }
 	}
 	} #sw
 
 
-	$hh= $hh.Replace("%trk_param%",$tt)
-	$hh= $hh.Replace("%fm_param%",$gg)
+	$hh= $hh.Replace("%oct_param%", $tt)	
+	$hh= $hh.Replace("%mml_param%", $mm)
+	$hh= $hh.Replace("%fm_param%", $gg)
 
 	return $hh
  } #func
@@ -7245,6 +9543,28 @@ function Box_write(){
   $fm_box.ResumeLayout()
 
  } #func
+ 
+function Box_mml_write(){ 
+
+	$fm_box_mml.SuspendLayout()
+
+	switch($comb_fm.SelectedItem){
+	'vrc7 2op'{
+		switch($key["type"]){
+		'mckreg'{	[string]$ss= $box_mml["mck"];	break;
+		}default{	[string]$ss= $box_mml["nsd"]
+		}
+		} #sw
+
+		break;
+	}default{	[string]$ss= $box_mml["pmd"]
+	}
+	} #sw
+
+	$fm_box_mml.Text= $ss
+
+	$fm_box_mml.ResumeLayout()
+ } #func
   
 # forms ====== 
  
@@ -7457,7 +9777,7 @@ $image6a= New-Object System.Drawing.Bitmap(162,102)
 
 
 
-	
+	 
 $Pictbg= New-Object System.Windows.Forms.PictureBox 
 $Pictbg.ClientSize=  $bgimg.Size
 $Pictbg.Image= $bgimg
@@ -8593,14 +10913,11 @@ $list_mck= New-Object System.Windows.Forms.ListBox
 $list_mck.Size= "220,190"
 $list_mck.Location= "5,25"
 
-$list_mck.Add_Enter({
-
-	$fm_box.ForeColor= "dimgray"
-	$fm_box.BackColor= "gainsboro"
-})
-
 $list_mck.Add_MouseDown({
  try{
+	$fm_box.ForeColor= "dimgray"
+	$fm_box.BackColor= "gainsboro"
+
 	switch([string]$_.Button){
 	'Left'{
 		Mck_listen $hsmck[[string]$list_mck.SelectedItem]
@@ -8618,14 +10935,11 @@ $list_vrc= New-Object System.Windows.Forms.ListBox
 $list_vrc.Size= "220,190"
 $list_vrc.Location= "5,25"
 
-$list_vrc.Add_Enter({
-
-	$fm_box.ForeColor= "dimgray"
-	$fm_box.BackColor= "gainsboro"
-})
-
 $list_vrc.Add_MouseDown({
  try{
+	$fm_box.ForeColor= "dimgray"
+	$fm_box.BackColor= "gainsboro"
+
 	switch([string]$_.Button){
 	'Left'{
 		Vrc7_listen $hsvrc[[string]$list_vrc.SelectedItem]
@@ -8643,14 +10957,11 @@ $list_88= New-Object System.Windows.Forms.ListBox
 $list_88.Size= "220,190"
 $list_88.Location= "5,25"
 
-$list_88.Add_Enter({
-
-	$fm_box.ForeColor= "dimgray"
-	$fm_box.BackColor= "gainsboro"
-})
-
 $list_88.Add_MouseDown({
  try{
+	$fm_box.ForeColor= "dimgray"
+	$fm_box.BackColor= "gainsboro"
+
 	switch([string]$_.Button){
 	'Left'{
 		FF_listen $hs88[[string]$list_88.SelectedItem]
@@ -8668,14 +10979,11 @@ $list_x68= New-Object System.Windows.Forms.ListBox
 $list_x68.Size= "220,190"
 $list_x68.Location= "5,25"
 
-$list_x68.Add_Enter({
-
-	$fm_box.ForeColor= "dimgray"
-	$fm_box.BackColor= "gainsboro"
-})
-
 $list_x68.Add_MouseDown({
  try{
+	$fm_box.ForeColor= "dimgray"
+	$fm_box.BackColor= "gainsboro"
+
 	switch([string]$_.Button){
 	'Left'{
 		FF_listen $hsx68[[string]$list_x68.SelectedItem]
@@ -8693,14 +11001,11 @@ $list_efx= New-Object System.Windows.Forms.ListBox
 $list_efx.Size= "220,190"
 $list_efx.Location= "5,25"
 
-$list_efx.Add_Enter({
-
-	$fm_box.ForeColor= "dimgray"
-	$fm_box.BackColor= "gainsboro"
-})
-
 $list_efx.Add_MouseDown({
  try{
+	$fm_box.ForeColor= "dimgray"
+	$fm_box.BackColor= "gainsboro"
+
 	switch([string]$_.Button){
 	'Left'{
 		FF_listen $hsefx[[string]$list_efx.SelectedItem]
@@ -8725,19 +11030,20 @@ $tab_mck.Text= "mck"
 
 $tab_mck.Add_VisibleChanged({
  try{
-    if($tab_mck.Visible){
+ 	#write-host ($tab_mck.Visible) # in時のみ、$True, out時のみ、$False
 
-	$comb_fm.SelectedItem= "vrc7 2op"
+	if($tab_mck.Visible){
+	 	$comb_fm.SelectedItem= "vrc7 2op"
 
-	$script:key["type"]= Type_sw "mckreg"
-	Change_value "compiler" "mck"
+		$script:key["type"]= Type_sw "mckreg"
+		Change_value "compiler" "mck"
 
-	Panel_chg $comb_fm.SelectedItem
-	Menu_build "compiler"
-	Stus_build
+		Panel_chg $comb_fm.SelectedItem
+		Menu_build "compiler"
+		Stus_build
 
-	Unredo 2
-   }
+		Unredo 2
+	}
  }catch{
 	echo $_.exception
  }
@@ -8748,20 +11054,19 @@ $tab_vrc.Text= "nsd"
 
 $tab_vrc.Add_VisibleChanged({
  try{
-    if($tab_vrc.Visible){
+	if($tab_vrc.Visible){
+		$comb_fm.SelectedItem= "vrc7 2op"
 
-	$comb_fm.SelectedItem= "vrc7 2op"
+		$script:key["type"]= Type_sw "nsd"
+		Change_value "compiler" "nsd"
 
-	$script:key["type"]= Type_sw "nsd"
-	Change_value "compiler" "nsd"
+		Panel_chg $comb_fm.SelectedItem
+		Menu_build "compiler"
+		Stus_build
 
-	Panel_chg $comb_fm.SelectedItem
-	Menu_build "compiler"
-	Stus_build
-
-	Unredo 2
-   }
- }catch{
+		Unredo 2
+	}
+  }catch{
 	echo $_.exception
  }
 })
@@ -8771,16 +11076,15 @@ $tab_88.Text= "pc88"
 
 $tab_88.Add_VisibleChanged({
  try{
-    if($tab_88.Visible){
+	if($tab_88.Visible){
+		$comb_fm.SelectedItem= "opn 4op"
 
-	$comb_fm.SelectedItem= "opn 4op"
+		Panel_chg $comb_fm.SelectedItem
+		Menu_build "compiler"
+		Stus_build
 
-	Panel_chg $comb_fm.SelectedItem
-	Menu_build "compiler"
-	Stus_build
-
-	Unredo 2
-    }
+		Unredo 2
+	}
  }catch{
 	echo $_.exception
  }
@@ -8791,16 +11095,15 @@ $tab_x68.Text= "x68ed"
 
 $tab_x68.Add_VisibleChanged({
  try{
-    if($tab_x68.Visible){
+	if($tab_x68.Visible){
+ 		$comb_fm.SelectedItem= "opn 4op"
 
-	$comb_fm.SelectedItem= "opn 4op"
+		Panel_chg $comb_fm.SelectedItem
+		Menu_build "compiler"
+		Stus_build
 
-	Panel_chg $comb_fm.SelectedItem
-	Menu_build "compiler"
-	Stus_build
-
-	Unredo 2
-    }
+		Unredo 2
+	}
  }catch{
 	echo $_.exception
  }
@@ -8811,16 +11114,15 @@ $tab_efx.Text= "effec"
 
 $tab_efx.Add_VisibleChanged({
  try{
-    if($tab_efx.Visible){
+	if($tab_efx.Visible){
+		$comb_fm.SelectedItem= "opn 4op"
 
-	$comb_fm.SelectedItem= "opn 4op"
+		Panel_chg $comb_fm.SelectedItem
+		Menu_build "compiler"
+		Stus_build
 
-	Panel_chg $comb_fm.SelectedItem
-	Menu_build "compiler"
-	Stus_build
-
-	Unredo 2
-    }
+		Unredo 2
+	}
  }catch{
 	echo $_.exception
  }
@@ -8895,6 +11197,8 @@ $ff_frm.Owner= $frm_fm
 
 $ff_frm.Add_FormClosing({
  try{
+	$comb_fm.Enabled= $True
+
 	$fm_box.ForeColor= "dimgray"
 	$fm_box.BackColor= "white" # "gainsboro"
 
@@ -9343,7 +11647,7 @@ $Horizonbuff= $Contxtbuf.Allocate($Graphics_buf, $Rect_buf)
 # $Horizonbuff= $Contxtb.Allocate($Graphics_buf, $Pictbox_buf.ClientRectangle)
   
 # Pictbox 
-	 
+	
 [bool] $script:mouser_capure= $False 
 [int] $script:starter_value= 0
 $script:topper_pos= New-Object System.Drawing.Point
@@ -9617,7 +11921,7 @@ $graphicsSL= [System.Drawing.Graphics]::FromImage($imageSL)# 書き込む場所
 $PictboxSL= New-Object System.Windows.Forms.PictureBox # 描画領域
 $PictboxSL.ClientSize= $imageSL.Size
 $PictboxSL.Image= $imageSL
-$PictboxSL.Location= @(90, 120) -join ","
+$PictboxSL.Location= @(90, 140) -join ","
 
 $PictboxSL.Add_MouseUp({
  try{
@@ -9670,7 +11974,7 @@ $graphicsKSL= [System.Drawing.Graphics]::FromImage($imageKSL) # 書き込む場�
 $PictboxKSL= New-Object System.Windows.Forms.PictureBox # 描画領域
 $PictboxKSL.ClientSize= $imageKSL.Size
 $PictboxKSL.Image= $imageKSL
-$PictboxKSL.Location= @(40, 60) -join ","
+$PictboxKSL.Location= @(40, 40) -join ","
 
 $PictboxKSL.Add_MouseUp({
  try{
@@ -9721,7 +12025,7 @@ $graphicsKSR= [System.Drawing.Graphics]::FromImage($imageKSR) # 書き込む場�
 $PictboxKSR= New-Object System.Windows.Forms.PictureBox # 描画領域
 $PictboxKSR.ClientSize= $imageKSR.Size
 $PictboxKSR.Image= $imageKSR
-$PictboxKSR.Location= @(160, 60) -join ","
+$PictboxKSR.Location= @(160, 40) -join ","
 
 $PictboxKSR.Add_MouseUp({
  try{
@@ -10290,7 +12594,7 @@ $graphicsALG= [System.Drawing.Graphics]::FromImage($imageALG)# 書き込む場�
 $PictboxALG= New-Object System.Windows.Forms.PictureBox # 描画領域
 $PictboxALG.ClientSize= $imageALG.Size
 $PictboxALG.Image= $imageALG
-$PictboxALG.Location= @(30, 60) -join ","
+$PictboxALG.Location= @(30, 40) -join ","
 
 $PictboxALG.Add_MouseUp({
  try{
@@ -10341,7 +12645,7 @@ $graphicsFB= [System.Drawing.Graphics]::FromImage($imageFB)# 書き込む場所
 $PictboxFB= New-Object System.Windows.Forms.PictureBox # 描画領域
 $PictboxFB.ClientSize= $imageFB.Size
 $PictboxFB.Image= $imageFB
-$PictboxFB.Location= @(150, 60) -join ","
+$PictboxFB.Location= @(150, 40) -join ","
 
 $PictboxFB.Add_MouseUp({
  try{
@@ -10385,2289 +12689,7 @@ $PictboxFB.Add_MouseLeave({
 	echo $_.exception
  }
 })
- 	 
-<# 
-	 
-trkbar 
-	
-$opn_trkbar_ar= New-Object System.Windows.Forms.TrackBar 
-$opn_trkbar_ar.Location= "10,50"
-$opn_trkbar_ar.Size= "55,125"
-$opn_trkbar_ar.AutoSize= $False
-$opn_trkbar_ar.Orientation= "Vertical"
-$opn_trkbar_ar.TickStyle= "TopLeft"
-$opn_trkbar_ar.TickFrequency= "4"
-$opn_trkbar_ar.LargeChange= "1"
-$opn_trkbar_ar.Maximum= "31"
-$opn_trkbar_ar.Minimum= "0"
-# $opn_trkbar_ar.Value= "0"
-
-$opn_trkbar_ar.Add_Scroll({
-
-	$opn_nmud_ar.Value= $this.Value
-})
-
-$opn_trkbar_ar.Add_Enter({
-
-	$script:key["wheel"][2]= "Attack"
-	Contxt_chg_opn $key["wheel"][2]
-	All_chg
-
-	Unredo 0
-})
-
-$opn_trkbar_ar.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opn_trkbar_dr= New-Object System.Windows.Forms.TrackBar 
-$opn_trkbar_dr.Location= "70,50"
-$opn_trkbar_dr.Size= "55,125"
-$opn_trkbar_dr.AutoSize= $False
-$opn_trkbar_dr.Orientation= "Vertical"
-$opn_trkbar_dr.TickStyle= "TopLeft"
-$opn_trkbar_dr.TickFrequency= "4"
-$opn_trkbar_dr.LargeChange= "1"
-$opn_trkbar_dr.Maximum= "31"
-$opn_trkbar_dr.Minimum= "0"
-# $opn_trkbar_dr.Value= "0"
-
-$opn_trkbar_dr.Add_Scroll({
-
-	$opn_nmud_dr.Value= $this.Value
-})
-
-$opn_trkbar_dr.Add_Enter({
-
-	$script:key["wheel"][2]= "Decay"
-	Contxt_chg_opn $key["wheel"][2]
-	All_chg
-
-	Unredo 0
-})
-
-$opn_trkbar_dr.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opn_trkbar_sr= New-Object System.Windows.Forms.TrackBar 
-$opn_trkbar_sr.Location= "130,50"
-$opn_trkbar_sr.Size= "55,125"
-$opn_trkbar_sr.AutoSize= $False
-$opn_trkbar_sr.Orientation= "Vertical"
-$opn_trkbar_sr.TickStyle= "TopLeft"
-$opn_trkbar_sr.TickFrequency= "4"
-$opn_trkbar_sr.LargeChange= "1"
-$opn_trkbar_sr.Maximum= "31"
-$opn_trkbar_sr.Minimum= "0"
-# $opn_trkbar_sr.Value= "0"
-
-$opn_trkbar_sr.Add_Scroll({
-
-	$opn_nmud_sr.Value= $this.Value
-})
-
-$opn_trkbar_sr.Add_Enter({
-
-	$script:key["wheel"][2]= "SustainRate"
-	Contxt_chg_opn $key["wheel"][2]
-	All_chg
-
-	Unredo 0
-})
-
-$opn_trkbar_sr.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opn_trkbar_rr= New-Object System.Windows.Forms.TrackBar 
-$opn_trkbar_rr.Location= "190,50"
-$opn_trkbar_rr.Size= "55,125"
-$opn_trkbar_rr.AutoSize= $False
-$opn_trkbar_rr.Orientation= "Vertical"
-$opn_trkbar_rr.TickStyle= "TopLeft"
-$opn_trkbar_rr.TickFrequency= "4"
-$opn_trkbar_rr.LargeChange= "1"
-$opn_trkbar_rr.Maximum= "15"
-$opn_trkbar_rr.Minimum= "0"
-# $opn_trkbar_rr.Value= "0"
-
-$opn_trkbar_rr.Add_Scroll({
-
-	$opn_nmud_rr.Value= $this.Value
-})
-
-$opn_trkbar_rr.Add_Enter({
-
-	$script:key["wheel"][2]= "Release"
-	Contxt_chg_opn $key["wheel"][2]
-	All_chg
-
-	Unredo 0
-})
-
-$opn_trkbar_rr.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opn_trkbar_sl= New-Object System.Windows.Forms.TrackBar 
-$opn_trkbar_sl.Location= "10,45"
-$opn_trkbar_sl.Size= "235,40"
-$opn_trkbar_sl.AutoSize= $False
-$opn_trkbar_sl.Orientation= "Horizontal"
-$opn_trkbar_sl.TickStyle= "BottomRight"
-$opn_trkbar_sl.TickFrequency= "2"
-$opn_trkbar_sl.LargeChange= "1"
-$opn_trkbar_sl.Maximum= "15"
-$opn_trkbar_sl.Minimum= "0"
-# $opn_trkbar_sl.Value= "0"
-
-$opn_trkbar_sl.Add_Scroll({
-
-	$opn_nmud_sl.Value= $this.Value
-})
-
-$opn_trkbar_sl.Add_Enter({
-
-	$script:key["wheel"][2]= "SustainLevel"
-	Contxt_chg_opn $key["wheel"][2]
-	All_chg
-
-	Unredo 0
-})
-
-$opn_trkbar_sl.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opn_trkbar_ks= New-Object System.Windows.Forms.TrackBar 
-$opn_trkbar_ks.Location= "10,50"
-$opn_trkbar_ks.Size= "55,65"
-$opn_trkbar_ks.AutoSize= $False
-$opn_trkbar_ks.Orientation= "Vertical"
-$opn_trkbar_ks.TickStyle= "TopLeft"
-$opn_trkbar_ks.TickFrequency= "1"
-$opn_trkbar_ks.LargeChange= "1"
-$opn_trkbar_ks.Maximum= "3"
-$opn_trkbar_ks.Minimum= "0"
-# $opn_trkbar_ks.Value= "0"
-
-$opn_trkbar_ks.Add_Scroll({
-
-	$opn_nmud_ks.Value= $this.Value
-})
-
-$opn_trkbar_ks.Add_Enter({
-
-	Unredo 0
-})
-
-$opn_trkbar_ks.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opn_trkbar_dt1= New-Object System.Windows.Forms.TrackBar 
-$opn_trkbar_dt1.Location= "70,50"
-$opn_trkbar_dt1.Size= "55,65"
-$opn_trkbar_dt1.AutoSize= $False
-$opn_trkbar_dt1.Orientation= "Vertical"
-$opn_trkbar_dt1.TickStyle= "TopLeft"
-$opn_trkbar_dt1.TickFrequency= "1"
-$opn_trkbar_dt1.LargeChange= "1"
-$opn_trkbar_dt1.Maximum= "7"
-$opn_trkbar_dt1.Minimum= "0"
-# $opn_trkbar_dt1.Value= "0"
-
-$opn_trkbar_dt1.Add_Scroll({
-
-	$opn_nmud_dt1.Value= $this.Value
-})
-
-$opn_trkbar_dt1.Add_Enter({
-
-	Unredo 0
-})
-
-$opn_trkbar_dt1.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opn_trkbar_dt2= New-Object System.Windows.Forms.TrackBar 
-$opn_trkbar_dt2.Location= "130,50"
-$opn_trkbar_dt2.Size= "55,65"
-$opn_trkbar_dt2.AutoSize= $False
-$opn_trkbar_dt2.Orientation= "Vertical"
-$opn_trkbar_dt2.TickStyle= "TopLeft"
-$opn_trkbar_dt2.TickFrequency= "1"
-$opn_trkbar_dt2.LargeChange= "1"
-$opn_trkbar_dt2.Maximum= "3"
-$opn_trkbar_dt2.Minimum= "0"
-$opn_trkbar_dt2.Value= "0"
-$opn_trkbar_dt2.Enabled= $False
-
-$opn_trkbar_dt2.Add_Scroll({
-})
-
-$opn_trkbar_dt2.Add_Enter({
-})
-
-$opn_trkbar_dt2.Add_KeyDown({
-})
- 
-$opn_nmud_dt2= New-Object System.Windows.Forms.NumericUpDown 
-$opn_nmud_dt2.location= "130,20"
-$opn_nmud_dt2.Size= "55,20"
-$opn_nmud_dt2.TextAlign= "Right"
-$opn_nmud_dt2.UpDownAlign= "Right"
-$opn_nmud_dt2.BorderStyle= "FixedSingle"
-$opn_nmud_dt2.Minimum= "0"
-$opn_nmud_dt2.Maximum= "3"
-$opn_nmud_dt2.Value= $opn_trkbar_dt2.Value
-$opn_nmud_dt2.Enabled= $opn_trkbar_dt2.Enabled
-
-$opn_nmud_dt2.Add_ValueChanged({
-})
- 
-$opn_trkbar_ams= New-Object System.Windows.Forms.TrackBar 
-$opn_trkbar_ams.Location= "190,50"
-$opn_trkbar_ams.Size= "55,65"
-$opn_trkbar_ams.AutoSize= $False
-$opn_trkbar_ams.Orientation= "Vertical"
-$opn_trkbar_ams.TickStyle= "TopLeft"
-$opn_trkbar_ams.TickFrequency= "1"
-$opn_trkbar_ams.LargeChange= "1"
-$opn_trkbar_ams.Maximum= "3"
-$opn_trkbar_ams.Minimum= "0"
-# $opn_trkbar_ams.Value= "0"
-
-$opn_trkbar_ams.Add_Scroll({
-
-	$opn_nmud_ams.Value= $this.Value
-})
-
-$opn_trkbar_ams.Add_Enter({
-
-	Unredo 0
-})
-
-$opn_trkbar_ams.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opn_trkbar_ml= New-Object System.Windows.Forms.TrackBar 
-$opn_trkbar_ml.Location= "10,45"
-$opn_trkbar_ml.Size= "235,40"
-$opn_trkbar_ml.AutoSize= $False
-$opn_trkbar_ml.Orientation= "Horizontal"
-$opn_trkbar_ml.TickStyle= "BottomRight"
-$opn_trkbar_ml.TickFrequency= "2"
-$opn_trkbar_ml.LargeChange= "1"
-$opn_trkbar_ml.Maximum= "15"
-$opn_trkbar_ml.Minimum= "0"
-# $opn_trkbar_ml.Value= "0"
-
-$opn_trkbar_ml.Add_Scroll({
-
-	$opn_nmud_ml.Value= $this.Value
-})
-
-$opn_trkbar_ml.Add_Enter({
-
-	$script:key["wheel"][2]= "Multiple"
-	Contxt_chg_opn $key["wheel"][2]
-	All_chg
-
-	Unredo 0
-})
-
-$opn_trkbar_ml.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opn_trkbar_tl= New-Object System.Windows.Forms.TrackBar 
-$opn_trkbar_tl.Location= "10,120"
-$opn_trkbar_tl.Size= "235,40"
-$opn_trkbar_tl.AutoSize= $False
-$opn_trkbar_tl.Orientation= "Horizontal"
-$opn_trkbar_tl.TickStyle= "BottomRight"
-$opn_trkbar_tl.TickFrequency= "8"
-$opn_trkbar_tl.LargeChange= "1"
-$opn_trkbar_tl.Maximum= "127"
-$opn_trkbar_tl.Minimum= "0"
-# $opn_trkbar_tl.Value= "0"
-
-$opn_trkbar_tl.Add_Scroll({
-
-	$opn_nmud_tl.Value= $this.Value
-})
-
-$opn_trkbar_tl.Add_Enter({
-
-	$script:key["wheel"][2]= "TotalLevel"
-	Contxt_chg_opn $key["wheel"][2]
-	All_chg
-
-	Unredo 0
-})
-
-$opn_trkbar_tl.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opn_trkbar_alg= New-Object System.Windows.Forms.TrackBar 
-$opn_trkbar_alg.Location= "10,50"
-$opn_trkbar_alg.Size= "140,40"
-$opn_trkbar_alg.AutoSize= $False
-$opn_trkbar_alg.Orientation= "Horizontal"
-$opn_trkbar_alg.TickStyle= "BottomRight"
-$opn_trkbar_alg.TickFrequency= "1"
-$opn_trkbar_alg.LargeChange= "1"
-$opn_trkbar_alg.Maximum= "7"
-$opn_trkbar_alg.Minimum= "0"
-# $opn_trkbar_alg.Value= "0"
-
-$opn_trkbar_alg.Add_Scroll({
-
-	$opn_nmud_alg.Value= $this.Value
-})
-
-$opn_trkbar_alg.Add_Enter({
-
-	Unredo 0
-})
-
-$opn_trkbar_alg.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opn_trkbar_fb= New-Object System.Windows.Forms.TrackBar 
-$opn_trkbar_fb.Location= "165,50"
-$opn_trkbar_fb.Size= "140,40"
-$opn_trkbar_fb.AutoSize= $False
-$opn_trkbar_fb.Orientation= "Horizontal"
-$opn_trkbar_fb.TickStyle= "BottomRight"
-$opn_trkbar_fb.TickFrequency= "1"
-$opn_trkbar_fb.LargeChange= "1"
-$opn_trkbar_fb.Maximum= "7"
-$opn_trkbar_fb.Minimum= "0"
-# $opn_trkbar_fb.Value= "0"
-
-$opn_trkbar_fb.Add_Scroll({
-
-	$opn_nmud_fb.Value= $this.Value
-})
-
-$opn_trkbar_fb.Add_Enter({
-
-	$script:key["wheel"][2]= "Feedback"
-	Contxt_chg_opn $key["wheel"][2]
-	All_chg
-
-	Unredo 0
-})
-
-$opn_trkbar_fb.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
   
-# VRC7 
-	
-$vrc_eg_grp= New-Object System.Windows.Forms.GroupBox 
-$vrc_eg_grp.Location= "10,30"
-$vrc_eg_grp.Size= "255,220"
-$vrc_eg_grp.Text= "Envelope"
-$vrc_eg_grp.FlatStyle= "Flat"
-$vrc_eg_grp.ForeColor= "gray"
-$vrc_eg_grp.Font= $FonLabel
-#$vrc_eg_grp.Hide() #$eg_grp.Show()
-	
-# ------ AR - AttackRate 15-0 
- 
-$vrc_trkbar_ar= New-Object System.Windows.Forms.TrackBar 
-$vrc_trkbar_ar.Location= "10,50"
-$vrc_trkbar_ar.Size= "55,125"
-$vrc_trkbar_ar.AutoSize= $False
-$vrc_trkbar_ar.Orientation= "Vertical" # Horizontal
-$vrc_trkbar_ar.TickStyle= "TopLeft" # None,Both,BottomRight
-$vrc_trkbar_ar.TickFrequency= "2"
-$vrc_trkbar_ar.LargeChange= "1"
-$vrc_trkbar_ar.Maximum= "15"
-$vrc_trkbar_ar.Minimum= "0"
-# $vrc_trkbar_ar.Value= "0"
-
-$vrc_trkbar_ar.Add_Scroll({
-
-	$vrc_nmud_ar.Value= $this.Value
-})
-
-$vrc_trkbar_ar.Add_Enter({
-
-	$script:key["wheel"][0]= "Attack"
-	Contxt_chg_vrc $key["wheel"][0]
-	All_chg
-
-	Unredo 0
-})
-
-$vrc_trkbar_ar.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$vrc_lbl_ar= New-Object System.Windows.Forms.Label 
-$vrc_lbl_ar.Location= "10,175"
-$vrc_lbl_ar.Size= "55,35"
-$vrc_lbl_ar.Text= "Attack"
- 
-# ------ DR - DecayRate 0-15 
- 
-$vrc_trkbar_dr= New-Object System.Windows.Forms.TrackBar 
-$vrc_trkbar_dr.Location= "70,50"
-$vrc_trkbar_dr.Size= "55,125"
-$vrc_trkbar_dr.AutoSize= $False
-$vrc_trkbar_dr.Orientation= "Vertical"
-$vrc_trkbar_dr.TickStyle= "TopLeft"
-$vrc_trkbar_dr.TickFrequency= "2"
-$vrc_trkbar_dr.LargeChange= "1"
-$vrc_trkbar_dr.Maximum= "15"
-$vrc_trkbar_dr.Minimum= "0"
-# $vrc_trkbar_dr.Value= "0"
-
-$vrc_trkbar_dr.Add_Scroll({
-
-	$vrc_nmud_dr.Value= $this.Value
-})
-
-$vrc_trkbar_dr.Add_Enter({
-
-	$script:key["wheel"][0]= "Decay"
-	Contxt_chg_vrc $key["wheel"][0]
-	All_chg
-
-	Unredo 0
-})
-
-$vrc_trkbar_dr.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$vrc_lbl_dr= New-Object System.Windows.Forms.Label 
-$vrc_lbl_dr.Location= "70,175"
-$vrc_lbl_dr.Size= "55,35"
-$vrc_lbl_dr.Text= "Decay"
- 
-# ------ SR - Sustain 15-0 
- 
-$vrc_trkbar_sr= New-Object System.Windows.Forms.TrackBar 
-$vrc_trkbar_sr.Location= "190,50"
-$vrc_trkbar_sr.Size= "55,125"
-$vrc_trkbar_sr.AutoSize= $False
-$vrc_trkbar_sr.Orientation= "Vertical"
-$vrc_trkbar_sr.TickStyle= "TopLeft"
-$vrc_trkbar_sr.TickFrequency= "2"
-$vrc_trkbar_sr.LargeChange= "1"
-$vrc_trkbar_sr.Maximum= "15"
-$vrc_trkbar_sr.Minimum= "0"
-# $vrc_trkbar_sr.Value= "0"
-
-$vrc_trkbar_sr.Add_Scroll({
-
-	$vrc_nmud_sr.Value= $this.Value
-})
-
-$vrc_trkbar_sr.Add_Enter({
-
-	$script:key["wheel"][0]= "Sustain"
-	Contxt_chg_vrc $key["wheel"][0]
-	All_chg
-
-	Unredo 0
-})
-
-$vrc_trkbar_sr.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$vrc_lbl_sr= New-Object System.Windows.Forms.Label 
-$vrc_lbl_sr.Location= "190,175"
-$vrc_lbl_sr.Size= "55,35"
-$vrc_lbl_sr.Text= "Sustain"
- 
-# ------ RR - ReleaseRate 0-15 
- 
-$vrc_trkbar_rr= New-Object System.Windows.Forms.TrackBar 
-$vrc_trkbar_rr.Location= "130,50"
-$vrc_trkbar_rr.Size= "55,125"
-$vrc_trkbar_rr.AutoSize= $False
-$vrc_trkbar_rr.Orientation= "Vertical"
-$vrc_trkbar_rr.TickStyle= "TopLeft"
-$vrc_trkbar_rr.TickFrequency= "2"
-$vrc_trkbar_rr.LargeChange= "1"
-$vrc_trkbar_rr.Maximum= "15"
-$vrc_trkbar_rr.Minimum= "0"
-# $vrc_trkbar_rr.Value= "0"
-
-$vrc_trkbar_rr.Add_Scroll({
-
-	$vrc_nmud_rr.Value= $this.Value
-})
-
-$vrc_trkbar_rr.Add_Enter({
-
-	$script:key["wheel"][0]= "Release"
-	Contxt_chg_vrc $key["wheel"][0]
-	All_chg
-
-	Unredo 0
-})
-
-$vrc_trkbar_rr.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$vrc_lbl_rr= New-Object System.Windows.Forms.Label 
-$vrc_lbl_rr.Location= "130,175"
-$vrc_lbl_rr.Size= "55,35"
-$vrc_lbl_rr.Text= "Release"
- 
-# ------ 
-  
-$vrc_lev_grp= New-Object System.Windows.Forms.GroupBox 
-$vrc_lev_grp.Location= "10,250"
-$vrc_lev_grp.Size= "255,120"
-$vrc_lev_grp.Text= "Key Scale"
-$vrc_lev_grp.FlatStyle= "Flat"
-$vrc_lev_grp.ForeColor= "gray"
-$vrc_lev_grp.Font= $FonLabel
-	
-# ------ KSL - KeyScaleLevel 0-3 
- 
-$vrc_trkbar_ksl= New-Object System.Windows.Forms.TrackBar 
-$vrc_trkbar_ksl.Location= "10,45"
-$vrc_trkbar_ksl.Size= "110,40"
-$vrc_trkbar_ksl.AutoSize= $False
-$vrc_trkbar_ksl.Orientation= "Horizontal"
-$vrc_trkbar_ksl.TickStyle= "BottomRight"
-$vrc_trkbar_ksl.TickFrequency= "1"
-$vrc_trkbar_ksl.LargeChange= "1"
-$vrc_trkbar_ksl.Maximum= "3"
-$vrc_trkbar_ksl.Minimum= "0"
-# $vrc_trkbar_ksl.Value= "0"
-
-$vrc_trkbar_ksl.Add_Scroll({
-
-	$vrc_nmud_ksl.Value= $this.Value
-})
-
-$vrc_trkbar_ksl.Add_Enter({
-
-	Unredo 0
-})
-
-$vrc_trkbar_ksl.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-# ------ KSR - KeyScaleRate 0-1 
- 
-$vrc_trkbar_ksr= New-Object System.Windows.Forms.TrackBar 
-$vrc_trkbar_ksr.Location= "135,45"
-$vrc_trkbar_ksr.Size= "110,40"
-$vrc_trkbar_ksr.AutoSize= $False
-$vrc_trkbar_ksr.Orientation= "Horizontal"
-$vrc_trkbar_ksr.TickStyle= "BottomRight"
-$vrc_trkbar_ksr.TickFrequency= "1"
-$vrc_trkbar_ksr.LargeChange= "1"
-$vrc_trkbar_ksr.Maximum= "1"
-$vrc_trkbar_ksr.Minimum= "0"
-# $vrc_trkbar_ksr.Value= "0"
-
-$vrc_trkbar_ksr.Add_Scroll({
-
-	$vrc_nmud_ksr.Value= $this.Value
-})
-
-$vrc_trkbar_ksr.Add_Enter({
-
-	Unredo 0
-})
-
-$vrc_trkbar_ksr.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-# ------ 
-  
-$vrc_ring_grp= New-Object System.Windows.Forms.GroupBox 
-$vrc_ring_grp.Location= "270,30"
-$vrc_ring_grp.Size= "255,165"
-$vrc_ring_grp.Text= "Effects Control"
-$vrc_ring_grp.FlatStyle= "Flat"
-$vrc_ring_grp.ForeColor= "gray"
-$vrc_ring_grp.Font= $FonLabel
-	 
-# ------ DT - Distortion 0-1 
- 
-$vrc_trkbar_dt= New-Object System.Windows.Forms.TrackBar 
-$vrc_trkbar_dt.Location= "190,50"
-$vrc_trkbar_dt.Size= "55,65"
-$vrc_trkbar_dt.AutoSize= $False
-$vrc_trkbar_dt.Orientation= "Vertical"
-$vrc_trkbar_dt.TickStyle= "TopLeft"
-$vrc_trkbar_dt.TickFrequency= "1"
-$vrc_trkbar_dt.LargeChange= "1"
-$vrc_trkbar_dt.Maximum= "1"
-$vrc_trkbar_dt.Minimum= "0"
-# $vrc_trkbar_dt.Value= "0"
-
-$vrc_trkbar_dt.Add_Scroll({
-
-	$vrc_nmud_dt.Value= $this.Value
-})
-
-$vrc_trkbar_dt.Add_Enter({
-
-	$script:key["wheel"][0]= "Distortion"
-	Contxt_chg_vrc $key["wheel"][0]
-	All_chg
-
-	Unredo 0
-})
-
-$vrc_trkbar_dt.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-# ------ EG - EnvelopeGeneratorType 0-1 / SR=0 off,on 
- 
-$vrc_trkbar_eg= New-Object System.Windows.Forms.TrackBar 
-$vrc_trkbar_eg.Location= "130,50"
-$vrc_trkbar_eg.Size= "55,65"
-$vrc_trkbar_eg.AutoSize= $False
-$vrc_trkbar_eg.Orientation= "Vertical"
-$vrc_trkbar_eg.TickStyle= "TopLeft"
-$vrc_trkbar_eg.TickFrequency= "1"
-$vrc_trkbar_eg.LargeChange= "1"
-$vrc_trkbar_eg.Maximum= "1"
-$vrc_trkbar_eg.Minimum= "0"
-# $vrc_trkbar_eg.Value= "0"
-
-$vrc_trkbar_eg.Add_Scroll({
-
-	$vrc_nmud_eg.Value= $this.Value
-})
-
-$vrc_trkbar_eg.Add_Enter({
-
-	$script:key["wheel"][0]= "EnvGeneType"
-	Contxt_chg_vrc $key["wheel"][0]
-	All_chg
-
-	Unredo 0
-})
-
-$vrc_trkbar_eg.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-# ------ VIB - Vibrato 0-1 
- 
-$vrc_trkbar_vib= New-Object System.Windows.Forms.TrackBar 
-$vrc_trkbar_vib.Location= "70,50"
-$vrc_trkbar_vib.Size= "55,65"
-$vrc_trkbar_vib.AutoSize= $False
-$vrc_trkbar_vib.Orientation= "Vertical"
-$vrc_trkbar_vib.TickStyle= "TopLeft"
-$vrc_trkbar_vib.TickFrequency= "1"
-$vrc_trkbar_vib.LargeChange= "1"
-$vrc_trkbar_vib.Maximum= "1"
-$vrc_trkbar_vib.Minimum= "0"
-# $vrc_trkbar_vib.Value= "0"
-
-$vrc_trkbar_vib.Add_Scroll({
-
-	$vrc_nmud_vib.Value= $this.Value
-})
-
-$vrc_trkbar_vib.Add_Enter({
-
-	Unredo 0
-})
-
-$vrc_trkbar_vib.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-# ------ AM - AmplitudeModulation Enable Switch 0-1 
- 
-$vrc_trkbar_am= New-Object System.Windows.Forms.TrackBar 
-$vrc_trkbar_am.Location= "10,50"
-$vrc_trkbar_am.Size= "55,65"
-$vrc_trkbar_am.AutoSize= $False
-$vrc_trkbar_am.Orientation= "Vertical"
-$vrc_trkbar_am.TickStyle= "TopLeft"
-$vrc_trkbar_am.TickFrequency= "1"
-$vrc_trkbar_am.LargeChange= "1"
-$vrc_trkbar_am.Maximum= "1"
-$vrc_trkbar_am.Minimum= "0"
-# $vrc_trkbar_am.Value= "0"
-
-$vrc_trkbar_am.Add_Scroll({
-
-	$vrc_nmud_am.Value= $this.Value
-})
-
-$vrc_trkbar_am.Add_Enter({
-
-	Unredo 0
-})
-
-$vrc_trkbar_am.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-# ------ 
-  
-$vrc_op_grp= New-Object System.Windows.Forms.GroupBox 
-$vrc_op_grp.Location= "270,195"
-$vrc_op_grp.Size= "255,175"
-$vrc_op_grp.Text= "Frequency Modulation"
-$vrc_op_grp.FlatStyle= "Flat"
-$vrc_op_grp.ForeColor= "gray"
-$vrc_op_grp.Font= $FonLabel
-	 
-# ------ ML - Multiple 0-15 
- 
-$vrc_trkbar_ml= New-Object System.Windows.Forms.TrackBar 
-$vrc_trkbar_ml.Location= "10,45"
-$vrc_trkbar_ml.Size= "235,40"
-$vrc_trkbar_ml.AutoSize= $False
-$vrc_trkbar_ml.Orientation= "Horizontal"
-$vrc_trkbar_ml.TickStyle= "BottomRight"
-$vrc_trkbar_ml.TickFrequency= "2"
-$vrc_trkbar_ml.LargeChange= "1"
-$vrc_trkbar_ml.Maximum= "15"
-$vrc_trkbar_ml.Minimum= "0"
-# $vrc_trkbar_ml.Value= "0"
-
-$vrc_trkbar_ml.Add_Scroll({
-
-	$vrc_nmud_ml.Value= $this.Value
-})
-
-$vrc_trkbar_ml.Add_Enter({
-
-	$script:key["wheel"][0]= "Multiple"
-	Contxt_chg_vrc $key["wheel"][0]
-	All_chg
-
-	Unredo 0
-})
-
-$vrc_trkbar_ml.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$vrc_lbl_ml= New-Object System.Windows.Forms.Label 
-$vrc_lbl_ml.Location= "10,15"
-$vrc_lbl_ml.Size= "165,20"
-$vrc_lbl_ml.Text= "Multiple - overtone"
- 
-# ------ TL - TotalLevel 63-0 
- 
-$vrc_trkbar_tl= New-Object System.Windows.Forms.TrackBar 
-$vrc_trkbar_tl.Location= "10,120"
-$vrc_trkbar_tl.Size= "235,40"
-$vrc_trkbar_tl.AutoSize= $False
-$vrc_trkbar_tl.Orientation= "Horizontal"
-$vrc_trkbar_tl.TickStyle= "BottomRight"
-$vrc_trkbar_tl.TickFrequency= "4"
-$vrc_trkbar_tl.LargeChange= "1"
-$vrc_trkbar_tl.Maximum= "63"
-$vrc_trkbar_tl.Minimum= "0"
-# $vrc_trkbar_tl.Value= "0"
-
-$vrc_trkbar_tl.Add_Scroll({
-	$vrc_nmud_tl.Value= $this.Value
-})
-
-$vrc_trkbar_tl.Add_Enter({
-	$script:key["wheel"][0]= "TotalLevel"
-	Contxt_chg_vrc $key["wheel"][0]
-	All_chg
-
-	Unredo 0
-})
-
-$vrc_trkbar_tl.Add_KeyDown({
- try{
-	if($comb_vrc.SelectedIndex -eq 0){
-		Key_play $_.KeyCode
-	}
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$vrc_lbl_tl= New-Object System.Windows.Forms.Label 
-$vrc_lbl_tl.Location= "10,95"
-$vrc_lbl_tl.Size= "165,20"
-$vrc_lbl_tl.Text= "Total Level / 0max - 63min"
- 
-# ------ 
-  
-$vrc_alg_grp= New-Object System.Windows.Forms.GroupBox 
-$vrc_alg_grp.Location= "10,370"
-$vrc_alg_grp.Size= "315,105"
-$vrc_alg_grp.Text= "Algorithm / Feedback"
-$vrc_alg_grp.FlatStyle= "Flat"
-$vrc_alg_grp.ForeColor= "gray"
-$vrc_alg_grp.Font= $FonLabel
-	 
-# ------ ALG - Algorithm $False 
- 
-$vrc_trkbar_alg= New-Object System.Windows.Forms.TrackBar 
-$vrc_trkbar_alg.Location= "10,50"
-$vrc_trkbar_alg.Size= "140,40"
-$vrc_trkbar_alg.AutoSize= $False
-$vrc_trkbar_alg.Orientation= "Horizontal"
-$vrc_trkbar_alg.TickStyle= "BottomRight"
-$vrc_trkbar_alg.TickFrequency= "1"
-$vrc_trkbar_alg.LargeChange= "1"
-$vrc_trkbar_alg.Maximum= "0"
-$vrc_trkbar_alg.Minimum= "0"
-$vrc_trkbar_alg.Value= "0"
-$vrc_trkbar_alg.Enabled= $False
-
-$vrc_trkbar_alg.Add_Scroll({
-})
-
-$vrc_trkbar_alg.Add_Enter({
-})
-
-$vrc_trkbar_alg.Add_KeyDown({
-})
- 
-$vrc_nmud_alg= New-Object System.Windows.Forms.NumericUpDown 
-$vrc_nmud_alg.location= "95,20"
-$vrc_nmud_alg.Size= "55,20"
-$vrc_nmud_alg.TextAlign= "Right"
-$vrc_nmud_alg.UpDownAlign= "Right"
-$vrc_nmud_alg.BorderStyle= "FixedSingle"
-$vrc_nmud_alg.Minimum= $vrc_trkbar_alg.Minimum
-$vrc_nmud_alg.Maximum= $vrc_trkbar_alg.Maximum
-$vrc_nmud_alg.Value= $vrc_trkbar_alg.Value
-$vrc_nmud_alg.Enabled= $vrc_trkbar_alg.Enabled
-
-$vrc_nmud_alg.Add_ValueChanged({
-})
- 
-$vrc_lbl_alg= New-Object System.Windows.Forms.Label 
-$vrc_lbl_alg.Location= "10,15"
-$vrc_lbl_alg.Size= "60,20"
-$vrc_lbl_alg.Text= "Algorithm"
-$vrc_lbl_alg.Enabled= $False
- 
-# ------ FB - Feedback 0-7 
- 
-$vrc_trkbar_fb= New-Object System.Windows.Forms.TrackBar 
-$vrc_trkbar_fb.Location= "165,50"
-$vrc_trkbar_fb.Size= "140,40"
-$vrc_trkbar_fb.AutoSize= $False
-$vrc_trkbar_fb.Orientation= "Horizontal"
-$vrc_trkbar_fb.TickStyle= "BottomRight"
-$vrc_trkbar_fb.TickFrequency= "1"
-$vrc_trkbar_fb.LargeChange= "1"
-$vrc_trkbar_fb.Maximum= "7"
-$vrc_trkbar_fb.Minimum= "0"
-# $vrc_trkbar_fb.Value= "0"
-
-$vrc_trkbar_fb.Add_Scroll({
-
-	$vrc_nmud_fb.Value= $this.Value
-})
-
-$vrc_trkbar_fb.Add_Enter({
-
-	$script:key["wheel"][0]= "Feedback"
-	Contxt_chg_vrc $key["wheel"][0]
-	All_chg
-
-	Unredo 0
-})
-
-$vrc_trkbar_fb.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$vrc_lbl_fb= New-Object System.Windows.Forms.Label 
-$vrc_lbl_fb.Location= "165,20"
-$vrc_lbl_fb.Size= "75,20"
-$vrc_lbl_fb.Text= "Feedback"
- 
-# ------ 
-  
-$vrc_eg_grp.Controls.AddRange(@($PictboxAR, $vrc_trkbar_ar,$vrc_nmud_ar,$vrc_lbl_ar)) 
-$vrc_eg_grp.Controls.AddRange(@($PictboxDR, $vrc_trkbar_dr,$vrc_nmud_dr,$vrc_lbl_dr))
-$vrc_eg_grp.Controls.AddRange(@($PictboxSR, $vrc_trkbar_rr,$vrc_nmud_rr,$vrc_lbl_rr))
-$vrc_eg_grp.Controls.AddRange(@($PictboxRR, $vrc_trkbar_sr, $vrc_nmud_sr, $vrc_lbl_sr))
-
-$vrc_lev_grp.Controls.AddRange(@($PictboxKSL, $vrc_trkbar_ksl,$vrc_nmud_ksl,$vrc_lbl_ksl))
-$vrc_lev_grp.Controls.AddRange(@($PictboxKSR, $vrc_trkbar_ksr,$vrc_nmud_ksr,$vrc_lbl_ksr))
-
-$vrc_ring_grp.Controls.AddRange(@($PictboxKS, $vrc_trkbar_dt,$vrc_nmud_dt,$vrc_lbl_dt))
-$vrc_ring_grp.Controls.AddRange(@($PictboxDT1, $vrc_trkbar_eg,$vrc_nmud_eg,$vrc_lbl_eg))
-$vrc_ring_grp.Controls.AddRange(@($PictboxDT2, $vrc_trkbar_vib,$vrc_nmud_vib,$vrc_lbl_vib))
-$vrc_ring_grp.Controls.AddRange(@($PictboxAMS, $vrc_trkbar_am, $vrc_nmud_am, $vrc_lbl_am))
-
-
-$vrc_op_grp.Controls.AddRange(@($PictboxML, $vrc_trkbar_ml,$vrc_lbl_ml,$vrc_nmud_ml))
-$vrc_op_grp.Controls.AddRange(@($PictboxTL, $vrc_trkbar_tl,$vrc_lbl_tl,$vrc_nmud_tl))
-
-$vrc_alg_grp.Controls.AddRange(@($vrc_trkbar_alg,$vrc_nmud_alg,$vrc_lbl_alg))
-$vrc_alg_grp.Controls.AddRange(@($PictboxFB, $vrc_trkbar_fb,$vrc_nmud_fb,$vrc_lbl_fb))
-  
-# OPL 
-	
-$opl_eg_grp= New-Object System.Windows.Forms.GroupBox 
-$opl_eg_grp.Location= "10,30"
-$opl_eg_grp.Size= "255,220"
-$opl_eg_grp.Text= "Envelope"
-$opl_eg_grp.FlatStyle= "Flat"
-#$opl_eg_grp.Hide() #$eg_grp.Show()
-	 
-# ------ AR - AttackRate 15-0 
- 
-$opl_trkbar_ar= New-Object System.Windows.Forms.TrackBar 
-$opl_trkbar_ar.Location= "10,50"
-$opl_trkbar_ar.Size= "55,125"
-$opl_trkbar_ar.AutoSize= $False
-$opl_trkbar_ar.Orientation= "Vertical"
-$opl_trkbar_ar.TickStyle= "TopLeft"
-$opl_trkbar_ar.TickFrequency= "2"
-$opl_trkbar_ar.LargeChange= "1"
-$opl_trkbar_ar.Maximum= "15"
-$opl_trkbar_ar.Minimum= "0"
-# $opl_trkbar_ar.Value= "0"
-
-$opl_trkbar_ar.Add_Scroll({
-
-	$opl_nmud_ar.Value= $this.Value
-})
-
-$opl_trkbar_ar.Add_Enter({
-
-	$script:key["wheel"][1]= "Attack"
-	Contxt_chg_opl $key["wheel"][1]
-	All_chg
-
-	Unredo 0
-})
-
-$opl_trkbar_ar.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opl_lbl_ar= New-Object System.Windows.Forms.Label 
-$opl_lbl_ar.Location= "10,175"
-$opl_lbl_ar.Size= "55,35"
-$opl_lbl_ar.Text= "Attack"
- 
-# ------ DR - DecayRate 0-15 
- 
-$opl_trkbar_dr= New-Object System.Windows.Forms.TrackBar 
-$opl_trkbar_dr.Location= "70,50"
-$opl_trkbar_dr.Size= "55,125"
-$opl_trkbar_dr.AutoSize= $False
-$opl_trkbar_dr.Orientation= "Vertical"
-$opl_trkbar_dr.TickStyle= "TopLeft"
-$opl_trkbar_dr.TickFrequency= "2"
-$opl_trkbar_dr.LargeChange= "1"
-$opl_trkbar_dr.Maximum= "15"
-$opl_trkbar_dr.Minimum= "0"
-# $opl_trkbar_dr.Value= "0"
-
-$opl_trkbar_dr.Add_Scroll({
-
-	$opl_nmud_dr.Value= $this.Value
-})
-
-$opl_trkbar_dr.Add_Enter({
-
-	$script:key["wheel"][1]= "Decay"
-	Contxt_chg_opl $key["wheel"][1]
-	All_chg
-
-	Unredo 0
-})
-
-$opl_trkbar_dr.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opl_lbl_dr= New-Object System.Windows.Forms.Label 
-$opl_lbl_dr.Location= "70,175"
-$opl_lbl_dr.Size= "55,35"
-$opl_lbl_dr.Text= "Decay"
- 
-# ------ SR - Sustain 15-0 
- 
-$opl_trkbar_sr= New-Object System.Windows.Forms.TrackBar 
-$opl_trkbar_sr.Location= "190,50"
-$opl_trkbar_sr.Size= "55,125"
-$opl_trkbar_sr.AutoSize= $False
-$opl_trkbar_sr.Orientation= "Vertical"
-$opl_trkbar_sr.TickStyle= "TopLeft"
-$opl_trkbar_sr.TickFrequency= "2"
-$opl_trkbar_sr.LargeChange= "1"
-$opl_trkbar_sr.Maximum= "15"
-$opl_trkbar_sr.Minimum= "0"
-# $opl_trkbar_sr.Value= "0"
-
-$opl_trkbar_sr.Add_Scroll({
-
-	$opl_nmud_sr.Value= $this.Value
-})
-
-$opl_trkbar_sr.Add_Enter({
-
-	$script:key["wheel"][1]= "Sustain"
-	Contxt_chg_opl $key["wheel"][1]
-	All_chg
-
-	Unredo 0
-})
-
-$opl_trkbar_sr.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opl_lbl_sr= New-Object System.Windows.Forms.Label 
-$opl_lbl_sr.Location= "190,175"
-$opl_lbl_sr.Size= "55,35"
-$opl_lbl_sr.Text= "Sustain"
- 
-# ------ RR - ReleaseRate 0-15 
- 
-$opl_trkbar_rr= New-Object System.Windows.Forms.TrackBar 
-$opl_trkbar_rr.Location= "130,50"
-$opl_trkbar_rr.Size= "55,125"
-$opl_trkbar_rr.AutoSize= $False
-$opl_trkbar_rr.Orientation= "Vertical"
-$opl_trkbar_rr.TickStyle= "TopLeft"
-$opl_trkbar_rr.TickFrequency= "2"
-$opl_trkbar_rr.LargeChange= "1"
-$opl_trkbar_rr.Maximum= "15"
-$opl_trkbar_rr.Minimum= "0"
-# $opl_trkbar_rr.Value= "0"
-
-$opl_trkbar_rr.Add_Scroll({
-
-	$opl_nmud_rr.Value= $this.Value
-})
-
-$opl_trkbar_rr.Add_Enter({
-
-	$script:key["wheel"][1]= "Release"
-	Contxt_chg_opl $key["wheel"][1]
-	All_chg
-
-	Unredo 0
-})
-
-$opl_trkbar_rr.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opl_lbl_rr= New-Object System.Windows.Forms.Label 
-$opl_lbl_rr.Location= "130,175"
-$opl_lbl_rr.Size= "55,35"
-$opl_lbl_rr.Text= "Release"
- 
-# ------ 
-  
-$opl_lev_grp= New-Object System.Windows.Forms.GroupBox 
-$opl_lev_grp.Location= "10,250"
-$opl_lev_grp.Size= "255,120"
-$opl_lev_grp.Text= "Key Scale"
-$opl_lev_grp.FlatStyle= "Flat"
-	
-# ------ KSL - KeyScaleLevel 0-3 
- 
-$opl_trkbar_ksl= New-Object System.Windows.Forms.TrackBar 
-$opl_trkbar_ksl.Location= "10,45"
-$opl_trkbar_ksl.Size= "110,40"
-$opl_trkbar_ksl.AutoSize= $False
-$opl_trkbar_ksl.Orientation= "Horizontal"
-$opl_trkbar_ksl.TickStyle= "BottomRight"
-$opl_trkbar_ksl.TickFrequency= "1"
-$opl_trkbar_ksl.LargeChange= "1"
-$opl_trkbar_ksl.Maximum= "3"
-$opl_trkbar_ksl.Minimum= "0"
-# $opl_trkbar_ksl.Value= "0"
-
-$opl_trkbar_ksl.Add_Scroll({
-
-	$opl_nmud_ksl.Value= $this.Value
-})
-
-$opl_trkbar_ksl.Add_Enter({
-
-	Unredo 0
-})
-
-$opl_trkbar_ksl.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opl_lbl_ksl= New-Object System.Windows.Forms.Label 
-$opl_lbl_ksl.Location= "10,15"
-$opl_lbl_ksl.Size= "80,20"
-$opl_lbl_ksl.Text= "KSLevel"
- 
-# ------ KSR - KeyScaleRate 0-1 
- 
-$opl_trkbar_ksr= New-Object System.Windows.Forms.TrackBar 
-$opl_trkbar_ksr.Location= "135,45"
-$opl_trkbar_ksr.Size= "110,40"
-$opl_trkbar_ksr.AutoSize= $False
-$opl_trkbar_ksr.Orientation= "Horizontal"
-$opl_trkbar_ksr.TickStyle= "BottomRight"
-$opl_trkbar_ksr.TickFrequency= "1"
-$opl_trkbar_ksr.LargeChange= "1"
-$opl_trkbar_ksr.Maximum= "1"
-$opl_trkbar_ksr.Minimum= "0"
-# $opl_trkbar_ksr.Value= "0"
-
-$opl_trkbar_ksr.Add_Scroll({
-
-	$opl_nmud_ksr.Value= $this.Value
-})
-
-$opl_trkbar_ksr.Add_Enter({
-
-	Unredo 0
-})
-
-$opl_trkbar_ksr.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opl_lbl_ksr= New-Object System.Windows.Forms.Label 
-$opl_lbl_ksr.Location= "135,15"
-$opl_lbl_ksr.Size= "60,20"
-$opl_lbl_ksr.Text= "KSRate"
- 
-# ------ 
-  
-$opl_ring_grp= New-Object System.Windows.Forms.GroupBox 
-$opl_ring_grp.Location= "270,30"
-$opl_ring_grp.Size= "255,165"
-$opl_ring_grp.Text= "Effects Control"
-$opl_ring_grp.FlatStyle= "Flat"
-	 
-# ------ DT - Distortion 0-1 
- 
-$opl_trkbar_dt= New-Object System.Windows.Forms.TrackBar 
-$opl_trkbar_dt.Location= "190,50"
-$opl_trkbar_dt.Size= "55,65"
-$opl_trkbar_dt.AutoSize= $False
-$opl_trkbar_dt.Orientation= "Vertical"
-$opl_trkbar_dt.TickStyle= "TopLeft"
-$opl_trkbar_dt.TickFrequency= "1"
-$opl_trkbar_dt.LargeChange= "1"
-$opl_trkbar_dt.Maximum= "1"
-$opl_trkbar_dt.Minimum= "0"
-$opl_trkbar_dt.Value= "0"
-$opl_trkbar_dt.Enabled= $False
-
-$opl_trkbar_dt.Add_Scroll({
-})
-
-$opl_trkbar_dt.Add_Enter({
-})
-
-$opl_trkbar_dt.Add_KeyDown({
-})
- 
-$opl_nmud_dt= New-Object System.Windows.Forms.NumericUpDown 
-$opl_nmud_dt.location= "190,20"
-$opl_nmud_dt.Size= "55,20"
-$opl_nmud_dt.TextAlign= "Right"
-$opl_nmud_dt.UpDownAlign= "Right"
-$opl_nmud_dt.BorderStyle= "FixedSingle"
-$opl_nmud_dt.Minimum= "0"
-$opl_nmud_dt.Maximum= "1"
-
-$opl_nmud_dt.Add_ValueChanged({
-})
- 
-$opl_lbl_dt= New-Object System.Windows.Forms.Label 
-$opl_lbl_dt.Location= "190,115"
-$opl_lbl_dt.Size= "55,40"
-$opl_lbl_dt.Text= "Distortion"
-$opl_lbl_dt.Enabled= $False
- 
-# ------ EG - EnvelopeGeneratorType 0-1 / SR=0 off,on 
- 
-$opl_trkbar_eg= New-Object System.Windows.Forms.TrackBar 
-$opl_trkbar_eg.Location= "130,50"
-$opl_trkbar_eg.Size= "55,65"
-$opl_trkbar_eg.AutoSize= $False
-$opl_trkbar_eg.Orientation= "Vertical"
-$opl_trkbar_eg.TickStyle= "TopLeft"
-$opl_trkbar_eg.TickFrequency= "1"
-$opl_trkbar_eg.LargeChange= "1"
-$opl_trkbar_eg.Maximum= "1"
-$opl_trkbar_eg.Minimum= "0"
-# $opl_trkbar_eg.Value= "0"
-
-$opl_trkbar_eg.Add_Scroll({
-
-	$opl_nmud_eg.Value= $this.Value
-})
-
-$opl_trkbar_eg.Add_Enter({
-
-	$script:key["wheel"][1]= "EnvGeneType"
-	Contxt_chg_opl $key["wheel"][1]
-	All_chg
-
-	Unredo 0
-})
-
-$opl_trkbar_eg.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opl_lbl_eg= New-Object System.Windows.Forms.Label 
-$opl_lbl_eg.Location= "130,115"
-$opl_lbl_eg.Size= "55,40"
-$opl_lbl_eg.Text= "EnvGeneType"
- 
-# ------ VIB - Vibrato 0-1 
- 
-$opl_trkbar_vib= New-Object System.Windows.Forms.TrackBar 
-$opl_trkbar_vib.Location= "70,50"
-$opl_trkbar_vib.Size= "55,65"
-$opl_trkbar_vib.AutoSize= $False
-$opl_trkbar_vib.Orientation= "Vertical"
-$opl_trkbar_vib.TickStyle= "TopLeft"
-$opl_trkbar_vib.TickFrequency= "1"
-$opl_trkbar_vib.LargeChange= "1"
-$opl_trkbar_vib.Maximum= "1"
-$opl_trkbar_vib.Minimum= "0"
-# $opl_trkbar_vib.Value= "0"
-
-$opl_trkbar_vib.Add_Scroll({
-
-	$opl_nmud_vib.Value= $this.Value
-})
-
-$opl_trkbar_vib.Add_Enter({
-
-	Unredo 0
-})
-
-$opl_trkbar_vib.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opl_lbl_vib= New-Object System.Windows.Forms.Label 
-$opl_lbl_vib.Location= "70,115"
-$opl_lbl_vib.Size= "55,40"
-$opl_lbl_vib.Text= "Vibrato"
- 
-# ------ AM - AmplitudeModulation Enable Switch 0-1 
- 
-$opl_trkbar_am= New-Object System.Windows.Forms.TrackBar 
-$opl_trkbar_am.Location= "10,50"
-$opl_trkbar_am.Size= "55,65"
-$opl_trkbar_am.AutoSize= $False
-$opl_trkbar_am.Orientation= "Vertical"
-$opl_trkbar_am.TickStyle= "TopLeft"
-$opl_trkbar_am.TickFrequency= "1"
-$opl_trkbar_am.LargeChange= "1"
-$opl_trkbar_am.Maximum= "1"
-$opl_trkbar_am.Minimum= "0"
-# $opl_trkbar_am.Value= "0"
-
-$opl_trkbar_am.Add_Scroll({
-
-	$opl_nmud_am.Value= $this.Value
-})
-
-$opl_trkbar_am.Add_Enter({
-
-	Unredo 0
-})
-
-$opl_trkbar_am.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opl_lbl_am= New-Object System.Windows.Forms.Label 
-$opl_lbl_am.Location= "10,115"
-$opl_lbl_am.Size= "55,40"
-$opl_lbl_am.Text= "AM Switch"
- 
-# ------ 
-  
-$opl_op_grp= New-Object System.Windows.Forms.GroupBox 
-$opl_op_grp.Location= "270,195"
-$opl_op_grp.Size= "255,175"
-$opl_op_grp.Text= "Frequency Modulation"
-$opl_op_grp.FlatStyle= "Flat"
-	 
-# ------ ML - Multiple 0-15 
- 
-$opl_trkbar_ml= New-Object System.Windows.Forms.TrackBar 
-$opl_trkbar_ml.Location= "10,45"
-$opl_trkbar_ml.Size= "235,40"
-$opl_trkbar_ml.AutoSize= $False
-$opl_trkbar_ml.Orientation= "Horizontal"
-$opl_trkbar_ml.TickStyle= "BottomRight"
-$opl_trkbar_ml.TickFrequency= "2"
-$opl_trkbar_ml.LargeChange= "1"
-$opl_trkbar_ml.Maximum= "15"
-$opl_trkbar_ml.Minimum= "0"
-# $opl_trkbar_ml.Value= "0"
-
-$opl_trkbar_ml.Add_Scroll({
-
-	$opl_nmud_ml.Value= $this.Value
-})
-
-$opl_trkbar_ml.Add_Enter({
-
-	$script:key["wheel"][1]= "Multiple"
-	Contxt_chg_opl $key["wheel"][1]
-	All_chg
-
-	Unredo 0
-})
-
-$opl_trkbar_ml.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opl_lbl_ml= New-Object System.Windows.Forms.Label 
-$opl_lbl_ml.Location= "10,15"
-$opl_lbl_ml.Size= "165,20"
-$opl_lbl_ml.Text= "Multiple - overtone"
- 
-# ------ TL - TotalLevel 63-0 
- 
-$opl_trkbar_tl= New-Object System.Windows.Forms.TrackBar 
-$opl_trkbar_tl.Location= "10,120"
-$opl_trkbar_tl.Size= "235,40"
-$opl_trkbar_tl.AutoSize= $False
-$opl_trkbar_tl.Orientation= "Horizontal"
-$opl_trkbar_tl.TickStyle= "BottomRight"
-$opl_trkbar_tl.TickFrequency= "4"
-$opl_trkbar_tl.LargeChange= "1"
-$opl_trkbar_tl.Maximum= "63"
-$opl_trkbar_tl.Minimum= "0"
-# $opl_trkbar_tl.Value= "0"
-
-$opl_trkbar_tl.Add_Scroll({
-
-	$opl_nmud_tl.Value= $this.Value
-})
-
-$opl_trkbar_tl.Add_Enter({
-
-	$script:key["wheel"][1]= "TotalLevel"
-	Contxt_chg_opl $key["wheel"][1]
-	All_chg
-
-	Unredo 0
-})
-
-$opl_trkbar_tl.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opl_lbl_tl= New-Object System.Windows.Forms.Label 
-$opl_lbl_tl.Location= "10,95"
-$opl_lbl_tl.Size= "165,20"
-$opl_lbl_tl.Text= "Total Level / 0max - 63min"
- 
-# ------ 
-  
-$opl_alg_grp= New-Object System.Windows.Forms.GroupBox 
-$opl_alg_grp.Location= "10,370"
-$opl_alg_grp.Size= "315,105"
-$opl_alg_grp.Text= "Algorithm / Feedback"
-$opl_alg_grp.FlatStyle= "Flat"
-	 
-# ------ ALG - Algorithm 0-1 
- 
-$opl_trkbar_alg= New-Object System.Windows.Forms.TrackBar 
-$opl_trkbar_alg.Location= "10,50"
-$opl_trkbar_alg.Size= "140,40"
-$opl_trkbar_alg.AutoSize= $False
-$opl_trkbar_alg.Orientation= "Horizontal"
-$opl_trkbar_alg.TickStyle= "BottomRight"
-$opl_trkbar_alg.TickFrequency= "1"
-$opl_trkbar_alg.LargeChange= "1"
-$opl_trkbar_alg.Maximum= "1"
-$opl_trkbar_alg.Minimum= "0"
-# $opl_trkbar_alg.Value= "0"
-
-$opl_trkbar_alg.Add_Scroll({
-
-	$opl_nmud_alg.Value= $this.Value
-})
-
-$opl_trkbar_alg.Add_Enter({
-
-	Unredo 0
-})
-
-$opl_trkbar_alg.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opl_lbl_alg= New-Object System.Windows.Forms.Label 
-$opl_lbl_alg.Location= "10,15"
-$opl_lbl_alg.Size= "60,20"
-$opl_lbl_alg.Text= "Algorithm"
- 
-# ------ FB - Feedback 0-7 
- 
-$opl_trkbar_fb= New-Object System.Windows.Forms.TrackBar 
-$opl_trkbar_fb.Location= "165,50"
-$opl_trkbar_fb.Size= "140,40"
-$opl_trkbar_fb.AutoSize= $False
-$opl_trkbar_fb.Orientation= "Horizontal"
-$opl_trkbar_fb.TickStyle= "BottomRight"
-$opl_trkbar_fb.TickFrequency= "1"
-$opl_trkbar_fb.LargeChange= "1"
-$opl_trkbar_fb.Maximum= "7"
-$opl_trkbar_fb.Minimum= "0"
-# $opl_trkbar_fb.Value= "0"
-
-$opl_trkbar_fb.Add_Scroll({
-
-	$opl_nmud_fb.Value= $this.Value
-})
-
-$opl_trkbar_fb.Add_Enter({
-
-	$script:key["wheel"][1]= "Feedback"
-	Contxt_chg_opl $key["wheel"][1]
-	All_chg
-
-	Unredo 0
-})
-
-$opl_trkbar_fb.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opl_lbl_fb= New-Object System.Windows.Forms.Label 
-$opl_lbl_fb.Location= "165,20"
-$opl_lbl_fb.Size= "75,20"
-$opl_lbl_fb.Text= "Feedback"
- 
-# ------ 
-  
-$opl_eg_grp.Controls.AddRange(@($opl_trkbar_ar,$opl_nmud_ar,$opl_lbl_ar)) 
-$opl_eg_grp.Controls.AddRange(@($opl_trkbar_dr,$opl_nmud_dr,$opl_lbl_dr))
-$opl_eg_grp.Controls.AddRange(@($opl_trkbar_rr,$opl_nmud_rr,$opl_lbl_rr))
-$opl_eg_grp.Controls.AddRange(@($opl_trkbar_sr,$opl_nmud_sr,$opl_lbl_sr))
-
-$opl_lev_grp.Controls.AddRange(@($opl_trkbar_ksl,$opl_nmud_ksl,$opl_lbl_ksl))
-$opl_lev_grp.Controls.AddRange(@($opl_trkbar_ksr,$opl_nmud_ksr,$opl_lbl_ksr))
-
-$opl_ring_grp.Controls.AddRange(@($opl_trkbar_dt,$opl_nmud_dt,$opl_lbl_dt))
-$opl_ring_grp.Controls.AddRange(@($opl_trkbar_eg,$opl_nmud_eg,$opl_lbl_eg))
-$opl_ring_grp.Controls.AddRange(@($opl_trkbar_vib,$opl_nmud_vib,$opl_lbl_vib))
-$opl_ring_grp.Controls.AddRange(@($opl_trkbar_am,$opl_nmud_am,$opl_lbl_am))
-
-
-$opl_op_grp.Controls.AddRange(@($opl_trkbar_ml,$opl_nmud_ml,$opl_lbl_ml))
-$opl_op_grp.Controls.AddRange(@($opl_trkbar_tl,$opl_nmud_tl,$opl_lbl_tl))
-
-$opl_alg_grp.Controls.AddRange(@($opl_trkbar_alg,$opl_nmud_alg,$opl_lbl_alg))
-$opl_alg_grp.Controls.AddRange(@($opl_trkbar_fb,$opl_nmud_fb,$opl_lbl_fb))
-  
-# OPM 
-	
-$opm_eg_grp= New-Object System.Windows.Forms.GroupBox 
-$opm_eg_grp.Location= "10,30"
-$opm_eg_grp.Size= "255,220"
-$opm_eg_grp.Text= "Envelope"
-$opm_eg_grp.FlatStyle= "Flat"
-#$opm_eg_grp.Hide() #$eg_grp.Show()
-	
-# ------ AR - AttackRate 31-0 
- 
-$opm_trkbar_ar= New-Object System.Windows.Forms.TrackBar 
-$opm_trkbar_ar.Location= "10,50"
-$opm_trkbar_ar.Size= "55,125"
-$opm_trkbar_ar.AutoSize= $False
-$opm_trkbar_ar.Orientation= "Vertical"
-$opm_trkbar_ar.TickStyle= "TopLeft"
-$opm_trkbar_ar.TickFrequency= "4"
-$opm_trkbar_ar.LargeChange= "4"
-$opm_trkbar_ar.Maximum= "31"
-$opm_trkbar_ar.Minimum= "0"
-# $opm_trkbar_ar.Value= "0"
-
-$opm_trkbar_ar.Add_Scroll({
-
-	$opm_nmud_ar.Value= $this.Value
-})
-
-$opm_trkbar_ar.Add_Enter({
-
-	$script:key["wheel"][3]= "Attack"
-	Contxt_chg_opm $key["wheel"][3]
-	All_chg
-
-	Unredo 0
-})
-
-$opm_trkbar_ar.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opm_lbl_ar= New-Object System.Windows.Forms.Label 
-$opm_lbl_ar.Location= "10,175"
-$opm_lbl_ar.Size= "55,35"
-$opm_lbl_ar.Text= "Attack"
- 
-# ------ DR - DecayRate 0-31 
- 
-$opm_trkbar_dr= New-Object System.Windows.Forms.TrackBar 
-$opm_trkbar_dr.Location= "70,50"
-$opm_trkbar_dr.Size= "55,125"
-$opm_trkbar_dr.AutoSize= $False
-$opm_trkbar_dr.Orientation= "Vertical"
-$opm_trkbar_dr.TickStyle= "TopLeft"
-$opm_trkbar_dr.TickFrequency= "4"
-$opm_trkbar_dr.LargeChange= "4"
-$opm_trkbar_dr.Maximum= "31"
-$opm_trkbar_dr.Minimum= "0"
-# $opm_trkbar_dr.Value= "0"
-
-$opm_trkbar_dr.Add_Scroll({
-
-	$opm_nmud_dr.Value= $this.Value
-})
-
-$opm_trkbar_dr.Add_Enter({
-
-	$script:key["wheel"][3]= "Decay"
-	Contxt_chg_opm $key["wheel"][3]
-	All_chg
-
-	Unredo 0
-})
-
-$opm_trkbar_dr.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opm_lbl_dr= New-Object System.Windows.Forms.Label 
-$opm_lbl_dr.Location= "70,175"
-$opm_lbl_dr.Size= "55,35"
-$opm_lbl_dr.Text= "Decay"
- 
-# ------ SR - SustainRate 0-31 
- 
-$opm_trkbar_sr= New-Object System.Windows.Forms.TrackBar 
-$opm_trkbar_sr.Location= "130,50"
-$opm_trkbar_sr.Size= "55,125"
-$opm_trkbar_sr.AutoSize= $False
-$opm_trkbar_sr.Orientation= "Vertical"
-$opm_trkbar_sr.TickStyle= "TopLeft"
-$opm_trkbar_sr.TickFrequency= "4"
-$opm_trkbar_sr.LargeChange= "4"
-$opm_trkbar_sr.Maximum= "31"
-$opm_trkbar_sr.Minimum= "0"
-# $opm_trkbar_sr.Value= "0"
-
-$opm_trkbar_sr.Add_Scroll({
-
-	$opm_nmud_sr.Value= $this.Value
-})
-
-$opm_trkbar_sr.Add_Enter({
-
-	$script:key["wheel"][3]= "SustainRate"
-	Contxt_chg_opm $key["wheel"][3]
-	All_chg
-
-	Unredo 0
-})
-
-$opm_trkbar_sr.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opm_lbl_sr= New-Object System.Windows.Forms.Label 
-$opm_lbl_sr.Location= "130,175"
-$opm_lbl_sr.Size= "55,35"
-$opm_lbl_sr.Text= "Sustain Rate"
- 
-# ------ RR - ReleaseRate 0-15 
- 
-$opm_trkbar_rr= New-Object System.Windows.Forms.TrackBar 
-$opm_trkbar_rr.Location= "190,50"
-$opm_trkbar_rr.Size= "55,125"
-$opm_trkbar_rr.AutoSize= $False
-$opm_trkbar_rr.Orientation= "Vertical"
-$opm_trkbar_rr.TickStyle= "TopLeft"
-$opm_trkbar_rr.TickFrequency= "4"
-$opm_trkbar_rr.LargeChange= "4"
-$opm_trkbar_rr.Maximum= "15"
-$opm_trkbar_rr.Minimum= "0"
-# $opm_trkbar_rr.Value= "0"
-
-$opm_trkbar_rr.Add_Scroll({
-
-	$opm_nmud_rr.Value= $this.Value
-})
-
-$opm_trkbar_rr.Add_Enter({
-
-	$script:key["wheel"][3]= "Release"
-	Contxt_chg_opm $key["wheel"][3]
-	All_chg
-
-	Unredo 0
-})
-
-$opm_trkbar_rr.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opm_lbl_rr= New-Object System.Windows.Forms.Label 
-$opm_lbl_rr.Location= "190,175"
-$opm_lbl_rr.Size= "55,35"
-$opm_lbl_rr.Text= "Release"
- 
-# ------ 
-  
-$opm_lev_grp= New-Object System.Windows.Forms.GroupBox 
-$opm_lev_grp.Location= "10,250"
-$opm_lev_grp.Size= "255,120"
-$opm_lev_grp.Text= "Sustain Level"
-$opm_lev_grp.FlatStyle= "Flat"
-	
-# ------ SL - SustainLevel 0-15 
- 
-$opm_trkbar_sl= New-Object System.Windows.Forms.TrackBar 
-$opm_trkbar_sl.Location= "10,45"
-$opm_trkbar_sl.Size= "235,40"
-$opm_trkbar_sl.AutoSize= $False
-$opm_trkbar_sl.Orientation= "Horizontal"
-$opm_trkbar_sl.TickStyle= "BottomRight"
-$opm_trkbar_sl.TickFrequency= "2"
-$opm_trkbar_sl.LargeChange= "2"
-$opm_trkbar_sl.Maximum= "15"
-$opm_trkbar_sl.Minimum= "0"
-# $opm_trkbar_sl.Value= "0"
-
-$opm_trkbar_sl.Add_Scroll({
-
-	$opm_nmud_sl.Value= $this.Value
-})
-
-$opm_trkbar_sl.Add_Enter({
-
-	$script:key["wheel"][3]= "SustainLevel"
-	Contxt_chg_opm $key["wheel"][3]
-	All_chg
-
-	Unredo 0
-})
-
-$opm_trkbar_sl.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opm_lbl_sl= New-Object System.Windows.Forms.Label 
-$opm_lbl_sl.Location= "10,15"
-$opm_lbl_sl.Size= "165,20"
-$opm_lbl_sl.Text= "Sustain Level / 0max - 15min"
- 
-# ------ 
-  
-$opm_ring_grp= New-Object System.Windows.Forms.GroupBox 
-$opm_ring_grp.Location= "270,30"
-$opm_ring_grp.Size= "255,165"
-$opm_ring_grp.Text= "Effects Control"
-$opm_ring_grp.FlatStyle= "Flat"
-	
-# ------ KS - KeyScaling 0-3 / env length 
- 
-$opm_trkbar_ks= New-Object System.Windows.Forms.TrackBar 
-$opm_trkbar_ks.Location= "10,50"
-$opm_trkbar_ks.Size= "55,65"
-$opm_trkbar_ks.AutoSize= $False
-$opm_trkbar_ks.Orientation= "Vertical"
-$opm_trkbar_ks.TickStyle= "TopLeft"
-$opm_trkbar_ks.TickFrequency= "1"
-$opm_trkbar_ks.LargeChange= "1"
-$opm_trkbar_ks.Maximum= "3"
-$opm_trkbar_ks.Minimum= "0"
-# $opm_trkbar_ks.Value= "0"
-
-$opm_trkbar_ks.Add_Scroll({
-
-	$opm_nmud_ks.Value= $this.Value
-})
-
-$opm_trkbar_ks.Add_Enter({
-
-	Unredo 0
-})
-
-$opm_trkbar_ks.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opm_lbl_ks= New-Object System.Windows.Forms.Label 
-$opm_lbl_ks.Location= "10,115"
-$opm_lbl_ks.Size= "55,40"
-$opm_lbl_ks.Text= "Key Scaling"
- 
-# ------ DT1 - DeTune1 0-7 [0,1,2,3, 0,-1,-2,-3] 
- 
-$opm_trkbar_dt1= New-Object System.Windows.Forms.TrackBar 
-$opm_trkbar_dt1.Location= "70,50"
-$opm_trkbar_dt1.Size= "55,65"
-$opm_trkbar_dt1.AutoSize= $False
-$opm_trkbar_dt1.Orientation= "Vertical"
-$opm_trkbar_dt1.TickStyle= "TopLeft"
-$opm_trkbar_dt1.TickFrequency= "1"
-$opm_trkbar_dt1.LargeChange= "1"
-$opm_trkbar_dt1.Maximum= "7"
-$opm_trkbar_dt1.Minimum= "0"
-# $opm_trkbar_dt1.Value= "0"
-
-$opm_trkbar_dt1.Add_Scroll({
-
-	$opm_nmud_dt1.Value= $this.Value
-})
-
-$opm_trkbar_dt1.Add_Enter({
-
-	Unredo 0
-})
-
-$opm_trkbar_dt1.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opm_lbl_dt1= New-Object System.Windows.Forms.Label 
-$opm_lbl_dt1.Location= "70,115"
-$opm_lbl_dt1.Size= "55,40"
-$opm_lbl_dt1.Text= "Detune1"
- 
-# ------ DT2 - DeTune2 0-3 
- 
-$opm_trkbar_dt2= New-Object System.Windows.Forms.TrackBar 
-$opm_trkbar_dt2.Location= "130,50"
-$opm_trkbar_dt2.Size= "55,65"
-$opm_trkbar_dt2.AutoSize= $False
-$opm_trkbar_dt2.Orientation= "Vertical"
-$opm_trkbar_dt2.TickStyle= "TopLeft"
-$opm_trkbar_dt2.TickFrequency= "1"
-$opm_trkbar_dt2.LargeChange= "1"
-$opm_trkbar_dt2.Maximum= "3"
-$opm_trkbar_dt2.Minimum= "0"
-# $opm_trkbar_dt2.Value= "0"
-
-$opm_trkbar_dt2.Add_Scroll({
-
-	$opm_nmud_dt2.Value= $this.Value
-})
-
-$opm_trkbar_dt2.Add_Enter({
-
-	Unredo 0
-})
-
-$opm_trkbar_dt2.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opm_lbl_dt2= New-Object System.Windows.Forms.Label 
-$opm_lbl_dt2.Location= "130,115"
-$opm_lbl_dt2.Size= "55,40"
-$opm_lbl_dt2.Text= "Detune2"
- 
-# ------ AMS - AmplitudeModulationSensitivity 0-3 
- 
-$opm_trkbar_ams= New-Object System.Windows.Forms.TrackBar 
-$opm_trkbar_ams.Location= "190,50"
-$opm_trkbar_ams.Size= "55,65"
-$opm_trkbar_ams.AutoSize= $False
-$opm_trkbar_ams.Orientation= "Vertical"
-$opm_trkbar_ams.TickStyle= "TopLeft"
-$opm_trkbar_ams.TickFrequency= "1"
-$opm_trkbar_ams.LargeChange= "1"
-$opm_trkbar_ams.Maximum= "3"
-$opm_trkbar_ams.Minimum= "0"
-# $opm_trkbar_ams.Value= "0"
-
-$opm_trkbar_ams.Add_Scroll({
-
-	$opm_nmud_ams.Value= $this.Value
-})
-
-$opm_trkbar_ams.Add_Enter({
-
-	Unredo 0
-})
-
-$opm_trkbar_ams.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opm_lbl_ams= New-Object System.Windows.Forms.Label 
-$opm_lbl_ams.Location= "190,115"
-$opm_lbl_ams.Size= "55,40"
-$opm_lbl_ams.Text= "AM Sens"
- 
-# ------ 
-  
-$opm_op_grp= New-Object System.Windows.Forms.GroupBox 
-$opm_op_grp.Location= "270,195"
-$opm_op_grp.Size= "255,175"
-$opm_op_grp.Text= "Frequency Modulation"
-$opm_op_grp.FlatStyle= "Flat"
-	
-# ------ ML - Multiple 0-15 
- 
-$opm_trkbar_ml= New-Object System.Windows.Forms.TrackBar 
-$opm_trkbar_ml.Location= "10,45"
-$opm_trkbar_ml.Size= "235,40"
-$opm_trkbar_ml.AutoSize= $False
-$opm_trkbar_ml.Orientation= "Horizontal"
-$opm_trkbar_ml.TickStyle= "BottomRight"
-$opm_trkbar_ml.TickFrequency= "2"
-$opm_trkbar_ml.LargeChange= "2"
-$opm_trkbar_ml.Maximum= "15"
-$opm_trkbar_ml.Minimum= "0"
-# $opm_trkbar_ml.Value= "0"
-
-$opm_trkbar_ml.Add_Scroll({
-
-	$opm_nmud_ml.Value= $this.Value
-})
-
-$opm_trkbar_ml.Add_Enter({
-
-	$script:key["wheel"][3]= "Multiple"
-	Contxt_chg_opm $key["wheel"][3]
-	All_chg
-
-	Unredo 0
-})
-
-$opm_trkbar_ml.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opm_lbl_ml= New-Object System.Windows.Forms.Label 
-$opm_lbl_ml.Location= "10,15"
-$opm_lbl_ml.Size= "165,20"
-$opm_lbl_ml.Text= "Multiple - overtone"
- 
-# ------ TL - TotalLevel 127-0 
- 
-$opm_trkbar_tl= New-Object System.Windows.Forms.TrackBar 
-$opm_trkbar_tl.Location= "10,120"
-$opm_trkbar_tl.Size= "235,40"
-$opm_trkbar_tl.AutoSize= $False
-$opm_trkbar_tl.Orientation= "Horizontal"
-$opm_trkbar_tl.TickStyle= "BottomRight"
-$opm_trkbar_tl.TickFrequency= "8"
-$opm_trkbar_tl.LargeChange= "8"
-$opm_trkbar_tl.Maximum= "127"
-$opm_trkbar_tl.Minimum= "0"
-# $opm_trkbar_tl.Value= "0"
-
-$opm_trkbar_tl.Add_Scroll({
-
-	$opm_nmud_tl.Value= $this.Value
-})
-
-$opm_trkbar_tl.Add_Enter({
-
-	$script:key["wheel"][3]= "TotalLevel"
-	Contxt_chg_opm $key["wheel"][3]
-	All_chg
-
-	Unredo 0
-})
-
-$opm_trkbar_tl.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opm_lbl_tl= New-Object System.Windows.Forms.Label 
-$opm_lbl_tl.Location= "10,95"
-$opm_lbl_tl.Size= "165,20"
-$opm_lbl_tl.Text= "Total Level / 0max - 127min"
- 
-# ------ 
-  
-$opm_alg_grp= New-Object System.Windows.Forms.GroupBox 
-$opm_alg_grp.Location= "10,370"
-$opm_alg_grp.Size= "315,105"
-$opm_alg_grp.Text= "Algorithm / Feedback"
-$opm_alg_grp.FlatStyle= "Flat"
-	
-# ------ ALG - Algorithm 0-7 
- 
-$opm_trkbar_alg= New-Object System.Windows.Forms.TrackBar 
-$opm_trkbar_alg.Location= "10,50"
-$opm_trkbar_alg.Size= "140,40"
-$opm_trkbar_alg.AutoSize= $False
-$opm_trkbar_alg.Orientation= "Horizontal"
-$opm_trkbar_alg.TickStyle= "BottomRight"
-$opm_trkbar_alg.TickFrequency= "1"
-$opm_trkbar_alg.LargeChange= "1"
-$opm_trkbar_alg.Maximum= "7"
-$opm_trkbar_alg.Minimum= "0"
-# $opm_trkbar_alg.Value= "0"
-
-$opm_trkbar_alg.Add_Scroll({
-
-	$opm_nmud_alg.Value= $this.Value
-})
-
-$opm_trkbar_alg.Add_Enter({
-
-	Unredo 0
-})
-
-$opm_trkbar_alg.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opm_lbl_alg= New-Object System.Windows.Forms.Label 
-$opm_lbl_alg.Location= "10,15"
-$opm_lbl_alg.Size= "60,20"
-$opm_lbl_alg.Text= "Algorithm"
- 
-# ------ FB - Feedback 0-7 
- 
-$opm_trkbar_fb= New-Object System.Windows.Forms.TrackBar 
-$opm_trkbar_fb.Location= "165,50"
-$opm_trkbar_fb.Size= "140,40"
-$opm_trkbar_fb.AutoSize= $False
-$opm_trkbar_fb.Orientation= "Horizontal"
-$opm_trkbar_fb.TickStyle= "BottomRight"
-$opm_trkbar_fb.TickFrequency= "1"
-$opm_trkbar_fb.LargeChange= "1"
-$opm_trkbar_fb.Maximum= "7"
-$opm_trkbar_fb.Minimum= "0"
-# $opm_trkbar_fb.Value= "0"
-
-$opm_trkbar_fb.Add_Scroll({
-
-	$opm_nmud_fb.Value= $this.Value
-})
-
-$opm_trkbar_fb.Add_Enter({
-
-	$script:key["wheel"][3]= "Feedback"
-	Contxt_chg_opm $key["wheel"][3]
-	All_chg
-
-	Unredo 0
-})
-
-$opm_trkbar_fb.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$opm_lbl_fb= New-Object System.Windows.Forms.Label 
-$opm_lbl_fb.Location= "165,20"
-$opm_lbl_fb.Size= "75,20"
-$opm_lbl_fb.Text= "Feedback"
- 
-# ------ 
-  
-$opm_eg_grp.Controls.AddRange(@($opm_trkbar_ar,$opm_nmud_ar,$opm_lbl_ar)) 
-$opm_eg_grp.Controls.AddRange(@($opm_trkbar_dr,$opm_nmud_dr,$opm_lbl_dr))
-$opm_eg_grp.Controls.AddRange(@($opm_trkbar_sr,$opm_nmud_sr,$opm_lbl_sr))
-$opm_eg_grp.Controls.AddRange(@($opm_trkbar_rr,$opm_nmud_rr,$opm_lbl_rr))
-
-$opm_lev_grp.Controls.AddRange(@($opm_trkbar_sl,$opm_nmud_sl,$opm_lbl_sl))
-
-$opm_ring_grp.Controls.AddRange(@($opm_trkbar_ks,$opm_nmud_ks,$opm_lbl_ks))
-$opm_ring_grp.Controls.AddRange(@($opm_trkbar_dt1,$opm_nmud_dt1,$opm_lbl_dt1))
-$opm_ring_grp.Controls.AddRange(@($opm_trkbar_dt2,$opm_nmud_dt2,$opm_lbl_dt2))
-$opm_ring_grp.Controls.AddRange(@($opm_trkbar_ams,$opm_nmud_ams,$opm_lbl_ams))
-
-
-$opm_op_grp.Controls.AddRange(@($opm_trkbar_ml,$opm_nmud_ml,$opm_lbl_ml))
-$opm_op_grp.Controls.AddRange(@($opm_trkbar_tl,$opm_nmud_tl,$opm_lbl_tl))
-
-$opm_alg_grp.Controls.AddRange(@($opm_trkbar_alg,$opm_nmud_alg,$opm_lbl_alg))
-$opm_alg_grp.Controls.AddRange(@($opm_trkbar_fb,$opm_nmud_fb,$opm_lbl_fb))
-   
-#> 
- 
 # Group 
 	 
 $eg_grp= New-Object System.Windows.Forms.GroupBox 
@@ -12677,15 +12699,14 @@ $eg_grp.Text= "Envelope Rate"
 $eg_grp.FlatStyle= "Flat"
 $eg_grp.ForeColor= "gray"
 $eg_grp.Font= $FonLabel
-	 
+	
 # ------ AR - AttackRate 15-0 2op /  31-0 4op 
-	 
+	
 $lbl_ar= New-Object System.Windows.Forms.Label 
 $lbl_ar.Location= "10,20"
 $lbl_ar.Size= "60,40"
 $lbl_ar.Text= "Attack"
-$lbl_ar.TextAlign= "TopCenter"
-$lbl_ar.Font= $FonLabel
+$lbl_ar.TextAlign= "BottomCenter"
 
  
 $vrc_nmud_ar= New-Object System.Windows.Forms.NumericUpDown 
@@ -12803,7 +12824,7 @@ $lbl_dr.Location= "70,20"
 $lbl_dr.Size= "60,40"
 $lbl_dr.Text= "Decay"
 $lbl_dr.TextAlign= "BottomCenter"
-$lbl_dr.Font= $FonLabel
+
  
 $vrc_nmud_dr= New-Object System.Windows.Forms.NumericUpDown 
 $vrc_nmud_dr.location= "70,20"
@@ -12920,7 +12941,7 @@ $lbl_sr.Location= "130,20"
 $lbl_sr.Size= "60,40"
 $lbl_sr.Text= "Sustain"
 $lbl_sr.TextAlign= "BottomCenter"
-$lbl_sr.Font= $FonLabel
+
  
 $vrc_nmud_sr= New-Object System.Windows.Forms.NumericUpDown 
 $vrc_nmud_sr.location= "190,20"
@@ -13037,7 +13058,7 @@ $lbl_rr.Location= "190,20"
 $lbl_rr.Size= "60,40"
 $lbl_rr.Text= "Release"
 $lbl_rr.TextAlign= "BottomCenter"
-$lbl_rr.Font= $FonLabel
+
  
 $vrc_nmud_rr= New-Object System.Windows.Forms.NumericUpDown 
 $vrc_nmud_rr.location= "130,20"
@@ -13148,12 +13169,12 @@ $opm_nmud_rr.Add_ValueChanged({
 })
   
 # ------ SL - SustainLevel 15-0 
-	 
+	
 $lbl_sl= New-Object System.Windows.Forms.Label 
-$lbl_sl.Location= "50,200"
-$lbl_sl.Size= "160,20"
+$lbl_sl.Location= "70, 120"
+$lbl_sl.Size= "120,20"
 $lbl_sl.Text= "Sustain Level" # / 0max - 15min"
-$lbl_sl.TextAlign= "TopCenter"
+$lbl_sl.TextAlign= "BottomCenter"
 $lbl_sl.BackColor= "black"
  
 $opn_nmud_sl= New-Object System.Windows.Forms.NumericUpDown 
@@ -13212,7 +13233,7 @@ $opm_nmud_sl.Add_ValueChanged({
    
 $lev_grp= New-Object System.Windows.Forms.GroupBox 
 $lev_grp.Location= "10, 160"
-$lev_grp.Size= "255, 130"
+$lev_grp.Size= "255, 110"
 $lev_grp.Text= "KeyScaling"
 $lev_grp.FlatStyle= "Flat"
 $lev_grp.ForeColor= "gray"
@@ -13220,11 +13241,12 @@ $lev_grp.Font= $FonLabel
 # $lev_grp.Hide() # $lev_grp.Show()
 	
 # ------ KSL - KeyScaleLevel 0-3 
-	 
+	
 $lbl_ksl= New-Object System.Windows.Forms.Label 
 $lbl_ksl.Location= "40, 20"
-$lbl_ksl.Size= "60, 40"
+$lbl_ksl.Size= "60, 20"
 $lbl_ksl.Text= "KSLevel"
+$lbl_ksl.TextAlign= "BottomCenter"
 $lbl_ksl.BackColor= "black"
  
 $vrc_nmud_ksl= New-Object System.Windows.Forms.NumericUpDown 
@@ -13276,11 +13298,12 @@ $opl_nmud_ksl.Add_ValueChanged({
 })
   
 # ------ KSR - KeyScaleRate 0-1 
-	 
+	
 $lbl_ksr= New-Object System.Windows.Forms.Label 
 $lbl_ksr.Location= "160, 20"
-$lbl_ksr.Size= "60,40"
+$lbl_ksr.Size= "60, 20"
 $lbl_ksr.Text= "KSRate"
+$lbl_ksr.TextAlign= "BottomCenter"
  
 $vrc_nmud_ksr= New-Object System.Windows.Forms.NumericUpDown 
 $vrc_nmud_ksr.location= "190,15"
@@ -13337,13 +13360,12 @@ $ring_grp.ForeColor= "gray"
 $ring_grp.Font= $FonLabel
 	
 # ------ DT - Distortion 0-1 vrc7 
-	 
+	
 $lbl_dt= New-Object System.Windows.Forms.Label 
 $lbl_dt.Location= "10,20"
 $lbl_dt.Size= "60,40"
 $lbl_dt.Text= "Distortion"
-$lbl_dt.TextAlign= "TopCenter"
-$lbl_dt.Font= $FonLabel
+$lbl_dt.TextAlign= "BottomCenter"
 $lbl_dt.BackColor= "black"
  
 $vrc_nmud_dt= New-Object System.Windows.Forms.NumericUpDown 
@@ -13374,11 +13396,12 @@ $vrc_nmud_dt.Add_ValueChanged({
 })
   
 # ------ EG - EnvelopeGeneratorType 0-1 / SR=0 off,on 
-	 
+	
 $lbl_eg= New-Object System.Windows.Forms.Label 
 $lbl_eg.Location= "70,20"
 $lbl_eg.Size= "60,40"
 $lbl_eg.Text= "EnvGeneType"
+$lbl_eg.TextAlign= "BottomCenter"
  
 $vrc_nmud_eg= New-Object System.Windows.Forms.NumericUpDown 
 $vrc_nmud_eg.location= "130,20"
@@ -13435,11 +13458,12 @@ $opl_nmud_eg.Add_ValueChanged({
 })
   
 # ------ VIB - Vibrato 0-1 
-	 
+	
 $lbl_vib= New-Object System.Windows.Forms.Label 
 $lbl_vib.Location= "130,20"
 $lbl_vib.Size= "60,40"
 $lbl_vib.Text= "Vibrato"
+$lbl_vib.TextAlign= "BottomCenter"
  
 $vrc_nmud_vib= New-Object System.Windows.Forms.NumericUpDown 
 $vrc_nmud_vib.location= "70,20"
@@ -13488,11 +13512,12 @@ $opl_nmud_vib.Add_ValueChanged({
 })
   
 # ------ AM - AmplitudeModulation Enable Switch 0-1 
-	 
+	
 $lbl_am= New-Object System.Windows.Forms.Label 
 $lbl_am.Location= "190,20"
 $lbl_am.Size= "60,40"
 $lbl_am.Text= "AM Switch"
+$lbl_am.TextAlign= "BottomCenter"
  
 $vrc_nmud_am= New-Object System.Windows.Forms.NumericUpDown 
 $vrc_nmud_am.location= "10,20"
@@ -13549,7 +13574,6 @@ $lbl_ks.Location= "10,20"
 $lbl_ks.Size= "60,35"
 $lbl_ks.Text= "Key Scaling"
 $lbl_ks.TextAlign= "BottomCenter"
-$lbl_ks.Font= $FonLabel
  
 $opn_nmud_ks= New-Object System.Windows.Forms.NumericUpDown 
 $opn_nmud_ks.location= "10,20"
@@ -13612,7 +13636,6 @@ $lbl_dt1.Location= "70,20"
 $lbl_dt1.Size= "60,35"
 $lbl_dt1.Text= "Detune1"
 $lbl_dt1.TextAlign= "BottomCenter"
-$lbl_dt1.Font= $FonLabel
  
 $opn_nmud_dt1= New-Object System.Windows.Forms.NumericUpDown 
 $opn_nmud_dt1.location= "70,20"
@@ -13674,9 +13697,7 @@ $lbl_dt2= New-Object System.Windows.Forms.Label
 $lbl_dt2.Location= "130,20"
 $lbl_dt2.Size= "60,35"
 $lbl_dt2.Text= "Detune2"
-$lbl_dt2.Enabled= $False
 $lbl_dt2.TextAlign= "BottomCenter"
-$lbl_dt2.Font= $FonLabel
  
 $opm_nmud_dt2= New-Object System.Windows.Forms.NumericUpDown 
 $opm_nmud_dt2.location= "130,20"
@@ -13712,7 +13733,6 @@ $lbl_ams.Location= "190,20"
 $lbl_ams.Size= "60,35"
 $lbl_ams.Text= "AM Sens"
 $lbl_ams.TextAlign= "BottomCenter"
-$lbl_ams.Font= $FonLabel
  
 $opn_nmud_ams= New-Object System.Windows.Forms.NumericUpDown 
 $opn_nmud_ams.location= "190,20"
@@ -13783,7 +13803,7 @@ $lbl_ml.Location= "10,20"
 $lbl_ml.Size= "120,35"
 $lbl_ml.Text= "Multiple - overtone"
 $lbl_ml.TextAlign= "BottomCenter"
-$lbl_ml.Font= $FonLabel
+
  
 $vrc_nmud_ml= New-Object System.Windows.Forms.NumericUpDown 
 $vrc_nmud_ml.location= "190,15"
@@ -13897,10 +13917,9 @@ $opm_nmud_ml.Add_ValueChanged({
 	
 $lbl_tl= New-Object System.Windows.Forms.Label 
 $lbl_tl.Location= "130,20"
-$lbl_tl.Size= "120,15"
+$lbl_tl.Size= "120,20"
 $lbl_tl.Text= "Total Level"
 $lbl_tl.TextAlign= "BottomCenter"
-$lbl_tl.Font= $FonLabel
 $lbl_tl.BackColor= "black"
  
 $vrc_nmud_tl= New-Object System.Windows.Forms.NumericUpDown 
@@ -14012,21 +14031,21 @@ $opm_nmud_tl.Add_ValueChanged({
 })
    
 $alg_grp= New-Object System.Windows.Forms.GroupBox 
-$alg_grp.Location= "10,290"
+$alg_grp.Location= "10,270"
 $alg_grp.Size= "255,135"
 $alg_grp.Text= "Algorithm / Feedback"
 $alg_grp.FlatStyle= "Flat"
 $alg_grp.ForeColor= "gray"
 $alg_grp.Font= $FonLabel
-	 
+	
 # ------ ALG - Algorithm 0-1 opl / 0-7 4op 
-	 
+	
 $lbl_alg= New-Object System.Windows.Forms.Label 
-$lbl_alg.Location= "30,20"
-$lbl_alg.Size= "60,40"
+$lbl_alg.Location= "10,20"
+$lbl_alg.Size= "120,20"
 $lbl_alg.Text= "Algorithm"
 $lbl_alg.TextAlign= "BottomCenter"
-$lbl_alg.Font= $FonLabel
+$lbl_alg.BackColor= "black"
  
 $opl_nmud_alg= New-Object System.Windows.Forms.NumericUpDown 
 $opl_nmud_alg.location= "95,20"
@@ -14115,11 +14134,11 @@ $opm_nmud_alg.Add_ValueChanged({
 # ------ FB - Feedback 0-7 
 	 
 $lbl_fb= New-Object System.Windows.Forms.Label 
-$lbl_fb.Location= "150,20"
-$lbl_fb.Size= "60,40"
+$lbl_fb.Location= "130,20"
+$lbl_fb.Size= "120,20"
 $lbl_fb.Text= "Feedback"
 $lbl_fb.TextAlign= "BottomCenter"
-$lbl_fb.Font= $FonLabel
+
  
 $vrc_nmud_fb= New-Object System.Windows.Forms.NumericUpDown 
 $vrc_nmud_fb.location= "250,20"
@@ -14232,7 +14251,7 @@ $opm_nmud_fb.Add_ValueChanged({
 $osc_grp= New-Object System.Windows.Forms.GroupBox 
 $osc_grp.Text= "FM OSC"
 $osc_grp.Size= "255, 95"
-$osc_grp.Location= "270,330"
+$osc_grp.Location= "270,310"
 $osc_grp.ForeColor= "gray"
 $osc_grp.Font= $FonLabel
 	
@@ -14263,22 +14282,46 @@ $conv_btn.BackColor= "white"
 
 $conv_btn.Add_Click({ # text convert
  try{
-	##if($fm_box.Modified -eq $True){ #変更あらば
+	if($fm_box_mml.Modified -eq $True){ #変更あらば
 
-	Param_exp 0 $fm_box.Text
+		switch($comb_fm.SelectedItem){
+		'vrc7 2op'{
+			switch($key["type"]){
+			'mckreg'{	$script:box_mml["mck"]= $fm_box_mml.Text;	break;
+			}default{	$script:box_mml["nsd"]= $fm_box_mml.Text
+		}
+		} #sw
 
-	switch($ff_frm.Visible){ # visible gi preset edit baai presetstore overwrite
+		break;
+		}default{	$box_mml["pmd"]= $fm_box_mml.Text
+		}
+		} #sw
+
+		if($sb_alg.Visible){
+			Monotone_select "conv_btn" # Colorline書込
+		}
+	}
+
+	switch($ff_frm.Visible){ # visible gi preset edit baai presetstore overwrite #
 	'True'{
+		Param_exp 0 $fm_box.Text
 		Saveauto $script:fm_xml.table.presetstore
+
+		if($sb_alg.Visible){
+			Monotone_select "conv_btn" # Colorline書込
+		}
 	}
 	} #sw
 
-	if($sb_alg.Visible){
-		Monotone_select "conv_btn" # Colorline書込
-		All_chg
-	}
+	if($fm_box.Modified -eq $True){
 
-	##}
+		Param_exp 0 $fm_box.Text
+
+		if($sb_alg.Visible){
+			Monotone_select "conv_btn" # Colorline書込
+			All_chg
+		}
+	}
  }catch{
 	echo $_.exception
  }
@@ -14286,7 +14329,7 @@ $conv_btn.Add_Click({ # text convert
  
 $comb_vrc= New-Object System.Windows.Forms.Combobox 
 $comb_vrc.Size= "180, 30"
-$comb_vrc.Location= "60,20"
+$comb_vrc.Location= "60, 20"
 $comb_vrc.FlatStyle= "Popup"
 $comb_vrc.Font= $FonLabel
 
@@ -14314,7 +14357,7 @@ $comb_vrc.Add_SelectedValueChanged({
  
 $comb_opl= New-Object System.Windows.Forms.Combobox 
 $comb_opl.Size= "180, 30"
-$comb_opl.Location= "60,20"
+$comb_opl.Location= "60, 20"
 $comb_opl.FlatStyle= "Popup"
 $comb_opl.Font= $FonLabel
 
@@ -14342,7 +14385,7 @@ $comb_opl.Add_SelectedValueChanged({
  
 $comb_opn= New-Object System.Windows.Forms.Combobox 
 $comb_opn.Size= "180, 30"
-$comb_opn.Location= "60,20"
+$comb_opn.Location= "60, 20"
 $comb_opn.FlatStyle= "Popup"
 $comb_opn.Font= $FonLabel
 
@@ -14370,7 +14413,7 @@ $comb_opn.Add_SelectedValueChanged({
  
 $comb_opm= New-Object System.Windows.Forms.Combobox 
 $comb_opm.Size= "180, 30"
-$comb_opm.Location= "60,20"
+$comb_opm.Location= "60, 20"
 $comb_opm.FlatStyle= "Popup"
 $comb_opm.Font= $FonLabel
 
@@ -14422,18 +14465,52 @@ $comb_fm.Add_SelectedValueChanged({ # Event
 	if($sb_alg.Visible){
 		All_chg
 	}
-
   }catch{
 	echo $_.exception
   }
  })
    
 # forms 
-	 
+	
 $fm_panel= New-Object System.Windows.Forms.Panel 
 $fm_panel.Location= "0,0"
-$fm_panel.Size= "530,485"
+$fm_panel.Size= "530,415"
 # $fm_panel.BackColor= "orange"
+ 
+$fm_box_mml= New-Object System.Windows.Forms.TextBox 
+$fm_box_mml.Size= "530,65"
+$fm_box_mml.Location= "10,425"
+$fm_box_mml.WordWrap= "False"
+$fm_box_mml.Multiline= "True"
+$fm_box_mml.ScrollBars= "Both"
+$fm_box_mml.BorderStyle= "FixedSingle"
+# $fm_box_mml.ReadOnly= "True"
+$fm_box_mml.ForeColor= "dimgray"
+$fm_box_mml.BackColor= "white" # "gainsboro"
+$fm_box_mml.font= $Fon
+
+$fm_box_mml.Add_Enter({ # kaki komi de undo reset
+ try{
+	$this.ForeColor= "black"
+	$this.BackColor= "white"
+ }catch{
+	echo $_.exception
+ }
+})
+
+$fm_box_mml.Add_Leave({
+
+	$this.ForeColor= "dimgray"
+	$this.BackColor= "white" # "gainsboro"
+})
+
+$fm_box_mml.Add_KeyDown({ # インポート
+ try{
+	Key_down $_.KeyCode
+ }catch{
+	echo $_.exception
+ }
+})
  
 $fm_box= New-Object System.Windows.Forms.TextBox 
 $fm_box.Size= "530,155"
@@ -14582,7 +14659,7 @@ $frm_fm.Add_FormClosing({
 })
  
 $fm_mnu= New-Object System.Windows.Forms.MenuStrip 
-	
+	 
 $fm_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_f.Text= "File"
 
@@ -14613,10 +14690,18 @@ $fm_menu_pset.Add_Click({
 
   switch($ff_frm.Visible){
   'False'{
-	switch(Itm){ # $ff_tab先に変更のち -> .show()
+	$comb_fm.Enabled= $False
 
-	'2op'{	$ff_tab.SelectedIndex= "0"; break;
-	}'4op'{	$ff_tab.SelectedIndex= "2"
+	switch(Itm){ # $ff_tab先に変更のち -> .show()
+	'2op'{
+		switch($key["type"]){
+		'mckreg'{	$ff_tab.SelectedIndex= "0"; break;
+		}default{	$ff_tab.SelectedIndex= "1"
+		}
+		} #sw
+		break;
+	}'4op'{
+		$ff_tab.SelectedIndex= "2"
 	}
 	} #sw
 
@@ -14624,7 +14709,6 @@ $fm_menu_pset.Add_Click({
 	# non preset load gino restore tame
 
 	$fm_menu_pset.Text= "v Preset"
-
 	$ff_frm.Show(); break;
 
 
@@ -14834,7 +14918,7 @@ $fm_sav_h.Add_Click({
 $fm_menu_ktn= New-Object System.Windows.Forms.ToolStripSeparator 
 $fm_menu_kt= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_kt.Text= "Preferences"
-	 
+	
 $menu_fty= New-Object System.Windows.Forms.ToolStripMenuItem 
 # $menu_fty.Text= "v Task tray"
 
@@ -15975,7 +16059,7 @@ $fm_menu_copy.Add_Click({
 	echo $_.exception
  }
 })
-	 
+	
 $fm_menu_zero= New-Object System.Windows.Forms.ToolStripMenuItem 
 #$fm_menu_zero.Text= "zero padding"
 $fm_menu_zero.Add_Click({
@@ -16231,27 +16315,33 @@ $fm_menu_whelp.Add_Click({
 
 $fm_menu_srld= New-Object System.Windows.Forms.ToolStripSeparator
 $fm_menu_rld= New-Object System.Windows.Forms.ToolStripMenuItem
-$fm_menu_rld.Text= "Header reload"
+$fm_menu_rld.Text= "mml Header reload"
 $fm_menu_rld.Add_Click({
  try{
 	$script:header["fm_header_mck"]= (cat '.\header\fm_header_mck' | Out-String)
 	$script:header["fm_header_nsd"]= (cat '.\header\fm_header_nsd' | Out-String)
 	$script:header["fm_header_pmd"]= (cat '.\header\fm_header_pmd' | Out-String)
 
-	Write-Host '<< headerをリロードしました'
+	$script:box_mml["mck"]= (cat '.\header\fm_mml_mck' | Out-String)
+	$script:box_mml["nsd"]= (cat '.\header\fm_mml_nsd' | Out-String)
+	$script:box_mml["pmd"]= (cat '.\header\fm_mml_pmd' | Out-String)
+
+	Write-Host '<< mml headerをリロードしました'
 
 	$retn= [Windows.Forms.MessageBox]::Show(
-	"headerをリロードしました", "確認", "OK","Information","Button1"
+	"mml headerをリロードしました", "確認", "OK","Information","Button1"
 	)
  }catch{
 	echo $_.exception
  }
 })
-
-$fm_menu_adv= New-Object System.Windows.Forms.ToolStripMenuItem
+	
+$fm_menu_adv= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_adv.Text= "Advanced"
-
-$fm_menu_mckh= New-Object System.Windows.Forms.ToolStripMenuItem
+ 
+$fm_menu_sadv= New-Object System.Windows.Forms.ToolStripSeparator 
+ 
+$fm_menu_mckh= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_mckh.Text= "edit mck header"
 $fm_menu_mckh.Add_Click({
  try{
@@ -16261,7 +16351,17 @@ $fm_menu_mckh.Add_Click({
  }
 })
 
-$fm_menu_nsdh= New-Object System.Windows.Forms.ToolStripMenuItem
+$fm_menu_mckm= New-Object System.Windows.Forms.ToolStripMenuItem
+$fm_menu_mckm.Text= "edit mck mml"
+$fm_menu_mckm.Add_Click({
+ try{
+	Adv_edit "mck_mml"
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$fm_menu_nsdh= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_nsdh.Text= "edit nsd header"
 $fm_menu_nsdh.Add_Click({
  try{
@@ -16271,7 +16371,17 @@ $fm_menu_nsdh.Add_Click({
  }
 })
 
-$fm_menu_pmdh= New-Object System.Windows.Forms.ToolStripMenuItem
+$fm_menu_nsdm= New-Object System.Windows.Forms.ToolStripMenuItem
+$fm_menu_nsdm.Text= "edit nsd mml"
+$fm_menu_nsdm.Add_Click({
+ try{
+	Adv_edit "nsd_mml"
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$fm_menu_pmdh= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_pmdh.Text= "edit pmd header"
 $fm_menu_pmdh.Add_Click({
  try{
@@ -16280,7 +16390,17 @@ $fm_menu_pmdh.Add_Click({
 	echo $_.exception
  }
 })
-  
+
+$fm_menu_pmdm= New-Object System.Windows.Forms.ToolStripMenuItem
+$fm_menu_pmdm.Text= "edit pmd mml"
+$fm_menu_pmdm.Add_Click({
+ try{
+	Adv_edit "pmd_mml"
+ }catch{
+	echo $_.exception
+ }
+})
+   
 $fm_menu_lad.DropDownItems.AddRange(@($fm_lad_a,$fm_lad_b,$fm_lad_c,$fm_lad_d,$fm_lad_e,$fm_lad_f,$fm_lad_g,$fm_lad_h)) 
 $fm_menu_sav.DropDownItems.AddRange(@($fm_sav_a,$fm_sav_b,$fm_sav_c,$fm_sav_d,$fm_sav_e,$fm_sav_f,$fm_sav_g,$fm_sav_h))
 
@@ -16296,7 +16416,7 @@ $fm_menu_edit.DropDownItems.AddRange(@($fm_menu_edt0,$fm_menu_edt1,$fm_menu_edt2
 $fm_menu_type.DropDownItems.AddRange(@($fm_menu_type_nsd,$fm_menu_type_mckreg,$fm_menu_type_nsdreg))
 $fm_menu_style.DropDownItems.AddRange(@($fm_menu_style_pmd,$fm_menu_style_mucom,$fm_menu_style_fmp7,$fm_menu_style_mxdrv))
 $fm_menu_put.DropDownItems.AddRange(@($fm_menu_zero,$fm_menu_ten))
-$fm_menu_adv.DropDownItems.AddRange(@($fm_menu_mckh,$fm_menu_nsdh,$fm_menu_pmdh))
+$fm_menu_adv.DropDownItems.AddRange(@($fm_menu_mckh, $fm_menu_nsdh, $fm_menu_pmdh, $fm_menu_sadv, $fm_menu_mckm, $fm_menu_nsdm, $fm_menu_pmdm))
 
 $fm_menu_kt.DropDownItems.AddRange(@($menu_fty,$fm_menu_auton,$fm_menu_auto,$fm_menu_rcver,$fm_menu_rstn,$fm_menu_rst))
 
@@ -16313,10 +16433,10 @@ $osc_grp.Controls.AddRange(@($comb_vrc,$comb_opl,$comb_opn,$comb_opm,$comb_fm,$l
 $fm_panel.Controls.AddRange(@($eg_grp,$lev_grp,$ring_grp,$op_grp,$alg_grp,$osc_grp))
 $fm_stus.Items.AddRange(@($fm_label))
 
-$frm_fm.Controls.AddRange(@($fm_mnu,$fm_panel,$fm_box,$fm_stus))
+$frm_fm.Controls.AddRange(@($fm_mnu, $fm_panel, $fm_box_mml, $fm_box, $fm_stus))
    
 # Global variable ====== 
-	
+	 
 # color setting 
 
 
@@ -16984,13 +17104,17 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
   $play=@{}; $dos=@{}; $edit=@{};	# only memory<- setting.xml
 
   $hsmck= @{}; $hsvrc= @{}; $hs88= @{}; $hsx68= @{}; $hsefx= @{};
-  $header=@{}; $box_header=@{};	# replace mtx
+  $header=@{}; $box_mml=@{}; $box_header=@{};	# replace mtx
 
 
   # cat -> Out-String(改行あり)でstringへ
   $header["fm_header_mck"]= (cat '.\header\fm_header_mck' | Out-String)
   $header["fm_header_nsd"]= (cat '.\header\fm_header_nsd' | Out-String)
   $header["fm_header_pmd"]= (cat '.\header\fm_header_pmd' | Out-String)
+
+  $box_mml["mck"]= (cat '.\header\fm_mml_mck' | Out-String)
+  $box_mml["nsd"]= (cat '.\header\fm_mml_nsd' | Out-String)
+  $box_mml["pmd"]= (cat '.\header\fm_mml_pmd' | Out-String)
 
   # box header メモリ読み込み
   $box_header["vrc"]= (cat '.\header\fm_box_vrc' | Out-String)
