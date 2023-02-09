@@ -602,7 +602,7 @@ function Brush_Color(){
 } #func
   
 # buffer 
-	 
+	
 function Pixcel_Select([int] $max){ 
 
 	$max= $max+ 1
@@ -2951,7 +2951,7 @@ function Sin_chw(){
  } #func
   
 # alg 
-	 
+	
 function Popalg_build([string]$t){ # <- $key["open"] 
 
  switch($t){
@@ -3869,8 +3869,8 @@ function All_chg(){ # $vrc_svn[][] ha "__1" no string
 
 	$Pictbw.Refresh()	# poly to sine no ato kireini read
 
-	$pict_panel.Size=  ($IMG300 -join ",")
-	$sb_alg.Size= (($IMG300[0]+ 22), ($IMG300[1]+ 91) -join ",") # "502,371"
+	$pict_panel.Size= "480,280"
+	$sb_alg.Size= "502,371"
 
 	break;
  }'4op'{
@@ -3925,19 +3925,19 @@ function All_chg(){ # $vrc_svn[][] ha "__1" no string
 	$Pictbg.Show()
 	$Pictbg.Refresh()
 
-	$pict_panel.Size= ($IMG500 -join ",")
-	$sb_alg.Size= (($IMG500[0]+ 22), ($IMG500[1]+ 91) -join ",") # "502,621"
+	$pict_panel.Size= "480,530"
+	$sb_alg.Size= "502,621"
  }
  } #sw
 
  $pict_panel.ResumeLayout()
 
  } #func
- 	 
+  
 # ------ 
  
 # load save 
-	 
+	
 function Autoload($x){ 
 
 	if($comb_fm.SelectedItem -ne $x.name){
@@ -5952,7 +5952,7 @@ function Key_play([string]$t){
  } #func
   
 # Export 
-	 
+	
 function Unredo([int]$n){ 
 
   switch($n){ # 初期化
@@ -7494,19 +7494,15 @@ $contxt_oct.Add_ItemClicked({
 [int] $script:start_value= 0
 $script:toppos= New-Object System.Drawing.Point
  
-[int[]]$IMG160= @(162, 102) 
-[int[]]$IMG500= @(480, 530)
-[int[]]$IMG300= @(480, 280)
- 
 # Pictbg 
 
 
 
 
-	 
-$bgimg= New-Object System.Drawing.Bitmap($IMG500) # bg 4op 
+	
+$bgimg= New-Object System.Drawing.Bitmap(480,530) # bg 4op 
 
-$gpb= [System.Drawing.Graphics]::FromImage($bgimg)
+$gpb= [System.Drawing.Graphics]::FromImage($bgimg) # 書き込み
 $gpb.CompositingQuality= "HighQuality"
 $gpb.SmoothingMode= "HighQuality"
 $gpb.PixelOffsetMode= "HighQuality"
@@ -7551,7 +7547,7 @@ $Pictbg.Add_DoubleClick({
  }
 })
  
-$bgimw= New-Object System.Drawing.Bitmap($IMG300) # bg 2op 
+$bgimw= New-Object System.Drawing.Bitmap(480,280) # bg 2op 
 
 $gpw= [System.Drawing.Graphics]::FromImage($bgimw)
 $gpw.CompositingQuality= "HighQuality"
@@ -7600,7 +7596,7 @@ $Pictbw.Add_DoubleClick({
  
 # 2op 
  
-$image1a= New-Object System.Drawing.Bitmap($IMG160) 
+$image1a= New-Object System.Drawing.Bitmap(162,102) 
 
 $gpz= [System.Drawing.Graphics]::FromImage($image1a)
 $gpz.CompositingQuality= "HighSpeed"
@@ -7676,7 +7672,7 @@ $Pictbox1a.Add_MouseDown({
  }
 })
  
-$image2a= New-Object System.Drawing.Bitmap($IMG160) 
+$image2a= New-Object System.Drawing.Bitmap(162,102) 
 
 $gpx= [System.Drawing.Graphics]::FromImage($image2a)
 $gpx.CompositingQuality= "HighSpeed"
@@ -7760,14 +7756,14 @@ $Pictbox2a.Add_MouseDown({
  
 # ura buffer 
  
-$image5a= New-Object System.Drawing.Bitmap($IMG160) 
+$image5a= New-Object System.Drawing.Bitmap(162,102) 
 
 $gpv= [System.Drawing.Graphics]::FromImage($image5a)
 $gpv.CompositingQuality= "HighSpeed"
 $gpv.SmoothingMode= "HighSpeed"
 $gpv.PixelOffsetMode= "HighSpeed"
  
-$image6a= New-Object System.Drawing.Bitmap($IMG160) 
+$image6a= New-Object System.Drawing.Bitmap(162,102) 
 
 $gpt= [System.Drawing.Graphics]::FromImage($image6a)
 $gpt.CompositingQuality= "HighSpeed"
@@ -7776,9 +7772,9 @@ $gpt.PixelOffsetMode= "HighSpeed"
  
 # 4op 
  
-$image1= New-Object System.Drawing.Bitmap($IMG160) # 書き込む場所 
+$image1= New-Object System.Drawing.Bitmap(162,102) # 書き込む場所 
 
-$gpc= [System.Drawing.Graphics]::FromImage($image1) # 書き込み
+$gpc= [System.Drawing.Graphics]::FromImage($image1)
 $gpc.CompositingQuality= "HighSpeed" # 高速で低品質
 $gpc.SmoothingMode= "HighSpeed" # アンチエイリアス処理しない
 $gpc.PixelOffsetMode= "HighSpeed"
@@ -7853,7 +7849,7 @@ $Pictbox1.Add_MouseDown({
  }
 })
  
-$image2= New-Object System.Drawing.Bitmap($IMG160) 
+$image2= New-Object System.Drawing.Bitmap(162,102) # 160+2,100+2 
 
 $gpe= [System.Drawing.Graphics]::FromImage($image2)
 $gpe.CompositingQuality= "HighSpeed"
@@ -7929,7 +7925,7 @@ $Pictbox2.Add_MouseDown({
  }
 })
  
-$image3= New-Object System.Drawing.Bitmap($IMG160) 
+$image3= New-Object System.Drawing.Bitmap(162,102) 
 
 $gpg= [System.Drawing.Graphics]::FromImage($image3)
 $gpg.CompositingQuality= "HighSpeed"
@@ -8005,7 +8001,7 @@ $Pictbox3.Add_MouseDown({
  }
 })
  
-$image4= New-Object System.Drawing.Bitmap($IMG160) 
+$image4= New-Object System.Drawing.Bitmap(162,102) 
 
 $gpi= [System.Drawing.Graphics]::FromImage($image4)
 $gpi.CompositingQuality= "HighSpeed"
@@ -8083,28 +8079,28 @@ $Pictbox4.Add_MouseDown({
  
 # ura buffer 
  
-$image5= New-Object System.Drawing.Bitmap($IMG160) 
+$image5= New-Object System.Drawing.Bitmap(162,102) 
 
-$gpk= [System.Drawing.Graphics]::FromImage($image5)
-$gpk.CompositingQuality= "HighSpeed"
-$gpk.SmoothingMode= "HighSpeed"
+$gpk= [System.Drawing.Graphics]::FromImage($image5) # 書き込み
+$gpk.CompositingQuality= "HighSpeed" # 高速で低品質
+$gpk.SmoothingMode= "HighSpeed" # アンチエイリアス処理しない
 $gpk.PixelOffsetMode= "HighSpeed"
  
-$image6= New-Object System.Drawing.Bitmap($IMG160) 
+$image6= New-Object System.Drawing.Bitmap(162,102) 
 
 $gpm= [System.Drawing.Graphics]::FromImage($image6)
 $gpm.CompositingQuality= "HighSpeed"
 $gpm.SmoothingMode= "HighSpeed"
 $gpm.PixelOffsetMode= "HighSpeed"
  
-$image7= New-Object System.Drawing.Bitmap($IMG160) 
+$image7= New-Object System.Drawing.Bitmap(162,102) 
 
 $gpo= [System.Drawing.Graphics]::FromImage($image7)
 $gpo.CompositingQuality= "HighSpeed"
 $gpo.SmoothingMode= "HighSpeed"
 $gpo.PixelOffsetMode= "HighSpeed"
  
-$image8= New-Object System.Drawing.Bitmap($IMG160) 
+$image8= New-Object System.Drawing.Bitmap(162,102) 
 
 $gpq= [System.Drawing.Graphics]::FromImage($image8)
 $gpq.CompositingQuality= "HighSpeed"
@@ -8113,66 +8109,63 @@ $gpq.PixelOffsetMode= "HighSpeed"
   
 # ------ 
  
-#$buffw= [System.Drawing.BufferedGraphics] 
-#$buffz= [System.Drawing.BufferedGraphics]
-#$buffx= [System.Drawing.BufferedGraphics]
-
-#$buffb= [System.Drawing.BufferedGraphics]
-#$buffc= [System.Drawing.BufferedGraphics]
-#$buffe= [System.Drawing.BufferedGraphics]
-#$buffg= [System.Drawing.BufferedGraphics]
-#$buffi= [System.Drawing.BufferedGraphics]
+# buffb 
 
 
-#$contxtw= [System.Drawing.BufferedGraphicsContext]
-$contxtw= [System.Drawing.BufferedGraphicsManager]::Current
+	 
+[int[]]$buf_IMG= @(162, 102) 
+[int[]]$buf_Size= @(($buf_IMG[0]+ 4), ($buf_IMG[1]+ 4)) # バッファサイズ
+$buf_Rect= New-Object System.Drawing.Rectangle(0, 0, $buf_IMG[0], $buf_IMG[1])
+
+$buf_image= New-Object System.Drawing.Bitmap($buf_IMG)
+
+$buf_grp= [System.Drawing.Graphics]::FromImage($buf_image)
+$buf_grp.CompositingQuality= "HighSpeed"
+$buf_grp.SmoothingMode= "HighSpeed"
+$buf_grp.PixelOffsetMode= "HighSpeed"
+ 
+$contxtw= [System.Drawing.BufferedGraphicsManager]::Current 
 $contxtw.MaximumBuffer= "481,281"
-
-#$contxtz= [System.Drawing.BufferedGraphicsContext]
-$contxtz= [System.Drawing.BufferedGraphicsManager]::Current
-$contxtz.MaximumBuffer= "163,103"
-
-#$contxtx= [System.Drawing.BufferedGraphicsContext]
-$contxtx= [System.Drawing.BufferedGraphicsManager]::Current
-$contxtx.MaximumBuffer= "163,103"
-
-
-#$contxtb= [System.Drawing.BufferedGraphicsContext]
-$contxtb= [System.Drawing.BufferedGraphicsManager]::Current
+$buffw= $contxtw.Allocate($gpw, $Pictbw.ClientRectangle)
+ 
+$contxtb= [System.Drawing.BufferedGraphicsManager]::Current 
 $contxtb.MaximumBuffer= "481,531"
-
-#$contxtc= [System.Drawing.BufferedGraphicsContext]
-$contxtc= [System.Drawing.BufferedGraphicsManager]::Current
-$contxtc.MaximumBuffer= "163,103"
-
-#$contxte= [System.Drawing.BufferedGraphicsContext]
-$contxte= [System.Drawing.BufferedGraphicsManager]::Current
-$contxte.MaximumBuffer= "163,103"
-
-#$contxtg= [System.Drawing.BufferedGraphicsContext]
-$contxtg= [System.Drawing.BufferedGraphicsManager]::Current
-$contxtg.MaximumBuffer= "163,103"
-
-#$contxti= [System.Drawing.BufferedGraphicsContext]
-$contxti= [System.Drawing.BufferedGraphicsManager]::Current
-$contxti.MaximumBuffer= "163,103"
-
-
-$buffw= $contxtb.Allocate($gpw, $Pictbw.ClientRectangle)
-$buffz= $contxtc.Allocate($gpz, $Pictbox1a.ClientRectangle)
-$buffx= $contxte.Allocate($gpx, $Pictbox2a.ClientRectangle)
-
 $buffb= $contxtb.Allocate($gpb, $Pictbg.ClientRectangle)
-$buffc= $contxtc.Allocate($gpc, $Pictbox1.ClientRectangle)
-$buffe= $contxte.Allocate($gpe, $Pictbox2.ClientRectangle)
-$buffg= $contxtg.Allocate($gpg, $Pictbox3.ClientRectangle)
-$buffi= $contxti.Allocate($gpi, $Pictbox4.ClientRectangle)
+ 
+# 2op 
+ 
+$contxtz= [System.Drawing.BufferedGraphicsManager]::Current 
+$contxtz.MaximumBuffer= $buf_Size -join ","
+$buffz= $contxtz.Allocate($buf_grp, $buf_Rect)
 
+#$buffz= [System.Drawing.BufferedGraphics]
+#$contxtz= [System.Drawing.BufferedGraphicsContext]
 
 # ura buffer ha Renderメソッド不使用のため、手動バッファは不要
-
 # $gpk ha BufferedGraphics ha hitsuyou nai
  
+$contxtx= [System.Drawing.BufferedGraphicsManager]::Current 
+$contxtx.MaximumBuffer= $buf_Size -join ","
+$buffx= $contxtx.Allocate($buf_grp, $buf_Rect)
+ 
+# 4op 
+ 
+$contxtc= [System.Drawing.BufferedGraphicsManager]::Current 
+$contxtc.MaximumBuffer= $buf_Size -join ","
+$buffc= $contxtc.Allocate($buf_grp, $buf_Rect)
+ 
+$contxte= [System.Drawing.BufferedGraphicsManager]::Current 
+$contxte.MaximumBuffer= $buf_Size -join ","
+$buffe= $contxte.Allocate($buf_grp, $buf_Rect)
+ 
+$contxtg= [System.Drawing.BufferedGraphicsManager]::Current 
+$contxtg.MaximumBuffer= $buf_Size -join ","
+$buffg= $contxtg.Allocate($buf_grp, $buf_Rect)
+ 
+$contxti= [System.Drawing.BufferedGraphicsManager]::Current 
+$contxti.MaximumBuffer= $buf_Size -join ","
+$buffi= $contxti.Allocate($buf_grp, $buf_Rect)
+ 	 
 # ------ 
  
 $pict_panel= New-Object System.Windows.Forms.Panel 
@@ -9397,10 +9390,11 @@ $sub_sav.AcceptButton= $sub_sav_ok_Btn	# [Enter]
 	 
 [int[]]$IMG_buf= @(480, 480) # バッファサイズ 
 [int[]]$Size_buf= @(($IMG_buf[0]+ 2), ($IMG_buf[1]+ 2))
-$Rect_buf= New-Object System.Drawing.Rectangle(0,0, $Size_buf[0],$Size_buf[1])
+$Rect_buf= New-Object System.Drawing.Rectangle(0,0, $IMG_buf[0],$IMG_buf[1])
 
 $image_buf= New-Object System.Drawing.Bitmap($IMG_buf) # 書き込む場所
 $Graphics_buf= [System.Drawing.Graphics]::FromImage($image_buf)
+
 # $Graphics_buf.CompositingQuality= "HighQuality"
 # $Graphics_buf.SmoothingMode= "HighQuality"
 # $Graphics_buf.PixelOffsetMode= "HighQuality"
@@ -9414,6 +9408,7 @@ $Graphics_buf= [System.Drawing.Graphics]::FromImage($image_buf)
 $Contxtbuf= [System.Drawing.BufferedGraphicsManager]::Current # ダブルバッファ
 $Contxtbuf.MaximumBuffer= $Size_buf -join "," # string出力
 $Horizonbuff= $Contxtbuf.Allocate($Graphics_buf, $Rect_buf)
+
 # $Horizonbuff= $Contxtb.Allocate($Graphics_buf, $Pictbox_buf.ClientRectangle)
   
 # Pictbox 
