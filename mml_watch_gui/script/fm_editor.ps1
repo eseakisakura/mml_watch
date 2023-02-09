@@ -20,6 +20,7 @@ $xml_editor= @'
 		<layout value="nomal"/>
 		<mode value="light"/>
 		<color value="natural"/>
+		<clickplay value="True"/>
 		<wheel value="AR,AR,AR,AR"/>
 		<chk_dos value="Checked"/>
 		<radio_bin value="nsd" />
@@ -2794,7 +2795,7 @@ function Sin_chw(){
  } #func
   
 # bg alg 
-	 
+	
 function Chip_view([int]$x,[int]$y){ 
 
   [array]$p= "",""
@@ -4090,8 +4091,8 @@ function Fmchange_value([string]$sw, [string]$name){
 	'mck'{		$script:val[$sw]= $mck[$name];	break;
 	}'nsd'{		$script:val[$sw]= $nsd[$name];	break;
 	}'pmd'{		$script:val[$sw]= $pmd[$name];	break;
-	}'compiler'{	$script:val[$sw]= $val[$name];	break;
 
+	}'compiler'{	$script:val[$sw]= $val[$name];		break;
 	}'player'{		$script:val[$sw]= $play[$name];	break;
 	}'dos'{		$script:val[$sw]= $dos[$name];	break;
 	}'editor'{		$script:val[$sw]= $edit[$name]
@@ -4172,6 +4173,8 @@ function Fmxml_read($x,$y){ # hash設定
 	$script:key["layout"]= Layout_alg $y.layout.value
 	$script:key["mode"]= Mode_alg $y.mode.value
 	$script:key["color"]= Color_alg $y.color.value
+
+	$script:key["clickplay"]= ClickPlay_sw $y.clickplay.value
 	$script:key["wheel"]= [string[]] ($y.wheel.value -split ",")
 	$script:key["open"]= $y.open.value # -> $frm_fm.Add_Shown
  } #func
@@ -4207,8 +4210,9 @@ function Fmwrite_xml($x,$y){
 	$y.layout.value= [string]$key["layout"]
 	$y.mode.value= [string]$key["mode"]
 	$y.color.value= [string]$key["color"]
-	$y.wheel.value= [string] ($key["wheel"] -join ",")
 
+	$y.clickplay.value= [string] $key["clickplay"]
+	$y.wheel.value= [string] ($key["wheel"] -join ",")
 	$y.open.value= [string]$key["open"]
 
  } #func
@@ -4681,6 +4685,17 @@ function Autosav_sw([string]$sw){
   return $sw
 
  } #func
+ 
+function ClickPlay_sw([string] $sw){ 
+
+	switch($sw){
+	'True'{	$ff_menu_tp.Text= "v Click To Play"; break;
+	}'False'{	$ff_menu_tp.Text= "Click To Play"
+	}
+	} #sw
+
+	return $sw
+ } # func
  
 function Wait_sw([int]$t){ 
 
@@ -5255,7 +5270,7 @@ function Panel_chg([string]$sw){
  } #func
   
 # Lis 
-	
+	 
 function Adv_edit([string]$t){ 
 
 	switch($t){
@@ -5531,7 +5546,7 @@ function Preset_read(){
   return $output
 
  } #func
- 
+ 	
 # ------ 
  
 function Mck_listen([string]$ss){ 
@@ -5551,11 +5566,15 @@ function Mck_listen([string]$ss){
 	$hh= $hh.Replace("%fm_param%",$gg)
 
 	Param_exp 1 $ss
-	Lisnfm_nsf 0 $hh
 
+	if($key["clickplay"] -eq 'True'){
+		Lisnfm_nsf 0 $hh
+	}
 	if($sb_alg.Visible){
 
-		Monotone_select "lisn_btn"
+		if($key["clickplay"] -eq 'True'){
+			Monotone_select "lisn_btn"
+		}
 		All_chg
 	}
  } #func
@@ -5577,11 +5596,14 @@ function Vrc7_listen([string]$ss){
 	$hh= $hh.Replace("%fm_param%", $gg)
 
 	Param_exp 1 $ss
-	Lisnfm_nsf 0 $hh
 
+	if($key["clickplay"] -eq 'True'){
+		Lisnfm_nsf 0 $hh
+	}
 	if($sb_alg.Visible){
-
-		Monotone_select "lisn_btn"
+		if($key["clickplay"] -eq 'True'){
+			Monotone_select "lisn_btn"
+		}
 		All_chg
 	}
  } #func
@@ -5605,11 +5627,14 @@ function FF_listen([string]$ss){
 	$hh= $hh.Replace("%fm_param%", $gg)
 
 	Param_exp 2 $ss # pmdで読み込む
-	Lisnfm_nsf 0 $hh
 
+	if($key["clickplay"] -eq 'True'){
+		Lisnfm_nsf 0 $hh
+	}
 	if($sb_alg.Visible){
-
-		Monotone_select "lisn_btn"
+		if($key["clickplay"] -eq 'True'){
+			Monotone_select "lisn_btn"
+		}
 		All_chg
 	}
  } #func
@@ -5797,7 +5822,7 @@ function Key_play([string]$t){
  } #func
   
 # Export 
-	
+	 
 function Unredo([int]$n){ 
 
   switch($n){ # 初期化
@@ -7168,7 +7193,7 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 [Environment]::CurrentDirectory= pwd # working_dir set
  
 # Sub forms 
-	 
+	
 # $contxt_7bwを読み込んだ後$PictureBox objが安全 
 	
 $contxt_Sep_7bw= New-Object System.Windows.Forms.ToolStripSeparator 
@@ -7344,7 +7369,7 @@ $script:toppos= New-Object System.Drawing.Point
 
 
 
-	 
+	
 [int[]]$op_IMG= @(162, 102) 
 $op_Rect= New-Object System.Drawing.Rectangle(0, 0, $op_IMG[0], $op_IMG[1])
  
@@ -7912,7 +7937,7 @@ $Pictbox4.Add_MouseDown({
 # buffb 
 
 
-	 
+	
 [int[]]$buf_IMG= @(322, 202) 
 $buf_Rect= New-Object System.Drawing.Rectangle(0, 0, $buf_IMG[0], $buf_IMG[1])
 [int[]]$buf_Size= @(($buf_IMG[0]+ 2), ($buf_IMG[1]+ 2)) # バッファサイズ
@@ -8518,7 +8543,7 @@ $sb_stus.Items.AddRange(@($sb_label))
 $sb_alg.Controls.AddRange(@($sb_mnu,$pict_panel,$sb_stus))
   
 # Preset forms 
-	
+	 
 $ff_baloon= New-Object System.Windows.Forms.Tooltip 
 $ff_baloon.ShowAlways= $False
 # $ff_baloon.ToolTipIcon= "Info"
@@ -8842,43 +8867,27 @@ $ff_frm.Add_FormClosing({
 })
  
 $ff_mnu= New-Object System.Windows.Forms.MenuStrip 
-
-$ff_menu_b= New-Object System.Windows.Forms.ToolStripMenuItem
-$ff_menu_b.Text= "Clipboard"
-
-$ff_menu_cb= New-Object System.Windows.Forms.ToolStripMenuItem
-$ff_menu_cb.Text= "Voice Value Copy"
-
-$ff_menu_cb.Add_Click({
- try{
-	switch($ff_tab.SelectedIndex){
-	'0'{	[string]$retn= $hsmck[[string]$list_mck.SelectedItem]; break;
-	}'1'{	[string]$retn= $hsvrc[[string]$list_vrc.SelectedItem]; break;
-	}'2'{	[string]$retn= $hs88[[string]$list_88.SelectedItem];   break;
-	}'3'{	[string]$retn= $hsx68[[string]$list_x68.SelectedItem]; break;
-	}'4'{	[string]$retn= $hsefx[[string]$list_efx.SelectedItem]
-	}
-	} #sw
-
-    if($retn -ne ''){
-
-	[Windows.Forms.Clipboard]::SetText($retn,[Windows.Forms.TextDataFormat]::UnicodeText)
-
-	Write-Host '<< presetをclipboardへ送りました'
-
-    }
-
- }catch{
-	echo $_.exception
- }
-})
-
-$ff_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem
+	 
+$ff_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $ff_menu_f.Text= "File"
 
-$ff_menu_r= New-Object System.Windows.Forms.ToolStripMenuItem
-$ff_menu_r.Text= "Preset reload"
-$ff_menu_r.Add_Click({
+$ff_menu_tps= New-Object System.Windows.Forms.ToolStripSeparator
+$ff_menu_tp= New-Object System.Windows.Forms.ToolStripMenuItem
+# $ff_menu_tp.Text= "Click to play"
+$ff_menu_tp.Add_Click({
+	switch($key["clickplay"]){
+	'False'{
+		$script:key["clickplay"]= ClickPlay_sw $True
+		break;
+	}'True'{
+		$script:key["clickplay"]= ClickPlay_sw $False
+	}
+	} #sw
+ })
+
+$ff_menu_pr= New-Object System.Windows.Forms.ToolStripMenuItem
+$ff_menu_pr.Text= "Preset reload"
+$ff_menu_pr.Add_Click({
 
 	$list_mck.Items.Clear() # reset 2重読込対策
 	$list_vrc.Items.Clear()
@@ -8908,14 +8917,44 @@ $ff_menu_r.Add_Click({
 	}
  })
 
-$ff_menu_cr= New-Object System.Windows.Forms.ToolStripSeparator
-$ff_menu_c= New-Object System.Windows.Forms.ToolStripMenuItem
-$ff_menu_c.Text= "Close"
-$ff_menu_c.Add_Click({
+$ff_menu_ces= New-Object System.Windows.Forms.ToolStripSeparator
+$ff_menu_ce= New-Object System.Windows.Forms.ToolStripMenuItem
+$ff_menu_ce.Text= "Close"
+$ff_menu_ce.Add_Click({
 
 	$ff_frm.Close()
 })
  
+$ff_menu_b= New-Object System.Windows.Forms.ToolStripMenuItem 
+$ff_menu_b.Text= "Clipboard"
+
+$ff_menu_cb= New-Object System.Windows.Forms.ToolStripMenuItem
+$ff_menu_cb.Text= "Voice Value Copy"
+
+$ff_menu_cb.Add_Click({
+ try{
+	switch($ff_tab.SelectedIndex){
+	'0'{	[string]$retn= $hsmck[[string]$list_mck.SelectedItem]; break;
+	}'1'{	[string]$retn= $hsvrc[[string]$list_vrc.SelectedItem]; break;
+	}'2'{	[string]$retn= $hs88[[string]$list_88.SelectedItem];   break;
+	}'3'{	[string]$retn= $hsx68[[string]$list_x68.SelectedItem]; break;
+	}'4'{	[string]$retn= $hsefx[[string]$list_efx.SelectedItem]
+	}
+	} #sw
+
+    if($retn -ne ''){
+
+	[Windows.Forms.Clipboard]::SetText($retn,[Windows.Forms.TextDataFormat]::UnicodeText)
+
+	Write-Host '<< presetをclipboardへ送りました'
+
+    }
+
+ }catch{
+	echo $_.exception
+ }
+})
+  
 $tab_mck.Controls.AddRange(@($list_mck)) 
 $tab_vrc.Controls.AddRange(@($list_vrc))
 $tab_88.Controls.AddRange(@($list_88))
@@ -8923,10 +8962,10 @@ $tab_x68.Controls.AddRange(@($list_x68))
 $tab_efx.Controls.AddRange(@($list_efx))
 $ff_tab.Controls.AddRange(@($tab_mck,$tab_vrc,$tab_88,$tab_x68,$tab_efx))
 
-$ff_menu_f.DropDownItems.AddRange(@($ff_menu_r,$ff_menu_cr,$ff_menu_c))
+$ff_menu_f.DropDownItems.AddRange(@($ff_menu_pr, $ff_menu_tps, $ff_menu_tp, $ff_menu_ces, $ff_menu_ce))
 $ff_menu_b.DropDownItems.AddRange(@($ff_menu_cb))
 $ff_mnu.Items.AddRange(@($ff_menu_f,$ff_menu_b))
-$ff_frm.Controls.AddRange(@($ff_mnu,$ff_tab,$import_btn,$close_btn))
+$ff_frm.Controls.AddRange(@($ff_mnu, $ff_tab, $play_chk, $import_btn, $close_btn))
   
 # Mask forms 
 	
@@ -9238,7 +9277,7 @@ $sub_sav.CancelButton= $sub_sav_cancel_Btn	# [ESC]
 $sub_sav.AcceptButton= $sub_sav_ok_Btn	# [Enter]
   
 # Main forms 
-	
+	 
 # BUFFER 
 	
 [int[]]$IMG_buf= @(480, 480) # バッファサイズ 
@@ -10258,7 +10297,7 @@ $PictboxFB.Add_MouseLeave({
 })
   
 # Group 
-	
+	 
 $eg_grp= New-Object System.Windows.Forms.GroupBox 
 $eg_grp.Location= "10, 30"
 $eg_grp.Size= "255, 130" # 4op "255, 210"
@@ -11821,7 +11860,7 @@ $osc_grp.Size= "255, 105"
 $osc_grp.Location= "270,300"
 $osc_grp.ForeColor= "gray"
 $osc_grp.Font= $FonLabel
-	
+	 
 $lisn_btn= New-Object System.Windows.Forms.Button 
 $lisn_btn.Location= "20, 30"
 $lisn_btn.Size= "25, 25"
@@ -12038,7 +12077,7 @@ $comb_fm.Add_SelectedValueChanged({ # Event
  })
    
 # forms 
-	
+	 
 $fm_panel= New-Object System.Windows.Forms.Panel 
 $fm_panel.Location= "0,0"
 $fm_panel.Size= "530,415"
@@ -12226,7 +12265,7 @@ $frm_fm.Add_FormClosing({
 })
  
 $fm_mnu= New-Object System.Windows.Forms.MenuStrip 
-	
+	 
 $fm_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_f.Text= "File"
 
@@ -14003,7 +14042,7 @@ $fm_stus.Items.AddRange(@($fm_label))
 $frm_fm.Controls.AddRange(@($fm_mnu, $fm_panel, $fm_box_mml, $fm_box, $fm_stus))
    
 # Global variable ====== 
-	 
+	
 # color setting 
 
 
@@ -14013,7 +14052,7 @@ $frm_fm.Controls.AddRange(@($fm_mnu, $fm_panel, $fm_box_mml, $fm_box, $fm_stus))
 
 
 
-	 
+	
  try{ 
  
 # bg,line,text ------ 
@@ -14056,7 +14095,7 @@ $Blwpen= New-Object System.Drawing.Pen($naturalblack, 2)
 # .LinearGradientBrush 仮色指定が必要
 $Blbrush= New-Object System.Drawing.Drawing2D.LinearGradientBrush($poix,$poia,$naturalblack,$gr_black)
 $Blbrush.InterpolationColors= $Clbrend
- 	 
+  
 # 桜色254,244,244	# 薄桜253,239,251	# 月白234,244,252 
 # 生成り色251,250,245	# 卯の花色247,252,254	# 白磁248,251,248	# 胡粉色255,255,252
 # 憲法黒茶36,26,8	# 鉄黒40,26,20		# 濡羽色 0,11,0		# 暗黒色22,22,14
