@@ -164,27 +164,31 @@ Function Line_highlight([array]$rr){
 
 	switch(Itm){ # Chip_position $script:xye2
 	'2op'{
-		$buffw.Graphics.FillRectangle($rr[0],$xye2[0],$xye2[1],$xye2[2],$xye2[3])
-		$buffw.Graphics.FillRectangle($rr[0],$xye2[4],$xye2[5],$xye2[6],$xye2[7])
-		$buffw.Render($gpw); $Pictbw.Refresh()
+		$gpw.FillRectangle($rr[0],$xye2[0],$xye2[1],$xye2[2],$xye2[3])
+		$gpw.FillRectangle($rr[0],$xye2[4],$xye2[5],$xye2[6],$xye2[7])
+		# $buffw.Render($gpw);
+		$Pictbw.Refresh()
 
 		sleep -m 166
 
-		$buffw.Graphics.FillRectangle($rr[1],$xye2[0],$xye2[1],$xye2[2],$xye2[3])
-		$buffw.Graphics.FillRectangle($rr[1],$xye2[4],$xye2[5],$xye2[6],$xye2[7])
-		$buffw.Render($gpw); $Pictbw.Refresh()
+		$gpw.FillRectangle($rr[1],$xye2[0],$xye2[1],$xye2[2],$xye2[3])
+		$gpw.FillRectangle($rr[1],$xye2[4],$xye2[5],$xye2[6],$xye2[7])
+		# $buffw.Render($gpw);
+		$Pictbw.Refresh()
 
 		break;
 	}'4op'{
-		$buffb.Graphics.FillRectangle($rr[0],$xye4[0],$xye4[1],$xye4[2],$xye4[3])
-		$buffb.Graphics.FillRectangle($rr[0],$xye4[4],$xye4[5],$xye4[6],$xye4[7])
-		$buffb.Render($gpb); $Pictbg.Refresh()
+		$gpb.FillRectangle($rr[0],$xye4[0],$xye4[1],$xye4[2],$xye4[3])
+		$gpb.FillRectangle($rr[0],$xye4[4],$xye4[5],$xye4[6],$xye4[7])
+		# $buffb.Render($gpb);
+		$Pictbg.Refresh()
 
 		sleep -m 166
 
-		$buffb.Graphics.FillRectangle($rr[1],$xye4[0],$xye4[1],$xye4[2],$xye4[3])
-		$buffb.Graphics.FillRectangle($rr[1],$xye4[4],$xye4[5],$xye4[6],$xye4[7])
-		$buffb.Render($gpb); $Pictbg.Refresh()
+		$gpb.FillRectangle($rr[1],$xye4[0],$xye4[1],$xye4[2],$xye4[3])
+		$gpb.FillRectangle($rr[1],$xye4[4],$xye4[5],$xye4[6],$xye4[7])
+		# $buffb.Render($gpb);
+		$Pictbg.Refresh()
 	}
 	} #sw
  } # func
@@ -1810,7 +1814,7 @@ function Contxt_octave([string]$a){
  } #func
   
 # poly 
-	
+	 
 function Flow_ssg([int]$num, [array]$e, [int]$width, [int]$height){ 
 
 
@@ -2053,108 +2057,9 @@ function Flow_poinw([int]$num, [array]$e, [int]$damp, [int]$width, [int]$height)
  
 # ------ 
  
-function Poly_4op([array]$v, [int]$j){ # 4op ADSR render 
-
-
-	[array]$rr= Color_select
-
-	[array]$color= $rr[0]
-	$brush= $rr[1]
-
-
-	[array]$color_pen= @($XBpen,$XGpen,$XOpen,$XRpen)
-
-
-	[int]$width= ($img[0]+2)/ 4	# +2 sinとの帳尻
-	[int]$height= ($img[1]+2)/ 2
-
-
-	[array]$xy= @(0,0,0,0) # 4op
-
-	[int[]]$xy[$j]= 0,0,0,0,0,0 # ar dr sl sr rl rr
-
-	$xy[$j][0]= $width* $v[$j][0]/ 31	# ar
-	$xy[$j][1]= $width* $v[$j][1]/ 31	# dr
-	$xy[$j][2]= $height* (15- $v[$j][2])/ 15 # sl # 0max
-	$xy[$j][3]= $width* $v[$j][3]/ 31	# sr
-	$xy[$j][4]= $xy[$j][2]* $v[$j][3]/ 31	# rl
-	$xy[$j][5]= $width* $v[$j][4]/ 15	# rr
-
-
-  switch($j){
-
-  0{
-
-    if(MSop_checker 1 "ssg"){
-	Flow_ssg 0 $xy[0] $width $height
- 	$pt= $pointsg[0]
-    }else{
- 	Flow_point 0 $xy[0] $width $height
- 	$pt= $pointed[0]
-    }
-
-    $buffc.Graphics.Clear($color[0])	# fill
-
-   if(MSop_checker 1 "mask"){
-	$buffc.Graphics.FillPolygon($brush, $pt)	# 折れ線のfill
-    }
-	$buffc.Graphics.DrawLine($color_pen[0], 0, $height, $img[0], $height) # x軸を上書き
-
-	break;
-  }1{
-    if(MSop_checker 2 "ssg"){
-	Flow_ssg 1 $xy[1] $width $height
- 	$pt= $pointsg[1]
-    }else{
-	Flow_point 1 $xy[1] $width $height
- 	$pt= $pointed[1]
-    }
-
-    $buffe.Graphics.Clear($color[1])
-
-    if(MSop_checker 2 "mask"){
-	$buffe.Graphics.FillPolygon($brush, $pt)
-    }
-	$buffe.Graphics.DrawLine($color_pen[1], 0, $height, $img[0], $height)
-	break;
-  }2{
-    if(MSop_checker 4 "ssg"){
-	Flow_ssg 2 $xy[2] $width $height
- 	$pt= $pointsg[2]
-    }else{
-	Flow_point 2 $xy[2] $width $height
- 	$pt= $pointed[2]
-    }
-
-    $buffg.Graphics.Clear($color[2])
-
-    if(MSop_checker 4 "mask"){
-	$buffg.Graphics.FillPolygon($brush, $pt)
-    }
-	$buffg.Graphics.DrawLine($color_pen[2], 0, $height, $img[0], $height)
-	break;
-  }3{
-    if(MSop_checker 8 "ssg"){
-	Flow_ssg 3 $xy[3] $width $height
- 	$pt= $pointsg[3]
-    }else{
-	Flow_point 3 $xy[3] $width $height
- 	$pt= $pointed[3]
-    }
-
-    $buffi.Graphics.Clear($color[3])
-
-    if(MSop_checker 8 "mask"){
-	$buffi.Graphics.FillPolygon($brush, $pt)
-    }
-	$buffi.Graphics.DrawLine($color_pen[3], 0, $height, $img[0], $height)
-  }
-  } #sw
-
- } #func
- 
 function Poly_2op([array]$v, [int]$j){ # 2op ADSR render 
 
+	[int[]]$img= 320, 200 # Op.box
 
 	[array]$rr= Color_select
 
@@ -2203,96 +2108,104 @@ function Poly_2op([array]$v, [int]$j){ # 2op ADSR render
 
  } #func
  
-function Poly_chg(){ 
+function Poly_4op([array]$v, [int]$j){ # 4op ADSR render 
 
-	[int]$j= Idx
+	[int[]]$img= 320, 200 # Op.box
 
-	switch($comb_fm.SelectedItem){
-	'opn 4op'{	[array]$arr= $opn_fur; break;
-	}'opm 4op'{	[array]$arr= $opm_fur
-	}
-	} #sw
+	[array]$rr= Color_select
 
-	[array]$env= @(0,0,0,0) # jag op # ar,dr,sllev,sl,rr
-	$env[$j]= @($arr[$j][2],$arr[$j][3],$arr[$j][6],$arr[$j][4],$arr[$j][5])
+	[array]$color= $rr[0]	
+	$brush= $rr[1]
+
+
+	[array]$color_pen= @($XBpen,$XGpen,$XOpen,$XRpen)
+
+
+	[int]$width= ($img[0]+2)/ 4	# +2 sinとの帳尻
+	[int]$height= ($img[1]+2)/ 2
+
+
+	[array]$xy= @(0,0,0,0) # 4op
+
+	[int[]]$xy[$j]= 0,0,0,0,0,0 # ar dr sl sr rl rr
+
+	$xy[$j][0]= $width* $v[$j][0]/ 31	# ar
+	$xy[$j][1]= $width* $v[$j][1]/ 31	# dr
+	$xy[$j][2]= $height* (15- $v[$j][2])/ 15 # sl # 0max
+	$xy[$j][3]= $width* $v[$j][3]/ 31	# sr
+	$xy[$j][4]= $xy[$j][2]* $v[$j][3]/ 31	# rl
+	$xy[$j][5]= $width* $v[$j][4]/ 15	# rr
 
 
 	switch($j){
 	0{
-		$pict_panel.SuspendLayout()
+	 	$buffc.Graphics.Clear($color[0])	# fill
 
-		Poly_4op $env $j
-		$buffc.Render($gpk) # ura buffer
+		if(MSop_checker 1 "mask"){
 
-		$buffc.Graphics.DrawLines($Mpen, $pointing[0]) # sine wave
+			if(MSop_checker 1 "ssg"){
+				Flow_ssg 0 $xy[0] $width $height
+				$pt= $pointsg[0]
+			}else{
+				Flow_point 0 $xy[0] $width $height
+				$pt= $pointed[0]
+			}
+			$buffc.Graphics.FillPolygon($brush, $pt)	# 折れ線のfill
+		}
 
-		$buffc.Render($gp_tmp);
-		$gpc.DrawImage($image_tmp, $op_Rect)
-
-		[string[]]$value= Value_out
-		$gpc.DrawString($value[0], $Fona, $XBbrush, 120,5)
-
-		$pict_panel.ResumeLayout()
-
-		$Pictbox1.Refresh()
+		$buffc.Graphics.DrawLine($color_pen[0], 0, $height, $img[0], $height) # x軸を上書き
 		break;
 	}1{
-		$pict_panel.SuspendLayout()
+		$buffe.Graphics.Clear($color[1])
 
-		Poly_4op $env $j
-		$buffe.Render($gpm)
+		if(MSop_checker 2 "mask"){
+			if(MSop_checker 2 "ssg"){
+				Flow_ssg 1 $xy[1] $width $height
+				$pt= $pointsg[1]
+			}else{
+				Flow_point 1 $xy[1] $width $height
+				$pt= $pointed[1]
+			}
+			$buffe.Graphics.FillPolygon($brush, $pt)
+		}
 
-		$buffe.Graphics.DrawLines($Ypen, $pointing[1])
-
-		$buffe.Render($gp_tmp);
-		$gpe.DrawImage($image_tmp, $op_Rect)
-
-		[string[]]$value= Value_out
-		$gpe.DrawString($value[1], $Fona, $XGbrush, 120,5)
-
-		$pict_panel.ResumeLayout()
-
-		$Pictbox2.Refresh()
+		$buffe.Graphics.DrawLine($color_pen[1], 0, $height, $img[0], $height)
 		break;
 	}2{
-		$pict_panel.SuspendLayout()
+		$buffg.Graphics.Clear($color[2])
 
-		Poly_4op $env $j
-		$buffg.Render($gpo)
+		if(MSop_checker 4 "mask"){
+			if(MSop_checker 4 "ssg"){
+				Flow_ssg 2 $xy[2] $width $height
+				$pt= $pointsg[2]
+			}else{
+				Flow_point 2 $xy[2] $width $height
+				$pt= $pointed[2]
+			}
+			$buffg.Graphics.FillPolygon($brush, $pt)
+		}
 
-		$buffg.Graphics.DrawLines($Lpen, $pointing[2])
-
-		$buffg.Render($gp_tmp);
-		$gpg.DrawImage($image_tmp, $op_Rect)
-
-		[string[]]$value= Value_out
-		$gpg.DrawString($value[2], $Fona, $XObrush, 120,5)
-
-		$pict_panel.ResumeLayout()
-
-		$Pictbox3.Refresh()
+		$buffg.Graphics.DrawLine($color_pen[2], 0, $height, $img[0], $height)
 		break;
 	}3{
-		$pict_panel.SuspendLayout()
+		$buffi.Graphics.Clear($color[3])
 
-		Poly_4op $env $j
-		$buffi.Render($gpq)
+		if(MSop_checker 8 "mask"){
+			if(MSop_checker 8 "ssg"){
+				Flow_ssg 3 $xy[3] $width $height
+				$pt= $pointsg[3]
+			}else{
+				Flow_point 3 $xy[3] $width $height
+				$pt= $pointed[3]
+			}
+			$buffi.Graphics.FillPolygon($brush, $pt)
+		}
 
-		$buffi.Graphics.DrawLines($Cpen, $pointing[3])
-
-		$buffi.Render($gp_tmp);
-		$gpi.DrawImage($image_tmp, $op_Rect)
-
-		[string[]]$value= Value_out
-		$gpi.DrawString($value[3], $Fona, $XRbrush, 120,5)
-
-		$pict_panel.ResumeLayout()
-
-		$Pictbox4.Refresh()
+		$buffi.Graphics.DrawLine($color_pen[3], 0, $height, $img[0], $height)
 	}
 	} #sw
  } #func
- 
+ 	
 function Poly_chw(){ 
 
 	[int]$j= Idx # op.num
@@ -2321,10 +2234,11 @@ function Poly_chw(){
 		Poly_2op $env $j
 		$buffz.Render($gpv) # ura buffer store
 
-		$buffz.Graphics.DrawLines($Mpen, $pointing[0]) # sin wave
-
 		$buffz.Render($gp_tmp);
 		$gpz.DrawImage($image_tmp, $op_Rect) # size down
+
+
+		$gpz.DrawLines($Mpen, $pointing[0]) # sin wave
 
 		[string[]]$value= Value_out
 		$gpz.DrawString($value[0], $Fona, $XBbrush, 120,5)
@@ -2339,10 +2253,11 @@ function Poly_chw(){
 		Poly_2op $env $j
 		$buffx.Render($gpt) # ura buffer store
 
-		$buffx.Graphics.DrawLines($Cpen, $pointing[1]) # sin wave
-
 		$buffx.Render($gp_tmp);
 		$gpx.DrawImage($image_tmp, $op_Rect) # size down
+
+
+		$gpx.DrawLines($Cpen, $pointing[1]) # sin wave
 
 		[string[]]$value= Value_out
 		$gpx.DrawString($value[1], $Fona, $XRbrush, 120,5)
@@ -2354,6 +2269,100 @@ function Poly_chw(){
 	} #sw
 
 
+ } #func
+ 
+function Poly_chg(){ 
+
+	[int]$j= Idx
+
+	switch($comb_fm.SelectedItem){
+	'opn 4op'{	[array]$arr= $opn_fur; break;
+	}'opm 4op'{	[array]$arr= $opm_fur
+	}
+	} #sw
+
+	[array]$env= @(0,0,0,0) # jag op # ar,dr,sllev,sl,rr
+	$env[$j]= @($arr[$j][2],$arr[$j][3],$arr[$j][6],$arr[$j][4],$arr[$j][5])
+
+
+	switch($j){
+	0{
+		$pict_panel.SuspendLayout()
+
+		Poly_4op $env $j
+		$buffc.Render($gpk) # ura buffer
+
+		$buffc.Render($gp_tmp);
+		$gpc.DrawImage($image_tmp, $op_Rect)
+
+
+		$gpc.DrawLines($Mpen, $pointing[0]) # sine wave
+
+		[string[]]$value= Value_out
+		$gpc.DrawString($value[0], $Fona, $XBbrush, 120,5)
+
+		$pict_panel.ResumeLayout()
+
+		$Pictbox1.Refresh()
+		break;
+	}1{
+		$pict_panel.SuspendLayout()
+
+		Poly_4op $env $j
+		$buffe.Render($gpm)
+
+		$buffe.Render($gp_tmp);
+		$gpe.DrawImage($image_tmp, $op_Rect)
+
+
+		$gpe.DrawLines($Ypen, $pointing[1])
+
+		[string[]]$value= Value_out
+		$gpe.DrawString($value[1], $Fona, $XGbrush, 120,5)
+
+		$pict_panel.ResumeLayout()
+
+		$Pictbox2.Refresh()
+		break;
+	}2{
+		$pict_panel.SuspendLayout()
+
+		Poly_4op $env $j
+		$buffg.Render($gpo)
+
+		$buffg.Render($gp_tmp);
+		$gpg.DrawImage($image_tmp, $op_Rect)
+
+
+		$gpg.DrawLines($Lpen, $pointing[2])
+
+		[string[]]$value= Value_out
+		$gpg.DrawString($value[2], $Fona, $XObrush, 120,5)
+
+		$pict_panel.ResumeLayout()
+
+		$Pictbox3.Refresh()
+		break;
+	}3{
+		$pict_panel.SuspendLayout()
+
+		Poly_4op $env $j
+		$buffi.Render($gpq)
+
+		$buffi.Render($gp_tmp);
+		$gpi.DrawImage($image_tmp, $op_Rect)
+
+
+		$gpi.DrawLines($Cpen, $pointing[3])
+
+		[string[]]$value= Value_out
+		$gpi.DrawString($value[3], $Fona, $XRbrush, 120,5)
+
+		$pict_panel.ResumeLayout()
+
+		$Pictbox4.Refresh()
+	}
+	} #sw
  } #func
   
 # sine 
@@ -2444,6 +2453,8 @@ function Sin_mapping([int]$cnt,[double]$rad){
  
 function Reso([int]$b){ 
 
+	[int[]]$img= 320, 200 # Op.box
+
 	[int]$script:count= $img[0]/ $b
 
 
@@ -2459,12 +2470,109 @@ function Reso([int]$b){
  
 # ------ 
  
+function Sin_2op([array]$rc,[int]$alg,[int]$fbj){ # 2op sin render 
+
+
+	[int[]]$img= 320, 200 # Op.box
+
+	[int]$adj_value= $key["adjust"] # <- (-0.75*$tl[0]/ [[20]])
+
+	[int]$height= $img[1] / 2 # 中心線
+	[float]$adjv= $height/ $adj_value # 度合い
+
+
+	[float[]]$feb= @(0, 0.0625, 0.125, 0.25, 0.5, 1,2,4)
+	# 変調度 0,(1/16),(1/8),(1/4), (1/2), 1,2,4
+	[float]$feedback= $feb[$fbj]* $radian/ $adj_value # 移動平均ため
+
+
+	[int[]]$dist= @($rc[0][2],$rc[1][2]) # 半整流
+
+
+	[int[]]$tl= @($rc[0][0],$rc[1][0]) # tl [0-63]
+	[int[]]$ml= @($rc[0][1],$rc[1][1]) # ml [int]::Parse(), -as [int] ___0 -> 0
+
+
+
+	# -0.75dB* [0-63] として計算
+
+	## [float]$atai= -0.75/ 20
+
+	[float[]]$rdus= @(0,0)
+
+	## $rdus[0]= [Math]::Pow(10, ($atai* $tl[0]))* 20
+	# (-0.75*$tl[0]/ 20) -> -0.0375
+	$rdus[0]= [Math]::Pow(10, (-0.0375* $tl[0]))* 20
+	$rdus[1]= [Math]::Pow(10, (-0.0375* $tl[1]))* 20
+
+	[int]$bai_value= $bai
+
+	if($bai_value -ne 1){
+		$rdus[0]= [Math]::Round($rdus[0],4,"ToEven") # MidpointRounding.ToEven / ginkohya marume
+		$rdus[1]= [Math]::Round($rdus[1],4,"ToEven")
+	}
+
+	[float[]]$ye= @(0,0,0) # 2op
+
+	[array]$xy= $sin_pos # "0"の変数ブロック
+	[array]$sine= $sin_map # gbl -> localへメモリアクセス
+
+	[int]$i= 0
+	for($i=0; $i -lt $count; $i++){ # x軸
+
+		# [Math]::Sin直接書き込み高速化ため
+
+		# op.1 // $sin_map= x軸[0-79]px * 2PI [radian] * ML / 80px
+
+		$ye[0]= $rdus[0]* [Math]::Sin($sine[$ml[0]][$i]+ $ye[2])
+		$ye[2]= $feedback* ($ye[0]+ $ye[2]) # 2sampleの場合
+
+
+		switch($alg){
+		0{	# 直列
+			if($dist[0] -eq 1){
+				if($ye[0] -lt 0){
+					$ye[0]= 0 # 半整流 vrc7 nomi
+				}
+			}
+
+			$ye[1]= $rdus[1]* [Math]::Sin($sine[$ml[1]][$i]+ $ye[0]) # y座標値
+
+			if($dist[1] -eq 1){
+				if($ye[1] -lt 0){
+					$ye[1]= 0
+				}
+			}
+			break;
+
+		}1{	# 並列 opl2 nomi
+
+			$ye[1]= $rdus[1]* [Math]::Sin($sine[$ml[1]][$i])
+		}
+		} #sw
+
+		$ye[0]= $height- $ye[0]* $adjv
+		$ye[1]= $height- $ye[1]* $adjv
+
+		$xy[0][$i]= ($i* $bai_value/ 2), ($ye[0]/ 2)
+		$xy[1][$i]= ($i* $bai_value/ 2), ($ye[1]/ 2)
+	} #
+
+	Flowtting_point $count 0 $xy[0]
+	Flowtting_point $count 1 $xy[1]
+
+	$gpz.DrawLines($Mpen, $pointing[0])
+	$gpx.DrawLines($Cpen, $pointing[1])
+ } #func
+ 
 function Sin_4op([array]$rc,[int]$alg,[int]$fbj){ # 4op sin render 
 
 
+	[int[]]$img= 320, 200 # Op.box
+
 	[int]$adj_value= $key["adjust"]
 
-	[int]$height= $img[1]/ 2 # 50px
+	[int]$height= $img[1]/ 2
 	[float]$adjv= $height/ $adj_value
 
 
@@ -2571,10 +2679,10 @@ function Sin_4op([array]$rc,[int]$alg,[int]$fbj){ # 4op sin render
 		$ye[2]= $height- $ye[2]* $adjv
 		$ye[3]= $height- $ye[3]* $adjv
 
-		$xy[0][$i]= ($i* $bai_value), $ye[0]
-		$xy[1][$i]= ($i* $bai_value), $ye[1]
-		$xy[2][$i]= ($i* $bai_value), $ye[2]
-		$xy[3][$i]= ($i* $bai_value), $ye[3]
+		$xy[0][$i]= ($i* $bai_value/ 2),  ($ye[0]/ 2)
+		$xy[1][$i]= ($i* $bai_value/ 2),  ($ye[1]/ 2)
+		$xy[2][$i]= ($i* $bai_value/ 2),  ($ye[2]/ 2)
+		$xy[3][$i]= ($i* $bai_value/ 2),  ($ye[3]/ 2)
 	} #
 
 	Flowtting_point $count 0 $xy[0]
@@ -2582,161 +2690,10 @@ function Sin_4op([array]$rc,[int]$alg,[int]$fbj){ # 4op sin render
 	Flowtting_point $count 2 $xy[2]
 	Flowtting_point $count 3 $xy[3]
 
-	$buffc.Graphics.DrawLines($Mpen, $pointing[0])
-	$buffe.Graphics.DrawLines($Ypen, $pointing[1])
-	$buffg.Graphics.DrawLines($Lpen, $pointing[2])
-	$buffi.Graphics.DrawLines($Cpen, $pointing[3])
- } #func
- 
-function Sin_2op([array]$rc,[int]$alg,[int]$fbj){ # 2op sin render 
-
-
-	[int]$adj_value= $key["adjust"] # <- (-0.75*$tl[0]/ [[20]])
-
-	[int]$height= $img[1] / 2 # 中心線 50px
-	[float]$adjv= $height/ $adj_value # 度合い
-
-
-	[float[]]$feb= @(0, 0.0625, 0.125, 0.25, 0.5, 1,2,4)
-	# 変調度 0,(1/16),(1/8),(1/4), (1/2), 1,2,4
-	[float]$feedback= $feb[$fbj]* $radian/ $adj_value # 移動平均ため
-
-
-	[int[]]$dist= @($rc[0][2],$rc[1][2]) # 半整流
-
-
-	[int[]]$tl= @($rc[0][0],$rc[1][0]) # tl [0-63]
-	[int[]]$ml= @($rc[0][1],$rc[1][1]) # ml [int]::Parse(), -as [int] ___0 -> 0
-
-
-
-	# -0.75dB* [0-63] として計算
-
-	## [float]$atai= -0.75/ 20
-
-	[float[]]$rdus= @(0,0)
-
-	## $rdus[0]= [Math]::Pow(10, ($atai* $tl[0]))* 20
-	# (-0.75*$tl[0]/ 20) -> -0.0375
-	$rdus[0]= [Math]::Pow(10, (-0.0375* $tl[0]))* 20
-	$rdus[1]= [Math]::Pow(10, (-0.0375* $tl[1]))* 20
-
-	[int]$bai_value= $bai
-
-	if($bai_value -ne 1){
-		$rdus[0]= [Math]::Round($rdus[0],4,"ToEven") # MidpointRounding.ToEven / ginkohya marume
-		$rdus[1]= [Math]::Round($rdus[1],4,"ToEven")
-	}
-
-	[float[]]$ye= @(0,0,0) # 2op
-
-	[array]$xy= $sin_pos # "0"の変数ブロック
-	[array]$sine= $sin_map # gbl -> localへメモリアクセス
-
-	[int]$i= 0
-	for($i=0; $i -lt $count; $i++){ # x軸
-
-		# [Math]::Sin直接書き込み高速化ため
-
-		# op.1 // $sin_map= x軸[0-79]px * 2PI [radian] * ML / 80px
-
-		$ye[0]= $rdus[0]* [Math]::Sin($sine[$ml[0]][$i]+ $ye[2])
-		$ye[2]= $feedback* ($ye[0]+ $ye[2]) # 2sampleの場合
-
-
-		switch($alg){
-		0{	# 直列
-			if($dist[0] -eq 1){
-				if($ye[0] -lt 0){
-					$ye[0]= 0 # 半整流 vrc7 nomi
-				}
-			}
-
-			$ye[1]= $rdus[1]* [Math]::Sin($sine[$ml[1]][$i]+ $ye[0]) # y座標値
-
-			if($dist[1] -eq 1){
-				if($ye[1] -lt 0){
-					$ye[1]= 0
-				}
-			}
-			break;
-
-		}1{	# 並列 opl2 nomi
-
-			$ye[1]= $rdus[1]* [Math]::Sin($sine[$ml[1]][$i])
-		}
-		} #sw
-
-		$ye[0]= $height- $ye[0]* $adjv
-		$ye[1]= $height- $ye[1]* $adjv
-
-		$xy[0][$i]= ($i* $bai_value), $ye[0]
-		$xy[1][$i]= ($i* $bai_value), $ye[1]
-	} #
-
-	Flowtting_point $count 0 $xy[0]
-	Flowtting_point $count 1 $xy[1]
-
-	$buffz.Graphics.DrawLines($Mpen, $pointing[0])
-	$buffx.Graphics.DrawLines($Cpen, $pointing[1])
- } #func
- 
-function Sin_chg(){ 
-
-	switch($comb_fm.SelectedItem){
-
-	'opn 4op'{	[array]$arr= $opn_fur; break;
-	}'opm 4op'{	[array]$arr= $opm_fur
-	}
-	} #sw
-
-	[string]$n= $arr[0][0] # alg
-	[string]$f= $arr[0][1] # fb
-
-	[array]$cyle= @(0,0,0,0) # tl,ml
-	[string[]] $cyle[0]= @($arr[0][7],$arr[0][9])
-	[string[]] $cyle[1]= @($arr[1][7],$arr[1][9])
-	[string[]] $cyle[2]= @($arr[2][7],$arr[2][9])
-	[string[]] $cyle[3]= @($arr[3][7],$arr[3][9])
-
-
-	$pict_panel.SuspendLayout()
-
-	$buffc.Graphics.DrawImage($image5, $buf_Rect)
-	$buffe.Graphics.DrawImage($image6, $buf_Rect)
-	$buffg.Graphics.DrawImage($image7, $buf_Rect)
-	$buffi.Graphics.DrawImage($image8, $buf_Rect)
-
-
-	Sin_4op $cyle $n $f
-	sleep -m $key["wait"]
-
-	$buffc.Render($gp_tmp);
-	$gpc.DrawImage($image_tmp, $op_Rect)
-
-	$buffe.Render($gp_tmp);
-	$gpe.DrawImage($image_tmp, $op_Rect)
-
-	$buffg.Render($gp_tmp);
-	$gpg.DrawImage($image_tmp, $op_Rect)
-
-	$buffi.Render($gp_tmp);
-	$gpi.DrawImage($image_tmp, $op_Rect)
-
-
-	[string[]]$value= Value_out
-
-	$gpc.DrawString($value[0], $Fona, $XBbrush, 120,5)
-	$gpe.DrawString($value[1], $Fona, $XGbrush, 120,5)
-	$gpg.DrawString($value[2], $Fona, $XObrush, 120,5)
-	$gpi.DrawString($value[3], $Fona, $XRbrush, 120,5)
-
-	$pict_panel.ResumeLayout()
-
-	$Pictbox1.Refresh()
-	$Pictbox2.Refresh()
-	$Pictbox3.Refresh()
-	$Pictbox4.Refresh()
+	$gpc.DrawLines($Mpen, $pointing[0])
+	$gpe.DrawLines($Ypen, $pointing[1])
+	$gpg.DrawLines($Lpen, $pointing[2])
+	$gpi.DrawLines($Cpen, $pointing[3])
  } #func
  
 function Sin_chw(){ 
@@ -2770,15 +2727,15 @@ function Sin_chw(){
 	$buffz.Graphics.DrawImage($image5a, $buf_Rect)
 	$buffx.Graphics.DrawImage($image6a, $buf_Rect)
 
-	Sin_2op $cyle $n $f
-	sleep -m $key["wait"]
-
 	$buffz.Render($gp_tmp);
 	$gpz.DrawImage($image_tmp, $op_Rect)
 
 	$buffx.Render($gp_tmp);
 	$gpx.DrawImage($image_tmp, $op_Rect)
 
+
+	Sin_2op $cyle $n $f
+	sleep -m $key["wait"]
 
 	[string[]]$value= Value_out
 
@@ -2792,6 +2749,63 @@ function Sin_chw(){
 	$Pictbox2a.Refresh()
 
 
+ } #func
+ 
+function Sin_chg(){ 
+
+	switch($comb_fm.SelectedItem){
+
+	'opn 4op'{	[array]$arr= $opn_fur; break;
+	}'opm 4op'{	[array]$arr= $opm_fur
+	}
+	} #sw
+
+	[string]$n= $arr[0][0] # alg
+	[string]$f= $arr[0][1] # fb
+
+	[array]$cyle= @(0,0,0,0) # tl,ml
+	[string[]] $cyle[0]= @($arr[0][7],$arr[0][9])
+	[string[]] $cyle[1]= @($arr[1][7],$arr[1][9])
+	[string[]] $cyle[2]= @($arr[2][7],$arr[2][9])
+	[string[]] $cyle[3]= @($arr[3][7],$arr[3][9])
+
+
+	$pict_panel.SuspendLayout()
+
+	$buffc.Graphics.DrawImage($image5, $buf_Rect)
+	$buffe.Graphics.DrawImage($image6, $buf_Rect)
+	$buffg.Graphics.DrawImage($image7, $buf_Rect)
+	$buffi.Graphics.DrawImage($image8, $buf_Rect)
+
+	$buffc.Render($gp_tmp);
+	$gpc.DrawImage($image_tmp, $op_Rect)
+
+	$buffe.Render($gp_tmp);
+	$gpe.DrawImage($image_tmp, $op_Rect)
+
+	$buffg.Render($gp_tmp);
+	$gpg.DrawImage($image_tmp, $op_Rect)
+
+	$buffi.Render($gp_tmp);
+	$gpi.DrawImage($image_tmp, $op_Rect)
+
+
+	Sin_4op $cyle $n $f
+	sleep -m $key["wait"]
+
+	[string[]]$value= Value_out
+
+	$gpc.DrawString($value[0], $Fona, $XBbrush, 120,5)
+	$gpe.DrawString($value[1], $Fona, $XGbrush, 120,5)
+	$gpg.DrawString($value[2], $Fona, $XObrush, 120,5)
+	$gpi.DrawString($value[3], $Fona, $XRbrush, 120,5)
+
+	$pict_panel.ResumeLayout()
+
+	$Pictbox1.Refresh()
+	$Pictbox2.Refresh()
+	$Pictbox3.Refresh()
+	$Pictbox4.Refresh()
  } #func
   
 # bg alg 
@@ -2846,6 +2860,8 @@ function Chip_position([string]$k){
 	} #sw
  } #func
  
+<# 
+ 
 function Alg_cablw([int]$alg){ 
 
  [int]$sw= Idx
@@ -2869,8 +2885,6 @@ function Alg_cablw([int]$alg){
  $line= $rr[3]
 
  $buffw.Graphics.Clear($board)
- $buffw.Graphics.FillRectangle($line,$xye2[0],$xye2[1],$xye2[2],$xye2[3])
- $buffw.Graphics.FillRectangle($line,$xye2[4],$xye2[5],$xye2[6],$xye2[7])
  $buffw.Graphics.DrawString($tt,$Fona,$brush, $xytwo[0],$xytwo[1]) # $script:xytwo
 
  [array]$color_pen= @($XBpen,$XRpen)
@@ -2982,8 +2996,6 @@ function Alg_cable([int]$alg){
  $line= $rr[3]
 
  $buffb.Graphics.Clear($board)
- $buffb.Graphics.FillRectangle($line,$xye4[0],$xye4[1],$xye4[2],$xye4[3])
- $buffb.Graphics.FillRectangle($line,$xye4[4],$xye4[5],$xye4[6],$xye4[7])
  $buffb.Graphics.DrawString($tt,$Fona,$brush, $xyfour[0],$xyfour[1]) # $script:xyfour
 
  [array]$color_pen= @($XBpen,$XGpen,$XOpen,$XRpen)
@@ -3434,6 +3446,621 @@ function Alg_cable([int]$alg){
 
  } #func
  
+#> 
+ 
+function Alg_cablw([int]$alg){ 
+
+	[int]$sw= Idx
+	[array]$arr= @("Op.1","Op.2")
+
+	[array]$mtx= @("","")
+	$mtx[0]= @("Modulator","Carrier")
+	$mtx[1]= @("Carrier","Carrier")
+
+	[array]$ary= @("vrc7","opl","opn","opm") # .SelectedIndex
+
+
+	[string]$tt= $ary[$comb_fm.SelectedIndex]+ "`r`n"+ "Alg:"+ ($alg -as [string])+ "`r`n"+ $arr[$sw]+ "`r`n"+ $mtx[$alg][$sw]+ "`r`n"+ (ShortX $key["wheel"][$comb_fm.SelectedIndex] "long")
+
+
+	[array]$rr= Monotone_select "Alg_"
+
+	$pen= $rr[0]
+	$brush= $rr[1]
+	$board= $rr[2]
+	$line= $rr[3]
+
+	[array]$color_pen= @($XBpen,$XRpen)
+	[array]$cable= @($Ppen,$Bpen,$Rpen)
+	[array]$tex= @($Cbrush,$Mbrush)
+
+	$buffw.Graphics.Clear($board)
+
+	switch($alg){
+	0{
+		$Pictbox1a.Location= "100,20"
+		$Pictbox2a.Location= "180,145"
+
+
+		switch($sw){ # current select
+		0{
+		    	$buffw.Graphics.DrawRectangle($color_pen[0], 99,19,163,103) # highlight
+		    	$buffw.Graphics.FillRectangle($brush, $xyi[0][9],$xyi[1][7], 15,18)
+			break;
+		}1{
+		    	$buffw.Graphics.DrawRectangle($color_pen[1], 179,144,163,103)
+		    	$buffw.Graphics.FillRectangle($brush, $xyi[0][13],$xyi[1][7], 15,18)
+		}
+		} #sw
+
+		$buffw.Render($gpw);
+
+		$gpw.DrawString($tt,$Fona,$brush, $xytwo[0],$xytwo[1]) # $script:xytwo
+
+		$gpw.DrawBeziers($cable[0],$pointar[0])
+		$gpw.DrawBeziers($cable[1],$pointar[1])
+		$gpw.DrawBeziers($cable[2],$pointar[2])
+
+		$gpw.DrawRectangle($pen, $xyi[0][9],$xyi[1][7], 15,18) # op
+		$gpw.DrawRectangle($pen, $xyi[0][13],$xyi[1][7], 15,18)
+
+		$gpw.DrawString("M", $Fona, $tex[0], $xyi[0][9],$xyi[1][7]) # overwrite
+		$gpw.DrawString("C", $Fona, $tex[1], $xyi[0][13],$xyi[1][7])
+
+		$gpw.DrawLine($pen, $xyi[0][8],$xyi[1][8], $xyi[0][9],$xyi[1][8]) # fb
+		$gpw.DrawLine($pen, $xyi[0][8],$xyi[1][6], $xyi[0][8],$xyi[1][8])
+		$gpw.DrawLine($pen, $xyi[0][8],$xyi[1][6], $xyi[0][12],$xyi[1][6])
+		$gpw.DrawLine($pen, $xyi[0][12],$xyi[1][6], $xyi[0][12],$xyi[1][8])
+
+		$gpw.DrawLine($pen, $xyi[0][11],$xyi[1][8], $xyi[0][13],$xyi[1][8]) # 結線
+		$gpw.DrawLine($pen, $xyi[0][15],$xyi[1][8], $xyi[0][17],$xyi[1][8])
+
+		break;
+	}1{
+		$Pictbox1a.Location= "180,20"
+		$Pictbox2a.Location= "180,145"
+
+		$buffw.Graphics.Clear($board)
+
+		switch($sw){
+		0{
+			$buffw.Graphics.DrawRectangle($color_pen[0], 179,19,163,103)
+			$buffw.Graphics.FillRectangle($brush, $xyi[0][11],$xyi[1][5], 15,18)
+			break;
+		}1{
+			$buffw.Graphics.DrawRectangle($color_pen[1], 179,144,163,103)
+			$buffw.Graphics.FillRectangle($brush, $xyi[0][11],$xyi[1][9], 15,18)
+		}
+		} #sw
+
+		$buffw.Render($gpw);
+
+		$gpw.DrawString($tt,$Fona,$brush, $xytwo[0],$xytwo[1]) # $script:xytwo
+
+		$gpw.DrawBeziers($cable[0],$pointat[0])
+		$gpw.DrawBeziers($cable[1],$pointat[1])
+		$gpw.DrawBeziers($cable[2],$pointat[2])
+
+		$gpw.DrawRectangle($pen, $xyi[0][11],$xyi[1][5], 15,18)
+		$gpw.DrawRectangle($pen, $xyi[0][11],$xyi[1][9], 15,18)
+
+		$gpw.DrawString("C", $Fona, $tex[0], $xyi[0][11],$xyi[1][5])
+		$gpw.DrawString("C", $Fona, $tex[1], $xyi[0][11],$xyi[1][9])
+
+		$gpw.DrawLine($pen, $xyi[0][10],$xyi[1][6], $xyi[0][11],$xyi[1][6]) #fb
+		$gpw.DrawLine($pen, $xyi[0][10],$xyi[1][4], $xyi[0][10],$xyi[1][6])
+		$gpw.DrawLine($pen, $xyi[0][10],$xyi[1][4], $xyi[0][14],$xyi[1][4])
+		$gpw.DrawLine($pen, $xyi[0][14],$xyi[1][4], $xyi[0][14],$xyi[1][6])
+
+		$gpw.DrawLine($pen, $xyi[0][13],$xyi[1][6], $xyi[0][15],$xyi[1][6]) #xy軸
+		$gpw.DrawLine($pen, $xyi[0][13],$xyi[1][10], $xyi[0][15],$xyi[1][10])
+		$gpw.DrawLine($pen, $xyi[0][15],$xyi[1][6], $xyi[0][15],$xyi[1][10])
+		$gpw.DrawLine($pen, $xyi[0][15],$xyi[1][8], $xyi[0][17],$xyi[1][8])
+	}
+	} #sw
+ } #func
+ 
+function Alg_cable([int]$alg){ 
+
+	[int]$sw= Idx
+	[array]$arr= @("Op.1","Op.2","Op.3","Op.4")
+
+	[array]$mtx= @("","","","", "","","","") # nazo err kikenn kosuu busoku dato
+	$mtx[0]= @("Modulator","Modulator","Modulator","Carrier")
+	$mtx[1]= @("Modulator","Modulator","Modulator","Carrier")
+	$mtx[2]= @("Modulator","Modulator","Modulator","Carrier")
+	$mtx[3]= @("Modulator","Modulator","Modulator","Carrier")
+
+	$mtx[4]= @("Modulator","Carrier","Modulator","Carrier")
+	$mtx[5]= @("Modulator","Carrier","Carrier","Carrier")
+	$mtx[6]= @("Modulator","Carrier","Carrier","Carrier")
+	$mtx[7]= @("Carrier","Carrier","Carrier","Carrier")
+
+	[array]$ary= @("vrc7","opl","opn","opm")
+
+	[string]$tt= $ary[$comb_fm.SelectedIndex]+ "`r`n"+ "Alg:"+($alg -as [string])+ "`r`n"+ $arr[$sw]+ "`r`n"+ $mtx[$alg][$sw]+ "`r`n"+  (ShortX $key["wheel"][$comb_fm.SelectedIndex] "long")
+
+	if(Mskseg_chk){ $tt+= (Mskseg_out 2) }
+
+
+	[array]$rr= Monotone_select "Alg_"
+	$pen= $rr[0]
+	$brush= $rr[1]
+	$board= $rr[2]
+	$line= $rr[3]
+
+	[array]$color_pen= @($XBpen,$XGpen,$XOpen,$XRpen)
+	[array]$cable= @($Ppen,$Bpen,$Gpen,$Open,$Rpen)
+	[array]$tex= @($Cbrush,$Lbrush,$Ybrush,$Mbrush)
+
+
+	$buffb.Graphics.Clear($board)
+
+	switch($alg){
+	0{
+ 		$Pictbox1.Location= "20,20" # 5px up
+		$Pictbox2.Location= "100,145"
+		$Pictbox3.Location= "180,270"
+		$Pictbox4.Location= "260,395"
+
+		switch($sw){ # current select
+		0{
+			$buffb.Graphics.DrawRectangle($color_pen[0], 19,19,163,103) # highlight
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][1],$xyp[1][7], 15,18)
+			break;
+		}1{
+			$buffb.Graphics.DrawRectangle($color_pen[1], 99,144,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][5],$xyp[1][7], 15,18)
+			break;
+		}2{
+			$buffb.Graphics.DrawRectangle($color_pen[2],179,269,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][9],$xyp[1][7], 15,18)
+			break;
+		}3{
+			$buffb.Graphics.DrawRectangle($color_pen[3],259,394,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][13],$xyp[1][7], 15,18)
+		}
+		} #sw
+
+		$buffb.Render($gpb);
+		$gpb.DrawString($tt,$Fona,$brush, $xyfour[0],$xyfour[1]) # $script:xyfour
+
+		$gpb.DrawBeziers($cable[1],$pointab[1])
+		$gpb.DrawBeziers($cable[0],$pointab[0]) # 5px down
+		$gpb.DrawBeziers($cable[2],$pointab[2])
+		$gpb.DrawBeziers($cable[3],$pointab[3])
+		$gpb.DrawBeziers($cable[4],$pointab[4])
+
+		# 枠 [$pen, x,y, width,height]
+		$gpb.DrawRectangle($pen, $xyp[0][1],$xyp[1][7], 15,18) # op
+		$gpb.DrawRectangle($pen, $xyp[0][5],$xyp[1][7], 15,18)
+		$gpb.DrawRectangle($pen, $xyp[0][9],$xyp[1][7], 15,18)
+		$gpb.DrawRectangle($pen, $xyp[0][13],$xyp[1][7], 15,18)
+
+		$gpb.DrawString("M", $Fona, $tex[0], $xyp[0][1],$xyp[1][7])
+		$gpb.DrawString("M", $Fona, $tex[1], $xyp[0][5],$xyp[1][7])
+		$gpb.DrawString("M", $Fona, $tex[2], $xyp[0][9],$xyp[1][7])
+		$gpb.DrawString("C", $Fona, $tex[3], $xyp[0][13],$xyp[1][7])
+
+		$gpb.DrawLine($pen, $xyp[0][0],$xyp[1][8], $xyp[0][1],$xyp[1][8]) # fb
+		$gpb.DrawLine($pen, $xyp[0][0],$xyp[1][6], $xyp[0][0],$xyp[1][8])
+		$gpb.DrawLine($pen, $xyp[0][0],$xyp[1][6], $xyp[0][4],$xyp[1][6])
+		$gpb.DrawLine($pen, $xyp[0][4],$xyp[1][6], $xyp[0][4],$xyp[1][8])
+
+		$gpb.DrawLine($pen, $xyp[0][3],$xyp[1][8], $xyp[0][5],$xyp[1][8]) # 結線
+
+		$gpb.DrawLine($pen, $xyp[0][7],$xyp[1][8], $xyp[0][9],$xyp[1][8])
+		$gpb.DrawLine($pen, $xyp[0][11],$xyp[1][8], $xyp[0][13],$xyp[1][8])
+		$gpb.DrawLine($pen, $xyp[0][15],$xyp[1][8], $xyp[0][17],$xyp[1][8])
+
+		break;
+	}1{
+		$Pictbox1.Location= "20,20"
+		$Pictbox2.Location= "20,145"
+		$Pictbox3.Location= "180,270"
+		$Pictbox4.Location= "260,395"
+
+		switch($sw){
+		0{
+			$buffb.Graphics.DrawRectangle($color_pen[0], 19,19,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][3],$xyp[1][5], 15,18)
+			break;
+		}1{
+			$buffb.Graphics.DrawRectangle($color_pen[1], 19,144,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][3],$xyp[1][9], 15,18)
+			break;
+		}2{
+			$buffb.Graphics.DrawRectangle($color_pen[2],179,269,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][9],$xyp[1][7], 15,18)
+			break;
+		}3{
+			$buffb.Graphics.DrawRectangle($color_pen[3],259,394,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][13],$xyp[1][7], 15,18)
+		}
+		} #sw
+
+		$buffb.Render($gpb);
+		$gpb.DrawString($tt,$Fona,$brush, $xyfour[0],$xyfour[1]) # $script:xyfour
+
+		$gpb.DrawBeziers($cable[2],$pointad[2])
+		$gpb.DrawBeziers($cable[1],$pointad[1])
+		$gpb.DrawBeziers($cable[0],$pointad[0])
+		$gpb.DrawBeziers($cable[3],$pointad[3])
+		$gpb.DrawBeziers($cable[4],$pointad[4])
+
+		$gpb.DrawRectangle($pen,   $xyp[0][3],$xyp[1][5], 15,18)
+		$gpb.DrawRectangle($pen,   $xyp[0][3],$xyp[1][9], 15,18)
+		$gpb.DrawRectangle($pen,   $xyp[0][9],$xyp[1][7], 15,18)
+		$gpb.DrawRectangle($pen,   $xyp[0][13],$xyp[1][7], 15,18)
+
+		$gpb.DrawString("M", $Fona, $tex[0], $xyp[0][3],$xyp[1][5])
+		$gpb.DrawString("M", $Fona, $tex[1], $xyp[0][3],$xyp[1][9])
+		$gpb.DrawString("M", $Fona, $tex[2], $xyp[0][9],$xyp[1][7])
+		$gpb.DrawString("C", $Fona, $tex[3], $xyp[0][13],$xyp[1][7])
+
+		$gpb.DrawLine($pen, $xyp[0][2],$xyp[1][6], $xyp[0][3],$xyp[1][6])
+		$gpb.DrawLine($pen, $xyp[0][2],$xyp[1][4], $xyp[0][2],$xyp[1][6])
+		$gpb.DrawLine($pen, $xyp[0][2],$xyp[1][4], $xyp[0][6],$xyp[1][4])
+		$gpb.DrawLine($pen, $xyp[0][6],$xyp[1][4], $xyp[0][6],$xyp[1][6])
+
+		$gpb.DrawLine($pen, $xyp[0][5],$xyp[1][6], $xyp[0][7],$xyp[1][6])
+		$gpb.DrawLine($pen, $xyp[0][5],$xyp[1][10], $xyp[0][7],$xyp[1][10])
+		$gpb.DrawLine($pen, $xyp[0][7],$xyp[1][6], $xyp[0][7],$xyp[1][10])
+		$gpb.DrawLine($pen, $xyp[0][7],$xyp[1][8], $xyp[0][9],$xyp[1][8])
+		$gpb.DrawLine($pen, $xyp[0][11],$xyp[1][8], $xyp[0][13],$xyp[1][8])
+		$gpb.DrawLine($pen, $xyp[0][15],$xyp[1][8], $xyp[0][17],$xyp[1][8])
+
+		break;
+	}2{
+		$Pictbox1.Location= "100,20"
+		$Pictbox2.Location= "20,145"
+		$Pictbox3.Location= "100,270"
+		$Pictbox4.Location= "260,395"
+
+		switch($sw){
+		0{
+			$buffb.Graphics.DrawRectangle($color_pen[0], 99,19,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][7],$xyp[1][5], 15,18)
+			break;
+		}1{
+			$buffb.Graphics.DrawRectangle($color_pen[1], 19,144,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][3],$xyp[1][9], 15,18)
+			break;
+		}2{
+			$buffb.Graphics.DrawRectangle($color_pen[2], 99,269,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][7],$xyp[1][9], 15,18)
+			break;
+		}3{
+			$buffb.Graphics.DrawRectangle($color_pen[3],259,394,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][13],$xyp[1][7], 15,18)
+		}
+		} #sw
+
+		$buffb.Render($gpb);
+		$gpb.DrawString($tt,$Fona,$brush, $xyfour[0],$xyfour[1]) # $script:xyfour
+
+		$gpb.DrawBeziers($cable[3],$pointaf[3])
+		$gpb.DrawBeziers($cable[2],$pointaf[2])
+		$gpb.DrawBeziers($cable[1],$pointaf[1])
+		$gpb.DrawBeziers($cable[0],$pointaf[0])
+		$gpb.DrawBeziers($cable[4],$pointaf[4])
+
+		$gpb.DrawRectangle($pen,   $xyp[0][7],$xyp[1][5], 15,18)
+		$gpb.DrawRectangle($pen,   $xyp[0][3],$xyp[1][9], 15,18)
+		$gpb.DrawRectangle($pen,   $xyp[0][7],$xyp[1][9], 15,18)
+		$gpb.DrawRectangle($pen,   $xyp[0][13],$xyp[1][7], 15,18)
+
+		$gpb.DrawString("M", $Fona, $tex[0], $xyp[0][7],$xyp[1][5])
+		$gpb.DrawString("M", $Fona, $tex[1], $xyp[0][3],$xyp[1][9])
+		$gpb.DrawString("M", $Fona, $tex[2], $xyp[0][7],$xyp[1][9])
+		$gpb.DrawString("C", $Fona, $tex[3], $xyp[0][13],$xyp[1][7])
+
+		$gpb.DrawLine($pen, $xyp[0][6],$xyp[1][6], $xyp[0][7],$xyp[1][6])
+		$gpb.DrawLine($pen, $xyp[0][6],$xyp[1][4], $xyp[0][6],$xyp[1][6])
+		$gpb.DrawLine($pen, $xyp[0][6],$xyp[1][4], $xyp[0][10],$xyp[1][4])
+		$gpb.DrawLine($pen, $xyp[0][10],$xyp[1][4], $xyp[0][10],$xyp[1][6])
+
+		$gpb.DrawLine($pen, $xyp[0][5],$xyp[1][10], $xyp[0][7],$xyp[1][10])
+		$gpb.DrawLine($pen, $xyp[0][9],$xyp[1][6], $xyp[0][11],$xyp[1][6])
+		$gpb.DrawLine($pen, $xyp[0][9],$xyp[1][10], $xyp[0][11],$xyp[1][10])
+		$gpb.DrawLine($pen, $xyp[0][11],$xyp[1][6], $xyp[0][11],$xyp[1][10])
+		$gpb.DrawLine($pen, $xyp[0][11],$xyp[1][8], $xyp[0][13],$xyp[1][8])
+		$gpb.DrawLine($pen, $xyp[0][15],$xyp[1][8], $xyp[0][17],$xyp[1][8])
+
+		break;
+	}3{
+		$Pictbox1.Location= "20,20"
+		$Pictbox2.Location= "100,145"
+		$Pictbox3.Location= "100,270"
+		$Pictbox4.Location= "260,395"
+
+		switch($sw){
+		0{
+			$buffb.Graphics.DrawRectangle($color_pen[0], 19,19,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][3],$xyp[1][5], 15,18)
+			break;
+		}1{
+			$buffb.Graphics.DrawRectangle($color_pen[1], 99,144,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][7],$xyp[1][5], 15,18)
+			break;
+		}2{
+			$buffb.Graphics.DrawRectangle($color_pen[2], 99,269,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][7],$xyp[1][9], 15,18)
+			break;
+		}3{
+			$buffb.Graphics.DrawRectangle($color_pen[3],259,394,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][13],$xyp[1][7], 15,18)
+		}
+		} #sw
+
+		$buffb.Render($gpb);
+		$gpb.DrawString($tt,$Fona,$brush, $xyfour[0],$xyfour[1]) # $script:xyfour
+
+		$gpb.DrawBeziers($cable[1],$pointah[1])
+		$gpb.DrawBeziers($cable[0],$pointah[0])
+		$gpb.DrawBeziers($cable[3],$pointah[3])
+		$gpb.DrawBeziers($cable[2],$pointah[2])
+		$gpb.DrawBeziers($cable[4],$pointah[4])
+
+		$gpb.DrawRectangle($pen,   $xyp[0][3],$xyp[1][5], 15,18)
+		$gpb.DrawRectangle($pen,   $xyp[0][7],$xyp[1][5], 15,18)
+		$gpb.DrawRectangle($pen,   $xyp[0][7],$xyp[1][9], 15,18)
+		$gpb.DrawRectangle($pen,   $xyp[0][13],$xyp[1][7], 15,18)
+
+		$gpb.DrawString("M", $Fona, $tex[0], $xyp[0][3],$xyp[1][5])
+		$gpb.DrawString("M", $Fona, $tex[1], $xyp[0][7],$xyp[1][5])
+		$gpb.DrawString("M", $Fona, $tex[2], $xyp[0][7],$xyp[1][9])
+		$gpb.DrawString("C", $Fona, $tex[3], $xyp[0][13],$xyp[1][7])
+
+		$gpb.DrawLine($pen, $xyp[0][2],$xyp[1][6], $xyp[0][3],$xyp[1][6])
+		$gpb.DrawLine($pen, $xyp[0][2],$xyp[1][4], $xyp[0][2],$xyp[1][6])
+		$gpb.DrawLine($pen, $xyp[0][2],$xyp[1][4], $xyp[0][6],$xyp[1][4])
+		$gpb.DrawLine($pen, $xyp[0][6],$xyp[1][4], $xyp[0][6],$xyp[1][6])
+
+		$gpb.DrawLine($pen, $xyp[0][5],$xyp[1][6], $xyp[0][7],$xyp[1][6])
+		$gpb.DrawLine($pen, $xyp[0][9],$xyp[1][6], $xyp[0][11],$xyp[1][6])
+		$gpb.DrawLine($pen, $xyp[0][9],$xyp[1][10], $xyp[0][11],$xyp[1][10])
+		$gpb.DrawLine($pen, $xyp[0][11],$xyp[1][6], $xyp[0][11],$xyp[1][10])
+		$gpb.DrawLine($pen, $xyp[0][11],$xyp[1][8], $xyp[0][13],$xyp[1][8])
+		$gpb.DrawLine($pen, $xyp[0][15],$xyp[1][8], $xyp[0][17],$xyp[1][8])
+
+		break;
+	}4{
+		$Pictbox1.Location= "100,20"
+		$Pictbox2.Location= "180,145"
+		$Pictbox3.Location= "100,270"
+		$Pictbox4.Location= "180,395"
+
+		switch($sw){
+		0{
+			$buffb.Graphics.DrawRectangle($color_pen[0], 99,19,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][7],$xyp[1][5], 15,18)
+			break;
+		}1{
+			$buffb.Graphics.DrawRectangle($color_pen[1],179,144,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][11],$xyp[1][5], 15,18)
+			break;
+		}2{
+			$buffb.Graphics.DrawRectangle($color_pen[2], 99,269,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][7],$xyp[1][9], 15,18)
+			break;
+		}3{
+			$buffb.Graphics.DrawRectangle($color_pen[3],179,394,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][11],$xyp[1][9], 15,18)
+		}
+		} #sw
+
+		$buffb.Render($gpb);
+		$gpb.DrawString($tt,$Fona,$brush, $xyfour[0],$xyfour[1]) # $script:xyfour
+
+		$gpb.DrawBeziers($cable[3],$pointaj[2])
+		$gpb.DrawBeziers($cable[1],$pointaj[1])
+		$gpb.DrawBeziers($cable[0],$pointaj[0])
+		$gpb.DrawBeziers($cable[2],$pointaj[3])
+		$gpb.DrawBeziers($cable[4],$pointaj[4])
+
+		$gpb.DrawRectangle($pen,   $xyp[0][7],$xyp[1][5], 15,18)
+		$gpb.DrawRectangle($pen,   $xyp[0][11],$xyp[1][5], 15,18)
+		$gpb.DrawRectangle($pen,   $xyp[0][7],$xyp[1][9], 15,18)
+		$gpb.DrawRectangle($pen,   $xyp[0][11],$xyp[1][9], 15,18)
+
+		$gpb.DrawString("M", $Fona, $tex[0], $xyp[0][7],$xyp[1][5])
+		$gpb.DrawString("C", $Fona, $tex[1], $xyp[0][11],$xyp[1][5])
+		$gpb.DrawString("M", $Fona, $tex[2], $xyp[0][7],$xyp[1][9])
+		$gpb.DrawString("C", $Fona, $tex[3], $xyp[0][11],$xyp[1][9])
+
+		$gpb.DrawLine($pen, $xyp[0][6],$xyp[1][6], $xyp[0][7],$xyp[1][6])
+		$gpb.DrawLine($pen, $xyp[0][6],$xyp[1][4], $xyp[0][6],$xyp[1][6])
+		$gpb.DrawLine($pen, $xyp[0][6],$xyp[1][4], $xyp[0][10],$xyp[1][4])
+		$gpb.DrawLine($pen, $xyp[0][10],$xyp[1][4], $xyp[0][10],$xyp[1][6])
+
+		$gpb.DrawLine($pen, $xyp[0][9],$xyp[1][6], $xyp[0][11],$xyp[1][6])
+		$gpb.DrawLine($pen, $xyp[0][9],$xyp[1][10], $xyp[0][11],$xyp[1][10])
+		$gpb.DrawLine($pen, $xyp[0][13],$xyp[1][6], $xyp[0][15],$xyp[1][6])
+		$gpb.DrawLine($pen, $xyp[0][13],$xyp[1][10], $xyp[0][15],$xyp[1][10])
+		$gpb.DrawLine($pen, $xyp[0][15],$xyp[1][6], $xyp[0][15],$xyp[1][10])
+		$gpb.DrawLine($pen, $xyp[0][15],$xyp[1][8], $xyp[0][17],$xyp[1][8])
+
+		break;
+	}5{
+		$Pictbox1.Location= "20,20"
+		$Pictbox2.Location= "180,145"
+		$Pictbox3.Location= "180,270"
+		$Pictbox4.Location= "180,395"
+
+		switch($sw){
+		0{
+			$buffb.Graphics.DrawRectangle($color_pen[0], 19,19,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][5],$xyp[1][9], 15,18)
+			break;
+		}1{
+			$buffb.Graphics.DrawRectangle($color_pen[1],179,144,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][11],$xyp[1][5], 15,18)
+			break;
+		}2{
+			$buffb.Graphics.DrawRectangle($color_pen[2],179,269,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][11],$xyp[1][9], 15,18)
+			break;
+		}3{
+			$buffb.Graphics.DrawRectangle($color_pen[3],179,394,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][11],$xyp[1][13], 15,18)
+		}
+		} #sw
+
+		$buffb.Render($gpb);
+		$gpb.DrawString($tt,$Fona,$brush, $xyfour[0],$xyfour[1]) # $script:xyfour
+
+		$gpb.DrawBeziers($cable[1],$pointal[3]) # [3]>[2]>[1]
+		$gpb.DrawBeziers($cable[1],$pointal[2])
+		$gpb.DrawBeziers($cable[1],$pointal[1])
+		$gpb.DrawBeziers($cable[0],$pointal[0])
+		$gpb.DrawBeziers($cable[2],$pointal[4])
+		$gpb.DrawBeziers($cable[3],$pointal[5])
+		$gpb.DrawBeziers($cable[4],$pointal[6])
+
+		$gpb.DrawRectangle($pen,   $xyp[0][5],$xyp[1][9], 15,18)
+		$gpb.DrawRectangle($pen,   $xyp[0][11],$xyp[1][5], 15,18)
+		$gpb.DrawRectangle($pen,   $xyp[0][11],$xyp[1][9], 15,18)
+		$gpb.DrawRectangle($pen,   $xyp[0][11],$xyp[1][13], 15,18)
+
+		$gpb.DrawString("M", $Fona, $tex[0], $xyp[0][5],$xyp[1][9])
+		$gpb.DrawString("C", $Fona, $tex[1], $xyp[0][11],$xyp[1][5])
+		$gpb.DrawString("C", $Fona, $tex[2], $xyp[0][11],$xyp[1][9])
+		$gpb.DrawString("C", $Fona, $tex[3], $xyp[0][11],$xyp[1][13])
+
+		$gpb.DrawLine($pen, $xyp[0][4],$xyp[1][10], $xyp[0][5],$xyp[1][10])
+		$gpb.DrawLine($pen, $xyp[0][4],$xyp[1][8], $xyp[0][4],$xyp[1][10])
+		$gpb.DrawLine($pen, $xyp[0][4],$xyp[1][8], $xyp[0][8],$xyp[1][8])
+		$gpb.DrawLine($pen, $xyp[0][8],$xyp[1][8], $xyp[0][8],$xyp[1][10])
+
+		$gpb.DrawLine($pen, $xyp[0][7],$xyp[1][10], $xyp[0][9],$xyp[1][10])
+		$gpb.DrawLine($pen, $xyp[0][9],$xyp[1][6], $xyp[0][9],$xyp[1][14])
+		$gpb.DrawLine($pen, $xyp[0][9],$xyp[1][6], $xyp[0][11],$xyp[1][6])
+		$gpb.DrawLine($pen, $xyp[0][9],$xyp[1][10], $xyp[0][11],$xyp[1][10])
+		$gpb.DrawLine($pen, $xyp[0][9],$xyp[1][14], $xyp[0][11],$xyp[1][14])
+		$gpb.DrawLine($pen, $xyp[0][13],$xyp[1][6], $xyp[0][15],$xyp[1][6])
+		$gpb.DrawLine($pen, $xyp[0][13],$xyp[1][10], $xyp[0][15],$xyp[1][10])
+		$gpb.DrawLine($pen, $xyp[0][13],$xyp[1][14], $xyp[0][15],$xyp[1][14])
+		$gpb.DrawLine($pen, $xyp[0][15],$xyp[1][6], $xyp[0][15],$xyp[1][14])
+		$gpb.DrawLine($pen, $xyp[0][15],$xyp[1][10], $xyp[0][17],$xyp[1][10])
+
+		break;
+	 }6{
+		$Pictbox1.Location= "100,20"
+		$Pictbox2.Location= "180,145"
+		$Pictbox3.Location= "180,270"
+		$Pictbox4.Location= "180,395"
+
+		switch($sw){
+		0{
+			$buffb.Graphics.DrawRectangle($color_pen[0], 99,19,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][7],$xyp[1][5], 15,18)
+			break;
+		}1{
+			$buffb.Graphics.DrawRectangle($color_pen[1],179,144,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][11],$xyp[1][5], 15,18)
+			break;
+		}2{
+			$buffb.Graphics.DrawRectangle($color_pen[2],179,269,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][11],$xyp[1][9], 15,18)
+			break;
+		}3{
+			$buffb.Graphics.DrawRectangle($color_pen[3],179,394,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][11],$xyp[1][13], 15,18)
+		}
+		} #sw
+
+		$buffb.Render($gpb);
+		$gpb.DrawString($tt,$Fona,$brush, $xyfour[0],$xyfour[1]) # $script:xyfour
+
+		$gpb.DrawBeziers($cable[1],$pointan[1])
+		$gpb.DrawBeziers($cable[0],$pointan[0])
+		$gpb.DrawBeziers($cable[2],$pointan[2])
+		$gpb.DrawBeziers($cable[3],$pointan[3])
+		$gpb.DrawBeziers($cable[4],$pointan[4])
+
+		$gpb.DrawRectangle($pen,   $xyp[0][7],$xyp[1][5], 15,18)
+		$gpb.DrawRectangle($pen,   $xyp[0][11],$xyp[1][5], 15,18)
+		$gpb.DrawRectangle($pen,   $xyp[0][11],$xyp[1][9], 15,18)
+		$gpb.DrawRectangle($pen,   $xyp[0][11],$xyp[1][13], 15,18)
+
+		$gpb.DrawString("M", $Fona, $tex[0], $xyp[0][7],$xyp[1][5])
+		$gpb.DrawString("C", $Fona, $tex[1], $xyp[0][11],$xyp[1][5])
+		$gpb.DrawString("C", $Fona, $tex[2], $xyp[0][11],$xyp[1][9])
+		$gpb.DrawString("C", $Fona, $tex[3], $xyp[0][11],$xyp[1][13])
+
+		$gpb.DrawLine($pen, $xyp[0][6],$xyp[1][6], $xyp[0][7],$xyp[1][6])
+		$gpb.DrawLine($pen, $xyp[0][6],$xyp[1][4], $xyp[0][6],$xyp[1][6])
+		$gpb.DrawLine($pen, $xyp[0][6],$xyp[1][4], $xyp[0][10],$xyp[1][4])
+		$gpb.DrawLine($pen, $xyp[0][10],$xyp[1][4], $xyp[0][10],$xyp[1][6])
+
+		$gpb.DrawLine($pen, $xyp[0][9],$xyp[1][6], $xyp[0][11],$xyp[1][6])
+		$gpb.DrawLine($pen, $xyp[0][13],$xyp[1][6], $xyp[0][15],$xyp[1][6])
+		$gpb.DrawLine($pen, $xyp[0][13],$xyp[1][10], $xyp[0][15],$xyp[1][10])
+		$gpb.DrawLine($pen, $xyp[0][13],$xyp[1][14], $xyp[0][15],$xyp[1][14])
+		$gpb.DrawLine($pen, $xyp[0][15],$xyp[1][6], $xyp[0][15],$xyp[1][14])
+		$gpb.DrawLine($pen, $xyp[0][15],$xyp[1][10], $xyp[0][17],$xyp[1][10])
+
+		break;
+	}7{
+		$Pictbox1.Location= "180,20"
+		$Pictbox2.Location= "180,145"
+		$Pictbox3.Location= "180,270"
+		$Pictbox4.Location= "180,395"
+
+		switch($sw){
+		0{
+			$buffb.Graphics.DrawRectangle($color_pen[0],179,19,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][11],$xyp[1][1], 15,18)
+			break;
+		}1{
+			$buffb.Graphics.DrawRectangle($color_pen[1],179,144,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][11],$xyp[1][5], 15,18)
+			break;
+		}2{
+			$buffb.Graphics.DrawRectangle($color_pen[2],179,269,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][11],$xyp[1][9], 15,18)
+			break;
+		}3{
+			$buffb.Graphics.DrawRectangle($color_pen[3],179,394,163,103)
+			$buffb.Graphics.FillRectangle($brush, $xyp[0][11],$xyp[1][13], 15,18)
+		}
+		} #sw
+
+		$buffb.Render($gpb);
+		$gpb.DrawString($tt,$Fona,$brush, $xyfour[0],$xyfour[1]) # $script:xyfour
+
+		$gpb.DrawBeziers($cable[1],$pointap[1])
+		$gpb.DrawBeziers($cable[0],$pointap[0])
+		$gpb.DrawBeziers($cable[2],$pointap[2])
+		$gpb.DrawBeziers($cable[3],$pointap[3])
+		$gpb.DrawBeziers($cable[4],$pointap[4])
+
+		$gpb.DrawRectangle($pen,   $xyp[0][11],$xyp[1][1], 15,18)
+		$gpb.DrawRectangle($pen,   $xyp[0][11],$xyp[1][5], 15,18)
+		$gpb.DrawRectangle($pen,   $xyp[0][11],$xyp[1][9], 15,18)
+		$gpb.DrawRectangle($pen,   $xyp[0][11],$xyp[1][13], 15,18)
+
+		$gpb.DrawString("C", $Fona, $tex[0], $xyp[0][11],$xyp[1][1])
+		$gpb.DrawString("C", $Fona, $tex[1], $xyp[0][11],$xyp[1][5])
+		$gpb.DrawString("C", $Fona, $tex[2], $xyp[0][11],$xyp[1][9])
+		$gpb.DrawString("C", $Fona, $tex[3], $xyp[0][11],$xyp[1][13])
+
+		$gpb.DrawLine($pen, $xyp[0][10],$xyp[1][2], $xyp[0][11],$xyp[1][2])
+		$gpb.DrawLine($pen, $xyp[0][10],$xyp[1][0], $xyp[0][10],$xyp[1][2])
+		$gpb.DrawLine($pen, $xyp[0][10],$xyp[1][0], $xyp[0][14],$xyp[1][0])
+		$gpb.DrawLine($pen, $xyp[0][14],$xyp[1][0], $xyp[0][14],$xyp[1][2])
+
+		$gpb.DrawLine($pen, $xyp[0][13],$xyp[1][2], $xyp[0][15],$xyp[1][2])
+		$gpb.DrawLine($pen, $xyp[0][13],$xyp[1][6], $xyp[0][15],$xyp[1][6])
+		$gpb.DrawLine($pen, $xyp[0][13],$xyp[1][10], $xyp[0][15],$xyp[1][10])
+		$gpb.DrawLine($pen, $xyp[0][13],$xyp[1][14], $xyp[0][15],$xyp[1][14])
+		$gpb.DrawLine($pen, $xyp[0][15],$xyp[1][2], $xyp[0][15],$xyp[1][14])
+		$gpb.DrawLine($pen, $xyp[0][15],$xyp[1][8], $xyp[0][17],$xyp[1][8])
+	}
+	} #sw
+ } #func
+ 
 function Pict_chg(){ 
 
 	switch($comb_fm.SelectedItem){
@@ -3448,7 +4075,7 @@ function Pict_chg(){
 	'2op'{
 		$pict_panel.SuspendLayout()
 		Alg_cablw $n
-		$buffw.Render($gpw);
+		# $buffw.Render($gpw);
 
 		$pict_panel.ResumeLayout()
 		$Pictbw.Refresh()
@@ -3456,7 +4083,7 @@ function Pict_chg(){
 	}'4op'{
 		$pict_panel.SuspendLayout()
 		Alg_cable $n
-		$buffb.Render($gpb);
+		# $buffb.Render($gpb);
 
 		$pict_panel.ResumeLayout()
 		$Pictbg.Refresh()
@@ -3549,17 +4176,17 @@ function All_chg(){	# $vrc_svn[][] ha "__1" no string
 		$buffz.Render($gpv) # ura buffer store
 		$buffx.Render($gpt)
 
-
-		Sin_2op $cyle $n $f
-		sleep -m $key["wait"]
-
-		$buffw.Render($gpw);
+		# size down
 
 		$buffz.Render($gp_tmp);
-		$gpz.DrawImage($image_tmp, $op_Rect) # size down
+		$gpz.DrawImage($image_tmp, $op_Rect)
 
 		$buffx.Render($gp_tmp);
 		$gpx.DrawImage($image_tmp, $op_Rect)
+
+
+		Sin_2op $cyle $n $f
+		sleep -m $key["wait"]
 
 		[string[]]$value= Value_out
 
@@ -3601,14 +4228,10 @@ function All_chg(){	# $vrc_svn[][] ha "__1" no string
 		$buffg.Render($gpo)
 		$buffi.Render($gpq)
 
-
-		Sin_4op $cyle $n $f
-		sleep -m $key["wait"]
-
-		$buffb.Render($gpb);
+		# size down
 
 		$buffc.Render($gp_tmp);
-		$gpc.DrawImage($image_tmp, $op_Rect) # size down
+		$gpc.DrawImage($image_tmp, $op_Rect)
 
 		$buffe.Render($gp_tmp);
 		$gpe.DrawImage($image_tmp, $op_Rect)
@@ -3619,6 +4242,9 @@ function All_chg(){	# $vrc_svn[][] ha "__1" no string
 		$buffi.Render($gp_tmp);
 		$gpi.DrawImage($image_tmp, $op_Rect)
 
+
+		Sin_4op $cyle $n $f
+		sleep -m $key["wait"]
 
 		[string[]]$value= Value_out
 
@@ -5546,7 +6172,7 @@ function Preset_read(){
   return $output
 
  } #func
- 	
+ 
 # ------ 
  
 function Mck_listen([string]$ss){ 
@@ -5571,7 +6197,6 @@ function Mck_listen([string]$ss){
 		Lisnfm_nsf 0 $hh
 	}
 	if($sb_alg.Visible){
-
 		if($key["clickplay"] -eq 'True'){
 			Monotone_select "lisn_btn"
 		}
@@ -5805,7 +6430,7 @@ function Key_down([string]$t){
   'F12'{
 		$lisn_btn.PerformClick()
 		break
-  }'F5'{	$conv_btn.PerformClick()
+  }'F5'{		$conv_btn.PerformClick()
   }
   } #sw
  } #func
@@ -5815,8 +6440,12 @@ function Key_play([string]$t){
   switch($t){
   'F12'{
 		$lisn_btn.PerformClick()
-		break
-  }'Space'{	$lisn_btn.PerformClick()
+		break;
+  }'Space'{
+		$lisn_btn.PerformClick()
+		break;
+  }'Return'{
+		$lisn_btn.PerformClick()
   }
   } #sw
  } #func
@@ -7472,9 +8101,9 @@ $Pictbw.Add_DoubleClick({
 $image1a= New-Object System.Drawing.Bitmap($op_IMG) 
 
 $gpz= [System.Drawing.Graphics]::FromImage($image1a)
-$gpz.CompositingQuality= "HighSpeed"
-$gpz.SmoothingMode= "HighSpeed"
-$gpz.PixelOffsetMode= "HighSpeed"
+$gpz.CompositingQuality= "HighQuality"
+$gpz.SmoothingMode= "HighQuality"
+$gpz.PixelOffsetMode= "HighQuality"
 
 $Pictbox1a= New-Object System.Windows.Forms.PictureBox
 $Pictbox1a.ClientSize= $image1a.Size
@@ -7548,9 +8177,9 @@ $Pictbox1a.Add_MouseDown({
 $image2a= New-Object System.Drawing.Bitmap($op_IMG) 
 
 $gpx= [System.Drawing.Graphics]::FromImage($image2a)
-$gpx.CompositingQuality= "HighSpeed"
-$gpx.SmoothingMode= "HighSpeed"
-$gpx.PixelOffsetMode= "HighSpeed"
+$gpx.CompositingQuality= "HighQuality"
+$gpx.SmoothingMode= "HighQuality"
+$gpx.PixelOffsetMode= "HighQuality"
 
 $Pictbox2a= New-Object System.Windows.Forms.PictureBox
 $Pictbox2a.ClientSize= $image2a.Size
@@ -7632,9 +8261,9 @@ $Pictbox2a.Add_MouseDown({
 $image1= New-Object System.Drawing.Bitmap($op_IMG) # 書き込む場所 
 
 $gpc= [System.Drawing.Graphics]::FromImage($image1)
-$gpc.CompositingQuality= "HighSpeed" # 高速で低品質
-$gpc.SmoothingMode= "HighSpeed" # アンチエイリアス処理しない
-$gpc.PixelOffsetMode= "HighSpeed"
+$gpc.CompositingQuality= "HighQuality" # HighSpeed # 高速で低品質
+$gpc.SmoothingMode= "HighQuality" # HighSpeed # アンチエイリアス処理しない
+$gpc.PixelOffsetMode= "HighQuality"
 
 $Pictbox1= New-Object System.Windows.Forms.PictureBox
 $Pictbox1.ClientSize= $image1.Size
@@ -7709,9 +8338,9 @@ $Pictbox1.Add_MouseDown({
 $image2= New-Object System.Drawing.Bitmap($op_IMG) 
 
 $gpe= [System.Drawing.Graphics]::FromImage($image2)
-$gpe.CompositingQuality= "HighSpeed"
-$gpe.SmoothingMode= "HighSpeed"
-$gpe.PixelOffsetMode= "HighSpeed"
+$gpe.CompositingQuality= "HighQuality"
+$gpe.SmoothingMode= "HighQuality"
+$gpe.PixelOffsetMode= "HighQuality"
 
 $Pictbox2= New-Object System.Windows.Forms.PictureBox
 $Pictbox2.ClientSize= $image2.Size
@@ -7785,9 +8414,9 @@ $Pictbox2.Add_MouseDown({
 $image3= New-Object System.Drawing.Bitmap($op_IMG) 
 
 $gpg= [System.Drawing.Graphics]::FromImage($image3)
-$gpg.CompositingQuality= "HighSpeed"
-$gpg.SmoothingMode= "HighSpeed"
-$gpg.PixelOffsetMode= "HighSpeed"
+$gpg.CompositingQuality= "HighQuality"
+$gpg.SmoothingMode= "HighQuality"
+$gpg.PixelOffsetMode= "HighQuality"
 
 $Pictbox3= New-Object System.Windows.Forms.PictureBox
 $Pictbox3.ClientSize= $image3.Size
@@ -7861,9 +8490,9 @@ $Pictbox3.Add_MouseDown({
 $image4= New-Object System.Drawing.Bitmap($op_IMG) 
 
 $gpi= [System.Drawing.Graphics]::FromImage($image4)
-$gpi.CompositingQuality= "HighSpeed"
-$gpi.SmoothingMode= "HighSpeed"
-$gpi.PixelOffsetMode= "HighSpeed"
+$gpi.CompositingQuality= "HighQuality"
+$gpi.SmoothingMode= "HighQuality"
+$gpi.PixelOffsetMode= "HighQuality"
 
 $Pictbox4= New-Object System.Windows.Forms.PictureBox
 $Pictbox4.ClientSize= $image4.Size
@@ -7952,9 +8581,9 @@ $buf_grp.PixelOffsetMode= "HighSpeed"
 $image_tmp= New-Object System.Drawing.Bitmap($buf_IMG) # size down 
 
 $gp_tmp= [System.Drawing.Graphics]::FromImage($image_tmp)
-$gp_tmp.CompositingQuality= "HighQuality"
-$gp_tmp.SmoothingMode= "HighQuality"
-$gp_tmp.PixelOffsetMode= "HighQuality"
+$gp_tmp.CompositingQuality= " HighSpeed"
+$gp_tmp.SmoothingMode= " HighSpeed"
+$gp_tmp.PixelOffsetMode= " HighSpeed"
  
 $contxtw= [System.Drawing.BufferedGraphicsManager]::Current 
 $contxtw.MaximumBuffer= "482,282"
@@ -8528,7 +9157,6 @@ $pict_panel.Controls.AddRange(@($Pictbox1a,$Pictbox2a,$Pictbox1,$Pictbox2,$Pictb
 # 後ろ側ほど下へレンダリングされる
 
 
-
 $sb_menu_e.DropDownItems.AddRange(@($sb_menu_one,$sb_menu_two,$sb_menu_three,$sb_menu_four,$sb_menu_five,$sb_menu_six,$sb_menu_seven))
 $sb_menu_a.DropDownItems.AddRange(@($sb_menu_a0,$sb_menu_a1,$sb_menu_a2,$sb_menu_a3,$sb_menu_a4))
 $sb_menu_y.DropDownItems.AddRange(@($sb_menu_ff,$sb_menu_rev))
@@ -8543,7 +9171,7 @@ $sb_stus.Items.AddRange(@($sb_label))
 $sb_alg.Controls.AddRange(@($sb_mnu,$pict_panel,$sb_stus))
   
 # Preset forms 
-	 
+	
 $ff_baloon= New-Object System.Windows.Forms.Tooltip 
 $ff_baloon.ShowAlways= $False
 # $ff_baloon.ToolTipIcon= "Info"
@@ -8968,7 +9596,7 @@ $ff_mnu.Items.AddRange(@($ff_menu_f,$ff_menu_b))
 $ff_frm.Controls.AddRange(@($ff_mnu, $ff_tab, $play_chk, $import_btn, $close_btn))
   
 # Mask forms 
-	
+	 
 $sub_mask= New-Object System.Windows.Forms.Form 
 $sub_mask.Text= "Operator Mask"
 $sub_mask.Size= "272,172"
@@ -9277,7 +9905,7 @@ $sub_sav.CancelButton= $sub_sav_cancel_Btn	# [ESC]
 $sub_sav.AcceptButton= $sub_sav_ok_Btn	# [Enter]
   
 # Main forms 
-	 
+	
 # BUFFER 
 	
 [int[]]$IMG_buf= @(480, 480) # バッファサイズ 
@@ -10297,7 +10925,7 @@ $PictboxFB.Add_MouseLeave({
 })
   
 # Group 
-	 
+	
 $eg_grp= New-Object System.Windows.Forms.GroupBox 
 $eg_grp.Location= "10, 30"
 $eg_grp.Size= "255, 130" # 4op "255, 210"
@@ -11860,7 +12488,7 @@ $osc_grp.Size= "255, 105"
 $osc_grp.Location= "270,300"
 $osc_grp.ForeColor= "gray"
 $osc_grp.Font= $FonLabel
-	 
+	
 $lisn_btn= New-Object System.Windows.Forms.Button 
 $lisn_btn.Location= "20, 30"
 $lisn_btn.Size= "25, 25"
@@ -12230,7 +12858,7 @@ $frm_fm.TopLevel= $True
 
 $frm_fm.Add_Shown({ # .ShowDialog()呼出時のみ使用 - 挙動怪ため
  try{
-	$comb_fm.Select() # .ShowDialog() -> .Select()
+	$lisn_btn.Select() # .ShowDialog() -> .Select()
 
 	switch($key["open"]){
 	'False'{
@@ -12265,7 +12893,7 @@ $frm_fm.Add_FormClosing({
 })
  
 $fm_mnu= New-Object System.Windows.Forms.MenuStrip 
-	 
+	
 $fm_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_f.Text= "File"
 
@@ -14052,7 +14680,7 @@ $frm_fm.Controls.AddRange(@($fm_mnu, $fm_panel, $fm_box_mml, $fm_box, $fm_stus))
 
 
 
-	
+	 
  try{ 
  
 # bg,line,text ------ 
@@ -14213,18 +14841,16 @@ $cyan= [System.Drawing.Color]::FromName("cyan")
 $lime= [System.Drawing.Color]::FromName("lime")
 
 # sine wave -----
-$Ypen= New-Object System.Drawing.Pen($yellow, 2)	# Draw
-$Mpen= New-Object System.Drawing.Pen($magenta, 2)
-$Cpen= New-Object System.Drawing.Pen($cyan, 2)
-$Lpen= New-Object System.Drawing.Pen($lime, 2)
+$Ypen= New-Object System.Drawing.Pen($yellow, 1 )	# Draw
+$Mpen= New-Object System.Drawing.Pen($magenta, 1 )
+$Cpen= New-Object System.Drawing.Pen($cyan, 1 )
+$Lpen= New-Object System.Drawing.Pen($lime, 1 )
 
 # alg font point -----
 $Ybrush= New-Object System.Drawing.SolidBrush($yellow)	# Fill
 $Mbrush= New-Object System.Drawing.SolidBrush($magenta)
 $Cbrush= New-Object System.Drawing.SolidBrush($cyan)
 $Lbrush= New-Object System.Drawing.SolidBrush($lime)
-
-
  
 # hilight color ------ 
 $skyblue= [System.Drawing.Color]::FromArgb(210,176,224,230)	# powderblue :a220 -> [Alpha-20]
@@ -14274,6 +14900,8 @@ $Tbrush= New-Object System.Drawing.SolidBrush($turquoise)
 	Write-Host '"ERROR: Safety Stopper >> Color object err"'
  }
   
+# Exit; 
+ 
 # cable pointer 
 
 # pos / 480,530
@@ -14662,8 +15290,9 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 
 	[string[]]$adjr= "17","18","19","20","21","22","23"
 
-	[int[]]$img= 320, 200 # Op.box
+	# [int[]]$img= 160, 100 # Op.box # -> func local側へ
 
+	# Reso func
 	[int]$bai= 0 # 精度
 	[int]$count= 0
 	[array]$sin_pos= @()
@@ -14671,6 +15300,7 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 	[array]$pointed= @()
 	[array]$pointsg= @()
 	[array]$pointing= @()
+
 
 	[array]$xyi= @() # Chip_position 定数的ため
 	[int[]]$xytwo= 0,0
@@ -14687,76 +15317,68 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 	Write-Host '"ERROR: Safety Stopper >> global variable err"'
  }
   
-# Exit; 
- 
 # ------ main 
 
  try{
+	# キャスト
+	if((Chk_path '.\fm_editor.xml') -eq 0){
+		$fm_xml= [xml](cat '.\fm_editor.xml')
+	}else{
+		$fm_xml= [xml]$xml_editor
+	}
 
-  # キャスト
-  if((Chk_path '.\fm_editor.xml') -eq 0){
+	# 連想配列化
+	$val=@{}; $opt=@{}; $key=@{};
+	$mck= @{}; $nsd= @{}; $pmd= @{};
+	$play=@{}; $dos=@{}; $edit=@{};	# only memory<- setting.xml
 
-	$fm_xml= [xml](cat '.\fm_editor.xml')
-  }else{
-	$fm_xml= [xml]$xml_editor
-  }
-
-
-
-  # 連想配列化
-
-  $val=@{}; $opt=@{}; $key=@{};
-  $mck= @{}; $nsd= @{}; $pmd= @{};
-  $play=@{}; $dos=@{}; $edit=@{};	# only memory<- setting.xml
-
-  $hsmck= @{}; $hsvrc= @{}; $hs88= @{}; $hsx68= @{}; $hsefx= @{};
-  $header=@{}; $box_mml=@{}; $box_header=@{};	# replace mtx
+	$hsmck= @{}; $hsvrc= @{}; $hs88= @{}; $hsx68= @{}; $hsefx= @{};
+	$header=@{}; $box_mml=@{}; $box_header=@{};	# replace mtx
 
 
-  # cat -> Out-String(改行あり)でstringへ
-  $header["fm_header_mck"]= (cat '.\header\fm_header_mck' | Out-String)
-  $header["fm_header_nsd"]= (cat '.\header\fm_header_nsd' | Out-String)
-  $header["fm_header_pmd"]= (cat '.\header\fm_header_pmd' | Out-String)
+	# cat -> Out-String(改行あり)でstringへ
+	$header["fm_header_mck"]= (cat '.\header\fm_header_mck' | Out-String)
+	$header["fm_header_nsd"]= (cat '.\header\fm_header_nsd' | Out-String)
+	$header["fm_header_pmd"]= (cat '.\header\fm_header_pmd' | Out-String)
 
-  $box_mml["mck"]= (cat '.\header\fm_mml_mck' | Out-String)
-  $box_mml["nsd"]= (cat '.\header\fm_mml_nsd' | Out-String)
-  $box_mml["pmd"]= (cat '.\header\fm_mml_pmd' | Out-String)
+	$box_mml["mck"]= (cat '.\header\fm_mml_mck' | Out-String)
+	$box_mml["nsd"]= (cat '.\header\fm_mml_nsd' | Out-String)
+	$box_mml["pmd"]= (cat '.\header\fm_mml_pmd' | Out-String)
 
-  # box header メモリ読み込み
-  $box_header["vrc"]= (cat '.\header\fm_box_vrc' | Out-String)
-  $box_header["vrc_mckreg"]= (cat '.\header\fm_box_vrc_mckreg' | Out-String)
-  $box_header["vrc_nsdreg"]= (cat '.\header\fm_box_vrc_nsdreg' | Out-String)
+	# box header メモリ読み込み
+	$box_header["vrc"]= (cat '.\header\fm_box_vrc' | Out-String)
+	$box_header["vrc_mckreg"]= (cat '.\header\fm_box_vrc_mckreg' | Out-String)
+	$box_header["vrc_nsdreg"]= (cat '.\header\fm_box_vrc_nsdreg' | Out-String)
 
-  $box_header["opl"]= (cat '.\header\fm_box_opl' | Out-String)
+	$box_header["opl"]= (cat '.\header\fm_box_opl' | Out-String)
 
-  $box_header["opn"]= (cat '.\header\fm_box_opn' | Out-String)
-  $box_header["opn_fmp7"]= (cat '.\header\fm_box_opn_fmp7' | Out-String)
-  $box_header["opn_mucom"]= (cat '.\header\fm_box_opn_mucom' | Out-String)
-  $box_header["opn_mxdrv"]= (cat '.\header\fm_box_opn_mxdrv' | Out-String)
+	$box_header["opn"]= (cat '.\header\fm_box_opn' | Out-String)
+	$box_header["opn_fmp7"]= (cat '.\header\fm_box_opn_fmp7' | Out-String)
+	$box_header["opn_mucom"]= (cat '.\header\fm_box_opn_mucom' | Out-String)
+	$box_header["opn_mxdrv"]= (cat '.\header\fm_box_opn_mxdrv' | Out-String)
 
-  $box_header["opm"]= (cat '.\header\fm_box_opm' | Out-String)
-  $box_header["opm_fmp7"]= (cat '.\header\fm_box_opm_fmp7' | Out-String)
-  $box_header["opm_mucom"]= (cat '.\header\fm_box_opm_mucom' | Out-String)
-  $box_header["opm_mxdrv"]= (cat '.\header\fm_box_opm_mxdrv' | Out-String)
+	$box_header["opm"]= (cat '.\header\fm_box_opm' | Out-String)
+	$box_header["opm_fmp7"]= (cat '.\header\fm_box_opm_fmp7' | Out-String)
+	$box_header["opm_mucom"]= (cat '.\header\fm_box_opm_mucom' | Out-String)
+	$box_header["opm_mxdrv"]= (cat '.\header\fm_box_opm_mxdrv' | Out-String)
 
 
-  # hash設定
-  Fmxml_read $script:fm_xml.table.val $script:fm_xml.table.opt
+	# hash設定
+	Fmxml_read $script:fm_xml.table.val $script:fm_xml.table.opt
 
-  Chip_position $key["layout"]
-  Peralg_build $bai
-  Reso $bai
+	Chip_position $key["layout"]
+	Peralg_build $bai
+	Reso $bai
 
-  # Menuのため読み込み
-  if((Chk_path '.\setting.xml') -eq 0){
+	# Menuのため読み込み
+	if((Chk_path '.\setting.xml') -eq 0){
 
-	$set_xml= [xml](cat '.\setting.xml')
+		$set_xml= [xml](cat '.\setting.xml')
+		Setxml_read $script:set_xml.table # hash化
+	}
 
-	Setxml_read $script:set_xml.table # hash化
-  }
-
-  #preset,FF読み込み
-  Preset_read > $null  # <- $pmd["MC.EXE"] <- .\setting.xml
+	#preset,FF読み込み
+	Preset_read > $null  # <- $pmd["MC.EXE"] <- .\setting.xml
 
 
 # write-host "------"
@@ -14768,69 +15390,65 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 # write-host $play.Values
 # write-host "------"
 
-  Slot_build $fm_xml.table.slot "A"
-  Slot_build $fm_xml.table.slot "B"
-  Slot_build $fm_xml.table.slot "C"
-  Slot_build $fm_xml.table.slot "D"
-  Slot_build $fm_xml.table.slot "E"
-  Slot_build $fm_xml.table.slot "F"
-  Slot_build $fm_xml.table.slot "G"
-  Slot_build $fm_xml.table.slot "H"
+	Slot_build $fm_xml.table.slot "A"
+	Slot_build $fm_xml.table.slot "B"
+	Slot_build $fm_xml.table.slot "C"
+	Slot_build $fm_xml.table.slot "D"
+	Slot_build $fm_xml.table.slot "E"
+	Slot_build $fm_xml.table.slot "F"
+	Slot_build $fm_xml.table.slot "G"
+	Slot_build $fm_xml.table.slot "H"
 
 
+	# 全て読んでおく <- safe no tqnpo
+ 	$vrc_svn= All_sz $vrc_svn 13 # 1 -> ___1
+	$opl_two= All_sz $opl_two 13
+	$opn_fur= All_sz $opn_fur 12
+	$opm_fur= All_sz $opm_fur 13
 
-  # 全て読んでおく <- safe no tqnpo
-  $vrc_svn= All_sz $vrc_svn 13 # 1 -> ___1
-  $opl_two= All_sz $opl_two 13
-  $opn_fur= All_sz $opn_fur 12
-  $opm_fur= All_sz $opm_fur 13
+	# Parameter Reset時のため
+	Saveauto $script:fm_xml.table.resetting
 
-  # Parameter Reset時のため
-  Saveauto $script:fm_xml.table.resetting
-
-
-  if($fm_xml.table.autosave.name -eq ""){ # 初回起動ため
-
-	Saveauto $script:fm_xml.table.autosave # 初動の値で埋めておく debug
-  }
+	if($fm_xml.table.autosave.name -eq ""){ # 初回起動ため
+		Saveauto $script:fm_xml.table.autosave # 初動の値で埋めておく debug
+	}
 
 
-  if($key["autosave"] -eq 'True'){
+	if($key["autosave"] -eq 'True'){
+		Autoload $fm_xml.table.autosave
+	}else{
+		Autoload $fm_xml.table.resetting # auto:off
+	}
 
-	Autoload $fm_xml.table.autosave
-  }else{
-	Autoload $fm_xml.table.resetting # auto:off
-  }
+	[bool]$event_change= $True # 多重ロード防止
 
-  [bool]$event_change= $True # 多重ロード防止
+	Panel_chg $comb_fm.SelectedItem
+	Color_Render
 
-  Panel_chg $comb_fm.SelectedItem
-  Color_Render
+	Send_build 1
 
-  Send_build 1
+	Menu_comp_build $opt["radio_bin"] > $null
 
-  Menu_comp_build $opt["radio_bin"] > $null
+	Menu_build "mck"
+	Menu_build "nsd"
+	Menu_build "pmd"
 
-  Menu_build "mck"
-  Menu_build "nsd"
-  Menu_build "pmd"
+	Menu_build "player"
+	Menu_build "dos"
+	Menu_build "editor"
+	Stus_build
 
-  Menu_build "player"
-  Menu_build "dos"
-  Menu_build "editor"
-  Stus_build
-
-  [array]$undo= "","","0" # array obj高速化
-  Unredo 2 # Reset,Enable
+	[array]$undo= "","","0" # array obj高速化
+	Unredo 2 # Reset,Enable
 
 
-  [int[]]$frm_state= 0, 0,0,0,0 # Multi window state
+	[int[]]$frm_state= 0, 0,0,0,0 # Multi window state
 
-  [string[]] $script:adsr= "","","", "",""
+	[string[]] $script:adsr= "","","", "",""
 
-  $frm_fm.ShowDialog() > $null
+	$frm_fm.ShowDialog() > $null
 
-  Write-Host ('"FM音色エディタ"を終了します'+ "`r`n")
+	Write-Host ('"FM音色エディタ"を終了します'+ "`r`n")
 
  }catch{
 	echo $_.exception
