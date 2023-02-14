@@ -1814,7 +1814,7 @@ function Contxt_octave([string]$a){
  } #func
   
 # poly 
-	 
+	
 function Flow_ssg([int]$num, [array]$e, [int]$width, [int]$height){ 
 
 
@@ -2066,10 +2066,6 @@ function Poly_2op([array]$v, [int]$j){ # 2op ADSR render
 	[array]$color= $rr[0]
 	$brush= $rr[1]
 
-
-	[array]$color_pen= @($XBpen,$XRpen)
-
-
 	[int]$width= ($img[0]+2)/ 4	# +2 sinとの帳尻
 	[int]$height= ($img[1]+2)/ 2
 
@@ -2094,7 +2090,7 @@ function Poly_2op([array]$v, [int]$j){ # 2op ADSR render
 
 	$buffz.Graphics.Clear($color[0])			#fill
 	$buffz.Graphics.FillPolygon($brush, $pointed[0])	# 折れ線のfill
-	$buffz.Graphics.DrawLine($color_pen[0], 0, $height, ($width*4), $height) # x軸を上書き
+	$buffz.Graphics.DrawLine($XBpen, 0, $height, ($width*4), $height) # x軸を上書き
 
 	break;
   }1{
@@ -2102,7 +2098,7 @@ function Poly_2op([array]$v, [int]$j){ # 2op ADSR render
 
 	$buffx.Graphics.Clear($color[1])
 	$buffx.Graphics.FillPolygon($brush, $pointed[1])
-	$buffx.Graphics.DrawLine($color_pen[1], 0, $height, ($width*4), $height)
+	$buffx.Graphics.DrawLine($XRpen, 0, $height, ($width*4), $height)
   }
   } #sw
 
@@ -2114,12 +2110,8 @@ function Poly_4op([array]$v, [int]$j){ # 4op ADSR render
 
 	[array]$rr= Color_select
 
-	[array]$color= $rr[0]	
+	[array]$color= $rr[0]
 	$brush= $rr[1]
-
-
-	[array]$color_pen= @($XBpen,$XGpen,$XOpen,$XRpen)
-
 
 	[int]$width= ($img[0]+2)/ 4	# +2 sinとの帳尻
 	[int]$height= ($img[1]+2)/ 2
@@ -2153,7 +2145,7 @@ function Poly_4op([array]$v, [int]$j){ # 4op ADSR render
 			$buffc.Graphics.FillPolygon($brush, $pt)	# 折れ線のfill
 		}
 
-		$buffc.Graphics.DrawLine($color_pen[0], 0, $height, $img[0], $height) # x軸を上書き
+		$buffc.Graphics.DrawLine($XBpen, 0, $height, $img[0], $height) # x軸を上書き
 		break;
 	}1{
 		$buffe.Graphics.Clear($color[1])
@@ -2169,7 +2161,7 @@ function Poly_4op([array]$v, [int]$j){ # 4op ADSR render
 			$buffe.Graphics.FillPolygon($brush, $pt)
 		}
 
-		$buffe.Graphics.DrawLine($color_pen[1], 0, $height, $img[0], $height)
+		$buffe.Graphics.DrawLine($XGpen, 0, $height, $img[0], $height)
 		break;
 	}2{
 		$buffg.Graphics.Clear($color[2])
@@ -2185,7 +2177,7 @@ function Poly_4op([array]$v, [int]$j){ # 4op ADSR render
 			$buffg.Graphics.FillPolygon($brush, $pt)
 		}
 
-		$buffg.Graphics.DrawLine($color_pen[2], 0, $height, $img[0], $height)
+		$buffg.Graphics.DrawLine($XOpen, 0, $height, $img[0], $height)
 		break;
 	}3{
 		$buffi.Graphics.Clear($color[3])
@@ -2201,11 +2193,11 @@ function Poly_4op([array]$v, [int]$j){ # 4op ADSR render
 			$buffi.Graphics.FillPolygon($brush, $pt)
 		}
 
-		$buffi.Graphics.DrawLine($color_pen[3], 0, $height, $img[0], $height)
+		$buffi.Graphics.DrawLine($XRpen, 0, $height, $img[0], $height)
 	}
 	} #sw
  } #func
- 	
+ 
 function Poly_chw(){ 
 
 	[int]$j= Idx # op.num
@@ -2812,30 +2804,30 @@ function Sin_chg(){
 	
 function Chip_view([int]$x,[int]$y){ 
 
-  [array]$p= "",""
-  [int[]]$p[0]= 0
-  $p[0]*= 18
+	[array]$p= "",""
+	[int[]]$p[0]= 0
+	$p[0]*= 18
 
-  [int[]]$p[1]= 0
-  $p[1]*= 15
+	[int[]]$p[1]= 0
+	$p[1]*= 15
 
-  # base position [8+7,9+9 - 15*18 Rectangle]
+	# base position [8+7,9+9 - 15*18 Rectangle]
 
-  [int]$j= 0
-  for([int]$i= 0; $i -lt $p[0].Length; $i++){ # x
+	[int]$j= 0
+	for([int]$i= 0; $i -lt $p[0].Length; $i++){ # x
 
-	$p[0][$i]= $x+ 7* $i+ $j
+		$p[0][$i]= $x+ 7* $i+ $j
 
-	if($i%2 -eq 0){	$j++ # 8,7,8...
-	}
-  } #
+		if($i%2 -eq 0){
+			$j++; # 8,7,8...
+		}
+	} #
 
-  for([int]$i= 0; $i -lt $p[1].Length; $i++){ # y
+	for([int]$i= 0; $i -lt $p[1].Length; $i++){ # y
+		$p[1][$i]= $y+ 9* $i
+	} #
 
-	$p[1][$i]= $y+ 9* $i
-  } #
-  return $p
-
+	return $p
  } #func
  
 function Chip_position([string]$k){ 
@@ -4332,40 +4324,37 @@ function Peralg_build([float] $n ){
 	} #sw
  } #func
  
-function Popalg_build([string]$t){ # <- $key["open"] 
+function Popalg_build([string] $t ){ # <- $key["open"] 
 
- switch($t){
- 'True'{
-	$fm_menu_sb.Text= "v FM OP window"
+	switch($t){
+	'True'{
+		$fm_menu_sb.Text= "v FM OP window"
 
-	Contxt_chg_vrc $key["wheel"][0]
-	Contxt_chg_opl $key["wheel"][1]
-	Contxt_chg_opn $key["wheel"][2]
-	Contxt_chg_opm $key["wheel"][3]
-	Contxt_octave $key["oct"]
+		Contxt_chg_vrc $key["wheel"][0]
+		Contxt_chg_opl $key["wheel"][1]
+		Contxt_chg_opn $key["wheel"][2]
+		Contxt_chg_opm $key["wheel"][3]
+		Contxt_octave $key["oct"]
 
-	All_chg
-	Stus_alg
-	break;
- }'False'{
-	$fm_menu_sb.Text= "FM OP window"
- }
- } #sw
+		All_chg
+		Stus_alg
+		break;
+	}'False'{
+		$fm_menu_sb.Text= "FM OP window"
+	}
+	} #sw
 
- return $t
-
+	return $t
  } #func
  
 function Layout_alg([string]$t){ 
 
 	switch($t){
 	'nomal'{
-
 		$sb_menu_ff.Text= "[v] nomal"
 		$sb_menu_rev.Text= "reverse"
 		break;
 	}'reverse'{
-
 		$sb_menu_ff.Text= "nomal"
 		$sb_menu_rev.Text= "[v] reverse"
 	}
@@ -4599,19 +4588,17 @@ function Slot_build($x, [string]$s){
  
 function Save_value([string]$sw){ 
 
-  $sub_sav_grp.Text= ("slot "+ $sw)
+	$sub_sav_grp.Text= ("slot "+ $sw)
 
-  [string]$retn= $sub_sav.ShowDialog()
+	[string]$retn= $sub_sav.ShowDialog()
 
-  switch($retn){
-  'OK'{
-	Write_slot $sw
-
-	Slot_build $fm_xml.table.slot $sw
-  }
-  #'Cancel'{}
-  } #sw
-
+	switch($retn){
+	'OK'{
+		Write_slot $sw
+		Slot_build $fm_xml.table.slot $sw
+	# }'Cancel'{
+	}
+	} #sw
  } #func
  
 function Slot_read($x){ 
@@ -4659,52 +4646,59 @@ function Slot_read($x){
  
 function Load_value($x, [string]$sw){ 
 
-  switch($sw){
-  'A'{	$comb_fm.SelectedItem= $x.A.name # $comb_fm change
-	Opmap_change $x.A.number
-	Slot_read $x.A
-	break;
-  }'B'{	$comb_fm.SelectedItem= $x.B.name
-	Opmap_change $x.B.number
-	Slot_read $x.B
-	break;
-  }'C'{	$comb_fm.SelectedItem= $x.C.name
-	Opmap_change $x.C.number
-	Slot_read $x.C
-	break;
-  }'D'{	$comb_fm.SelectedItem= $x.D.name
-	Opmap_change $x.D.number
-	Slot_read $x.D
-	break;
-  }'E'{	$comb_fm.SelectedItem= $x.E.name
-	Opmap_change $x.E.number
-	Slot_read $x.E
-	break;
-  }'F'{	$comb_fm.SelectedItem= $x.F.name
-	Opmap_change $x.F.number
-	Slot_read $x.F
-	break;
-  }'G'{	$comb_fm.SelectedItem= $x.G.name
-	Opmap_change $x.G.number
-	Slot_read $x.G
-	break;
-  }'H'{	$comb_fm.SelectedItem= $x.H.name
-	Opmap_change $x.H.number
-	Slot_read $x.H
-  }
-  } #sw
+	switch($sw){
+	'A'{
+		$comb_fm.SelectedItem= $x.A.name # $comb_fm change
+		Opmap_change $x.A.number
+		Slot_read $x.A
+		break;
+	}'B'{
+		$comb_fm.SelectedItem= $x.B.name
+		Opmap_change $x.B.number
+		Slot_read $x.B
+		break;
+	}'C'{
+		$comb_fm.SelectedItem= $x.C.name
+		Opmap_change $x.C.number
+		Slot_read $x.C
+		break;
+	}'D'{
+		$comb_fm.SelectedItem= $x.D.name
+		Opmap_change $x.D.number
+		Slot_read $x.D
+		break;
+	}'E'{
+		$comb_fm.SelectedItem= $x.E.name
+		Opmap_change $x.E.number
+		Slot_read $x.E
+		break;
+	}'F'{
+		$comb_fm.SelectedItem= $x.F.name
+		Opmap_change $x.F.number
+		Slot_read $x.F
+		break;
+	}'G'{
+		$comb_fm.SelectedItem= $x.G.name
+		Opmap_change $x.G.number
+		Slot_read $x.G
+		break;
+	}'H'{
+		$comb_fm.SelectedItem= $x.H.name
+		Opmap_change $x.H.number
+		Slot_read $x.H
+	}
+	} #sw
 
-  Unredo 2
+	Unredo 2
 
-  Panel_chg $comb_fm.SelectedItem
-  Stus_build
+	Panel_chg $comb_fm.SelectedItem
+	Stus_build
 
-  $comb_fm.Select() # sai enter event no tame
+	$comb_fm.Select() # sai enter event no tame
 
-  if($sb_alg.Visible){
-
-	All_chg
-  }
+	if($sb_alg.Visible){
+		All_chg
+	}
  } #func
   
 # hash 
@@ -4729,40 +4723,35 @@ function Fmchange_value([string]$sw, [string]$name){
  
 function Setxml_read($x){ 
 
-  # $x= $script:set_xml.table
+	# $x= $script:set_xml.table
 
-  for([int]$i=7; $i -ge 0; $i--){
+	for([int]$i=7; $i -ge 0; $i--){
 
-	if($x.ply[$i].name -ne ''){
+		if($x.ply[$i].name -ne ''){
+			$script:play[$x.ply[$i].name]= $x.ply[$i].param
+		}
+		if($x.edt[$i].name -ne ''){
+			$script:edit[$x.edt[$i].name]= $x.edt[$i].param
+		}
 
-		$script:play[$x.ply[$i].name]= $x.ply[$i].param
-	}
-	if($x.edt[$i].name -ne ''){
+		if($i -le 3){
+			if($x.mck[$i].name -ne ''){
+				$script:mck[$x.mck[$i].name]= $x.mck[$i].param
+			}
 
-		$script:edit[$x.edt[$i].name]= $x.edt[$i].param
-	}
+			if($x.nsd[$i].name -ne ''){
+				$script:nsd[$x.nsd[$i].name]= $x.nsd[$i].param
+			}
 
-    if($i -le 3){
+			if($x.pmd[$i].name -ne ''){
+				$script:pmd[$x.pmd[$i].name]= $x.pmd[$i].param
+			}
 
-	if($x.mck[$i].name -ne ''){
-
-		$script:mck[$x.mck[$i].name]= $x.mck[$i].param
-	}
-	if($x.nsd[$i].name -ne ''){
-
-		$script:nsd[$x.nsd[$i].name]= $x.nsd[$i].param
-	}
-	if($x.pmd[$i].name -ne ''){
-
-		$script:pmd[$x.pmd[$i].name]= $x.pmd[$i].param
-	}
-	if($x.dos[$i].name -ne ''){
-
-		$script:dos[$x.dos[$i].name]= $x.dos[$i].param
-	}
-    }
-
-  } #
+			if($x.dos[$i].name -ne ''){
+				$script:dos[$x.dos[$i].name]= $x.dos[$i].param
+			}
+		}
+ 	} #
  } #func
  
 function Fmxml_read($x,$y){ # hash設定 
@@ -4870,217 +4859,412 @@ function Menu_comp_build([string]$t){
  
 function Menu_build([string]$sw){ 
 
-  [string]$d= "[v] "
+	[string]$d= "[v] "
 
-  [string[]]$n= Split_path $val[$sw]
+	[string[]]$n= Split_path $val[$sw]
 
-  switch($sw){
-  'mck'{
-	[array]$w= $mck.Keys
+	switch($sw){
+	'mck'{
+		[array]$w= $mck.Keys
 
-	$fm_menu_mck0.Visible= $False
-	$fm_menu_mck1.Visible= $False
-	$fm_menu_mck2.Visible= $False
-	$fm_menu_mck3.Visible= $False
+		$fm_menu_mck0.Visible= $False
+		$fm_menu_mck1.Visible= $False
+		$fm_menu_mck2.Visible= $False
+		$fm_menu_mck3.Visible= $False
 
-	if($w.Length -ge 1){
+		if($w.Length -ge 1){
 
-		$fm_menu_mck0.Visible= $True
+			$fm_menu_mck0.Visible= $True
 
-		if($n[0] -eq $w[0]){ $fm_menu_mck0.Text= $d+ $w[0]
-		}else{ $fm_menu_mck0.Text= $w[0]
-		}
+			if($n[0] -eq $w[0]){
+				$fm_menu_mck0.Text= $d+ $w[0]
+			}else{
+				$fm_menu_mck0.Text= $w[0]
+			}
 
-		if($w.Length -ge 2){
+			if($w.Length -ge 2){
 
-		$fm_menu_mck1.Visible= $True
+			$fm_menu_mck1.Visible= $True
 
-		if($n[0] -eq $w[1]){ $fm_menu_mck1.Text= $d+ $w[1]
-		}else{ $fm_menu_mck1.Text= $w[1]
-		}
+			if($n[0] -eq $w[1]){
+				$fm_menu_mck1.Text= $d+ $w[1]
+			}else{
+				$fm_menu_mck1.Text= $w[1]
+			}
 
-			if($w.Length -ge 3){
+				if($w.Length -ge 3){
 
-		$fm_menu_mck2.Visible= $True
+			$fm_menu_mck2.Visible= $True
 
-		if($n[0] -eq $w[2]){ $fm_menu_mck2.Text= $d+ $w[2]
-		}else{ $fm_menu_mck2.Text= $w[2]
-		}
+			if($n[0] -eq $w[2]){
+				$fm_menu_mck2.Text= $d+ $w[2]
+			}else{
+				$fm_menu_mck2.Text= $w[2]
+			}
 
-				if($w.Length -ge 4){
+					if($w.Length -ge 4){
 
-		$fm_menu_mck3.Visible= $True
+			$fm_menu_mck3.Visible= $True
 
-		if($n[0] -eq $w[3]){ $fm_menu_mck3.Text= $d+ $w[3]
-		}else{ $fm_menu_mck3.Text= $w[3]
-		}
+			if($n[0] -eq $w[3]){
+				$fm_menu_mck3.Text= $d+ $w[3]
+			}else{
+				$fm_menu_mck3.Text= $w[3]
+			}
+					}
 				}
 			}
 		}
-	}
-	break;
+		break;
 
-  }'nsd'{
-	[array]$w= $nsd.Keys
+	}'nsd'{
+		[array]$w= $nsd.Keys
 
-	$fm_menu_nsd0.Visible= $False
-	$fm_menu_nsd1.Visible= $False
-	$fm_menu_nsd2.Visible= $False
-	$fm_menu_nsd3.Visible= $False
+		$fm_menu_nsd0.Visible= $False
+		$fm_menu_nsd1.Visible= $False
+		$fm_menu_nsd2.Visible= $False
+		$fm_menu_nsd3.Visible= $False
 
-	if($w.Length -ge 1){
+		if($w.Length -ge 1){
 
-		$fm_menu_nsd0.Visible= $True
+			$fm_menu_nsd0.Visible= $True
 
-		if($n[0] -eq $w[0]){ $fm_menu_nsd0.Text= $d+ $w[0]
-		}else{ $fm_menu_nsd0.Text= $w[0]
-		}
+			if($n[0] -eq $w[0]){
+				$fm_menu_nsd0.Text= $d+ $w[0]
+			}else{
+				$fm_menu_nsd0.Text= $w[0]
+			}
 
-		if($w.Length -ge 2){
+			if($w.Length -ge 2){
 
-		$fm_menu_nsd1.Visible= $True
+			$fm_menu_nsd1.Visible= $True
 
-		if($n[0] -eq $w[1]){ $fm_menu_nsd1.Text= $d+ $w[1]
-		}else{ $fm_menu_nsd1.Text= $w[1]
-		}
+			if($n[0] -eq $w[1]){
+				$fm_menu_nsd1.Text= $d+ $w[1]
+			}else{
+				$fm_menu_nsd1.Text= $w[1]
+			}
 
-			if($w.Length -ge 3){
+				if($w.Length -ge 3){
 
-		$fm_menu_nsd2.Visible= $True
+			$fm_menu_nsd2.Visible= $True
 
-		if($n[0] -eq $w[2]){ $fm_menu_nsd2.Text= $d+ $w[2]
-		}else{ $fm_menu_nsd2.Text= $w[2]
-		}
+			if($n[0] -eq $w[2]){
+				$fm_menu_nsd2.Text= $d+ $w[2]
+			}else{
+				$fm_menu_nsd2.Text= $w[2]
+			}
 
-				if($w.Length -ge 4){
+					if($w.Length -ge 4){
 
-		$fm_menu_nsd3.Visible= $True
+			$fm_menu_nsd3.Visible= $True
 
-		if($n[0] -eq $w[3]){ $fm_menu_nsd3.Text= $d+ $w[3]
-		}else{ $fm_menu_nsd3.Text= $w[3]
-		}
+			if($n[0] -eq $w[3]){
+				$fm_menu_nsd3.Text= $d+ $w[3]
+			}else{
+				$fm_menu_nsd3.Text= $w[3]
+			}
+					}
 				}
 			}
 		}
-	}
-	break;
+		break;
 
-  }'pmd'{
-	[array]$w= $pmd.Keys
+	}'pmd'{
+		[array]$w= $pmd.Keys
 
-	$fm_menu_pmd0.Visible= $False
-	$fm_menu_pmd1.Visible= $False
-	$fm_menu_pmd2.Visible= $False
-	$fm_menu_pmd3.Visible= $False
+		$fm_menu_pmd0.Visible= $False
+		$fm_menu_pmd1.Visible= $False
+		$fm_menu_pmd2.Visible= $False
+		$fm_menu_pmd3.Visible= $False
 
-	if($w.Length -ge 1){
+		if($w.Length -ge 1){
 
-		$fm_menu_pmd0.Visible= $True
+			$fm_menu_pmd0.Visible= $True
 
-		if($n[0] -eq $w[0]){ $fm_menu_pmd0.Text= $d+ $w[0]
-		}else{ $fm_menu_pmd0.Text= $w[0]
-		}
+			if($n[0] -eq $w[0]){
+				$fm_menu_pmd0.Text= $d+ $w[0]
+			}else{
+				$fm_menu_pmd0.Text= $w[0]
+			}
 
-		if($w.Length -ge 2){
+			if($w.Length -ge 2){
 
-		$fm_menu_pmd1.Visible= $True
+			$fm_menu_pmd1.Visible= $True
 
-		if($n[0] -eq $w[1]){ $fm_menu_pmd1.Text= $d+ $w[1]
-		}else{ $fm_menu_pmd1.Text= $w[1]
-		}
+			if($n[0] -eq $w[1]){
+				$fm_menu_pmd1.Text= $d+ $w[1]
+			}else{
+				$fm_menu_pmd1.Text= $w[1]
+			}
 
-			if($w.Length -ge 3){
+				if($w.Length -ge 3){
 
-		$fm_menu_pmd2.Visible= $True
+			$fm_menu_pmd2.Visible= $True
 
-		if($n[0] -eq $w[2]){ $fm_menu_pmd2.Text= $d+ $w[2]
-		}else{ $fm_menu_pmd2.Text= $w[2]
-		}
+			if($n[0] -eq $w[2]){
+				$fm_menu_pmd2.Text= $d+ $w[2]
+			}else{
+				$fm_menu_pmd2.Text= $w[2]
+			}
 
-				if($w.Length -ge 4){
+					if($w.Length -ge 4){
 
-		$fm_menu_pmd3.Visible= $True
+			$fm_menu_pmd3.Visible= $True
 
-		if($n[0] -eq $w[3]){ $fm_menu_pmd3.Text= $d+ $w[3]
-		}else{ $fm_menu_pmd3.Text= $w[3]
-		}
+			if($n[0] -eq $w[3]){
+				$fm_menu_pmd3.Text= $d+ $w[3]
+			}else{
+				$fm_menu_pmd3.Text= $w[3]
+			}
+					}
 				}
 			}
 		}
-	}
-	break;
+		break;
 
-  }'player'{
-	[array]$w= $play.Keys
+	}'player'{
+		[array]$w= $play.Keys
 
-	$fm_menu_ply0.Visible= $False
-	$fm_menu_ply1.Visible= $False
-	$fm_menu_ply2.Visible= $False
-	$fm_menu_ply3.Visible= $False
-	$fm_menu_ply4.Visible= $False
-	$fm_menu_ply5.Visible= $False
-	$fm_menu_ply6.Visible= $False
-	$fm_menu_ply7.Visible= $False
+		$fm_menu_ply0.Visible= $False
+		$fm_menu_ply1.Visible= $False
+		$fm_menu_ply2.Visible= $False
+		$fm_menu_ply3.Visible= $False
+		$fm_menu_ply4.Visible= $False
+		$fm_menu_ply5.Visible= $False
+		$fm_menu_ply6.Visible= $False
+		$fm_menu_ply7.Visible= $False
 
-	if($w.Length -ge 1){
+		if($w.Length -ge 1){
 
-		$fm_menu_ply0.Visible= $True
+			$fm_menu_ply0.Visible= $True
 
-		if($n[0] -eq $w[0]){ $fm_menu_ply0.Text= $d+ $w[0]
-		}else{ $fm_menu_ply0.Text= $w[0]
+			if($n[0] -eq $w[0]){
+				$fm_menu_ply0.Text= $d+ $w[0]
+			}else{
+				$fm_menu_ply0.Text= $w[0]
+			}
+
+			if($w.Length -ge 2){
+
+			$fm_menu_ply1.Visible= $True
+
+			if($n[0] -eq $w[1]){
+				$fm_menu_ply1.Text= $d+ $w[1]
+			}else{
+				$fm_menu_ply1.Text= $w[1]
+			}
+
+				if($w.Length -ge 3){
+
+			$fm_menu_ply2.Visible= $True
+
+			if($n[0] -eq $w[2]){
+				$fm_menu_ply2.Text= $d+ $w[2]
+			}else{
+				$fm_menu_ply2.Text= $w[2]
+			}
+
+					if($w.Length -ge 4){
+
+			$fm_menu_ply3.Visible= $True
+
+			if($n[0] -eq $w[3]){
+				$fm_menu_ply3.Text= $d+ $w[3]
+			}else{
+				$fm_menu_ply3.Text= $w[3]
+			}
+						if($w.Length -ge 5){
+
+			$fm_menu_ply4.Visible= $True
+
+			if($n[0] -eq $w[4]){
+				$fm_menu_ply4.Text= $d+ $w[4]
+			}else{
+				$fm_menu_ply4.Text= $w[4]
+			}
+							if($w.Length -ge 6){
+
+			$fm_menu_ply5.Visible= $True
+
+			if($n[0] -eq $w[5]){
+				$fm_menu_ply5.Text= $d+ $w[5]
+			}else{
+				$fm_menu_ply5.Text= $w[5]
+			}
+								if($w.Length -ge 7){
+
+			$fm_menu_ply6.Visible= $True
+
+			if($n[0] -eq $w[6]){
+				$fm_menu_ply6.Text= $d+ $w[6]
+			}else{
+				$fm_menu_ply6.Text= $w[6]
+			}
+									if($w.Length -ge 8){
+
+			$fm_menu_ply7.Visible= $True
+
+			if($n[0] -eq $w[7]){
+				$fm_menu_ply7.Text= $d+ $w[7]
+			}else{
+				$fm_menu_ply7.Text= $w[7]
+			}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		}
+		break;
 
-		if($w.Length -ge 2){
+	}'dos'{
+		[array]$w= $dos.Keys
 
-		$fm_menu_ply1.Visible= $True
+		$fm_menu_dos0.Visible= $False
+		$fm_menu_dos1.Visible= $False
+		$fm_menu_dos2.Visible= $False
+		$fm_menu_dos3.Visible= $False
 
-		if($n[0] -eq $w[1]){ $fm_menu_ply1.Text= $d+ $w[1]
-		}else{ $fm_menu_ply1.Text= $w[1]
+		if($w.Length -ge 1){
+
+			$fm_menu_dos0.Visible= $True
+
+			if($n[0] -eq $w[0]){
+				$fm_menu_dos0.Text= $d+ $w[0]
+			}else{
+				$fm_menu_dos0.Text= $w[0]
+			}
+
+			if($w.Length -ge 2){
+
+			$fm_menu_dos1.Visible= $True
+
+			if($n[0] -eq $w[1]){
+				$fm_menu_dos1.Text= $d+ $w[1]
+			}else{
+				$fm_menu_dos1.Text= $w[1]
+			}
+
+				if($w.Length -ge 3){
+
+			$fm_menu_dos2.Visible= $True
+
+			if($n[0] -eq $w[2]){
+				$fm_menu_dos2.Text= $d+ $w[2]
+			}else{
+				$fm_menu_dos2.Text= $w[2]
+			}
+
+					if($w.Length -ge 4){
+
+			$fm_menu_dos3.Visible= $True
+
+			if($n[0] -eq $w[3]){
+				$fm_menu_dos3.Text= $d+ $w[3]
+			}else{
+				$fm_menu_dos3.Text= $w[3]
+			}
+					}
+				}
+			}
 		}
+		break;
 
-			if($w.Length -ge 3){
+	}'editor'{
+		[array]$w= $edit.Keys
 
-		$fm_menu_ply2.Visible= $True
+		$fm_menu_edt0.Visible= $False
+		$fm_menu_edt1.Visible= $False
+		$fm_menu_edt2.Visible= $False
+		$fm_menu_edt3.Visible= $False
+		$fm_menu_edt4.Visible= $False
+		$fm_menu_edt5.Visible= $False
+		$fm_menu_edt6.Visible= $False
+		$fm_menu_edt7.Visible= $False
 
-		if($n[0] -eq $w[2]){ $fm_menu_ply2.Text= $d+ $w[2]
-		}else{ $fm_menu_ply2.Text= $w[2]
-		}
+		if($w.Length -ge 1){
 
-				if($w.Length -ge 4){
+			$fm_menu_edt0.Visible= $True
 
-		$fm_menu_ply3.Visible= $True
+			if($n[0] -eq $w[0]){
+				$fm_menu_edt0.Text= $d+ $w[0]
+			}else{
+				$fm_menu_edt0.Text= $w[0]
+			}
 
-		if($n[0] -eq $w[3]){ $fm_menu_ply3.Text= $d+ $w[3]
-		}else{ $fm_menu_ply3.Text= $w[3]
-		}
-					if($w.Length -ge 5){
+			if($w.Length -ge 2){
 
-		$fm_menu_ply4.Visible= $True
+			$fm_menu_edt1.Visible= $True
 
-		if($n[0] -eq $w[4]){ $fm_menu_ply4.Text= $d+ $w[4]
-		}else{ $fm_menu_ply4.Text= $w[4]
-		}
-						if($w.Length -ge 6){
+			if($n[0] -eq $w[1]){
+				$fm_menu_edt1.Text= $d+ $w[1]
+			}else{
+				$fm_menu_edt1.Text= $w[1]
+			}
 
-		$fm_menu_ply5.Visible= $True
+				if($w.Length -ge 3){
 
-		if($n[0] -eq $w[5]){ $fm_menu_ply5.Text= $d+ $w[5]
-		}else{ $fm_menu_ply5.Text= $w[5]
-		}
-							if($w.Length -ge 7){
+			$fm_menu_edt2.Visible= $True
 
-		$fm_menu_ply6.Visible= $True
+			if($n[0] -eq $w[2]){
+				$fm_menu_edt2.Text= $d+ $w[2]
+			}else{
+				$fm_menu_edt2.Text= $w[2]
+			}
 
-		if($n[0] -eq $w[6]){ $fm_menu_ply6.Text= $d+ $w[6]
-		}else{ $fm_menu_ply6.Text= $w[6]
-		}
-								if($w.Length -ge 8){
+					if($w.Length -ge 4){
 
-		$fm_menu_ply7.Visible= $True
+			$fm_menu_edt3.Visible= $True
 
-		if($n[0] -eq $w[7]){ $fm_menu_ply7.Text= $d+ $w[7]
-		}else{ $fm_menu_ply7.Text= $w[7]
-		}
+			if($n[0] -eq $w[3]){
+				$fm_menu_edt3.Text= $d+ $w[3]
+			}else{
+				$fm_menu_edt3.Text= $w[3]
+			}
+
+						if($w.Length -ge 5){
+
+			$fm_menu_edt4.Visible= $True
+
+			if($n[0] -eq $w[4]){
+				$fm_menu_edt4.Text= $d+ $w[4]
+			}else{
+				$fm_menu_edt4.Text= $w[4]
+			}
+
+							if($w.Length -ge 6){
+
+			$fm_menu_edt5.Visible= $True
+
+			if($n[0] -eq $w[5]){
+				$fm_menu_edt5.Text= $d+ $w[5]
+			}else{
+				$fm_menu_edt5.Text= $w[5]
+			}
+
+								if($w.Length -ge 7){
+
+			$fm_menu_edt6.Visible= $True
+
+			if($n[0] -eq $w[6]){
+				$fm_menu_edt6.Text= $d+ $w[6]
+			}else{
+				$fm_menu_edt6.Text= $w[6]
+			}
+
+									if($w.Length -ge 8){
+
+			$fm_menu_edt7.Visible= $True
+
+			if($n[0] -eq $w[7]){
+				$fm_menu_edt7.Text= $d+ $w[7]
+			}else{
+				$fm_menu_edt7.Text= $w[7]
+			}
+									}
 								}
 							}
 						}
@@ -5089,138 +5273,7 @@ function Menu_build([string]$sw){
 			}
 		}
 	}
-	break;
-
-  }'dos'{
-	[array]$w= $dos.Keys
-
-	$fm_menu_dos0.Visible= $False
-	$fm_menu_dos1.Visible= $False
-	$fm_menu_dos2.Visible= $False
-	$fm_menu_dos3.Visible= $False
-
-	if($w.Length -ge 1){
-
-		$fm_menu_dos0.Visible= $True
-
-		if($n[0] -eq $w[0]){ $fm_menu_dos0.Text= $d+ $w[0]
-		}else{ $fm_menu_dos0.Text= $w[0]
-		}
-
-		if($w.Length -ge 2){
-
-		$fm_menu_dos1.Visible= $True
-
-		if($n[0] -eq $w[1]){ $fm_menu_dos1.Text= $d+ $w[1]
-		}else{ $fm_menu_dos1.Text= $w[1]
-		}
-
-			if($w.Length -ge 3){
-
-		$fm_menu_dos2.Visible= $True
-
-		if($n[0] -eq $w[2]){ $fm_menu_dos2.Text= $d+ $w[2]
-		}else{ $fm_menu_dos2.Text= $w[2]
-		}
-
-				if($w.Length -ge 4){
-
-		$fm_menu_dos3.Visible= $True
-
-		if($n[0] -eq $w[3]){ $fm_menu_dos3.Text= $d+ $w[3]
-		}else{ $fm_menu_dos3.Text= $w[3]
-		}
-				}
-			}
-		}
-	}
-	break;
-
-  }'editor'{
-	[array]$w= $edit.Keys
-
-	$fm_menu_edt0.Visible= $False
-	$fm_menu_edt1.Visible= $False
-	$fm_menu_edt2.Visible= $False
-	$fm_menu_edt3.Visible= $False
-	$fm_menu_edt4.Visible= $False
-	$fm_menu_edt5.Visible= $False
-	$fm_menu_edt6.Visible= $False
-	$fm_menu_edt7.Visible= $False
-
-	if($w.Length -ge 1){
-
-		$fm_menu_edt0.Visible= $True
-
-		if($n[0] -eq $w[0]){ $fm_menu_edt0.Text= $d+ $w[0]
-		}else{ $fm_menu_edt0.Text= $w[0]
-		}
-
-		if($w.Length -ge 2){
-
-		$fm_menu_edt1.Visible= $True
-
-		if($n[0] -eq $w[1]){ $fm_menu_edt1.Text= $d+ $w[1]
-		}else{ $fm_menu_edt1.Text= $w[1]
-		}
-
-			if($w.Length -ge 3){
-
-		$fm_menu_edt2.Visible= $True
-
-		if($n[0] -eq $w[2]){ $fm_menu_edt2.Text= $d+ $w[2]
-		}else{ $fm_menu_edt2.Text= $w[2]
-		}
-
-				if($w.Length -ge 4){
-
-		$fm_menu_edt3.Visible= $True
-
-		if($n[0] -eq $w[3]){ $fm_menu_edt3.Text= $d+ $w[3]
-		}else{ $fm_menu_edt3.Text= $w[3]
-		}
-
-					if($w.Length -ge 5){
-
-		$fm_menu_edt4.Visible= $True
-
-		if($n[0] -eq $w[4]){ $fm_menu_edt4.Text= $d+ $w[4]
-		}else{ $fm_menu_edt4.Text= $w[4]
-		}
-
-						if($w.Length -ge 6){
-
-		$fm_menu_edt5.Visible= $True
-
-		if($n[0] -eq $w[5]){ $fm_menu_edt5.Text= $d+ $w[5]
-		}else{ $fm_menu_edt5.Text= $w[5]
-		}
-
-							if($w.Length -ge 7){
-
-		$fm_menu_edt6.Visible= $True
-
-		if($n[0] -eq $w[6]){ $fm_menu_edt6.Text= $d+ $w[6]
-		}else{ $fm_menu_edt6.Text= $w[6]
-		}
-
-								if($w.Length -ge 8){
-
-		$fm_menu_edt7.Visible= $True
-
-		if($n[0] -eq $w[7]){ $fm_menu_edt7.Text= $d+ $w[7]
-		}else{ $fm_menu_edt7.Text= $w[7]
-		}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-  }
-  } #sw
+	} #sw
  } #func
  
 function Trayfm_hide([string]$t){ 
@@ -5243,73 +5296,77 @@ function Trayfm_hide([string]$t){
  
 function Contxt_state([string]$t,[int[]]$ss){ 
 
-  switch($t){
+	switch($t){
+	'最小化'{
+		$contxt_trayfm.Items.Clear()
 
-  '最小化'{
+		[void]$contxt_trayfm.Items.Add("元に戻す")
+		[void]$contxt_trayfm.Items.Add("環境設定")
+		[void]$contxt_trayfm.Items.Add("終了")
 
-    $contxt_trayfm.Items.Clear()
-    [void]$contxt_trayfm.Items.Add("元に戻す")
-    [void]$contxt_trayfm.Items.Add("環境設定")
-    [void]$contxt_trayfm.Items.Add("終了")
+		$ss[0]= 1 # 小、元
 
-    $ss[0]= 1 # 小、元
+		if($frm_fm.WindowState -eq 'Normal'){
+			$ss[1]= 1; $frm_fm.WindowState= "Minimized"
+		}
+		if($sb_alg.WindowState -eq 'Normal'){
+			$ss[2]= 1; $sb_alg.WindowState= "Minimized"
+		}
+		if($ff_frm.WindowState -eq 'Normal'){
+			$ss[3]= 1; $ff_frm.WindowState= "Minimized"
+		}
+		if($sub_mask.WindowState -eq 'Normal'){
+			$ss[4]= 1; $sub_mask.WindowState= "Minimized"
+		}
 
-    if($frm_fm.WindowState -eq 'Normal'){
-	$ss[1]= 1; $frm_fm.WindowState= "Minimized"
-    }
-    if($sb_alg.WindowState -eq 'Normal'){
-	$ss[2]= 1; $sb_alg.WindowState= "Minimized"
-    }
-    if($ff_frm.WindowState -eq 'Normal'){
-	$ss[3]= 1; $ff_frm.WindowState= "Minimized"
-    }
-    if($sub_mask.WindowState -eq 'Normal'){
-	$ss[4]= 1; $sub_mask.WindowState= "Minimized"
-    }
+		return $ss
+		break;
 
-    return $ss
-    break;
+	}'元に戻す'{
+		$contxt_trayfm.Items.Clear()
 
-  }'元に戻す'{
+		[void]$contxt_trayfm.Items.Add("最小化")
+		[void]$contxt_trayfm.Items.Add("環境設定")
+		[void]$contxt_trayfm.Items.Add("終了")
 
-    $contxt_trayfm.Items.Clear()
-    [void]$contxt_trayfm.Items.Add("最小化")
-    [void]$contxt_trayfm.Items.Add("環境設定")
-    [void]$contxt_trayfm.Items.Add("終了")
+		if($ss[1] -eq 1){
+				$frm_fm.WindowState= "Normal"
+		}
+		if($ss[2] -eq 1){
+			$sb_alg.WindowState= "Normal"
+		}
+		if($ss[3] -eq 1){
+			$ff_frm.WindowState= "Normal"
+		}
+		if($ss[4] -eq 1){
+			$sub_mask.WindowState= "Normal"
+		}
 
-    if($ss[1] -eq 1){ $frm_fm.WindowState= "Normal" }
-    if($ss[2] -eq 1){ $sb_alg.WindowState= "Normal" }
-    if($ss[3] -eq 1){ $ff_frm.WindowState= "Normal" }
-    if($ss[4] -eq 1){ $sub_mask.WindowState= "Normal" }
+		$ss= 0, 0,0,0,0
 
-    $ss= 0, 0,0,0,0
+		return $ss
+		break;
 
-    return $ss
-    break;
-
-  }'環境設定'{
-    $fm_menu_set.PerformClick()
-    break;
-
-  }'終了'{
-    $fm_menu_n.PerformClick()
-  }
-  } #sw
-
+	}'環境設定'{
+		$fm_menu_set.PerformClick()
+		break;
+	}'終了'{
+		$fm_menu_n.PerformClick()
+	}
+	} #sw
  } #func
  
 # ------ 
  
 function Autosav_sw([string]$sw){ 
 
-  switch($sw){
-  'True'{	$fm_menu_auto.Text= "v Autosave"; break;
-  }'False'{	$fm_menu_auto.Text= "Autosave"
-  }
-  } #sw
+	switch($sw){
+	'True'{	$fm_menu_auto.Text= "v Autosave";	break;
+	}'False'{	$fm_menu_auto.Text= "Autosave"
+	}
+	} #sw
 
-  return $sw
-
+	return $sw
  } #func
  
 function ClickPlay_sw([string] $sw){ 
@@ -5491,41 +5548,43 @@ function Enable_chk([string]$s){
  
 function Type_sw([string]$t){ 
 
-  $fm_menu_type_mckreg.Text= "MCK Reg"
-  $fm_menu_type_nsdreg.Text= "NSD Reg"
-  $fm_menu_type_nsd.Text= "NSD"
+	$fm_menu_type_mckreg.Text= "MCK Reg"
+	$fm_menu_type_nsdreg.Text= "NSD Reg"
+	$fm_menu_type_nsd.Text= "NSD"
 
-  switch($t){
-  'mckreg'{	$fm_menu_type_mckreg.Text= "[v] MCK Reg";	break;
-  }'nsdreg'{	$fm_menu_type_nsdreg.Text= "[v] NSD Reg";	break;
-  }'nsd'{	$fm_menu_type_nsd.Text= "[v] NSD Op"
-  }
-  } #sw
+	switch($t){
+	'mckreg'{	$fm_menu_type_mckreg.Text= "[v] MCK Reg";	break;
+	}'nsdreg'{	$fm_menu_type_nsdreg.Text= "[v] NSD Reg";	break;
+	}'nsd'{	$fm_menu_type_nsd.Text= "[v] NSD Op"
+	}
+	} #sw
 
-  return $t
+	return $t
  } #func
  
 function Style_sw([string]$t){ 
 
-  $fm_menu_copy.Enabled= Enable_chk $t
+	$fm_menu_copy.Enabled= Enable_chk $t
 
-  #初期化
-  $opn_nmud_ams.BackColor= "white"
-  $opm_nmud_ams.BackColor= "white"
-  $opn_nmud_ams.ForeColor= "black"
-  $opm_nmud_ams.ForeColor= "black"
+	#初期化
+	$opn_nmud_ams.BackColor= "white"
+	$opm_nmud_ams.BackColor= "white"
+	$opn_nmud_ams.ForeColor= "black"
+	$opm_nmud_ams.ForeColor= "black"
 
-  $fm_menu_style_pmd.Text= "PMD"
-  $fm_menu_style_fmp7.Text= "FMP7"
-  $fm_menu_style_mucom.Text= "MUCOM"
-  $fm_menu_style_mxdrv.Text= "MXDRV"
+	$fm_menu_style_pmd.Text= "PMD"
+	$fm_menu_style_fmp7.Text= "FMP7"
+	$fm_menu_style_mucom.Text= "MUCOM"
+	$fm_menu_style_mxdrv.Text= "MXDRV"
 
-  switch($t){
-  'pmd'{	$fm_menu_style_pmd.Text= "[v] PMD"
+	switch($t){
+	'pmd'{
+		$fm_menu_style_pmd.Text= "[v] PMD"
 		break;
-  }'fmp7'{	$fm_menu_style_fmp7.Text= "[v] FMP7"
+	}'fmp7'{
+		$fm_menu_style_fmp7.Text= "[v] FMP7"
 		break;
-  }'mucom'{
+	}'mucom'{
 		$opn_nmud_ams.BackColor= "beige"
 		$opm_nmud_ams.BackColor= "beige"
 		$opn_nmud_ams.ForeColor= "silver"
@@ -5533,44 +5592,40 @@ function Style_sw([string]$t){
 
 		$fm_menu_style_mucom.Text= "[v] MUCOM"
 		break;
+	}'mxdrv'{
+		$fm_menu_style_mxdrv.Text= "[v] MXDRV"
+	}
+	} #sw
 
-  }'mxdrv'{	$fm_menu_style_mxdrv.Text= "[v] MXDRV"
-  }
-  } #sw
-
-  return $t
+	return $t
  } #func
  
 function Zero_sw([string]$t){ 
 
- switch($t){
- 'True'{
-	$fm_menu_zero.Text= "v zero padding"
+	switch($t){
+	'True'{
+		$fm_menu_zero.Text= "v zero padding"
+		break;
+	}'False'{
+		$fm_menu_zero.Text= "zero padding"
+	}
+	} #sw
 
-	break;
- }'False'{
-
-	$fm_menu_zero.Text= "zero padding"
- }
- } #sw
-
- return $t
+	return $t
  } #func
  
 function Ten_sw([string]$t){ 
 
- switch($t){
- 'True'{
-	$fm_menu_ten.Text= "v comma"
+	switch($t){
+	'True'{
+		$fm_menu_ten.Text= "v comma"
+		break;
+	}'False'{
+		$fm_menu_ten.Text= "comma"
+	}
+	} #sw
 
-	break;
- }'False'{
-
-	$fm_menu_ten.Text= "comma"
- }
- } #sw
-
- return $t
+	return $t
  } #func
  
 function Idx(){ 
@@ -5605,94 +5660,85 @@ function Itm(){
  
 function Value_gui(){ 
 
-  $script:event_change= $False
+	$script:event_change= $False
 
-  $fm_panel.SuspendLayout()
+	$fm_panel.SuspendLayout()
 
-  [int]$i= Idx # OP1-4index
+	[int]$i= Idx # OP1-4index
 
-  switch($comb_fm.SelectedItem){
+	switch($comb_fm.SelectedItem){
+	'vrc7 2op'{
+		[array]$arr= $vrc_svn
 
-  'vrc7 2op'{
+		$vrc_nmud_tl.Value= $arr[$i][0]
+		$vrc_nmud_fb.Value= $arr[0][1]
+		$vrc_nmud_ar.Value= $arr[$i][2]
+		$vrc_nmud_dr.Value= $arr[$i][3]
+		$vrc_nmud_sr.Value= $arr[$i][4]
+		$vrc_nmud_rr.Value= $arr[$i][5]
+		$vrc_nmud_ksl.Value= $arr[$i][6]
+		$vrc_nmud_ml.Value= $arr[$i][7]
+		$vrc_nmud_am.Value= $arr[$i][8]
+		$vrc_nmud_vib.Value= $arr[$i][9]
+		$vrc_nmud_eg.Value= $arr[$i][10]
+		$vrc_nmud_ksr.Value= $arr[$i][11]
+		$vrc_nmud_dt.Value= $arr[$i][12]
+		break;
+	}'opl 2op'{
+		[array]$arr= $opl_two
 
-	[array]$arr= $vrc_svn
+		$opl_nmud_alg.Value= $arr[0][0]
+		$opl_nmud_fb.Value= $arr[0][1]
+		$opl_nmud_ar.Value= $arr[$i][2]
+		$opl_nmud_dr.Value= $arr[$i][3]
+		$opl_nmud_rr.Value= $arr[$i][4]
+		$opl_nmud_sr.Value= $arr[$i][5]
+		$opl_nmud_tl.Value= $arr[$i][6]
+		$opl_nmud_ksl.Value= $arr[$i][7]
+		$opl_nmud_ml.Value= $arr[$i][8]
+		$opl_nmud_ksr.Value= $arr[$i][9]
+		$opl_nmud_eg.Value= $arr[$i][10]
+		$opl_nmud_vib.Value= $arr[$i][11]
+		$opl_nmud_am.Value= $arr[$i][12]
+		break;
+	}'opn 4op'{
+		[array]$arr= $opn_fur
 
-	$vrc_nmud_tl.Value= $arr[$i][0]
-	$vrc_nmud_fb.Value= $arr[0][1]
-	$vrc_nmud_ar.Value= $arr[$i][2]
-	$vrc_nmud_dr.Value= $arr[$i][3]
-	$vrc_nmud_sr.Value= $arr[$i][4]
-	$vrc_nmud_rr.Value= $arr[$i][5]
-	$vrc_nmud_ksl.Value= $arr[$i][6]
-	$vrc_nmud_ml.Value= $arr[$i][7]
-	$vrc_nmud_am.Value= $arr[$i][8]
-	$vrc_nmud_vib.Value= $arr[$i][9]
-	$vrc_nmud_eg.Value= $arr[$i][10]
-	$vrc_nmud_ksr.Value= $arr[$i][11]
-	$vrc_nmud_dt.Value= $arr[$i][12]
-	break;
+		$opn_nmud_alg.Value= $arr[0][0]
+		$opn_nmud_fb.Value= $arr[0][1]
+		$opn_nmud_ar.Value= $arr[$i][2]
+		$opn_nmud_dr.Value= $arr[$i][3]
+		$opn_nmud_sr.Value= $arr[$i][4]
+		$opn_nmud_rr.Value= $arr[$i][5]
+		$opn_nmud_sl.Value= $arr[$i][6]
+		$opn_nmud_tl.Value= $arr[$i][7]
+		$opn_nmud_ks.Value= $arr[$i][8]
+		$opn_nmud_ml.Value= $arr[$i][9]
+		$opn_nmud_dt1.Value= $arr[$i][10]
+		$opn_nmud_ams.Value= $arr[$i][11]
+		break;
+	}'opm 4op'{
+		[array]$arr= $opm_fur
 
-  }'opl 2op'{
+		$opm_nmud_alg.Value= $arr[0][0]
+		$opm_nmud_fb.Value= $arr[0][1]
+		$opm_nmud_ar.Value= $arr[$i][2]
+		$opm_nmud_dr.Value= $arr[$i][3]
+		$opm_nmud_sr.Value= $arr[$i][4]
+		$opm_nmud_rr.Value= $arr[$i][5]
+		$opm_nmud_sl.Value= $arr[$i][6]
+		$opm_nmud_tl.Value= $arr[$i][7]
+		$opm_nmud_ks.Value= $arr[$i][8]
+		$opm_nmud_ml.Value= $arr[$i][9]
+		$opm_nmud_dt1.Value= $arr[$i][10]
+		$opm_nmud_dt2.Value= $arr[$i][11]
+		$opm_nmud_ams.Value= $arr[$i][12]
+	}
+	} # sw
 
-	[array]$arr= $opl_two
+	$fm_panel.ResumeLayout()
 
-	$opl_nmud_alg.Value= $arr[0][0]
-	$opl_nmud_fb.Value= $arr[0][1]
-	$opl_nmud_ar.Value= $arr[$i][2]
-	$opl_nmud_dr.Value= $arr[$i][3]
-	$opl_nmud_rr.Value= $arr[$i][4]
-	$opl_nmud_sr.Value= $arr[$i][5]
-	$opl_nmud_tl.Value= $arr[$i][6]
-	$opl_nmud_ksl.Value= $arr[$i][7]
-	$opl_nmud_ml.Value= $arr[$i][8]
-	$opl_nmud_ksr.Value= $arr[$i][9]
-	$opl_nmud_eg.Value= $arr[$i][10]
-	$opl_nmud_vib.Value= $arr[$i][11]
-	$opl_nmud_am.Value= $arr[$i][12]
-	break;
-
-  }'opn 4op'{
-
-	[array]$arr= $opn_fur
-
-	$opn_nmud_alg.Value= $arr[0][0]
-	$opn_nmud_fb.Value= $arr[0][1]
-	$opn_nmud_ar.Value= $arr[$i][2]
-	$opn_nmud_dr.Value= $arr[$i][3]
-	$opn_nmud_sr.Value= $arr[$i][4]
-	$opn_nmud_rr.Value= $arr[$i][5]
-	$opn_nmud_sl.Value= $arr[$i][6]
-	$opn_nmud_tl.Value= $arr[$i][7]
-	$opn_nmud_ks.Value= $arr[$i][8]
-	$opn_nmud_ml.Value= $arr[$i][9]
-	$opn_nmud_dt1.Value= $arr[$i][10]
-	$opn_nmud_ams.Value= $arr[$i][11]
-	break;
-
-  }'opm 4op'{
-
-	[array]$arr= $opm_fur
-
-	$opm_nmud_alg.Value= $arr[0][0]
-	$opm_nmud_fb.Value= $arr[0][1]
-	$opm_nmud_ar.Value= $arr[$i][2]
-	$opm_nmud_dr.Value= $arr[$i][3]
-	$opm_nmud_sr.Value= $arr[$i][4]
-	$opm_nmud_rr.Value= $arr[$i][5]
-	$opm_nmud_sl.Value= $arr[$i][6]
-	$opm_nmud_tl.Value= $arr[$i][7]
-	$opm_nmud_ks.Value= $arr[$i][8]
-	$opm_nmud_ml.Value= $arr[$i][9]
-	$opm_nmud_dt1.Value= $arr[$i][10]
-	$opm_nmud_dt2.Value= $arr[$i][11]
-	$opm_nmud_ams.Value= $arr[$i][12]
-  }
-  } # sw
-
-  $fm_panel.ResumeLayout()
-
-  $script:event_change= $True
-
+	$script:event_change= $True
  } # func
  
 function Fm_osc(){ 
@@ -5896,7 +5942,7 @@ function Panel_chg([string]$sw){
  } #func
   
 # Lis 
-	 
+	
 function Adv_edit([string]$t){ 
 
 	switch($t){
@@ -5925,252 +5971,242 @@ function Adv_edit([string]$t){
  
 function Read_mck([int]$j,$xx,[array]$yy){ 
 
+	[array]$label=@("","")
 
-  [array]$label=@("","")
+	for([int] $i= 0; $i -lt $j; $i++){
 
-  for([int] $i= 0; $i -lt $j; $i++){
+		[string]$mtx= $yy[$i] # yy[$i]+ "`r`n" fuka
 
+		$label[0]= [System.Text.RegularExpressions.Regex]::Matches($mtx,"(?<=^@OP)[0-9]+(?=\s*=)")
+		$label[1]= [System.Text.RegularExpressions.Regex]::Matches($mtx,"(?<=;).*(?=$)")
+		# 最長一致
 
-	[string]$mtx= $yy[$i] # yy[$i]+ "`r`n" fuka
+		[string]$ss= "@"+ $label[0] + " "+ $label[1]
 
-	$label[0]= [System.Text.RegularExpressions.Regex]::Matches($mtx,"(?<=^@OP)[0-9]+(?=\s*=)")
-	$label[1]= [System.Text.RegularExpressions.Regex]::Matches($mtx,"(?<=;).*(?=$)")
-	# 最長一致
-
-	[string]$ss= "@"+ $label[0] + " "+ $label[1]
-
-	$xx[$ss]= $mtx+ "`r`n" # hash確保
-  } #
-
+		$xx[$ss]= $mtx+ "`r`n" # hash確保
+	} #
  } #func
  
 function Read_vrc7([int]$j,$xx,[array]$yy){ 
 
+	[string[]]$label=@("","")
 
-  [string[]]$label=@("","")
+	for([int] $i= 0; $i -lt $j; $i++){
 
-  for([int] $i= 0; $i -lt $j; $i++){
+		[int]$num= 8* $i # @num[0-126]
 
+		[array]$rr= $yy[$num],$yy[$num+1],$yy[$num+2],$yy[$num+3],$yy[$num+4],$yy[$num+5],$yy[$num+6]
 
-	[int]$num= 8* $i # @num[0-126]
+		[string]$mtx= ($rr -join "`r`n")
 
-	[array]$rr= $yy[$num],$yy[$num+1],$yy[$num+2],$yy[$num+3],$yy[$num+4],$yy[$num+5],$yy[$num+6]
+		[string]$tt= $rr[0]
 
-	[string]$mtx= ($rr -join "`r`n")
+		$label[0]= [System.Text.RegularExpressions.Regex]::Matches($tt,"(?<=^VRC7\()[0-9]+(?=\))")
+		$label[1]= [System.Text.RegularExpressions.Regex]::Matches($tt,"(?<=;).*(?=$)")
+		# 最長一致
 
-	[string]$tt= $rr[0]
+		[string]$ss= "@"+ $label[0] + " "+ $label[1]
 
-	$label[0]= [System.Text.RegularExpressions.Regex]::Matches($tt,"(?<=^VRC7\()[0-9]+(?=\))")
-	$label[1]= [System.Text.RegularExpressions.Regex]::Matches($tt,"(?<=;).*(?=$)")
-	# 最長一致
-
-	[string]$ss= "@"+ $label[0] + " "+ $label[1]
-
-	$xx[$ss]= $mtx+ "`r`n"
-  } #
-
+		$xx[$ss]= $mtx+ "`r`n"
+	} #
  } #func
  
 function Read_ff([int]$j,$xx,[array]$yy){ 
 
+	[string[]]$label=@("","")
 
-  [string[]]$label=@("","")
+	for([int] $i= 0; $i -lt $j; $i++){
 
-  for([int] $i= 0; $i -lt $j; $i++){
+		[int]$num= 8* $i # @num[0-126]
 
+		[array]$rr= $yy[$num],$yy[$num+1],$yy[$num+2],$yy[$num+3],$yy[$num+4],$yy[$num+5],$yy[$num+6]
 
-	[int]$num= 8* $i # @num[0-126]
+		[string]$mtx= ($rr -join "`r`n")
 
-	[array]$rr= $yy[$num],$yy[$num+1],$yy[$num+2],$yy[$num+3],$yy[$num+4],$yy[$num+5],$yy[$num+6]
+		[string]$tt= $rr[1]
 
-	[string]$mtx= ($rr -join "`r`n")
+		$label[0]= [System.Text.RegularExpressions.Regex]::Matches($tt,"(?<=^)@[0-9]+(?=\s)")
+		$label[1]= [System.Text.RegularExpressions.Regex]::Matches($tt,"(?<==\t).*(?=$)")
+		# 最長一致
 
-	[string]$tt= $rr[1]
+		[string]$ss= $label[0] + " "+ $label[1]
 
-	$label[0]= [System.Text.RegularExpressions.Regex]::Matches($tt,"(?<=^)@[0-9]+(?=\s)")
-	$label[1]= [System.Text.RegularExpressions.Regex]::Matches($tt,"(?<==\t).*(?=$)")
-	# 最長一致
-
-	[string]$ss= $label[0] + " "+ $label[1]
-
-	$xx[$ss]= $mtx+ "`r`n"
-  } #
-
+		$xx[$ss]= $mtx+ "`r`n"
+	} #
  } #func
  
 function Preset_read(){ 
 
-  [string[]]$ss= Split_path $pmd["MC.EXE"]
+	[string[]]$ss= Split_path $pmd["MC.EXE"]
 
-  [string[]]$pp= @("","","","","")
-
-
-  $pp[0]= '.\preset\mck.preset'
-  if((Chk_path $pp[0]) -ne 0){ $pp[0]= "" }
-
-  $pp[1]= '.\preset\vrc7.preset'
-  if((Chk_path $pp[1]) -ne 0){ $pp[1]= "" }
+	[string[]]$pp= @("","","","","")
 
 
-  # 2箇所チェック
-  $pp[2]= '.\preset\PC88.MML'
-  if((Chk_path $pp[2]) -ne 0){ $pp[2]= "" }
+	$pp[0]= '.\preset\mck.preset'
+	if((Chk_path $pp[0]) -ne 0){ $pp[0]= "" }
 
-  if($pp[2] -eq ""){
+	$pp[1]= '.\preset\vrc7.preset'
+	if((Chk_path $pp[1]) -ne 0){ $pp[1]= "" }
 
-	$pp[2]= $ss[1]+ '\PC88.MML'
+
+	# 2箇所チェック
+	$pp[2]= '.\preset\PC88.MML'
 	if((Chk_path $pp[2]) -ne 0){ $pp[2]= "" }
-  }
 
-  $pp[3]= '.\preset\X68ED.MML'
-  if((Chk_path $pp[3]) -ne 0){ $pp[3]= "" }
+	if($pp[2] -eq ""){
 
-  if($pp[3] -eq ""){
+		$pp[2]= $ss[1]+ '\PC88.MML'
+		if((Chk_path $pp[2]) -ne 0){ $pp[2]= "" }
+	}
 
-	$pp[3]= $ss[1]+ '\X68ED.MML'
+	$pp[3]= '.\preset\X68ED.MML'
 	if((Chk_path $pp[3]) -ne 0){ $pp[3]= "" }
-  }
 
-  $pp[4]= '.\preset\EFFEC.MML'
-  if((Chk_path $pp[4]) -ne 0){ $pp[4]= "" }
+	if($pp[3] -eq ""){
 
-  if($pp[4] -eq ""){
+		$pp[3]= $ss[1]+ '\X68ED.MML'
+		if((Chk_path $pp[3]) -ne 0){ $pp[3]= "" }
+	}
 
-	$pp[4]= $ss[1]+ '\EFFEC.MML'
+	$pp[4]= '.\preset\EFFEC.MML'
 	if((Chk_path $pp[4]) -ne 0){ $pp[4]= "" }
-  }
 
+	if($pp[4] -eq ""){
 
-  [string]$ret= ""
-  [string]$output= ""
+		$pp[4]= $ss[1]+ '\EFFEC.MML'
+		if((Chk_path $pp[4]) -ne 0){ $pp[4]= "" }
+	}
 
 
-  if($pp[0] -ne ""){
+	[string]$ret= ""
+	[string]$output= ""
 
-	[string]$read= (cat $pp[0] | Out-String) # 改行付き
 
-	[array]$ary= $read -split "`r`n"
+	if($pp[0] -ne ""){
 
+		[string]$read= (cat $pp[0] | Out-String) # 改行付き
 
-	Read_mck 36 $script:hsmck $ary
-	#write-host ("chk_mck: "+ $hsmck["@36 音の小さい"]) # Sawウェーブ
+		[array]$ary= $read -split "`r`n"
 
 
-	[array]$key= $hsmck.Keys
+		Read_mck 36 $script:hsmck $ary
+		#write-host ("chk_mck: "+ $hsmck["@36 音の小さい"]) # Sawウェーブ
 
-	$key= $key | sort
 
-	[void]$list_mck.Items.AddRange(@($key))
-  }else{
+		[array]$key= $hsmck.Keys
 
-	$ret= '"mck.preset"ファイルがない'
-	Write-Host $ret
+		$key= $key | sort
 
-	$output+= $ret+ "`r`n"
-  }
+		[void]$list_mck.Items.AddRange(@($key))
+	}else{
 
+		$ret= '"mck.preset"ファイルがない'
+		Write-Host $ret
 
-  if($pp[1] -ne ""){
+		$output+= $ret+ "`r`n"
+	}
 
-	[string]$read= (cat $pp[1] | Out-String)
 
-	[array]$ary= $read -split "`r`n"
+	if($pp[1] -ne ""){
 
+		[string]$read= (cat $pp[1] | Out-String)
 
-	Read_vrc7 6 $script:hsvrc $ary
-	#write-host ("chk_vrc: "+ $hsvrc["@005 2op Space Noise"])
+		[array]$ary= $read -split "`r`n"
 
 
-	[array]$key= $hsvrc.Keys
+		Read_vrc7 6 $script:hsvrc $ary
+		#write-host ("chk_vrc: "+ $hsvrc["@005 2op Space Noise"])
 
-	$key= $key | sort
 
-	[void]$list_vrc.Items.AddRange(@($key))
-  }else{
+		[array]$key= $hsvrc.Keys
 
-	$ret= '"vrc7.preset"ファイルがない'
-	Write-Host $ret
+		$key= $key | sort
 
-	$output+= $ret+ "`r`n"
-  }
+		[void]$list_vrc.Items.AddRange(@($key))
+	}else{
 
+		$ret= '"vrc7.preset"ファイルがない'
+		Write-Host $ret
 
-  if($pp[2] -ne ""){
+		$output+= $ret+ "`r`n"
+	}
 
-	[string]$read= (cat $pp[2] | Out-String)
 
-	[array]$ary= $read -split "`r`n"
+	if($pp[2] -ne ""){
 
+		[string]$read= (cat $pp[2] | Out-String)
 
-	Read_ff 127 $script:hs88 $ary
-	#write-host $hs88["@126MusicBX"]
+		[array]$ary= $read -split "`r`n"
 
 
-	[array]$key= $hs88.Keys
+		Read_ff 127 $script:hs88 $ary
+		#write-host $hs88["@126MusicBX"]
 
-	$key= $key | sort
 
-	[void]$list_88.Items.AddRange(@($key))
-  }else{
+		[array]$key= $hs88.Keys
 
-	$ret= '"PC88.MML"ファイルがない'
-	Write-Host $ret
+		$key= $key | sort
 
-	$output+= $ret+ "`r`n"
-  }
+		[void]$list_88.Items.AddRange(@($key))
+	}else{
 
+		$ret= '"PC88.MML"ファイルがない'
+		Write-Host $ret
 
-  if($pp[3] -ne ""){
+		$output+= $ret+ "`r`n"
+	}
 
-	[string]$read= (cat $pp[3] | Out-String)
 
-	[array]$ary= $read -split "`r`n"
+	if($pp[3] -ne ""){
 
+		[string]$read= (cat $pp[3] | Out-String)
 
-	Read_ff 68 $script:hsx68 $ary
-	#write-host $hsx68["@067 Effect2"]
+		[array]$ary= $read -split "`r`n"
 
 
-	[array]$key= $hsx68.Keys
+		Read_ff 68 $script:hsx68 $ary
+		#write-host $hsx68["@067 Effect2"]
 
-	$key= $key | sort
 
-	[void]$list_x68.Items.AddRange(@($key))
-  }else{
+		[array]$key= $hsx68.Keys
 
-	$ret= '"X68ED.MML"ファイルがない'
-	Write-Host $ret
+		$key= $key | sort
 
-	$output+= $ret+ "`r`n"
-  }
+		[void]$list_x68.Items.AddRange(@($key))
+	}else{
 
+		$ret= '"X68ED.MML"ファイルがない'
+		Write-Host $ret
 
-  if($pp[4] -ne ""){
+		$output+= $ret+ "`r`n"
+	}
 
-	[string]$read= (cat $pp[4] | Out-String)
 
-	[array]$ary= $read -split "`r`n"
+	if($pp[4] -ne ""){
 
+		[string]$read= (cat $pp[4] | Out-String)
 
-	Read_ff 256 $script:hsefx $ary
-	#write-host $hsefx["@255 Effect"]
+		[array]$ary= $read -split "`r`n"
 
 
-	[array]$key= $hsefx.Keys
+		Read_ff 256 $script:hsefx $ary
+		#write-host $hsefx["@255 Effect"]
 
-	$key= $key | sort
 
-	[void]$list_efx.Items.AddRange(@($key))
-  }else{
+		[array]$key= $hsefx.Keys
 
-	$ret= '"EFFEC.MML"ファイルがない'
-	Write-Host $ret
+		$key= $key | sort
 
-	$output+= $ret+ "`r`n"
-  }
+		[void]$list_efx.Items.AddRange(@($key))
+	}else{
 
-  return $output
+		$ret= '"EFFEC.MML"ファイルがない'
+		Write-Host $ret
 
+		$output+= $ret+ "`r`n"
+	}
+
+	return $output
  } #func
  
 # ------ 
@@ -6454,426 +6490,407 @@ function Key_play([string]$t){
 	 
 function Unredo([int]$n){ 
 
-  switch($n){ # 初期化
-  2{
-	$script:undo[0]= $null # 空値も入るため
-
-	$script:undo[1]= $null
-
-	break;
-
-  }1{ # undo呼出し
-
-	switch($undo[2]){
-	'0'{
-		$script:undo[1]= $fm_box.Text # omote buffer
-
-		$script:undo[2]= "1"	# toggle
-		$fm_box.Text= $undo[0]	# undo read
+	switch($n){ # 初期化
+	2{
+		$script:undo[0]= $null # 空値も入るため
+		$script:undo[1]= $null
 		break;
 
-	}'1'{
-		$script:undo[0]= $fm_box.Text # ura buffer
+	}1{	# undo呼出し
+		switch($undo[2]){
+		'0'{
+			$script:undo[1]= $fm_box.Text # omote buffer
 
-		$script:undo[2]= "0"
-		$fm_box.Text= $undo[1]	# undo read
+			$script:undo[2]= "1"	# toggle
+			$fm_box.Text= $undo[0]	# undo read
+			break;
+		}'1'{
+			$script:undo[0]= $fm_box.Text # ura buffer
+
+			$script:undo[2]= "0"
+			$fm_box.Text= $undo[1]	# undo read
+		}
+		} #sw
+
+		Param_exp 1 $fm_box.Text
+
+		if($sb_alg.Visible){
+			All_chg
+		}
+		break;
+
+	}0{	# undo開始
+
+		# .Add_Enterでdo (menuから各objでは再enterとはならない)
+		$script:undo[$undo[2]]= $fm_box.Text # undo buffer dochiraka ni
 	}
 	} #sw
 
-	Param_exp 1 $fm_box.Text
 
-	if($sb_alg.Visible){
-		All_chg
+	if(($undo[0] -ne $null) -or ($undo[1] -ne $null)){
+
+		$fm_menu_ud.Enabled= $True
+	}else{
+		$fm_menu_ud.Enabled= $False
 	}
-	break;
-
-  }0{	# undo開始
-
-	# .Add_Enterでdo (menuから各objでは再enterとはならない)
-
-	$script:undo[$undo[2]]= $fm_box.Text # undo buffer dochiraka ni
-  }
-  } #sw
-
-
-if(($undo[0] -ne $null) -or ($undo[1] -ne $null)){
-
-	$fm_menu_ud.Enabled= $True
-  }else{
-
-	$fm_menu_ud.Enabled= $False
-  }
-
  } #func
  
 function Send_build([int]$sw){ 
 
-  [array]$ary= @("OPL","VRC7","OPM","OPN") # .SelectedIndex
+	[array]$ary= @("OPL","VRC7","OPM","OPN") # .SelectedIndex
 
-  [string]$tt= $ary[$comb_fm.SelectedIndex]
+	[string]$tt= $ary[$comb_fm.SelectedIndex]
 
-  switch($sw){
-  1{
-	$fm_menu_send.Text= ("send "+ $tt)
-	break;
-  }0{
-
-	[string]$retn= [Windows.Forms.MessageBox]::Show(
-
-	($tt+ "へ値を送ります"), "確認", "OKCancel","Information","Button2"
-	)
-	switch($retn){
-	'OK'{
-
-	  [array]$sr= @("","","","")
-	  $sr[0]= @()
-	  $sr[1]= @()
-	  $sr[2]= @()
-	  $sr[3]= @()
-
-	  switch($tt){
-	  'OPL'{
-		$sr[0]+= Sz "0" # ALG
-		$sr[0]+= $vrc_svn[0][1..3]
-		$sr[0]+= $vrc_svn[0][5]
-		$sr[0]+= $vrc_svn[0][4]
-		$sr[0]+= $vrc_svn[0][0]
-		$sr[0]+= $vrc_svn[0][6..7]
-		$sr[0]+= $vrc_svn[0][11]
-		$sr[0]+= $vrc_svn[0][10]
-		$sr[0]+= $vrc_svn[0][9]
-		$sr[0]+= $vrc_svn[0][8]
-
-		$sr[1]+= Sz "0"
-		$sr[1]+= Sz "0" # FB
-		$sr[1]+= $vrc_svn[1][2..3]
-		$sr[1]+= $vrc_svn[1][5]
-		$sr[1]+= $vrc_svn[1][4]
-		$sr[1]+= $vrc_svn[1][0]
-		$sr[1]+= $vrc_svn[1][6..7]
-		$sr[1]+= $vrc_svn[1][11]
-		$sr[1]+= $vrc_svn[1][10]
-		$sr[1]+= $vrc_svn[1][9]
-		$sr[1]+= $vrc_svn[1][8]
-
-		$script:opl_two[0]= $sr[0]
-		$script:opl_two[1]= $sr[1]
+	switch($sw){
+	1{
+		$fm_menu_send.Text= ("send "+ $tt)
 		break;
-	  }'VRC7'{
-		$sr[0]+= $opl_two[0][6]
-		$sr[0]+= $opl_two[0][1..3]
-		$sr[0]+= $opl_two[0][5]
-		$sr[0]+= $opl_two[0][4]
-		$sr[0]+= $opl_two[0][7]
-		$sr[0]+= $opl_two[0][8]
-		$sr[0]+= $opl_two[0][12]
-		$sr[0]+= $opl_two[0][11]
-		$sr[0]+= $opl_two[0][10]
-		$sr[0]+= $opl_two[0][9]
-		$sr[0]+= Sz "0" # DT
+	}0{
+		[string]$retn= [Windows.Forms.MessageBox]::Show(
+		($tt+ "へ値を送ります"), "確認", "OKCancel","Information","Button2"
+		)
 
-		$sr[1]+= Sz "0" # TL
-		$sr[1]+= Sz "0" # FB
-		$sr[1]+= $opl_two[1][2..3]
-		$sr[1]+= $opl_two[1][5]
-		$sr[1]+= $opl_two[1][4]
-		$sr[1]+= $opl_two[1][7]
-		$sr[1]+= $opl_two[1][8]
-		$sr[1]+= $opl_two[1][12]
-		$sr[1]+= $opl_two[1][11]
-		$sr[1]+= $opl_two[1][10]
-		$sr[1]+= $opl_two[1][9]
-		$sr[1]+= Sz "0"
+		switch($retn){
+		'OK'{
+			[array]$sr= @("","","","")
+			$sr[0]= @()
+			$sr[1]= @()
+			$sr[2]= @()
+			$sr[3]= @()
 
-		$script:vrc_svn[0]= $sr[0]
-		$script:vrc_svn[1]= $sr[1]
-		break;
-	  }'OPM'{
-		$sr[0]+= $opn_fur[0][0..10]
-		$sr[0]+= Sz "0"
-		$sr[0]+= $opn_fur[0][11]
+			switch($tt){
+			'OPL'{
+				$sr[0]+= Sz "0" # ALG
+				$sr[0]+= $vrc_svn[0][1..3]
+				$sr[0]+= $vrc_svn[0][5]
+				$sr[0]+= $vrc_svn[0][4]
+				$sr[0]+= $vrc_svn[0][0]
+				$sr[0]+= $vrc_svn[0][6..7]
+				$sr[0]+= $vrc_svn[0][11]
+				$sr[0]+= $vrc_svn[0][10]
+				$sr[0]+= $vrc_svn[0][9]
+				$sr[0]+= $vrc_svn[0][8]
 
-		$sr[1]+= $opn_fur[1][0..10]
-		$sr[1]+= Sz "0"
-		$sr[1]+= $opn_fur[1][11]
+				$sr[1]+= Sz "0"
+				$sr[1]+= Sz "0" # FB
+				$sr[1]+= $vrc_svn[1][2..3]
+				$sr[1]+= $vrc_svn[1][5]
+				$sr[1]+= $vrc_svn[1][4]
+				$sr[1]+= $vrc_svn[1][0]
+				$sr[1]+= $vrc_svn[1][6..7]
+				$sr[1]+= $vrc_svn[1][11]
+				$sr[1]+= $vrc_svn[1][10]
+				$sr[1]+= $vrc_svn[1][9]
+				$sr[1]+= $vrc_svn[1][8]
 
-		$sr[2]+= $opn_fur[2][0..10]
-		$sr[2]+= Sz "0"
-		$sr[2]+= $opn_fur[2][11]
+				$script:opl_two[0]= $sr[0]
+				$script:opl_two[1]= $sr[1]
+				break;
+			}'VRC7'{
+				$sr[0]+= $opl_two[0][6]
+				$sr[0]+= $opl_two[0][1..3]
+				$sr[0]+= $opl_two[0][5]
+				$sr[0]+= $opl_two[0][4]
+				$sr[0]+= $opl_two[0][7]
+				$sr[0]+= $opl_two[0][8]
+				$sr[0]+= $opl_two[0][12]
+				$sr[0]+= $opl_two[0][11]
+				$sr[0]+= $opl_two[0][10]
+				$sr[0]+= $opl_two[0][9]
+				$sr[0]+= Sz "0" # DT
 
-		$sr[3]+= $opn_fur[3][0..10]
-		$sr[3]+= Sz "0"
-		$sr[3]+= $opn_fur[3][11]
+				$sr[1]+= Sz "0" # TL
+				$sr[1]+= Sz "0" # FB
+				$sr[1]+= $opl_two[1][2..3]
+				$sr[1]+= $opl_two[1][5]
+				$sr[1]+= $opl_two[1][4]
+				$sr[1]+= $opl_two[1][7]
+				$sr[1]+= $opl_two[1][8]
+				$sr[1]+= $opl_two[1][12]
+				$sr[1]+= $opl_two[1][11]
+				$sr[1]+= $opl_two[1][10]
+				$sr[1]+= $opl_two[1][9]
+				$sr[1]+= Sz "0"
 
-		$script:opm_fur[0]= $sr[0]
-		$script:opm_fur[1]= $sr[1]
-		$script:opm_fur[2]= $sr[2]
-		$script:opm_fur[3]= $sr[3]
-		break;
-	  }'OPN'{
-		$sr[0]+= $opm_fur[0][0..10]
-		$sr[0]+= $opm_fur[0][12]
+				$script:vrc_svn[0]= $sr[0]
+				$script:vrc_svn[1]= $sr[1]
+				break;
+			}'OPM'{
+				$sr[0]+= $opn_fur[0][0..10]
+				$sr[0]+= Sz "0"
+				$sr[0]+= $opn_fur[0][11]
 
-		$sr[1]+= $opm_fur[1][0..10]
-		$sr[1]+= $opm_fur[1][12]
+				$sr[1]+= $opn_fur[1][0..10]
+				$sr[1]+= Sz "0"
+				$sr[1]+= $opn_fur[1][11]
 
-		$sr[2]+= $opm_fur[2][0..10]
-		$sr[2]+= $opm_fur[2][12]
+				$sr[2]+= $opn_fur[2][0..10]
+				$sr[2]+= Sz "0"
+				$sr[2]+= $opn_fur[2][11]
 
-		$sr[3]+= $opm_fur[3][0..10]
-		$sr[3]+= $opm_fur[3][12]
+				$sr[3]+= $opn_fur[3][0..10]
+				$sr[3]+= Sz "0"
+				$sr[3]+= $opn_fur[3][11]
 
-		$script:opn_fur[0]= $sr[0]
-		$script:opn_fur[1]= $sr[1]
-		$script:opn_fur[2]= $sr[2]
-		$script:opn_fur[3]= $sr[3]
-	  }
-	  } #sw
+				$script:opm_fur[0]= $sr[0]
+				$script:opm_fur[1]= $sr[1]
+				$script:opm_fur[2]= $sr[2]
+				$script:opm_fur[3]= $sr[3]
+				break;
+			}'OPN'{
+				$sr[0]+= $opm_fur[0][0..10]
+				$sr[0]+= $opm_fur[0][12]
 
-	  Write-Host ('<< 値を' +$tt + 'へ送りました')
+				$sr[1]+= $opm_fur[1][0..10]
+				$sr[1]+= $opm_fur[1][12]
 
-	##}'Cancel'{
+				$sr[2]+= $opm_fur[2][0..10]
+				$sr[2]+= $opm_fur[2][12]
+
+				$sr[3]+= $opm_fur[3][0..10]
+				$sr[3]+= $opm_fur[3][12]
+
+				$script:opn_fur[0]= $sr[0]
+				$script:opn_fur[1]= $sr[1]
+				$script:opn_fur[2]= $sr[2]
+				$script:opn_fur[3]= $sr[3]
+			}
+			} #sw
+
+			Write-Host ('<< 値を' +$tt + 'へ送りました')
+		##}'Cancel'{
+		}
+		} #sw
 	}
 	} #sw
-  }
-  } #sw
  } #func
  
 # ------ 
  
 function Vrc_flow([array]$s){ 
 
+	for([int]$i= 0;$i -lt 13; $i++){
 
- for([int]$i= 0;$i -lt 13; $i++){
+		if($s[0][$i] -lt 0){	$s[0][$i]= 0 } # <0 chk
+		if($s[1][$i] -lt 0){	$s[1][$i]= 0 }
+	} #
 
-	 if($s[0][$i] -lt 0){	$s[0][$i]= 0 } # <0 chk
-	 if($s[1][$i] -lt 0){	$s[1][$i]= 0 }
- } #
+	if($s[0][0] -gt 63){	$s[0][0]= 63 }	#tl >63 chk
+	if($s[0][1] -gt 7){	$s[0][1]= 7 }	#fb
 
- if($s[0][0] -gt 63){	$s[0][0]= 63 }	#tl >63 chk
- if($s[0][1] -gt 7){	$s[0][1]= 7 }	#fb
+	if($s[0][2] -gt 15){	$s[0][2]= 15 }	#ar
+	if($s[1][2] -gt 15){	$s[1][2]= 15 }
+	if($s[0][3] -gt 15){	$s[0][3]= 15 }	# dr
+	if($s[1][3] -gt 15){	$s[1][3]= 15 }
+	if($s[0][4] -gt 15){	$s[0][4]= 15 }	# sl
+	if($s[1][4] -gt 15){	$s[1][4]= 15 }
+	if($s[0][5] -gt 15){	$s[0][5]= 15 }	# rr
+	if($s[1][5] -gt 15){	$s[1][5]= 15 }
 
- if($s[0][2] -gt 15){	$s[0][2]= 15 }	#ar
- if($s[1][2] -gt 15){	$s[1][2]= 15 }
- if($s[0][3] -gt 15){	$s[0][3]= 15 }	# dr
- if($s[1][3] -gt 15){	$s[1][3]= 15 }
- if($s[0][4] -gt 15){	$s[0][4]= 15 }	# sl
- if($s[1][4] -gt 15){	$s[1][4]= 15 }
- if($s[0][5] -gt 15){	$s[0][5]= 15 }	# rr
- if($s[1][5] -gt 15){	$s[1][5]= 15 }
+	if($s[0][6] -gt 3){	$s[0][6]= 3 }	# ksl
+	if($s[1][6] -gt 3){	$s[1][6]= 3 }
+	if($s[0][7] -gt 15){	$s[0][7]= 15 }	# ml
+	if($s[1][7] -gt 15){	$s[1][7]= 15 }
 
- if($s[0][6] -gt 3){	$s[0][6]= 3 }	# ksl
- if($s[1][6] -gt 3){	$s[1][6]= 3 }
- if($s[0][7] -gt 15){	$s[0][7]= 15 }	# ml
- if($s[1][7] -gt 15){	$s[1][7]= 15 }
+	if($s[0][8] -gt 1){	$s[0][8]= 1 }	# am
+	if($s[1][8] -gt 1){	$s[1][8]= 1 }
+	if($s[0][9] -gt 1){	$s[0][9]= 1 }	# vib
+	if($s[1][9] -gt 1){	$s[1][9]= 1 }
 
- if($s[0][8] -gt 1){	$s[0][8]= 1 }	# am
- if($s[1][8] -gt 1){	$s[1][8]= 1 }
- if($s[0][9] -gt 1){	$s[0][9]= 1 }	# vib
- if($s[1][9] -gt 1){	$s[1][9]= 1 }
+	if($s[0][10] -gt 1){	$s[0][10]= 1 }	# eg
+	if($s[1][10] -gt 1){	$s[1][10]= 1 }
+	if($s[0][11] -gt 1){	$s[0][11]= 1 }	#ksr
+	if($s[1][11] -gt 1){	$s[1][11]= 1 }
+	if($s[0][12] -gt 1){	$s[0][12]= 1 }	#dt
+	if($s[1][12] -gt 1){	$s[1][12]= 1 }
 
- if($s[0][10] -gt 1){	$s[0][10]= 1 }	# eg
- if($s[1][10] -gt 1){	$s[1][10]= 1 }
- if($s[0][11] -gt 1){	$s[0][11]= 1 }	#ksr
- if($s[1][11] -gt 1){	$s[1][11]= 1 }
- if($s[0][12] -gt 1){	$s[0][12]= 1 }	#dt
- if($s[1][12] -gt 1){	$s[1][12]= 1 }
-
- return $s
-
+	return $s
  } #func
  
 function Opl_flow([array]$s){ 
 
+	for([int]$i= 0;$i -lt 13; $i++){
 
- for([int]$i= 0;$i -lt 13; $i++){
+		if($s[0][$i] -lt 0){	$s[0][$i]= 0 }
+		if($s[1][$i] -lt 0){	$s[1][$i]= 0 }
+	} #
 
-	 if($s[0][$i] -lt 0){	$s[0][$i]= 0 }
-	 if($s[1][$i] -lt 0){	$s[1][$i]= 0 }
- } #
+	if($s[0][0] -gt 1){	$s[0][0]= 1 }	#alg
+	if($s[0][1] -gt 7){	$s[0][1]= 7 }	#fb
 
- if($s[0][0] -gt 1){	$s[0][0]= 1 }	#alg
- if($s[0][1] -gt 7){	$s[0][1]= 7 }	#fb
+	if($s[0][2] -gt 15){	$s[0][2]= 15 }	#ar
+	if($s[1][2] -gt 15){	$s[1][2]= 15 }
+	if($s[0][3] -gt 15){	$s[0][3]= 15 }	# dr
+	if($s[1][3] -gt 15){	$s[1][3]= 15 }
+	if($s[0][4] -gt 15){	$s[0][4]= 15 }	# rr
+	if($s[1][4] -gt 15){	$s[1][4]= 15 }
+	if($s[0][5] -gt 15){	$s[0][5]= 15 }	# sl
+	if($s[1][5] -gt 15){	$s[1][5]= 15 }
 
- if($s[0][2] -gt 15){	$s[0][2]= 15 }	#ar
- if($s[1][2] -gt 15){	$s[1][2]= 15 }
- if($s[0][3] -gt 15){	$s[0][3]= 15 }	# dr
- if($s[1][3] -gt 15){	$s[1][3]= 15 }
- if($s[0][4] -gt 15){	$s[0][4]= 15 }	# rr
- if($s[1][4] -gt 15){	$s[1][4]= 15 }
- if($s[0][5] -gt 15){	$s[0][5]= 15 }	# sl
- if($s[1][5] -gt 15){	$s[1][5]= 15 }
+	if($s[0][6] -gt 63){	$s[0][6]= 63 }	#tl
+	if($s[1][6] -gt 63){	$s[1][6]= 63 }
+	if($s[0][7] -gt 3){	$s[0][7]= 3 }	# ksl
+	if($s[1][7] -gt 3){	$s[1][7]= 3 }
 
- if($s[0][6] -gt 63){	$s[0][6]= 63 }	#tl
- if($s[1][6] -gt 63){	$s[1][6]= 63 }
- if($s[0][7] -gt 3){	$s[0][7]= 3 }	# ksl
- if($s[1][7] -gt 3){	$s[1][7]= 3 }
+	if($s[0][8] -gt 15){	$s[0][8]= 15 }	# ml
+	if($s[1][8] -gt 15){	$s[1][8]= 15 }
+	if($s[0][9] -gt 1){	$s[0][9]= 1 }	#ksr
+	if($s[1][9] -gt 1){	$s[1][9]= 1 }
 
- if($s[0][8] -gt 15){	$s[0][8]= 15 }	# ml
- if($s[1][8] -gt 15){	$s[1][8]= 15 }
- if($s[0][9] -gt 1){	$s[0][9]= 1 }	#ksr
- if($s[1][9] -gt 1){	$s[1][9]= 1 }
+	if($s[0][10] -gt 1){	$s[0][10]= 1 }	# eg
+	if($s[1][10] -gt 1){	$s[1][10]= 1 }
+	if($s[0][11] -gt 1){	$s[0][11]= 1 }	# vib
+	if($s[1][11] -gt 1){	$s[1][11]= 1 }
+	if($s[0][12] -gt 1){	$s[0][12]= 1 }	# am
+	if($s[1][12] -gt 1){	$s[1][12]= 1 }
 
- if($s[0][10] -gt 1){	$s[0][10]= 1 }	# eg
- if($s[1][10] -gt 1){	$s[1][10]= 1 }
- if($s[0][11] -gt 1){	$s[0][11]= 1 }	# vib
- if($s[1][11] -gt 1){	$s[1][11]= 1 }
- if($s[0][12] -gt 1){	$s[0][12]= 1 }	# am
- if($s[1][12] -gt 1){	$s[1][12]= 1 }
-
- return $s
-
+	return $s
  } #func
  
 function Opn_flow([array]$s){ 
 
+	for([int]$i= 0;$i -lt 12; $i++){
 
- for([int]$i= 0;$i -lt 12; $i++){
+		if($s[0][$i] -lt 0){	$s[0][$i]= 0 }
+		if($s[1][$i] -lt 0){	$s[1][$i]= 0 }
+		if($s[2][$i] -lt 0){	$s[2][$i]= 0 }
+		if($s[3][$i] -lt 0){	$s[3][$i]= 0 }
+	} #
 
-	 if($s[0][$i] -lt 0){	$s[0][$i]= 0 }
-	 if($s[1][$i] -lt 0){	$s[1][$i]= 0 }
-	 if($s[2][$i] -lt 0){	$s[2][$i]= 0 }
-	 if($s[3][$i] -lt 0){	$s[3][$i]= 0 }
- } #
+	if($s[0][0] -gt 7){	$s[0][0]= 7 }	#alg
+	if($s[0][1] -gt 7){	$s[0][1]= 7 }	#fb
 
- if($s[0][0] -gt 7){	$s[0][0]= 7 }	#alg
- if($s[0][1] -gt 7){	$s[0][1]= 7 }	#fb
+	if($s[0][2] -gt 31){	$s[0][2]= 31 }	#ar
+	if($s[1][2] -gt 31){	$s[1][2]= 31 }
+	if($s[2][2] -gt 31){	$s[2][2]= 31 }
+	if($s[3][2] -gt 31){	$s[3][2]= 31 }
 
- if($s[0][2] -gt 31){	$s[0][2]= 31 }	#ar
- if($s[1][2] -gt 31){	$s[1][2]= 31 }
- if($s[2][2] -gt 31){	$s[2][2]= 31 }
- if($s[3][2] -gt 31){	$s[3][2]= 31 }
+	if($s[0][3] -gt 31){	$s[0][3]= 31 }	# dr
+	if($s[1][3] -gt 31){	$s[1][3]= 31 }
+	if($s[2][3] -gt 31){	$s[2][3]= 31 }
+	if($s[3][3] -gt 31){	$s[3][3]= 31 }
 
- if($s[0][3] -gt 31){	$s[0][3]= 31 }	# dr
- if($s[1][3] -gt 31){	$s[1][3]= 31 }
- if($s[2][3] -gt 31){	$s[2][3]= 31 }
- if($s[3][3] -gt 31){	$s[3][3]= 31 }
+	if($s[0][4] -gt 31){	$s[0][4]= 31 }	# sr
+	if($s[1][4] -gt 31){	$s[1][4]= 31 }
+	if($s[2][4] -gt 31){	$s[2][4]= 31 }
+	if($s[3][4] -gt 31){	$s[3][4]= 31 }
 
- if($s[0][4] -gt 31){	$s[0][4]= 31 }	# sr
- if($s[1][4] -gt 31){	$s[1][4]= 31 }
- if($s[2][4] -gt 31){	$s[2][4]= 31 }
- if($s[3][4] -gt 31){	$s[3][4]= 31 }
-
- if($s[0][5] -gt 15){	$s[0][5]= 15 }	# rr
- if($s[1][5] -gt 15){	$s[1][5]= 15 }
- if($s[2][5] -gt 15){	$s[2][5]= 15 }
- if($s[3][5] -gt 15){	$s[3][5]= 15 }
-
-
- if($s[0][6] -gt 15){	$s[0][6]= 15 }	# sl
- if($s[1][6] -gt 15){	$s[1][6]= 15 }
- if($s[2][6] -gt 15){	$s[2][6]= 15 }
- if($s[3][6] -gt 15){	$s[3][6]= 15 }
-
- if($s[0][7] -gt 127){	$s[0][7]= 127 }	# tl
- if($s[1][7] -gt 127){	$s[1][7]= 127 }
- if($s[2][7] -gt 127){	$s[2][7]= 127 }
- if($s[3][7] -gt 127){	$s[3][7]= 127 }
+	if($s[0][5] -gt 15){	$s[0][5]= 15 }	# rr
+	if($s[1][5] -gt 15){	$s[1][5]= 15 }
+	if($s[2][5] -gt 15){	$s[2][5]= 15 }
+	if($s[3][5] -gt 15){	$s[3][5]= 15 }
 
 
- if($s[0][8] -gt 3){	$s[0][8]= 3 }	# ks
- if($s[1][8] -gt 3){	$s[1][8]= 3 }
- if($s[2][8] -gt 3){	$s[2][8]= 3 }
- if($s[3][8] -gt 3){	$s[3][8]= 3 }
+	if($s[0][6] -gt 15){	$s[0][6]= 15 }	# sl
+	if($s[1][6] -gt 15){	$s[1][6]= 15 }
+	if($s[2][6] -gt 15){	$s[2][6]= 15 }
+	if($s[3][6] -gt 15){	$s[3][6]= 15 }
 
- if($s[0][9] -gt 15){	$s[0][9]= 15 }	# ml
- if($s[1][9] -gt 15){	$s[1][9]= 15 }
- if($s[2][9] -gt 15){	$s[2][9]= 15 }
- if($s[3][9] -gt 15){	$s[3][9]= 15 }
+	if($s[0][7] -gt 127){	$s[0][7]= 127 }	# tl
+	if($s[1][7] -gt 127){	$s[1][7]= 127 }
+	if($s[2][7] -gt 127){	$s[2][7]= 127 }
+	if($s[3][7] -gt 127){	$s[3][7]= 127 }
 
- if($s[0][10] -gt 7){	$s[0][10]= 7 }	# dt
- if($s[1][10] -gt 7){	$s[1][10]= 7 }
- if($s[2][10] -gt 7){	$s[2][10]= 7 }
- if($s[3][10] -gt 7){	$s[3][10]= 7 }
 
- if($s[0][11] -gt 3){	$s[0][11]= 3 }	#ams
- if($s[1][11] -gt 3){	$s[1][11]= 3 }
- if($s[2][11] -gt 3){	$s[2][11]= 3 }
- if($s[3][11] -gt 3){	$s[3][11]= 3 }
+	if($s[0][8] -gt 3){	$s[0][8]= 3 }	# ks
+	if($s[1][8] -gt 3){	$s[1][8]= 3 }
+	if($s[2][8] -gt 3){	$s[2][8]= 3 }
+	if($s[3][8] -gt 3){	$s[3][8]= 3 }
 
- return $s
+	if($s[0][9] -gt 15){	$s[0][9]= 15 }	# ml
+	if($s[1][9] -gt 15){	$s[1][9]= 15 }
+	if($s[2][9] -gt 15){	$s[2][9]= 15 }
+	if($s[3][9] -gt 15){	$s[3][9]= 15 }
 
+	if($s[0][10] -gt 7){	$s[0][10]= 7 }	# dt
+	if($s[1][10] -gt 7){	$s[1][10]= 7 }
+	if($s[2][10] -gt 7){	$s[2][10]= 7 }
+	if($s[3][10] -gt 7){	$s[3][10]= 7 }
+
+	if($s[0][11] -gt 3){	$s[0][11]= 3 }	#ams
+	if($s[1][11] -gt 3){	$s[1][11]= 3 }
+	if($s[2][11] -gt 3){	$s[2][11]= 3 }
+	if($s[3][11] -gt 3){	$s[3][11]= 3 }
+
+	return $s
  } #func
  
 function Opm_flow([array]$s){ 
 
+	for([int]$i= 0;$i -lt 13; $i++){
 
- for([int]$i= 0;$i -lt 13; $i++){
+		if($s[0][$i] -lt 0){	$s[0][$i]= 0 }
+		if($s[1][$i] -lt 0){	$s[1][$i]= 0 }
+		if($s[2][$i] -lt 0){	$s[2][$i]= 0 }
+		if($s[3][$i] -lt 0){	$s[3][$i]= 0 }
+	} #
 
-	 if($s[0][$i] -lt 0){	$s[0][$i]= 0 }
-	 if($s[1][$i] -lt 0){	$s[1][$i]= 0 }
-	 if($s[2][$i] -lt 0){	$s[2][$i]= 0 }
-	 if($s[3][$i] -lt 0){	$s[3][$i]= 0 }
- } #
+	if($s[0][0] -gt 7){	$s[0][0]= 7 }	#alg
+	if($s[0][1] -gt 7){	$s[0][1]= 7 }	#fb
 
- if($s[0][0] -gt 7){	$s[0][0]= 7 }	#alg
- if($s[0][1] -gt 7){	$s[0][1]= 7 }	#fb
+	if($s[0][2] -gt 31){	$s[0][2]= 31 }	#ar
+	if($s[1][2] -gt 31){	$s[1][2]= 31 }
+	if($s[2][2] -gt 31){	$s[2][2]= 31 }
+	if($s[3][2] -gt 31){	$s[3][2]= 31 }
 
- if($s[0][2] -gt 31){	$s[0][2]= 31 }	#ar
- if($s[1][2] -gt 31){	$s[1][2]= 31 }
- if($s[2][2] -gt 31){	$s[2][2]= 31 }
- if($s[3][2] -gt 31){	$s[3][2]= 31 }
+	if($s[0][3] -gt 31){	$s[0][3]= 31 }	# dr
+	if($s[1][3] -gt 31){	$s[1][3]= 31 }
+	if($s[2][3] -gt 31){	$s[2][3]= 31 }
+	if($s[3][3] -gt 31){	$s[3][3]= 31 }
 
- if($s[0][3] -gt 31){	$s[0][3]= 31 }	# dr
- if($s[1][3] -gt 31){	$s[1][3]= 31 }
- if($s[2][3] -gt 31){	$s[2][3]= 31 }
- if($s[3][3] -gt 31){	$s[3][3]= 31 }
+	if($s[0][4] -gt 31){	$s[0][4]= 31 }	# sr
+	if($s[1][4] -gt 31){	$s[1][4]= 31 }
+	if($s[2][4] -gt 31){	$s[2][4]= 31 }
+	if($s[3][4] -gt 31){	$s[3][4]= 31 }
 
- if($s[0][4] -gt 31){	$s[0][4]= 31 }	# sr
- if($s[1][4] -gt 31){	$s[1][4]= 31 }
- if($s[2][4] -gt 31){	$s[2][4]= 31 }
- if($s[3][4] -gt 31){	$s[3][4]= 31 }
-
- if($s[0][5] -gt 15){	$s[0][5]= 15 }	# rr
- if($s[1][5] -gt 15){	$s[1][5]= 15 }
- if($s[2][5] -gt 15){	$s[2][5]= 15 }
- if($s[3][5] -gt 15){	$s[3][5]= 15 }
-
-
- if($s[0][6] -gt 15){	$s[0][6]= 15 }	# sl
- if($s[1][6] -gt 15){	$s[1][6]= 15 }
- if($s[2][6] -gt 15){	$s[2][6]= 15 }
- if($s[3][6] -gt 15){	$s[3][6]= 15 }
-
- if($s[0][7] -gt 127){	$s[0][7]= 127 }	# tl
- if($s[1][7] -gt 127){	$s[1][7]= 127 }
- if($s[2][7] -gt 127){	$s[2][7]= 127 }
- if($s[3][7] -gt 127){	$s[3][7]= 127 }
+	if($s[0][5] -gt 15){	$s[0][5]= 15 }	# rr
+	if($s[1][5] -gt 15){	$s[1][5]= 15 }
+	if($s[2][5] -gt 15){	$s[2][5]= 15 }
+	if($s[3][5] -gt 15){	$s[3][5]= 15 }
 
 
- if($s[0][8] -gt 3){	$s[0][8]= 3 }	# ks
- if($s[1][8] -gt 3){	$s[1][8]= 3 }
- if($s[2][8] -gt 3){	$s[2][8]= 3 }
- if($s[3][8] -gt 3){	$s[3][8]= 3 }
+	if($s[0][6] -gt 15){	$s[0][6]= 15 }	# sl
+	if($s[1][6] -gt 15){	$s[1][6]= 15 }
+	if($s[2][6] -gt 15){	$s[2][6]= 15 }
+	if($s[3][6] -gt 15){	$s[3][6]= 15 }
 
- if($s[0][9] -gt 15){	$s[0][9]= 15 }	# ml
- if($s[1][9] -gt 15){	$s[1][9]= 15 }
- if($s[2][9] -gt 15){	$s[2][9]= 15 }
- if($s[3][9] -gt 15){	$s[3][9]= 15 }
+	if($s[0][7] -gt 127){	$s[0][7]= 127 }	# tl
+	if($s[1][7] -gt 127){	$s[1][7]= 127 }
+	if($s[2][7] -gt 127){	$s[2][7]= 127 }
+	if($s[3][7] -gt 127){	$s[3][7]= 127 }
 
- if($s[0][10] -gt 7){	$s[0][10]= 7 }	# dt1
- if($s[1][10] -gt 7){	$s[1][10]= 7 }
- if($s[2][10] -gt 7){	$s[2][10]= 7 }
- if($s[3][10] -gt 7){	$s[3][10]= 7 }
 
- if($s[0][11] -gt 3){	$s[0][11]= 3 }	# dt2
- if($s[1][11] -gt 3){	$s[1][11]= 3 }
- if($s[2][11] -gt 3){	$s[2][11]= 3 }
- if($s[3][11] -gt 3){	$s[3][11]= 3 }
+	if($s[0][8] -gt 3){	$s[0][8]= 3 }	# ks
+	if($s[1][8] -gt 3){	$s[1][8]= 3 }
+	if($s[2][8] -gt 3){	$s[2][8]= 3 }
+	if($s[3][8] -gt 3){	$s[3][8]= 3 }
 
- if($s[0][12] -gt 3){	$s[0][12]= 3 }	#ams
- if($s[1][12] -gt 3){	$s[1][12]= 3 }
- if($s[2][12] -gt 3){	$s[2][12]= 3 }
- if($s[3][12] -gt 3){	$s[3][12]= 3 }
+	if($s[0][9] -gt 15){	$s[0][9]= 15 }	# ml
+	if($s[1][9] -gt 15){	$s[1][9]= 15 }
+	if($s[2][9] -gt 15){	$s[2][9]= 15 }
+	if($s[3][9] -gt 15){	$s[3][9]= 15 }
 
- return $s
+	if($s[0][10] -gt 7){	$s[0][10]= 7 }	# dt1
+	if($s[1][10] -gt 7){	$s[1][10]= 7 }
+	if($s[2][10] -gt 7){	$s[2][10]= 7 }
+	if($s[3][10] -gt 7){	$s[3][10]= 7 }
 
+	if($s[0][11] -gt 3){	$s[0][11]= 3 }	# dt2
+	if($s[1][11] -gt 3){	$s[1][11]= 3 }
+	if($s[2][11] -gt 3){	$s[2][11]= 3 }
+	if($s[3][11] -gt 3){	$s[3][11]= 3 }
+
+	if($s[0][12] -gt 3){	$s[0][12]= 3 }	#ams
+	if($s[1][12] -gt 3){	$s[1][12]= 3 }
+	if($s[2][12] -gt 3){	$s[2][12]= 3 }
+	if($s[3][12] -gt 3){	$s[3][12]= 3 }
+
+	return $s
  } #func
  
 # ------ 
  
 function Reg_exp([string]$zz,[string]$key_type){ 
-
 
 	[int]$n= 8;
 
@@ -6881,44 +6898,40 @@ function Reg_exp([string]$zz,[string]$key_type){
 	# (\$が接頭辞)[0-9a-zA-Z]のみ文字列?最短一致(,\s}$が接尾辞)
 
 
-  if($er.Length -ne $n){
+	if($er.Length -ne $n){
 
-	[string]$xx= "不明"
+		[string]$xx= "不明"
 
-	if($er.Length -gt $n){
+		if($er.Length -gt $n){
 
-		$xx= "過多"
+			$xx= "過多"
 
+		}elseif($er.Length -lt $n){
 
-	}elseif($er.Length -lt $n){
+			$xx= "不足"
+		}
 
-		$xx= "不足"
+		[string]$err= $key_type+ " レジスタ音色: "+ $n+ " count数が"+ $xx+ ">> "+ $er.Length
 
-	}
+		Write-Host ('ERROR: '+ $err)
 
-	[string]$err= $key_type+ " レジスタ音色: "+ $n+ " count数が"+ $xx+ ">> "+ $er.Length
+		[string]$retn= [Windows.Forms.MessageBox]::Show(
+		$err, "確認", "OK","Information","Button1"
+		)
 
-	Write-Host ('ERROR: '+ $err)
+		return 1
+	}else{
+		[string]$ss= ""
+		[int]$nn= 0
+		[int]$i= 0
+		[string[]]$bit= "","","","", "","","",""
 
-	[string]$retn= [Windows.Forms.MessageBox]::Show(
+		for($i= 0; $i -lt 8; $i++){
 
-	$err, "確認", "OK","Information","Button1"
-	)
-
-	return 1
-
-  }else{
-	[string]$ss= ""
-	[int]$nn= 0
-	[int]$i= 0
-	[string[]]$bit= "","","","", "","","",""
-
-	for($i= 0; $i -lt 8; $i++){
-
-		$nn= [Convert]::ToInt32($er[$i], 16)	# 16->10
-		$ss= [Convert]::ToString($nn, 2)	# 10->2
-		$bit[$i]+= "0"* (8- $ss.Length)+ $ss	# 8bit zero padding
-	} #
+			$nn= [Convert]::ToInt32($er[$i], 16)	# 16->10
+			$ss= [Convert]::ToString($nn, 2)	# 10->2
+			$bit[$i]+= "0"* (8- $ss.Length)+ $ss	# 8bit zero padding
+		} #
 
 # write-host $bit[0]
 # write-host $bit[1]
@@ -6930,241 +6943,232 @@ function Reg_exp([string]$zz,[string]$key_type){
 # write-host $bit[6]
 # write-host $bit[7]
 
-	[string]$tt= ""
+		[string]$tt= ""
 
-	[array]$a= "",""
-	[int[]]$a[0]= 0,0,0,0, 0,0,0,0, 0,0,0,0, 0
-	[int[]]$a[1]= 0,0,0,0, 0,0,0,0, 0,0,0,0, 0
+		[array]$a= "",""
+		[int[]]$a[0]= 0,0,0,0, 0,0,0,0, 0,0,0,0, 0
+		[int[]]$a[1]= 0,0,0,0, 0,0,0,0, 0,0,0,0, 0
 
-	$tt= $bit[0].Substring(0,1);	$a[0][8]= [Convert]::ToInt32($tt, 2) # 2->10
-	$tt= $bit[0].Substring(1,1);	$a[0][9]= [Convert]::ToInt32($tt, 2)
-	$tt= $bit[0].Substring(2,1);	$a[0][10]= [Convert]::ToInt32($tt, 2)
-	$tt= $bit[0].Substring(3,1);	$a[0][11]= [Convert]::ToInt32($tt, 2)
-	$tt= $bit[0].Substring(4,4);	$a[0][7]= [Convert]::ToInt32($tt, 2) # 4bit
+		$tt= $bit[0].Substring(0,1);	$a[0][8]= [Convert]::ToInt32($tt, 2) # 2->10
+		$tt= $bit[0].Substring(1,1);	$a[0][9]= [Convert]::ToInt32($tt, 2)
+		$tt= $bit[0].Substring(2,1);	$a[0][10]= [Convert]::ToInt32($tt, 2)
+		$tt= $bit[0].Substring(3,1);	$a[0][11]= [Convert]::ToInt32($tt, 2)
+		$tt= $bit[0].Substring(4,4);	$a[0][7]= [Convert]::ToInt32($tt, 2) # 4bit
 
-	$tt= $bit[1].Substring(0,1);	$a[1][8]= [Convert]::ToInt32($tt, 2)
-	$tt= $bit[1].Substring(1,1);	$a[1][9]= [Convert]::ToInt32($tt, 2)
-	$tt= $bit[1].Substring(2,1);	$a[1][10]= [Convert]::ToInt32($tt, 2)
-	$tt= $bit[1].Substring(3,1);	$a[1][11]= [Convert]::ToInt32($tt, 2)
-	$tt= $bit[1].Substring(4,4);	$a[1][7]= [Convert]::ToInt32($tt, 2) # 4bit
+		$tt= $bit[1].Substring(0,1);	$a[1][8]= [Convert]::ToInt32($tt, 2)
+		$tt= $bit[1].Substring(1,1);	$a[1][9]= [Convert]::ToInt32($tt, 2)
+		$tt= $bit[1].Substring(2,1);	$a[1][10]= [Convert]::ToInt32($tt, 2)
+		$tt= $bit[1].Substring(3,1);	$a[1][11]= [Convert]::ToInt32($tt, 2)
+		$tt= $bit[1].Substring(4,4);	$a[1][7]= [Convert]::ToInt32($tt, 2) # 4bit
 
-	$tt= $bit[2].Substring(0,2);	$a[0][6]= [Convert]::ToInt32($tt, 2) # 2bit
-	$tt= $bit[2].Substring(2,6);	$a[0][0]= [Convert]::ToInt32($tt, 2) # 6bit
+		$tt= $bit[2].Substring(0,2);	$a[0][6]= [Convert]::ToInt32($tt, 2) # 2bit
+		$tt= $bit[2].Substring(2,6);	$a[0][0]= [Convert]::ToInt32($tt, 2) # 6bit
 
-	$tt= $bit[3].Substring(0,2);	$a[1][6]= [Convert]::ToInt32($tt, 2) # 2bit
-	$tt= $bit[3].Substring(2,1);	$a[1][12]= [Convert]::ToInt32($tt, 2)
-	# value: 0
-	$tt= $bit[3].Substring(4,1);	$a[0][12]= [Convert]::ToInt32($tt, 2)
-	$tt= $bit[3].Substring(5,3);	$a[0][1]= [Convert]::ToInt32($tt, 2) # 3bit
+		$tt= $bit[3].Substring(0,2);	$a[1][6]= [Convert]::ToInt32($tt, 2) # 2bit
+		$tt= $bit[3].Substring(2,1);	$a[1][12]= [Convert]::ToInt32($tt, 2)
+		# value: 0
+		$tt= $bit[3].Substring(4,1);	$a[0][12]= [Convert]::ToInt32($tt, 2)
+		$tt= $bit[3].Substring(5,3);	$a[0][1]= [Convert]::ToInt32($tt, 2) # 3bit
 
-	$tt= $bit[4].Substring(0,4);	$a[0][2]= [Convert]::ToInt32($tt, 2) # 4bit
-	$tt= $bit[4].Substring(4,4);	$a[0][3]= [Convert]::ToInt32($tt, 2) # 4bit
+		$tt= $bit[4].Substring(0,4);	$a[0][2]= [Convert]::ToInt32($tt, 2) # 4bit
+		$tt= $bit[4].Substring(4,4);	$a[0][3]= [Convert]::ToInt32($tt, 2) # 4bit
 
-	$tt= $bit[5].Substring(0,4);	$a[1][2]= [Convert]::ToInt32($tt, 2) # 4bit
-	$tt= $bit[5].Substring(4,4);	$a[1][3]= [Convert]::ToInt32($tt, 2) # 4bit
+		$tt= $bit[5].Substring(0,4);	$a[1][2]= [Convert]::ToInt32($tt, 2) # 4bit
+		$tt= $bit[5].Substring(4,4);	$a[1][3]= [Convert]::ToInt32($tt, 2) # 4bit
 
-	$tt= $bit[6].Substring(0,4);	$a[0][4]= [Convert]::ToInt32($tt, 2) # 4bit
-	$tt= $bit[6].Substring(4,4);	$a[0][5]= [Convert]::ToInt32($tt, 2) # 4bit
+		$tt= $bit[6].Substring(0,4);	$a[0][4]= [Convert]::ToInt32($tt, 2) # 4bit
+		$tt= $bit[6].Substring(4,4);	$a[0][5]= [Convert]::ToInt32($tt, 2) # 4bit
 
-	$tt= $bit[7].Substring(0,4);	$a[1][4]= [Convert]::ToInt32($tt, 2) # 4bit
-	$tt= $bit[7].Substring(4,4);	$a[1][5]= [Convert]::ToInt32($tt, 2) # 4bit
+		$tt= $bit[7].Substring(0,4);	$a[1][4]= [Convert]::ToInt32($tt, 2) # 4bit
+		$tt= $bit[7].Substring(4,4);	$a[1][5]= [Convert]::ToInt32($tt, 2) # 4bit
 
 
-	[array]$brr= Vrc_flow $a # [int] de chk
+		[array]$brr= Vrc_flow $a # [int] de chk
 
-	$script:vrc_svn= All_sz $brr 13
+		$script:vrc_svn= All_sz $brr 13
 
 # write-host $vrc_svn[0]
 # write-host $vrc_svn[1]
 
-	return 0
-  }
+		return 0
+	}
  } #func
  
 function Fmx_exp([string]$zz,[string]$key_style){ # $key["style"] 
 
-  [int]$n= 0
-  [string]$ary= ""
-
-  switch($comb_fm.SelectedItem){
-
-  'vrc7 2op'{	$n= 24; $ary= "VRC7";	break; # マトリクス総数 2+11*2
-  }'opl 2op'{	$n= 24; $ary= "OPL";	break;
-  }'opn 4op'{
-
-	$ary= "OPN"
-
-	switch($key_style){
-	'pmd'{		$n= 42;	break;
-	}'fmp7'{	$n= 42;	break;
-	}'mucom'{	$n= 38;	break;
-	}'mxdrv'{	$n= 43
-	}
-	} #sw
-
-	break;
-  }'opm 4op'{
-
-	$ary= "OPM"
-
-	switch($key_style){
-	'pmd'{		$n= 46;	break;
-	}'fmp7'{	$n= 46;	break;
-	}'mucom'{	$n= 42;	break;
-	}'mxdrv'{	$n= 47
-	}
-	} #sw
-  }
-  } #sw
-
-
-  [string]$vv= [System.Text.RegularExpressions.Regex]::Replace($zz,"\t"," ")
-  # tab -> space タブが何個もあるとエラーため
-
-  [string]$uu= [System.Text.RegularExpressions.Regex]::Replace($vv,"/\*.*?\*/","")
-
-
-  switch($key_style){	# コメント行カット
-  'pmd'{ # ;abc, =abc カット
-
-    [string]$ss= [System.Text.RegularExpressions.Regex]::Replace($uu,"[=;].*(?=\n|$)","")
-    break;
-
-  }'fmp7'{ # FA 1 などのカット
-
-    [string]$tt= [System.Text.RegularExpressions.Regex]::Replace($uu,"(?<='@)\s*F[a-zA-Z]+\s*[0-9]+\s*(?=\n|$)","")
-    [string]$ss= [System.Text.RegularExpressions.Regex]::Matches($tt,"'@.*(?=\n|$)")
-    break;
-
-  }default{
-
-    [string]$ss= [System.Text.RegularExpressions.Regex]::Replace($uu,"[/;].*(?=\n|$)","")
-  }
-  } #sw
-
-
-  [string[]]$er= [System.Text.RegularExpressions.Regex]::Matches($ss,"(?<=^|;|:|,|\s)(?:-)?[0-9]+?(?=;|:|,|\s|\n|$)")
-  # (\s,^)が接頭辞)(含まないが-の可能性)[0-9]文字列含む?最短一致(,;\s\n$が接尾辞)
-
-
-  if($er.Length -ne $n){
-
-	[string]$xx= "不明"
-
-	if($er.Length -gt $n){
-
-		$xx= "過多"
-
-	}elseif($er.Length -lt $n){
-
-		$xx= "不足"
-	}
-
-	[string]$err= $key_style+ " FM音色 "+ $ary+ ":"+ $n+ " count数が"+ $xx+ ">> "+ $er.Length
-
-	Write-Host ('ERROR: '+ $err)
-
-	[string]$retn= [Windows.Forms.MessageBox]::Show(
-
-	$err, "確認", "OK","Information","Button1"
-	)
-
-	return 1
-
-  }else{
-
-	# [string[]]$ir= $er[($er.Length- $n)..($er.Length- 1)] # @numあらば先頭削除
-	# 末尾からカウント - 最終フィルタ
-
+	[int]$n= 0
+	[string]$ary= ""
 
 	switch($comb_fm.SelectedItem){
-	'vrc7 2op'{
-		[array]$r= (0,0)
-		[int[]]$r[0]= $er[0..12]
-		[int[]]$r[1]= (0,0)+ $er[13..23] # (0,0,$er[..]) ha shino err!
 
-		[array]$brr= Vrc_flow $r # [int] de chk
-
-		$script:vrc_svn= All_sz $brr 13
-
-		break;
-	}'opl 2op'{
-		[array]$r= (0,0)
-		[int[]]$r[0]= $er[0..12]
-		[int[]]$r[1]= (0,0)+ $er[13..23]
-
-		[array]$brr= Opl_flow $r
-
-		$script:opl_two= All_sz $brr 13
-
-		break;
+	'vrc7 2op'{	$n= 24; $ary= "VRC7";	break; # マトリクス総数 2+11*2
+	}'opl 2op'{	$n= 24; $ary= "OPL";	break;
 	}'opn 4op'{
-		switch($key_style){
-		'fmp7'{
-			$er= $er[40..41]+ $er[0..39]
-			break;
-		}'mxdrv'{
-			$er= $er[40..41]+ $er[0..39]
-		}
-		} #sw
-
-		[array]$r= (0,0,0,0)
+		$ary= "OPN"
 
 		switch($key_style){
-		'mucom'{
-			[int[]]$r[0]= $er[1..0]+ $er[2..10]+ 0
-			[int[]]$r[1]= (0,0)+ $er[11..19]+ 0
-			[int[]]$r[2]= (0,0)+ $er[20..28]+ 0
-			[int[]]$r[3]= (0,0)+ $er[29..37]+ 0
-		}default{
-			[int[]]$r[0]= $er[0..11]
-			[int[]]$r[1]= (0,0)+ $er[12..21]
-			[int[]]$r[2]= (0,0)+ $er[22..31]
-			[int[]]$r[3]= (0,0)+ $er[32..41]
+		'pmd'{	$n= 42;	break;
+		}'fmp7'{	$n= 42;	break;
+		}'mucom'{	$n= 38;	break;
+		}'mxdrv'{	$n= 43
 		}
 		} #sw
-
-		[array]$brr= Opn_flow $r
-
-		$script:opn_fur= All_sz $brr 12
-
 		break;
+
 	}'opm 4op'{
-		switch($key_style){
-		'fmp7'{
-			$er= $er[44..45]+ $er[0..43]
-			break;
-		}'mxdrv'{
-			$er= $er[44..45]+ $er[0..43]
-		}
-		} #sw
-
-		[array]$r= (0,0,0,0)
+		$ary= "OPM"
 
 		switch($key_style){
-		'mucom'{
-			[int[]]$r[0]= $er[1..0]+ $er[2..11]+ 0
-			[int[]]$r[1]= (0,0)+ $er[12..21]+ 0
-			[int[]]$r[2]= (0,0)+ $er[22..31]+ 0
-			[int[]]$r[3]= (0,0)+ $er[32..41]+ 0
-		}default{
-			[int[]]$r[0]= $er[0..12]
-			[int[]]$r[1]= (0,0)+ $er[13..23]
-			[int[]]$r[2]= (0,0)+ $er[24..34]
-			[int[]]$r[3]= (0,0)+ $er[35..45]
+		'pmd'{	$n= 46;	break;
+		}'fmp7'{	$n= 46;	break;
+		}'mucom'{	$n= 42;	break;
+		}'mxdrv'{	$n= 47
 		}
 		} #sw
-
-		[array]$brr= Opm_flow $r
-
-		$script:opm_fur= All_sz $brr 13
 	}
 	} #sw
 
-	return 0
-  }
+
+	[string]$vv= [System.Text.RegularExpressions.Regex]::Replace($zz,"\t"," ")
+	# tab -> space タブが何個もあるとエラーため
+
+	[string]$uu= [System.Text.RegularExpressions.Regex]::Replace($vv,"/\*.*?\*/","")
+
+
+	switch($key_style){	# コメント行カット
+	'pmd'{ # ;abc, =abc カット
+
+		[string]$ss= [System.Text.RegularExpressions.Regex]::Replace($uu,"[=;].*(?=\n|$)","")
+		break;
+
+	}'fmp7'{ # FA 1 などのカット
+
+		[string]$tt= [System.Text.RegularExpressions.Regex]::Replace($uu,"(?<='@)\s*F[a-zA-Z]+\s*[0-9]+\s*(?=\n|$)","")
+		[string]$ss= [System.Text.RegularExpressions.Regex]::Matches($tt,"'@.*(?=\n|$)")
+		break;
+
+	}default{
+
+		[string]$ss= [System.Text.RegularExpressions.Regex]::Replace($uu,"[/;].*(?=\n|$)","")
+	}
+	} #sw
+
+	[string[]]$er= [System.Text.RegularExpressions.Regex]::Matches($ss,"(?<=^|;|:|,|\s)(?:-)?[0-9]+?(?=;|:|,|\s|\n|$)")
+	# (\s,^)が接頭辞)(含まないが-の可能性)[0-9]文字列含む?最短一致(,;\s\n$が接尾辞)
+
+
+	if($er.Length -ne $n){
+
+		[string]$xx= "不明"
+
+		if($er.Length -gt $n){
+
+			$xx= "過多"
+
+		}elseif($er.Length -lt $n){
+
+			$xx= "不足"
+		}
+
+		[string]$err= $key_style+ " FM音色 "+ $ary+ ":"+ $n+ " count数が"+ $xx+ ">> "+ $er.Length
+
+		Write-Host ('ERROR: '+ $err)
+
+		[string]$retn= [Windows.Forms.MessageBox]::Show(
+		$err, "確認", "OK","Information","Button1"
+		)
+
+		return 1
+	}else{
+
+		# [string[]]$ir= $er[($er.Length- $n)..($er.Length- 1)] # @numあらば先頭削除
+		# 末尾からカウント - 最終フィルタ
+
+		switch($comb_fm.SelectedItem){
+		'vrc7 2op'{
+			[array]$r= (0,0)
+			[int[]]$r[0]= $er[0..12]
+			[int[]]$r[1]= (0,0)+ $er[13..23] # (0,0,$er[..]) ha shino err!
+
+			[array]$brr= Vrc_flow $r # [int] de chk
+
+			$script:vrc_svn= All_sz $brr 13
+			break;
+		}'opl 2op'{
+			[array]$r= (0,0)
+			[int[]]$r[0]= $er[0..12]
+			[int[]]$r[1]= (0,0)+ $er[13..23]
+
+			[array]$brr= Opl_flow $r
+
+			$script:opl_two= All_sz $brr 13
+			break;
+		}'opn 4op'{
+			switch($key_style){
+			'fmp7'{
+				$er= $er[40..41]+ $er[0..39]
+				break;
+			}'mxdrv'{
+				$er= $er[40..41]+ $er[0..39]
+			}
+			} #sw
+
+			[array]$r= (0,0,0,0)
+
+			switch($key_style){
+			'mucom'{
+				[int[]]$r[0]= $er[1..0]+ $er[2..10]+ 0
+				[int[]]$r[1]= (0,0)+ $er[11..19]+ 0
+				[int[]]$r[2]= (0,0)+ $er[20..28]+ 0
+				[int[]]$r[3]= (0,0)+ $er[29..37]+ 0
+			}default{
+				[int[]]$r[0]= $er[0..11]
+				[int[]]$r[1]= (0,0)+ $er[12..21]
+				[int[]]$r[2]= (0,0)+ $er[22..31]
+				[int[]]$r[3]= (0,0)+ $er[32..41]
+			}
+			} #sw
+
+			[array]$brr= Opn_flow $r
+
+			$script:opn_fur= All_sz $brr 12
+			break;
+		}'opm 4op'{
+			switch($key_style){
+			'fmp7'{
+				$er= $er[44..45]+ $er[0..43]
+				break;
+			}'mxdrv'{
+				$er= $er[44..45]+ $er[0..43]
+			}
+			} #sw
+
+			[array]$r= (0,0,0,0)
+
+			switch($key_style){
+			'mucom'{
+				[int[]]$r[0]= $er[1..0]+ $er[2..11]+ 0
+				[int[]]$r[1]= (0,0)+ $er[12..21]+ 0
+				[int[]]$r[2]= (0,0)+ $er[22..31]+ 0
+				[int[]]$r[3]= (0,0)+ $er[32..41]+ 0
+			}default{
+				[int[]]$r[0]= $er[0..12]
+				[int[]]$r[1]= (0,0)+ $er[13..23]
+				[int[]]$r[2]= (0,0)+ $er[24..34]
+				[int[]]$r[3]= (0,0)+ $er[35..45]
+			}
+			} #sw
+
+			[array]$brr= Opm_flow $r
+
+			$script:opm_fur= All_sz $brr 13
+		}
+		} #sw
+
+		return 0
+ 	}
  } #func
- 
+ 	
 function Param_exp([int]$jj,[string]$mtx){ 
 
   switch($comb_fm.SelectedItem){
@@ -9905,7 +9909,7 @@ $sub_sav.CancelButton= $sub_sav_cancel_Btn	# [ESC]
 $sub_sav.AcceptButton= $sub_sav_ok_Btn	# [Enter]
   
 # Main forms 
-	
+	 
 # BUFFER 
 	
 [int[]]$IMG_buf= @(480, 480) # バッファサイズ 
@@ -12893,7 +12897,7 @@ $frm_fm.Add_FormClosing({
 })
  
 $fm_mnu= New-Object System.Windows.Forms.MenuStrip 
-	
+	 
 $fm_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_f.Text= "File"
 
@@ -13360,7 +13364,7 @@ $fm_menu_set.Add_Click({
 })
 
 
-	
+	 
 <# 
  
 $fm_menu_cmp0= New-Object System.Windows.Forms.ToolStripMenuItem 
