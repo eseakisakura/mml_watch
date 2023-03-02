@@ -7,6 +7,7 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
  
 # ---- WriterSetting ---- 
 
+  # $write_UTFB= New-Object System.Text.UTF8Encoding($True) # UTF8 bom
   $write_UTF= New-Object System.Text.UTF8Encoding($False) # UTF8 nonbom
   $write_JIS= [System.Text.Encoding]::GetEncoding(932) # shiftJIS
 
@@ -21,7 +22,7 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 
   # $write_xml.Encoding= [Text.Encoding]::default # shiftJISとなる
   # default -> .net4 shift_jis / .net5 utf8lessbom
- 
+ 	
 function Mml_writer([string]$lis,[string]$out,[int]$sw){ 
 
   try{
@@ -147,7 +148,7 @@ function Editor_open([string]$edt_path,[string]$file_path){
 
 	return $ss[2]
 } #func
- 	
+ 
 function Folder_open([int]$sw,[string]$path){ 
 
 	[string[]]$tt= "Folder","File"

@@ -416,7 +416,7 @@ $rot["4D"]=	"4323 1232",
 		"432 123 132 132"
  
 # gui 
-	 
+	
 function Trayarp_hide([string]$t){ 
 
 	switch($t){
@@ -971,7 +971,7 @@ function Menu_comp_build([string]$t){
  } #func
   
 # Hash Xml 
-	 
+	
 function Arpchange_value([string]$sw, [string]$name){ 
 
   # if($name -match '[v]' -eq $False){
@@ -1068,7 +1068,7 @@ function Arpwrite_xml($x,$y){
  } #func
   
 # Chord select 
-	 
+	
 function Gen_num([string]$kk,[string]$gg){ 
 
 	$r= @{}
@@ -2627,7 +2627,7 @@ $number_grp.Text= "Number arpeggio"
 $number_grp.Size= "565,130"
 $number_grp.Location= "10,150"
 $number_grp.FlatStyle= "Flat"
-	
+	 
 $label_apeg= New-Object System.Windows.Forms.Label 
 $label_apeg.Text= "Arpeggio"
 $label_apeg.Size= "65,20"
@@ -2710,6 +2710,8 @@ $box_apeg.Size= "550,65"
 $box_apeg.Location= "10,50"
 $box_apeg.WordWrap= "False"
 $box_apeg.Multiline= "True"
+$box_apeg.AcceptsReturn= "True"
+$box_apeg.AcceptsTab= "True"
 $box_apeg.ScrollBars= "Both"
 $box_apeg.BorderStyle= "FixedSingle"
 $box_apeg.font= $Fon
@@ -2746,13 +2748,13 @@ $box_apeg.Add_KeyDown({ # 試聴
     echo $_.exception
  }
 })
-  
+ 	 
 $mml_grp= New-Object System.Windows.Forms.GroupBox 
 $mml_grp.Text= "MML arpeggio"
 $mml_grp.Size= "565,345"
 $mml_grp.Location= "10,285"
 $mml_grp.FlatStyle= "Flat"
-	 
+	
 $label_prefix= New-Object System.Windows.Forms.Label 
 $label_prefix.Text= "Track header"
 $label_prefix.Size= "90,20"
@@ -2977,6 +2979,8 @@ $box_mml.Size= "550,65"
 $box_mml.Location= "10,80"
 $box_mml.WordWrap= "False"
 $box_mml.Multiline= "True"
+$box_mml.AcceptsReturn= "True"
+$box_mml.AcceptsTab= "True"
 $box_mml.ScrollBars= "Both"
 $box_mml.BorderStyle= "FixedSingle"
 # $box_mml.ReadOnly= "True"
@@ -4056,7 +4060,7 @@ $arp_menu_fix.Add_Click({
 	echo $_.exception
  }
 })
- 	
+ 
 $arp_menu_h= New-Object System.Windows.Forms.ToolStripMenuItem 
 $arp_menu_h.Text= "Help"
 

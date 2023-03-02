@@ -243,7 +243,7 @@ function Play_nsf([string]$file){
  } #func
   
 # chk_path 
-	
+	 
 function Err_build(){ 
 
 	[int[]]$err= 0,0,0,0
@@ -324,7 +324,7 @@ function Console_out([string[]]$ph){
 	Write-Host ($rot[3]+ "`r`n"+ $val["dmcdir"])
 	Write-Host ""
 
-
+	# textbox.Lines only
 	$csl_box.Lines= 	($ph[0]+ $ph[1]+ $ph[2]),
 			$rot[0],(" : "+ $f[0][0]), # file name
 			$rot[1],(" : "+ $f[1][0]),
@@ -337,7 +337,7 @@ function Console_out([string[]]$ph){
 	Status_build $f[2][0] $ph[2]
 
  } #func
- 
+ 	
 function Status_cheker(){ 
 
 	[string]$m= "" # 定義のみだと返値(echo)が出る、空値入れとく
@@ -1457,7 +1457,7 @@ $pic_box.Add_Click({
 	echo $_.exception
   }
 })
- 	
+ 
 $wait_lbl= New-Object System.Windows.Forms.Label 
 $wait_lbl.Size= "173,25"
 $wait_lbl.Location= "31,27"

@@ -6487,7 +6487,7 @@ function Key_play([string]$t){
  } #func
   
 # Export 
-	 
+	
 function Unredo([int]$n){ 
 
 	switch($n){ # 初期化
@@ -7168,7 +7168,7 @@ function Fmx_exp([string]$zz,[string]$key_style){ # $key["style"]
 		return 0
  	}
  } #func
- 	
+ 
 function Param_exp([int]$jj,[string]$mtx){ 
 
   switch($comb_fm.SelectedItem){
@@ -7300,50 +7300,49 @@ function Mskseg_out([int]$sw){
  
 function Reg_write(){ # $key["type"] 
 
-
-  [array]$r= $vrc_svn
+	[array]$r= $vrc_svn
 
 # write-host $r[0]
 # write-host $r[1]
 
-  [string[]]$bit= "","","","", "","","",""
-  [string]$tt= ""
+	[string[]]$bit= "","","","", "","","",""
+	[string]$tt= ""
 
-  $bit[0]= [Convert]::ToString($r[0][8], 2)
-  $bit[0]+= [Convert]::ToString($r[0][9], 2)
-  $bit[0]+= [Convert]::ToString($r[0][10], 2)
-  $bit[0]+= [Convert]::ToString($r[0][11], 2)
-  $tt= [Convert]::ToString($r[0][7], 2);	$bit[0]+= "0"* (4- $tt.Length)+ $tt # 4bit zeroume
+	$bit[0]= [Convert]::ToString($r[0][8], 2)
+	$bit[0]+= [Convert]::ToString($r[0][9], 2)
+	$bit[0]+= [Convert]::ToString($r[0][10], 2)
+	$bit[0]+= [Convert]::ToString($r[0][11], 2)
+	$tt= [Convert]::ToString($r[0][7], 2);	$bit[0]+= "0"* (4- $tt.Length)+ $tt # 4bit zeroume
 
-  $bit[1]= [Convert]::ToString($r[1][8], 2)
-  $bit[1]+= [Convert]::ToString($r[1][9], 2)
-  $bit[1]+= [Convert]::ToString($r[1][10], 2)
-  $bit[1]+= [Convert]::ToString($r[1][11], 2)
-  $tt= [Convert]::ToString($r[1][7], 2);	$bit[1]+= "0"* (4- $tt.Length)+ $tt # 4bit
-
-
-  $tt= [Convert]::ToString($r[0][6], 2);	$bit[2]= "0"* (2- $tt.Length)+ $tt # 2bit
-  $tt= [Convert]::ToString($r[0][0], 2);	$bit[2]+= "0"* (6- $tt.Length)+ $tt # 6bit
-
-  $tt= [Convert]::ToString($r[1][6], 2);	$bit[3]= "0"* (2- $tt.Length)+ $tt # 2bit
-  $bit[3]+= "0"
-  $bit[3]+= [Convert]::ToString($r[1][12], 2)
-  $bit[3]+= [Convert]::ToString($r[0][12], 2)
-  $tt= [Convert]::ToString($r[0][1], 2);	$bit[3]+= "0"* (3- $tt.Length)+ $tt # 3bit
+	$bit[1]= [Convert]::ToString($r[1][8], 2)
+	$bit[1]+= [Convert]::ToString($r[1][9], 2)
+	$bit[1]+= [Convert]::ToString($r[1][10], 2)
+	$bit[1]+= [Convert]::ToString($r[1][11], 2)
+	$tt= [Convert]::ToString($r[1][7], 2);	$bit[1]+= "0"* (4- $tt.Length)+ $tt # 4bit
 
 
-  $tt= [Convert]::ToString($r[0][2], 2);	$bit[4]= "0"* (4- $tt.Length)+ $tt # 4bit
-  $tt= [Convert]::ToString($r[0][3], 2);	$bit[4]+= "0"* (4- $tt.Length)+ $tt # 4bit
+	$tt= [Convert]::ToString($r[0][6], 2);	$bit[2]= "0"* (2- $tt.Length)+ $tt # 2bit
+	$tt= [Convert]::ToString($r[0][0], 2);	$bit[2]+= "0"* (6- $tt.Length)+ $tt # 6bit
 
-  $tt= [Convert]::ToString($r[1][2], 2);	$bit[5]= "0"* (4- $tt.Length)+ $tt # 4bit
-  $tt= [Convert]::ToString($r[1][3], 2);	$bit[5]+= "0"* (4- $tt.Length)+ $tt # 4bit
+	$tt= [Convert]::ToString($r[1][6], 2);	$bit[3]= "0"* (2- $tt.Length)+ $tt # 2bit
+	$bit[3]+= "0"
+	$bit[3]+= [Convert]::ToString($r[1][12], 2)
+	$bit[3]+= [Convert]::ToString($r[0][12], 2)
+	$tt= [Convert]::ToString($r[0][1], 2);	$bit[3]+= "0"* (3- $tt.Length)+ $tt # 3bit
 
 
-  $tt= [Convert]::ToString($r[0][4], 2);	$bit[6]= "0"* (4- $tt.Length)+ $tt # 4bit
-  $tt= [Convert]::ToString($r[0][5], 2);	$bit[6]+= "0"* (4- $tt.Length)+ $tt # 4bit
+	$tt= [Convert]::ToString($r[0][2], 2);	$bit[4]= "0"* (4- $tt.Length)+ $tt # 4bit
+	$tt= [Convert]::ToString($r[0][3], 2);	$bit[4]+= "0"* (4- $tt.Length)+ $tt # 4bit
 
-  $tt= [Convert]::ToString($r[1][4], 2);	$bit[7]= "0"* (4- $tt.Length)+ $tt # 4bit
-  $tt= [Convert]::ToString($r[1][5], 2);	$bit[7]+= "0"* (4- $tt.Length)+ $tt # 4bit
+	$tt= [Convert]::ToString($r[1][2], 2);	$bit[5]= "0"* (4- $tt.Length)+ $tt # 4bit
+	$tt= [Convert]::ToString($r[1][3], 2);	$bit[5]+= "0"* (4- $tt.Length)+ $tt # 4bit
+
+
+	$tt= [Convert]::ToString($r[0][4], 2);	$bit[6]= "0"* (4- $tt.Length)+ $tt # 4bit
+	$tt= [Convert]::ToString($r[0][5], 2);	$bit[6]+= "0"* (4- $tt.Length)+ $tt # 4bit
+
+	$tt= [Convert]::ToString($r[1][4], 2);	$bit[7]= "0"* (4- $tt.Length)+ $tt # 4bit
+	$tt= [Convert]::ToString($r[1][5], 2);	$bit[7]+= "0"* (4- $tt.Length)+ $tt # 4bit
 
 # write-host $bit[0]
 # write-host $bit[1]
@@ -7355,438 +7354,412 @@ function Reg_write(){ # $key["type"]
 # write-host $bit[6]
 # write-host $bit[7]
 
-  switch($key["type"]){
-  'mckreg'{	[string]$header= $box_header["vrc_mckreg"]
+	switch($key["type"]){
+	'mckreg'{	[string]$header= $box_header["vrc_mckreg"]
 		[string]$te= ","
 		break;
-  }'nsdreg'{	[string]$header= $box_header["vrc_nsdreg"]
+	}'nsdreg'{	[string]$header= $box_header["vrc_nsdreg"]
 		[string]$te= " "
-  }
-  } #sw
-
-  [string[]]$reg= "","","","", "","","",""
-  [string]$val= ""
-  [string]$ss= ""
-  [int]$nn= 0
-  [int]$i= 0
-
-  for($i= 0; $i -lt 8; $i++){
-
-	$nn= [Convert]::ToInt32($bit[$i], 2)
-	$ss= [Convert]::ToString($nn, 16)
-	$reg[$i]= "$"+ "0"* (2- $ss.Length)+ $ss # zeroume
-
-	$val+= $reg[$i]
-
-	if($i -gt 6){ break;
-	}else{	$val+= $te
 	}
-  } #
+	} #sw
 
-  $header= $header.Replace("%op_param%", $val)
+	[string[]]$reg= "","","","", "","","",""
+	[string]$val= ""
+	[string]$ss= ""
+	[int]$nn= 0
+	[int]$i= 0
+
+	for($i= 0; $i -lt 8; $i++){
+
+		$nn= [Convert]::ToInt32($bit[$i], 2)
+		$ss= [Convert]::ToString($nn, 16)
+		$reg[$i]= "$"+ "0"* (2- $ss.Length)+ $ss # zeroume
+
+		$val+= $reg[$i]
+
+		if($i -gt 6){ break;
+		}else{	$val+= $te
+		}
+	} #
+
+	$header= $header.Replace("%op_param%", $val)
 
 # write-host $header
 
-  return $header
-
+	return $header
  } #func
  
 function Fmx_light(){ 
 
-  [array]$ir= "","", "","",""
+	[array]$ir= "","", "","",""
 
-  [string]$af= ""
-  [string]$one= ""
-  [string]$two= ""
-  [string]$three= ""
-  [string]$four= ""
+	[string]$af= ""
+	[string]$one= ""
+	[string]$two= ""
+	[string]$three= ""
+	[string]$four= ""
 
-  [string]$header= ""
+	[string]$header= ""
 
+	switch($comb_fm.SelectedItem){
+	'vrc7 2op'{
+		$ir[0]= $vrc_svn[0][0..1]
+		$ir[1]= $vrc_svn[0][2..12]
+		$ir[2]= $vrc_svn[1][2..12]
 
-  switch($comb_fm.SelectedItem){
+		$af= $ir[0] -join " "
+		$one= $ir[1] -join " "
+		$two= $ir[2] -join " "
 
-  'vrc7 2op'{
+		$header= $box_header["vrc"]
+		$header= $header.Replace("%af_param%",$af)
+		$header= $header.Replace("%op1_param%",$one)
+		$header= $header.Replace("%op2_param%",$two)
+		break;
+	}'opl 2op'{
 
-	$ir[0]= $vrc_svn[0][0..1]
-	$ir[1]= $vrc_svn[0][2..12]
-	$ir[2]= $vrc_svn[1][2..12]
+		$ir[0]= $opl_two[0][0..1]
+		$ir[1]= $opl_two[0][2..12]
+		$ir[2]= $opl_two[1][2..12]
 
-	$af= $ir[0] -join " "
-	$one= $ir[1] -join " "
-	$two= $ir[2] -join " "
+		$af= $ir[0] -join " "
+		$one= $ir[1] -join " "
+		$two= $ir[2] -join " "
 
-	$header= $box_header["vrc"]
-	$header= $header.Replace("%af_param%",$af)
-	$header= $header.Replace("%op1_param%",$one)
-	$header= $header.Replace("%op2_param%",$two)
+		$header= $box_header["opl"]
+		$header= $header.Replace("%af_param%",$af)
+		$header= $header.Replace("%op1_param%",$one)
+		$header= $header.Replace("%op2_param%",$two)
+		break;
+	}'opn 4op'{
 
-	break;
+		$ir[0]= $opn_fur[0][0..1]
+		$ir[1]= $opn_fur[0][2..11]
+		$ir[2]= $opn_fur[1][2..11]
+		$ir[3]= $opn_fur[2][2..11]
+		$ir[4]= $opn_fur[3][2..11]
 
-  }'opl 2op'{
+		$af= $ir[0] -join " "
+		$one= $ir[1] -join " "
+		$two= $ir[2] -join " "
+		$three= $ir[3] -join " "
+		$four= $ir[4] -join " "
 
-	$ir[0]= $opl_two[0][0..1]
-	$ir[1]= $opl_two[0][2..12]
-	$ir[2]= $opl_two[1][2..12]
+		$header= $box_header["opn"]
+		$header= $header.Replace("%mask_param%","")
+		$header= $header.Replace("%af_param%",$af)
+		$header= $header.Replace("%op1_param%",$one)
+		$header= $header.Replace("%op2_param%",$two)
+		$header= $header.Replace("%op3_param%",$three)
+		$header= $header.Replace("%op4_param%",$four)
+		break;
+	}'opm 4op'{
 
-	$af= $ir[0] -join " "
-	$one= $ir[1] -join " "
-	$two= $ir[2] -join " "
+		$ir[0]= $opm_fur[0][0..1]
+		$ir[1]= $opm_fur[0][2..12]
+		$ir[2]= $opm_fur[1][2..12]
+		$ir[3]= $opm_fur[2][2..12]
+		$ir[4]= $opm_fur[3][2..12]
 
-	$header= $box_header["opl"]
-	$header= $header.Replace("%af_param%",$af)
-	$header= $header.Replace("%op1_param%",$one)
-	$header= $header.Replace("%op2_param%",$two)
+		$af= $ir[0] -join " "
+		$one= $ir[1] -join " "
+		$two= $ir[2] -join " "
+		$three= $ir[3] -join " "
+		$four= $ir[4] -join " "
 
-	break;
+		$header= $box_header["opm"]
+		$header= $header.Replace("%mask_param%","")
+		$header= $header.Replace("%af_param%",$af)
+		$header= $header.Replace("%op1_param%",$one)
+		$header= $header.Replace("%op2_param%",$two)
+		$header= $header.Replace("%op3_param%",$three)
+		$header= $header.Replace("%op4_param%",$four)
+	}
+	} #sw
 
-  }'opn 4op'{
-
-	$ir[0]= $opn_fur[0][0..1]
-	$ir[1]= $opn_fur[0][2..11]
-	$ir[2]= $opn_fur[1][2..11]
-	$ir[3]= $opn_fur[2][2..11]
-	$ir[4]= $opn_fur[3][2..11]
-
-	$af= $ir[0] -join " "
-	$one= $ir[1] -join " "
-	$two= $ir[2] -join " "
-	$three= $ir[3] -join " "
-	$four= $ir[4] -join " "
-
-	$header= $box_header["opn"]
-	$header= $header.Replace("%mask_param%","")
-	$header= $header.Replace("%af_param%",$af)
-	$header= $header.Replace("%op1_param%",$one)
-	$header= $header.Replace("%op2_param%",$two)
-	$header= $header.Replace("%op3_param%",$three)
-	$header= $header.Replace("%op4_param%",$four)
-
-	break;
-
-  }'opm 4op'{
-
-	$ir[0]= $opm_fur[0][0..1]
-	$ir[1]= $opm_fur[0][2..12]
-	$ir[2]= $opm_fur[1][2..12]
-	$ir[3]= $opm_fur[2][2..12]
-	$ir[4]= $opm_fur[3][2..12]
-
-	$af= $ir[0] -join " "
-	$one= $ir[1] -join " "
-	$two= $ir[2] -join " "
-	$three= $ir[3] -join " "
-	$four= $ir[4] -join " "
-
-	$header= $box_header["opm"]
-	$header= $header.Replace("%mask_param%","")
-	$header= $header.Replace("%af_param%",$af)
-	$header= $header.Replace("%op1_param%",$one)
-	$header= $header.Replace("%op2_param%",$two)
-	$header= $header.Replace("%op3_param%",$three)
-	$header= $header.Replace("%op4_param%",$four)
-  }
-  } #sw
-
-  return $header
-
-} #func
+	return $header
+ } #func
  
 function Fmx_write(){ # $key["ten"],$key["zero"],$key["style"] 
 
-  [array]$ir= "","", "","",""
+	[array]$ir= "","", "","",""
 
-  [string]$af= ""
-  [string]$one= ""
-  [string]$two= ""
-  [string]$three= ""
-  [string]$four= ""
+	[string]$af= ""
+	[string]$one= ""
+	[string]$two= ""
+	[string]$three= ""
+	[string]$four= ""
 
-  [string]$header= ""
-  [string]$mask= ""
-  [string]$te= ""
+	[string]$header= ""
+	[string]$mask= ""
+	[string]$te= ""
 
-  switch($key["ten"]){
-
-	'False'{ $te= " "; break;
-	}'True'{ $te= ","
-  }
-  } #sw
-
-  switch($comb_fm.SelectedItem){
-
-  'vrc7 2op'{
-
-	switch($key["zero"]){
-	'False'{
-		[array]$vrc= "","" # array from karachi build <- safe
-
-		$vrc[0]= $vrc_svn[0]
-		$vrc[1]= $vrc_svn[1]
-
-		break;
-
-	}'True'{
-		[array]$vrc= $_vrc # array from pkg build <- safe
-
-		[int]$i= 0
-		for($i= 0; $i -lt 13; $i++){
-
-	 		# $arr[0][$i]= $arr[0][$i].Replace("  "," 0") # local scoop dekinai
-
-			$vrc[0][$i]= $vrc_svn[0][$i].Replace("  "," 0")
-			$vrc[1][$i]= $vrc_svn[1][$i].Replace("  "," 0")
-		} #
+	switch($key["ten"]){
+		'False'{ $te= " "; break;
+		}'True'{ $te= ","
 	}
 	} #sw
 
-	$ir[0]= $vrc[0][0..1]
-	$ir[1]= $vrc[0][2..12]
-	$ir[2]= $vrc[1][2..12]
+	switch($comb_fm.SelectedItem){
+	'vrc7 2op'{
+		switch($key["zero"]){
+		'False'{
+			[array]$vrc= "","" # array from karachi build <- safe
 
-	$af= $ir[0] -join $te
-	$one= $ir[1] -join $te
-	$two= $ir[2] -join $te
+			$vrc[0]= $vrc_svn[0]
+			$vrc[1]= $vrc_svn[1]
+			break;
+		}'True'{
+			[array]$vrc= $_vrc # array from pkg build <- safe
 
-	$header= $box_header["vrc"]
-	$header= $header.Replace("%af_param%",$af)
-	$header= $header.Replace("%op1_param%",$one)
-	$header= $header.Replace("%op2_param%",$two)
+			[int]$i= 0
+			for($i= 0; $i -lt 13; $i++){
 
-	break;
+		 		# $arr[0][$i]= $arr[0][$i].Replace("  "," 0") # local scoop dekinai
 
-  }'opl 2op'{
+				$vrc[0][$i]= $vrc_svn[0][$i].Replace("  "," 0")
+				$vrc[1][$i]= $vrc_svn[1][$i].Replace("  "," 0")
+			} #
+		}
+		} #sw
 
-	switch($key["zero"]){
-	'False'{
-		[array]$opl= "",""
+		$ir[0]= $vrc[0][0..1]
+		$ir[1]= $vrc[0][2..12]
+		$ir[2]= $vrc[1][2..12]
 
-		$opl[0]= $opl_two[0]
-		$opl[1]= $opl_two[1]
+		$af= $ir[0] -join $te
+		$one= $ir[1] -join $te
+		$two= $ir[2] -join $te
+
+		$header= $box_header["vrc"]
+		$header= $header.Replace("%af_param%",$af)
+		$header= $header.Replace("%op1_param%",$one)
+		$header= $header.Replace("%op2_param%",$two)
 		break;
+	}'opl 2op'{
 
-	}'True'{
-		[array]$opl= $_opl
+		switch($key["zero"]){
+		'False'{
+			[array]$opl= "",""
 
-		[int]$i= 0
-		for($i= 0; $i -lt 13; $i++){
+			$opl[0]= $opl_two[0]
+			$opl[1]= $opl_two[1]
+			break;
+		}'True'{
+			[array]$opl= $_opl
 
-			$opl[0][$i]= $opl_two[0][$i].Replace("  "," 0")
-			$opl[1][$i]= $opl_two[1][$i].Replace("  "," 0")
-		} #
+			[int]$i= 0
+			for($i= 0; $i -lt 13; $i++){
+
+				$opl[0][$i]= $opl_two[0][$i].Replace("  "," 0")
+				$opl[1][$i]= $opl_two[1][$i].Replace("  "," 0")
+			} #
+		}
+		} #sw
+
+		$ir[0]= $opl[0][0..1]
+		$ir[1]= $opl[0][2..12]
+		$ir[2]= $opl[1][2..12]
+
+		$af= $ir[0] -join $te
+		$one= $ir[1] -join $te
+		$two= $ir[2] -join $te
+
+		$header= $box_header["opl"]
+		$header= $header.Replace("%af_param%",$af)
+		$header= $header.Replace("%op1_param%",$one)
+		$header= $header.Replace("%op2_param%",$two)
+
+		break;
+	}'opn 4op'{
+
+		switch($key["zero"]){
+		'False'{
+			[array]$opn= "","","",""
+
+			$opn[0]= $opn_fur[0]
+			$opn[1]= $opn_fur[1]
+			$opn[2]= $opn_fur[2]
+			$opn[3]= $opn_fur[3]
+
+			$mask= Sz $key["mask"]
+			break;
+		}'True'{
+			[array]$opn= $_opn
+
+			[int]$i= 0
+			for($i= 0; $i -lt 12; $i++){
+
+				$opn[0][$i]= $opn_fur[0][$i].Replace(" ","0")
+				$opn[1][$i]= $opn_fur[1][$i].Replace(" ","0")
+				$opn[2][$i]= $opn_fur[2][$i].Replace(" ","0")
+				$opn[3][$i]= $opn_fur[3][$i].Replace(" ","0")
+			} #
+			$mask= Zeropad $key["mask"]
+		}
+		} #sw
+
+		switch($key["style"]){
+		'mucom'{
+			$ir[0]= $opn[0][1..0]
+			$ir[1]= $opn[0][2..10]
+			$ir[2]= $opn[1][2..10]
+			$ir[3]= $opn[2][2..10]
+			$ir[4]= $opn[3][2..10]
+			break;
+		}'mxdrv'{
+			$ir[0]= $opn[0][0..1]+ $mask
+			$ir[1]= $opn[0][2..11]+ ""
+			$ir[2]= $opn[1][2..11]+ ""
+			$ir[3]= $opn[2][2..11]+ ""
+			$ir[4]= $opn[3][2..11]+ "" # comma追加 ,0 -> ,0,("")
+			break;
+		}default{
+			$ir[0]= $opn[0][0..1]
+			$ir[1]= $opn[0][2..11]
+			$ir[2]= $opn[1][2..11]
+			$ir[3]= $opn[2][2..11]
+			$ir[4]= $opn[3][2..11]
+		}
+		} #sw
+
+		switch($key["style"]){
+		'fmp7'{ $header= $box_header["opn_fmp7"]; break;
+		}'mucom'{ $header= $box_header["opn_mucom"]; break;
+		}'mxdrv'{ $header= $box_header["opn_mxdrv"]; break;
+		}default{ $header= $box_header["opn"]
+		}
+		} #sw
+
+		if(Mskseg_chk){
+
+			$mask= " "+ (Mskseg_out 1)
+		}else{
+			$mask= ""
+		}
+		$header= $header.Replace("%mask_param%",$mask)
+
+
+		$af= $ir[0] -join $te
+		$one= $ir[1] -join $te
+		$two= $ir[2] -join $te
+		$three= $ir[3] -join $te
+		$four= $ir[4] -join $te
+
+		$header= $header.Replace("%af_param%",$af)
+		$header= $header.Replace("%op1_param%",$one)
+		$header= $header.Replace("%op2_param%",$two)
+		$header= $header.Replace("%op3_param%",$three)
+		$header= $header.Replace("%op4_param%",$four)
+
+		break;
+	}'opm 4op'{
+
+		switch($key["zero"]){
+		'False'{
+			[array]$opm= "","","",""
+
+			$opm[0]= $opm_fur[0]
+			$opm[1]= $opm_fur[1]
+			$opm[2]= $opm_fur[2]
+			$opm[3]= $opm_fur[3]
+
+			$mask= Sz $key["mask"]
+			break;
+		}'True'{
+			[array]$opm= $_opm
+
+			[int]$i= 0
+			for($i= 0; $i -lt 13; $i++){
+
+				$opm[0][$i]= $opm_fur[0][$i].Replace(" ","0")
+				$opm[1][$i]= $opm_fur[1][$i].Replace(" ","0")
+				$opm[2][$i]= $opm_fur[2][$i].Replace(" ","0")
+				$opm[3][$i]= $opm_fur[3][$i].Replace(" ","0")
+			} #
+			$mask= Zeropad $key["mask"]
+		}
+		} #sw
+
+		switch($key["style"]){
+		'mucom'{
+			$ir[0]= $opm[0][1..0]
+			$ir[1]= $opm[0][2..11]
+			$ir[2]= $opm[1][2..11]
+			$ir[3]= $opm[2][2..11]
+			$ir[4]= $opm[3][2..11]
+			break;
+		}'mxdrv'{
+			$ir[0]= $opm[0][0..1]+ $mask
+			$ir[1]= $opm[0][2..12]+ ""
+			$ir[2]= $opm[1][2..12]+ ""
+			$ir[3]= $opm[2][2..12]+ ""
+			$ir[4]= $opm[3][2..12]+ "" # comma追加
+			break;
+		}default{
+			$ir[0]= $opm[0][0..1]
+			$ir[1]= $opm[0][2..12]
+			$ir[2]= $opm[1][2..12]
+			$ir[3]= $opm[2][2..12]
+			$ir[4]= $opm[3][2..12]
+		}
+		} #sw
+
+		switch($key["style"]){
+		'fmp7'{ $header= $box_header["opm_fmp7"]; break;
+		}'mucom'{ $header= $box_header["opm_mucom"]; break;
+		}'mxdrv'{ $header= $box_header["opm_mxdrv"]; break;
+		}default{ $header= $box_header["opm"]
+		}
+		} #sw
+
+		if(Mskseg_chk){
+
+			$mask= " "+ (Mskseg_out 1)
+		}else{
+			$mask= ""
+		}
+		$header= $header.Replace("%mask_param%",$mask)
+
+
+		$af= $ir[0] -join $te
+		$one= $ir[1] -join $te
+		$two= $ir[2] -join $te
+		$three= $ir[3] -join $te
+		$four= $ir[4] -join $te
+
+		$header= $header.Replace("%af_param%",$af)
+	 	$header= $header.Replace("%op1_param%",$one)
+	 	$header= $header.Replace("%op2_param%",$two)
+	 	$header= $header.Replace("%op3_param%",$three)
+	 	$header= $header.Replace("%op4_param%",$four)
 	}
 	} #sw
 
-	$ir[0]= $opl[0][0..1]
-	$ir[1]= $opl[0][2..12]
-	$ir[2]= $opl[1][2..12]
-
-	$af= $ir[0] -join $te
-	$one= $ir[1] -join $te
-	$two= $ir[2] -join $te
-
-	$header= $box_header["opl"]
-	$header= $header.Replace("%af_param%",$af)
-	$header= $header.Replace("%op1_param%",$one)
-	$header= $header.Replace("%op2_param%",$two)
-
-	break;
-
-  }'opn 4op'{
-
-	switch($key["zero"]){
-	'False'{
-		[array]$opn= "","","",""
-
-		$opn[0]= $opn_fur[0]
-		$opn[1]= $opn_fur[1]
-		$opn[2]= $opn_fur[2]
-		$opn[3]= $opn_fur[3]
-
-		$mask= Sz $key["mask"]
-		break;
-
-	}'True'{
-		[array]$opn= $_opn
-
-		[int]$i= 0
-		for($i= 0; $i -lt 12; $i++){
-
-			$opn[0][$i]= $opn_fur[0][$i].Replace(" ","0")
-			$opn[1][$i]= $opn_fur[1][$i].Replace(" ","0")
-			$opn[2][$i]= $opn_fur[2][$i].Replace(" ","0")
-			$opn[3][$i]= $opn_fur[3][$i].Replace(" ","0")
-		} #
-		$mask= Zeropad $key["mask"]
-	}
-	} #sw
-
-	switch($key["style"]){
-	'mucom'{
-		$ir[0]= $opn[0][1..0]
-		$ir[1]= $opn[0][2..10]
-		$ir[2]= $opn[1][2..10]
-		$ir[3]= $opn[2][2..10]
-		$ir[4]= $opn[3][2..10]
-		break;
-	}'mxdrv'{
-		$ir[0]= $opn[0][0..1]+ $mask
-		$ir[1]= $opn[0][2..11]+ ""
-		$ir[2]= $opn[1][2..11]+ ""
-		$ir[3]= $opn[2][2..11]+ ""
-		$ir[4]= $opn[3][2..11]+ "" # comma追加 ,0 -> ,0,("")
-		break;
-	}default{
-		$ir[0]= $opn[0][0..1]
-		$ir[1]= $opn[0][2..11]
-		$ir[2]= $opn[1][2..11]
-		$ir[3]= $opn[2][2..11]
-		$ir[4]= $opn[3][2..11]
-	}
-	} #sw
-
-	switch($key["style"]){
-	'fmp7'{ $header= $box_header["opn_fmp7"]; break;
-	}'mucom'{ $header= $box_header["opn_mucom"]; break;
-	}'mxdrv'{ $header= $box_header["opn_mxdrv"]; break;
-	}default{ $header= $box_header["opn"]
-	}
-	} #sw
-
-	if(Mskseg_chk){
-
-		$mask= " "+ (Mskseg_out 1)
-	}else{
-		$mask= ""
-	}
-	$header= $header.Replace("%mask_param%",$mask)
-
-
-	$af= $ir[0] -join $te
-	$one= $ir[1] -join $te
-	$two= $ir[2] -join $te
-	$three= $ir[3] -join $te
-	$four= $ir[4] -join $te
-
-	$header= $header.Replace("%af_param%",$af)
-	$header= $header.Replace("%op1_param%",$one)
-	$header= $header.Replace("%op2_param%",$two)
-	$header= $header.Replace("%op3_param%",$three)
-	$header= $header.Replace("%op4_param%",$four)
-
-	break;
-
-  }'opm 4op'{
-
-	switch($key["zero"]){
-	'False'{
-		[array]$opm= "","","",""
-
-		$opm[0]= $opm_fur[0]
-		$opm[1]= $opm_fur[1]
-		$opm[2]= $opm_fur[2]
-		$opm[3]= $opm_fur[3]
-
-		$mask= Sz $key["mask"]
-		break;
-
-	}'True'{
-		[array]$opm= $_opm
-
-		[int]$i= 0
-		for($i= 0; $i -lt 13; $i++){
-
-			$opm[0][$i]= $opm_fur[0][$i].Replace(" ","0")
-			$opm[1][$i]= $opm_fur[1][$i].Replace(" ","0")
-			$opm[2][$i]= $opm_fur[2][$i].Replace(" ","0")
-			$opm[3][$i]= $opm_fur[3][$i].Replace(" ","0")
-		} #
-		$mask= Zeropad $key["mask"]
-	}
-	} #sw
-
-	switch($key["style"]){
-	'mucom'{
-		$ir[0]= $opm[0][1..0]
-		$ir[1]= $opm[0][2..11]
-		$ir[2]= $opm[1][2..11]
-		$ir[3]= $opm[2][2..11]
-		$ir[4]= $opm[3][2..11]
-		break;
-	}'mxdrv'{
-		$ir[0]= $opm[0][0..1]+ $mask
-		$ir[1]= $opm[0][2..12]+ ""
-		$ir[2]= $opm[1][2..12]+ ""
-		$ir[3]= $opm[2][2..12]+ ""
-		$ir[4]= $opm[3][2..12]+ "" # comma追加
-		break;
-	}default{
-		$ir[0]= $opm[0][0..1]
-		$ir[1]= $opm[0][2..12]
-		$ir[2]= $opm[1][2..12]
-		$ir[3]= $opm[2][2..12]
-		$ir[4]= $opm[3][2..12]
-	}
-	} #sw
-
-
-	switch($key["style"]){
-	'fmp7'{ $header= $box_header["opm_fmp7"]; break;
-	}'mucom'{ $header= $box_header["opm_mucom"]; break;
-	}'mxdrv'{ $header= $box_header["opm_mxdrv"]; break;
-	}default{ $header= $box_header["opm"]
-	}
-	} #sw
-
-	if(Mskseg_chk){
-
-		$mask= " "+ (Mskseg_out 1)
-	}else{
-		$mask= ""
-	}
-	$header= $header.Replace("%mask_param%",$mask)
-
-
-	$af= $ir[0] -join $te
-	$one= $ir[1] -join $te
-	$two= $ir[2] -join $te
-	$three= $ir[3] -join $te
-	$four= $ir[4] -join $te
-
-	$header= $header.Replace("%af_param%",$af)
- 	$header= $header.Replace("%op1_param%",$one)
- 	$header= $header.Replace("%op2_param%",$two)
- 	$header= $header.Replace("%op3_param%",$three)
- 	$header= $header.Replace("%op4_param%",$four)
-  }
-  } #sw
-
-  return $header
-
+	return $header
  } #func
  
 function Box_write(){ 
 
-  $fm_box.SuspendLayout()
+	$fm_box.SuspendLayout()
 
-  switch($comb_fm.SelectedItem){
-  'vrc7 2op'{
-	switch($key["type"]){
-	'mckreg'{	[string]$s= Reg_write;	break;
-	}'nsdreg'{	[string]$s= Reg_write;	break;
-	}default{	[string]$s= Fmx_write
+	switch($comb_fm.SelectedItem){
+	'vrc7 2op'{
+		switch($key["type"]){
+		'mckreg'{	[string]$s= Reg_write;	break;
+		}'nsdreg'{	[string]$s= Reg_write;	break;
+		}default{	[string]$s= Fmx_write
+		}
+		} #sw
+		break;
+
+	}default{		[string]$s= Fmx_write
 	}
 	} #sw
 
-	break;
-  }default{		[string]$s= Fmx_write
-  }
-  } #sw
+	$fm_box.Text= $s
 
-  $fm_box.Text= $s
-
-  $fm_box.ResumeLayout()
-
+	$fm_box.ResumeLayout()
  } #func
  
 function Box_mml_write(){ 
@@ -8002,7 +7975,7 @@ $script:toppos= New-Object System.Drawing.Point
 
 
 
-	
+	 
 [int[]]$op_IMG= @(162, 102) 
 $op_Rect= New-Object System.Drawing.Rectangle(0, 0, $op_IMG[0], $op_IMG[1])
  
@@ -8101,7 +8074,7 @@ $Pictbw.Add_DoubleClick({
 })
  
 # 2op 
-	
+	 
 $image1a= New-Object System.Drawing.Bitmap($op_IMG) 
 
 $gpz= [System.Drawing.Graphics]::FromImage($image1a)
@@ -9600,7 +9573,7 @@ $ff_mnu.Items.AddRange(@($ff_menu_f,$ff_menu_b))
 $ff_frm.Controls.AddRange(@($ff_mnu, $ff_tab, $play_chk, $import_btn, $close_btn))
   
 # Mask forms 
-	 
+	
 $sub_mask= New-Object System.Windows.Forms.Form 
 $sub_mask.Text= "Operator Mask"
 $sub_mask.Size= "272,172"
@@ -10929,7 +10902,7 @@ $PictboxFB.Add_MouseLeave({
 })
   
 # Group 
-	
+	 
 $eg_grp= New-Object System.Windows.Forms.GroupBox 
 $eg_grp.Location= "10, 30"
 $eg_grp.Size= "255, 130" # 4op "255, 210"
@@ -11407,7 +11380,7 @@ $opm_nmud_rr.Add_ValueChanged({
 })
   
 # ------ SL - SustainLevel 15-0 
-	 
+	
 $lbl_sl= New-Object System.Windows.Forms.Label 
 $lbl_sl.Location= "70, 130"
 $lbl_sl.Size= "120,20"
@@ -11479,7 +11452,7 @@ $lev_grp.Font= $FonLabel
 # $lev_grp.Hide() # $lev_grp.Show()
 	
 # ------ KSL - KeyScaleLevel 0-3 
-	 
+	
 $lbl_ksl= New-Object System.Windows.Forms.Label 
 $lbl_ksl.Location= "10, 20"
 $lbl_ksl.Size= "120, 20"
@@ -11505,6 +11478,10 @@ $vrc_nmud_ksl.Add_ValueChanged({
   if($event_change){
 
 	Box_write
+
+	if($sb_alg.Visible){
+	  Poly_chw
+	}
   }
  }catch{
 	echo $_.exception
@@ -11529,6 +11506,10 @@ $opl_nmud_ksl.Add_ValueChanged({
   if($event_change){
 
 	Box_write
+
+	if($sb_alg.Visible){
+	  Poly_chw
+	}
   }
  }catch{
 	echo $_.exception
@@ -11536,7 +11517,7 @@ $opl_nmud_ksl.Add_ValueChanged({
 })
   
 # ------ KSR - KeyScaleRate 0-1 
-	 
+	
 $lbl_ksr= New-Object System.Windows.Forms.Label 
 $lbl_ksr.Location= "130, 20"
 $lbl_ksr.Size= "120, 20"
@@ -11560,6 +11541,10 @@ $vrc_nmud_ksr.Add_ValueChanged({
   if($event_change){
 
 	Box_write
+
+	if($sb_alg.Visible){
+	  Poly_chw
+	}
   }
  }catch{
 	echo $_.exception
@@ -11583,6 +11568,10 @@ $opl_nmud_ksr.Add_ValueChanged({
   if($event_change){
 
 	Box_write
+
+	if($sb_alg.Visible){
+	  Poly_chw
+	}
   }
  }catch{
 	echo $_.exception
@@ -11720,6 +11709,10 @@ $vrc_nmud_vib.Add_ValueChanged({
   if($event_change){
 
 	Box_write
+
+	if($sb_alg.Visible){
+	  Poly_chw
+	}
   }
  }catch{
 	echo $_.exception
@@ -11743,6 +11736,10 @@ $opl_nmud_vib.Add_ValueChanged({
   if($event_change){
 
 	Box_write
+
+	if($sb_alg.Visible){
+	  Poly_chw
+	}
   }
  }catch{
 	echo $_.exception
@@ -11750,7 +11747,7 @@ $opl_nmud_vib.Add_ValueChanged({
 })
   
 # ------ AM - AmplitudeModulation Enable Switch 0-1 
-	
+	 
 $lbl_am= New-Object System.Windows.Forms.Label 
 $lbl_am.Location= "190,20"
 $lbl_am.Size= "60,40"
@@ -11774,6 +11771,10 @@ $vrc_nmud_am.Add_ValueChanged({
   if($event_change){
 
 	Box_write
+
+	if($sb_alg.Visible){
+	  Poly_chw
+	}
   }
  }catch{
 	echo $_.exception
@@ -11797,6 +11798,10 @@ $opl_nmud_am.Add_ValueChanged({
   if($event_change){
 
 	Box_write
+
+	if($sb_alg.Visible){
+	  Poly_chw
+	}
   }
  }catch{
 	echo $_.exception
@@ -12492,7 +12497,7 @@ $osc_grp.Size= "255, 105"
 $osc_grp.Location= "270,300"
 $osc_grp.ForeColor= "gray"
 $osc_grp.Font= $FonLabel
-	
+	 
 $lisn_btn= New-Object System.Windows.Forms.Button 
 $lisn_btn.Location= "20, 30"
 $lisn_btn.Size= "25, 25"
@@ -12520,6 +12525,7 @@ $conv_btn.BackColor= "white"
 
 $conv_btn.Add_Click({ # text convert
  try{
+
 	if($fm_box_mml.Modified -eq $True){ #変更あらば
 
 		switch($comb_fm.SelectedItem){
@@ -12564,7 +12570,7 @@ $conv_btn.Add_Click({ # text convert
 	echo $_.exception
  }
 })
- 
+ 	
 $comb_vrc= New-Object System.Windows.Forms.Combobox 
 $comb_vrc.Size= "180, 30"
 $comb_vrc.Location= "60, 30"
@@ -12720,6 +12726,8 @@ $fm_box_mml.Size= "530,65"
 $fm_box_mml.Location= "10,425"
 $fm_box_mml.WordWrap= "False"
 $fm_box_mml.Multiline= "True"
+$fm_box_mml.AcceptsReturn= "True"
+$fm_box_mml.AcceptsTab= "True"
 $fm_box_mml.ScrollBars= "Both"
 $fm_box_mml.BorderStyle= "FixedSingle"
 # $fm_box_mml.ReadOnly= "True"
@@ -12755,6 +12763,8 @@ $fm_box.Size= "530,155"
 $fm_box.Location= "10,495"
 $fm_box.WordWrap= "False"
 $fm_box.Multiline= "True"
+$fm_box.AcceptsReturn= "True"
+$fm_box.AcceptsTab= "True"
 $fm_box.ScrollBars= "Both"
 $fm_box.BorderStyle= "FixedSingle"
 # $fm_box.ReadOnly= "True"
@@ -12897,7 +12907,7 @@ $frm_fm.Add_FormClosing({
 })
  
 $fm_mnu= New-Object System.Windows.Forms.MenuStrip 
-	 
+	
 $fm_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_f.Text= "File"
 
@@ -12918,7 +12928,7 @@ $fm_menu_f.Text= "File"
 
 
 
-	 
+	
 $fm_menu_pset= New-Object System.Windows.Forms.ToolStripSeparator 
 $fm_menu_pset= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_pset.Text= "Preset"
@@ -14090,7 +14100,7 @@ $fm_menu_mask.Add_Click({
     	Write-Host '"ERROR: Safety Stopper >> $sub_mask.Show()"'
  }
 })
-	
+	 
 $fm_menu_so= New-Object System.Windows.Forms.ToolStripSeparator 
  
 $fm_menu_oct1= New-Object System.Windows.Forms.ToolStripMenuItem 
@@ -14530,22 +14540,26 @@ $fm_menu_whelp.Text= "FMToneEditor Help"
 
 $fm_menu_whelp.Add_Click({
  try{
+	[string] $s= ""
+	foreach($d in $edit.Keys){
 
-  if((Chk_path $edit["sted.exe"]) -eq 0){
+		if($d.Contains("sted") -eq $True){
+			$s= $d
+			break; # first hit de stop
+		}
+	} #
 
-	[string]$retn= Editor_open $edit["sted.exe"] "..\doc\FM_Tone_Editor.txt"
-  }else{
-	[string]$retn= Editor_open $val["editor"] "..\doc\FM_Tone_Editor.txt"
-  }
+	if($s -ne ""){
+		[string]$retn= Editor_open $edit[$s] "..\doc\FM_Tone_Editor.txt"
+	}else{
+		[string]$retn= Editor_open $val["editor"] "..\doc\FM_Tone_Editor.txt"
+	}
 
-  if($retn -ne ''){
-
-	$retn= [Windows.Forms.MessageBox]::Show(
-
-	$retn, "確認", "OK","Information","Button1"
-	)
-  }
-
+	if($retn -ne ''){
+		$retn= [Windows.Forms.MessageBox]::Show(
+		$retn, "確認", "OK","Information","Button1"
+		)
+	}
  }catch{
 	echo $_.exception
  }
@@ -15389,7 +15403,8 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 # write-host $val["compiler"]
 # write-host $val["player"]
 # write-host "------"
-# write-host $val.Values
+#write-host  ("val.Keys: "+ $val.Keys)
+#write-host  ("val.Values: "+ $val.Values)
 # write-host $comp.Values
 # write-host $play.Values
 # write-host "------"

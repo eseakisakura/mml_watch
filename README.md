@@ -17,6 +17,7 @@ winXP+ Powershell2(.NET Framework3.5) - 旧版 ver4.5.2<br/>
 説明書及び、必須ソフトウェアのリンク <br/>
 ・<a href="https://eseakisakura.github.io/mml_watch_gui/"> Mml Watch GUI - download</a><br/>
 </h4>
+<br/>
 
 <table><tr><td>・Mml Watch GUI</td><td>mmlチップチューンのfront end</td>
 </tr><tr><td>・FM Synthesis Chip - Tone Editor</td><td>2op.4op.対応FM音源音色エディタ</td>

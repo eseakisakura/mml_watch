@@ -56,7 +56,7 @@ $setting_xml= @'
 '@
  
 # hash 
-	
+	 
 function Xml_read($x){ 
 
   # $x= $script:xml_set.table
@@ -110,7 +110,7 @@ function Write_xml($x){
   # $x= $script:xml_set.table
 
 
-  [array]$mck_keys= $mck.Keys
+  [array]$mck_keys= $mck.Keys # Keys.Count -> 配列
   [array]$nsd_keys= $nsd.Keys
   [array]$pmd_keys= $pmd.Keys
 
@@ -219,7 +219,7 @@ function Write_xml($x){
 	}
   } #
  } #func
- 
+ 	
 function Pamamter_reset([string]$sw){ 
 
   switch($sw){
@@ -1374,7 +1374,7 @@ $contxt_mml.Add_ItemClicked({
 
 	$this.Close()
 })
- 	
+ 
 $listbox_mml= New-Object System.Windows.Forms.ListBox 
 $listbox_mml.Size= "220,90"
 $listbox_mml.Location= "5,25"
