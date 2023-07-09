@@ -243,7 +243,7 @@ function Play_nsf([string]$file){
  } #func
   
 # chk_path 
-	 
+	
 function Err_build(){ 
 
 	[int[]]$err= 0,0,0,0
@@ -337,7 +337,7 @@ function Console_out([string[]]$ph){
 	Status_build $f[2][0] $ph[2]
 
  } #func
- 	
+ 
 function Status_cheker(){ 
 
 	[string]$m= "" # 定義のみだと返値(echo)が出る、空値入れとく
@@ -641,7 +641,7 @@ function Watch_Start(){
 
  } #func
  
-function Watch_Drop(){ 
+function Watch_Drop(){ 	
 
 	if($wait.EnableRaisingEvents -eq $True){
 
@@ -666,7 +666,19 @@ function Watch_Drop(){
 	}1{	Write-Host ('ERROR: Chk_path >> FileDrop Form')
 		break;
 
-	}0{	$script:val["mmlfile"]= $args_path[0]
+	}0{
+		$script:val["mmlfile"]= $args_path[0]
+
+
+		$script:mml.Clear()
+
+		[string[]]$arr= Split_path $args_path[0]
+		$script:mml[$arr[0]]= $args_path[0]
+
+		Wthmenu_build "mmlfile"
+
+		SetWrite_xml $script:set_xml.table
+		File_writer $script:set_xml '.\setting.xml'
 	}
 	} #sw
 
@@ -1226,7 +1238,7 @@ function Wthmenu_build([string]$sw){
   }
   } #sw
  } #func
-  
+  	
 # hash 
 	
 function Change_value([string]$sw, [string]$name){ 
@@ -1281,6 +1293,28 @@ function Setxml_read($x){ # hash読み込み
     }
 
   } #
+ } #func
+ 
+function SetWrite_xml($x){ 
+
+	# $x= $script:set_xml.table
+
+	[array]$mml_keys= $mml.Keys
+	[int]$ml= $mml_keys.Length
+
+	if($ml -gt 4){ Write-Host ('ERROR: mml hash >> '+ $ml) }
+
+	for([int]$i=3; $i -ge 0; $i--){
+
+		if($i -lt $ml){ # - lt [0-3]
+
+			$x.mml[$i].name=  [string]$mml_keys[$i]
+			$x.mml[$i].param= [string]$mml[$mml_keys[$i]]
+		}else{
+			$x.mml[$i].name=  ""
+			$x.mml[$i].param= ""
+		}
+	} #
  } #func
  
 function Wthxml_read($x,$y){ 
@@ -1416,7 +1450,7 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 [Environment]::CurrentDirectory= pwd # working_dir set
  
 # Form 
-	 
+	
 $err_box= New-Object System.Windows.Forms.TextBox 
 $err_box.Size= "240,60"
 $err_box.Location= "10,55"

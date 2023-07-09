@@ -219,7 +219,7 @@ function Write_xml($x){
 	}
   } #
  } #func
- 	
+ 
 function Pamamter_reset([string]$sw){ 
 
   switch($sw){
@@ -2345,7 +2345,7 @@ $sub_f.AcceptButton= $ok_btn		# [Enter]
 	$tab.Controls.AddRange(@($tab_mml,$tab_bin,$tab_ply,$tab_edt,$tab_dos))
 	$sub_menu_f.DropDownItems.AddRange(@($sub_menu_new,$sub_menu_adv,$sub_menu_an,$sub_menu_a,$sub_menu_sn,$sub_menu_n))
 
-	Drag_drop "mml" $vals["mmlfile"] # D&D時ため、mml hashへ自動登録
+	## Drag_drop "mml" $vals["mmlfile"] # D&D時ため、mml hashへ自動登録
 
 
 	Hash_read # List化
@@ -2377,4 +2377,4 @@ $sub_f.AcceptButton= $ok_btn		# [Enter]
  }finally{
 	$pram_frm.Dispose()
  }
- 
+ 	
