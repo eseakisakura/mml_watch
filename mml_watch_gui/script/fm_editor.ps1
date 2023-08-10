@@ -407,14 +407,14 @@ function Brush_Color(){
 } #func
   
 # buffer 
-	
+	 
 function Pixcel_Select([int] $max){ 
 
 	$max= $max+ 1
 
 	[array] $nn= "",""
-	[int[]] $nn[0]= 2,4,8, 16, 32, 64,128 # max
-	[int[]] $nn[1]= 16,16,16, 8,4, 2,1 # px
+	[int[]] $nn[0]= 2,4,8,  16, 32, 64,128 # max
+	[int[]] $nn[1]= 16,16,8,  8,4, 2,1 # px
 	[int] $d= 0
 
 	for([int] $i= 0; $i -lt $nn[0].Length; $i++){
@@ -427,7 +427,7 @@ function Pixcel_Select([int] $max){
 
 	return $d
  } #func
- 
+ 	
 function Mouse_druger([string] $sw, [string] $type, $ev){ 
 
 	switch($sw){
@@ -7977,7 +7977,7 @@ $script:toppos= New-Object System.Drawing.Point
 
 
 
-	 
+	
 [int[]]$op_IMG= @(162, 102) 
 $op_Rect= New-Object System.Drawing.Rectangle(0, 0, $op_IMG[0], $op_IMG[1])
  
@@ -9884,7 +9884,7 @@ $sub_sav.CancelButton= $sub_sav_cancel_Btn	# [ESC]
 $sub_sav.AcceptButton= $sub_sav_ok_Btn	# [Enter]
   
 # Main forms 
-	 
+	
 # BUFFER 
 	
 [int[]]$IMG_buf= @(480, 480) # バッファサイズ 
@@ -12717,7 +12717,7 @@ $comb_fm.Add_SelectedValueChanged({ # Event
  })
    
 # forms 
-	 
+	
 $fm_panel= New-Object System.Windows.Forms.Panel 
 $fm_panel.Location= "0,0"
 $fm_panel.Size= "530,415"
@@ -12758,7 +12758,7 @@ $fm_box_mml.font= $Fon
 # 	echo $_.exception
 #  }
 # })
- 	
+ 
 $fm_box= New-Object System.Windows.Forms.TextBox 
 $fm_box.Size= "530,145"
 $fm_box.Location= "10,425"
