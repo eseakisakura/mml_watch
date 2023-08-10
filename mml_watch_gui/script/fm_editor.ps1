@@ -709,14 +709,16 @@ function Drug_chg([int] $delta, [int] $num, [int] $max){
  
 function Trans_ADSR([int] $pp, [int] $qq){ 
 
-	switch($key["wheel"][$comb_fm.SelectedIndex]){
-	'AR'{	$delta= $pp;	break;
-	}'DR'{	$delta= $pp;	break;
-	}'SR'{	$delta= $pp;	break;
-	}'RR'{	$delta= $pp; 	break; # X
-	}default{	$delta= $qq # Y
-	}
-	} #sw
+	# switch($key["wheel"][$comb_fm.SelectedIndex]){
+	# 'AR'{	$delta= $pp;	break;
+	# }'DR'{	$delta= $pp;	break;
+	# }'SR'{	$delta= $pp;	break;
+	# }'RR'{	$delta= $pp; 	break; # X
+	# }default{	$delta= $qq # Y
+	# }
+	# } #sw
+
+	$delta= $qq # Y
 
 	$x= NmudX $key["wheel"][$comb_fm.SelectedIndex]
 
@@ -10902,7 +10904,7 @@ $PictboxFB.Add_MouseLeave({
 })
   
 # Group 
-	 
+	
 $eg_grp= New-Object System.Windows.Forms.GroupBox 
 $eg_grp.Location= "10, 30"
 $eg_grp.Size= "255, 130" # 4op "255, 210"
@@ -12497,7 +12499,7 @@ $osc_grp.Size= "255, 105"
 $osc_grp.Location= "270,300"
 $osc_grp.ForeColor= "gray"
 $osc_grp.Font= $FonLabel
-	 
+	
 $lisn_btn= New-Object System.Windows.Forms.Button 
 $lisn_btn.Location= "20, 30"
 $lisn_btn.Size= "25, 25"
@@ -12570,7 +12572,7 @@ $conv_btn.Add_Click({ # text convert
 	echo $_.exception
  }
 })
- 	
+ 
 $comb_vrc= New-Object System.Windows.Forms.Combobox 
 $comb_vrc.Size= "180, 30"
 $comb_vrc.Location= "60, 30"
@@ -12722,45 +12724,44 @@ $fm_panel.Size= "530,415"
 # $fm_panel.BackColor= "orange"
  
 $fm_box_mml= New-Object System.Windows.Forms.TextBox 
-$fm_box_mml.Size= "530,65"
-$fm_box_mml.Location= "10,425"
+$fm_box_mml.Size= "530,75"
+$fm_box_mml.Location= "10,575"
 $fm_box_mml.WordWrap= "False"
 $fm_box_mml.Multiline= "True"
 $fm_box_mml.AcceptsReturn= "True"
 $fm_box_mml.AcceptsTab= "True"
 $fm_box_mml.ScrollBars= "Both"
 $fm_box_mml.BorderStyle= "FixedSingle"
-# $fm_box_mml.ReadOnly= "True"
+$fm_box_mml.ReadOnly= "True"
 $fm_box_mml.ForeColor= "dimgray"
 $fm_box_mml.BackColor= "white" # "gainsboro"
 $fm_box_mml.font= $Fon
 
-$fm_box_mml.Add_Enter({ # kaki komi de undo reset
- try{
-	$this.ForeColor= "black"
-	$this.BackColor= "white"
- }catch{
-	echo $_.exception
- }
-})
+# $fm_box_mml.Add_Enter({ # kaki komi de undo reset
+#  try{
+# 	$this.ForeColor= "black"
+# 	$this.BackColor= "white"
+#  }catch{
+# 	echo $_.exception
+#  }
+# })
 
-$fm_box_mml.Add_Leave({
+# $fm_box_mml.Add_Leave({
+# 	$this.ForeColor= "dimgray"
+# 	$this.BackColor= "white" # "gainsboro"
+# })
 
-	$this.ForeColor= "dimgray"
-	$this.BackColor= "white" # "gainsboro"
-})
-
-$fm_box_mml.Add_KeyDown({ # インポート
- try{
-	Key_down $_.KeyCode
- }catch{
-	echo $_.exception
- }
-})
- 
+# $fm_box_mml.Add_KeyDown({ # インポート
+#  try{
+# 	Key_down $_.KeyCode
+#  }catch{
+# 	echo $_.exception
+#  }
+# })
+ 	
 $fm_box= New-Object System.Windows.Forms.TextBox 
-$fm_box.Size= "530,155"
-$fm_box.Location= "10,495"
+$fm_box.Size= "530,145"
+$fm_box.Location= "10,425"
 $fm_box.WordWrap= "False"
 $fm_box.Multiline= "True"
 $fm_box.AcceptsReturn= "True"
@@ -12784,7 +12785,6 @@ $fm_box.Add_Enter({ # kaki komi de undo reset
 })
 
 $fm_box.Add_Leave({
-
 	$this.ForeColor= "dimgray"
 	$this.BackColor= "white" # "gainsboro"
 })
