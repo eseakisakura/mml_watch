@@ -407,14 +407,14 @@ function Brush_Color(){
 } #func
   
 # buffer 
-	 
+	
 function Pixcel_Select([int] $max){ 
 
 	$max= $max+ 1
 
 	[array] $nn= "",""
 	[int[]] $nn[0]= 2,4,8,  16, 32, 64,128 # max
-	[int[]] $nn[1]= 16,16,8,  8,4, 2,1 # px
+	[int[]] $nn[1]= 24,16,12,  8,4, 2,1 # px
 	[int] $d= 0
 
 	for([int] $i= 0; $i -lt $nn[0].Length; $i++){
@@ -427,7 +427,7 @@ function Pixcel_Select([int] $max){
 
 	return $d
  } #func
- 	
+ 
 function Mouse_druger([string] $sw, [string] $type, $ev){ 
 
 	switch($sw){
@@ -1210,8 +1210,8 @@ function Contxt_chg_vrc([string] $ss){
 	'AR'{
 		[void]$contxt_7bw.Items.Add("Attack [v]")
 		[void]$contxt_7bw.Items.Add("Decay")
-		[void]$contxt_7bw.Items.Add("Release")
 		[void]$contxt_7bw.Items.Add("Sustain")
+		[void]$contxt_7bw.Items.Add("Release")
 		[void]$contxt_7bw.Items.Add("EnvGeneType")
 		[void]$contxt_7bw.Items.Add("Multiple")
 		[void]$contxt_7bw.Items.Add("TotalLevel")
@@ -1224,8 +1224,8 @@ function Contxt_chg_vrc([string] $ss){
 	}'DR'{
 		[void]$contxt_7bw.Items.Add("Attack")
 		[void]$contxt_7bw.Items.Add("Decay [v]")
-		[void]$contxt_7bw.Items.Add("Release")
 		[void]$contxt_7bw.Items.Add("Sustain")
+		[void]$contxt_7bw.Items.Add("Release")
 		[void]$contxt_7bw.Items.Add("EnvGeneType")
 		[void]$contxt_7bw.Items.Add("Multiple")
 		[void]$contxt_7bw.Items.Add("TotalLevel")
@@ -1238,8 +1238,8 @@ function Contxt_chg_vrc([string] $ss){
 	}'RR'{
 		[void]$contxt_7bw.Items.Add("Attack")
 		[void]$contxt_7bw.Items.Add("Decay")
-		[void]$contxt_7bw.Items.Add("Release [v]")
 		[void]$contxt_7bw.Items.Add("Sustain")
+		[void]$contxt_7bw.Items.Add("Release [v]")
 		[void]$contxt_7bw.Items.Add("EnvGeneType")
 		[void]$contxt_7bw.Items.Add("Multiple")
 		[void]$contxt_7bw.Items.Add("TotalLevel")
@@ -1252,8 +1252,8 @@ function Contxt_chg_vrc([string] $ss){
 	}'SR'{
 		[void]$contxt_7bw.Items.Add("Attack")
 		[void]$contxt_7bw.Items.Add("Decay")
-		[void]$contxt_7bw.Items.Add("Release")
 		[void]$contxt_7bw.Items.Add("Sustain [v]")
+		[void]$contxt_7bw.Items.Add("Release")
 		[void]$contxt_7bw.Items.Add("EnvGeneType")
 		[void]$contxt_7bw.Items.Add("Multiple")
 		[void]$contxt_7bw.Items.Add("TotalLevel")
@@ -1266,8 +1266,8 @@ function Contxt_chg_vrc([string] $ss){
 	}'EG'{
 		[void]$contxt_7bw.Items.Add("Attack")
 		[void]$contxt_7bw.Items.Add("Decay")
-		[void]$contxt_7bw.Items.Add("Release")
 		[void]$contxt_7bw.Items.Add("Sustain")
+		[void]$contxt_7bw.Items.Add("Release")
 		[void]$contxt_7bw.Items.Add("EnvGeneType [v]")
 		[void]$contxt_7bw.Items.Add("Multiple")
 		[void]$contxt_7bw.Items.Add("TotalLevel")
@@ -1280,8 +1280,8 @@ function Contxt_chg_vrc([string] $ss){
 	}'ML'{
 		[void]$contxt_7bw.Items.Add("Attack")
 		[void]$contxt_7bw.Items.Add("Decay")
-		[void]$contxt_7bw.Items.Add("Release")
 		[void]$contxt_7bw.Items.Add("Sustain")
+		[void]$contxt_7bw.Items.Add("Release")
 		[void]$contxt_7bw.Items.Add("EnvGeneType")
 		[void]$contxt_7bw.Items.Add("Multiple [v]")
 		[void]$contxt_7bw.Items.Add("TotalLevel")
@@ -1294,8 +1294,8 @@ function Contxt_chg_vrc([string] $ss){
 	}'TL'{
 		[void]$contxt_7bw.Items.Add("Attack")
 		[void]$contxt_7bw.Items.Add("Decay")
-		[void]$contxt_7bw.Items.Add("Release")
 		[void]$contxt_7bw.Items.Add("Sustain")
+		[void]$contxt_7bw.Items.Add("Release")
 		[void]$contxt_7bw.Items.Add("EnvGeneType")
 		[void]$contxt_7bw.Items.Add("Multiple")
 		[void]$contxt_7bw.Items.Add("TotalLevel [v]")
@@ -1308,8 +1308,8 @@ function Contxt_chg_vrc([string] $ss){
 	}'DT'{
 		[void]$contxt_7bw.Items.Add("Attack")
 		[void]$contxt_7bw.Items.Add("Decay")
-		[void]$contxt_7bw.Items.Add("Release")
 		[void]$contxt_7bw.Items.Add("Sustain")
+		[void]$contxt_7bw.Items.Add("Release")
 		[void]$contxt_7bw.Items.Add("EnvGeneType")
 		[void]$contxt_7bw.Items.Add("Multiple")
 		[void]$contxt_7bw.Items.Add("TotalLevel")
@@ -1322,8 +1322,8 @@ function Contxt_chg_vrc([string] $ss){
 	}'FB'{
 		[void]$contxt_7bw.Items.Add("Attack")
 		[void]$contxt_7bw.Items.Add("Decay")
-		[void]$contxt_7bw.Items.Add("Release")
 		[void]$contxt_7bw.Items.Add("Sustain")
+		[void]$contxt_7bw.Items.Add("Release")
 		[void]$contxt_7bw.Items.Add("EnvGeneType")
 		[void]$contxt_7bw.Items.Add("Multiple")
 		[void]$contxt_7bw.Items.Add("TotalLevel")
@@ -1336,8 +1336,8 @@ function Contxt_chg_vrc([string] $ss){
 	}default{
 		[void]$contxt_7bw.Items.Add("Attack")
 		[void]$contxt_7bw.Items.Add("Decay")
-		[void]$contxt_7bw.Items.Add("Release")
 		[void]$contxt_7bw.Items.Add("Sustain")
+		[void]$contxt_7bw.Items.Add("Release")
 		[void]$contxt_7bw.Items.Add("EnvGeneType")
 		[void]$contxt_7bw.Items.Add("Multiple")
 		[void]$contxt_7bw.Items.Add("TotalLevel")
@@ -1358,8 +1358,8 @@ function Contxt_chg_opl([string] $ss){
 	'AR'{
 		[void]$contxt_Lbw.Items.Add("Attack [v]")
 		[void]$contxt_Lbw.Items.Add("Decay")
-		[void]$contxt_Lbw.Items.Add("Release")
 		[void]$contxt_Lbw.Items.Add("Sustain")
+		[void]$contxt_Lbw.Items.Add("Release")
 		[void]$contxt_Lbw.Items.Add("EnvGeneType")
 		[void]$contxt_Lbw.Items.Add("Multiple")
 		[void]$contxt_Lbw.Items.Add("TotalLevel")
@@ -1371,8 +1371,8 @@ function Contxt_chg_opl([string] $ss){
 	}'DR'{
 		[void]$contxt_Lbw.Items.Add("Attack")
 		[void]$contxt_Lbw.Items.Add("Decay [v]")
-		[void]$contxt_Lbw.Items.Add("Release")
 		[void]$contxt_Lbw.Items.Add("Sustain")
+		[void]$contxt_Lbw.Items.Add("Release")
 		[void]$contxt_Lbw.Items.Add("EnvGeneType")
 		[void]$contxt_Lbw.Items.Add("Multiple")
 		[void]$contxt_Lbw.Items.Add("TotalLevel")
@@ -1384,8 +1384,8 @@ function Contxt_chg_opl([string] $ss){
 	}'RR'{
 		[void]$contxt_Lbw.Items.Add("Attack")
 		[void]$contxt_Lbw.Items.Add("Decay")
-		[void]$contxt_Lbw.Items.Add("Release [v]")
 		[void]$contxt_Lbw.Items.Add("Sustain")
+		[void]$contxt_Lbw.Items.Add("Release [v]")
 		[void]$contxt_Lbw.Items.Add("EnvGeneType")
 		[void]$contxt_Lbw.Items.Add("Multiple")
 		[void]$contxt_Lbw.Items.Add("TotalLevel")
@@ -1397,8 +1397,8 @@ function Contxt_chg_opl([string] $ss){
 	}'SR'{
 		[void]$contxt_Lbw.Items.Add("Attack")
 		[void]$contxt_Lbw.Items.Add("Decay")
-		[void]$contxt_Lbw.Items.Add("Release")
 		[void]$contxt_Lbw.Items.Add("Sustain [v]")
+		[void]$contxt_Lbw.Items.Add("Release")
 		[void]$contxt_Lbw.Items.Add("EnvGeneType")
 		[void]$contxt_Lbw.Items.Add("Multiple")
 		[void]$contxt_Lbw.Items.Add("TotalLevel")
@@ -1410,8 +1410,8 @@ function Contxt_chg_opl([string] $ss){
 	}'EG'{
 		[void]$contxt_Lbw.Items.Add("Attack")
 		[void]$contxt_Lbw.Items.Add("Decay")
-		[void]$contxt_Lbw.Items.Add("Release")
 		[void]$contxt_Lbw.Items.Add("Sustain")
+		[void]$contxt_Lbw.Items.Add("Release")
 		[void]$contxt_Lbw.Items.Add("EnvGeneType [v]")
 		[void]$contxt_Lbw.Items.Add("Multiple")
 		[void]$contxt_Lbw.Items.Add("TotalLevel")
@@ -1423,8 +1423,8 @@ function Contxt_chg_opl([string] $ss){
 	}'ML'{
 		[void]$contxt_Lbw.Items.Add("Attack")
 		[void]$contxt_Lbw.Items.Add("Decay")
-		[void]$contxt_Lbw.Items.Add("Release")
 		[void]$contxt_Lbw.Items.Add("Sustain")
+		[void]$contxt_Lbw.Items.Add("Release")
 		[void]$contxt_Lbw.Items.Add("EnvGeneType")
 		[void]$contxt_Lbw.Items.Add("Multiple [v]")
 		[void]$contxt_Lbw.Items.Add("TotalLevel")
@@ -1436,8 +1436,8 @@ function Contxt_chg_opl([string] $ss){
 	}'TL'{
 		[void]$contxt_Lbw.Items.Add("Attack")
 		[void]$contxt_Lbw.Items.Add("Decay")
-		[void]$contxt_Lbw.Items.Add("Release")
 		[void]$contxt_Lbw.Items.Add("Sustain")
+		[void]$contxt_Lbw.Items.Add("Release")
 		[void]$contxt_Lbw.Items.Add("EnvGeneType")
 		[void]$contxt_Lbw.Items.Add("Multiple")
 		[void]$contxt_Lbw.Items.Add("TotalLevel [v]")
@@ -1449,8 +1449,8 @@ function Contxt_chg_opl([string] $ss){
 	}'FB'{
 		[void]$contxt_Lbw.Items.Add("Attack")
 		[void]$contxt_Lbw.Items.Add("Decay")
-		[void]$contxt_Lbw.Items.Add("Release")
 		[void]$contxt_Lbw.Items.Add("Sustain")
+		[void]$contxt_Lbw.Items.Add("Release")
 		[void]$contxt_Lbw.Items.Add("EnvGeneType")
 		[void]$contxt_Lbw.Items.Add("Multiple")
 		[void]$contxt_Lbw.Items.Add("TotalLevel")
@@ -1463,8 +1463,8 @@ function Contxt_chg_opl([string] $ss){
 	}default{
 		[void]$contxt_Lbw.Items.Add("Attack")
 		[void]$contxt_Lbw.Items.Add("Decay")
-		[void]$contxt_Lbw.Items.Add("Release")
 		[void]$contxt_Lbw.Items.Add("Sustain")
+		[void]$contxt_Lbw.Items.Add("Release")
 		[void]$contxt_Lbw.Items.Add("EnvGeneType")
 		[void]$contxt_Lbw.Items.Add("Multiple")
 		[void]$contxt_Lbw.Items.Add("TotalLevel")
@@ -2855,7 +2855,7 @@ function Chip_position([string]$k){
  } #func
  
 <# 
- 
+	
 function Alg_cablw([int]$alg){ 
 
  [int]$sw= Idx
@@ -3441,7 +3441,7 @@ function Alg_cable([int]$alg){
  } #func
  
 #> 
- 
+  
 function Alg_cablw([int]$alg){ 
 
 	[int]$sw= Idx
@@ -3454,7 +3454,7 @@ function Alg_cablw([int]$alg){
 	[array]$ary= @("vrc7","opl","opn","opm") # .SelectedIndex
 
 
-	[string]$tt= $ary[$comb_fm.SelectedIndex]+ "`r`n"+ "Alg:"+ ($alg -as [string])+ "`r`n"+ $arr[$sw]+ "`r`n"+ $mtx[$alg][$sw]+ "`r`n"+ (ShortX $key["wheel"][$comb_fm.SelectedIndex] "long")
+	[string]$tt= $ary[$comb_fm.SelectedIndex]+ "`r`n"+ "Alg:"+ ($alg -as [string])+ "`r`n"+ $mtx[$alg][$sw]+ "`r`n"+ $arr[$sw]+ "`r`n"+ (ShortX $key["wheel"][$comb_fm.SelectedIndex] "long")
 
 
 	[array]$rr= Monotone_select "Alg_"
@@ -3572,7 +3572,7 @@ function Alg_cable([int]$alg){
 
 	[array]$ary= @("vrc7","opl","opn","opm")
 
-	[string]$tt= $ary[$comb_fm.SelectedIndex]+ "`r`n"+ "Alg:"+($alg -as [string])+ "`r`n"+ $arr[$sw]+ "`r`n"+ $mtx[$alg][$sw]+ "`r`n"+  (ShortX $key["wheel"][$comb_fm.SelectedIndex] "long")
+	[string]$tt= $ary[$comb_fm.SelectedIndex]+ "`r`n"+ "Alg:"+($alg -as [string])+ "`r`n"+ $mtx[$alg][$sw]+ "`r`n"+ $arr[$sw]+ "`r`n"+  (ShortX $key["wheel"][$comb_fm.SelectedIndex] "long")
 
 	if(Mskseg_chk){ $tt+= (Mskseg_out 2) }
 
@@ -5937,14 +5937,14 @@ function Panel_chg([string]$sw){
 	} #sw
 
 	Fm_osc	# カラーチェンジの瞬間見せないためひとつ前
-	Box_mml_write
-	Box_write	# mtx
+	Box_mml_read
+	Box_read	# mtx
 	Value_gui	# bar
 
  } #func
   
 # Lis 
-	
+	 
 function Adv_edit([string]$t){ 
 
 	switch($t){
@@ -6436,7 +6436,7 @@ function Box_listen([int]$j){
 	  switch($key["type"]){
 	  'mckreg'{	[string]$s= Reg_write;	break;
 	  }'nsdreg'{	[string]$s= Reg_write;	break;
-	  }default{		[string]$s= Fmx_light	# pmd comma less
+	  }default{	[string]$s= Fmx_light	# pmd comma less
 	  }
 	  } #sw
 
@@ -6489,7 +6489,7 @@ function Key_play([string]$t){
  } #func
   
 # Export 
-	
+	 
 function Unredo([int]$n){ 
 
 	switch($n){ # 初期化
@@ -7208,7 +7208,7 @@ function Param_exp([int]$jj,[string]$mtx){
 		Write-Host ('<< FM音色を読み込みました')
 	}
 
-	Box_write # 整形
+	Box_read # 整形
 	Value_gui
 
 	break;
@@ -7741,7 +7741,7 @@ function Fmx_write(){ # $key["ten"],$key["zero"],$key["style"]
 	return $header
  } #func
  
-function Box_write(){ 
+function Box_read(){ 
 
 	$fm_box.SuspendLayout()
 
@@ -7755,7 +7755,8 @@ function Box_write(){
 		} #sw
 		break;
 
-	}default{		[string]$s= Fmx_write
+	}default{
+		[string]$s= Fmx_write
 	}
 	} #sw
 
@@ -7763,8 +7764,8 @@ function Box_write(){
 
 	$fm_box.ResumeLayout()
  } #func
- 
-function Box_mml_write(){ 
+ 	
+function Box_mml_read(){ 
 
 	$fm_box_mml.SuspendLayout()
 
@@ -7777,7 +7778,8 @@ function Box_mml_write(){
 		} #sw
 
 		break;
-	}default{	[string]$ss= $box_mml["pmd"]
+	}default{
+		[string]$ss= $box_mml["pmd"]
 	}
 	} #sw
 
@@ -7803,7 +7805,7 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 # Sub forms 
 	
 # $contxt_7bwを読み込んだ後$PictureBox objが安全 
-	
+	 
 $contxt_Sep_7bw= New-Object System.Windows.Forms.ToolStripSeparator 
 $contxt_Sep_Lbw= New-Object System.Windows.Forms.ToolStripSeparator
 $contxt_Sep_Nbg= New-Object System.Windows.Forms.ToolStripSeparator
@@ -7823,7 +7825,7 @@ $contxt_7bw.Add_ItemClicked({
 		Unredo 0
 
 		ADSR_out $script:adsr
-		Box_write
+		Box_read
 		Value_gui
 		All_chg
 		break;
@@ -7858,7 +7860,7 @@ $contxt_Lbw.Add_ItemClicked({
 		Unredo 0
 
 		ADSR_out $script:adsr
-		Box_write
+		Box_read
 		Value_gui
 		All_chg
 		break;
@@ -7893,7 +7895,7 @@ $contxt_Nbg.Add_ItemClicked({
 		Unredo 0
 
 		ADSR_out $script:adsr
-		Box_write
+		Box_read
 		Value_gui
 		All_chg
 		break;
@@ -7928,7 +7930,7 @@ $contxt_Mbg.Add_ItemClicked({
 		Unredo 0
 
 		ADSR_out $script:adsr
-		Box_write
+		Box_read
 		Value_gui
 		All_chg
 		break;
@@ -9613,7 +9615,7 @@ $sub_mask_grp.Size= "95,125" # 215,95"
 $sub_mask_grp.Location= "10,3"
 
 
-	
+	 
 $sub_mask_chk0= New-Object System.Windows.Forms.CheckBox 
 $sub_mask_chk0.Text= "Op.1"
 $sub_mask_chk0.Size= "60,20"
@@ -9625,7 +9627,7 @@ $sub_mask_chk0.Add_Click({
 	$script:key["mask"]= Mask_sw "0" $key["mask"]
 
 	Stus_build
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 		All_chg
@@ -9643,7 +9645,7 @@ $sub_mask_chk1.Add_Click({
 	$script:key["mask"]= Mask_sw "1" $key["mask"]
 
 	Stus_build
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 		All_chg
@@ -9661,7 +9663,7 @@ $sub_mask_chk2.Add_Click({
 	$script:key["mask"]= Mask_sw "2" $key["mask"]
 
 	Stus_build
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 		All_chg
@@ -9679,7 +9681,7 @@ $sub_mask_chk3.Add_Click({
 	$script:key["mask"]= Mask_sw "3" $key["mask"]
 
 	Stus_build
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 		All_chg
@@ -9690,7 +9692,7 @@ $sub_ssg_grp= New-Object System.Windows.Forms.GroupBox
 $sub_ssg_grp.Text= "SSG-EG"
 $sub_ssg_grp.Size= "135,125" # 215,95"
 $sub_ssg_grp.Location= "110,3"
-	
+	 
 $sub_ssg_comb= New-Object System.Windows.Forms.Combobox 
 $sub_ssg_comb.Size= "64,20"
 $sub_ssg_comb.Location= "65,24"
@@ -9704,7 +9706,7 @@ $sub_ssg_comb.Add_SelectedValueChanged({
  try{
 	$script:key["eg_type"]= $this.SelectedItem
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 		All_chg
@@ -9736,7 +9738,7 @@ $sub_ssg_chk0.Add_Click({
  try{
 	$script:key["ssg"]= Mask_sw "0" $key["ssg"]
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 		All_chg
@@ -9756,7 +9758,7 @@ $sub_ssg_chk1.Add_Click({
  try{
 	$script:key["ssg"]= Mask_sw "1" $key["ssg"]
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 		All_chg
@@ -9776,7 +9778,7 @@ $sub_ssg_chk2.Add_Click({
  try{
 	$script:key["ssg"]= Mask_sw "2" $key["ssg"]
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 		All_chg
@@ -9796,7 +9798,7 @@ $sub_ssg_chk3.Add_Click({
  try{
 	$script:key["ssg"]= Mask_sw "3" $key["ssg"]
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 		All_chg
@@ -9884,7 +9886,7 @@ $sub_sav.CancelButton= $sub_sav_cancel_Btn	# [ESC]
 $sub_sav.AcceptButton= $sub_sav_ok_Btn	# [Enter]
   
 # Main forms 
-	
+	 
 # BUFFER 
 	
 [int[]]$IMG_buf= @(480, 480) # バッファサイズ 
@@ -10938,7 +10940,7 @@ $vrc_nmud_ar.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	  Poly_chw
@@ -10965,7 +10967,7 @@ $opl_nmud_ar.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	  Poly_chw
@@ -10992,7 +10994,7 @@ $opn_nmud_ar.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	  Poly_chg
@@ -11019,7 +11021,7 @@ $opm_nmud_ar.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	  Poly_chg
@@ -11055,7 +11057,7 @@ $vrc_nmud_dr.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	  Poly_chw
@@ -11082,7 +11084,7 @@ $opl_nmud_dr.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	  Poly_chw
@@ -11109,7 +11111,7 @@ $opn_nmud_dr.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	  Poly_chg
@@ -11136,7 +11138,7 @@ $opm_nmud_dr.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	  Poly_chg
@@ -11172,7 +11174,7 @@ $vrc_nmud_sr.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	  Poly_chw
@@ -11199,7 +11201,7 @@ $opl_nmud_sr.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	  Poly_chw
@@ -11226,7 +11228,7 @@ $opn_nmud_sr.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	  Poly_chg
@@ -11253,7 +11255,7 @@ $opm_nmud_sr.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	  Poly_chg
@@ -11289,7 +11291,7 @@ $vrc_nmud_rr.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	  Poly_chw
@@ -11316,7 +11318,7 @@ $opl_nmud_rr.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	  Poly_chw
@@ -11343,7 +11345,7 @@ $opn_nmud_rr.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	  Poly_chg
@@ -11370,7 +11372,7 @@ $opm_nmud_rr.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	  Poly_chg
@@ -11406,7 +11408,7 @@ $opn_nmud_sl.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	  Poly_chg
@@ -11433,7 +11435,7 @@ $opm_nmud_sl.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	  Poly_chg
@@ -11479,7 +11481,7 @@ $vrc_nmud_ksl.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	  Poly_chw
@@ -11507,7 +11509,7 @@ $opl_nmud_ksl.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	  Poly_chw
@@ -11542,7 +11544,7 @@ $vrc_nmud_ksr.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	  Poly_chw
@@ -11569,7 +11571,7 @@ $opl_nmud_ksr.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	  Poly_chw
@@ -11589,7 +11591,7 @@ $ring_grp.ForeColor= "gray"
 $ring_grp.Font= $FonLabel
 	
 # ------ DT - Distortion 0-1 vrc7 
-	
+	 
 $lbl_dt= New-Object System.Windows.Forms.Label 
 $lbl_dt.Location= "10,20"
 $lbl_dt.Size= "60,40"
@@ -11613,7 +11615,7 @@ $vrc_nmud_dt.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	  Sin_chw
@@ -11625,7 +11627,7 @@ $vrc_nmud_dt.Add_ValueChanged({
 })
   
 # ------ EG - EnvelopeGeneratorType 0-1 / SR=0 off,on 
-	
+	 
 $lbl_eg= New-Object System.Windows.Forms.Label 
 $lbl_eg.Location= "70,20"
 $lbl_eg.Size= "60,40"
@@ -11648,7 +11650,7 @@ $vrc_nmud_eg.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	  Poly_chw
@@ -11675,7 +11677,7 @@ $opl_nmud_eg.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	  Poly_chw
@@ -11687,7 +11689,7 @@ $opl_nmud_eg.Add_ValueChanged({
 })
   
 # ------ VIB - Vibrato 0-1 
-	
+	 
 $lbl_vib= New-Object System.Windows.Forms.Label 
 $lbl_vib.Location= "130,20"
 $lbl_vib.Size= "60,40"
@@ -11710,7 +11712,7 @@ $vrc_nmud_vib.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	  Poly_chw
@@ -11737,7 +11739,7 @@ $opl_nmud_vib.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	  Poly_chw
@@ -11772,7 +11774,7 @@ $vrc_nmud_am.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	  Poly_chw
@@ -11799,7 +11801,7 @@ $opl_nmud_am.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	  Poly_chw
@@ -11813,7 +11815,7 @@ $opl_nmud_am.Add_ValueChanged({
 # ------ 
  
 # ------ KS - KeyScaling 0-3 / env length 
-	
+	 
 $lbl_ks= New-Object System.Windows.Forms.Label 
 $lbl_ks.Location= "10,20"
 $lbl_ks.Size= "60,35"
@@ -11836,7 +11838,7 @@ $opn_nmud_ks.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 		Poly_chg
@@ -11863,7 +11865,7 @@ $opm_nmud_ks.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 		Poly_chg
@@ -11875,7 +11877,7 @@ $opm_nmud_ks.Add_ValueChanged({
 })
   
 # ------ DT1 - DeTune1 0-7 [0,1,2,3, 0,-1,-2,-3] 
-	
+	 
 $lbl_dt1= New-Object System.Windows.Forms.Label 
 $lbl_dt1.Location= "70,20"
 $lbl_dt1.Size= "60,35"
@@ -11898,7 +11900,7 @@ $opn_nmud_dt1.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 		Poly_chg
@@ -11925,7 +11927,7 @@ $opm_nmud_dt1.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 		Poly_chg
@@ -11937,7 +11939,7 @@ $opm_nmud_dt1.Add_ValueChanged({
 })
   
 # ------ DT2 - DeTune2  0-3 opm 
-	
+	 
 $lbl_dt2= New-Object System.Windows.Forms.Label 
 $lbl_dt2.Location= "130,20"
 $lbl_dt2.Size= "60,35"
@@ -11960,7 +11962,7 @@ $opm_nmud_dt2.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 		Poly_chg
@@ -11972,7 +11974,7 @@ $opm_nmud_dt2.Add_ValueChanged({
 })
   
 # ------ AMS - AmplitudeModulationSensitivity 0-3 
-	
+	 
 $lbl_ams= New-Object System.Windows.Forms.Label 
 $lbl_ams.Location= "190,20"
 $lbl_ams.Size= "60,35"
@@ -11995,7 +11997,7 @@ $opn_nmud_ams.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 		Poly_chg
@@ -12022,7 +12024,7 @@ $opm_nmud_ams.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 		Poly_chg
@@ -12066,7 +12068,7 @@ $vrc_nmud_tl.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 		Sin_chw
@@ -12093,7 +12095,7 @@ $opl_nmud_tl.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 		Sin_chw
@@ -12120,7 +12122,7 @@ $opn_nmud_tl.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 		Sin_chg
@@ -12147,7 +12149,7 @@ $opm_nmud_tl.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 		Sin_chg
@@ -12183,7 +12185,7 @@ $vrc_nmud_ml.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 		Sin_chw
@@ -12210,7 +12212,7 @@ $opl_nmud_ml.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 		Sin_chw
@@ -12237,7 +12239,7 @@ $opn_nmud_ml.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 		Sin_chg
@@ -12264,7 +12266,7 @@ $opm_nmud_ml.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 		Sin_chg
@@ -12284,7 +12286,7 @@ $alg_grp.ForeColor= "gray"
 $alg_grp.Font= $FonLabel
 	
 # ------ ALG - Algorithm 0-1 opl / 0-7 4op 
-	
+	 
 $lbl_alg= New-Object System.Windows.Forms.Label 
 $lbl_alg.Location= "10,20"
 $lbl_alg.Size= "120,20"
@@ -12308,7 +12310,7 @@ $opl_nmud_alg.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 		Sin_chw
@@ -12336,7 +12338,7 @@ $opn_nmud_alg.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	  	Sin_chg
@@ -12364,7 +12366,7 @@ $opm_nmud_alg.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 	 	Sin_chg
@@ -12377,7 +12379,7 @@ $opm_nmud_alg.Add_ValueChanged({
 })
   
 # ------ FB - Feedback 0-7 
-	
+	 
 $lbl_fb= New-Object System.Windows.Forms.Label 
 $lbl_fb.Location= "130,20"
 $lbl_fb.Size= "120,20"
@@ -12401,7 +12403,7 @@ $vrc_nmud_fb.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 		Sin_chw
@@ -12428,7 +12430,7 @@ $opl_nmud_fb.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 		Sin_chw
@@ -12455,7 +12457,7 @@ $opn_nmud_fb.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 		Sin_chg
@@ -12482,7 +12484,7 @@ $opm_nmud_fb.Add_ValueChanged({
 
   if($event_change){
 
-	Box_write
+	Box_read
 
 	if($sb_alg.Visible){
 		Sin_chg
@@ -12499,7 +12501,7 @@ $osc_grp.Size= "255, 105"
 $osc_grp.Location= "270,300"
 $osc_grp.ForeColor= "gray"
 $osc_grp.Font= $FonLabel
-	
+	 
 $lisn_btn= New-Object System.Windows.Forms.Button 
 $lisn_btn.Location= "20, 30"
 $lisn_btn.Size= "25, 25"
@@ -12527,46 +12529,41 @@ $conv_btn.BackColor= "white"
 
 $conv_btn.Add_Click({ # text convert
  try{
-
-	if($fm_box_mml.Modified -eq $True){ #変更あらば
-
-		switch($comb_fm.SelectedItem){
-		'vrc7 2op'{
-			switch($key["type"]){
-			'mckreg'{	$script:box_mml["mck"]= $fm_box_mml.Text;	break;
-			}default{	$script:box_mml["nsd"]= $fm_box_mml.Text
-		}
-		} #sw
-
-		break;
-		}default{	$box_mml["pmd"]= $fm_box_mml.Text
-		}
-		} #sw
-
-		if($sb_alg.Visible){
-			Monotone_select "conv_btn" # Colorline書込
-		}
-	}
-
-	switch($ff_frm.Visible){ # visible gi preset edit baai presetstore overwrite #
-	'True'{
-		Param_exp 0 $fm_box.Text
-		Saveauto $script:fm_xml.table.presetstore
-
-		if($sb_alg.Visible){
-			Monotone_select "conv_btn" # Colorline書込
-		}
-	}
-	} #sw
-
-	if($fm_box.Modified -eq $True){
+	if($fm_box.Modified -eq $True){ #変更あらば
 
 		Param_exp 0 $fm_box.Text
+
+		## visible gi preset edit baai presetstore overwrite ##
+		if($ff_frm.Visible -eq $True){
+
+			Saveauto $script:fm_xml.table.presetstore
+		}
 
 		if($sb_alg.Visible){
 			Monotone_select "conv_btn" # Colorline書込
 			All_chg
 		}
+
+	}elseif($fm_box_mml.Modified -eq $True){ #変更あらば
+
+		switch($comb_fm.SelectedItem){
+		'vrc7 2op'{
+			switch($key["type"]){
+			'mckreg'{
+				$script:box_mml["mck"]= $fm_box_mml.Text;	break;
+				Mml_writer $script:box_mml["mck"] '.\header\fm_header_mck' 0
+			}default{
+				$script:box_mml["nsd"]= $fm_box_mml.Text
+				Mml_writer $script:box_mml["nsd"] '.\header\fm_header_nsd' 0
+			}
+			} #sw
+			break;
+
+		}default{
+			$script:box_mml["pmd"]= $fm_box_mml.Text	
+			Mml_writer $script:box_mml["pmd"] '.\header\fm_mml_pmd' 0
+		}
+		} #sw
 	}
  }catch{
 	echo $_.exception
@@ -12588,7 +12585,7 @@ $comb_vrc.Add_SelectedValueChanged({
 
 	$this.Select() # forcus return
 
-	Panel_chg $comb_fm.SelectedItem # Box_write ha tsuide
+	Panel_chg $comb_fm.SelectedItem # Box_read ha tsuide
 	Color_Render
 	Stus_build
 
@@ -12717,7 +12714,7 @@ $comb_fm.Add_SelectedValueChanged({ # Event
  })
    
 # forms 
-	
+	 
 $fm_panel= New-Object System.Windows.Forms.Panel 
 $fm_panel.Location= "0,0"
 $fm_panel.Size= "530,415"
@@ -12732,32 +12729,32 @@ $fm_box_mml.AcceptsReturn= "True"
 $fm_box_mml.AcceptsTab= "True"
 $fm_box_mml.ScrollBars= "Both"
 $fm_box_mml.BorderStyle= "FixedSingle"
-$fm_box_mml.ReadOnly= "True"
+# $fm_box_mml.ReadOnly= "True"
 $fm_box_mml.ForeColor= "dimgray"
 $fm_box_mml.BackColor= "white" # "gainsboro"
 $fm_box_mml.font= $Fon
 
-# $fm_box_mml.Add_Enter({ # kaki komi de undo reset
-#  try{
-# 	$this.ForeColor= "black"
-# 	$this.BackColor= "white"
-#  }catch{
-# 	echo $_.exception
-#  }
-# })
+$fm_box_mml.Add_Enter({ # kaki komi de undo reset
+ try{
+	$this.ForeColor= "black"
+	$this.BackColor= "white"
+ }catch{
+	echo $_.exception
+ }
+})
 
-# $fm_box_mml.Add_Leave({
-# 	$this.ForeColor= "dimgray"
-# 	$this.BackColor= "white" # "gainsboro"
-# })
+$fm_box_mml.Add_Leave({
+	$this.ForeColor= "dimgray"
+	$this.BackColor= "white" # "gainsboro"
+})
 
-# $fm_box_mml.Add_KeyDown({ # インポート
-#  try{
-# 	Key_down $_.KeyCode
-#  }catch{
-# 	echo $_.exception
-#  }
-# })
+$fm_box_mml.Add_KeyDown({ # インポート
+ try{
+	Key_down $_.KeyCode
+ }catch{
+	echo $_.exception
+ }
+})
  
 $fm_box= New-Object System.Windows.Forms.TextBox 
 $fm_box.Size= "530,145"
@@ -13374,7 +13371,7 @@ $fm_menu_set.Add_Click({
 })
 
 
-	 
+	
 <# 
  
 $fm_menu_cmp0= New-Object System.Windows.Forms.ToolStripMenuItem 
@@ -13514,7 +13511,7 @@ $fm_menu_cpmd.Add_Click({
 	echo $_.exception
  }
 })
-	 
+	
 $fm_menu_mck0= New-Object System.Windows.Forms.ToolStripMenuItem 
 #$fm_menu_mck0.Text= "0.exe"
 $fm_menu_mck0.Visible= $False
@@ -14100,7 +14097,7 @@ $fm_menu_mask.Add_Click({
     	Write-Host '"ERROR: Safety Stopper >> $sub_mask.Show()"'
  }
 })
-	 
+	
 $fm_menu_so= New-Object System.Windows.Forms.ToolStripSeparator 
  
 $fm_menu_oct1= New-Object System.Windows.Forms.ToolStripMenuItem 
@@ -14307,7 +14304,7 @@ $fm_menu_copy.Add_Click({
 	echo $_.exception
  }
 })
-	 
+	
 $fm_menu_zero= New-Object System.Windows.Forms.ToolStripMenuItem 
 #$fm_menu_zero.Text= "zero padding"
 $fm_menu_zero.Add_Click({
@@ -14318,7 +14315,7 @@ $fm_menu_zero.Add_Click({
 	}
 	} #sw
 
-	Box_write
+	Box_read
 
  }catch{
 	echo $_.exception
@@ -14335,7 +14332,7 @@ $fm_menu_ten.Add_Click({
 	}
 	} #sw
 
-	Box_write
+	Box_read
 
  }catch{
 	echo $_.exception
