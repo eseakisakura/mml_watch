@@ -21,7 +21,7 @@ $xml_editor= @'
 		<mode value="light"/>
 		<color value="natural"/>
 		<clickplay value="True"/>
-		<wheel value="AR,AR,AR,AR"/>
+		<knob value="AR,AR,AR,AR"/>
 		<chk_dos value="Checked"/>
 		<radio_bin value="nsd" />
 	</opt>
@@ -407,7 +407,7 @@ function Brush_Color(){
 } #func
   
 # buffer 
-	
+	 
 function Pixcel_Select([int] $max){ 
 
 	$max= $max+ 1
@@ -446,14 +446,21 @@ function Mouse_druger([string] $sw, [string] $type, $ev){
 			$x.Value= [string] (Drug_chg $nn $script:starter_value $x.Maximum)
 		}
 		break;
+	}'Wheel'{
+		$x= NmudX $type
+		$x.Value= [string] (Delta_chg ([int] $ev.Delta) $x.Value $x.Maximum)
+		break;
 	}'Down'{
 		switch([string] $ev.Button){
 		'Left'{
 			Unredo 0
 
-			$script:key["wheel"][$comb_fm.SelectedIndex]= $type
+			$script:key["knob"][$comb_fm.SelectedIndex]= $type
 			Contxt_change $type
-			All_chg
+
+			if($sb_alg.Visible){
+				All_chg
+			}
 
 			$script:topper_pos= $frm_fm.PointToClient([Windows.Forms.Cursor]::Position)
 
@@ -464,17 +471,21 @@ function Mouse_druger([string] $sw, [string] $type, $ev){
 		} #sw
 		break;
 	}'Hover'{
+
 		$x= NmudX $type
 		Buffer_Render $x.Value $x.Maximum $type $True
+
+		$script:key["knob"][$comb_fm.SelectedIndex]= $type
+		Contxt_change $type
+
+		if($sb_alg.Visible){
+			All_chg
+		}
 
 		break;
 	}'Leave'{
 		$x= NmudX $type
 		Buffer_Render $x.Value $x.Maximum $type $False
-		break;
-	}'Wheel'{
-		$x= NmudX $type
-		$x.Value= [string] (Delta_chg ([int] $ev.Delta) $x.Value $x.Maximum)
 	}
 	} #sw
  } #func
@@ -664,7 +675,7 @@ function NmudX([string] $sw){
  } #func
   
 # contxt 
-	
+	 
 function Opmap_change([int]$j){ 
 
 	# .SelectedIndex= $j # event -> .Add_SelectedValueChanged
@@ -678,6 +689,52 @@ function Opmap_change([int]$j){
 	} #sw
  } #func
  
+function Mouse_valuer([string] $sw, [string] $opnum, $ev){ 
+
+	switch($sw){
+	'Up'{
+		$script:mouse_capure= $False
+		break;
+	}'Move'{
+		if($script:mouse_capure -eq $True){
+
+			$mscp= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
+
+			[int] $pp= [Math]::Floor( -([int] $mscp.X)+ ([int] $script:toppos.X) ) # pixcel
+			[int] $qq= [Math]::Floor( -([int] $mscp.Y)+ ([int] $script:toppos.Y) )
+
+			Trans_ADSR $pp $qq
+		}
+		break;
+	}'Wheel'{
+		$x= NmudX $key["knob"][$comb_fm.SelectedIndex]
+		$x.Value= [string] (Delta_chg ([int] $ev.Delta) $x.Value $x.Maximum)
+		break;
+	}'Down'{
+		Opmap_change $opnum
+
+		switch([string] $ev.Button){
+		'Right'{
+			Contxt_select "boxpict"
+			break;
+		}'Left'{
+			Unredo 0
+
+			$script:toppos= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
+
+			$x= NmudX $key["knob"][$comb_fm.SelectedIndex]
+			$script:start_value= [int] $x.Value
+
+			$script:mouse_capure= $True
+		}
+		} #sw
+		break;
+	}'Hover'{
+		Opmap_change $opnum
+	}
+	} #sw
+ } #func
+ 	
 function Delta_chg([int] $delta, [int] $num, [int] $max){ 
 
 	if($delta -lt 0){
@@ -709,7 +766,7 @@ function Drug_chg([int] $delta, [int] $num, [int] $max){
  
 function Trans_ADSR([int] $pp, [int] $qq){ 
 
-	# switch($key["wheel"][$comb_fm.SelectedIndex]){
+	# switch($key["knob"][$comb_fm.SelectedIndex]){
 	# 'AR'{	$delta= $pp;	break;
 	# }'DR'{	$delta= $pp;	break;
 	# }'SR'{	$delta= $pp;	break;
@@ -720,7 +777,7 @@ function Trans_ADSR([int] $pp, [int] $qq){
 
 	$delta= $qq # Y
 
-	$x= NmudX $key["wheel"][$comb_fm.SelectedIndex]
+	$x= NmudX $key["knob"][$comb_fm.SelectedIndex]
 
 	[int] $dd= Pixcel_Select $x.Maximum
 
@@ -728,6 +785,8 @@ function Trans_ADSR([int] $pp, [int] $qq){
 	$x.Value= [string] (Drug_chg $delta $script:start_value $x.Maximum)
  } #func
  
+<# 
+	
 function Wheel_ALG([int] $delta){ 
 
 	[int] $num
@@ -762,6 +821,30 @@ function Wheel_ALG([int] $delta){
 	}'opm 4op'{	$script:opm_nmud_alg.Value= $num
 	}
 	} #sw
+ } #func
+ 
+#> 
+  
+function Wheel_ALG([int] $delta){ 
+
+	[int] $num= $key["oct"].Replace("o", "")
+	[int] $max= 8
+
+	if($delta -lt 0){
+		if($num -gt 1){
+			$num--;
+		}
+	}else{
+		if($num -lt $max){
+			$num++;
+		}
+	}
+
+	$script:key["oct"]= Osc_sw ("o"+ $num)
+	Stus_build
+
+	Contxt_octave $script:key["oct"]
+	Pict_chg
  } #func
  
 # ------ 
@@ -809,7 +892,7 @@ function Value_out(){
 	'vrc7 2op'{
 		[array] $rr= $script:vrc_svn
 
-		switch($key["wheel"][0]){
+		switch($key["knob"][0]){
 		'FB'{
 			$ss[0]= $rr[0][1]
 			$ss[1]= ""
@@ -867,7 +950,7 @@ function Value_out(){
 	}'opl 2op'{
 		[array] $rr= $script:opl_two
 
-		switch($key["wheel"][1]){
+		switch($key["knob"][1]){
 		'FB'{
 			$ss[0]= $rr[0][1]
 			$ss[1]= ""
@@ -922,7 +1005,7 @@ function Value_out(){
 	}'opn 4op'{
 		[array] $rr= $script:opn_fur
 
-		switch($key["wheel"][2]){
+		switch($key["knob"][2]){
 		'FB'{
 			$ss[0]= $rr[0][1]
 			$ss[1]= ""
@@ -994,7 +1077,7 @@ function Value_out(){
 	}'opm 4op'{
 		[array] $rr= $script:opm_fur
 
-		switch($key["wheel"][3]){
+		switch($key["knob"][3]){
 		'FB'{
 			$ss[0]= $rr[0][1]
 			$ss[1]= ""
@@ -1194,8 +1277,8 @@ function Contxt_select([string]$s){
 function Contxt_change([string] $ss){ 
 
 	switch($comb_fm.SelectedItem){
-	'vrc7 2op'{	Contxt_chg_vrc $ss;		break;
-	}'opl 2op'{	Contxt_chg_opl $ss;		break;
+	'vrc7 2op'{	Contxt_chg_vrc $ss;	break;
+	}'opl 2op'{	Contxt_chg_opl $ss;	break;
 	}'opn 4op'{	Contxt_chg_opn $ss;	break;
 	}'opm 4op'{	Contxt_chg_opm $ss
 	}
@@ -1364,6 +1447,7 @@ function Contxt_chg_opl([string] $ss){
 		[void]$contxt_Lbw.Items.Add("Multiple")
 		[void]$contxt_Lbw.Items.Add("TotalLevel")
 		[void]$contxt_Lbw.Items.Add("Feedback")
+		[void]$contxt_Lbw.Items.Add("Algorithm")
 		[void]$contxt_Lbw.Items.Add($contxt_Sep_Lbw)
 		[void]$contxt_Lbw.Items.Add("ADSR copy")
 		[void]$contxt_Lbw.Items.Add("ADSR paste")
@@ -1377,6 +1461,7 @@ function Contxt_chg_opl([string] $ss){
 		[void]$contxt_Lbw.Items.Add("Multiple")
 		[void]$contxt_Lbw.Items.Add("TotalLevel")
 		[void]$contxt_Lbw.Items.Add("Feedback")
+		[void]$contxt_Lbw.Items.Add("Algorithm")
 		[void]$contxt_Lbw.Items.Add($contxt_Sep_Lbw)
 		[void]$contxt_Lbw.Items.Add("ADSR copy")
 		[void]$contxt_Lbw.Items.Add("ADSR paste")
@@ -1390,6 +1475,7 @@ function Contxt_chg_opl([string] $ss){
 		[void]$contxt_Lbw.Items.Add("Multiple")
 		[void]$contxt_Lbw.Items.Add("TotalLevel")
 		[void]$contxt_Lbw.Items.Add("Feedback")
+		[void]$contxt_Lbw.Items.Add("Algorithm")
 		[void]$contxt_Lbw.Items.Add($contxt_Sep_Lbw)
 		[void]$contxt_Lbw.Items.Add("ADSR copy")
 		[void]$contxt_Lbw.Items.Add("ADSR paste")
@@ -1403,6 +1489,7 @@ function Contxt_chg_opl([string] $ss){
 		[void]$contxt_Lbw.Items.Add("Multiple")
 		[void]$contxt_Lbw.Items.Add("TotalLevel")
 		[void]$contxt_Lbw.Items.Add("Feedback")
+		[void]$contxt_Lbw.Items.Add("Algorithm")
 		[void]$contxt_Lbw.Items.Add($contxt_Sep_Lbw)
 		[void]$contxt_Lbw.Items.Add("ADSR copy")
 		[void]$contxt_Lbw.Items.Add("ADSR paste")
@@ -1416,6 +1503,7 @@ function Contxt_chg_opl([string] $ss){
 		[void]$contxt_Lbw.Items.Add("Multiple")
 		[void]$contxt_Lbw.Items.Add("TotalLevel")
 		[void]$contxt_Lbw.Items.Add("Feedback")
+		[void]$contxt_Lbw.Items.Add("Algorithm")
 		[void]$contxt_Lbw.Items.Add($contxt_Sep_Lbw)
 		[void]$contxt_Lbw.Items.Add("ADSR copy")
 		[void]$contxt_Lbw.Items.Add("ADSR paste")
@@ -1429,6 +1517,7 @@ function Contxt_chg_opl([string] $ss){
 		[void]$contxt_Lbw.Items.Add("Multiple [v]")
 		[void]$contxt_Lbw.Items.Add("TotalLevel")
 		[void]$contxt_Lbw.Items.Add("Feedback")
+		[void]$contxt_Lbw.Items.Add("Algorithm")
 		[void]$contxt_Lbw.Items.Add($contxt_Sep_Lbw)
 		[void]$contxt_Lbw.Items.Add("ADSR copy")
 		[void]$contxt_Lbw.Items.Add("ADSR paste")
@@ -1442,6 +1531,7 @@ function Contxt_chg_opl([string] $ss){
 		[void]$contxt_Lbw.Items.Add("Multiple")
 		[void]$contxt_Lbw.Items.Add("TotalLevel [v]")
 		[void]$contxt_Lbw.Items.Add("Feedback")
+		[void]$contxt_Lbw.Items.Add("Algorithm")
 		[void]$contxt_Lbw.Items.Add($contxt_Sep_Lbw)
 		[void]$contxt_Lbw.Items.Add("ADSR copy")
 		[void]$contxt_Lbw.Items.Add("ADSR paste")
@@ -1456,6 +1546,22 @@ function Contxt_chg_opl([string] $ss){
 		[void]$contxt_Lbw.Items.Add("TotalLevel")
 		[void]$contxt_Lbw.Items.Add("Distortion")
 		[void]$contxt_Lbw.Items.Add("Feedback [v]")
+		[void]$contxt_Lbw.Items.Add("Algorithm")
+		[void]$contxt_Lbw.Items.Add($contxt_Sep_Lbw)
+		[void]$contxt_Lbw.Items.Add("ADSR copy")
+		[void]$contxt_Lbw.Items.Add("ADSR paste")
+		break;
+	}'ALG'{
+		[void]$contxt_Lbw.Items.Add("Attack")
+		[void]$contxt_Lbw.Items.Add("Decay")
+		[void]$contxt_Lbw.Items.Add("Sustain")
+		[void]$contxt_Lbw.Items.Add("Release")
+		[void]$contxt_Lbw.Items.Add("EnvGeneType")
+		[void]$contxt_Lbw.Items.Add("Multiple")
+		[void]$contxt_Lbw.Items.Add("TotalLevel")
+		[void]$contxt_Lbw.Items.Add("Distortion")
+		[void]$contxt_Lbw.Items.Add("Feedback")
+		[void]$contxt_Lbw.Items.Add("Algorithm [v]")
 		[void]$contxt_Lbw.Items.Add($contxt_Sep_Lbw)
 		[void]$contxt_Lbw.Items.Add("ADSR copy")
 		[void]$contxt_Lbw.Items.Add("ADSR paste")
@@ -1470,6 +1576,7 @@ function Contxt_chg_opl([string] $ss){
 		[void]$contxt_Lbw.Items.Add("TotalLevel")
 		[void]$contxt_Lbw.Items.Add("Distortion")
 		[void]$contxt_Lbw.Items.Add("Feedback")
+		[void]$contxt_Lbw.Items.Add("Algorithm")
 		[void]$contxt_Lbw.Items.Add($contxt_Sep_Lbw)
 		[void]$contxt_Lbw.Items.Add("ADSR copy")
 		[void]$contxt_Lbw.Items.Add("ADSR paste")
@@ -1491,6 +1598,7 @@ function Contxt_chg_opn([string] $ss){
 		[void]$contxt_Nbg.Items.Add("Multiple")
 		[void]$contxt_Nbg.Items.Add("TotalLevel")
 		[void]$contxt_Nbg.Items.Add("Feedback")
+		[void]$contxt_Nbg.Items.Add("Algorithm")
 		[void]$contxt_Nbg.Items.Add($contxt_Sep_Nbg) # Separator
 		[void]$contxt_Nbg.Items.Add("ADSR copy")
 		[void]$contxt_Nbg.Items.Add("ADSR paste")
@@ -1504,6 +1612,7 @@ function Contxt_chg_opn([string] $ss){
 		[void]$contxt_Nbg.Items.Add("Multiple")
 		[void]$contxt_Nbg.Items.Add("TotalLevel")
 		[void]$contxt_Nbg.Items.Add("Feedback")
+		[void]$contxt_Nbg.Items.Add("Algorithm")
 		[void]$contxt_Nbg.Items.Add($contxt_Sep_Nbg)
 		[void]$contxt_Nbg.Items.Add("ADSR copy")
 		[void]$contxt_Nbg.Items.Add("ADSR paste")
@@ -1517,6 +1626,7 @@ function Contxt_chg_opn([string] $ss){
 		[void]$contxt_Nbg.Items.Add("Multiple")
 		[void]$contxt_Nbg.Items.Add("TotalLevel")
 		[void]$contxt_Nbg.Items.Add("Feedback")
+		[void]$contxt_Nbg.Items.Add("Algorithm")
 		[void]$contxt_Nbg.Items.Add($contxt_Sep_Nbg)
 		[void]$contxt_Nbg.Items.Add("ADSR copy")
 		[void]$contxt_Nbg.Items.Add("ADSR paste")
@@ -1530,6 +1640,7 @@ function Contxt_chg_opn([string] $ss){
 		[void]$contxt_Nbg.Items.Add("Multiple")
 		[void]$contxt_Nbg.Items.Add("TotalLevel")
 		[void]$contxt_Nbg.Items.Add("Feedback")
+		[void]$contxt_Nbg.Items.Add("Algorithm")
 		[void]$contxt_Nbg.Items.Add($contxt_Sep_Nbg)
 		[void]$contxt_Nbg.Items.Add("ADSR copy")
 		[void]$contxt_Nbg.Items.Add("ADSR paste")
@@ -1543,6 +1654,7 @@ function Contxt_chg_opn([string] $ss){
 		[void]$contxt_Nbg.Items.Add("Multiple")
 		[void]$contxt_Nbg.Items.Add("TotalLevel")
 		[void]$contxt_Nbg.Items.Add("Feedback")
+		[void]$contxt_Nbg.Items.Add("Algorithm")
 		[void]$contxt_Nbg.Items.Add($contxt_Sep_Nbg)
 		[void]$contxt_Nbg.Items.Add("ADSR copy")
 		[void]$contxt_Nbg.Items.Add("ADSR paste")
@@ -1556,6 +1668,7 @@ function Contxt_chg_opn([string] $ss){
 		[void]$contxt_Nbg.Items.Add("Multiple [v]")
 		[void]$contxt_Nbg.Items.Add("TotalLevel")
 		[void]$contxt_Nbg.Items.Add("Feedback")
+		[void]$contxt_Nbg.Items.Add("Algorithm")
 		[void]$contxt_Nbg.Items.Add($contxt_Sep_Nbg)
 		[void]$contxt_Nbg.Items.Add("ADSR copy")
 		[void]$contxt_Nbg.Items.Add("ADSR paste")
@@ -1569,6 +1682,7 @@ function Contxt_chg_opn([string] $ss){
 		[void]$contxt_Nbg.Items.Add("Multiple")
 		[void]$contxt_Nbg.Items.Add("TotalLevel [v]")
 		[void]$contxt_Nbg.Items.Add("Feedback")
+		[void]$contxt_Nbg.Items.Add("Algorithm")
 		[void]$contxt_Nbg.Items.Add($contxt_Sep_Nbg)
 		[void]$contxt_Nbg.Items.Add("ADSR copy")
 		[void]$contxt_Nbg.Items.Add("ADSR paste")
@@ -1582,6 +1696,21 @@ function Contxt_chg_opn([string] $ss){
 		[void]$contxt_Nbg.Items.Add("Multiple")
 		[void]$contxt_Nbg.Items.Add("TotalLevel")
 		[void]$contxt_Nbg.Items.Add("Feedback [v]")
+		[void]$contxt_Nbg.Items.Add("Algorithm")
+		[void]$contxt_Nbg.Items.Add($contxt_Sep_Nbg)
+		[void]$contxt_Nbg.Items.Add("ADSR copy")
+		[void]$contxt_Nbg.Items.Add("ADSR paste")
+		break;
+	}'ALG'{
+		[void]$contxt_Nbg.Items.Add("Attack")
+		[void]$contxt_Nbg.Items.Add("Decay")
+		[void]$contxt_Nbg.Items.Add("SustainRate")
+		[void]$contxt_Nbg.Items.Add("Release")
+		[void]$contxt_Nbg.Items.Add("SustainLevel")
+		[void]$contxt_Nbg.Items.Add("Multiple")
+		[void]$contxt_Nbg.Items.Add("TotalLevel")
+		[void]$contxt_Nbg.Items.Add("Feedback")
+		[void]$contxt_Nbg.Items.Add("Algorithm [v]")
 		[void]$contxt_Nbg.Items.Add($contxt_Sep_Nbg)
 		[void]$contxt_Nbg.Items.Add("ADSR copy")
 		[void]$contxt_Nbg.Items.Add("ADSR paste")
@@ -1595,6 +1724,7 @@ function Contxt_chg_opn([string] $ss){
 		[void]$contxt_Nbg.Items.Add("Multiple")
 		[void]$contxt_Nbg.Items.Add("TotalLevel")
 		[void]$contxt_Nbg.Items.Add("Feedback")
+		[void]$contxt_Nbg.Items.Add("Algorithm")
 		[void]$contxt_Nbg.Items.Add($contxt_Sep_Nbg)
 		[void]$contxt_Nbg.Items.Add("ADSR copy")
 		[void]$contxt_Nbg.Items.Add("ADSR paste")
@@ -1616,6 +1746,7 @@ function Contxt_chg_opm([string] $ss){
 		[void]$contxt_Mbg.Items.Add("Multiple")
 		[void]$contxt_Mbg.Items.Add("TotalLevel")
 		[void]$contxt_Mbg.Items.Add("Feedback")
+		[void]$contxt_Mbg.Items.Add("Algorithm")
 		[void]$contxt_Mbg.Items.Add($contxt_Sep_Mbg)
 		[void]$contxt_Mbg.Items.Add("ADSR copy")
 		[void]$contxt_Mbg.Items.Add("ADSR paste")
@@ -1629,6 +1760,7 @@ function Contxt_chg_opm([string] $ss){
 		[void]$contxt_Mbg.Items.Add("Multiple")
 		[void]$contxt_Mbg.Items.Add("TotalLevel")
 		[void]$contxt_Mbg.Items.Add("Feedback")
+		[void]$contxt_Mbg.Items.Add("Algorithm")
 		[void]$contxt_Mbg.Items.Add($contxt_Sep_Mbg)
 		[void]$contxt_Mbg.Items.Add("ADSR copy")
 		[void]$contxt_Mbg.Items.Add("ADSR paste")
@@ -1642,6 +1774,7 @@ function Contxt_chg_opm([string] $ss){
 		[void]$contxt_Mbg.Items.Add("Multiple")
 		[void]$contxt_Mbg.Items.Add("TotalLevel")
 		[void]$contxt_Mbg.Items.Add("Feedback")
+		[void]$contxt_Mbg.Items.Add("Algorithm")
 		[void]$contxt_Mbg.Items.Add($contxt_Sep_Mbg)
 		[void]$contxt_Mbg.Items.Add("ADSR copy")
 		[void]$contxt_Mbg.Items.Add("ADSR paste")
@@ -1655,6 +1788,7 @@ function Contxt_chg_opm([string] $ss){
 		[void]$contxt_Mbg.Items.Add("Multiple")
 		[void]$contxt_Mbg.Items.Add("TotalLevel")
 		[void]$contxt_Mbg.Items.Add("Feedback")
+		[void]$contxt_Mbg.Items.Add("Algorithm")
 		[void]$contxt_Mbg.Items.Add($contxt_Sep_Mbg)
 		[void]$contxt_Mbg.Items.Add("ADSR copy")
 		[void]$contxt_Mbg.Items.Add("ADSR paste")
@@ -1668,6 +1802,7 @@ function Contxt_chg_opm([string] $ss){
 		[void]$contxt_Mbg.Items.Add("Multiple")
 		[void]$contxt_Mbg.Items.Add("TotalLevel")
 		[void]$contxt_Mbg.Items.Add("Feedback")
+		[void]$contxt_Mbg.Items.Add("Algorithm")
 		[void]$contxt_Mbg.Items.Add($contxt_Sep_Mbg)
 		[void]$contxt_Mbg.Items.Add("ADSR copy")
 		[void]$contxt_Mbg.Items.Add("ADSR paste")
@@ -1681,6 +1816,7 @@ function Contxt_chg_opm([string] $ss){
 		[void]$contxt_Mbg.Items.Add("Multiple [v]")
 		[void]$contxt_Mbg.Items.Add("TotalLevel")
 		[void]$contxt_Mbg.Items.Add("Feedback")
+		[void]$contxt_Mbg.Items.Add("Algorithm")
 		[void]$contxt_Mbg.Items.Add($contxt_Sep_Mbg)
 		[void]$contxt_Mbg.Items.Add("ADSR copy")
 		[void]$contxt_Mbg.Items.Add("ADSR paste")
@@ -1694,6 +1830,7 @@ function Contxt_chg_opm([string] $ss){
 		[void]$contxt_Mbg.Items.Add("Multiple")
 		[void]$contxt_Mbg.Items.Add("TotalLevel [v]")
 		[void]$contxt_Mbg.Items.Add("Feedback")
+		[void]$contxt_Mbg.Items.Add("Algorithm")
 		[void]$contxt_Mbg.Items.Add($contxt_Sep_Mbg)
 		[void]$contxt_Mbg.Items.Add("ADSR copy")
 		[void]$contxt_Mbg.Items.Add("ADSR paste")
@@ -1707,6 +1844,21 @@ function Contxt_chg_opm([string] $ss){
 		[void]$contxt_Mbg.Items.Add("Multiple")
 		[void]$contxt_Mbg.Items.Add("TotalLevel")
 		[void]$contxt_Mbg.Items.Add("Feedback [v]")
+		[void]$contxt_Mbg.Items.Add("Algorithm")
+		[void]$contxt_Mbg.Items.Add($contxt_Sep_Mbg)
+		[void]$contxt_Mbg.Items.Add("ADSR copy")
+		[void]$contxt_Mbg.Items.Add("ADSR paste")
+		break;
+	}'ALG'{
+		[void]$contxt_Mbg.Items.Add("Attack")
+		[void]$contxt_Mbg.Items.Add("Decay")
+		[void]$contxt_Mbg.Items.Add("SustainRate")
+		[void]$contxt_Mbg.Items.Add("Release")
+		[void]$contxt_Mbg.Items.Add("SustainLevel")
+		[void]$contxt_Mbg.Items.Add("Multiple")
+		[void]$contxt_Mbg.Items.Add("TotalLevel")
+		[void]$contxt_Mbg.Items.Add("Feedback")
+		[void]$contxt_Mbg.Items.Add("Algorithm [v]")
 		[void]$contxt_Mbg.Items.Add($contxt_Sep_Mbg)
 		[void]$contxt_Mbg.Items.Add("ADSR copy")
 		[void]$contxt_Mbg.Items.Add("ADSR paste")
@@ -1720,6 +1872,7 @@ function Contxt_chg_opm([string] $ss){
 		[void]$contxt_Mbg.Items.Add("Multiple")
 		[void]$contxt_Mbg.Items.Add("TotalLevel")
 		[void]$contxt_Mbg.Items.Add("Feedback")
+		[void]$contxt_Mbg.Items.Add("Algorithm")
 		[void]$contxt_Mbg.Items.Add($contxt_Sep_Mbg)
 		[void]$contxt_Mbg.Items.Add("ADSR copy")
 		[void]$contxt_Mbg.Items.Add("ADSR paste")
@@ -2803,7 +2956,7 @@ function Sin_chg(){
  } #func
   
 # bg alg 
-	
+	 
 function Chip_view([int]$x,[int]$y){ 
 
 	[array]$p= "",""
@@ -2855,7 +3008,7 @@ function Chip_position([string]$k){
  } #func
  
 <# 
-	
+	 
 function Alg_cablw([int]$alg){ 
 
  [int]$sw= Idx
@@ -2868,7 +3021,7 @@ function Alg_cablw([int]$alg){
  [array]$ary= @("vrc7","opl","opn","opm") # .SelectedIndex
 
 
- [string]$tt= $ary[$comb_fm.SelectedIndex]+ "`r`n"+ "Alg:"+ ($alg -as [string])+ "`r`n"+ $arr[$sw]+ "`r`n"+ $mtx[$alg][$sw]+ "`r`n"+ (ShortX $key["wheel"][$comb_fm.SelectedIndex] "long")
+ [string]$tt= $ary[$comb_fm.SelectedIndex]+ "`r`n"+ "Alg:"+ ($alg -as [string])+ "`r`n"+ $arr[$sw]+ "`r`n"+ $mtx[$alg][$sw]+ "`r`n"+ (ShortX $key["knob"][$comb_fm.SelectedIndex] "long")
 
 
  [array]$rr= Monotone_select "Alg_"
@@ -2978,7 +3131,7 @@ function Alg_cable([int]$alg){
  [array]$ary= @("vrc7","opl","opn","opm")
 
 
- [string]$tt= $ary[$comb_fm.SelectedIndex]+ "`r`n"+ "Alg:"+($alg -as [string])+ "`r`n"+ $arr[$sw]+ "`r`n"+ $mtx[$alg][$sw]+ "`r`n"+  (ShortX $key["wheel"][$comb_fm.SelectedIndex] "long")
+ [string]$tt= $ary[$comb_fm.SelectedIndex]+ "`r`n"+ "Alg:"+($alg -as [string])+ "`r`n"+ $arr[$sw]+ "`r`n"+ $mtx[$alg][$sw]+ "`r`n"+  (ShortX $key["knob"][$comb_fm.SelectedIndex] "long")
 
  if(Mskseg_chk){ $tt+= (Mskseg_out 2) }
 
@@ -3454,7 +3607,7 @@ function Alg_cablw([int]$alg){
 	[array]$ary= @("vrc7","opl","opn","opm") # .SelectedIndex
 
 
-	[string]$tt= $ary[$comb_fm.SelectedIndex]+ "`r`n"+ "Alg:"+ ($alg -as [string])+ "`r`n"+ $mtx[$alg][$sw]+ "`r`n"+ $arr[$sw]+ "`r`n"+ (ShortX $key["wheel"][$comb_fm.SelectedIndex] "long")
+	[string]$tt= $ary[$comb_fm.SelectedIndex]+ "`r`n"+ "Alg:"+ ($alg -as [string])+ "`r`n"+ $mtx[$alg][$sw]+ "`r`n"+ $arr[$sw]+ "`r`n"+ (ShortX $key["knob"][$comb_fm.SelectedIndex] "long")+ "`r`n"+ $key["oct"]
 
 
 	[array]$rr= Monotone_select "Alg_"
@@ -3572,7 +3725,7 @@ function Alg_cable([int]$alg){
 
 	[array]$ary= @("vrc7","opl","opn","opm")
 
-	[string]$tt= $ary[$comb_fm.SelectedIndex]+ "`r`n"+ "Alg:"+($alg -as [string])+ "`r`n"+ $mtx[$alg][$sw]+ "`r`n"+ $arr[$sw]+ "`r`n"+  (ShortX $key["wheel"][$comb_fm.SelectedIndex] "long")
+	[string]$tt= $ary[$comb_fm.SelectedIndex]+ "`r`n"+ "Alg:"+($alg -as [string])+ "`r`n"+ $mtx[$alg][$sw]+ "`r`n"+ $arr[$sw]+ "`r`n"+  (ShortX $key["knob"][$comb_fm.SelectedIndex] "long")+ "`r`n"+ $key["oct"]
 
 	if(Mskseg_chk){ $tt+= (Mskseg_out 2) }
 
@@ -4272,7 +4425,7 @@ function All_chg(){	# $vrc_svn[][] ha "__1" no string
  } #func
   
 # sub window gui 
-	
+	 
 function Stus_alg(){ # status bar 
 
 	switch($bai){
@@ -4332,10 +4485,10 @@ function Popalg_build([string] $t ){ # <- $key["open"]
 	'True'{
 		$fm_menu_sb.Text= "v FM OP window"
 
-		Contxt_chg_vrc $key["wheel"][0]
-		Contxt_chg_opl $key["wheel"][1]
-		Contxt_chg_opn $key["wheel"][2]
-		Contxt_chg_opm $key["wheel"][3]
+		Contxt_chg_vrc $key["knob"][0]
+		Contxt_chg_opl $key["knob"][1]
+		Contxt_chg_opn $key["knob"][2]
+		Contxt_chg_opm $key["knob"][3]
 		Contxt_octave $key["oct"]
 
 		All_chg
@@ -4704,7 +4857,7 @@ function Load_value($x, [string]$sw){
  } #func
   
 # hash 
-	
+	 
 function Fmchange_value([string]$sw, [string]$name){ 
 
   # if($name -match '[v]' -eq $False){
@@ -4774,7 +4927,7 @@ function Fmxml_read($x,$y){ # hash設定
 
 	$script:key["mask"]= "15"		# non save
 	$script:key["ssg"]= "0"		#
-	$script:key["eg_type"]= "Thru"		#
+	$script:key["eg_type"]= "Thru"	#
 
 	$script:key["tray"]= Trayfm_hide $y.tray.value
 	$script:key["autosave"]= Autosav_sw $y.autosave.value
@@ -4792,7 +4945,7 @@ function Fmxml_read($x,$y){ # hash設定
 	$script:key["color"]= Color_alg $y.color.value
 
 	$script:key["clickplay"]= ClickPlay_sw $y.clickplay.value
-	$script:key["wheel"]= [string[]] ($y.wheel.value -split ",")
+	$script:key["knob"]= [string[]] ($y.knob.value -split ",")
 	$script:key["open"]= $y.open.value # -> $frm_fm.Add_Shown
  } #func
  
@@ -4829,7 +4982,7 @@ function Fmwrite_xml($x,$y){
 	$y.color.value= [string]$key["color"]
 
 	$y.clickplay.value= [string] $key["clickplay"]
-	$y.wheel.value= [string] ($key["wheel"] -join ",")
+	$y.knob.value= [string] ($key["knob"] -join ",")
 	$y.open.value= [string]$key["open"]
 
  } #func
@@ -5944,7 +6097,7 @@ function Panel_chg([string]$sw){
  } #func
   
 # Lis 
-	 
+	
 function Adv_edit([string]$t){ 
 
 	switch($t){
@@ -6489,7 +6642,7 @@ function Key_play([string]$t){
  } #func
   
 # Export 
-	 
+	
 function Unredo([int]$n){ 
 
 	switch($n){ # 初期化
@@ -6499,20 +6652,12 @@ function Unredo([int]$n){
 		break;
 
 	}1{	# undo呼出し
-		switch($undo[2]){
-		'0'{
-			$script:undo[1]= $fm_box.Text # omote buffer
 
-			$script:undo[2]= "1"	# toggle
-			$fm_box.Text= $undo[0]	# undo read
-			break;
-		}'1'{
-			$script:undo[0]= $fm_box.Text # ura buffer
+		$script:undo[1]= $fm_box.Text	# pre buffer write
 
-			$script:undo[2]= "0"
-			$fm_box.Text= $undo[1]	# undo read
-		}
-		} #sw
+		$fm_box.Text= $script:undo[0]	# undo read
+		$script:undo[0]= $script:undo[1]	# pre buffer move
+
 
 		Param_exp 1 $fm_box.Text
 
@@ -6524,12 +6669,15 @@ function Unredo([int]$n){
 	}0{	# undo開始
 
 		# .Add_Enterでdo (menuから各objでは再enterとはならない)
-		$script:undo[$undo[2]]= $fm_box.Text # undo buffer dochiraka ni
+
+		$script:undo[0]= $fm_box.Text
+
+
 	}
 	} #sw
 
 
-	if(($undo[0] -ne $null) -or ($undo[1] -ne $null)){
+	if($undo[0] -ne $null){
 
 		$fm_menu_ud.Enabled= $True
 	}else{
@@ -7764,7 +7912,7 @@ function Box_read(){
 
 	$fm_box.ResumeLayout()
  } #func
- 	
+ 
 function Box_mml_read(){ 
 
 	$fm_box_mml.SuspendLayout()
@@ -7803,7 +7951,7 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 [Environment]::CurrentDirectory= pwd # working_dir set
  
 # Sub forms 
-	
+	 
 # $contxt_7bwを読み込んだ後$PictureBox objが安全 
 	 
 $contxt_Sep_7bw= New-Object System.Windows.Forms.ToolStripSeparator 
@@ -7832,8 +7980,7 @@ $contxt_7bw.Add_ItemClicked({
 	}default{
 		if($str.Contains("[v]") -eq $False){
 
-			Unredo 0
-			$script:key["wheel"][0]= (ShortX $str "short")
+			$script:key["knob"][0]= (ShortX $str "short")
 			Contxt_chg_vrc (ShortX $str "short")
 			All_chg # pictbox string tame
 		}
@@ -7867,8 +8014,7 @@ $contxt_Lbw.Add_ItemClicked({
 	}default{
 		if($str.Contains("[v]") -eq $False){
 
-			Unredo 0
-			$script:key["wheel"][1]= (ShortX $str "short")
+			$script:key["knob"][1]= (ShortX $str "short")
 			Contxt_chg_opl (ShortX $str "short")
 			All_chg
 		}
@@ -7902,8 +8048,7 @@ $contxt_Nbg.Add_ItemClicked({
 	}default{
 		if($str.Contains("[v]") -eq $False){
 
-			Unredo 0
-			$script:key["wheel"][2]= (ShortX $str "short")
+			$script:key["knob"][2]= (ShortX $str "short")
 			Contxt_chg_opn (ShortX $str "short")
 			All_chg
 		}
@@ -7937,8 +8082,7 @@ $contxt_Mbg.Add_ItemClicked({
 	}default{
 		if($str.Contains("[v]") -eq $False){
 
-			Unredo 0
-			$script:key["wheel"][3]= (ShortX $str "short")
+			$script:key["knob"][3]= (ShortX $str "short")
 			Contxt_chg_opm (ShortX $str "short")
 			All_chg
 		}
@@ -7979,7 +8123,7 @@ $script:toppos= New-Object System.Drawing.Point
 
 
 
-	
+	 
 [int[]]$op_IMG= @(162, 102) 
 $op_Rect= New-Object System.Drawing.Rectangle(0, 0, $op_IMG[0], $op_IMG[1])
  
@@ -8094,8 +8238,7 @@ $Pictbox1a.Image= $image1a
 
 $Pictbox1a.Add_MouseWheel({
  try{
-	$x= NmudX $key["wheel"][$comb_fm.SelectedIndex]
-	$x.Value= [string] (Delta_chg ([int] $_.Delta) $x.Value $x.Maximum)
+	Mouse_valuer "Wheel" 0 $_
  }catch{
 	echo $_.exception
  }
@@ -8103,7 +8246,7 @@ $Pictbox1a.Add_MouseWheel({
 
 $Pictbox1a.Add_MouseUp({
  try{
-	$script:mouse_capure= $False
+	Mouse_valuer "Up"
  }catch{
 	echo $_.exception
  }
@@ -8111,15 +8254,7 @@ $Pictbox1a.Add_MouseUp({
 
 $Pictbox1a.Add_MouseMove({ # drag enter
  try{
-    if($script:mouse_capure -eq $True){
-
-	$mscp= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
-
-	[int] $pp= [Math]::Floor( -([int] $mscp.X)+ ([int] $script:toppos.X) ) # pixcel
-	[int] $qq= [Math]::Floor( -([int] $mscp.Y)+ ([int] $script:toppos.Y) )
-
-	Trans_ADSR $pp $qq
-    }
+	Mouse_valuer "Move"
  }catch{
 	echo $_.exception
  }
@@ -8127,7 +8262,7 @@ $Pictbox1a.Add_MouseMove({ # drag enter
 
 $Pictbox1a.Add_MouseHover({
  try{
-	Opmap_change 0 # .SelectedIndex
+	Mouse_valuer "Hover" 0
  }catch{
 	echo $_.exception
  }
@@ -8135,21 +8270,7 @@ $Pictbox1a.Add_MouseHover({
 
 $Pictbox1a.Add_MouseDown({
  try{
-	Opmap_change 0 # .SelectedIndex
-	switch([string]$_.Button){
-	'Right'{
-		Contxt_select "boxpict"
-		break;
-	}'Left'{
-		$script:toppos= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
-
-		$x= NmudX $key["wheel"][$comb_fm.SelectedIndex]
-		$script:start_value= [int] $x.Value
-
-		$script:mouse_capure= $True
-	}
-	} #sw
-
+	Mouse_valuer "Down" 0 $_
  }catch{
 	echo $_.exception
  }
@@ -8170,10 +8291,9 @@ $Pictbox2a.Image= $image2a
 
 $Pictbox2a.Add_MouseWheel({
  try{
-	if($comb_fm.SelectedIndex -eq 0 -and $comb_vrc.SelectedIndex -eq 1 -and $key["wheel"][0] -eq 'TL'){
+	if($comb_fm.SelectedIndex -eq 0 -and $comb_vrc.SelectedIndex -eq 1 -and $key["knob"][0] -eq 'TL'){
 	}else{
-		$x= NmudX $key["wheel"][$comb_fm.SelectedIndex]
-		$x.Value= [string] (Delta_chg ([int] $_.Delta) $x.Value $x.Maximum)
+		Mouse_valuer "Wheel" 1 $_
 	}
  }catch{
 	echo $_.exception
@@ -8182,7 +8302,7 @@ $Pictbox2a.Add_MouseWheel({
 
 $Pictbox2a.Add_MouseUp({
  try{
-	$script:mouse_capure= $False
+	Mouse_valuer "Up"
  }catch{
 	echo $_.exception
  }
@@ -8190,18 +8310,10 @@ $Pictbox2a.Add_MouseUp({
 
 $Pictbox2a.Add_MouseMove({ # drag enter
  try{
-    if($script:mouse_capure -eq $True){
-
-	if($comb_fm.SelectedIndex -eq 0 -and $comb_vrc.SelectedIndex -eq 1 -and $key["wheel"][0] -eq 'TotalLevel'){
+	if($comb_fm.SelectedIndex -eq 0 -and $comb_vrc.SelectedIndex -eq 1 -and $key["knob"][0] -eq 'TotalLevel'){
 	}else{
-		$mscp= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
-
-		[int] $pp= [Math]::Floor( -([int] $mscp.X)+ ([int] $script:toppos.X) ) # pixcel
-		[int] $qq= [Math]::Floor( -([int] $mscp.Y)+ ([int] $script:toppos.Y) )
-
-		Trans_ADSR $pp $qq
+		Mouse_valuer "Move"
 	}
-    }
  }catch{
 	echo $_.exception
  }
@@ -8209,7 +8321,7 @@ $Pictbox2a.Add_MouseMove({ # drag enter
 
 $Pictbox2a.Add_MouseHover({
  try{
-	Opmap_change 1
+	Mouse_valuer "Hover" 1
  }catch{
 	echo $_.exception
  }
@@ -8217,28 +8329,14 @@ $Pictbox2a.Add_MouseHover({
 
 $Pictbox2a.Add_MouseDown({
  try{
-	Opmap_change 1
-	switch([string]$_.Button){
-	'Right'{
-		Contxt_select "boxpict"
-		break;
-	}'Left'{
-		$script:toppos= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
-
-		$x= NmudX $key["wheel"][$comb_fm.SelectedIndex]
-		$script:start_value= [int] $x.Value
-
-		$script:mouse_capure= $True
-	}
-	} #sw
-
+	Mouse_valuer "Down" 1 $_
  }catch{
 	echo $_.exception
  }
 })
   
 # 4op 
-	
+	 
 $image1= New-Object System.Drawing.Bitmap($op_IMG) # 書き込む場所 
 
 $gpc= [System.Drawing.Graphics]::FromImage($image1)
@@ -8254,9 +8352,7 @@ $Pictbox1.Image= $image1
 
 $Pictbox1.Add_MouseWheel({
  try{	# write-host ("ff: "+ $_.Delta) #MouseEventArgs.Delta +120 or -120
-
-	$x= NmudX $key["wheel"][$comb_fm.SelectedIndex]
-	$x.Value= [string] (Delta_chg ([int] $_.Delta) $x.Value $x.Maximum)
+	Mouse_valuer "Wheel" 0 $_
  }catch{
 	echo $_.exception
  }
@@ -8264,7 +8360,7 @@ $Pictbox1.Add_MouseWheel({
 
 $Pictbox1.Add_MouseUp({
  try{
-	$script:mouse_capure= $False
+	Mouse_valuer "Up"
  }catch{
 	echo $_.exception
  }
@@ -8272,15 +8368,7 @@ $Pictbox1.Add_MouseUp({
 
 $Pictbox1.Add_MouseMove({ # drag enter
  try{
-    if($script:mouse_capure -eq $True){
-
-	$mscp= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
-
-	[int] $pp= [Math]::Floor( -([int] $mscp.X)+ ([int] $script:toppos.X) ) # pixcel
-	[int] $qq= [Math]::Floor( -([int] $mscp.Y)+ ([int] $script:toppos.Y) )
-
-	Trans_ADSR $pp $qq
-    }
+	Mouse_valuer "Move"
  }catch{
 	echo $_.exception
  }
@@ -8288,7 +8376,7 @@ $Pictbox1.Add_MouseMove({ # drag enter
 
 $Pictbox1.Add_MouseHover({
  try{
-	Opmap_change 0 # .SelectedIndex
+	Mouse_valuer "Hover" 0
  }catch{
 	echo $_.exception
  }
@@ -8296,21 +8384,7 @@ $Pictbox1.Add_MouseHover({
 
 $Pictbox1.Add_MouseDown({
  try{
-	Opmap_change 0 # .SelectedIndex
-	switch([string]$_.Button){
-	'Right'{
-		Contxt_select "boxpict"
-		break;
-	}'Left'{
-		$script:toppos= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
-
-		$x= NmudX $key["wheel"][$comb_fm.SelectedIndex]
-		$script:start_value= [int] $x.Value
-
-		$script:mouse_capure= $True
-	}
-	} #sw
-
+	Mouse_valuer "Down" 0 $_
  }catch{
 	echo $_.exception
  }
@@ -8331,8 +8405,7 @@ $Pictbox2.Image= $image2
 
 $Pictbox2.Add_MouseWheel({
  try{
-	$x= NmudX $key["wheel"][$comb_fm.SelectedIndex]
-	$x.Value= [string] (Delta_chg ([int] $_.Delta) $x.Value $x.Maximum)
+	Mouse_valuer "Wheel" 1 $_
  }catch{
 	echo $_.exception
  }
@@ -8340,7 +8413,7 @@ $Pictbox2.Add_MouseWheel({
 
 $Pictbox2.Add_MouseUp({
  try{
-	$script:mouse_capure= $False
+	Mouse_valuer "Up"
  }catch{
 	echo $_.exception
  }
@@ -8348,15 +8421,7 @@ $Pictbox2.Add_MouseUp({
 
 $Pictbox2.Add_MouseMove({ # drag enter
  try{
-    if($script:mouse_capure -eq $True){
-
-	$mscp= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
-
-	[int] $pp= [Math]::Floor( -([int] $mscp.X)+ ([int] $script:toppos.X) ) # pixcel
-	[int] $qq= [Math]::Floor( -([int] $mscp.Y)+ ([int] $script:toppos.Y) )
-
-	Trans_ADSR $pp $qq
-    }
+	Mouse_valuer "Move"
  }catch{
 	echo $_.exception
  }
@@ -8364,7 +8429,7 @@ $Pictbox2.Add_MouseMove({ # drag enter
 
 $Pictbox2.Add_MouseHover({
  try{
-	Opmap_change 1
+	Mouse_valuer "Hover" 1
  }catch{
 	echo $_.exception
  }
@@ -8372,21 +8437,7 @@ $Pictbox2.Add_MouseHover({
 
 $Pictbox2.Add_MouseDown({
  try{
-	Opmap_change 1
-	switch([string]$_.Button){
-	'Right'{
-		Contxt_select "boxpict"
-		break;
-	}'Left'{
-		$script:toppos= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
-
-		$x= NmudX $key["wheel"][$comb_fm.SelectedIndex]
-		$script:start_value= [int] $x.Value
-
-		$script:mouse_capure= $True
-	}
-	} #sw
-
+	Mouse_valuer "Down" 1 $_
  }catch{
 	echo $_.exception
  }
@@ -8407,8 +8458,7 @@ $Pictbox3.Image= $image3
 
 $Pictbox3.Add_MouseWheel({
  try{
-	$x= NmudX $key["wheel"][$comb_fm.SelectedIndex]
-	$x.Value= [string] (Delta_chg ([int] $_.Delta) $x.Value $x.Maximum)
+	Mouse_valuer "Wheel" 2 $_
  }catch{
 	echo $_.exception
  }
@@ -8416,7 +8466,7 @@ $Pictbox3.Add_MouseWheel({
 
 $Pictbox3.Add_MouseUp({
  try{
-	$script:mouse_capure= $False
+	Mouse_valuer "Up"
  }catch{
 	echo $_.exception
  }
@@ -8424,15 +8474,7 @@ $Pictbox3.Add_MouseUp({
 
 $Pictbox3.Add_MouseMove({ # drag enter
  try{
-    if($script:mouse_capure -eq $True){
-
-	$mscp= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
-
-	[int] $pp= [Math]::Floor( -([int] $mscp.X)+ ([int] $script:toppos.X) ) # pixcel
-	[int] $qq= [Math]::Floor( -([int] $mscp.Y)+ ([int] $script:toppos.Y) )
-
-	Trans_ADSR $pp $qq
-   }
+	Mouse_valuer "Move"
  }catch{
 	echo $_.exception
  }
@@ -8440,7 +8482,7 @@ $Pictbox3.Add_MouseMove({ # drag enter
 
 $Pictbox3.Add_MouseHover({
  try{
-	Opmap_change 2
+	Mouse_valuer "Hover" 2
  }catch{
 	echo $_.exception
  }
@@ -8448,21 +8490,7 @@ $Pictbox3.Add_MouseHover({
 
 $Pictbox3.Add_MouseDown({
  try{
-	Opmap_change 2
-	switch([string]$_.Button){
-	'Right'{
-		Contxt_select "boxpict"
-		break;
-	}'Left'{
-		$script:toppos= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
-
-		$x= NmudX $key["wheel"][$comb_fm.SelectedIndex]
-		$script:start_value= [int] $x.Value
-
-		$script:mouse_capure= $True
-	}
-	} #sw
-
+	Mouse_valuer "Down" 2 $_
  }catch{
 	echo $_.exception
  }
@@ -8483,8 +8511,7 @@ $Pictbox4.Image= $image4
 
 $Pictbox4.Add_MouseWheel({
  try{
-	$x= NmudX $key["wheel"][$comb_fm.SelectedIndex]
-	$x.Value= [string] (Delta_chg ([int] $_.Delta) $x.Value $x.Maximum)
+	Mouse_valuer "Wheel" 3 $_
  }catch{
 	echo $_.exception
  }
@@ -8492,7 +8519,7 @@ $Pictbox4.Add_MouseWheel({
 
 $Pictbox4.Add_MouseUp({
  try{
-	$script:mouse_capure= $False
+	Mouse_valuer "Up"
  }catch{
 	echo $_.exception
  }
@@ -8500,15 +8527,7 @@ $Pictbox4.Add_MouseUp({
 
 $Pictbox4.Add_MouseMove({ # drag enter
  try{
-    if($script:mouse_capure -eq $True){
-
-	$mscp= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
-
-	[int] $pp= [Math]::Floor( -([int] $mscp.X)+ ([int] $script:toppos.X) ) # pixcel
-	[int] $qq= [Math]::Floor( -([int] $mscp.Y)+ ([int] $script:toppos.Y) )
-
-	Trans_ADSR $pp $qq
-    }
+	Mouse_valuer "Move"
  }catch{
 	echo $_.exception
  }
@@ -8516,7 +8535,7 @@ $Pictbox4.Add_MouseMove({ # drag enter
 
 $Pictbox4.Add_MouseHover({
  try{
-	Opmap_change 3
+	Mouse_valuer "Hover" 3
  }catch{
 	echo $_.exception
  }
@@ -8524,21 +8543,7 @@ $Pictbox4.Add_MouseHover({
 
 $Pictbox4.Add_MouseDown({
  try{
-	Opmap_change 3
-	switch([string]$_.Button){
-	'Right'{
-		Contxt_select "boxpict"
-		break;
-	}'Left'{
-		$script:toppos= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
-
-		$x= NmudX $key["wheel"][$comb_fm.SelectedIndex]
-		$script:start_value= [int] $x.Value
-
-		$script:mouse_capure= $True
-	}
-	} #sw
-
+	Mouse_valuer "Down" 3 $_
  }catch{
 	echo $_.exception
  }
@@ -9913,7 +9918,7 @@ $Horizonbuff= $Contxtbuf.Allocate($Graphics_buf, $Rect_buf)
 # $Horizonbuff= $Contxtb.Allocate($Graphics_buf, $Pictbox_buf.ClientRectangle)
   
 # Pictbox 
-	
+	 
 [bool] $script:mouser_capure= $False 
 [int] $script:starter_value= 0
 $script:topper_pos= New-Object System.Drawing.Point
@@ -10906,7 +10911,7 @@ $PictboxFB.Add_MouseLeave({
 })
   
 # Group 
-	
+	 
 $eg_grp= New-Object System.Windows.Forms.GroupBox 
 $eg_grp.Location= "10, 30"
 $eg_grp.Size= "255, 130" # 4op "255, 210"
@@ -12286,7 +12291,7 @@ $alg_grp.ForeColor= "gray"
 $alg_grp.Font= $FonLabel
 	
 # ------ ALG - Algorithm 0-1 opl / 0-7 4op 
-	 
+	
 $lbl_alg= New-Object System.Windows.Forms.Label 
 $lbl_alg.Location= "10,20"
 $lbl_alg.Size= "120,20"
@@ -12501,7 +12506,7 @@ $osc_grp.Size= "255, 105"
 $osc_grp.Location= "270,300"
 $osc_grp.ForeColor= "gray"
 $osc_grp.Font= $FonLabel
-	 
+	
 $lisn_btn= New-Object System.Windows.Forms.Button 
 $lisn_btn.Location= "20, 30"
 $lisn_btn.Size= "25, 25"
@@ -12560,7 +12565,7 @@ $conv_btn.Add_Click({ # text convert
 			break;
 
 		}default{
-			$script:box_mml["pmd"]= $fm_box_mml.Text	
+			$script:box_mml["pmd"]= $fm_box_mml.Text
 			Mml_writer $script:box_mml["pmd"] '.\header\fm_mml_pmd' 0
 		}
 		} #sw
@@ -12714,14 +12719,14 @@ $comb_fm.Add_SelectedValueChanged({ # Event
  })
    
 # forms 
-	 
+	
 $fm_panel= New-Object System.Windows.Forms.Panel 
 $fm_panel.Location= "0,0"
 $fm_panel.Size= "530,415"
 # $fm_panel.BackColor= "orange"
  
 $fm_box_mml= New-Object System.Windows.Forms.TextBox 
-$fm_box_mml.Size= "530,75"
+$fm_box_mml.Size= "520,75"
 $fm_box_mml.Location= "10,575"
 $fm_box_mml.WordWrap= "False"
 $fm_box_mml.Multiline= "True"
@@ -12757,7 +12762,7 @@ $fm_box_mml.Add_KeyDown({ # インポート
 })
  
 $fm_box= New-Object System.Windows.Forms.TextBox 
-$fm_box.Size= "530,145"
+$fm_box.Size= "520,145"
 $fm_box.Location= "10,425"
 $fm_box.WordWrap= "False"
 $fm_box.Multiline= "True"
@@ -12925,7 +12930,7 @@ $fm_menu_f.Text= "File"
 
 
 
-	
+	 
 $fm_menu_pset= New-Object System.Windows.Forms.ToolStripSeparator 
 $fm_menu_pset= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_pset.Text= "Preset"
@@ -14097,7 +14102,7 @@ $fm_menu_mask.Add_Click({
     	Write-Host '"ERROR: Safety Stopper >> $sub_mask.Show()"'
  }
 })
-	
+	 
 $fm_menu_so= New-Object System.Windows.Forms.ToolStripSeparator 
  
 $fm_menu_oct1= New-Object System.Windows.Forms.ToolStripMenuItem 
@@ -14695,7 +14700,7 @@ $frm_fm.Controls.AddRange(@($fm_mnu, $fm_panel, $fm_box_mml, $fm_box, $fm_stus))
 
 
 
-	 
+	
  try{ 
  
 # bg,line,text ------ 
@@ -14712,7 +14717,7 @@ $gr_white= [System.Drawing.Color]::FromArgb(199,255,255,252)	# a:224
 
 $Cdbrend= New-Object System.Drawing.Drawing2D.ColorBlend(3)	# グラデーション
 $Cdbrend.Colors= @($gr_white,$darkwhite,$gr_white)
-$Cdbrend.Positions= @(0.0,0.333,1.0)
+$Cdbrend.Positions= @(0.0, 0.25, 1.0)
 
 # alg fill,Polygon -----
 $Whsolid= New-Object System.Drawing.SolidBrush($white)
@@ -14730,7 +14735,7 @@ $gr_black= [System.Drawing.Color]::FromArgb(124,0,11,0)		# a:184
 
 $Clbrend= New-Object System.Drawing.Drawing2D.ColorBlend(3)
 $Clbrend.Colors= @($gr_black,$naturalblack,$gr_black)
-$Clbrend.Positions= @(0.0,0.333,1.0)
+$Clbrend.Positions= @(0.0, 0.25, 1.0)
 
 # alg fill,Polygon -----
 $Blsolid= New-Object System.Drawing.SolidBrush($black)
