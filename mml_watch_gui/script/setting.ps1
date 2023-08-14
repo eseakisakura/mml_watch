@@ -468,87 +468,85 @@ function Hash_read(){
  
 function Write_hash(){ 
 
-  $script:opts["option"]= Pamamter_write
+	$script:opts["option"]= Pamamter_write
 
-  $script:opts["chk_stop"]= [string]$stop_chk.CheckState
-  $script:opts["chk_dos"]= [string]$dos_chk.CheckState
+	$script:opts["chk_stop"]= [string]$stop_chk.CheckState
+	$script:opts["chk_dos"]= [string]$dos_chk.CheckState
 
 
-  if([string]$radio_mck.Checked -eq 'True'){
+	if([string]$radio_mck.Checked -eq 'True'){
+
+		$script:opts["radio_bin"]= "mck"
+		$script:vals["compiler"]= $vals["mck"]
+
+	}elseif([string]$radio_nsd.Checked -eq 'True'){
+
+		$script:opts["radio_bin"]= "nsd"
+		$script:vals["compiler"]= $vals["nsd"]
+
+	}elseif([string]$radio_pmd.Checked -eq 'True'){
+
+		$script:opts["radio_bin"]= "pmd"
+		$script:vals["compiler"]= $vals["pmd"]
+	}
 
 	switch($mck.Count){
-	0{	  $script:vals["mck"]= ""; break;
-	}1{	  $script:vals["mck"]= $mck.Values; break;
-	}default{ $script:vals["mck"]= $mck[[string]$listbox_mck.SelectedItem] # [string]キャスト必要
+	0{	$script:vals["mck"]= ""; break;
+	}1{	$script:vals["mck"]= $mck.Values; break;
+	}default{	$script:vals["mck"]= $mck[[string]$listbox_mck.SelectedItem] # [string]キャスト必要
 	}
 	} #sw
-
-	$script:opts["radio_bin"]= "mck"
-	$script:vals["compiler"]= $vals["mck"]
-
-
-  }elseif([string]$radio_nsd.Checked -eq 'True'){
 
 	switch($nsd.Count){
-	0{	  $script:vals["nsd"]= ""; break;
-	}1{	  $script:vals["nsd"]= $nsd.Values; break;
-	}default{ $script:vals["nsd"]= $nsd[[string]$listbox_nsd.SelectedItem]
+	0{	$script:vals["nsd"]= ""; break;
+	}1{	$script:vals["nsd"]= $nsd.Values; break;
+	}default{	$script:vals["nsd"]= $nsd[[string]$listbox_nsd.SelectedItem]
 	}
 	} #sw
-
-	$script:opts["radio_bin"]= "nsd"
-	$script:vals["compiler"]= $vals["nsd"]
-
-
-  }elseif([string]$radio_pmd.Checked -eq 'True'){
 
 	switch($pmd.Count){
-	0{	  $script:vals["pmd"]= ""; break;
-	}1{	  $script:vals["pmd"]= $pmd.Values; break;
-	}default{ $script:vals["pmd"]= $pmd[[string]$listbox_pmd.SelectedItem]
+	0{	$script:vals["pmd"]= ""; break;
+	}1{	$script:vals["pmd"]= $pmd.Values; break;
+	}default{	$script:vals["pmd"]= $pmd[[string]$listbox_pmd.SelectedItem]
 	}
 	} #sw
 
-	$script:opts["radio_bin"]= "pmd"
-	$script:vals["compiler"]= $vals["pmd"]
-  }
-
 	switch($mml.Count){
-	0{	  $script:vals["mmlfile"]= ""; break;
-	}1{	  $script:vals["mmlfile"]= $mml.Values;	break;
-	}default{ $script:vals["mmlfile"]= $mml[[string]$listbox_mml.SelectedItem]
+	0{	$script:vals["mmlfile"]= ""; break;
+	}1{	$script:vals["mmlfile"]= $mml.Values;	break;
+	}default{	$script:vals["mmlfile"]= $mml[[string]$listbox_mml.SelectedItem]
 	}
 	} #sw
 
 	switch($ply.Count){
-	0{	  $script:vals["player"]= ""; break;
-	}1{	  $script:vals["player"]= $ply.Values; break;
-	}default{ $script:vals["player"]= $ply[[string]$listbox_ply.SelectedItem]
+	0{	$script:vals["player"]= ""; break;
+	}1{	$script:vals["player"]= $ply.Values; break;
+	}default{	$script:vals["player"]= $ply[[string]$listbox_ply.SelectedItem]
 	}
 	} #sw
 
 	switch($dmc.Count){
-	0{	  $script:vals["dmcdir"]= ""; break;
-	}1{	  $script:vals["dmcdir"]= $dmc.Values; break;
-	}default{ $script:vals["dmcdir"]= $dmc[[string]$listbox_dmc.SelectedItem]
+	0{	$script:vals["dmcdir"]= ""; break;
+	}1{	$script:vals["dmcdir"]= $dmc.Values; break;
+	}default{	$script:vals["dmcdir"]= $dmc[[string]$listbox_dmc.SelectedItem]
 	}
 	} #sw
 
 	switch($edt.Count){
-	0{	  $script:vals["editor"]= ""; break;
-	}1{	  $script:vals["editor"]= $edt.Values; break;
-	}default{ $script:vals["editor"]= $edt[[string]$listbox_edt.SelectedItem]
+	0{	$script:vals["editor"]= ""; break;
+	}1{	$script:vals["editor"]= $edt.Values; break;
+	}default{	$script:vals["editor"]= $edt[[string]$listbox_edt.SelectedItem]
 	}
 	} #sw
 
 	switch($dos.Count){
-	0{	  $script:vals["dos"]= ""; break;
-	}1{	  $script:vals["dos"]= $dos.Values; break;
-	}default{ $script:vals["dos"]= $dos[[string]$listbox_dos.SelectedItem]
+	0{	$script:vals["dos"]= ""; break;
+	}1{	$script:vals["dos"]= $dos.Values; break;
+	}default{	$script:vals["dos"]= $dos[[string]$listbox_dos.SelectedItem]
 	}
 	} #sw
  } #func
- 
+ 	
 function Hash_read_cut(){ 
 
 	$sub_menu_opt.Enabled= $False # Command Line Option
@@ -625,63 +623,61 @@ function Write_hash_cut(){
 
 	$script:opts["chk_dos"]= [string]$dos_chk.CheckState
 
+	if([string]$radio_mck.Checked -eq 'True'){
 
-  if([string]$radio_mck.Checked -eq 'True'){
+		$script:opts["radio_bin"]= "mck"
+		$script:vals["compiler"]= $vals["mck"]
+
+	}elseif([string]$radio_nsd.Checked -eq 'True'){
+
+		$script:opts["radio_bin"]= "nsd"
+		$script:vals["compiler"]= $vals["nsd"]
+
+	}elseif([string]$radio_pmd.Checked -eq 'True'){
+
+		$script:opts["radio_bin"]= "pmd"
+		$script:vals["compiler"]= $vals["pmd"]
+	}
 
 	switch($mck.Count){
-	0{	  $script:vals["mck"]= ""; break;
-	}1{	  $script:vals["mck"]= $mck.Values; break;
-	}default{	 $script:vals["mck"]= $mck[[string]$listbox_mck.SelectedItem] # [string]キャスト必要
+	0{	$script:vals["mck"]= ""; break;
+	}1{	$script:vals["mck"]= $mck.Values; break;
+	}default{	$script:vals["mck"]= $mck[[string]$listbox_mck.SelectedItem] # [string]キャスト必要
 	}
 	} #sw
-
-	$script:opts["radio_bin"]= "mck"
-	$script:vals["compiler"]= $vals["mck"]
-
-
-  }elseif([string]$radio_nsd.Checked -eq 'True'){
 
 	switch($nsd.Count){
-	0{	  $script:vals["nsd"]= ""; break;
-	}1{	  $script:vals["nsd"]= $nsd.Values; break;
-	}default{	 $script:vals["nsd"]= $nsd[[string]$listbox_nsd.SelectedItem]
+	0{	$script:vals["nsd"]= ""; break;
+	}1{	$script:vals["nsd"]= $nsd.Values; break;
+	}default{	$script:vals["nsd"]= $nsd[[string]$listbox_nsd.SelectedItem]
 	}
 	} #sw
-
-	$script:opts["radio_bin"]= "nsd"
-	$script:vals["compiler"]= $vals["nsd"]
-
-
-  }elseif([string]$radio_pmd.Checked -eq 'True'){
 
 	switch($pmd.Count){
-	0{	  $script:vals["pmd"]= ""; break;
-	}1{	  $script:vals["pmd"]= $pmd.Values; break;
-	}default{	 $script:vals["pmd"]= $pmd[[string]$listbox_pmd.SelectedItem]
+	0{	$script:vals["pmd"]= ""; break;
+	}1{	$script:vals["pmd"]= $pmd.Values; break;
+	}default{	$script:vals["pmd"]= $pmd[[string]$listbox_pmd.SelectedItem]
 	}
 	} #sw
-
-	$script:opts["radio_bin"]= "pmd"
-	$script:vals["compiler"]= $vals["pmd"]
-  }
 
 	switch($ply.Count){
-	0{	  $script:vals["player"]= ""; break;
-	}1{	  $script:vals["player"]= $ply.Values; break;
-	}default{	 $script:vals["player"]= $ply[[string]$listbox_ply.SelectedItem]
+	0{	$script:vals["player"]= ""; break;
+	}1{	$script:vals["player"]= $ply.Values; break;
+	}default{	$script:vals["player"]= $ply[[string]$listbox_ply.SelectedItem]
 	}
 	} #sw
+
 	switch($edt.Count){
-	0{	  $script:vals["editor"]= ""; break;
-	}1{	  $script:vals["editor"]= $edt.Values; break;
-	}default{	 $script:vals["editor"]= $edt[[string]$listbox_edt.SelectedItem]
+	0{	$script:vals["editor"]= ""; break;
+	}1{	$script:vals["editor"]= $edt.Values; break;
+	}default{	$script:vals["editor"]= $edt[[string]$listbox_edt.SelectedItem]
 	}
 	} #sw
 
 	switch($dos.Count){
-	0{	  $script:vals["dos"]= ""; break;
-	}1{	  $script:vals["dos"]= $dos.Values; break;
-	}default{	 $script:vals["dos"]= $dos[[string]$listbox_dos.SelectedItem]
+	0{	$script:vals["dos"]= ""; break;
+	}1{	$script:vals["dos"]= $dos.Values; break;
+	}default{	$script:vals["dos"]= $dos[[string]$listbox_dos.SelectedItem]
 	}
 	} #sw
  } #func
@@ -1327,7 +1323,7 @@ $tab.Size= "245,255"
 $tab.Location= "5,25"
  
 # tab_mml 
-	 
+	
 $tab_mml= New-Object System.Windows.Forms.TabPage 
 $tab_mml.Text= "mml"
 
@@ -1482,7 +1478,7 @@ $listbox_dmc.Add_DragDrop({
 })
   
 # tab_bin 
-	
+	 
 $tab_bin= New-Object System.Windows.Forms.TabPage 
 $tab_bin.Text= "binary"
  
@@ -1737,7 +1733,7 @@ $listbox_pmd.Add_DragDrop({
 })
    
 # tab_ply 
-	
+	 
 $tab_ply= New-Object System.Windows.Forms.TabPage 
 $tab_ply.Text= "player"
  
@@ -2377,4 +2373,4 @@ $sub_f.AcceptButton= $ok_btn		# [Enter]
  }finally{
 	$pram_frm.Dispose()
  }
- 	
+ 

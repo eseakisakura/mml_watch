@@ -407,7 +407,7 @@ function Brush_Color(){
 } #func
   
 # buffer 
-	 
+	
 function Pixcel_Select([int] $max){ 
 
 	$max= $max+ 1
@@ -675,7 +675,7 @@ function NmudX([string] $sw){
  } #func
   
 # contxt 
-	 
+	
 function Opmap_change([int]$j){ 
 
 	# .SelectedIndex= $j # event -> .Add_SelectedValueChanged
@@ -734,7 +734,7 @@ function Mouse_valuer([string] $sw, [string] $opnum, $ev){
 	}
 	} #sw
  } #func
- 	
+ 
 function Delta_chg([int] $delta, [int] $num, [int] $max){ 
 
 	if($delta -lt 0){
@@ -2956,7 +2956,7 @@ function Sin_chg(){
  } #func
   
 # bg alg 
-	 
+	
 function Chip_view([int]$x,[int]$y){ 
 
 	[array]$p= "",""
@@ -4425,7 +4425,7 @@ function All_chg(){	# $vrc_svn[][] ha "__1" no string
  } #func
   
 # sub window gui 
-	 
+	
 function Stus_alg(){ # status bar 
 
 	switch($bai){
@@ -4553,7 +4553,7 @@ function Color_alg([string]$t){
 # ------ 
  
 # load save 
-	
+	 
 function Autoload($x){ 
 
 	if($comb_fm.SelectedItem -ne $x.name){
@@ -4857,7 +4857,7 @@ function Load_value($x, [string]$sw){
  } #func
   
 # hash 
-	 
+	
 function Fmchange_value([string]$sw, [string]$name){ 
 
   # if($name -match '[v]' -eq $False){
@@ -5675,7 +5675,7 @@ function MSop_checker([int]$i, [string]$ss){ # Mask,SSG
  } #func
   
 # Panel 
-	
+	 
 function Enable_chk([string]$s){ 
 
 	[int[]]$num= 0,0
@@ -6097,7 +6097,7 @@ function Panel_chg([string]$sw){
  } #func
   
 # Lis 
-	
+	 
 function Adv_edit([string]$t){ 
 
 	switch($t){
@@ -6653,16 +6653,21 @@ function Unredo([int]$n){
 
 	}1{	# undo呼出し
 
-		$script:undo[1]= $fm_box.Text	# pre buffer write
+		if($script:undo[0] -eq $fm_box.Text){ # hyoji clear
 
-		$fm_box.Text= $script:undo[0]	# undo read
-		$script:undo[0]= $script:undo[1]	# pre buffer move
+			$script:undo[0]= $null
+		}else{
+			$script:undo[1]= $fm_box.Text	# pre buffer write
+
+			$fm_box.Text= $script:undo[0]	# undo read
+			$script:undo[0]= $script:undo[1]	# pre buffer move
 
 
-		Param_exp 1 $fm_box.Text
+			Param_exp 1 $fm_box.Text
 
-		if($sb_alg.Visible){
-			All_chg
+			if($sb_alg.Visible){
+				All_chg
+			}
 		}
 		break;
 
@@ -6671,7 +6676,6 @@ function Unredo([int]$n){
 		# .Add_Enterでdo (menuから各objでは再enterとはならない)
 
 		$script:undo[0]= $fm_box.Text
-
 
 	}
 	} #sw
@@ -6687,7 +6691,7 @@ function Unredo([int]$n){
  
 function Send_build([int]$sw){ 
 
-	[array]$ary= @("OPL","VRC7","OPM","OPN") # .SelectedIndex
+	[array]$ary= @("OPL","VRC7","OPM","OPN") # OPL -> VRC7
 
 	[string]$tt= $ary[$comb_fm.SelectedIndex]
 
@@ -7951,7 +7955,7 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 [Environment]::CurrentDirectory= pwd # working_dir set
  
 # Sub forms 
-	 
+	
 # $contxt_7bwを読み込んだ後$PictureBox objが安全 
 	 
 $contxt_Sep_7bw= New-Object System.Windows.Forms.ToolStripSeparator 
@@ -8123,7 +8127,7 @@ $script:toppos= New-Object System.Drawing.Point
 
 
 
-	 
+	
 [int[]]$op_IMG= @(162, 102) 
 $op_Rect= New-Object System.Drawing.Rectangle(0, 0, $op_IMG[0], $op_IMG[1])
  
@@ -9157,7 +9161,7 @@ $sb_stus.Items.AddRange(@($sb_label))
 $sb_alg.Controls.AddRange(@($sb_mnu,$pict_panel,$sb_stus))
   
 # Preset forms 
-	
+	 
 $ff_baloon= New-Object System.Windows.Forms.Tooltip 
 $ff_baloon.ShowAlways= $False
 # $ff_baloon.ToolTipIcon= "Info"
@@ -9918,7 +9922,7 @@ $Horizonbuff= $Contxtbuf.Allocate($Graphics_buf, $Rect_buf)
 # $Horizonbuff= $Contxtb.Allocate($Graphics_buf, $Pictbox_buf.ClientRectangle)
   
 # Pictbox 
-	 
+	
 [bool] $script:mouser_capure= $False 
 [int] $script:starter_value= 0
 $script:topper_pos= New-Object System.Drawing.Point
@@ -12506,7 +12510,7 @@ $osc_grp.Size= "255, 105"
 $osc_grp.Location= "270,300"
 $osc_grp.ForeColor= "gray"
 $osc_grp.Font= $FonLabel
-	
+	 
 $lisn_btn= New-Object System.Windows.Forms.Button 
 $lisn_btn.Location= "20, 30"
 $lisn_btn.Size= "25, 25"
@@ -12703,7 +12707,7 @@ $comb_fm.Add_SelectedValueChanged({ # Event
 	$fm_menu_copy.Enabled= Enable_chk $key["style"]
 	Unredo 2
 
-	Panel_chg $comb_fm.SelectedItem
+	Panel_chg $comb_fm.SelectedItem	# compiler change
 	Color_Render
 
 	Menu_build "compiler"
@@ -12719,7 +12723,7 @@ $comb_fm.Add_SelectedValueChanged({ # Event
  })
    
 # forms 
-	
+	 
 $fm_panel= New-Object System.Windows.Forms.Panel 
 $fm_panel.Location= "0,0"
 $fm_panel.Size= "530,415"
@@ -12909,7 +12913,7 @@ $frm_fm.Add_FormClosing({
 })
  
 $fm_mnu= New-Object System.Windows.Forms.MenuStrip 
-	
+	 
 $fm_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_f.Text= "File"
 
@@ -12930,7 +12934,7 @@ $fm_menu_f.Text= "File"
 
 
 
-	 
+	
 $fm_menu_pset= New-Object System.Windows.Forms.ToolStripSeparator 
 $fm_menu_pset= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_pset.Text= "Preset"
@@ -13168,7 +13172,7 @@ $fm_sav_h.Add_Click({
 $fm_menu_ktn= New-Object System.Windows.Forms.ToolStripSeparator 
 $fm_menu_kt= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_kt.Text= "Preferences"
-	 
+	
 $menu_fty= New-Object System.Windows.Forms.ToolStripMenuItem 
 # $menu_fty.Text= "v Task tray"
 
@@ -13284,7 +13288,7 @@ $fm_menu_n.Add_Click({
 	$frm_fm.Close()
 })
   
-$fm_menu_o= New-Object System.Windows.Forms.ToolStripMenuItem 
+$fm_menu_o= New-Object System.Windows.Forms.ToolStripMenuItem 	
 $fm_menu_o.Text= "Option"
 
 $fm_menu_ud= New-Object System.Windows.Forms.ToolStripMenuItem
@@ -13349,7 +13353,7 @@ $fm_menu_set.Add_Click({
 
 	$fm_menu_copy.Enabled= Enable_chk $key["style"]
 
-	Panel_chg $comb_fm.SelectedItem
+	Panel_chg $comb_fm.SelectedItem	# compiler change
 
  	Menu_comp_build $opt["radio_bin"] > $null
 
@@ -13376,7 +13380,7 @@ $fm_menu_set.Add_Click({
 })
 
 
-	
+	 
 <# 
  
 $fm_menu_cmp0= New-Object System.Windows.Forms.ToolStripMenuItem 
@@ -14076,7 +14080,7 @@ $fm_menu_edt7.Add_Click({
 	echo $_.exception
  }
 })
-  
+  	
 $fm_menu_m= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_m.Text= "Octave"
 
@@ -14102,7 +14106,7 @@ $fm_menu_mask.Add_Click({
     	Write-Host '"ERROR: Safety Stopper >> $sub_mask.Show()"'
  }
 })
-	 
+	
 $fm_menu_so= New-Object System.Windows.Forms.ToolStripSeparator 
  
 $fm_menu_oct1= New-Object System.Windows.Forms.ToolStripMenuItem 
@@ -14280,7 +14284,7 @@ $fm_menu_send.Add_Click({
 $fm_menu_mmlun= New-Object System.Windows.Forms.ToolStripSeparator
 
 $fm_menu_mml= New-Object System.Windows.Forms.ToolStripMenuItem
-$fm_menu_mml.Text= "Voice Value Copy"
+$fm_menu_mml.Text= "Voice Value Clipboard"
 
 $fm_menu_mml.Add_Click({
  try{
@@ -14295,12 +14299,12 @@ $fm_menu_mml.Add_Click({
 })
 
 $fm_menu_copy= New-Object System.Windows.Forms.ToolStripMenuItem
-$fm_menu_copy.Text= "header+ Voice Copy"
+$fm_menu_copy.Text= "header+ Voice Clipboard"
 $fm_menu_copy.ForeColor= "Black"
 
 $fm_menu_copy.Add_Click({
  try{
-	Box_listen 1
+	Box_listen 1 # Clipboard
 
 	if($sb_alg.Visible){
 		Monotone_select "conv_btn"
@@ -14309,7 +14313,7 @@ $fm_menu_copy.Add_Click({
 	echo $_.exception
  }
 })
-	
+	 
 $fm_menu_zero= New-Object System.Windows.Forms.ToolStripMenuItem 
 #$fm_menu_zero.Text= "zero padding"
 $fm_menu_zero.Add_Click({
@@ -15459,7 +15463,7 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 	Menu_build "editor"
 	Stus_build
 
-	[array]$undo= "","","0" # array obj高速化
+	[array]$undo= "","" # array obj高速化
 	Unredo 2 # Reset,Enable
 
 
