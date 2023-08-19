@@ -193,7 +193,7 @@ Function Line_highlight([array]$rr){
 	} #sw
  } # func
  
-function Monotone_select([string]$out){ 
+function Monotone_select([string]$out){ 	
 
 	switch($out){
  	'Alg_'{	# BG_set
@@ -3715,8 +3715,8 @@ function Alg_cablw([int]$alg){
 
 		$buffw.Render($gpw);
 
-		$gpw.DrawString($ss,$Fona,$brush, $xytwo[0], $xytwo[1]) # $script:xytwo
-		$gpw.DrawString($tt,$Fona,$tex[$sw], $xytwo[0], ($xytwo[1]+ 64)) # $script:xytwo
+		$gpw.DrawString($ss,$Fona,$brush, $xytwo[0], $xytwo[1])
+		$gpw.DrawString($tt,$Fona,$tex[$sw], $xytwo[0], ($xytwo[1]+ 64))
 
 		$gpw.DrawBeziers($cable[0],$pointat[0])
 		$gpw.DrawBeziers($cable[1],$pointat[1])
@@ -3777,11 +3777,7 @@ function Alg_cable([int]$alg){
 	[array]$cable= @($Ppen,$Bpen,$Gpen,$Open,$Rpen)
 	[array]$tex= @($Cbrush,$Lbrush,$Ybrush,$Mbrush)
 
-
 	$buffb.Graphics.Clear($board)
-
-	$buffb.Graphics.DrawString($ss,$Fona,$brush, $xyfour[0], $xyfour[1]) # $script:xyfour
-	$buffb.Graphics.DrawString($tt,$Fona,$tex[$sw], $xyfour[0], ($xyfour[1]+ 64)) # $script:xyfour
 
 	switch($alg){
 	0{
@@ -3810,6 +3806,9 @@ function Alg_cable([int]$alg){
 		} #sw
 
 		$buffb.Render($gpb); # この後、アンチエイリアスため
+
+		$gpb.DrawString($ss,$Fona,$brush, $xyfour[0], $xyfour[1]) # $script:xyfour
+		$gpb.DrawString($tt,$Fona,$tex[$sw], $xyfour[0], ($xyfour[1]+ 64)) # $script:xyfour
 
 		$gpb.DrawBeziers($cable[1],$pointab[1])
 		$gpb.DrawBeziers($cable[0],$pointab[0]) # 5px down
@@ -3867,6 +3866,9 @@ function Alg_cable([int]$alg){
 
 		$buffb.Render($gpb);
 
+		$gpb.DrawString($ss,$Fona,$brush, $xyfour[0], $xyfour[1])
+		$gpb.DrawString($tt,$Fona,$tex[$sw], $xyfour[0], ($xyfour[1]+ 64))
+
 		$gpb.DrawBeziers($cable[2],$pointad[2])
 		$gpb.DrawBeziers($cable[1],$pointad[1])
 		$gpb.DrawBeziers($cable[0],$pointad[0])
@@ -3922,6 +3924,9 @@ function Alg_cable([int]$alg){
 		} #sw
 
 		$buffb.Render($gpb);
+
+		$gpb.DrawString($ss,$Fona,$brush, $xyfour[0], $xyfour[1])
+		$gpb.DrawString($tt,$Fona,$tex[$sw], $xyfour[0], ($xyfour[1]+ 64))
 
 		$gpb.DrawBeziers($cable[3],$pointaf[3])
 		$gpb.DrawBeziers($cable[2],$pointaf[2])
@@ -3979,6 +3984,9 @@ function Alg_cable([int]$alg){
 
 		$buffb.Render($gpb);
 
+		$gpb.DrawString($ss,$Fona,$brush, $xyfour[0], $xyfour[1])
+		$gpb.DrawString($tt,$Fona,$tex[$sw], $xyfour[0], ($xyfour[1]+ 64))
+
 		$gpb.DrawBeziers($cable[1],$pointah[1])
 		$gpb.DrawBeziers($cable[0],$pointah[0])
 		$gpb.DrawBeziers($cable[3],$pointah[3])
@@ -4035,6 +4043,9 @@ function Alg_cable([int]$alg){
 
 		$buffb.Render($gpb);
 
+		$gpb.DrawString($ss,$Fona,$brush, $xyfour[0], $xyfour[1])
+		$gpb.DrawString($tt,$Fona,$tex[$sw], $xyfour[0], ($xyfour[1]+ 64))
+
 		$gpb.DrawBeziers($cable[3],$pointaj[2])
 		$gpb.DrawBeziers($cable[1],$pointaj[1])
 		$gpb.DrawBeziers($cable[0],$pointaj[0])
@@ -4090,6 +4101,9 @@ function Alg_cable([int]$alg){
 		} #sw
 
 		$buffb.Render($gpb);
+
+		$gpb.DrawString($ss,$Fona,$brush, $xyfour[0], $xyfour[1])
+		$gpb.DrawString($tt,$Fona,$tex[$sw], $xyfour[0], ($xyfour[1]+ 64))
 
 		$gpb.DrawBeziers($cable[1],$pointal[3]) # [3]>[2]>[1]
 		$gpb.DrawBeziers($cable[1],$pointal[2])
@@ -4153,6 +4167,9 @@ function Alg_cable([int]$alg){
 
 		$buffb.Render($gpb);
 
+		$gpb.DrawString($ss,$Fona,$brush, $xyfour[0], $xyfour[1])
+		$gpb.DrawString($tt,$Fona,$tex[$sw], $xyfour[0], ($xyfour[1]+ 64))
+
 		$gpb.DrawBeziers($cable[1],$pointan[1])
 		$gpb.DrawBeziers($cable[0],$pointan[0])
 		$gpb.DrawBeziers($cable[2],$pointan[2])
@@ -4208,6 +4225,9 @@ function Alg_cable([int]$alg){
 		} #sw
 
 		$buffb.Render($gpb);
+
+		$gpb.DrawString($ss,$Fona,$brush, $xyfour[0], $xyfour[1])
+		$gpb.DrawString($tt,$Fona,$tex[$sw], $xyfour[0], ($xyfour[1]+ 64))
 
 		$gpb.DrawBeziers($cable[1],$pointap[1])
 		$gpb.DrawBeziers($cable[0],$pointap[0])
@@ -7993,9 +8013,9 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 [Environment]::CurrentDirectory= pwd # working_dir set
  
 # Sub forms 
-	 
+	
 # $contxt_7bwを読み込んだ後$PictureBox objが安全 
-	 
+	
 $contxt_Sep_7bw= New-Object System.Windows.Forms.ToolStripSeparator 
 $contxt_Sep_Lbw= New-Object System.Windows.Forms.ToolStripSeparator
 $contxt_Sep_Nbg= New-Object System.Windows.Forms.ToolStripSeparator
@@ -9961,7 +9981,7 @@ $Horizonbuff= $Contxtbuf.Allocate($Graphics_buf, $Rect_buf)
 # $Horizonbuff= $Contxtb.Allocate($Graphics_buf, $Pictbox_buf.ClientRectangle)
   
 # Pictbox 
-	 
+	
 [bool] $script:mouser_capure= $False 
 [int] $script:starter_value= 0
 $script:topper_pos= New-Object System.Drawing.Point
@@ -14298,7 +14318,7 @@ $fm_menu_oct8.Add_Click({
  try{
 	if($this.Text.Contains("[v]") -eq $False){
 
-		$script:key["oct"]= Osc_sw "o8"	
+		$script:key["oct"]= Osc_sw "o8"
 		Stus_build
 
 		if($sb_alg.Visible){
@@ -14310,7 +14330,7 @@ $fm_menu_oct8.Add_Click({
 	echo $_.exception
  }
 })
- 	 
+  
 $fm_menu_b= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_b.Text= "TextBox"
 
@@ -14784,6 +14804,7 @@ $Cdbrend.Positions= @(0.0, 0.25, 1.0)
 # alg fill,Polygon -----
 $Whsolid= New-Object System.Drawing.SolidBrush($white)
 $Whwpen= New-Object System.Drawing.Pen($darkwhite, 2)
+
 # .LinearGradientBrush 仮色指定が必要
 $Whbrush= New-Object System.Drawing.Drawing2D.LinearGradientBrush($poix,$poia,$darkwhite,$gr_white)
 $Whbrush.InterpolationColors= $Cdbrend
@@ -14802,6 +14823,7 @@ $Clbrend.Positions= @(0.0, 0.25, 1.0)
 # alg fill,Polygon -----
 $Blsolid= New-Object System.Drawing.SolidBrush($black)
 $Blwpen= New-Object System.Drawing.Pen($naturalblack, 2)
+
 # .LinearGradientBrush 仮色指定が必要
 $Blbrush= New-Object System.Drawing.Drawing2D.LinearGradientBrush($poix,$poia,$naturalblack,$gr_black)
 $Blbrush.InterpolationColors= $Clbrend
@@ -14916,6 +14938,8 @@ $naturalRPieL= Silver_convert $naturalred 2
 $pastelRPieL= Silver_convert $pastelred 2
 $vividRPieL= Silver_convert $vividred 2
   
+# $trans= [System.Drawing.Color]::FromName($transparent)	# 透明色 
+ 
 # nomal color 
 $yellow= [System.Drawing.Color]::FromName("orange")		# RGup de yellow
 $magenta= [System.Drawing.Color]::FromName("magenta")
@@ -14928,11 +14952,10 @@ $Mpen= New-Object System.Drawing.Pen($magenta, 1 )
 $Cpen= New-Object System.Drawing.Pen($cyan, 1 )
 $Lpen= New-Object System.Drawing.Pen($lime, 1 )
 
-# alg font point -----
-$Ybrush= New-Object System.Drawing.SolidBrush($yellow)	# Fill
-$Mbrush= New-Object System.Drawing.SolidBrush($magenta)
-$Cbrush= New-Object System.Drawing.SolidBrush($cyan)
-$Lbrush= New-Object System.Drawing.SolidBrush($lime)
+# $Ybrush= New-Object System.Drawing.SolidBrush($yellow)	# Fill
+# $Mbrush= New-Object System.Drawing.SolidBrush($magenta)
+# $Cbrush= New-Object System.Drawing.SolidBrush($cyan)
+# $Lbrush= New-Object System.Drawing.SolidBrush($lime)
  
 # hilight color ------ 
 $skyblue= [System.Drawing.Color]::FromArgb(210,176,224,230)	# powderblue :a220 -> [Alpha-20]
@@ -14962,6 +14985,35 @@ $Rpen= New-Object System.Drawing.Pen($pink, 7)
 
 
  
+# mini alg font + text ----- 
+
+$Ybrend= New-Object System.Drawing.Drawing2D.ColorBlend(3)	# グラデーション
+$Ybrend.Colors= @($gold,$yellow,$gold)
+$Ybrend.Positions= @(0.0, 0.25, 1.0)
+$Ybrush= New-Object System.Drawing.Drawing2D.LinearGradientBrush($poix,$poia,$yellow,$yellow)
+$Ybrush.InterpolationColors= $Ybrend
+
+
+$Mbrend= New-Object System.Drawing.Drawing2D.ColorBlend(3)
+$Mbrend.Colors= @($pink,$magenta,$pink)
+$Mbrend.Positions= @(0.0, 0.25, 1.0)
+$Mbrush= New-Object System.Drawing.Drawing2D.LinearGradientBrush($poix,$poia,$magenta,$magenta)
+$Mbrush.InterpolationColors= $Mbrend
+
+
+$Cbrend= New-Object System.Drawing.Drawing2D.ColorBlend(3)
+$Cbrend.Colors= @($skyblue,$cyan,$skyblue)
+$Cbrend.Positions= @(0.0, 0.25, 1.0)
+$Cbrush= New-Object System.Drawing.Drawing2D.LinearGradientBrush($poix,$poia,$cyan,$cyan)
+$Cbrush.InterpolationColors= $Cbrend
+
+
+$Lbrend= New-Object System.Drawing.Drawing2D.ColorBlend(3)
+$Lbrend.Colors= @($greenyellow,$lime,$greenyellow)
+$Lbrend.Positions= @(0.0, 0.25, 1.0)
+$Lbrush= New-Object System.Drawing.Drawing2D.LinearGradientBrush($poix,$poia,$lime,$lime)
+$Lbrush.InterpolationColors= $Lbrend
+ 	
 # listen line ------ 
 $plum= [System.Drawing.Color]::FromName("plum")
 $turquoise= [System.Drawing.Color]::FromName("powderblue")
@@ -14976,8 +15028,6 @@ $Kbrush= New-Object System.Drawing.SolidBrush($khaki)
 # orange	gold	goldenrod	darkkhaki	khaki
 # magenta	lightpink	brown	rosybrown	tomato
 # plum		thistle		indigo
- 
-# $trans= [System.Drawing.Color]::FromName($transparent)	# 透明色 
  
  }catch{ 
 	echo $_.exception
