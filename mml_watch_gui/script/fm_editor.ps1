@@ -421,7 +421,7 @@ function Brush_Color(){
 } #func
   
 # buffer 
-	
+	 
 function Pixcel_Select([int] $max){ 
 
 	$max= $max+ 1
@@ -478,8 +478,8 @@ function Mouse_druger([string] $sw, [string] $type, $ev){	# knob
 				Unredo 0
 			}
 
-			$script:key["knob"][$comb_fm.SelectedIndex]= $type
-			Contxt_change $type
+			## $script:key["knob"][$comb_fm.SelectedIndex]= $type # Hoverで、多分不要
+			## Contxt_change $type
 
 			if($sb_alg.Visible){
 				All_chg
@@ -697,7 +697,7 @@ function NmudX([string] $sw){
  } #func
   
 # contxt 
-	
+	 
 function Opmap_change([int]$j){ 
 
 	# .SelectedIndex= $j # event -> .Add_SelectedValueChanged
@@ -855,7 +855,7 @@ function Wheel_ALG([int] $delta){
  } #func
  
 <# 
-	
+	 
 function Wheel_ALG([int] $delta){ 
 
 	[int] $num= $key["oct"].Replace("o", "")
@@ -2002,7 +2002,7 @@ function Contxt_octave([string]$a){
  } #func
   
 # poly 
-	
+	 
 function Flow_ssg([int]$num, [array]$e, [int]$width, [int]$height){ 
 
 
@@ -2989,7 +2989,7 @@ function Sin_chg(){
  } #func
   
 # bg alg 
-	
+	 
 function Chip_view([int]$x,[int]$y){ 
 
 	[array]$p= "",""
@@ -3041,7 +3041,7 @@ function Chip_position([string]$k){
  } #func
  
 <# 
-	
+	 
 function Alg_cablw([int]$alg){ 
 
  [int]$sw= Idx
@@ -3640,7 +3640,9 @@ function Alg_cablw([int]$alg){
 	[array]$ary= @("vrc7","opl","opn","opm") # .SelectedIndex
 
 
-	[string]$tt= $ary[$comb_fm.SelectedIndex]+ "`r`n"+ "Alg:"+ ($alg -as [string])+ "`r`n"+ $mtx[$alg][$sw]+ "`r`n"+ $arr[$sw]+ "`r`n"+ (ShortX $key["knob"][$comb_fm.SelectedIndex] "long")+ "`r`n"+ $key["oct"]
+	[string] $ss= $key["oct"]+ "`r`n"+ $ary[$comb_fm.SelectedIndex]+ "`r`n"+ "Alg:"+ ($alg -as [string])+ "`r`n"+ $mtx[$alg][$sw]
+	[string] $tt= $arr[$sw]+ "`r`n"+ (ShortX $key["knob"][$comb_fm.SelectedIndex] "long")
+
 
 
 	[array]$rr= Monotone_select "Alg_"
@@ -3661,7 +3663,6 @@ function Alg_cablw([int]$alg){
 		$Pictbox1a.Location= "100,20"
 		$Pictbox2a.Location= "180,145"
 
-
 		switch($sw){ # current select
 		0{
 		    	$buffw.Graphics.DrawRectangle($color_pen[0], 99,19,163,103) # highlight
@@ -3673,9 +3674,10 @@ function Alg_cablw([int]$alg){
 		}
 		} #sw
 
-		$buffw.Render($gpw);
+		$buffw.Render($gpw); # この後、アンチエイリアスため
 
-		$gpw.DrawString($tt,$Fona,$brush, $xytwo[0],$xytwo[1]) # $script:xytwo
+		$gpw.DrawString($ss,$Fona,$brush, $xytwo[0], $xytwo[1]) # $script:xytwo
+		$gpw.DrawString($tt,$Fona,$tex[$sw], $xytwo[0], ($xytwo[1]+ 64)) # $script:xytwo
 
 		$gpw.DrawBeziers($cable[0],$pointar[0])
 		$gpw.DrawBeziers($cable[1],$pointar[1])
@@ -3700,8 +3702,6 @@ function Alg_cablw([int]$alg){
 		$Pictbox1a.Location= "180,20"
 		$Pictbox2a.Location= "180,145"
 
-		$buffw.Graphics.Clear($board)
-
 		switch($sw){
 		0{
 			$buffw.Graphics.DrawRectangle($color_pen[0], 179,19,163,103)
@@ -3715,7 +3715,8 @@ function Alg_cablw([int]$alg){
 
 		$buffw.Render($gpw);
 
-		$gpw.DrawString($tt,$Fona,$brush, $xytwo[0],$xytwo[1]) # $script:xytwo
+		$gpw.DrawString($ss,$Fona,$brush, $xytwo[0], $xytwo[1]) # $script:xytwo
+		$gpw.DrawString($tt,$Fona,$tex[$sw], $xytwo[0], ($xytwo[1]+ 64)) # $script:xytwo
 
 		$gpw.DrawBeziers($cable[0],$pointat[0])
 		$gpw.DrawBeziers($cable[1],$pointat[1])
@@ -3736,8 +3737,10 @@ function Alg_cablw([int]$alg){
 		$gpw.DrawLine($pen, $xyi[0][13],$xyi[1][10], $xyi[0][15],$xyi[1][10])
 		$gpw.DrawLine($pen, $xyi[0][15],$xyi[1][6], $xyi[0][15],$xyi[1][10])
 		$gpw.DrawLine($pen, $xyi[0][15],$xyi[1][8], $xyi[0][17],$xyi[1][8])
+
 	}
 	} #sw
+
  } #func
  
 function Alg_cable([int]$alg){ 
@@ -3758,7 +3761,8 @@ function Alg_cable([int]$alg){
 
 	[array]$ary= @("vrc7","opl","opn","opm")
 
-	[string]$tt= $ary[$comb_fm.SelectedIndex]+ "`r`n"+ "Alg:"+($alg -as [string])+ "`r`n"+ $mtx[$alg][$sw]+ "`r`n"+ $arr[$sw]+ "`r`n"+  (ShortX $key["knob"][$comb_fm.SelectedIndex] "long")+ "`r`n"+ $key["oct"]
+	[string] $ss= $key["oct"]+ "`r`n"+ $ary[$comb_fm.SelectedIndex]+ "`r`n"+ "Alg:"+ ($alg -as [string])+ "`r`n"+ $mtx[$alg][$sw]
+	[string] $tt= $arr[$sw]+ "`r`n"+ (ShortX $key["knob"][$comb_fm.SelectedIndex] "long")
 
 	if(Mskseg_chk){ $tt+= (Mskseg_out 2) }
 
@@ -3775,6 +3779,9 @@ function Alg_cable([int]$alg){
 
 
 	$buffb.Graphics.Clear($board)
+
+	$buffb.Graphics.DrawString($ss,$Fona,$brush, $xyfour[0], $xyfour[1]) # $script:xyfour
+	$buffb.Graphics.DrawString($tt,$Fona,$tex[$sw], $xyfour[0], ($xyfour[1]+ 64)) # $script:xyfour
 
 	switch($alg){
 	0{
@@ -3802,8 +3809,7 @@ function Alg_cable([int]$alg){
 		}
 		} #sw
 
-		$buffb.Render($gpb);
-		$gpb.DrawString($tt,$Fona,$brush, $xyfour[0],$xyfour[1]) # $script:xyfour
+		$buffb.Render($gpb); # この後、アンチエイリアスため
 
 		$gpb.DrawBeziers($cable[1],$pointab[1])
 		$gpb.DrawBeziers($cable[0],$pointab[0]) # 5px down
@@ -3860,7 +3866,6 @@ function Alg_cable([int]$alg){
 		} #sw
 
 		$buffb.Render($gpb);
-		$gpb.DrawString($tt,$Fona,$brush, $xyfour[0],$xyfour[1]) # $script:xyfour
 
 		$gpb.DrawBeziers($cable[2],$pointad[2])
 		$gpb.DrawBeziers($cable[1],$pointad[1])
@@ -3917,7 +3922,6 @@ function Alg_cable([int]$alg){
 		} #sw
 
 		$buffb.Render($gpb);
-		$gpb.DrawString($tt,$Fona,$brush, $xyfour[0],$xyfour[1]) # $script:xyfour
 
 		$gpb.DrawBeziers($cable[3],$pointaf[3])
 		$gpb.DrawBeziers($cable[2],$pointaf[2])
@@ -3974,7 +3978,6 @@ function Alg_cable([int]$alg){
 		} #sw
 
 		$buffb.Render($gpb);
-		$gpb.DrawString($tt,$Fona,$brush, $xyfour[0],$xyfour[1]) # $script:xyfour
 
 		$gpb.DrawBeziers($cable[1],$pointah[1])
 		$gpb.DrawBeziers($cable[0],$pointah[0])
@@ -4031,7 +4034,6 @@ function Alg_cable([int]$alg){
 		} #sw
 
 		$buffb.Render($gpb);
-		$gpb.DrawString($tt,$Fona,$brush, $xyfour[0],$xyfour[1]) # $script:xyfour
 
 		$gpb.DrawBeziers($cable[3],$pointaj[2])
 		$gpb.DrawBeziers($cable[1],$pointaj[1])
@@ -4088,7 +4090,6 @@ function Alg_cable([int]$alg){
 		} #sw
 
 		$buffb.Render($gpb);
-		$gpb.DrawString($tt,$Fona,$brush, $xyfour[0],$xyfour[1]) # $script:xyfour
 
 		$gpb.DrawBeziers($cable[1],$pointal[3]) # [3]>[2]>[1]
 		$gpb.DrawBeziers($cable[1],$pointal[2])
@@ -4151,7 +4152,6 @@ function Alg_cable([int]$alg){
 		} #sw
 
 		$buffb.Render($gpb);
-		$gpb.DrawString($tt,$Fona,$brush, $xyfour[0],$xyfour[1]) # $script:xyfour
 
 		$gpb.DrawBeziers($cable[1],$pointan[1])
 		$gpb.DrawBeziers($cable[0],$pointan[0])
@@ -4208,7 +4208,6 @@ function Alg_cable([int]$alg){
 		} #sw
 
 		$buffb.Render($gpb);
-		$gpb.DrawString($tt,$Fona,$brush, $xyfour[0],$xyfour[1]) # $script:xyfour
 
 		$gpb.DrawBeziers($cable[1],$pointap[1])
 		$gpb.DrawBeziers($cable[0],$pointap[0])
@@ -4458,7 +4457,7 @@ function All_chg(){	# $vrc_svn[][] ha "__1" no string
  } #func
   
 # sub window gui 
-	
+	 
 function Stus_alg(){ # status bar 
 
 	switch($bai){
@@ -4890,7 +4889,7 @@ function Load_value($x, [string]$sw){
  } #func
   
 # hash 
-	
+	 
 function Fmchange_value([string]$sw, [string]$name){ 
 
   # if($name -match '[v]' -eq $False){
@@ -5021,7 +5020,7 @@ function Fmwrite_xml($x,$y){
  } #func
   
 # gui 
-	
+	 
 function Menu_comp_build([string]$t){ 
 
 	$fm_menu_cmck.Text= "MCK"
@@ -6130,7 +6129,7 @@ function Panel_chg([string]$sw){
  } #func
   
 # Lis 
-	 
+	
 function Adv_edit([string]$t){ 
 
 	switch($t){
@@ -7994,9 +7993,9 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 [Environment]::CurrentDirectory= pwd # working_dir set
  
 # Sub forms 
-	
+	 
 # $contxt_7bwを読み込んだ後$PictureBox objが安全 
-	
+	 
 $contxt_Sep_7bw= New-Object System.Windows.Forms.ToolStripSeparator 
 $contxt_Sep_Lbw= New-Object System.Windows.Forms.ToolStripSeparator
 $contxt_Sep_Nbg= New-Object System.Windows.Forms.ToolStripSeparator
@@ -8147,6 +8146,7 @@ $contxt_oct.Add_ItemClicked({
 	if( ([string] $_.ClickedItem).Contains("[v]")  -eq $False){
 
 		$script:key["oct"]= Osc_sw ([string] $_.ClickedItem)
+		Pict_chg
 		Stus_build
 
 		Contxt_octave $key["oct"]
@@ -8265,7 +8265,7 @@ $Pictbw.Add_DoubleClick({
 })
  
 # 2op 
-	 
+	
 $image1a= New-Object System.Drawing.Bitmap($op_IMG) 
 
 $gpz= [System.Drawing.Graphics]::FromImage($image1a)
@@ -8379,7 +8379,7 @@ $Pictbox2a.Add_MouseDown({
 })
   
 # 4op 
-	 
+	
 $image1= New-Object System.Drawing.Bitmap($op_IMG) # 書き込む場所 
 
 $gpc= [System.Drawing.Graphics]::FromImage($image1)
@@ -9961,7 +9961,7 @@ $Horizonbuff= $Contxtbuf.Allocate($Graphics_buf, $Rect_buf)
 # $Horizonbuff= $Contxtb.Allocate($Graphics_buf, $Pictbox_buf.ClientRectangle)
   
 # Pictbox 
-	
+	 
 [bool] $script:mouser_capure= $False 
 [int] $script:starter_value= 0
 $script:topper_pos= New-Object System.Drawing.Point
@@ -10954,7 +10954,7 @@ $PictboxFB.Add_MouseLeave({
 })
   
 # Group 
-	 
+	
 $eg_grp= New-Object System.Windows.Forms.GroupBox 
 $eg_grp.Location= "10, 30"
 $eg_grp.Size= "255, 130" # 4op "255, 210"
@@ -12549,7 +12549,7 @@ $osc_grp.Size= "255, 105"
 $osc_grp.Location= "270,300"
 $osc_grp.ForeColor= "gray"
 $osc_grp.Font= $FonLabel
-	 
+	
 $lisn_btn= New-Object System.Windows.Forms.Button 
 $lisn_btn.Location= "20, 30"
 $lisn_btn.Size= "25, 25"
@@ -12611,8 +12611,7 @@ $conv_btn.Add_Click({ # text convert
 			break;
 
 		}default{
-			$script:box_mml["pmd"]= $fm_box_mml.Text.TrimEnd("`r`n") # 最終文字以降、全改行削除	
-
+			$script:box_mml["pmd"]= $fm_box_mml.Text.TrimEnd("`r`n") # 最終文字以降、全改行削除
 			Mml_writer $script:box_mml["pmd"] '.\header\fm_mml_pmd' 0
 		}
 		} #sw
@@ -12629,7 +12628,7 @@ $conv_btn.Add_Click({ # text convert
 	echo $_.exception
  }
 })
- 	
+ 
 $comb_vrc= New-Object System.Windows.Forms.Combobox 
 $comb_vrc.Size= "180, 30"
 $comb_vrc.Location= "60, 30"
@@ -12964,7 +12963,7 @@ $frm_fm.Add_FormClosing({
 })
  
 $fm_mnu= New-Object System.Windows.Forms.MenuStrip 
-	
+	 
 $fm_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_f.Text= "File"
 
@@ -14157,7 +14156,7 @@ $fm_menu_mask.Add_Click({
     	Write-Host '"ERROR: Safety Stopper >> $sub_mask.Show()"'
  }
 })
-	
+	 
 $fm_menu_so= New-Object System.Windows.Forms.ToolStripSeparator 
  
 $fm_menu_oct1= New-Object System.Windows.Forms.ToolStripMenuItem 
@@ -14170,6 +14169,7 @@ $fm_menu_oct1.Add_Click({
 		Stus_build # <- $script:key["oct"] nochi
 
 		if($sb_alg.Visible){
+			Pict_chg
 			Contxt_octave $key["oct"]
 		}
 	}
@@ -14188,6 +14188,7 @@ $fm_menu_oct2.Add_Click({
 		Stus_build
 
 		if($sb_alg.Visible){
+			Pict_chg
 			Contxt_octave $key["oct"]
 		}
 	}
@@ -14206,6 +14207,7 @@ $fm_menu_oct3.Add_Click({
 		Stus_build
 
 		if($sb_alg.Visible){
+			Pict_chg
 			Contxt_octave $key["oct"]
 		}
 	}
@@ -14224,6 +14226,7 @@ $fm_menu_oct4.Add_Click({
 		Stus_build
 
 		if($sb_alg.Visible){
+			Pict_chg
 			Contxt_octave $key["oct"]
 		}
 	}
@@ -14242,6 +14245,7 @@ $fm_menu_oct5.Add_Click({
 		Stus_build
 
 		if($sb_alg.Visible){
+			Pict_chg
 			Contxt_octave $key["oct"]
 		}
 	}
@@ -14260,6 +14264,7 @@ $fm_menu_oct6.Add_Click({
 		Stus_build
 
 		if($sb_alg.Visible){
+			Pict_chg
 			Contxt_octave $key["oct"]
 		}
 	}
@@ -14278,6 +14283,7 @@ $fm_menu_oct7.Add_Click({
 		Stus_build
 
 		if($sb_alg.Visible){
+			Pict_chg
 			Contxt_octave $key["oct"]
 		}
 	}
@@ -14292,10 +14298,11 @@ $fm_menu_oct8.Add_Click({
  try{
 	if($this.Text.Contains("[v]") -eq $False){
 
-		$script:key["oct"]= Osc_sw "o8"
+		$script:key["oct"]= Osc_sw "o8"	
 		Stus_build
 
 		if($sb_alg.Visible){
+			Pict_chg
 			Contxt_octave $key["oct"]
 		}
 	}
@@ -14303,7 +14310,7 @@ $fm_menu_oct8.Add_Click({
 	echo $_.exception
  }
 })
-  
+ 	 
 $fm_menu_b= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_b.Text= "TextBox"
 
@@ -14808,7 +14815,7 @@ $Blbrush.InterpolationColors= $Clbrend
 #金色230,180,34		#金糸雀色235,216,66
  
 # poly,sine,text ------ 
-	
+	 
 $darkblue= [System.Drawing.Color]::FromArgb(195,0,139,139)	# 185 -> 195 alpha 
 $naturalblue= [System.Drawing.Color]::FromArgb(221,32,178,170)	# 241 -> 221
 $pastelblue= [System.Drawing.Color]::FromArgb(190,0,225,201)	# 190
