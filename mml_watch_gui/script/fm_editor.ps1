@@ -159,7 +159,7 @@ $xml_editor= @'
 # function ====== 
  
 # color 
-	 
+	
 Function Line_highlight([array]$rr){ 
 
 	switch(Itm){ # Chip_position $script:xye2
@@ -193,7 +193,7 @@ Function Line_highlight([array]$rr){
 	} #sw
  } # func
  
-function Monotone_select([string]$out){ 	
+function Monotone_select([string]$out){ 
 
 	switch($out){
  	'Alg_'{	# BG_set
@@ -442,7 +442,7 @@ function Pixcel_Select([int] $max){
 	return $d
  } #func
  
-function Mouse_druger([string] $sw, [string] $type, $ev){	# knob 
+function Mouse_knober([string] $sw, [string] $type, $ev){	# knob 
 
 	switch($sw){
 	'Up'{
@@ -478,9 +478,6 @@ function Mouse_druger([string] $sw, [string] $type, $ev){	# knob
 				Unredo 0
 			}
 
-			## $script:key["knob"][$comb_fm.SelectedIndex]= $type # Hoverで、多分不要
-			## Contxt_change $type
-
 			if($sb_alg.Visible){
 				All_chg
 			}
@@ -506,6 +503,7 @@ function Mouse_druger([string] $sw, [string] $type, $ev){	# knob
 		}
 		break;
 	}'Leave'{
+
 		$x= NmudX $type
 		Buffer_Render $x.Value $x.Maximum $type $False
 	}
@@ -711,7 +709,7 @@ function Opmap_change([int]$j){
 	} #sw
  } #func
  
-function Mouse_valuer([string] $sw, [string] $opnum, $ev){	# Op. 
+function Mouse_opwiner([string] $sw, [string] $opnum, $ev){	# Op. 
 
 	switch($sw){
 	'Up'{
@@ -744,6 +742,10 @@ function Mouse_valuer([string] $sw, [string] $opnum, $ev){	# Op.
 		switch([string] $ev.Button){
 		'Right'{
 			Contxt_select "boxpict"
+
+			$x= NmudX $key["knob"][$comb_fm.SelectedIndex]
+			Buffer_Render $x.Value $x.Maximum $key["knob"][$comb_fm.SelectedIndex] $False
+
 			break;
 		}'Left'{
 
@@ -762,7 +764,16 @@ function Mouse_valuer([string] $sw, [string] $opnum, $ev){	# Op.
 		} #sw
 		break;
 	}'Hover'{
+
 		Opmap_change $opnum
+
+		$x= NmudX $key["knob"][$comb_fm.SelectedIndex]
+		Buffer_Render $x.Value $x.Maximum $key["knob"][$comb_fm.SelectedIndex] $True
+		break;
+	}'Leave'{
+
+		$x= NmudX $key["knob"][$comb_fm.SelectedIndex]
+		Buffer_Render $x.Value $x.Maximum $key["knob"][$comb_fm.SelectedIndex] $False
 	}
 	} #sw
 
@@ -2002,7 +2013,7 @@ function Contxt_octave([string]$a){
  } #func
   
 # poly 
-	 
+	
 function Flow_ssg([int]$num, [array]$e, [int]$width, [int]$height){ 
 
 
@@ -2989,7 +3000,7 @@ function Sin_chg(){
  } #func
   
 # bg alg 
-	 
+	
 function Chip_view([int]$x,[int]$y){ 
 
 	[array]$p= "",""
@@ -4477,7 +4488,7 @@ function All_chg(){	# $vrc_svn[][] ha "__1" no string
  } #func
   
 # sub window gui 
-	 
+	
 function Stus_alg(){ # status bar 
 
 	switch($bai){
@@ -4909,7 +4920,7 @@ function Load_value($x, [string]$sw){
  } #func
   
 # hash 
-	 
+	
 function Fmchange_value([string]$sw, [string]$name){ 
 
   # if($name -match '[v]' -eq $False){
@@ -5040,7 +5051,7 @@ function Fmwrite_xml($x,$y){
  } #func
   
 # gui 
-	 
+	
 function Menu_comp_build([string]$t){ 
 
 	$fm_menu_cmck.Text= "MCK"
@@ -8013,7 +8024,7 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 [Environment]::CurrentDirectory= pwd # working_dir set
  
 # Sub forms 
-	
+	 
 # $contxt_7bwを読み込んだ後$PictureBox objが安全 
 	
 $contxt_Sep_7bw= New-Object System.Windows.Forms.ToolStripSeparator 
@@ -8285,7 +8296,7 @@ $Pictbw.Add_DoubleClick({
 })
  
 # 2op 
-	
+	 
 $image1a= New-Object System.Drawing.Bitmap($op_IMG) 
 
 $gpz= [System.Drawing.Graphics]::FromImage($image1a)
@@ -8301,7 +8312,7 @@ $Pictbox1a.Image= $image1a
 
 $Pictbox1a.Add_MouseWheel({
  try{
-	Mouse_valuer "Wheel" 0 $_
+	Mouse_opwiner "Wheel" 0 $_
  }catch{
 	echo $_.exception
  }
@@ -8309,7 +8320,7 @@ $Pictbox1a.Add_MouseWheel({
 
 $Pictbox1a.Add_MouseUp({
  try{
-	Mouse_valuer "Up"
+	Mouse_opwiner "Up"
  }catch{
 	echo $_.exception
  }
@@ -8317,7 +8328,7 @@ $Pictbox1a.Add_MouseUp({
 
 $Pictbox1a.Add_MouseMove({ # drag enter
  try{
-	Mouse_valuer "Move"
+	Mouse_opwiner "Move"
  }catch{
 	echo $_.exception
  }
@@ -8325,7 +8336,7 @@ $Pictbox1a.Add_MouseMove({ # drag enter
 
 $Pictbox1a.Add_MouseHover({
  try{
-	Mouse_valuer "Hover" 0
+	Mouse_opwiner "Hover" 0
  }catch{
 	echo $_.exception
  }
@@ -8333,7 +8344,15 @@ $Pictbox1a.Add_MouseHover({
 
 $Pictbox1a.Add_MouseDown({
  try{
-	Mouse_valuer "Down" 0 $_
+	Mouse_opwiner "Down" 0 $_
+ }catch{
+	echo $_.exception
+ }
+})
+
+$Pictbox1a.Add_MouseLeave({
+ try{
+	Mouse_opwiner "Leave" 0
  }catch{
 	echo $_.exception
  }
@@ -8356,7 +8375,7 @@ $Pictbox2a.Add_MouseWheel({
  try{
 	if($comb_fm.SelectedIndex -eq 0 -and $comb_vrc.SelectedIndex -eq 1 -and $key["knob"][0] -eq 'TL'){
 	}else{
-		Mouse_valuer "Wheel" 1 $_
+		Mouse_opwiner "Wheel" 1 $_
 	}
  }catch{
 	echo $_.exception
@@ -8365,7 +8384,7 @@ $Pictbox2a.Add_MouseWheel({
 
 $Pictbox2a.Add_MouseUp({
  try{
-	Mouse_valuer "Up"
+	Mouse_opwiner "Up"
  }catch{
 	echo $_.exception
  }
@@ -8375,7 +8394,7 @@ $Pictbox2a.Add_MouseMove({ # drag enter
  try{
 	if($comb_fm.SelectedIndex -eq 0 -and $comb_vrc.SelectedIndex -eq 1 -and $key["knob"][0] -eq 'TotalLevel'){
 	}else{
-		Mouse_valuer "Move"
+		Mouse_opwiner "Move"
 	}
  }catch{
 	echo $_.exception
@@ -8384,7 +8403,7 @@ $Pictbox2a.Add_MouseMove({ # drag enter
 
 $Pictbox2a.Add_MouseHover({
  try{
-	Mouse_valuer "Hover" 1
+	Mouse_opwiner "Hover" 1
  }catch{
 	echo $_.exception
  }
@@ -8392,14 +8411,22 @@ $Pictbox2a.Add_MouseHover({
 
 $Pictbox2a.Add_MouseDown({
  try{
-	Mouse_valuer "Down" 1 $_
+	Mouse_opwiner "Down" 1 $_
+ }catch{
+	echo $_.exception
+ }
+})
+
+$Pictbox2a.Add_MouseLeave({
+ try{
+	Mouse_opwiner "Leave" 1
  }catch{
 	echo $_.exception
  }
 })
   
 # 4op 
-	
+	 
 $image1= New-Object System.Drawing.Bitmap($op_IMG) # 書き込む場所 
 
 $gpc= [System.Drawing.Graphics]::FromImage($image1)
@@ -8415,7 +8442,7 @@ $Pictbox1.Image= $image1
 
 $Pictbox1.Add_MouseWheel({
  try{	# write-host ("ff: "+ $_.Delta) #MouseEventArgs.Delta +120 or -120
-	Mouse_valuer "Wheel" 0 $_
+	Mouse_opwiner "Wheel" 0 $_
  }catch{
 	echo $_.exception
  }
@@ -8423,7 +8450,7 @@ $Pictbox1.Add_MouseWheel({
 
 $Pictbox1.Add_MouseUp({
  try{
-	Mouse_valuer "Up"
+	Mouse_opwiner "Up"
  }catch{
 	echo $_.exception
  }
@@ -8431,7 +8458,7 @@ $Pictbox1.Add_MouseUp({
 
 $Pictbox1.Add_MouseMove({ # drag enter
  try{
-	Mouse_valuer "Move"
+	Mouse_opwiner "Move"
  }catch{
 	echo $_.exception
  }
@@ -8439,7 +8466,7 @@ $Pictbox1.Add_MouseMove({ # drag enter
 
 $Pictbox1.Add_MouseHover({
  try{
-	Mouse_valuer "Hover" 0
+	Mouse_opwiner "Hover" 0
  }catch{
 	echo $_.exception
  }
@@ -8447,7 +8474,15 @@ $Pictbox1.Add_MouseHover({
 
 $Pictbox1.Add_MouseDown({
  try{
-	Mouse_valuer "Down" 0 $_
+	Mouse_opwiner "Down" 0 $_
+ }catch{
+	echo $_.exception
+ }
+})
+
+$Pictbox1.Add_MouseLeave({
+ try{
+	Mouse_opwiner "Leave" 0
  }catch{
 	echo $_.exception
  }
@@ -8468,7 +8503,7 @@ $Pictbox2.Image= $image2
 
 $Pictbox2.Add_MouseWheel({
  try{
-	Mouse_valuer "Wheel" 1 $_
+	Mouse_opwiner "Wheel" 1 $_
  }catch{
 	echo $_.exception
  }
@@ -8476,7 +8511,7 @@ $Pictbox2.Add_MouseWheel({
 
 $Pictbox2.Add_MouseUp({
  try{
-	Mouse_valuer "Up"
+	Mouse_opwiner "Up"
  }catch{
 	echo $_.exception
  }
@@ -8484,7 +8519,7 @@ $Pictbox2.Add_MouseUp({
 
 $Pictbox2.Add_MouseMove({ # drag enter
  try{
-	Mouse_valuer "Move"
+	Mouse_opwiner "Move"
  }catch{
 	echo $_.exception
  }
@@ -8492,7 +8527,7 @@ $Pictbox2.Add_MouseMove({ # drag enter
 
 $Pictbox2.Add_MouseHover({
  try{
-	Mouse_valuer "Hover" 1
+	Mouse_opwiner "Hover" 1
  }catch{
 	echo $_.exception
  }
@@ -8500,7 +8535,15 @@ $Pictbox2.Add_MouseHover({
 
 $Pictbox2.Add_MouseDown({
  try{
-	Mouse_valuer "Down" 1 $_
+	Mouse_opwiner "Down" 1 $_
+ }catch{
+	echo $_.exception
+ }
+})
+
+$Pictbox2.Add_MouseLeave({
+ try{
+	Mouse_opwiner "Leave" 1
  }catch{
 	echo $_.exception
  }
@@ -8521,7 +8564,7 @@ $Pictbox3.Image= $image3
 
 $Pictbox3.Add_MouseWheel({
  try{
-	Mouse_valuer "Wheel" 2 $_
+	Mouse_opwiner "Wheel" 2 $_
  }catch{
 	echo $_.exception
  }
@@ -8529,7 +8572,7 @@ $Pictbox3.Add_MouseWheel({
 
 $Pictbox3.Add_MouseUp({
  try{
-	Mouse_valuer "Up"
+	Mouse_opwiner "Up"
  }catch{
 	echo $_.exception
  }
@@ -8537,7 +8580,7 @@ $Pictbox3.Add_MouseUp({
 
 $Pictbox3.Add_MouseMove({ # drag enter
  try{
-	Mouse_valuer "Move"
+	Mouse_opwiner "Move"
  }catch{
 	echo $_.exception
  }
@@ -8545,7 +8588,7 @@ $Pictbox3.Add_MouseMove({ # drag enter
 
 $Pictbox3.Add_MouseHover({
  try{
-	Mouse_valuer "Hover" 2
+	Mouse_opwiner "Hover" 2
  }catch{
 	echo $_.exception
  }
@@ -8553,7 +8596,15 @@ $Pictbox3.Add_MouseHover({
 
 $Pictbox3.Add_MouseDown({
  try{
-	Mouse_valuer "Down" 2 $_
+	Mouse_opwiner "Down" 2 $_
+ }catch{
+	echo $_.exception
+ }
+})
+
+$Pictbox3.Add_MouseLeave({
+ try{
+	Mouse_opwiner "Leave" 2
  }catch{
 	echo $_.exception
  }
@@ -8574,7 +8625,7 @@ $Pictbox4.Image= $image4
 
 $Pictbox4.Add_MouseWheel({
  try{
-	Mouse_valuer "Wheel" 3 $_
+	Mouse_opwiner "Wheel" 3 $_
  }catch{
 	echo $_.exception
  }
@@ -8582,7 +8633,7 @@ $Pictbox4.Add_MouseWheel({
 
 $Pictbox4.Add_MouseUp({
  try{
-	Mouse_valuer "Up"
+	Mouse_opwiner "Up"
  }catch{
 	echo $_.exception
  }
@@ -8590,7 +8641,7 @@ $Pictbox4.Add_MouseUp({
 
 $Pictbox4.Add_MouseMove({ # drag enter
  try{
-	Mouse_valuer "Move"
+	Mouse_opwiner "Move"
  }catch{
 	echo $_.exception
  }
@@ -8598,7 +8649,7 @@ $Pictbox4.Add_MouseMove({ # drag enter
 
 $Pictbox4.Add_MouseHover({
  try{
-	Mouse_valuer "Hover" 3
+	Mouse_opwiner "Hover" 3
  }catch{
 	echo $_.exception
  }
@@ -8606,16 +8657,24 @@ $Pictbox4.Add_MouseHover({
 
 $Pictbox4.Add_MouseDown({
  try{
-	Mouse_valuer "Down" 3 $_
+	Mouse_opwiner "Down" 3 $_
  }catch{
 	echo $_.exception
  }
 })
-   
+
+$Pictbox4.Add_MouseLeave({
+ try{
+	Mouse_opwiner "Leave" 3
+ }catch{
+	echo $_.exception
+ }
+})
+ 	  
 # buffb 
 
 
-	
+	 
 [int[]]$buf_IMG= @(322, 202) 
 $buf_Rect= New-Object System.Drawing.Rectangle(0, 0, $buf_IMG[0], $buf_IMG[1])
 [int[]]$buf_Size= @(($buf_IMG[0]+ 2), ($buf_IMG[1]+ 2)) # バッファサイズ
@@ -9981,7 +10040,7 @@ $Horizonbuff= $Contxtbuf.Allocate($Graphics_buf, $Rect_buf)
 # $Horizonbuff= $Contxtb.Allocate($Graphics_buf, $Pictbox_buf.ClientRectangle)
   
 # Pictbox 
-	
+	 
 [bool] $script:mouser_capure= $False 
 [int] $script:starter_value= 0
 $script:topper_pos= New-Object System.Drawing.Point
@@ -10002,42 +10061,42 @@ $PictboxAR.Location= @(10, 60) -join ","
 
 $PictboxAR.Add_MouseUp({
  try{
-	Mouse_druger "Up"
+	Mouse_knober "Up"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxAR.Add_MouseMove({
  try{
-	Mouse_druger "Move" "AR"
+	Mouse_knober "Move" "AR"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxAR.Add_MouseDown({
  try{
-	Mouse_druger "Down" "AR" $_
+	Mouse_knober "Down" "AR" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxAR.Add_MouseWheel({
  try{
-	Mouse_druger "Wheel" "AR" $_
+	Mouse_knober "Wheel" "AR" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxAR.Add_MouseHover({
  try{
-	Mouse_druger "Hover" "AR"
+	Mouse_knober "Hover" "AR"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxAR.Add_MouseLeave({
  try{
-	Mouse_druger "Leave" "AR"
+	Mouse_knober "Leave" "AR"
  }catch{
 	echo $_.exception
  }
@@ -10053,42 +10112,42 @@ $PictboxDR.Location= @(70, 60) -join ","
 
 $PictboxDR.Add_MouseUp({
  try{
-	Mouse_druger "Up"
+	Mouse_knober "Up"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxDR.Add_MouseMove({
  try{
-	Mouse_druger "Move" "DR"
+	Mouse_knober "Move" "DR"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxDR.Add_MouseDown({
  try{
-	Mouse_druger "Down" "DR" $_
+	Mouse_knober "Down" "DR" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxDR.Add_MouseWheel({
  try{
-	Mouse_druger "Wheel" "DR" $_
+	Mouse_knober "Wheel" "DR" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxDR.Add_MouseHover({
  try{
-	Mouse_druger "Hover" "DR"
+	Mouse_knober "Hover" "DR"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxDR.Add_MouseLeave({
  try{
-	Mouse_druger "Leave" "DR"
+	Mouse_knober "Leave" "DR"
  }catch{
 	echo $_.exception
  }
@@ -10104,42 +10163,42 @@ $PictboxSR.Location= @(130, 60) -join ","
 
 $PictboxSR.Add_MouseUp({
  try{
-	Mouse_druger "Up"
+	Mouse_knober "Up"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxSR.Add_MouseMove({
  try{
-	Mouse_druger "Move" "SR"
+	Mouse_knober "Move" "SR"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxSR.Add_MouseDown({
  try{
-	Mouse_druger "Down" "SR" $_
+	Mouse_knober "Down" "SR" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxSR.Add_MouseWheel({
  try{
-	Mouse_druger "Wheel" "SR" $_
+	Mouse_knober "Wheel" "SR" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxSR.Add_MouseHover({
  try{
-	Mouse_druger "Hover" "SR"
+	Mouse_knober "Hover" "SR"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxSR.Add_MouseLeave({
  try{
-	Mouse_druger "Leave" "SR"
+	Mouse_knober "Leave" "SR"
  }catch{
 	echo $_.exception
  }
@@ -10155,42 +10214,42 @@ $PictboxRR.Location= @(190, 60) -join ","
 
 $PictboxRR.Add_MouseUp({
  try{
-	Mouse_druger "Up"
+	Mouse_knober "Up"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxRR.Add_MouseMove({
  try{
-	Mouse_druger "Move" "RR"
+	Mouse_knober "Move" "RR"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxRR.Add_MouseDown({
  try{
-	Mouse_druger "Down" "RR" $_
+	Mouse_knober "Down" "RR" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxRR.Add_MouseWheel({
  try{
-	Mouse_druger "Wheel" "RR" $_
+	Mouse_knober "Wheel" "RR" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxRR.Add_MouseHover({
  try{
-	Mouse_druger "Hover" "RR"
+	Mouse_knober "Hover" "RR"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxRR.Add_MouseLeave({
  try{
-	Mouse_druger "Leave" "RR"
+	Mouse_knober "Leave" "RR"
  }catch{
 	echo $_.exception
  }
@@ -10208,42 +10267,42 @@ $PictboxSL.Location= @(90, 150) -join ","
 
 $PictboxSL.Add_MouseUp({
  try{
-	Mouse_druger "Up"
+	Mouse_knober "Up"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxSL.Add_MouseMove({
  try{
-	Mouse_druger "Move" "SL"
+	Mouse_knober "Move" "SL"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxSL.Add_MouseDown({
  try{
-	Mouse_druger "Down" "SL" $_
+	Mouse_knober "Down" "SL" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxSL.Add_MouseWheel({
  try{
-	Mouse_druger "Wheel" "SL" $_
+	Mouse_knober "Wheel" "SL" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxSL.Add_MouseHover({
  try{
-	Mouse_druger "Hover" "SL"
+	Mouse_knober "Hover" "SL"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxSL.Add_MouseLeave({
  try{
-	Mouse_druger "Leave" "SL"
+	Mouse_knober "Leave" "SL"
  }catch{
 	echo $_.exception
  }
@@ -10261,42 +10320,42 @@ $PictboxKSL.Location= @(40, 40) -join ","
 
 $PictboxKSL.Add_MouseUp({
  try{
-	Mouse_druger "Up"
+	Mouse_knober "Up"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxKSL.Add_MouseMove({
  try{
-	Mouse_druger "Move" "KSL"
+	Mouse_knober "Move" "KSL"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxKSL.Add_MouseDown({
  try{
-	Mouse_druger "Down" "KSL" $_
+	Mouse_knober "Down" "KSL" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxKSL.Add_MouseWheel({
  try{
-	Mouse_druger "Wheel" "KSL" $_
+	Mouse_knober "Wheel" "KSL" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxKSL.Add_MouseHover({
  try{
-	Mouse_druger "Hover" "KSL"
+	Mouse_knober "Hover" "KSL"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxKSL.Add_MouseLeave({
  try{
-	Mouse_druger "Leave" "KSL"
+	Mouse_knober "Leave" "KSL"
  }catch{
 	echo $_.exception
  }
@@ -10312,42 +10371,42 @@ $PictboxKSR.Location= @(160, 40) -join ","
 
 $PictboxKSR.Add_MouseUp({
  try{
-	Mouse_druger "Up"
+	Mouse_knober "Up"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxKSR.Add_MouseMove({
  try{
-	Mouse_druger "Move" "KSR"
+	Mouse_knober "Move" "KSR"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxKSR.Add_MouseDown({
  try{
-	Mouse_druger "Down" "KSR" $_
+	Mouse_knober "Down" "KSR" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxKSR.Add_MouseWheel({
  try{
-	Mouse_druger "Wheel" "KSR" $_
+	Mouse_knober "Wheel" "KSR" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxKSR.Add_MouseHover({
  try{
-	Mouse_druger "Hover" "KSR"
+	Mouse_knober "Hover" "KSR"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxKSR.Add_MouseLeave({
  try{
-	Mouse_druger "Leave" "KSR"
+	Mouse_knober "Leave" "KSR"
  }catch{
 	echo $_.exception
  }
@@ -10365,42 +10424,42 @@ $PictboxDT.Location= @(10, 60) -join ","
 
 $PictboxDT.Add_MouseUp({
  try{
-	Mouse_druger "Up"
+	Mouse_knober "Up"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxDT.Add_MouseMove({
  try{
-	Mouse_druger "Move" "DT"
+	Mouse_knober "Move" "DT"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxDT.Add_MouseDown({
  try{
-	Mouse_druger "Down" "DT" $_
+	Mouse_knober "Down" "DT" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxDT.Add_MouseWheel({
  try{
-	Mouse_druger "Wheel" "DT" $_
+	Mouse_knober "Wheel" "DT" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxDT.Add_MouseHover({
  try{
-	Mouse_druger "Hover" "DT"
+	Mouse_knober "Hover" "DT"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxDT.Add_MouseLeave({
  try{
-	Mouse_druger "Leave" "DT"
+	Mouse_knober "Leave" "DT"
  }catch{
 	echo $_.exception
  }
@@ -10416,42 +10475,42 @@ $PictboxEG.Location= @(70, 60) -join ","
 
 $PictboxEG.Add_MouseUp({
  try{
-	Mouse_druger "Up"
+	Mouse_knober "Up"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxEG.Add_MouseMove({
  try{
-	Mouse_druger "Move" "EG"
+	Mouse_knober "Move" "EG"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxEG.Add_MouseDown({
  try{
-	Mouse_druger "Down" "EG" $_
+	Mouse_knober "Down" "EG" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxEG.Add_MouseWheel({
  try{
-	Mouse_druger "Wheel" "EG" $_
+	Mouse_knober "Wheel" "EG" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxEG.Add_MouseHover({
  try{
-	Mouse_druger "Hover" "EG"
+	Mouse_knober "Hover" "EG"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxEG.Add_MouseLeave({
  try{
-	Mouse_druger "Leave" "EG"
+	Mouse_knober "Leave" "EG"
  }catch{
 	echo $_.exception
  }
@@ -10467,42 +10526,42 @@ $PictboxVIB.Location= @(130, 60) -join ","
 
 $PictboxVIB.Add_MouseUp({
  try{
-	Mouse_druger "Up"
+	Mouse_knober "Up"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxVIB.Add_MouseMove({
  try{
-	Mouse_druger "Move" "VIB"
+	Mouse_knober "Move" "VIB"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxVIB.Add_MouseDown({
  try{
-	Mouse_druger "Down" "VIB" $_
+	Mouse_knober "Down" "VIB" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxVIB.Add_MouseWheel({
  try{
-	Mouse_druger "Wheel" "VIB" $_
+	Mouse_knober "Wheel" "VIB" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxVIB.Add_MouseHover({
  try{
-	Mouse_druger "Hover" "VIB"
+	Mouse_knober "Hover" "VIB"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxVIB.Add_MouseLeave({
  try{
-	Mouse_druger "Leave" "VIB"
+	Mouse_knober "Leave" "VIB"
  }catch{
 	echo $_.exception
  }
@@ -10518,42 +10577,42 @@ $PictboxAM.Location= @(190, 60) -join ","
 
 $PictboxAM.Add_MouseUp({
  try{
-	Mouse_druger "Up"
+	Mouse_knober "Up"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxAM.Add_MouseMove({
  try{
-	Mouse_druger "Move" "AM"
+	Mouse_knober "Move" "AM"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxAM.Add_MouseDown({
  try{
-	Mouse_druger "Down" "AM" $_
+	Mouse_knober "Down" "AM" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxAM.Add_MouseWheel({
  try{
-	Mouse_druger "Wheel" "AM" $_
+	Mouse_knober "Wheel" "AM" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxAM.Add_MouseHover({
  try{
-	Mouse_druger "Hover" "AM"
+	Mouse_knober "Hover" "AM"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxAM.Add_MouseLeave({
  try{
-	Mouse_druger "Leave" "AM"
+	Mouse_knober "Leave" "AM"
  }catch{
 	echo $_.exception
  }
@@ -10571,42 +10630,42 @@ $PictboxKS.Location= @(10, 60) -join ","
 
 $PictboxKS.Add_MouseUp({
  try{
-	Mouse_druger "Up"
+	Mouse_knober "Up"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxKS.Add_MouseMove({
  try{
-	Mouse_druger "Move" "KS"
+	Mouse_knober "Move" "KS"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxKS.Add_MouseDown({
  try{
-	Mouse_druger "Down" "KS" $_
+	Mouse_knober "Down" "KS" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxKS.Add_MouseWheel({
  try{
-	Mouse_druger "Wheel" "KS" $_
+	Mouse_knober "Wheel" "KS" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxKS.Add_MouseHover({
  try{
-	Mouse_druger "Hover" "KS"
+	Mouse_knober "Hover" "KS"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxKS.Add_MouseLeave({
  try{
-	Mouse_druger "Leave" "KS"
+	Mouse_knober "Leave" "KS"
  }catch{
 	echo $_.exception
  }
@@ -10622,42 +10681,42 @@ $PictboxDT1.Location= @(70, 60) -join ","
 
 $PictboxDT1.Add_MouseUp({
  try{
-	Mouse_druger "Up"
+	Mouse_knober "Up"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxDT1.Add_MouseMove({
  try{
-	Mouse_druger "Move" "DT1"
+	Mouse_knober "Move" "DT1"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxDT1.Add_MouseDown({
  try{
-	Mouse_druger "Down" "DT1" $_
+	Mouse_knober "Down" "DT1" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxDT1.Add_MouseWheel({
  try{
-	Mouse_druger "Wheel" "DT1" $_
+	Mouse_knober "Wheel" "DT1" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxDT1.Add_MouseHover({
  try{
-	Mouse_druger "Hover" "DT1"
+	Mouse_knober "Hover" "DT1"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxDT1.Add_MouseLeave({
  try{
-	Mouse_druger "Leave" "DT1"
+	Mouse_knober "Leave" "DT1"
  }catch{
 	echo $_.exception
  }
@@ -10673,42 +10732,42 @@ $PictboxDT2.Location= @(130, 60) -join ","
 
 $PictboxDT2.Add_MouseUp({
  try{
-	Mouse_druger "Up"
+	Mouse_knober "Up"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxDT2.Add_MouseMove({
  try{
-	Mouse_druger "Move" "DT2"
+	Mouse_knober "Move" "DT2"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxDT2.Add_MouseDown({
  try{
-	Mouse_druger "Down" "DT2" $_
+	Mouse_knober "Down" "DT2" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxDT2.Add_MouseWheel({
  try{
-	Mouse_druger "Wheel" "DT2" $_
+	Mouse_knober "Wheel" "DT2" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxDT2.Add_MouseHover({
  try{
-	Mouse_druger "Hover" "DT2"
+	Mouse_knober "Hover" "DT2"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxDT2.Add_MouseLeave({
  try{
-	Mouse_druger "Leave" "DT2"
+	Mouse_knober "Leave" "DT2"
  }catch{
 	echo $_.exception
  }
@@ -10724,42 +10783,42 @@ $PictboxAMS.Location= @(190, 60) -join ","
 
 $PictboxAMS.Add_MouseUp({
  try{
-	Mouse_druger "Up"
+	Mouse_knober "Up"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxAMS.Add_MouseMove({
  try{
-	Mouse_druger "Move" "AMS"
+	Mouse_knober "Move" "AMS"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxAMS.Add_MouseDown({
  try{
-	Mouse_druger "Down" "AMS" $_
+	Mouse_knober "Down" "AMS" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxAMS.Add_MouseWheel({
  try{
-	Mouse_druger "Wheel" "AMS" $_
+	Mouse_knober "Wheel" "AMS" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxAMS.Add_MouseHover({
  try{
-	Mouse_druger "Hover" "AMS"
+	Mouse_knober "Hover" "AMS"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxAMS.Add_MouseLeave({
  try{
-	Mouse_druger "Leave" "AMS"
+	Mouse_knober "Leave" "AMS"
  }catch{
 	echo $_.exception
  }
@@ -10777,42 +10836,42 @@ $PictboxTL.Location= @(30, 40) -join ","
 
 $PictboxTL.Add_MouseUp({
  try{
-	Mouse_druger "Up"
+	Mouse_knober "Up"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxTL.Add_MouseMove({
  try{
-	Mouse_druger "Move" "TL"
+	Mouse_knober "Move" "TL"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxTL.Add_MouseDown({
  try{
-	Mouse_druger "Down" "TL" $_
+	Mouse_knober "Down" "TL" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxTL.Add_MouseWheel({
  try{
-	Mouse_druger "Wheel" "TL" $_
+	Mouse_knober "Wheel" "TL" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxTL.Add_MouseHover({
  try{
-	Mouse_druger "Hover" "TL"
+	Mouse_knober "Hover" "TL"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxTL.Add_MouseLeave({
  try{
-	Mouse_druger "Leave" "TL"
+	Mouse_knober "Leave" "TL"
  }catch{
 	echo $_.exception
  }
@@ -10828,42 +10887,42 @@ $PictboxML.Location= @(150, 40) -join ","
 
 $PictboxML.Add_MouseUp({
  try{
-	Mouse_druger "Up"
+	Mouse_knober "Up"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxML.Add_MouseMove({
  try{
-	Mouse_druger "Move" "ML"
+	Mouse_knober "Move" "ML"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxML.Add_MouseDown({
  try{
-	Mouse_druger "Down" "ML" $_
+	Mouse_knober "Down" "ML" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxML.Add_MouseWheel({
  try{
-	Mouse_druger "Wheel" "ML" $_
+	Mouse_knober "Wheel" "ML" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxML.Add_MouseHover({
  try{
-	Mouse_druger "Hover" "ML"
+	Mouse_knober "Hover" "ML"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxML.Add_MouseLeave({
  try{
-	Mouse_druger "Leave" "ML"
+	Mouse_knober "Leave" "ML"
  }catch{
 	echo $_.exception
  }
@@ -10881,42 +10940,42 @@ $PictboxALG.Location= @(30, 40) -join ","
 
 $PictboxALG.Add_MouseUp({
  try{
-	Mouse_druger "Up"
+	Mouse_knober "Up"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxALG.Add_MouseMove({
  try{
-	Mouse_druger "Move" "ALG"
+	Mouse_knober "Move" "ALG"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxALG.Add_MouseDown({
  try{
-	Mouse_druger "Down" "ALG" $_
+	Mouse_knober "Down" "ALG" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxALG.Add_MouseWheel({
  try{
-	Mouse_druger "Wheel" "ALG" $_
+	Mouse_knober "Wheel" "ALG" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxALG.Add_MouseHover({
  try{
-	Mouse_druger "Hover" "ALG"
+	Mouse_knober "Hover" "ALG"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxALG.Add_MouseLeave({
  try{
-	Mouse_druger "Leave" "ALG"
+	Mouse_knober "Leave" "ALG"
  }catch{
 	echo $_.exception
  }
@@ -10932,49 +10991,49 @@ $PictboxFB.Location= @(150, 40) -join ","
 
 $PictboxFB.Add_MouseUp({
  try{
-	Mouse_druger "Up"
+	Mouse_knober "Up"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxFB.Add_MouseMove({
  try{
-	Mouse_druger "Move" "FB"
+	Mouse_knober "Move" "FB"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxFB.Add_MouseDown({
  try{
-	Mouse_druger "Down" "FB" $_
+	Mouse_knober "Down" "FB" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxFB.Add_MouseWheel({
  try{
-	Mouse_druger "Wheel" "FB" $_
+	Mouse_knober "Wheel" "FB" $_
  }catch{
 	echo $_.exception
  }
 })
 $PictboxFB.Add_MouseHover({
  try{
-	Mouse_druger "Hover" "FB"
+	Mouse_knober "Hover" "FB"
  }catch{
 	echo $_.exception
  }
 })
 $PictboxFB.Add_MouseLeave({
  try{
-	Mouse_druger "Leave" "FB"
+	Mouse_knober "Leave" "FB"
  }catch{
 	echo $_.exception
  }
 })
   
 # Group 
-	
+	 
 $eg_grp= New-Object System.Windows.Forms.GroupBox 
 $eg_grp.Location= "10, 30"
 $eg_grp.Size= "255, 130" # 4op "255, 210"
@@ -10982,9 +11041,9 @@ $eg_grp.Text= "Envelope Rate"
 $eg_grp.FlatStyle= "Flat"
 $eg_grp.ForeColor= "gray"
 $eg_grp.Font= $FonLabel
-	
+	 
 # ------ AR - AttackRate 15-0 2op /  31-0 4op 
-	
+	 
 $lbl_ar= New-Object System.Windows.Forms.Label 
 $lbl_ar.Location= "10,20"
 $lbl_ar.Size= "60,40"
@@ -12793,7 +12852,7 @@ $comb_fm.Add_SelectedValueChanged({ # Event
  })
    
 # forms 
-	 
+	
 $fm_panel= New-Object System.Windows.Forms.Panel 
 $fm_panel.Location= "0,0"
 $fm_panel.Size= "530,415"
@@ -12983,7 +13042,7 @@ $frm_fm.Add_FormClosing({
 })
  
 $fm_mnu= New-Object System.Windows.Forms.MenuStrip 
-	 
+	
 $fm_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_f.Text= "File"
 
@@ -15013,7 +15072,7 @@ $Lbrend.Colors= @($greenyellow,$lime,$greenyellow)
 $Lbrend.Positions= @(0.0, 0.25, 1.0)
 $Lbrush= New-Object System.Drawing.Drawing2D.LinearGradientBrush($poix,$poia,$lime,$lime)
 $Lbrush.InterpolationColors= $Lbrend
- 	
+ 
 # listen line ------ 
 $plum= [System.Drawing.Color]::FromName("plum")
 $turquoise= [System.Drawing.Color]::FromName("powderblue")
