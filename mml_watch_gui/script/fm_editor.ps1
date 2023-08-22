@@ -464,18 +464,19 @@ function Mouse_knober([string] $sw, [string] $type, $ev){	# knob
 
 		if($script:undo[2] -ne 'store'){
 
-			Unredo 0
+			Unredo 2
 		}
 
 		$x= NmudX $type
 		$x.Value= [string] (Delta_chg ([int] $ev.Delta) $x.Value $x.Maximum)
 		break;
 	}'Down'{
+
 		switch([string] $ev.Button){
 		'Left'{
 			if($script:undo[2] -ne 'store'){
 
-				Unredo 0
+				Unredo 2
 			}
 
 			if($sb_alg.Visible){
@@ -719,24 +720,30 @@ function Mouse_opwiner([string] $sw, [string] $opnum, $ev){	# Op.
 		if($script:mouse_capure -eq $True){
 
 			$mscp= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
+			# [int] $pp= [Math]::Floor( -([int] $mscp.X)+ ([int] $script:toppos.X) ) # pixcel
 
-			[int] $pp= [Math]::Floor( -([int] $mscp.X)+ ([int] $script:toppos.X) ) # pixcel
-			[int] $qq= [Math]::Floor( -([int] $mscp.Y)+ ([int] $script:toppos.Y) )
+			if(($key["knob"][$comb_fm.SelectedIndex] -eq 'ML') -or ($key["knob"][$comb_fm.SelectedIndex] -eq 'FB') -or ($key["knob"][$comb_fm.SelectedIndex] -eq 'ALG')){
 
-			Trans_ADSR $pp $qq
+				[int] $qq= [Math]::Floor( -([int] $mscp.Y)+ ([int] $script:toppos.Y) )
+			}else{
+				[int] $qq= [Math]::Floor( ([int] $mscp.Y)- ([int] $script:toppos.Y) ) # rev
+			}
+
+			Trans_ADSR $qq # $pp
 		}
 		break;
 	}'Wheel'{
 
-		if($script:undo[2] -ne 'store'){
+		if($script:undo[2] -ne 'store_op'){
 
-			Unredo 0
+			Unredo 3
 		}
 
 		$x= NmudX $key["knob"][$comb_fm.SelectedIndex]
 		$x.Value= [string] (Delta_chg ([int] $ev.Delta) $x.Value $x.Maximum)
 		break;
 	}'Down'{
+
 		Opmap_change $opnum
 
 		switch([string] $ev.Button){
@@ -749,9 +756,9 @@ function Mouse_opwiner([string] $sw, [string] $opnum, $ev){	# Op.
 			break;
 		}'Left'{
 
-			if($script:undo[2] -ne 'store'){
+			if($script:undo[2] -ne 'store_op'){
 
-				Unredo 0
+				Unredo 3
 			}
 
 			$script:toppos= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
@@ -808,7 +815,7 @@ function Drug_chg([int] $delta, [int] $num, [int] $max){
 	return $nn
  } #func
  
-function Trans_ADSR([int] $pp, [int] $qq){ 
+function Trans_ADSR([int] $qq){ # [int] $pp, 
 
 	# switch($key["knob"][$comb_fm.SelectedIndex]){
 	# 'AR'{	$delta= $pp;	break;
@@ -829,44 +836,58 @@ function Trans_ADSR([int] $pp, [int] $qq){
 	$x.Value= [string] (Drug_chg $delta $script:start_value $x.Maximum)
  } #func
  
-function Wheel_ALG([int] $delta){ 
+function Mouse_bger([string] $sw, $ev){ 
 
-	[int] $num
-	[int] $max
-	switch($comb_fm.SelectedItem){
-	'opl 2op'{		$num= $script:opl_nmud_alg.Value
-			$max= $script:opl_nmud_alg.Maximum
+	switch($sw){
+	'Wheel'{
+		if($script:undo[2] -ne 'store'){
+
+			Unredo 3
+		}
+
+		switch($comb_fm.SelectedItem){
+		'opl 2op'{		$x= $script:opl_nmud_alg
+				break;
+		}'opn 4op'{	$x= $script:opn_nmud_alg
+				break;
+		}'opm 4op'{	$x= $script:opm_nmud_alg
+		}
+		} #sw
+
+		$x.Value= [string] (Delta_chg ([int] $ev.Delta) $x.Value $x.Maximum)
+		break;
+
+	}'Down'{
+		switch([string]$_.Button){
+		'Right'{
+			Contxt_select "oct"
 			break;
-	}'opn 4op'{	$num= $script:opn_nmud_alg.Value
-			$max= $script:opn_nmud_alg.Maximum
-			break;
-	}'opm 4op'{	$num= $script:opm_nmud_alg.Value
-			$max= $script:opm_nmud_alg.Maximum
+		}'Left'{
+			$lisn_btn.PerformClick()
+		}
+		} #sw
+		break;
+
+	}'Hover'{
+
+		if($comb_fm.SelectedItem -ne 'vrc7 2op'){
+			$x= NmudX "ALG"
+			Buffer_Render $x.Value $x.Maximum "ALG" $True
+		}
+		break;
+
+	}'Leave'{
+		if($comb_fm.SelectedItem -ne 'vrc7 2op'){
+			$x= NmudX "ALG"
+			Buffer_Render $x.Value $x.Maximum "ALG" $False
+		}
 	}
 	} #sw
 
-	if($delta -lt 0){
-		if($num -gt 0){
-			$num--;
-		}
-	}else{
-		if($num -lt $max){
-			$num++;
-		}
-	}
-
-	switch($comb_fm.SelectedItem){
-	'opl 2op'{		$script:opl_nmud_alg.Value= $num
-			break;
-	}'opn 4op'{	$script:opn_nmud_alg.Value= $num
-			break;
-	}'opm 4op'{	$script:opm_nmud_alg.Value= $num
-	}
-	} #sw
  } #func
  
 <# 
-	 
+	
 function Wheel_ALG([int] $delta){ 
 
 	[int] $num= $key["oct"].Replace("o", "")
@@ -4616,7 +4637,7 @@ function Color_alg([string]$t){
 # ------ 
  
 # load save 
-	
+	 
 function Autoload($x){ 
 
 	if($comb_fm.SelectedItem -ne $x.name){
@@ -4907,7 +4928,7 @@ function Load_value($x, [string]$sw){
 	}
 	} #sw
 
-	Unredo 2
+	Unredo 0
 
 	Panel_chg $comb_fm.SelectedItem
 	Stus_build
@@ -6705,18 +6726,18 @@ function Key_play([string]$t){
  } #func
   
 # Export 
-	
+	 
 function Unredo([int]$n){ 
 
 	switch($n){ # 初期化
-	2{
+	0{
 		$script:undo[0]= $null # 空値も入るため
 		$script:undo[1]= $null
 		break;
 
 	}1{	# undo呼出し
 
-		if($script:undo[2] -eq 'store'){
+		if(($script:undo[2] -eq 'store') -or ($script:undo[2] -eq 'store_op')){
 			$script:undo[2]= "undo"
 		}
 
@@ -6740,11 +6761,15 @@ function Unredo([int]$n){
 		}
 		break;
 
-	}0{	# undo開始
-
-		# .Add_Enterでdo (menuから各objでは再enterとはならない)
+	}2{	# knob undo開始
 
 		$script:undo[2]= "store"
+		$script:undo[0]= $fm_box.Text
+		break;
+
+	}3{	# op. undo開始
+
+		$script:undo[2]= "store_op"
 		$script:undo[0]= $fm_box.Text
 	}
 	} #sw
@@ -6757,7 +6782,7 @@ function Unredo([int]$n){
 		$fm_menu_ud.Enabled= $False
 	}
  } #func
- 
+ 	
 function Send_build([int]$sw){ 
 
 	[array]$ary= @("OPL","VRC7","OPM","OPN") # OPL -> VRC7
@@ -8026,7 +8051,7 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 # Sub forms 
 	 
 # $contxt_7bwを読み込んだ後$PictureBox objが安全 
-	
+	 
 $contxt_Sep_7bw= New-Object System.Windows.Forms.ToolStripSeparator 
 $contxt_Sep_Lbw= New-Object System.Windows.Forms.ToolStripSeparator
 $contxt_Sep_Nbg= New-Object System.Windows.Forms.ToolStripSeparator
@@ -8043,7 +8068,7 @@ $contxt_7bw.Add_ItemClicked({
 	'ADSR copy'{	$script:adsr= ADSR_in
 			break;
 	}'ADSR paste'{
-		Unredo 0
+		Unredo 3
 
 		ADSR_out $script:adsr
 		Box_read
@@ -8077,7 +8102,7 @@ $contxt_Lbw.Add_ItemClicked({
 	'ADSR copy'{	$script:adsr= ADSR_in
 			break;
 	}'ADSR paste'{
-		Unredo 0
+		Unredo 3
 
 		ADSR_out $script:adsr
 		Box_read
@@ -8111,7 +8136,7 @@ $contxt_Nbg.Add_ItemClicked({
 	'ADSR copy'{	$script:adsr= ADSR_in
 			break;
 	}'ADSR paste'{
-		Unredo 0
+		Unredo 3
 
 		ADSR_out $script:adsr
 		Box_read
@@ -8145,7 +8170,7 @@ $contxt_Mbg.Add_ItemClicked({
 	'ADSR copy'{	$script:adsr= ADSR_in
 			break;
 	}'ADSR paste'{
-		Unredo 0
+		Unredo 3
 
 		ADSR_out $script:adsr
 		Box_read
@@ -8197,7 +8222,7 @@ $script:toppos= New-Object System.Drawing.Point
 
 
 
-	 
+	
 [int[]]$op_IMG= @(162, 102) 
 $op_Rect= New-Object System.Drawing.Rectangle(0, 0, $op_IMG[0], $op_IMG[1])
  
@@ -8215,7 +8240,7 @@ $Pictbg.Location= "0,0"
 
 $Pictbg.Add_MouseWheel({
  try{
-	Wheel_ALG $_.Delta
+	Mouse_bger "Wheel" $_
  }catch{
 	echo $_.exception
  }
@@ -8223,26 +8248,23 @@ $Pictbg.Add_MouseWheel({
 
 $Pictbg.Add_MouseDown({
  try{
-	switch([string]$_.Button){
-	'Right'{
-		Contxt_select "oct"
-		break;
-	}'Left'{
-		$lisn_btn.PerformClick() # メソッド
-	}
-	} #sw
+	Mouse_bger "Down" $_
  }catch{
 	echo $_.exception
  }
 })
 
-$Pictbg.Add_DoubleClick({
+$Pictbg.Add_MouseHover({
  try{
-	switch([string]$_.Button){
-	'Left'{
-		$lisn_btn.PerformClick() # メソッド
-	}
-	} #sw
+	Mouse_bger "Hover"
+ }catch{
+	echo $_.exception
+ }
+})
+
+$Pictbg.Add_MouseLeave({
+ try{
+	Mouse_bger "Leave"
  }catch{
 	echo $_.exception
  }
@@ -8262,7 +8284,7 @@ $Pictbw.Location= "0,0"
 
 $Pictbw.Add_MouseWheel({
  try{
-	Wheel_ALG $_.Delta
+	Mouse_bger "Wheel" $_
  }catch{
 	echo $_.exception
  }
@@ -8270,26 +8292,23 @@ $Pictbw.Add_MouseWheel({
 
 $Pictbw.Add_MouseDown({
  try{
-	switch([string]$_.Button){
-	'Right'{
-		Contxt_select "oct"
-		break;
-	}'Left'{
-		$lisn_btn.PerformClick()
-	}
-	} #sw
+	Mouse_bger "Down" $_
  }catch{
 	echo $_.exception
  }
 })
 
-$Pictbw.Add_DoubleClick({
+$Pictbw.Add_MouseHover({
  try{
-	switch([string]$_.Button){
-	'Left'{
-		$lisn_btn.PerformClick()
-	}
-	} #sw
+	Mouse_bger "Hover"
+ }catch{
+	echo $_.exception
+ }
+})
+
+$Pictbw.Add_MouseLeave({
+ try{
+	Mouse_bger "Leave"
  }catch{
 	echo $_.exception
  }
@@ -8670,11 +8689,11 @@ $Pictbox4.Add_MouseLeave({
 	echo $_.exception
  }
 })
- 	  
+   
 # buffb 
 
 
-	 
+	
 [int[]]$buf_IMG= @(322, 202) 
 $buf_Rect= New-Object System.Drawing.Rectangle(0, 0, $buf_IMG[0], $buf_IMG[1])
 [int[]]$buf_Size= @(($buf_IMG[0]+ 2), ($buf_IMG[1]+ 2)) # バッファサイズ
@@ -9279,7 +9298,7 @@ $sb_stus.Items.AddRange(@($sb_label))
 $sb_alg.Controls.AddRange(@($sb_mnu,$pict_panel,$sb_stus))
   
 # Preset forms 
-	
+	 
 $ff_baloon= New-Object System.Windows.Forms.Tooltip 
 $ff_baloon.ShowAlways= $False
 # $ff_baloon.ToolTipIcon= "Info"
@@ -9419,7 +9438,7 @@ $tab_mck.Add_VisibleChanged({
 		Menu_build "compiler"
 		Stus_build
 
-		Unredo 2
+		Unredo 0
 	}
  }catch{
 	echo $_.exception
@@ -9441,7 +9460,7 @@ $tab_vrc.Add_VisibleChanged({
 		Menu_build "compiler"
 		Stus_build
 
-		Unredo 2
+		Unredo 0
 	}
   }catch{
 	echo $_.exception
@@ -9460,7 +9479,7 @@ $tab_88.Add_VisibleChanged({
 		Menu_build "compiler"
 		Stus_build
 
-		Unredo 2
+		Unredo 0
 	}
  }catch{
 	echo $_.exception
@@ -9479,7 +9498,7 @@ $tab_x68.Add_VisibleChanged({
 		Menu_build "compiler"
 		Stus_build
 
-		Unredo 2
+		Unredo 0
 	}
  }catch{
 	echo $_.exception
@@ -9498,7 +9517,7 @@ $tab_efx.Add_VisibleChanged({
 		Menu_build "compiler"
 		Stus_build
 
-		Unredo 2
+		Unredo 0
 	}
  }catch{
 	echo $_.exception
@@ -10015,7 +10034,7 @@ $sub_sav.AcceptButton= $sub_sav_ok_Btn	# [Enter]
 # Main forms 
 	 
 # BUFFER 
-	
+	 
 [int[]]$IMG_buf= @(480, 480) # バッファサイズ 
 [int[]]$Size_buf= @(($IMG_buf[0]+ 2), ($IMG_buf[1]+ 2))
 $Rect_buf= New-Object System.Drawing.Rectangle(0,0, $IMG_buf[0],$IMG_buf[1])
@@ -10040,7 +10059,7 @@ $Horizonbuff= $Contxtbuf.Allocate($Graphics_buf, $Rect_buf)
 # $Horizonbuff= $Contxtb.Allocate($Graphics_buf, $Pictbox_buf.ClientRectangle)
   
 # Pictbox 
-	 
+	
 [bool] $script:mouser_capure= $False 
 [int] $script:starter_value= 0
 $script:topper_pos= New-Object System.Drawing.Point
@@ -11041,9 +11060,9 @@ $eg_grp.Text= "Envelope Rate"
 $eg_grp.FlatStyle= "Flat"
 $eg_grp.ForeColor= "gray"
 $eg_grp.Font= $FonLabel
-	 
+	
 # ------ AR - AttackRate 15-0 2op /  31-0 4op 
-	 
+	
 $lbl_ar= New-Object System.Windows.Forms.Label 
 $lbl_ar.Location= "10,20"
 $lbl_ar.Size= "60,40"
@@ -12169,7 +12188,7 @@ $op_grp.Text= "Frequency Modulation"
 $op_grp.FlatStyle= "Flat"
 $op_grp.ForeColor= "gray"
 $op_grp.Font= $FonLabel
-	
+	 
 # ------ TL - TotalLevel 63-0 2op / 0max - 127min 4op 
 	 
 $lbl_tl= New-Object System.Windows.Forms.Label 
@@ -12413,7 +12432,7 @@ $alg_grp.ForeColor= "gray"
 $alg_grp.Font= $FonLabel
 	
 # ------ ALG - Algorithm 0-1 opl / 0-7 4op 
-	
+	 
 $lbl_alg= New-Object System.Windows.Forms.Label 
 $lbl_alg.Location= "10,20"
 $lbl_alg.Size= "120,20"
@@ -12506,7 +12525,7 @@ $opm_nmud_alg.Add_ValueChanged({
 })
   
 # ------ FB - Feedback 0-7 
-	 
+	
 $lbl_fb= New-Object System.Windows.Forms.Label 
 $lbl_fb.Location= "130,20"
 $lbl_fb.Size= "120,20"
@@ -12628,7 +12647,7 @@ $osc_grp.Size= "255, 105"
 $osc_grp.Location= "270,300"
 $osc_grp.ForeColor= "gray"
 $osc_grp.Font= $FonLabel
-	
+	 
 $lisn_btn= New-Object System.Windows.Forms.Button 
 $lisn_btn.Location= "20, 30"
 $lisn_btn.Size= "25, 25"
@@ -12834,7 +12853,7 @@ $comb_fm.SelectedIndex= 0
 $comb_fm.Add_SelectedValueChanged({ # Event
   try{
 	$fm_menu_copy.Enabled= Enable_chk $key["style"]
-	Unredo 2
+	Unredo 0
 
 	Panel_chg $comb_fm.SelectedItem	# compiler change
 	Color_Render
@@ -12852,7 +12871,7 @@ $comb_fm.Add_SelectedValueChanged({ # Event
  })
    
 # forms 
-	
+	 
 $fm_panel= New-Object System.Windows.Forms.Panel 
 $fm_panel.Location= "0,0"
 $fm_panel.Size= "530,415"
@@ -12910,7 +12929,7 @@ $fm_box.font= $Fon
 
 $fm_box.Add_Enter({ # kaki komi de undo reset
  try{
-	Unredo 0
+	Unredo 2
 
 	$this.ForeColor= "black"
 	$this.BackColor= "white"
@@ -13042,7 +13061,7 @@ $frm_fm.Add_FormClosing({
 })
  
 $fm_mnu= New-Object System.Windows.Forms.MenuStrip 
-	
+	 
 $fm_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_f.Text= "File"
 
@@ -13063,7 +13082,7 @@ $fm_menu_f.Text= "File"
 
 
 
-	
+	 
 $fm_menu_pset= New-Object System.Windows.Forms.ToolStripSeparator 
 $fm_menu_pset= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_pset.Text= "Preset"
@@ -13301,7 +13320,7 @@ $fm_sav_h.Add_Click({
 $fm_menu_ktn= New-Object System.Windows.Forms.ToolStripSeparator 
 $fm_menu_kt= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_kt.Text= "Preferences"
-	
+	 
 $menu_fty= New-Object System.Windows.Forms.ToolStripMenuItem 
 # $menu_fty.Text= "v Task tray"
 
@@ -13353,7 +13372,7 @@ $fm_menu_rcver.Add_Click({	# 数値リストア
 
 	switch($retn){
 	'OK'{
-		Unredo 0
+		Unredo 2
 
 		Autoload $fm_xml.table.autosave
 
@@ -13387,7 +13406,7 @@ $fm_menu_rst.Add_Click({	# 数値リセット
 
 	switch($retn){
 	'OK'{
-		Unredo 0
+		Unredo 2
 
 		Autoload $fm_xml.table.resetting
 
@@ -13495,7 +13514,7 @@ $fm_menu_set.Add_Click({
 	Menu_build "editor"
 	Stus_build
 
-	Unredo 2
+	Unredo 0
 
 	if($sb_alg.Visible){
 		All_chg
@@ -14499,7 +14518,7 @@ $fm_menu_type_nsd.Add_Click({
 		Menu_build "compiler"
 		Stus_build
 
-		Unredo 2
+		Unredo 0
 	}
  }catch{
 	echo $_.exception
@@ -14519,7 +14538,7 @@ $fm_menu_type_mckreg.Add_Click({
 		Menu_build "compiler"
 		Stus_build
 
-		Unredo 2
+		Unredo 0
 	}
  }catch{
 	echo $_.exception
@@ -14539,7 +14558,7 @@ $fm_menu_type_nsdreg.Add_Click({
 		Menu_build "compiler"
 		Stus_build
 
-		Unredo 2
+		Unredo 0
 	}
  }catch{
 	echo $_.exception
@@ -14559,7 +14578,7 @@ $fm_menu_style_pmd.Add_Click({
 		Menu_build "compiler"
 		Stus_build
 
-		Unredo 2
+		Unredo 0
 	}
   }catch{
 	echo $_.exception
@@ -14579,7 +14598,7 @@ $fm_menu_style_mucom.Add_Click({
 		Menu_build "compiler"
 		Stus_build
 
-		Unredo 2
+		Unredo 0
 	}
   }catch{
 	echo $_.exception
@@ -14599,7 +14618,7 @@ $fm_menu_style_fmp7.Add_Click({
 		Menu_build "compiler"
 		Stus_build
 
-		Unredo 2
+		Unredo 0
 	}
   }catch{
 	echo $_.exception
@@ -14619,7 +14638,7 @@ $fm_menu_style_mxdrv.Add_Click({
 		Menu_build "compiler"
 		Stus_build
 
-		Unredo 2
+		Unredo 0
 	}
   }catch{
 	echo $_.exception
@@ -15633,7 +15652,7 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 	Stus_build
 
 	[array]$undo= $null,$null,"" # array obj高速化
-	# Unredo 2 # Reset,Enable
+	# Unredo 0 # Reset
 
 
 	[int[]]$frm_state= 0, 0,0,0,0 # Multi window state
