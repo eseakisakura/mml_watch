@@ -421,7 +421,7 @@ function Brush_Color(){
 } #func
   
 # buffer 
-	 
+	
 function Pixcel_Select([int] $max){ 
 
 	$max= $max+ 1
@@ -464,6 +464,12 @@ function Mouse_knober([string] $sw, [string] $type, $ev){	# knob
 
 		if($script:undo[2] -ne 'store'){
 
+			if(($fm_box.Focused -eq $True) -or ($fm_box_mml.Focused -eq $True)){
+
+				$conv_btn.Focus() # $fm_box - leave event tame
+				$conv_btn.PerformClick()
+			}
+
 			Unredo 2
 		}
 
@@ -475,6 +481,12 @@ function Mouse_knober([string] $sw, [string] $type, $ev){	# knob
 		switch([string] $ev.Button){
 		'Left'{
 			if($script:undo[2] -ne 'store'){
+
+				if(($fm_box.Focused -eq $True) -or ($fm_box_mml.Focused -eq $True)){
+
+					$conv_btn.Focus()
+					$conv_btn.PerformClick()
+				}
 
 				Unredo 2
 			}
@@ -497,9 +509,9 @@ function Mouse_knober([string] $sw, [string] $type, $ev){	# knob
 		Buffer_Render $x.Value $x.Maximum $type $True
 
 		$script:key["knob"][$comb_fm.SelectedIndex]= $type
-		Contxt_change $type
 
 		if($sb_alg.Visible){
+			Contxt_change $type
 			All_chg
 		}
 		break;
@@ -712,6 +724,8 @@ function Opmap_change([int]$j){
  
 function Mouse_opwiner([string] $sw, [string] $opnum, $ev){	# Op. 
 
+	[string] $type= $key["knob"][$comb_fm.SelectedIndex]
+
 	switch($sw){
 	'Up'{
 		$script:mouse_capure= $False
@@ -719,12 +733,13 @@ function Mouse_opwiner([string] $sw, [string] $opnum, $ev){	# Op.
 	}'Move'{
 		if($script:mouse_capure -eq $True){
 
+
 			$mscp= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
-			# [int] $pp= [Math]::Floor( -([int] $mscp.X)+ ([int] $script:toppos.X) ) # pixcel
 
-			if(($key["knob"][$comb_fm.SelectedIndex] -eq 'ML') -or ($key["knob"][$comb_fm.SelectedIndex] -eq 'FB') -or ($key["knob"][$comb_fm.SelectedIndex] -eq 'ALG')){
+			if(($type -eq 'EG') -or ($type -eq 'ML') -or ($type -eq 'FB') -or ($type -eq 'ALG')){
 
-				[int] $qq= [Math]::Floor( -([int] $mscp.Y)+ ([int] $script:toppos.Y) )
+				[int] $qq= [Math]::Floor( -([int] $mscp.Y)+ ([int] $script:toppos.Y) ) # pixcel
+				# [int] $pp= [Math]::Floor( -([int] $mscp.X)+ ([int] $script:toppos.X) )
 			}else{
 				[int] $qq= [Math]::Floor( ([int] $mscp.Y)- ([int] $script:toppos.Y) ) # rev
 			}
@@ -736,10 +751,16 @@ function Mouse_opwiner([string] $sw, [string] $opnum, $ev){	# Op.
 
 		if($script:undo[2] -ne 'store_op'){
 
+			if(($fm_box.Focused -eq $True) -or ($fm_box_mml.Focused -eq $True)){
+
+				$conv_btn.Focus()
+				$conv_btn.PerformClick()
+			}
+
 			Unredo 3
 		}
 
-		$x= NmudX $key["knob"][$comb_fm.SelectedIndex]
+		$x= NmudX $type
 		$x.Value= [string] (Delta_chg ([int] $ev.Delta) $x.Value $x.Maximum)
 		break;
 	}'Down'{
@@ -750,20 +771,26 @@ function Mouse_opwiner([string] $sw, [string] $opnum, $ev){	# Op.
 		'Right'{
 			Contxt_select "boxpict"
 
-			$x= NmudX $key["knob"][$comb_fm.SelectedIndex]
-			Buffer_Render $x.Value $x.Maximum $key["knob"][$comb_fm.SelectedIndex] $False
+			$x= NmudX $type
+			Buffer_Render $x.Value $x.Maximum $type $False
 
 			break;
 		}'Left'{
 
 			if($script:undo[2] -ne 'store_op'){
 
+				if(($fm_box.Focused -eq $True) -or ($fm_box_mml.Focused -eq $True)){
+
+					$conv_btn.Focus()
+					$conv_btn.PerformClick()
+				}
+
 				Unredo 3
 			}
 
 			$script:toppos= $sb_alg.PointToClient([Windows.Forms.Cursor]::Position)
 
-			$x= NmudX $key["knob"][$comb_fm.SelectedIndex]
+			$x= NmudX $type
 			$script:start_value= [int] $x.Value
 
 			$script:mouse_capure= $True
@@ -774,13 +801,63 @@ function Mouse_opwiner([string] $sw, [string] $opnum, $ev){	# Op.
 
 		Opmap_change $opnum
 
-		$x= NmudX $key["knob"][$comb_fm.SelectedIndex]
-		Buffer_Render $x.Value $x.Maximum $key["knob"][$comb_fm.SelectedIndex] $True
+		$x= NmudX $type
+		Buffer_Render $x.Value $x.Maximum $type $True
 		break;
 	}'Leave'{
 
-		$x= NmudX $key["knob"][$comb_fm.SelectedIndex]
-		Buffer_Render $x.Value $x.Maximum $key["knob"][$comb_fm.SelectedIndex] $False
+		$x= NmudX $type
+		Buffer_Render $x.Value $x.Maximum $type $False
+	}
+	} #sw
+
+ } #func
+ 
+function Mouse_bger([string] $sw, $ev){ 
+
+	switch($sw){
+	'Wheel'{
+		if($script:undo[2] -ne 'store_op'){
+
+			Unredo 3
+		}
+
+		switch($comb_fm.SelectedItem){
+		'opl 2op'{		$x= $script:opl_nmud_alg
+				break;
+		}'opn 4op'{	$x= $script:opn_nmud_alg
+				break;
+		}'opm 4op'{	$x= $script:opm_nmud_alg
+		}
+		} #sw
+
+		$x.Value= [string] (Delta_chg ([int] $ev.Delta) $x.Value $x.Maximum)
+		break;
+
+	}'Down'{
+		switch([string]$ev.Button){
+		'Right'{
+			Contxt_select "oct"
+			break;
+		}'Left'{
+			$lisn_btn.PerformClick()
+		}
+		} #sw
+		break;
+
+	}'Hover'{
+
+		if($comb_fm.SelectedItem -ne 'vrc7 2op'){
+			$x= NmudX "ALG"
+			Buffer_Render $x.Value $x.Maximum "ALG" $True
+		}
+		break;
+
+	}'Leave'{
+		if($comb_fm.SelectedItem -ne 'vrc7 2op'){
+			$x= NmudX "ALG"
+			Buffer_Render $x.Value $x.Maximum "ALG" $False
+		}
 	}
 	} #sw
 
@@ -834,56 +911,6 @@ function Trans_ADSR([int] $qq){ # [int] $pp,
 
 	$delta= [Math]::Floor( $delta/ $dd)
 	$x.Value= [string] (Drug_chg $delta $script:start_value $x.Maximum)
- } #func
- 
-function Mouse_bger([string] $sw, $ev){ 
-
-	switch($sw){
-	'Wheel'{
-		if($script:undo[2] -ne 'store'){
-
-			Unredo 3
-		}
-
-		switch($comb_fm.SelectedItem){
-		'opl 2op'{		$x= $script:opl_nmud_alg
-				break;
-		}'opn 4op'{	$x= $script:opn_nmud_alg
-				break;
-		}'opm 4op'{	$x= $script:opm_nmud_alg
-		}
-		} #sw
-
-		$x.Value= [string] (Delta_chg ([int] $ev.Delta) $x.Value $x.Maximum)
-		break;
-
-	}'Down'{
-		switch([string]$_.Button){
-		'Right'{
-			Contxt_select "oct"
-			break;
-		}'Left'{
-			$lisn_btn.PerformClick()
-		}
-		} #sw
-		break;
-
-	}'Hover'{
-
-		if($comb_fm.SelectedItem -ne 'vrc7 2op'){
-			$x= NmudX "ALG"
-			Buffer_Render $x.Value $x.Maximum "ALG" $True
-		}
-		break;
-
-	}'Leave'{
-		if($comb_fm.SelectedItem -ne 'vrc7 2op'){
-			$x= NmudX "ALG"
-			Buffer_Render $x.Value $x.Maximum "ALG" $False
-		}
-	}
-	} #sw
-
  } #func
  
 <# 
@@ -1222,102 +1249,232 @@ function Value_out(){
 	return $ss
  } #func
  
-function ADSR_in(){ 
-
-	[string[]] $ss= "","","", "",""
+function ADSR_in([string[]] $ss){ 
 
 	switch($comb_fm.SelectedItem){
 	'vrc7 2op'{
 		[array] $rr= $script:vrc_svn
-		[int] $nn= $comb_vrc.SelectedIndex
+		[int] $nn= $comb_vrc.SelectedIndex # Op.
 
-		$ss[0]= $rr[$nn][2] # ar
-		$ss[1]= $rr[$nn][3] # dr
-		$ss[2]= $rr[$nn][5] # rr
-		$ss[3]= $rr[$nn][4] # sl
-		$ss[4]= $rr[$nn][10] # eg
+		$ss[2]= $rr[$nn][2] # ar
+		$ss[3]= $rr[$nn][3] # dr
+		$ss[4]= $rr[$nn][4] # sl
+		$ss[5]= $rr[$nn][5] # rr
+		$ss[6]= $rr[$nn][6] # ksl
+		$ss[7]= $rr[$nn][7] # ml
+		$ss[8]= $rr[$nn][8] # am
+		$ss[9]= $rr[$nn][9] # vib
+		$ss[10]= $rr[$nn][10] # eg
+		$ss[11]= $rr[$nn][11] # ksr
+		$ss[12]= $rr[$nn][12] # dt
 		break;
 	}'opl 2op'{
 		[array] $rr= $script:opl_two
 		[int] $nn= $comb_opl.SelectedIndex
 
-		$ss[0]= $rr[$nn][2] # ar
-		$ss[1]= $rr[$nn][3] # dr
-		$ss[2]= $rr[$nn][4] # rr
-		$ss[3]= $rr[$nn][5] # sl
-		$ss[4]= $rr[$nn][10] # eg
+		$ss[2]= $rr[$nn][2] # ar
+		$ss[3]= $rr[$nn][3] # dr
+		$ss[4]= $rr[$nn][4] # rr
+		$ss[5]= $rr[$nn][5] # sl
+		$ss[6]= $rr[$nn][6] # tl
+		$ss[7]= $rr[$nn][7] # ksl
+		$ss[8]= $rr[$nn][8] # ml
+		$ss[9]= $rr[$nn][9] # ksr
+		$ss[10]= $rr[$nn][10] # eg
+		$ss[11]= $rr[$nn][11] # vib
+		$ss[12]= $rr[$nn][12] # am
 		break;
 	}'opn 4op'{
 		[array] $rr= $script:opn_fur
 		[int] $nn= $comb_opn.SelectedIndex
 
-		$ss[0]= $rr[$nn][2] # ar
-		$ss[1]= $rr[$nn][3] # dr
-		$ss[2]= $rr[$nn][4] # sr
-		$ss[3]= $rr[$nn][5] # rr
-		$ss[4]= $rr[$nn][6] # sl
+		$ss[2]= $rr[$nn][2] # ar
+		$ss[3]= $rr[$nn][3] # dr
+		$ss[4]= $rr[$nn][4] # sr
+		$ss[5]= $rr[$nn][5] # rr
+		$ss[6]= $rr[$nn][6] # sl
+		$ss[7]= $rr[$nn][7] # tl
+		$ss[8]= $rr[$nn][8] # ks
+		$ss[9]= $rr[$nn][9] # ml
+		$ss[10]= $rr[$nn][10] # dt
+		$ss[11]= $rr[$nn][11] # ams
 		break;
 	}'opm 4op'{
 		[array] $rr= $script:opm_fur
 		[int] $nn= $comb_opm.SelectedIndex
 
-		$ss[0]= $rr[$nn][2] # ar
-		$ss[1]= $rr[$nn][3] # dr
-		$ss[2]= $rr[$nn][4] # sr
-		$ss[3]= $rr[$nn][5] # rr
-		$ss[4]= $rr[$nn][6] # sl
+		$ss[2]= $rr[$nn][2] # ar
+		$ss[3]= $rr[$nn][3] # dr
+		$ss[4]= $rr[$nn][4] # sr
+		$ss[5]= $rr[$nn][5] # rr
+		$ss[6]= $rr[$nn][6] # sl
+		$ss[7]= $rr[$nn][7] # tl
+		$ss[8]= $rr[$nn][8] # ks
+		$ss[9]= $rr[$nn][9] # ml
+		$ss[10]= $rr[$nn][10] # dt1
+		$ss[11]= $rr[$nn][11] # dt2
+		$ss[12]= $rr[$nn][12] # ams
 	}
 	} #sw
 
 	return $ss
  } #func
  
-function ADSR_out([string[]] $ss){ 
+function ADSR_out([string[]] $ss, [string] $sw){ 	
+
+	[int[]] $num= 0,0,0
+
+	switch($sw){
+	'ADSR'{	$num[0]= 1;	break;
+	}'FM'{	$num[1]= 1;	break;
+	}'ALL'{	$num[0]= 1; $num[1]= 1; $num[2]= 1
+	}
+	} #sw
 
 	switch($comb_fm.SelectedItem){
 	'vrc7 2op'{
 		$rr= $script:vrc_svn
-		[int] $nn= $comb_vrc.SelectedIndex
+		[int] $nn= $comb_vrc.SelectedIndex # Op.
 
-		$rr[$nn][2]= $ss[0] # ar
-		$rr[$nn][3]= $ss[1] # dr
-		$rr[$nn][5]= $ss[2] # rr
-		$rr[$nn][4]= $ss[3] # sl
-		$rr[$nn][10]= $ss[4] # eg
+		if($num[0] -eq 1){
+			$rr[$nn][2]= $ss[2] # ar
+			$rr[$nn][3]= $ss[3] # dr
+			$rr[$nn][4]= $ss[4] # sl
+			$rr[$nn][5]= $ss[5] # rr
+			$rr[$nn][10]= $ss[10] # eg
+		}
+
+		if($num[1] -eq 1){
+			$rr[$nn][7]= $ss[7] # ml
+		}
+
+		if($num[2] -eq 1){
+			$rr[$nn][6]= $ss[6] # ksl
+			$rr[$nn][8]= $ss[8] # am
+			$rr[$nn][9]= $ss[9] # vib
+			$rr[$nn][11]= $ss[11] # ksr
+			$rr[$nn][12]= $ss[12] # dt
+		}
 		break;
 	}'opl 2op'{
 		$rr= $script:opl_two
 		[int] $nn= $comb_opl.SelectedIndex
 
-		$rr[$nn][2]= $ss[0] # ar
-		$rr[$nn][3]= $ss[1] # dr
-		$rr[$nn][4]= $ss[2] # rr
-		$rr[$nn][5]= $ss[3] # sl
-		$rr[$nn][10]= $ss[4] # eg
+		if($num[0] -eq 1){
+			$rr[$nn][2]= $ss[2] # ar
+			$rr[$nn][3]= $ss[3] # dr
+			$rr[$nn][4]= $ss[4] # rr
+			$rr[$nn][5]= $ss[5] # sl
+			$rr[$nn][10]= $ss[10] # eg
+		}
+
+		if($num[1] -eq 1){
+			$rr[$nn][6]= $ss[6] # tl
+			$rr[$nn][8]= $ss[8] # ml
+		}
+
+		if($num[2] -eq 1){
+			$rr[$nn][7]= $ss[7] # ksl
+			$rr[$nn][9]= $ss[9] # ksr
+			$rr[$nn][11]= $ss[11] # vib
+			$rr[$nn][12]= $ss[12] # am
+		}
 		break;
 	}'opn 4op'{
 		$rr= $script:opn_fur
 		[int] $nn= $comb_opn.SelectedIndex
 
-		$rr[$nn][2]= $ss[0] # ar
-		$rr[$nn][3]= $ss[1] # dr
-		$rr[$nn][4]= $ss[2] # sr
-		$rr[$nn][5]= $ss[3] # rr
-		$rr[$nn][6]= $ss[4] # sl
+		if($num[0] -eq 1){
+			$rr[$nn][2]= $ss[2] # ar
+			$rr[$nn][3]= $ss[3] # dr
+			$rr[$nn][4]= $ss[4] # sr
+			$rr[$nn][5]= $ss[5] # rr
+			$rr[$nn][6]= $ss[6] # sl
+		}
+
+		if($num[1] -eq 1){
+			$rr[$nn][7]= $ss[7] # tl
+			$rr[$nn][9]= $ss[9] # ml
+		}
+
+		if($num[2] -eq 1){
+			$rr[$nn][8]= $ss[8] # ks
+			$rr[$nn][10]= $ss[10] # dt
+			$rr[$nn][11]= $ss[11] # ams
+		}
 		break;
 	}'opm 4op'{
 		$rr= $script:opm_fur
 		[int] $nn= $comb_opm.SelectedIndex
 
-		$rr[$nn][2]= $ss[0] # ar
-		$rr[$nn][3]= $ss[1] # dr
-		$rr[$nn][4]= $ss[2] # sr
-		$rr[$nn][5]= $ss[3] # rr
-		$rr[$nn][6]= $ss[4] # sl
+		if($num[0] -eq 1){
+			$rr[$nn][2]= $ss[2] # ar
+			$rr[$nn][3]= $ss[3] # dr
+			$rr[$nn][4]= $ss[4] # sr
+			$rr[$nn][5]= $ss[5] # rr
+			$rr[$nn][6]= $ss[6] # sl
+		}
+
+		if($num[1] -eq 1){
+			$rr[$nn][7]= $ss[7] # tl
+			$rr[$nn][9]= $ss[9] # ml
+		}
+
+		if($num[2] -eq 1){
+			$rr[$nn][8]= $ss[8] # ks
+			$rr[$nn][10]= $ss[10] # dt1
+			$rr[$nn][11]= $ss[11] # dt2
+			$rr[$nn][12]= $ss[12] # ams
+		}
 	}
 	} #sw
  } #func
  
+function ADSR_cp([string] $str){ 
+
+	switch($str){
+	'ALL copy'{
+		$script:adsr= ADSR_in $script:adsr
+		break;
+
+	}'ADSR paste'{
+		Unredo 3
+		ADSR_out $script:adsr "ADSR"
+
+		Box_read
+		Value_gui
+		All_chg
+
+		break;
+	}'FM paste'{
+		Unredo 3
+		ADSR_out $script:adsr "FM"
+
+		Box_read
+		Value_gui
+		All_chg
+
+		break;
+	}'ALL paste'{
+		Unredo 3
+		ADSR_out $script:adsr "ALL"
+
+		Box_read
+		Value_gui
+		All_chg
+
+		break;
+	}default{
+		if($str.Contains("[v]") -eq $False){
+
+			$script:key["knob"][$comb_fm.SelectedIndex]= (ShortX $str "short")
+			Contxt_change (ShortX $str "short")
+			All_chg # pictbox string tame
+		}
+	}
+	} #sw
+ } #func
+ 	
 # ------ 
  
 function Contxt_select([string]$s){ 
@@ -1352,685 +1509,223 @@ function Contxt_change([string] $ss){
  
 function Contxt_chg_vrc([string] $ss){ 
 
-	$contxt_7bw.Items.Clear()
+	$x= $contxt_7bw.Items
+
+	$x.Clear()
+
+	[array] $rr= "Attack","Decay","Sustain","Release","EnvGeneType","Multiple","TotalLevel","Distortion","Feedback"
+	$rr+= $contxtL_Sep_7bw,"ALL copy"
+	$rr+= $contxtA_Sep_7bw,"ADSR paste","FM paste","ALL paste"
 
 	switch($ss){
 	'AR'{
-		[void]$contxt_7bw.Items.Add("Attack [v]")
-		[void]$contxt_7bw.Items.Add("Decay")
-		[void]$contxt_7bw.Items.Add("Sustain")
-		[void]$contxt_7bw.Items.Add("Release")
-		[void]$contxt_7bw.Items.Add("EnvGeneType")
-		[void]$contxt_7bw.Items.Add("Multiple")
-		[void]$contxt_7bw.Items.Add("TotalLevel")
-		[void]$contxt_7bw.Items.Add("Distortion")
-		[void]$contxt_7bw.Items.Add("Feedback")
-		[void]$contxt_7bw.Items.Add($contxt_Sep_7bw)
-		[void]$contxt_7bw.Items.Add("ADSR copy")
-		[void]$contxt_7bw.Items.Add("ADSR paste")
+		$rr[0]= "Attack [v]"
 		break;
 	}'DR'{
-		[void]$contxt_7bw.Items.Add("Attack")
-		[void]$contxt_7bw.Items.Add("Decay [v]")
-		[void]$contxt_7bw.Items.Add("Sustain")
-		[void]$contxt_7bw.Items.Add("Release")
-		[void]$contxt_7bw.Items.Add("EnvGeneType")
-		[void]$contxt_7bw.Items.Add("Multiple")
-		[void]$contxt_7bw.Items.Add("TotalLevel")
-		[void]$contxt_7bw.Items.Add("Distortion")
-		[void]$contxt_7bw.Items.Add("Feedback")
-		[void]$contxt_7bw.Items.Add($contxt_Sep_7bw)
-		[void]$contxt_7bw.Items.Add("ADSR copy")
-		[void]$contxt_7bw.Items.Add("ADSR paste")
-		break;
-	}'RR'{
-		[void]$contxt_7bw.Items.Add("Attack")
-		[void]$contxt_7bw.Items.Add("Decay")
-		[void]$contxt_7bw.Items.Add("Sustain")
-		[void]$contxt_7bw.Items.Add("Release [v]")
-		[void]$contxt_7bw.Items.Add("EnvGeneType")
-		[void]$contxt_7bw.Items.Add("Multiple")
-		[void]$contxt_7bw.Items.Add("TotalLevel")
-		[void]$contxt_7bw.Items.Add("Distortion")
-		[void]$contxt_7bw.Items.Add("Feedback")
-		[void]$contxt_7bw.Items.Add($contxt_Sep_7bw)
-		[void]$contxt_7bw.Items.Add("ADSR copy")
-		[void]$contxt_7bw.Items.Add("ADSR paste")
+		$rr[1]= "Decay [v]"
 		break;
 	}'SR'{
-		[void]$contxt_7bw.Items.Add("Attack")
-		[void]$contxt_7bw.Items.Add("Decay")
-		[void]$contxt_7bw.Items.Add("Sustain [v]")
-		[void]$contxt_7bw.Items.Add("Release")
-		[void]$contxt_7bw.Items.Add("EnvGeneType")
-		[void]$contxt_7bw.Items.Add("Multiple")
-		[void]$contxt_7bw.Items.Add("TotalLevel")
-		[void]$contxt_7bw.Items.Add("Distortion")
-		[void]$contxt_7bw.Items.Add("Feedback")
-		[void]$contxt_7bw.Items.Add($contxt_Sep_7bw)
-		[void]$contxt_7bw.Items.Add("ADSR copy")
-		[void]$contxt_7bw.Items.Add("ADSR paste")
+		$rr[2]= "Sustain [v]"
+		break;
+	}'RR'{
+		$rr[3]= "Release [v]"
 		break;
 	}'EG'{
-		[void]$contxt_7bw.Items.Add("Attack")
-		[void]$contxt_7bw.Items.Add("Decay")
-		[void]$contxt_7bw.Items.Add("Sustain")
-		[void]$contxt_7bw.Items.Add("Release")
-		[void]$contxt_7bw.Items.Add("EnvGeneType [v]")
-		[void]$contxt_7bw.Items.Add("Multiple")
-		[void]$contxt_7bw.Items.Add("TotalLevel")
-		[void]$contxt_7bw.Items.Add("Distortion")
-		[void]$contxt_7bw.Items.Add("Feedback")
-		[void]$contxt_7bw.Items.Add($contxt_Sep_7bw)
-		[void]$contxt_7bw.Items.Add("ADSR copy")
-		[void]$contxt_7bw.Items.Add("ADSR paste")
+		$rr[4]= "EnvGeneType [v]"
 		break;
 	}'ML'{
-		[void]$contxt_7bw.Items.Add("Attack")
-		[void]$contxt_7bw.Items.Add("Decay")
-		[void]$contxt_7bw.Items.Add("Sustain")
-		[void]$contxt_7bw.Items.Add("Release")
-		[void]$contxt_7bw.Items.Add("EnvGeneType")
-		[void]$contxt_7bw.Items.Add("Multiple [v]")
-		[void]$contxt_7bw.Items.Add("TotalLevel")
-		[void]$contxt_7bw.Items.Add("Distortion")
-		[void]$contxt_7bw.Items.Add("Feedback")
-		[void]$contxt_7bw.Items.Add($contxt_Sep_7bw)
-		[void]$contxt_7bw.Items.Add("ADSR copy")
-		[void]$contxt_7bw.Items.Add("ADSR paste")
+		$rr[5]= "Multiple [v]"
 		break;
 	}'TL'{
-		[void]$contxt_7bw.Items.Add("Attack")
-		[void]$contxt_7bw.Items.Add("Decay")
-		[void]$contxt_7bw.Items.Add("Sustain")
-		[void]$contxt_7bw.Items.Add("Release")
-		[void]$contxt_7bw.Items.Add("EnvGeneType")
-		[void]$contxt_7bw.Items.Add("Multiple")
-		[void]$contxt_7bw.Items.Add("TotalLevel [v]")
-		[void]$contxt_7bw.Items.Add("Distortion")
-		[void]$contxt_7bw.Items.Add("Feedback")
-		[void]$contxt_7bw.Items.Add($contxt_Sep_7bw)
-		[void]$contxt_7bw.Items.Add("ADSR copy")
-		[void]$contxt_7bw.Items.Add("ADSR paste")
+		$rr[6]= "TotalLevel [v]"
 		break;
 	}'DT'{
-		[void]$contxt_7bw.Items.Add("Attack")
-		[void]$contxt_7bw.Items.Add("Decay")
-		[void]$contxt_7bw.Items.Add("Sustain")
-		[void]$contxt_7bw.Items.Add("Release")
-		[void]$contxt_7bw.Items.Add("EnvGeneType")
-		[void]$contxt_7bw.Items.Add("Multiple")
-		[void]$contxt_7bw.Items.Add("TotalLevel")
-		[void]$contxt_7bw.Items.Add("Distortion [v]")
-		[void]$contxt_7bw.Items.Add("Feedback")
-		[void]$contxt_7bw.Items.Add($contxt_Sep_7bw)
-		[void]$contxt_7bw.Items.Add("ADSR copy")
-		[void]$contxt_7bw.Items.Add("ADSR paste")
+		$rr[7]= "Distortion [v]"
 		break;
 	}'FB'{
-		[void]$contxt_7bw.Items.Add("Attack")
-		[void]$contxt_7bw.Items.Add("Decay")
-		[void]$contxt_7bw.Items.Add("Sustain")
-		[void]$contxt_7bw.Items.Add("Release")
-		[void]$contxt_7bw.Items.Add("EnvGeneType")
-		[void]$contxt_7bw.Items.Add("Multiple")
-		[void]$contxt_7bw.Items.Add("TotalLevel")
-		[void]$contxt_7bw.Items.Add("Distortion")
-		[void]$contxt_7bw.Items.Add("Feedback [v]")
-		[void]$contxt_7bw.Items.Add($contxt_Sep_7bw)
-		[void]$contxt_7bw.Items.Add("ADSR copy")
-		[void]$contxt_7bw.Items.Add("ADSR paste")
-		break;
-	}default{
-		[void]$contxt_7bw.Items.Add("Attack")
-		[void]$contxt_7bw.Items.Add("Decay")
-		[void]$contxt_7bw.Items.Add("Sustain")
-		[void]$contxt_7bw.Items.Add("Release")
-		[void]$contxt_7bw.Items.Add("EnvGeneType")
-		[void]$contxt_7bw.Items.Add("Multiple")
-		[void]$contxt_7bw.Items.Add("TotalLevel")
-		[void]$contxt_7bw.Items.Add("Distortion")
-		[void]$contxt_7bw.Items.Add("Feedback")
-		[void]$contxt_7bw.Items.Add($contxt_Sep_7bw)
-		[void]$contxt_7bw.Items.Add("ADSR copy")
-		[void]$contxt_7bw.Items.Add("ADSR paste")
+		$rr[8]= "Feedback [v]"
 	}
 	} #sw
+
+	for([int] $i= 0; $i -lt 15; $i++){
+		[void]$x.Add($rr[$i])
+	} #
  } #func
  
 function Contxt_chg_opl([string] $ss){ 
 
-	$contxt_Lbw.Items.Clear()
+	$x= $contxt_Lbw.Items
+
+	$x.Clear()
+
+	[array] $rr= "Attack","Decay","Sustain","Release","EnvGeneType","Multiple","TotalLevel","Feedback","Algorithm"
+	$rr+= $contxtL_Sep_Lbw,"ALL copy"
+	$rr+= $contxtA_Sep_Lbw,"ADSR paste","FM paste","ALL paste"
 
 	switch($ss){
 	'AR'{
-		[void]$contxt_Lbw.Items.Add("Attack [v]")
-		[void]$contxt_Lbw.Items.Add("Decay")
-		[void]$contxt_Lbw.Items.Add("Sustain")
-		[void]$contxt_Lbw.Items.Add("Release")
-		[void]$contxt_Lbw.Items.Add("EnvGeneType")
-		[void]$contxt_Lbw.Items.Add("Multiple")
-		[void]$contxt_Lbw.Items.Add("TotalLevel")
-		[void]$contxt_Lbw.Items.Add("Feedback")
-		[void]$contxt_Lbw.Items.Add("Algorithm")
-		[void]$contxt_Lbw.Items.Add($contxt_Sep_Lbw)
-		[void]$contxt_Lbw.Items.Add("ADSR copy")
-		[void]$contxt_Lbw.Items.Add("ADSR paste")
+		$rr[0]= "Attack [v]"
 		break;
 	}'DR'{
-		[void]$contxt_Lbw.Items.Add("Attack")
-		[void]$contxt_Lbw.Items.Add("Decay [v]")
-		[void]$contxt_Lbw.Items.Add("Sustain")
-		[void]$contxt_Lbw.Items.Add("Release")
-		[void]$contxt_Lbw.Items.Add("EnvGeneType")
-		[void]$contxt_Lbw.Items.Add("Multiple")
-		[void]$contxt_Lbw.Items.Add("TotalLevel")
-		[void]$contxt_Lbw.Items.Add("Feedback")
-		[void]$contxt_Lbw.Items.Add("Algorithm")
-		[void]$contxt_Lbw.Items.Add($contxt_Sep_Lbw)
-		[void]$contxt_Lbw.Items.Add("ADSR copy")
-		[void]$contxt_Lbw.Items.Add("ADSR paste")
-		break;
-	}'RR'{
-		[void]$contxt_Lbw.Items.Add("Attack")
-		[void]$contxt_Lbw.Items.Add("Decay")
-		[void]$contxt_Lbw.Items.Add("Sustain")
-		[void]$contxt_Lbw.Items.Add("Release [v]")
-		[void]$contxt_Lbw.Items.Add("EnvGeneType")
-		[void]$contxt_Lbw.Items.Add("Multiple")
-		[void]$contxt_Lbw.Items.Add("TotalLevel")
-		[void]$contxt_Lbw.Items.Add("Feedback")
-		[void]$contxt_Lbw.Items.Add("Algorithm")
-		[void]$contxt_Lbw.Items.Add($contxt_Sep_Lbw)
-		[void]$contxt_Lbw.Items.Add("ADSR copy")
-		[void]$contxt_Lbw.Items.Add("ADSR paste")
+		$rr[1]= "Decay [v]"
 		break;
 	}'SR'{
-		[void]$contxt_Lbw.Items.Add("Attack")
-		[void]$contxt_Lbw.Items.Add("Decay")
-		[void]$contxt_Lbw.Items.Add("Sustain [v]")
-		[void]$contxt_Lbw.Items.Add("Release")
-		[void]$contxt_Lbw.Items.Add("EnvGeneType")
-		[void]$contxt_Lbw.Items.Add("Multiple")
-		[void]$contxt_Lbw.Items.Add("TotalLevel")
-		[void]$contxt_Lbw.Items.Add("Feedback")
-		[void]$contxt_Lbw.Items.Add("Algorithm")
-		[void]$contxt_Lbw.Items.Add($contxt_Sep_Lbw)
-		[void]$contxt_Lbw.Items.Add("ADSR copy")
-		[void]$contxt_Lbw.Items.Add("ADSR paste")
+		$rr[2]= "Sustain [v]"
+		break;
+	}'RR'{
+		$rr[3]= "Release [v]"
 		break;
 	}'EG'{
-		[void]$contxt_Lbw.Items.Add("Attack")
-		[void]$contxt_Lbw.Items.Add("Decay")
-		[void]$contxt_Lbw.Items.Add("Sustain")
-		[void]$contxt_Lbw.Items.Add("Release")
-		[void]$contxt_Lbw.Items.Add("EnvGeneType [v]")
-		[void]$contxt_Lbw.Items.Add("Multiple")
-		[void]$contxt_Lbw.Items.Add("TotalLevel")
-		[void]$contxt_Lbw.Items.Add("Feedback")
-		[void]$contxt_Lbw.Items.Add("Algorithm")
-		[void]$contxt_Lbw.Items.Add($contxt_Sep_Lbw)
-		[void]$contxt_Lbw.Items.Add("ADSR copy")
-		[void]$contxt_Lbw.Items.Add("ADSR paste")
+		$rr[4]= "EnvGeneType [v]"
 		break;
 	}'ML'{
-		[void]$contxt_Lbw.Items.Add("Attack")
-		[void]$contxt_Lbw.Items.Add("Decay")
-		[void]$contxt_Lbw.Items.Add("Sustain")
-		[void]$contxt_Lbw.Items.Add("Release")
-		[void]$contxt_Lbw.Items.Add("EnvGeneType")
-		[void]$contxt_Lbw.Items.Add("Multiple [v]")
-		[void]$contxt_Lbw.Items.Add("TotalLevel")
-		[void]$contxt_Lbw.Items.Add("Feedback")
-		[void]$contxt_Lbw.Items.Add("Algorithm")
-		[void]$contxt_Lbw.Items.Add($contxt_Sep_Lbw)
-		[void]$contxt_Lbw.Items.Add("ADSR copy")
-		[void]$contxt_Lbw.Items.Add("ADSR paste")
+		$rr[5]= "Multiple [v]"
 		break;
 	}'TL'{
-		[void]$contxt_Lbw.Items.Add("Attack")
-		[void]$contxt_Lbw.Items.Add("Decay")
-		[void]$contxt_Lbw.Items.Add("Sustain")
-		[void]$contxt_Lbw.Items.Add("Release")
-		[void]$contxt_Lbw.Items.Add("EnvGeneType")
-		[void]$contxt_Lbw.Items.Add("Multiple")
-		[void]$contxt_Lbw.Items.Add("TotalLevel [v]")
-		[void]$contxt_Lbw.Items.Add("Feedback")
-		[void]$contxt_Lbw.Items.Add("Algorithm")
-		[void]$contxt_Lbw.Items.Add($contxt_Sep_Lbw)
-		[void]$contxt_Lbw.Items.Add("ADSR copy")
-		[void]$contxt_Lbw.Items.Add("ADSR paste")
+		$rr[6]= "TotalLevel [v]"
 		break;
 	}'FB'{
-		[void]$contxt_Lbw.Items.Add("Attack")
-		[void]$contxt_Lbw.Items.Add("Decay")
-		[void]$contxt_Lbw.Items.Add("Sustain")
-		[void]$contxt_Lbw.Items.Add("Release")
-		[void]$contxt_Lbw.Items.Add("EnvGeneType")
-		[void]$contxt_Lbw.Items.Add("Multiple")
-		[void]$contxt_Lbw.Items.Add("TotalLevel")
-		[void]$contxt_Lbw.Items.Add("Distortion")
-		[void]$contxt_Lbw.Items.Add("Feedback [v]")
-		[void]$contxt_Lbw.Items.Add("Algorithm")
-		[void]$contxt_Lbw.Items.Add($contxt_Sep_Lbw)
-		[void]$contxt_Lbw.Items.Add("ADSR copy")
-		[void]$contxt_Lbw.Items.Add("ADSR paste")
+		$rr[7]= "Feedback [v]"
 		break;
 	}'ALG'{
-		[void]$contxt_Lbw.Items.Add("Attack")
-		[void]$contxt_Lbw.Items.Add("Decay")
-		[void]$contxt_Lbw.Items.Add("Sustain")
-		[void]$contxt_Lbw.Items.Add("Release")
-		[void]$contxt_Lbw.Items.Add("EnvGeneType")
-		[void]$contxt_Lbw.Items.Add("Multiple")
-		[void]$contxt_Lbw.Items.Add("TotalLevel")
-		[void]$contxt_Lbw.Items.Add("Distortion")
-		[void]$contxt_Lbw.Items.Add("Feedback")
-		[void]$contxt_Lbw.Items.Add("Algorithm [v]")
-		[void]$contxt_Lbw.Items.Add($contxt_Sep_Lbw)
-		[void]$contxt_Lbw.Items.Add("ADSR copy")
-		[void]$contxt_Lbw.Items.Add("ADSR paste")
-		break;
-	}default{
-		[void]$contxt_Lbw.Items.Add("Attack")
-		[void]$contxt_Lbw.Items.Add("Decay")
-		[void]$contxt_Lbw.Items.Add("Sustain")
-		[void]$contxt_Lbw.Items.Add("Release")
-		[void]$contxt_Lbw.Items.Add("EnvGeneType")
-		[void]$contxt_Lbw.Items.Add("Multiple")
-		[void]$contxt_Lbw.Items.Add("TotalLevel")
-		[void]$contxt_Lbw.Items.Add("Distortion")
-		[void]$contxt_Lbw.Items.Add("Feedback")
-		[void]$contxt_Lbw.Items.Add("Algorithm")
-		[void]$contxt_Lbw.Items.Add($contxt_Sep_Lbw)
-		[void]$contxt_Lbw.Items.Add("ADSR copy")
-		[void]$contxt_Lbw.Items.Add("ADSR paste")
+		$rr[8]= "Algorithm [v]"
 	}
 	} #sw
+
+	for([int] $i= 0; $i -lt 15; $i++){
+		[void]$x.Add($rr[$i])
+	} #
  } #func
  
 function Contxt_chg_opn([string] $ss){ 
 
-	$contxt_Nbg.Items.Clear()
+	$x= $contxt_Nbg.Items
+
+	$x.Clear()
+
+	[array] $rr= "Attack","Decay","SustainRate","Release","SustainLevel","Multiple","TotalLevel","Feedback","Algorithm"
+	$rr+= $contxtL_Sep_Nbg,"ALL copy"
+	$rr+= $contxtA_Sep_Nbg,"ADSR paste","FM paste","ALL paste"
 
 	switch($ss){
 	'AR'{
-		[void]$contxt_Nbg.Items.Add("Attack [v]")
-		[void]$contxt_Nbg.Items.Add("Decay")
-		[void]$contxt_Nbg.Items.Add("SustainRate")
-		[void]$contxt_Nbg.Items.Add("Release")
-		[void]$contxt_Nbg.Items.Add("SustainLevel")
-		[void]$contxt_Nbg.Items.Add("Multiple")
-		[void]$contxt_Nbg.Items.Add("TotalLevel")
-		[void]$contxt_Nbg.Items.Add("Feedback")
-		[void]$contxt_Nbg.Items.Add("Algorithm")
-		[void]$contxt_Nbg.Items.Add($contxt_Sep_Nbg) # Separator
-		[void]$contxt_Nbg.Items.Add("ADSR copy")
-		[void]$contxt_Nbg.Items.Add("ADSR paste")
+		$rr[0]= "Attack [v]"
 		break;
 	}'DR'{
-		[void]$contxt_Nbg.Items.Add("Attack")
-		[void]$contxt_Nbg.Items.Add("Decay [v]")
-		[void]$contxt_Nbg.Items.Add("SustainRate")
-		[void]$contxt_Nbg.Items.Add("Release")
-		[void]$contxt_Nbg.Items.Add("SustainLevel")
-		[void]$contxt_Nbg.Items.Add("Multiple")
-		[void]$contxt_Nbg.Items.Add("TotalLevel")
-		[void]$contxt_Nbg.Items.Add("Feedback")
-		[void]$contxt_Nbg.Items.Add("Algorithm")
-		[void]$contxt_Nbg.Items.Add($contxt_Sep_Nbg)
-		[void]$contxt_Nbg.Items.Add("ADSR copy")
-		[void]$contxt_Nbg.Items.Add("ADSR paste")
+		$rr[1]= "Decay [v]"
 		break;
 	}'SR'{
-		[void]$contxt_Nbg.Items.Add("Attack")
-		[void]$contxt_Nbg.Items.Add("Decay")
-		[void]$contxt_Nbg.Items.Add("SustainRate [v]")
-		[void]$contxt_Nbg.Items.Add("Release")
-		[void]$contxt_Nbg.Items.Add("SustainLevel")
-		[void]$contxt_Nbg.Items.Add("Multiple")
-		[void]$contxt_Nbg.Items.Add("TotalLevel")
-		[void]$contxt_Nbg.Items.Add("Feedback")
-		[void]$contxt_Nbg.Items.Add("Algorithm")
-		[void]$contxt_Nbg.Items.Add($contxt_Sep_Nbg)
-		[void]$contxt_Nbg.Items.Add("ADSR copy")
-		[void]$contxt_Nbg.Items.Add("ADSR paste")
+		$rr[2]= "SustainRate [v]"
 		break;
 	}'RR'{
-		[void]$contxt_Nbg.Items.Add("Attack")
-		[void]$contxt_Nbg.Items.Add("Decay")
-		[void]$contxt_Nbg.Items.Add("SustainRate")
-		[void]$contxt_Nbg.Items.Add("Release [v]")
-		[void]$contxt_Nbg.Items.Add("SustainLevel")
-		[void]$contxt_Nbg.Items.Add("Multiple")
-		[void]$contxt_Nbg.Items.Add("TotalLevel")
-		[void]$contxt_Nbg.Items.Add("Feedback")
-		[void]$contxt_Nbg.Items.Add("Algorithm")
-		[void]$contxt_Nbg.Items.Add($contxt_Sep_Nbg)
-		[void]$contxt_Nbg.Items.Add("ADSR copy")
-		[void]$contxt_Nbg.Items.Add("ADSR paste")
+		$rr[3]= "Release [v]"
 		break;
 	}'SL'{
-		[void]$contxt_Nbg.Items.Add("Attack")
-		[void]$contxt_Nbg.Items.Add("Decay")
-		[void]$contxt_Nbg.Items.Add("SustainRate")
-		[void]$contxt_Nbg.Items.Add("Release")
-		[void]$contxt_Nbg.Items.Add("SustainLevel [v]")
-		[void]$contxt_Nbg.Items.Add("Multiple")
-		[void]$contxt_Nbg.Items.Add("TotalLevel")
-		[void]$contxt_Nbg.Items.Add("Feedback")
-		[void]$contxt_Nbg.Items.Add("Algorithm")
-		[void]$contxt_Nbg.Items.Add($contxt_Sep_Nbg)
-		[void]$contxt_Nbg.Items.Add("ADSR copy")
-		[void]$contxt_Nbg.Items.Add("ADSR paste")
+		$rr[4]= "SustainLevel [v]"
 		break;
 	}'ML'{
-		[void]$contxt_Nbg.Items.Add("Attack")
-		[void]$contxt_Nbg.Items.Add("Decay")
-		[void]$contxt_Nbg.Items.Add("SustainRate")
-		[void]$contxt_Nbg.Items.Add("Release")
-		[void]$contxt_Nbg.Items.Add("SustainLevel")
-		[void]$contxt_Nbg.Items.Add("Multiple [v]")
-		[void]$contxt_Nbg.Items.Add("TotalLevel")
-		[void]$contxt_Nbg.Items.Add("Feedback")
-		[void]$contxt_Nbg.Items.Add("Algorithm")
-		[void]$contxt_Nbg.Items.Add($contxt_Sep_Nbg)
-		[void]$contxt_Nbg.Items.Add("ADSR copy")
-		[void]$contxt_Nbg.Items.Add("ADSR paste")
+		$rr[5]= "Multiple [v]"
 		break;
 	}'TL'{
-		[void]$contxt_Nbg.Items.Add("Attack")
-		[void]$contxt_Nbg.Items.Add("Decay")
-		[void]$contxt_Nbg.Items.Add("SustainRate")
-		[void]$contxt_Nbg.Items.Add("Release")
-		[void]$contxt_Nbg.Items.Add("SustainLevel")
-		[void]$contxt_Nbg.Items.Add("Multiple")
-		[void]$contxt_Nbg.Items.Add("TotalLevel [v]")
-		[void]$contxt_Nbg.Items.Add("Feedback")
-		[void]$contxt_Nbg.Items.Add("Algorithm")
-		[void]$contxt_Nbg.Items.Add($contxt_Sep_Nbg)
-		[void]$contxt_Nbg.Items.Add("ADSR copy")
-		[void]$contxt_Nbg.Items.Add("ADSR paste")
+		$rr[6]= "TotalLevel [v]"
 		break;
 	}'FB'{
-		[void]$contxt_Nbg.Items.Add("Attack")
-		[void]$contxt_Nbg.Items.Add("Decay")
-		[void]$contxt_Nbg.Items.Add("SustainRate")
-		[void]$contxt_Nbg.Items.Add("Release")
-		[void]$contxt_Nbg.Items.Add("SustainLevel")
-		[void]$contxt_Nbg.Items.Add("Multiple")
-		[void]$contxt_Nbg.Items.Add("TotalLevel")
-		[void]$contxt_Nbg.Items.Add("Feedback [v]")
-		[void]$contxt_Nbg.Items.Add("Algorithm")
-		[void]$contxt_Nbg.Items.Add($contxt_Sep_Nbg)
-		[void]$contxt_Nbg.Items.Add("ADSR copy")
-		[void]$contxt_Nbg.Items.Add("ADSR paste")
+		$rr[7]= "Feedback [v]"
 		break;
 	}'ALG'{
-		[void]$contxt_Nbg.Items.Add("Attack")
-		[void]$contxt_Nbg.Items.Add("Decay")
-		[void]$contxt_Nbg.Items.Add("SustainRate")
-		[void]$contxt_Nbg.Items.Add("Release")
-		[void]$contxt_Nbg.Items.Add("SustainLevel")
-		[void]$contxt_Nbg.Items.Add("Multiple")
-		[void]$contxt_Nbg.Items.Add("TotalLevel")
-		[void]$contxt_Nbg.Items.Add("Feedback")
-		[void]$contxt_Nbg.Items.Add("Algorithm [v]")
-		[void]$contxt_Nbg.Items.Add($contxt_Sep_Nbg)
-		[void]$contxt_Nbg.Items.Add("ADSR copy")
-		[void]$contxt_Nbg.Items.Add("ADSR paste")
-		break;
-	}default{
-		[void]$contxt_Nbg.Items.Add("Attack")
-		[void]$contxt_Nbg.Items.Add("Decay")
-		[void]$contxt_Nbg.Items.Add("SustainRate")
-		[void]$contxt_Nbg.Items.Add("Release")
-		[void]$contxt_Nbg.Items.Add("SustainLevel")
-		[void]$contxt_Nbg.Items.Add("Multiple")
-		[void]$contxt_Nbg.Items.Add("TotalLevel")
-		[void]$contxt_Nbg.Items.Add("Feedback")
-		[void]$contxt_Nbg.Items.Add("Algorithm")
-		[void]$contxt_Nbg.Items.Add($contxt_Sep_Nbg)
-		[void]$contxt_Nbg.Items.Add("ADSR copy")
-		[void]$contxt_Nbg.Items.Add("ADSR paste")
+		$rr[8]= "Algorithm [v]"
 	}
 	} #sw
+
+	for([int] $i= 0; $i -lt 15; $i++){
+		[void]$x.Add($rr[$i])
+	} #
  } #func
  
 function Contxt_chg_opm([string] $ss){ 
 
-	$contxt_Mbg.Items.Clear()
+	$x= $contxt_Mbg.Items
+
+	$x.Clear()
+
+	[array] $rr= "Attack","Decay","SustainRate","Release","SustainLevel","Multiple","TotalLevel","Feedback","Algorithm"
+	$rr+= $contxtL_Sep_Mbg,"ALL copy"
+	$rr+= $contxtA_Sep_Mbg,"ADSR paste","FM paste","ALL paste"
 
 	switch($ss){
 	'AR'{
-		[void]$contxt_Mbg.Items.Add("Attack [v]")
-		[void]$contxt_Mbg.Items.Add("Decay")
-		[void]$contxt_Mbg.Items.Add("SustainRate")
-		[void]$contxt_Mbg.Items.Add("Release")
-		[void]$contxt_Mbg.Items.Add("SustainLevel")
-		[void]$contxt_Mbg.Items.Add("Multiple")
-		[void]$contxt_Mbg.Items.Add("TotalLevel")
-		[void]$contxt_Mbg.Items.Add("Feedback")
-		[void]$contxt_Mbg.Items.Add("Algorithm")
-		[void]$contxt_Mbg.Items.Add($contxt_Sep_Mbg)
-		[void]$contxt_Mbg.Items.Add("ADSR copy")
-		[void]$contxt_Mbg.Items.Add("ADSR paste")
+		$rr[0]= "Attack [v]"
 		break;
 	}'DR'{
-		[void]$contxt_Mbg.Items.Add("Attack")
-		[void]$contxt_Mbg.Items.Add("Decay [v]")
-		[void]$contxt_Mbg.Items.Add("SustainRate")
-		[void]$contxt_Mbg.Items.Add("Release")
-		[void]$contxt_Mbg.Items.Add("SustainLevel")
-		[void]$contxt_Mbg.Items.Add("Multiple")
-		[void]$contxt_Mbg.Items.Add("TotalLevel")
-		[void]$contxt_Mbg.Items.Add("Feedback")
-		[void]$contxt_Mbg.Items.Add("Algorithm")
-		[void]$contxt_Mbg.Items.Add($contxt_Sep_Mbg)
-		[void]$contxt_Mbg.Items.Add("ADSR copy")
-		[void]$contxt_Mbg.Items.Add("ADSR paste")
+		$rr[1]= "Decay [v]"
 		break;
 	}'SR'{
-		[void]$contxt_Mbg.Items.Add("Attack")
-		[void]$contxt_Mbg.Items.Add("Decay")
-		[void]$contxt_Mbg.Items.Add("SustainRate [v]")
-		[void]$contxt_Mbg.Items.Add("Release")
-		[void]$contxt_Mbg.Items.Add("SustainLevel")
-		[void]$contxt_Mbg.Items.Add("Multiple")
-		[void]$contxt_Mbg.Items.Add("TotalLevel")
-		[void]$contxt_Mbg.Items.Add("Feedback")
-		[void]$contxt_Mbg.Items.Add("Algorithm")
-		[void]$contxt_Mbg.Items.Add($contxt_Sep_Mbg)
-		[void]$contxt_Mbg.Items.Add("ADSR copy")
-		[void]$contxt_Mbg.Items.Add("ADSR paste")
+		$rr[2]= "SustainRate [v]"
 		break;
 	}'RR'{
-		[void]$contxt_Mbg.Items.Add("Attack")
-		[void]$contxt_Mbg.Items.Add("Decay")
-		[void]$contxt_Mbg.Items.Add("SustainRate")
-		[void]$contxt_Mbg.Items.Add("Release [v]")
-		[void]$contxt_Mbg.Items.Add("SustainLevel")
-		[void]$contxt_Mbg.Items.Add("Multiple")
-		[void]$contxt_Mbg.Items.Add("TotalLevel")
-		[void]$contxt_Mbg.Items.Add("Feedback")
-		[void]$contxt_Mbg.Items.Add("Algorithm")
-		[void]$contxt_Mbg.Items.Add($contxt_Sep_Mbg)
-		[void]$contxt_Mbg.Items.Add("ADSR copy")
-		[void]$contxt_Mbg.Items.Add("ADSR paste")
+		$rr[3]= "Release [v]"
 		break;
 	}'SL'{
-		[void]$contxt_Mbg.Items.Add("Attack")
-		[void]$contxt_Mbg.Items.Add("Decay")
-		[void]$contxt_Mbg.Items.Add("SustainRate")
-		[void]$contxt_Mbg.Items.Add("Release")
-		[void]$contxt_Mbg.Items.Add("SustainLevel [v]")
-		[void]$contxt_Mbg.Items.Add("Multiple")
-		[void]$contxt_Mbg.Items.Add("TotalLevel")
-		[void]$contxt_Mbg.Items.Add("Feedback")
-		[void]$contxt_Mbg.Items.Add("Algorithm")
-		[void]$contxt_Mbg.Items.Add($contxt_Sep_Mbg)
-		[void]$contxt_Mbg.Items.Add("ADSR copy")
-		[void]$contxt_Mbg.Items.Add("ADSR paste")
+		$rr[4]= "SustainLevel [v]"
 		break;
 	}'ML'{
-		[void]$contxt_Mbg.Items.Add("Attack")
-		[void]$contxt_Mbg.Items.Add("Decay")
-		[void]$contxt_Mbg.Items.Add("SustainRate")
-		[void]$contxt_Mbg.Items.Add("Release")
-		[void]$contxt_Mbg.Items.Add("SustainLevel")
-		[void]$contxt_Mbg.Items.Add("Multiple [v]")
-		[void]$contxt_Mbg.Items.Add("TotalLevel")
-		[void]$contxt_Mbg.Items.Add("Feedback")
-		[void]$contxt_Mbg.Items.Add("Algorithm")
-		[void]$contxt_Mbg.Items.Add($contxt_Sep_Mbg)
-		[void]$contxt_Mbg.Items.Add("ADSR copy")
-		[void]$contxt_Mbg.Items.Add("ADSR paste")
+		$rr[5]= "Multiple [v]"
 		break;
 	}'TL'{
-		[void]$contxt_Mbg.Items.Add("Attack")
-		[void]$contxt_Mbg.Items.Add("Decay")
-		[void]$contxt_Mbg.Items.Add("SustainRate")
-		[void]$contxt_Mbg.Items.Add("Release")
-		[void]$contxt_Mbg.Items.Add("SustainLevel")
-		[void]$contxt_Mbg.Items.Add("Multiple")
-		[void]$contxt_Mbg.Items.Add("TotalLevel [v]")
-		[void]$contxt_Mbg.Items.Add("Feedback")
-		[void]$contxt_Mbg.Items.Add("Algorithm")
-		[void]$contxt_Mbg.Items.Add($contxt_Sep_Mbg)
-		[void]$contxt_Mbg.Items.Add("ADSR copy")
-		[void]$contxt_Mbg.Items.Add("ADSR paste")
+		$rr[6]= "TotalLevel [v]"
 		break;
 	}'FB'{
-		[void]$contxt_Mbg.Items.Add("Attack")
-		[void]$contxt_Mbg.Items.Add("Decay")
-		[void]$contxt_Mbg.Items.Add("SustainRate")
-		[void]$contxt_Mbg.Items.Add("Release")
-		[void]$contxt_Mbg.Items.Add("SustainLevel")
-		[void]$contxt_Mbg.Items.Add("Multiple")
-		[void]$contxt_Mbg.Items.Add("TotalLevel")
-		[void]$contxt_Mbg.Items.Add("Feedback [v]")
-		[void]$contxt_Mbg.Items.Add("Algorithm")
-		[void]$contxt_Mbg.Items.Add($contxt_Sep_Mbg)
-		[void]$contxt_Mbg.Items.Add("ADSR copy")
-		[void]$contxt_Mbg.Items.Add("ADSR paste")
+		$rr[7]= "Feedback [v]"
 		break;
 	}'ALG'{
-		[void]$contxt_Mbg.Items.Add("Attack")
-		[void]$contxt_Mbg.Items.Add("Decay")
-		[void]$contxt_Mbg.Items.Add("SustainRate")
-		[void]$contxt_Mbg.Items.Add("Release")
-		[void]$contxt_Mbg.Items.Add("SustainLevel")
-		[void]$contxt_Mbg.Items.Add("Multiple")
-		[void]$contxt_Mbg.Items.Add("TotalLevel")
-		[void]$contxt_Mbg.Items.Add("Feedback")
-		[void]$contxt_Mbg.Items.Add("Algorithm [v]")
-		[void]$contxt_Mbg.Items.Add($contxt_Sep_Mbg)
-		[void]$contxt_Mbg.Items.Add("ADSR copy")
-		[void]$contxt_Mbg.Items.Add("ADSR paste")
-		break;
-	}default{
-		[void]$contxt_Mbg.Items.Add("Attack")
-		[void]$contxt_Mbg.Items.Add("Decay")
-		[void]$contxt_Mbg.Items.Add("SustainRate")
-		[void]$contxt_Mbg.Items.Add("Release")
-		[void]$contxt_Mbg.Items.Add("SustainLevel")
-		[void]$contxt_Mbg.Items.Add("Multiple")
-		[void]$contxt_Mbg.Items.Add("TotalLevel")
-		[void]$contxt_Mbg.Items.Add("Feedback")
-		[void]$contxt_Mbg.Items.Add("Algorithm")
-		[void]$contxt_Mbg.Items.Add($contxt_Sep_Mbg)
-		[void]$contxt_Mbg.Items.Add("ADSR copy")
-		[void]$contxt_Mbg.Items.Add("ADSR paste")
+		$rr[8]= "Algorithm [v]"
 	}
 	} #sw
+
+	for([int] $i= 0; $i -lt 15; $i++){
+		[void]$x.Add($rr[$i])
+	} #
  } #func
  
 function Contxt_octave([string]$a){ 
 
-	$contxt_oct.Items.Clear()
+	$x= $contxt_oct.Items
+
+	$x.Clear() # $contxt_oct.Items.Clear()
+
+	[string[]] $rr= "o1","o2","o3","o4", "o5","o6","o7","o8"
 
 	switch($a){
 	'o1'{
-		[void]$contxt_oct.Items.Add("o1 [v]")
-		[void]$contxt_oct.Items.Add("o2")
-		[void]$contxt_oct.Items.Add("o3")
-		[void]$contxt_oct.Items.Add("o4")
-		[void]$contxt_oct.Items.Add("o5")
-		[void]$contxt_oct.Items.Add("o6")
-		[void]$contxt_oct.Items.Add("o7")
-		[void]$contxt_oct.Items.Add("o8")
+		$rr[0]= "o1 [v]"
 		break;
 	}'o2'{
-		[void]$contxt_oct.Items.Add("o1")
-		[void]$contxt_oct.Items.Add("o2 [v]")
-		[void]$contxt_oct.Items.Add("o3")
-		[void]$contxt_oct.Items.Add("o4")
-		[void]$contxt_oct.Items.Add("o5")
-		[void]$contxt_oct.Items.Add("o6")
-		[void]$contxt_oct.Items.Add("o7")
-		[void]$contxt_oct.Items.Add("o8")
+		$rr[1]= "o2 [v]"
 		break;
 	}'o3'{
-		[void]$contxt_oct.Items.Add("o1")
-		[void]$contxt_oct.Items.Add("o2")
-		[void]$contxt_oct.Items.Add("o3 [v]")
-		[void]$contxt_oct.Items.Add("o4")
-		[void]$contxt_oct.Items.Add("o5")
-		[void]$contxt_oct.Items.Add("o6")
-		[void]$contxt_oct.Items.Add("o7")
-		[void]$contxt_oct.Items.Add("o8")
+		$rr[2]= "o3 [v]"
 		break;
 	}'o4'{
-		[void]$contxt_oct.Items.Add("o1")
-		[void]$contxt_oct.Items.Add("o2")
-		[void]$contxt_oct.Items.Add("o3")
-		[void]$contxt_oct.Items.Add("o4 [v]")
-		[void]$contxt_oct.Items.Add("o5")
-		[void]$contxt_oct.Items.Add("o6")
-		[void]$contxt_oct.Items.Add("o7")
-		[void]$contxt_oct.Items.Add("o8")
+		$rr[3]= "o4 [v]"
 		break;
 	}'o5'{
-		[void]$contxt_oct.Items.Add("o1")
-		[void]$contxt_oct.Items.Add("o2")
-		[void]$contxt_oct.Items.Add("o3")
-		[void]$contxt_oct.Items.Add("o4")
-		[void]$contxt_oct.Items.Add("o5 [v]")
-		[void]$contxt_oct.Items.Add("o6")
-		[void]$contxt_oct.Items.Add("o7")
-		[void]$contxt_oct.Items.Add("o8")
+		$rr[4]= "o5 [v]"
 		break;
 	}'o6'{
-		[void]$contxt_oct.Items.Add("o1")
-		[void]$contxt_oct.Items.Add("o2")
-		[void]$contxt_oct.Items.Add("o3")
-		[void]$contxt_oct.Items.Add("o4")
-		[void]$contxt_oct.Items.Add("o5")
-		[void]$contxt_oct.Items.Add("o6 [v]")
-		[void]$contxt_oct.Items.Add("o7")
-		[void]$contxt_oct.Items.Add("o8")
+		$rr[5]= "o6 [v]"
 		break;
 	}'o7'{
-		[void]$contxt_oct.Items.Add("o1")
-		[void]$contxt_oct.Items.Add("o2")
-		[void]$contxt_oct.Items.Add("o3")
-		[void]$contxt_oct.Items.Add("o4")
-		[void]$contxt_oct.Items.Add("o5")
-		[void]$contxt_oct.Items.Add("o6")
-		[void]$contxt_oct.Items.Add("o7 [v]")
-		[void]$contxt_oct.Items.Add("o8")
+		$rr[6]= "o7 [v]"
 		break;
 	}'o8'{
-		[void]$contxt_oct.Items.Add("o1")
-		[void]$contxt_oct.Items.Add("o2")
-		[void]$contxt_oct.Items.Add("o3")
-		[void]$contxt_oct.Items.Add("o4")
-		[void]$contxt_oct.Items.Add("o5")
-		[void]$contxt_oct.Items.Add("o6")
-		[void]$contxt_oct.Items.Add("o7")
-		[void]$contxt_oct.Items.Add("o8 [v]")
+		$rr[7]= "o8 [v]"
 	}
 	} #sw
+
+	for([int] $i= 0; $i -lt 8; $i++){
+		[void]$x.Add($rr[$i]) # "string" direct ha .Add - $obj de .AddRange
+	} #
+
  } #func
   
 # poly 
@@ -4637,7 +4332,7 @@ function Color_alg([string]$t){
 # ------ 
  
 # load save 
-	 
+	
 function Autoload($x){ 
 
 	if($comb_fm.SelectedItem -ne $x.name){
@@ -6726,7 +6421,7 @@ function Key_play([string]$t){
  } #func
   
 # Export 
-	 
+	
 function Unredo([int]$n){ 
 
 	switch($n){ # 初期化
@@ -6735,7 +6430,7 @@ function Unredo([int]$n){
 		$script:undo[1]= $null
 		break;
 
-	}1{	# undo呼出し
+	}1{	## undo呼出し ## <- $fm_menu_ud.Add_Click - sansyo
 
 		if(($script:undo[2] -eq 'store') -or ($script:undo[2] -eq 'store_op')){
 			$script:undo[2]= "undo"
@@ -6771,6 +6466,17 @@ function Unredo([int]$n){
 
 		$script:undo[2]= "store_op"
 		$script:undo[0]= $fm_box.Text
+		break;
+
+	}4{	# box undo開始
+
+		$script:undo[2]= "store_box"
+		$script:undo[0]= $fm_box.Text
+		break;
+
+	}5{	# box_mml undo開始
+
+		$script:undo[2]= "store_box_mml"
 	}
 	} #sw
 
@@ -6782,7 +6488,7 @@ function Unredo([int]$n){
 		$fm_menu_ud.Enabled= $False
 	}
  } #func
- 	
+ 
 function Send_build([int]$sw){ 
 
 	[array]$ary= @("OPL","VRC7","OPM","OPN") # OPL -> VRC7
@@ -8050,12 +7756,17 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
  
 # Sub forms 
 	 
-# $contxt_7bwを読み込んだ後$PictureBox objが安全 
+# $contxtA_7bwを読み込んだ後$PictureBox objが安全 
 	 
-$contxt_Sep_7bw= New-Object System.Windows.Forms.ToolStripSeparator 
-$contxt_Sep_Lbw= New-Object System.Windows.Forms.ToolStripSeparator
-$contxt_Sep_Nbg= New-Object System.Windows.Forms.ToolStripSeparator
-$contxt_Sep_Mbg= New-Object System.Windows.Forms.ToolStripSeparator
+$contxtA_Sep_7bw= New-Object System.Windows.Forms.ToolStripSeparator 
+$contxtA_Sep_Lbw= New-Object System.Windows.Forms.ToolStripSeparator
+$contxtA_Sep_Nbg= New-Object System.Windows.Forms.ToolStripSeparator
+$contxtA_Sep_Mbg= New-Object System.Windows.Forms.ToolStripSeparator
+
+$contxtL_Sep_7bw= New-Object System.Windows.Forms.ToolStripSeparator
+$contxtL_Sep_Lbw= New-Object System.Windows.Forms.ToolStripSeparator
+$contxtL_Sep_Nbg= New-Object System.Windows.Forms.ToolStripSeparator
+$contxtL_Sep_Mbg= New-Object System.Windows.Forms.ToolStripSeparator
  
 $contxt_7bw= New-Object System.Windows.Forms.ContextMenuStrip 
 
@@ -8063,29 +7774,9 @@ $contxt_7bw= New-Object System.Windows.Forms.ContextMenuStrip
 
 $contxt_7bw.Add_ItemClicked({
  try{
-	[string] $str= $_.ClickedItem # switch tame
-	switch($str){
-	'ADSR copy'{	$script:adsr= ADSR_in
-			break;
-	}'ADSR paste'{
-		Unredo 3
-
-		ADSR_out $script:adsr
-		Box_read
-		Value_gui
-		All_chg
-		break;
-	}default{
-		if($str.Contains("[v]") -eq $False){
-
-			$script:key["knob"][0]= (ShortX $str "short")
-			Contxt_chg_vrc (ShortX $str "short")
-			All_chg # pictbox string tame
-		}
-	}
-	} #sw
-
+	ADSR_cp $_.ClickedItem
 	$this.Close()
+
  }catch{
 	echo $_.exception
  }
@@ -8097,29 +7788,9 @@ $contxt_Lbw= New-Object System.Windows.Forms.ContextMenuStrip
 
 $contxt_Lbw.Add_ItemClicked({
  try{
-	[string] $str= $_.ClickedItem
-	switch($str){
-	'ADSR copy'{	$script:adsr= ADSR_in
-			break;
-	}'ADSR paste'{
-		Unredo 3
-
-		ADSR_out $script:adsr
-		Box_read
-		Value_gui
-		All_chg
-		break;
-	}default{
-		if($str.Contains("[v]") -eq $False){
-
-			$script:key["knob"][1]= (ShortX $str "short")
-			Contxt_chg_opl (ShortX $str "short")
-			All_chg
-		}
-	}
-	} #sw
-
+	ADSR_cp $_.ClickedItem
 	$this.Close()
+
  }catch{
 	echo $_.exception
  }
@@ -8131,29 +7802,9 @@ $contxt_Nbg= New-Object System.Windows.Forms.ContextMenuStrip
 
 $contxt_Nbg.Add_ItemClicked({
  try{
-	[string] $str= $_.ClickedItem
-	switch($str){
-	'ADSR copy'{	$script:adsr= ADSR_in
-			break;
-	}'ADSR paste'{
-		Unredo 3
-
-		ADSR_out $script:adsr
-		Box_read
-		Value_gui
-		All_chg
-		break;
-	}default{
-		if($str.Contains("[v]") -eq $False){
-
-			$script:key["knob"][2]= (ShortX $str "short")
-			Contxt_chg_opn (ShortX $str "short")
-			All_chg
-		}
-	}
-	} #sw
-
+	ADSR_cp $_.ClickedItem
 	$this.Close()
+
  }catch{
 	echo $_.exception
  }
@@ -8165,29 +7816,9 @@ $contxt_Mbg= New-Object System.Windows.Forms.ContextMenuStrip
 
 $contxt_Mbg.Add_ItemClicked({
  try{
-	[string] $str= $_.ClickedItem
-	switch($str){
-	'ADSR copy'{	$script:adsr= ADSR_in
-			break;
-	}'ADSR paste'{
-		Unredo 3
-
-		ADSR_out $script:adsr
-		Box_read
-		Value_gui
-		All_chg
-		break;
-	}default{
-		if($str.Contains("[v]") -eq $False){
-
-			$script:key["knob"][3]= (ShortX $str "short")
-			Contxt_chg_opm (ShortX $str "short")
-			All_chg
-		}
-	}
-	} #sw
-
+	ADSR_cp $_.ClickedItem
 	$this.Close()
+
  }catch{
 	echo $_.exception
  }
@@ -8737,7 +8368,7 @@ $contxtx.MaximumBuffer= $buf_Size -join ","
 $buffx= $contxtx.Allocate($buf_grp, $buf_Rect)
   
 # 2op ura buffer 
-	
+	 
 $image5a= New-Object System.Drawing.Bitmap($buf_IMG) 
 
 $gpv= [System.Drawing.Graphics]::FromImage($image5a)
@@ -8771,7 +8402,7 @@ $contxti.MaximumBuffer= $buf_Size -join ","
 $buffi= $contxti.Allocate($buf_grp, $buf_Rect)
   
 # 4op ura buffer 
-	
+	 
 $image5= New-Object System.Drawing.Bitmap($buf_IMG) 
 
 $gpk= [System.Drawing.Graphics]::FromImage($image5)
@@ -9298,7 +8929,7 @@ $sb_stus.Items.AddRange(@($sb_label))
 $sb_alg.Controls.AddRange(@($sb_mnu,$pict_panel,$sb_stus))
   
 # Preset forms 
-	 
+	
 $ff_baloon= New-Object System.Windows.Forms.Tooltip 
 $ff_baloon.ShowAlways= $False
 # $ff_baloon.ToolTipIcon= "Info"
@@ -9622,7 +9253,7 @@ $ff_frm.Add_FormClosing({
 })
  
 $ff_mnu= New-Object System.Windows.Forms.MenuStrip 
-	 
+	
 $ff_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $ff_menu_f.Text= "File"
 
@@ -10032,7 +9663,7 @@ $sub_sav.CancelButton= $sub_sav_cancel_Btn	# [ESC]
 $sub_sav.AcceptButton= $sub_sav_ok_Btn	# [Enter]
   
 # Main forms 
-	 
+	
 # BUFFER 
 	 
 [int[]]$IMG_buf= @(480, 480) # バッファサイズ 
@@ -10059,7 +9690,7 @@ $Horizonbuff= $Contxtbuf.Allocate($Graphics_buf, $Rect_buf)
 # $Horizonbuff= $Contxtb.Allocate($Graphics_buf, $Pictbox_buf.ClientRectangle)
   
 # Pictbox 
-	
+	 
 [bool] $script:mouser_capure= $False 
 [int] $script:starter_value= 0
 $script:topper_pos= New-Object System.Drawing.Point
@@ -12188,7 +11819,7 @@ $op_grp.Text= "Frequency Modulation"
 $op_grp.FlatStyle= "Flat"
 $op_grp.ForeColor= "gray"
 $op_grp.Font= $FonLabel
-	 
+	
 # ------ TL - TotalLevel 63-0 2op / 0max - 127min 4op 
 	 
 $lbl_tl= New-Object System.Windows.Forms.Label 
@@ -12647,7 +12278,7 @@ $osc_grp.Size= "255, 105"
 $osc_grp.Location= "270,300"
 $osc_grp.ForeColor= "gray"
 $osc_grp.Font= $FonLabel
-	 
+	
 $lisn_btn= New-Object System.Windows.Forms.Button 
 $lisn_btn.Location= "20, 30"
 $lisn_btn.Size= "25, 25"
@@ -12689,8 +12320,6 @@ $conv_btn.Add_Click({ # text convert
 			Monotone_select "conv_btn" # Colorline書込
 			All_chg
 		}
-
-		$fm_box.Modified= $False
 	}
 
 	if($fm_box_mml.Modified -eq $True){ #変更あらば
@@ -12719,8 +12348,6 @@ $conv_btn.Add_Click({ # text convert
 		if($sb_alg.Visible){
 			Monotone_select "conv2_btn" # Colorline書込
 		}
-
-		$fm_box_mml.Modified= $False # 開いたままため、自前でoff
 	}
  }catch{
 	echo $_.exception
@@ -12893,6 +12520,8 @@ $fm_box_mml.font= $Fon
 
 $fm_box_mml.Add_Enter({
  try{
+	Unredo 5
+
 	$this.ForeColor= "black"
 	$this.BackColor= "white"
  }catch{
@@ -12901,6 +12530,7 @@ $fm_box_mml.Add_Enter({
 })
 
 $fm_box_mml.Add_Leave({
+
 	$this.ForeColor= "dimgray"
 	$this.BackColor= "white" # "gainsboro"
 })
@@ -12929,7 +12559,7 @@ $fm_box.font= $Fon
 
 $fm_box.Add_Enter({ # kaki komi de undo reset
  try{
-	Unredo 2
+	Unredo 4
 
 	$this.ForeColor= "black"
 	$this.BackColor= "white"
@@ -12939,6 +12569,7 @@ $fm_box.Add_Enter({ # kaki komi de undo reset
 })
 
 $fm_box.Add_Leave({
+
 	$this.ForeColor= "dimgray"
 	$this.BackColor= "white" # "gainsboro"
 })
@@ -13082,7 +12713,7 @@ $fm_menu_f.Text= "File"
 
 
 
-	 
+	
 $fm_menu_pset= New-Object System.Windows.Forms.ToolStripSeparator 
 $fm_menu_pset= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_pset.Text= "Preset"
@@ -13320,7 +12951,7 @@ $fm_sav_h.Add_Click({
 $fm_menu_ktn= New-Object System.Windows.Forms.ToolStripSeparator 
 $fm_menu_kt= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_kt.Text= "Preferences"
-	 
+	
 $menu_fty= New-Object System.Windows.Forms.ToolStripMenuItem 
 # $menu_fty.Text= "v Task tray"
 
@@ -13445,14 +13076,16 @@ $fm_menu_ud.Enabled= $False
 
 $fm_menu_ud.Add_Click({
  try{
-	switch($fm_box.Focused){
-	'False'{
-		Unredo 1; break;
-	}'True'{
+	if($fm_box_mml.Focused -eq $True){
+		$fm_box_mml.Undo() # text_box gawa api de
+
+	}elseif($fm_box.Focused -eq $True){
 		$fm_box.Undo()
+
+	}else{
+		Unredo 1
 	}
-	} #sw
- }catch{
+}catch{
 	echo $_.exception
  }
 })
@@ -14254,7 +13887,7 @@ $fm_menu_mask.Add_Click({
     	Write-Host '"ERROR: Safety Stopper >> $sub_mask.Show()"'
  }
 })
-	 
+	
 $fm_menu_so= New-Object System.Windows.Forms.ToolStripSeparator 
  
 $fm_menu_oct1= New-Object System.Windows.Forms.ToolStripMenuItem 
@@ -14469,7 +14102,7 @@ $fm_menu_copy.Add_Click({
 	echo $_.exception
  }
 })
-	 
+	
 $fm_menu_zero= New-Object System.Windows.Forms.ToolStripMenuItem 
 #$fm_menu_zero.Text= "zero padding"
 $fm_menu_zero.Add_Click({
@@ -14850,7 +14483,7 @@ $fm_stus.Items.AddRange(@($fm_label))
 $frm_fm.Controls.AddRange(@($fm_mnu, $fm_panel, $fm_box_mml, $fm_box, $fm_stus))
    
 # Global variable ====== 
-	 
+	
 # color setting 
 
 
@@ -14860,7 +14493,7 @@ $frm_fm.Controls.AddRange(@($fm_mnu, $fm_panel, $fm_box_mml, $fm_box, $fm_stus))
 
 
 
-	 
+	
  try{ 
  
 # bg,line,text ------ 
@@ -15657,7 +15290,7 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 
 	[int[]]$frm_state= 0, 0,0,0,0 # Multi window state
 
-	[string[]] $script:adsr= "","","", "",""
+	[string[]] $script:adsr= $null,$null,"","", "","","","",  "","","","",  ""
 
 	$frm_fm.ShowDialog() > $null
 
