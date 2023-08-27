@@ -22,7 +22,7 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 
   # $write_xml.Encoding= [Text.Encoding]::default # shiftJISとなる
   # default -> .net4 shift_jis / .net5 utf8lessbom
- 	
+ 
 function Mml_writer([string]$lis,[string]$out,[int]$sw){ 
 
   try{
@@ -43,7 +43,7 @@ function Mml_writer([string]$lis,[string]$out,[int]$sw){
 	# $xml_sav.Close()
   }
  } #func
- 
+ 	
 function File_writer($x, [string]$xml_file){ 
 
   try{

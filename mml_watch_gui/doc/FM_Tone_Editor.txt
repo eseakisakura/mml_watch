@@ -599,7 +599,7 @@
 	9 4		bug fix - header+MMLのtrue,false間違い
 	10		Reg_exp,Fmx_expのerr popup部修正
 
-	11 25	初動からの安定性を上げた、Change_value周りの最適化
+	11 25		初動からの安定性を上げた、Change_value周りの最適化
 	12 3		$fm_menu_type_mckreg.Add_Click周りのイベントコンパイラ選択bugfix
 			Presetのtab変更時のイベントコンパイラ選択bugfix
 	17		初動時のPreset_readエラーによる処理落ちbugfix
@@ -610,10 +610,10 @@
 	5 5		メニューのpreset load時、エラーあらば表示するようにした
 			電圧定数のテストしたままを元にもどした
 
-	11 13	ps7対応のため、パーツの座標を修正した。
-	16	コンパイラメニュー部を直した。
+	11 13		ps7対応のため、パーツの座標を修正した。
+	16		コンパイラメニュー部を直した。
 
-	12 29	op windowの画像出力側から、ホイールで値を変更できるようにした。
+	12 29		op windowの画像出力側から、ホイールで値を変更できるようにした。
 			op.bg.の右クリックメニューを変更した。
 			各FM oscで、最後のop.位置を独立懸架とした。
 			各FM oscで、value選択は独立懸架とした。
@@ -637,4 +637,33 @@
 			buffer描画からgrp描画へ変更した。BGも同様の変更をした。
 
 			Presetで、ClickToPlayの選択ができるようにした。
+
+	8 10		マウスによるADSRの変更をx軸でなく、y軸に統一した。
+			fm_box_mmlとfm_boxの上下位置を変えた。
+
+			Box_writeをBox_readへネーム変更。
+			conv_btnで、fm_box_mmlから各ファイルへの書き出すようにした。
+
+			アルゴリズムを右クリックで指定できるようにした。
+
+	13		undoの実装がまずかったので直した。
+			各opイベント記述を、Mouse_opwinerへ集約した。
+			変数名$key["wheel"]を、$key["knob"]と書き換えた。
+
+	16		fm_box_mmlからconv_btn時、黄色ハイライトが光るようにした。
+			header mml出力へ無駄な改行が付くため、これを修正。
+
+	19		op.windowの文字出力に、opの色を付けた。
+
+	20		knobやOp.windowの、MouseHover,Leave時の挙動を修正。
+			$Pictbox1aなどのMouseLeaveイベント記述が、なかったので修正。
+			Wheel_ALGを、共通化コードで書き直した。
+
+	24		knobクリックで、$fm_boxからフォーカスが離れるようにした。
+			伴い、$fm_boxなどのUndoを最適化をした。
+
+			op.windowの上下方向を、感覚的に合うよう修正した。
+			各コンテキスト$contxt_7bwなどを最適化した。
+			all copy -> 各pasteとするようにした。
+
  	

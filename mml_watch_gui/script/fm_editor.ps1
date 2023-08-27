@@ -159,7 +159,7 @@ $xml_editor= @'
 # function ====== 
  
 # color 
-	
+	 
 Function Line_highlight([array]$rr){ 
 
 	switch(Itm){ # Chip_position $script:xye2
@@ -421,7 +421,7 @@ function Brush_Color(){
 } #func
   
 # buffer 
-	
+	 
 function Pixcel_Select([int] $max){ 
 
 	$max= $max+ 1
@@ -466,7 +466,7 @@ function Mouse_knober([string] $sw, [string] $type, $ev){	# knob
 
 			if(($fm_box.Focused -eq $True) -or ($fm_box_mml.Focused -eq $True)){
 
-				$conv_btn.Focus() # $fm_box - leave event tame
+				$conv_btn.Focus() # $fm_box.Add_Leave - .Focus() de leave event tame
 				$conv_btn.PerformClick()
 			}
 
@@ -522,7 +522,7 @@ function Mouse_knober([string] $sw, [string] $type, $ev){	# knob
 	}
 	} #sw
  } #func
- 
+ 	
 function Buffer_Render([int] $val, [int] $max, [string] $sw, [bool] $layer){ 
 
 	[array]$rr= Brush_Color
@@ -708,7 +708,7 @@ function NmudX([string] $sw){
  } #func
   
 # contxt 
-	 
+	
 function Opmap_change([int]$j){ 
 
 	# .SelectedIndex= $j # event -> .Add_SelectedValueChanged
@@ -1474,7 +1474,7 @@ function ADSR_cp([string] $str){
 	}
 	} #sw
  } #func
- 	
+ 
 # ------ 
  
 function Contxt_select([string]$s){ 
@@ -2768,7 +2768,7 @@ function Chip_position([string]$k){
  } #func
  
 <# 
-	 
+	
 function Alg_cablw([int]$alg){ 
 
  [int]$sw= Idx
@@ -7755,7 +7755,7 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 [Environment]::CurrentDirectory= pwd # working_dir set
  
 # Sub forms 
-	 
+	
 # $contxtA_7bwを読み込んだ後$PictureBox objが安全 
 	 
 $contxtA_Sep_7bw= New-Object System.Windows.Forms.ToolStripSeparator 
@@ -9663,7 +9663,7 @@ $sub_sav.CancelButton= $sub_sav_cancel_Btn	# [ESC]
 $sub_sav.AcceptButton= $sub_sav_ok_Btn	# [Enter]
   
 # Main forms 
-	
+	 
 # BUFFER 
 	 
 [int[]]$IMG_buf= @(480, 480) # バッファサイズ 
@@ -9690,7 +9690,7 @@ $Horizonbuff= $Contxtbuf.Allocate($Graphics_buf, $Rect_buf)
 # $Horizonbuff= $Contxtb.Allocate($Graphics_buf, $Pictbox_buf.ClientRectangle)
   
 # Pictbox 
-	 
+	
 [bool] $script:mouser_capure= $False 
 [int] $script:starter_value= 0
 $script:topper_pos= New-Object System.Drawing.Point
@@ -10683,7 +10683,7 @@ $PictboxFB.Add_MouseLeave({
 })
   
 # Group 
-	 
+	
 $eg_grp= New-Object System.Windows.Forms.GroupBox 
 $eg_grp.Location= "10, 30"
 $eg_grp.Size= "255, 130" # 4op "255, 210"
