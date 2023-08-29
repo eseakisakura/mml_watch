@@ -3,26 +3,27 @@
 Chiptune MMLコンパイラへ、GUIを提供するフロントエンドです。<br/>
 "ppmck", "nsdLib", "P.M.D"へ対応します。<br/>
 <br/>
-GUI部も含めて、総Powershellで組まれており、<br/>
-それぞれがスタンドアロン(単体)で起動します。<br/>
+GUI部も含めて、総Powershellで組まれており、それぞれがスタンドアロン(単体)で起動します。<br/>
 
 <h5>起動済み確認環境: <br/>
+ <br/>
 win10(22H2)+ Powershell7.3(.NET6)<br/>
 win10(22H2)+ Powershell5(.NET Framework4.8)<br/>
+<br/>
 winXP+ Powershell2(.NET Framework3.5) - 旧版 ver4.5.2<br/>
 </h5>
-<br/>
 
 <h4>
 説明書及び、必須ソフトウェアのリンク <br/>
 ・<a href="https://eseakisakura.github.io/mml_watch_gui/"> Mml Watch GUI - download</a><br/>
 </h4>
 <br/>
-
+<br/>
 <table><tr><td>・Mml Watch GUI</td><td>mmlチップチューンのfront end</td>
 </tr><tr><td>・FM Synthesis Chip - Tone Editor</td><td>2op.4op.対応FM音源音色エディタ</td>
 </tr><tr><td>・Guitar Arpeggio - MML Generator</td><td>ギターアルペジオジェネレータ</td>
 </tr></table>
+<br/>
 ※Watch.cmdなどのバッチファイルによる起動であれば、<br/>
 .NET Framework3.5以上、PowerShell2以上なら動くと思います。<br/>
 <br/>
@@ -30,7 +31,7 @@ winXP+ Powershell2(.NET Framework3.5) - 旧版 ver4.5.2<br/>
 <br/>
 ※各起動バイナリexeについて<br/>
 powershell scriptを呼び出すための、c#によるラッパーとなっています。<br/>
-
+<br/>
 
 <h4><img src="./image/MW_icon.png" /> Mml Watch GUI</h4>
 
@@ -43,7 +44,7 @@ mmlによるchiptuneコンパイラをGUI化したフロントエンドです。
 ppmck、nsdLib、PMDに対応しています。<br/>
 </div></td></tr></table>
 
-<h4>■□ Setting Panel</h4>
+<h4>□ Setting Panel</h4>
 
 <table><tr><td>
 <img src="./image/SETTING_w.png" /><br/>
@@ -54,7 +55,7 @@ ppmck、nsdLib、PMDに対応しています。<br/>
 (以下のFM Editor、Arp Generatorも、
 このパス環境を使います。)<br/>
 </div></td></tr></table>
-
+<br/>
 <h4><img src="./image/FE_icon.png" /> FM Synthesis Chip - Tone Editor</h4>
 
 <table><tr><td>
@@ -69,10 +70,9 @@ ppmck、nsdLib、PMDに対応しています。<br/>
 インポート、エクスポートができます。<br/>
 </div></td></tr></table>
 
-<h4>■□ FM Editor Operator window</h4>
+<h4>□ FM Editor Operator window</h4>
 
 <table><tr><td>
-<img src="./image/FM_2op.png" /><br/>
 <img src="./image/FM_4op.png" /><br/>
 </td><td>
 <div>
@@ -82,7 +82,7 @@ ppmck、nsdLib、PMDに対応しています。<br/>
 (ウィンドウ内をクリックすることで、
 エディットするオペレータ切替えができます。)<br/>
 </div></td></tr></table>
-
+<br/>
 <h4><img src="./image/AG_icon.png" />Guitar Arpeggio - MML Generator</h4>
 
 <table><tr><td>
