@@ -44,7 +44,7 @@ mmlによるchiptuneコンパイラをGUI化したフロントエンドです。
 ppmck、nsdLib、PMDに対応しています。<br/>
 </div></td></tr></table>
 
-<h4>□ Setting Panel</h4>
+<h4>■ Setting Panel</h4>
 
 <table><tr><td>
 <img src="./image/SETTING_w.png" /><br/>
@@ -52,8 +52,7 @@ ppmck、nsdLib、PMDに対応しています。<br/>
 <div>
 必要なソフトウェアを登録する環境設定です。
 リストボックスへDrug&Dropすることでパスを登録します。<br/>
-(以下のFM Editor、Arp Generatorも、
-このパス環境を使います。)<br/>
+(以下のFM Editor、Arp Generatorも、このパス環境リストを共有します。)<br/>
 </div></td></tr></table>
 <br/>
 <h4><img src="./image/FE_icon.png" /> FM Synthesis Chip - Tone Editor</h4>
@@ -62,18 +61,18 @@ ppmck、nsdLib、PMDに対応しています。<br/>
 <img src="./image/FM_edt.png" /><br/>
 </td><td>
 <div>
-2op(vrc7,opl),4op(opn,opm)対応のFM音源音色エディタです。<br/>
+2op(vrc7, opl), 4op(opn, opm)対応のFM音源音色エディタです。<br/>
 <br/>
-音色の試聴、プリセット呼び出し、音色の一時保存や、<br/>
+生成音色の試聴、preset呼び出し、音色の一時保存や、<br/>
 2op.(ppmck,nsdLibのレジスタ音色含む)、<br/>
 4op.(PMD,fmp7,mxdrv各音色形式)の、<br/>
 インポート、エクスポートができます。<br/>
 </div></td></tr></table>
 
-<h4>□ FM Editor Operator window</h4>
+<h4>■ FM Editor Operator window</h4>
 
 <table><tr><td>
-<img src="./image/FM_4op.png" /><br/>
+<img width="100%" src="./image/FM_4op.png" /><br/>
 </td><td>
 <div>
 上記、FM音源音色エディタのサブウィンドウです。<br/>
@@ -90,9 +89,7 @@ ppmck、nsdLib、PMDに対応しています。<br/>
 </td><td>
 <div>
 ギターアルペジオMMLジェネレータです。<br/>
-マルチトラックにMMLを自動的に振り分け、
-串抜きMMLを自動生成します。<br/>
+マルチトラックにMMLを自動的に振り分け、串抜きMMLを自動生成します。<br/>
 <br/>
-chordアサインのち、アルペジオナンバーを打つことで、
-各コンパイラに対応したmmlを生成します。<br/>
+chordアサインのち、アルペジオナンバーを打つことで、各コンパイラに対応したmmlを生成します。<br/>
 </div></td></tr></table>
