@@ -72,13 +72,14 @@ ppmck、nsdLib、PMDに対応しています。<br/>
 <h4>■ FM Editor Operator window</h4>
 
 <table><tr><td>
-<img width="100%" src="./image/FM_4op.png" /><br/>
+<img src="./image/FM_4op.png" /><br/>
 </td><td>
 <div>
 上記、FM音源音色エディタのサブウィンドウです。<br/>
 <br/>
-音色エディタのスライダーに連動し、合成波形表示が変わります。
-(ウィンドウ内をクリックすることで、
+音色エディタのスライダーに連動し、<br/>
+合成波形表示が変わります。<br/>
+(ウィンドウ内をクリックすることで、<br/>
 エディットするオペレータ切替えができます。)<br/>
 </div></td></tr></table>
 <br/>
