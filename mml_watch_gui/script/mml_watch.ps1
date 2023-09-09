@@ -243,7 +243,7 @@ function Play_nsf([string]$file){
  } #func
   
 # chk_path 
-	
+	 
 function Err_build(){ 
 
 	[int[]]$err= 0,0,0,0
@@ -449,8 +449,13 @@ function Wait_setpath(){
 			break;
 
 		}default{
-			$err= 1
-			$eor= ($f[3]+ 'の監視セット<< '+ $f[0])
+			if( (Get-Item $val["mmlfile"]) -is [System.IO.DirectoryInfo] ){
+
+				$eor= ('フォルダの監視は不可です>> '+ $f[0])
+			}else{
+				$err= 1
+				$eor= ($f[3]+ 'の監視セット<< '+ $f[0])
+			}
 		}
 		} #sw
 
@@ -464,7 +469,7 @@ function Wait_setpath(){
 		$script:wait.Filter= $f[0]
 		break;
 	}0{
-		$script:wait.Path= ".\img" # 存在するパス <- Pathエラーため
+		$script:wait.Path= ".\" # 存在するパス <- Pathエラーため
 		$script:wait.Filter= $null
 	}
 	} #sw
@@ -473,7 +478,7 @@ function Wait_setpath(){
  } #func
   
 # toggle 
-	
+	 
 function Toggle_label(){ 
 
 
@@ -523,6 +528,7 @@ function Toggle_sw([string]$sw){
 	}
 	} #sw
 
+	Write-Host "-------------------"
 	Write-Host ('RaisingEvents: '+ $wait.EnableRaisingEvents)
 
  } #func
@@ -641,7 +647,7 @@ function Watch_Start(){
 
  } #func
  
-function Watch_Drop(){ 	
+function Watch_Drop([string[]] $args_path){ 
 
 	if($wait.EnableRaisingEvents -eq $True){
 
@@ -655,49 +661,134 @@ function Watch_Drop(){
 	}
 
 
-	[string[]]$args_path= $_.Data.GetData("FileDrop")
-
+	[string] $ss= ""
 
 	switch(Chk_path $args_path[0]){
 
-	2{	Write-Host ('ERROR: Null >> FileDrop Form')
-		break;
+	2{	$ss= "ERROR: Form File Set >> Null"
 
-	}1{	Write-Host ('ERROR: Chk_path >> FileDrop Form')
+		$err_box.Text= $ss+ "`r`n"
+		Write-Host $ss
+		break;
+	}1{
+		$ss= "'ERROR: Form File Set >> Check Path"
+
+		$err_box.Text= $ss+ "`r`n"
+		Write-Host $ss
 		break;
 
 	}0{
-		$script:val["mmlfile"]= $args_path[0]
+		[int] $sw= 0
 
+		[string[]] $arr_mml= $mml.Keys
+		[string[]] $arr= Split_path $args_path[0]
 
-		$script:mml.Clear()
+		foreach($pick in $arr_mml){
 
-		[string[]]$arr= Split_path $args_path[0]
-		$script:mml[$arr[0]]= $args_path[0]
+			if($pick -eq $arr[0]){
+				$sw= 1
+			}
+		} #
 
-		Wthmenu_build "mmlfile"
+		if($sw -eq 0){
 
-		SetWrite_xml $script:set_xml.table
-		File_writer $script:set_xml '.\setting.xml'
+			## if($mml.Keys.Count -lt 4){
+
+			if($arr_mml.Length -lt 4){
+				$sw= 1
+			}
+		}
+
+		if($sw -eq 0){
+
+			$ss= "ERROR: MML Slot >>  Over Count"
+
+			$err_box.Text= $ss+ "`r`n"
+			Write-Host $ss
+		}else{
+
+			$script:val["mmlfile"]= $args_path[0]
+
+			Status_cheker
+			$script:chk_mml= Wait_setpath
+
+			if($chk_mml){
+
+				$script:mml[$arr[0]]= $args_path[0]	# hash add
+				Wthmenu_build "mmlfile"
+
+				SetWrite_xml $script:set_xml.table
+				File_writer $script:set_xml '.\setting.xml'
+
+				Toggle_sw "true"
+			}
+
+			Toggle_label
+		}
 	}
 	} #sw
 
-	Write-Host ""
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}
-
-	Toggle_label
-
  } #func
-  
+ 	 
 # gui 
 	
+function New_mml([string] $sw){ 
+
+	[string] $new_set= "" # kara iretoku -> system err kaihi
+
+	switch($sw){
+	'mck'{
+		$new_set= (cat '.\new\new_mck.mml' | Out-String)
+		break;
+	}'nsd'{
+		$new_set= (cat '.\new\new_nsd.mml' | Out-String)
+		break;
+	}'pmd'{
+		$new_set= (cat '.\new\new_pmd.mml' | Out-String) # 改行付き
+	}
+	} #sw
+
+	[string] $btn= $dia.ShowDialog()
+
+	switch($btn){
+	'OK'{
+		[string] $path= $dia.FileName
+
+		Mml_writer $new_set $path 0
+		# $new_set | Out-File -Encoding oem -FilePath $path # shiftJIS
+
+		return $path
+
+	#}'Cancel'{
+	}
+	} #sw
+ } #func
+ 
+function Setadv_edit([string] $t){ 
+
+	[string] $ss= ""
+
+	switch($t){
+	'mck'{
+		$ss= Editor_open $val["editor"] ".\new\new_mck.mml"
+		break;
+	}'nsd'{
+		$ss= Editor_open $val["editor"] ".\new\new_nsd.mml"
+		break;
+	}'pmd'{
+		$ss= Editor_open $val["editor"] ".\new\new_pmd.mml"
+	}
+	} #sw
+
+	if($ss -ne ''){
+
+		[string]$retn= [Windows.Forms.MessageBox]::Show(
+
+		$ss, "確認", "OK","Information","Button1"
+		)
+	}
+ } #func
+ 
 function Contxt_chg([string]$sw,[int]$chg){ 
 
 	switch($sw){
@@ -1238,7 +1329,7 @@ function Wthmenu_build([string]$sw){
   }
   } #sw
  } #func
-  	
+  
 # hash 
 	
 function Change_value([string]$sw, [string]$name){ 
@@ -1449,8 +1540,15 @@ $ErrorActionPreference= "Stop"
 cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 [Environment]::CurrentDirectory= pwd # working_dir set
  
+$dia= New-Object System.Windows.Forms.SaveFileDialog 
+# ファイル選択ダイアログ
+
+$dia.Filter= "mmlファイル|*.mml" # spaceを入れないこと!
+$dia.Title= "保存ファイル名を入力してください"
+$dia.RestoreDirectory= "True"
+ 
 # Form 
-	
+	 
 $err_box= New-Object System.Windows.Forms.TextBox 
 $err_box.Size= "240,60"
 $err_box.Location= "10,55"
@@ -1661,19 +1759,77 @@ $frm.Add_DragEnter({
 
 $frm.Add_DragDrop({
   try{
-	Watch_Drop
+	Watch_Drop $_.Data.GetData("FileDrop")
 
   }catch{
 	echo $_.exception
   }
 })
  
+$frm.AcceptButton= $wait_btn	# [Enter] 
+ 
 $mnu= New-Object System.Windows.Forms.MenuStrip 
 	 
 $menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $menu_f.Text= "File"
+ 
+$sub_menu_new= New-Object System.Windows.Forms.ToolStripMenuItem 
+$sub_menu_new.Text= "新規ファイル"
 
-$menu_e= New-Object System.Windows.Forms.ToolStripMenuItem
+
+
+	 
+$sub_menu_mck= New-Object System.Windows.Forms.ToolStripMenuItem 
+$sub_menu_mck.Text= "MCK new mml"
+
+$sub_menu_mck.Add_Click({
+ try{
+	[string] $pth= New_mml "mck"
+
+	$menu_cmck.PerformClick()
+
+	Watch_Drop $pth
+
+}catch{
+	echo $_.exception
+ }
+})
+ 
+$sub_menu_nsd= New-Object System.Windows.Forms.ToolStripMenuItem 
+$sub_menu_nsd.Text= "NSD new mml"
+
+$sub_menu_nsd.Add_Click({
+ try{
+	[string] $pth= New_mml "nsd"
+
+	$menu_cnsd.PerformClick()
+
+	Watch_Drop $pth
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$sub_menu_pmd= New-Object System.Windows.Forms.ToolStripMenuItem 
+$sub_menu_pmd.Text= "PMD new mml"
+
+$sub_menu_pmd.Add_Click({
+ try{
+	[string] $pth= New_mml "pmd"
+
+	$menu_cpmd.PerformClick()
+
+	Watch_Drop $pth
+
+ }catch{
+	echo $_.exception
+ }
+})
+  
+$sub_menu_an=New-Object System.Windows.Forms.ToolStripSeparator 
+ 
+$menu_e= New-Object System.Windows.Forms.ToolStripMenuItem 
 $menu_e.Text= "エディタ起動"
 
 $menu_e.Add_Click({
@@ -1718,6 +1874,7 @@ $menu_n=  New-Object System.Windows.Forms.ToolStripMenuItem
 $menu_n.Text= "終了"
 
 $menu_n.Add_Click({ # 終了
+
 
 	$frm.Close()
 })
@@ -2911,70 +3068,49 @@ $menu_r.Add_Click({
   
 $menu_h= New-Object System.Windows.Forms.ToolStripMenuItem 
 $menu_h.Text= "Help"
+ 
+$sub_menu_adv= New-Object System.Windows.Forms.ToolStripMenuItem 
+$sub_menu_adv.Text= "Advanced"
+	
+$adv_menu_mck= New-Object System.Windows.Forms.ToolStripMenuItem 
+$adv_menu_mck.Text= "MCK new edit"
 
-
-$menu_sw= New-Object System.Windows.Forms.ToolStripSeparator
-$menu_whelp= New-Object System.Windows.Forms.ToolStripMenuItem
-$menu_whelp.Text= "MmlWatch Help"
-
-$menu_whelp.Add_Click({
+$adv_menu_mck.Add_Click({
  try{
-
-  if((Chk_path $edit["sted.exe"]) -eq 0){
-
-	[string]$retn= Editor_open $edit["sted.exe"] "..\doc\Mml_Watch.txt"
-  }else{
-	[string]$retn= Editor_open $val["editor"] "..\doc\Mml_Watch.txt"
-  }
-
-  if($retn -ne ""){ $err_box.Text= $retn }
-
+	Setadv_edit "mck"
  }catch{
 	echo $_.exception
  }
 })
+ 
+$adv_menu_nsd= New-Object System.Windows.Forms.ToolStripMenuItem 
+$adv_menu_nsd.Text= "NSD new edit"
 
-$menu_phelp= New-Object System.Windows.Forms.ToolStripMenuItem
-$menu_phelp.Text= "PMD Quick Help"
-
-$menu_phelp.Add_Click({
+$adv_menu_nsd.Add_Click({
  try{
-
-  if((Chk_path $edit["sted.exe"]) -eq 0){
-
-	[string]$retn= Editor_open $edit["sted.exe"] "..\doc\PMD_Quick_Help.txt"
-  }else{
-	[string]$retn= Editor_open $val["editor"] "..\doc\PMD_Quick_Help.txt"
-  }
-
-  if($retn -ne ""){ $err_box.Text= $retn }
-
+	Setadv_edit "nsd"
  }catch{
 	echo $_.exception
  }
 })
+ 
+$adv_menu_pmd= New-Object System.Windows.Forms.ToolStripMenuItem 
+$adv_menu_pmd.Text= "PMD new edit"
 
-$menu_nhelp= New-Object System.Windows.Forms.ToolStripMenuItem
-$menu_nhelp.Text= "NSDlib Quick Help"
-
-$menu_nhelp.Add_Click({
+$adv_menu_pmd.Add_Click({
  try{
-
-  if((Chk_path $edit["sted.exe"]) -eq 0){
-
-	[string]$retn= Editor_open $edit["sted.exe"] "..\doc\Nsdlib_Quick_Help.txt"
-  }else{
-	[string]$retn= Editor_open $val["editor"] "..\doc\Nsdlib_Quick_Help.txt"
-  }
-
-  if($retn -ne ""){ $err_box.Text= $retn }
-
+	Setadv_edit "pmd"
  }catch{
 	echo $_.exception
  }
 })
-
-$menu_mhelp= New-Object System.Windows.Forms.ToolStripMenuItem
+  
+$menu_sq= New-Object System.Windows.Forms.ToolStripSeparator 
+ 
+$menu_quickhelp= New-Object System.Windows.Forms.ToolStripMenuItem 
+$menu_quickhelp.Text= "Quick Help"
+	
+$menu_mhelp= New-Object System.Windows.Forms.ToolStripMenuItem 
 $menu_mhelp.Text= "ppmck Quick Help"
 
 $menu_mhelp.Add_Click({
@@ -2993,8 +3129,70 @@ $menu_mhelp.Add_Click({
 	echo $_.exception
  }
 })
+ 
+$menu_nhelp= New-Object System.Windows.Forms.ToolStripMenuItem 
+$menu_nhelp.Text= "NSDlib Quick Help"
+
+$menu_nhelp.Add_Click({
+ try{
+
+  if((Chk_path $edit["sted.exe"]) -eq 0){
+
+	[string]$retn= Editor_open $edit["sted.exe"] "..\doc\Nsdlib_Quick_Help.txt"
+  }else{
+	[string]$retn= Editor_open $val["editor"] "..\doc\Nsdlib_Quick_Help.txt"
+  }
+
+  if($retn -ne ""){ $err_box.Text= $retn }
+
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+$menu_phelp= New-Object System.Windows.Forms.ToolStripMenuItem 
+$menu_phelp.Text= "PMD Quick Help"
+
+$menu_phelp.Add_Click({
+ try{
+
+  if((Chk_path $edit["sted.exe"]) -eq 0){
+
+	[string]$retn= Editor_open $edit["sted.exe"] "..\doc\PMD_Quick_Help.txt"
+  }else{
+	[string]$retn= Editor_open $val["editor"] "..\doc\PMD_Quick_Help.txt"
+  }
+
+  if($retn -ne ""){ $err_box.Text= $retn }
+
+ }catch{
+	echo $_.exception
+ }
+})
   
-$menu_f.DropDownItems.AddRange(@($menu_e,$menu_d,$menu_spy,$menu_py,$menu_sn,$menu_n)) 
+$menu_whelp= New-Object System.Windows.Forms.ToolStripMenuItem 
+$menu_whelp.Text= "MmlWatch Help"
+
+$menu_whelp.Add_Click({
+ try{
+
+  if((Chk_path $edit["sted.exe"]) -eq 0){
+
+	[string]$retn= Editor_open $edit["sted.exe"] "..\doc\Mml_Watch.txt"
+  }else{
+	[string]$retn= Editor_open $val["editor"] "..\doc\Mml_Watch.txt"
+  }
+
+  if($retn -ne ""){ $err_box.Text= $retn }
+
+ }catch{
+	echo $_.exception
+ }
+})
+  
+$sub_menu_new.DropDownItems.AddRange(@($sub_menu_mck,$sub_menu_nsd,$sub_menu_pmd)) 
+
+$menu_f.DropDownItems.AddRange(@($sub_menu_new,$sub_menu_an,$menu_e,$menu_d,$menu_spy,$menu_py,$menu_sn,$menu_n))
 $menu_ka.DropDownItems.AddRange(@($menu_eo,$menu_eor,$menu_r,$menu_sr,$menu_pas,$menu_pasr,$menu_ty))
 
 $menu_mml.DropDownItems.AddRange(@($menu_mml0,$menu_mml1,$menu_mml2,$menu_mml3))
@@ -3006,18 +3204,18 @@ $menu_comp.DropDownItems.AddRange(@($menu_cmck,$menu_cnsd,$menu_cpmd))
 
 $menu_player.DropDownItems.AddRange(@($menu_ply0,$menu_ply1,$menu_ply2,$menu_ply3,$menu_ply4,$menu_ply5,$menu_ply6,$menu_ply7))
 $menu_editor.DropDownItems.AddRange(@($menu_edt0,$menu_edt1,$menu_edt2,$menu_edt3,$menu_edt4,$menu_edt5,$menu_edt6,$menu_edt7))
-
 $menu_dos.DropDownItems.AddRange(@($menu_dos0,$menu_dos1,$menu_dos2,$menu_dos3))
 
-
 $menu_o.DropDownItems.AddRange(@($menu_t,$menu_st,$menu_ka,$menu_sm,$menu_mml,$menu_comp,$menu_player,$menu_editor,$menu_dos,$menu_kar,$menu_a))
-$menu_h.DropDownItems.AddRange(@($menu_mhelp,$menu_nhelp,$menu_phelp,$menu_sw,$menu_whelp))
+
+$sub_menu_adv.DropDownItems.AddRange(@($adv_menu_mck,$adv_menu_nsd,$adv_menu_pmd))
+$menu_quickhelp.DropDownItems.AddRange(@($menu_mhelp,$menu_nhelp,$menu_phelp))
+$menu_h.DropDownItems.AddRange(@($sub_menu_adv,$menu_sq,$menu_quickhelp,$menu_whelp))
+
 $mnu.Items.AddRange(@($menu_f,$menu_o,$menu_h))
 
 $stus_bar.Items.AddRange(@($stus_label))
 $frm.Controls.AddRange(@($mnu,$pic_box,$wait_lbl,$wait_btn,$err_box,$csl_box,$stus_bar))
-
-$frm.AcceptButton= $wait_btn	# [Enter]
   
 $watch= New-Object System.Diagnostics.StopWatch 
  

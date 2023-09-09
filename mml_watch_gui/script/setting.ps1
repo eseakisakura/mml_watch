@@ -56,7 +56,7 @@ $setting_xml= @'
 '@
  
 # hash 
-	 
+	
 function Xml_read($x){ 
 
   # $x= $script:xml_set.table
@@ -546,7 +546,7 @@ function Write_hash(){
 	}
 	} #sw
  } #func
- 	
+ 
 function Hash_read_cut(){ 
 
 	$sub_menu_opt.Enabled= $False # Command Line Option
@@ -996,67 +996,6 @@ function Box_radio([string]$ss){
 	return $tt
  } #func
  
-function New_mml([string]$sw){ 
-
-
-  [string]$new_set= "" # kara iretoku -> system err kaihi
-
-  if($mml.Keys.Count -ge 4){
-
-	Write-Host "New_mml>> MML List full"
-
-	[string]$retn= [Windows.Forms.MessageBox]::Show(
-
-	"MMLリストが満杯です", "確認", "OK","Information","Button1"
-	)
-
-  }else{
-	switch($sw){
-	'mck'{  $new_set= (cat '.\new\new_mck.mml' | Out-String); break;
-	}'nsd'{ $new_set= (cat '.\new\new_nsd.mml' | Out-String); break;
-	}'pmd'{ $new_set= (cat '.\new\new_pmd.mml' | Out-String) # 改行付き
-	}
-	} #sw
-
-	[string]$chk= $dia.ShowDialog()
-
-	switch($chk){
-	'OK'{
-		[string]$path= $dia.FileName
-
-		Mml_writer $new_set $path 0
-		# $new_set | Out-File -Encoding oem -FilePath $path # shiftJIS
-
-		Drag_drop "mml" $path # mml hashへ登録
-
-	#}'Cancel'{
-	}
-	} #sw
-  }
- } #func
- 
-function Setadv_edit([string]$t){ 
-
-  switch($t){
-  'mck'{
-	[string]$ss= Editor_open $edt[[string]$listbox_edt.SelectedItem] ".\new\new_mck.mml"; break;
-  }'nsd'{
-	[string]$ss= Editor_open $edt[[string]$listbox_edt.SelectedItem] ".\new\new_nsd.mml"; break;
-  }'pmd'{
-	[string]$ss= Editor_open $edt[[string]$listbox_edt.SelectedItem] ".\new\new_pmd.mml"
-  }
-  } #sw
-
-  if($ss -ne ''){
-
-	[string]$retn= [Windows.Forms.MessageBox]::Show(
-
-	$ss, "確認", "OK","Information","Button1"
-	)
-  }
-
- } #func
- 
 Add-Type -AssemblyName System.Windows.Forms > $null 
 
 $ErrorActionPreference= "Stop"
@@ -1318,10 +1257,6 @@ $baloon.ShowAlways= $False
 $baloon.ToolTipTitle= 'Path: '
 $baloon.AutomaticDelay= 667
  
-$tab= New-Object System.Windows.Forms.TabControl 
-$tab.Size= "245,255"
-$tab.Location= "5,25"
- 
 # tab_mml 
 	
 $tab_mml= New-Object System.Windows.Forms.TabPage 
@@ -1478,7 +1413,7 @@ $listbox_dmc.Add_DragDrop({
 })
   
 # tab_bin 
-	 
+	
 $tab_bin= New-Object System.Windows.Forms.TabPage 
 $tab_bin.Text= "binary"
  
@@ -1733,7 +1668,7 @@ $listbox_pmd.Add_DragDrop({
 })
    
 # tab_ply 
-	 
+	
 $tab_ply= New-Object System.Windows.Forms.TabPage 
 $tab_ply.Text= "player"
  
@@ -2027,13 +1962,10 @@ $label_dos_read.Text= "※16bitPMD running 64bitOS"
 $label_dos_read.Size= "220,20"
 $label_dos_read.Location= "10,135"
   
-$dia= New-Object System.Windows.Forms.SaveFileDialog 
-# ファイル選択ダイアログ
-
-$dia.Filter= "mmlファイル|*.mml" # spaceを入れないこと!
-$dia.Title= "保存ファイル名を入力してください"
-$dia.RestoreDirectory= "True"
- 
+$tab= New-Object System.Windows.Forms.TabControl 
+$tab.Size= "245,255"
+$tab.Location= "5,25"
+ 	
 $ok_btn= New-Object System.Windows.Forms.Button 
 $ok_btn.Text= "OK"
 $ok_btn.Size= "90,30"
@@ -2119,97 +2051,6 @@ $sub_mnu= New-Object System.Windows.Forms.MenuStrip
 $sub_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $sub_menu_f.Text= "File"
 
-$sub_menu_new= New-Object System.Windows.Forms.ToolStripMenuItem
-$sub_menu_new.Text= "新規ファイル"
-
-$sub_menu_mck= New-Object System.Windows.Forms.ToolStripMenuItem
-$sub_menu_mck.Text= "MCK new mml"
-
-$sub_menu_mck.Add_Click({
- try{
-	New_mml "mck"
-
-	$listbox_nsd.Hide()
-	$listbox_pmd.Hide()
-	$listbox_mck.Show()
-	$radio_mck.Checked= "True"
-
- }catch{
-	echo $_.exception
- }
-})
-
-$sub_menu_nsd= New-Object System.Windows.Forms.ToolStripMenuItem
-$sub_menu_nsd.Text= "NSD new mml"
-
-$sub_menu_nsd.Add_Click({
- try{
-	New_mml "nsd"
-
-	$listbox_nsd.Show()
-	$listbox_pmd.Hide()
-	$listbox_mck.Hide()
-	$radio_nsd.Checked= "True"
-
- }catch{
-	echo $_.exception
- }
-})
-
-$sub_menu_pmd= New-Object System.Windows.Forms.ToolStripMenuItem
-$sub_menu_pmd.Text= "PMD new mml"
-
-$sub_menu_pmd.Add_Click({
- try{
-	New_mml "pmd"
-
-	$listbox_mck.Hide()
-	$listbox_nsd.Hide()
-	$listbox_pmd.Show()
-	$radio_pmd.Checked= "True"
-
- }catch{
-	echo $_.exception
- }
-})
-
-$sub_menu_adv= New-Object System.Windows.Forms.ToolStripMenuItem
-$sub_menu_adv.Text= "Advanced"
-
-$adv_menu_mck= New-Object System.Windows.Forms.ToolStripMenuItem
-$adv_menu_mck.Text= "MCK new edit"
-
-$adv_menu_mck.Add_Click({
- try{
-	Setadv_edit "mck"
- }catch{
-	echo $_.exception
- }
-})
-
-$adv_menu_nsd= New-Object System.Windows.Forms.ToolStripMenuItem
-$adv_menu_nsd.Text= "NSD new edit"
-
-$adv_menu_nsd.Add_Click({
- try{
-	Setadv_edit "nsd"
- }catch{
-	echo $_.exception
- }
-})
-
-$adv_menu_pmd= New-Object System.Windows.Forms.ToolStripMenuItem
-$adv_menu_pmd.Text= "PMD new edit"
-
-$adv_menu_pmd.Add_Click({
- try{
-	Setadv_edit "pmd"
- }catch{
-	echo $_.exception
- }
-})
-
-$sub_menu_an=New-Object System.Windows.Forms.ToolStripSeparator
 $sub_menu_a= New-Object System.Windows.Forms.ToolStripMenuItem
 $sub_menu_a.Text= "環境リセット"
 
@@ -2284,10 +2125,7 @@ $sub_menu_opt.Add_Click({
  }
 })
   
-$sub_menu_new.DropDownItems.AddRange(@($sub_menu_mck,$sub_menu_nsd,$sub_menu_pmd)) 
-$sub_menu_adv.DropDownItems.AddRange(@($adv_menu_mck,$adv_menu_nsd,$adv_menu_pmd))
-
-# kirikae# $sub_menu_f.DropDownItems.AddRange(@($sub_menu_new,$sub_menu_adv,$sub_menu_an,$sub_menu_a,$sub_menu_sn,$sub_menu_n))
+$sub_menu_f.DropDownItems.AddRange(@($sub_menu_a,$sub_menu_sn,$sub_menu_n)) 
 $sub_menu_o.DropDownItems.AddRange(@($sub_menu_opt))
 $sub_mnu.Items.AddRange(@($sub_menu_f,$sub_menu_o))
 
@@ -2305,7 +2143,7 @@ $tab_edt.Controls.AddRange(@($label_edt,$listbox_edt,$label_edt_read))
 
 $sub_f.Controls.AddRange(@($sub_mnu,$tab,$ok_btn,$cancel_btn))
 $sub_f.CancelButton= $cancel_btn	# [ESC]
-$sub_f.AcceptButton= $ok_btn		# [Enter]
+$sub_f.AcceptButton= $ok_btn	# [Enter]
   
 # ------ main 
  try{
@@ -2339,19 +2177,13 @@ $sub_f.AcceptButton= $ok_btn		# [Enter]
 	$sub_menu_opt.Text= "Command Option"
 
 	$tab.Controls.AddRange(@($tab_mml,$tab_bin,$tab_ply,$tab_edt,$tab_dos))
-	$sub_menu_f.DropDownItems.AddRange(@($sub_menu_new,$sub_menu_adv,$sub_menu_an,$sub_menu_a,$sub_menu_sn,$sub_menu_n))
-
-	## Drag_drop "mml" $vals["mmlfile"] # D&D時ため、mml hashへ自動登録
-
 
 	Hash_read # List化
-
 	break;
   }'cut'{
 	$sub_menu_opt.Text= "Auto Option"
 
 	$tab.Controls.AddRange(@($tab_bin,$tab_ply,$tab_edt,$tab_dos))
-	$sub_menu_f.DropDownItems.AddRange(@($sub_menu_a,$sub_menu_sn,$sub_menu_n))
 
 	$script:opts["radio_bin"]= Box_radio $vals["compiler"] # radioを選択
 	Hash_read_cut # List化
