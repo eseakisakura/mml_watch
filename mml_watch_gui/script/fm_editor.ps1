@@ -159,7 +159,7 @@ $xml_editor= @'
 # function ====== 
  
 # color 
-	 
+	
 Function Line_highlight([array]$rr){ 
 
 	switch(Itm){ # Chip_position $script:xye2
@@ -421,7 +421,7 @@ function Brush_Color(){
 } #func
   
 # buffer 
-	 
+	
 function Pixcel_Select([int] $max){ 
 
 	$max= $max+ 1
@@ -440,6 +440,17 @@ function Pixcel_Select([int] $max){
 	} #
 
 	return $d
+ } #func
+ 
+function Focus_btn(){ 
+
+
+	if(($fm_box.Focused -eq $True) -or ($fm_box_mml.Focused -eq $True)){
+
+		$conv_btn.Focus() # $fm_box.Add_Leave - .Focus() de leave event tame
+		$conv_btn.PerformClick()
+
+	}
  } #func
  
 function Mouse_knober([string] $sw, [string] $type, $ev){	# knob 
@@ -462,13 +473,7 @@ function Mouse_knober([string] $sw, [string] $type, $ev){	# knob
 		break;
 	}'Wheel'{
 
-		if($script:undo[2] -ne 'store'){
-
-			if(($fm_box.Focused -eq $True) -or ($fm_box_mml.Focused -eq $True)){
-
-				$conv_btn.Focus() # $fm_box.Add_Leave - .Focus() de leave event tame
-				$conv_btn.PerformClick()
-			}
+		if($script:undo[2] -ne 'store_knob'){
 
 			Unredo 2
 		}
@@ -480,18 +485,13 @@ function Mouse_knober([string] $sw, [string] $type, $ev){	# knob
 
 		switch([string] $ev.Button){
 		'Left'{
-			if($script:undo[2] -ne 'store'){
-
-				if(($fm_box.Focused -eq $True) -or ($fm_box_mml.Focused -eq $True)){
-
-					$conv_btn.Focus()
-					$conv_btn.PerformClick()
-				}
+			if($script:undo[2] -ne 'store_knob'){
 
 				Unredo 2
 			}
 
 			if($sb_alg.Visible){
+
 				All_chg
 			}
 
@@ -505,6 +505,7 @@ function Mouse_knober([string] $sw, [string] $type, $ev){	# knob
 		break;
 	}'Hover'{
 
+		Focus_btn
 		$x= NmudX $type
 		Buffer_Render $x.Value $x.Maximum $type $True
 
@@ -522,7 +523,7 @@ function Mouse_knober([string] $sw, [string] $type, $ev){	# knob
 	}
 	} #sw
  } #func
- 	
+ 
 function Buffer_Render([int] $val, [int] $max, [string] $sw, [bool] $layer){ 
 
 	[array]$rr= Brush_Color
@@ -708,18 +709,15 @@ function NmudX([string] $sw){
  } #func
   
 # contxt 
-	
+	 
 function Opmap_change([int]$j){ 
 
-	# .SelectedIndex= $j # event -> .Add_SelectedValueChanged
+	if($script:op_index[$comb_fm.SelectedIndex] -ne $j){
 
-	switch($comb_fm.SelectedItem){
-	'vrc7 2op'{	if($comb_vrc.SelectedIndex -ne $j ){ $comb_vrc.SelectedIndex= $j };	break; # mod select
-	}'opl 2op'{	if($comb_opl.SelectedIndex -ne $j ){ $comb_opl.SelectedIndex= $j };	break;
-	}'opn 4op'{	if($comb_opn.SelectedIndex -ne $j ){ $comb_opn.SelectedIndex= $j };	break;
-	}'opm 4op'{	if($comb_opm.SelectedIndex -ne $j ){ $comb_opm.SelectedIndex= $j }
+		$script:op_index[$comb_fm.SelectedIndex]= $j
+		$comb_op.SelectedIndex= $j
+
 	}
-	} #sw
  } #func
  
 function Mouse_opwiner([string] $sw, [string] $opnum, $ev){	# Op. 
@@ -751,12 +749,6 @@ function Mouse_opwiner([string] $sw, [string] $opnum, $ev){	# Op.
 
 		if($script:undo[2] -ne 'store_op'){
 
-			if(($fm_box.Focused -eq $True) -or ($fm_box_mml.Focused -eq $True)){
-
-				$conv_btn.Focus()
-				$conv_btn.PerformClick()
-			}
-
 			Unredo 3
 		}
 
@@ -779,12 +771,6 @@ function Mouse_opwiner([string] $sw, [string] $opnum, $ev){	# Op.
 
 			if($script:undo[2] -ne 'store_op'){
 
-				if(($fm_box.Focused -eq $True) -or ($fm_box_mml.Focused -eq $True)){
-
-					$conv_btn.Focus()
-					$conv_btn.PerformClick()
-				}
-
 				Unredo 3
 			}
 
@@ -799,6 +785,7 @@ function Mouse_opwiner([string] $sw, [string] $opnum, $ev){	# Op.
 		break;
 	}'Hover'{
 
+		Focus_btn
 		Opmap_change $opnum
 
 		$x= NmudX $type
@@ -914,7 +901,7 @@ function Trans_ADSR([int] $qq){ # [int] $pp,
  } #func
  
 <# 
-	
+	 
 function Wheel_ALG([int] $delta){ 
 
 	[int] $num= $key["oct"].Replace("o", "")
@@ -1254,7 +1241,7 @@ function ADSR_in([string[]] $ss){
 	switch($comb_fm.SelectedItem){
 	'vrc7 2op'{
 		[array] $rr= $script:vrc_svn
-		[int] $nn= $comb_vrc.SelectedIndex # Op.
+		[int] $nn= $script:op_index[0] # Op.
 
 		$ss[2]= $rr[$nn][2] # ar
 		$ss[3]= $rr[$nn][3] # dr
@@ -1270,7 +1257,7 @@ function ADSR_in([string[]] $ss){
 		break;
 	}'opl 2op'{
 		[array] $rr= $script:opl_two
-		[int] $nn= $comb_opl.SelectedIndex
+		[int] $nn= $script:op_index[1]
 
 		$ss[2]= $rr[$nn][2] # ar
 		$ss[3]= $rr[$nn][3] # dr
@@ -1286,7 +1273,7 @@ function ADSR_in([string[]] $ss){
 		break;
 	}'opn 4op'{
 		[array] $rr= $script:opn_fur
-		[int] $nn= $comb_opn.SelectedIndex
+		[int] $nn= $script:op_index[2]
 
 		$ss[2]= $rr[$nn][2] # ar
 		$ss[3]= $rr[$nn][3] # dr
@@ -1301,7 +1288,7 @@ function ADSR_in([string[]] $ss){
 		break;
 	}'opm 4op'{
 		[array] $rr= $script:opm_fur
-		[int] $nn= $comb_opm.SelectedIndex
+		[int] $nn= $script:op_index[3]
 
 		$ss[2]= $rr[$nn][2] # ar
 		$ss[3]= $rr[$nn][3] # dr
@@ -1320,7 +1307,7 @@ function ADSR_in([string[]] $ss){
 	return $ss
  } #func
  
-function ADSR_out([string[]] $ss, [string] $sw){ 	
+function ADSR_out([string[]] $ss, [string] $sw){ 
 
 	[int[]] $num= 0,0,0
 
@@ -1334,7 +1321,7 @@ function ADSR_out([string[]] $ss, [string] $sw){
 	switch($comb_fm.SelectedItem){
 	'vrc7 2op'{
 		$rr= $script:vrc_svn
-		[int] $nn= $comb_vrc.SelectedIndex # Op.
+		[int] $nn= $script:op_index[0] # Op.
 
 		if($num[0] -eq 1){
 			$rr[$nn][2]= $ss[2] # ar
@@ -1358,7 +1345,7 @@ function ADSR_out([string[]] $ss, [string] $sw){
 		break;
 	}'opl 2op'{
 		$rr= $script:opl_two
-		[int] $nn= $comb_opl.SelectedIndex
+		[int] $nn= $script:op_index[1]
 
 		if($num[0] -eq 1){
 			$rr[$nn][2]= $ss[2] # ar
@@ -1382,7 +1369,7 @@ function ADSR_out([string[]] $ss, [string] $sw){
 		break;
 	}'opn 4op'{
 		$rr= $script:opn_fur
-		[int] $nn= $comb_opn.SelectedIndex
+		[int] $nn= $script:op_index[2]
 
 		if($num[0] -eq 1){
 			$rr[$nn][2]= $ss[2] # ar
@@ -1405,7 +1392,7 @@ function ADSR_out([string[]] $ss, [string] $sw){
 		break;
 	}'opm 4op'{
 		$rr= $script:opm_fur
-		[int] $nn= $comb_opm.SelectedIndex
+		[int] $nn= $script:op_index[3]
 
 		if($num[0] -eq 1){
 			$rr[$nn][2]= $ss[2] # ar
@@ -2768,7 +2755,7 @@ function Chip_position([string]$k){
  } #func
  
 <# 
-	
+	 
 function Alg_cablw([int]$alg){ 
 
  [int]$sw= Idx
@@ -4332,27 +4319,32 @@ function Color_alg([string]$t){
 # ------ 
  
 # load save 
-	
+	 
 function Autoload($x){ 
+
+	$script:event_change= $False
+	# $comb_fm.Add_SelectedValueChanged
 
 	if($comb_fm.SelectedItem -ne $x.name){
 
-		# $comb_fm.Add_SelectedValueChanged
 		$comb_fm.SelectedItem= $x.name
 	}
 
-	if($comb_vrc.SelectedIndex -ne ([int] $x.vrc.number)){
-		$comb_vrc.SelectedIndex= [int] $x.vrc.number
+	if($script:op_index[0] -ne ([int] $x.vrc.number)){
+		$script:op_index[0]= [int] $x.vrc.number
 	}
-	if($comb_opl.SelectedIndex -ne ([int] $x.opl.number)){
-		$comb_opl.SelectedIndex= [int] $x.opl.number
+	if($script:op_index[1] -ne ([int] $x.opl.number)){
+		$script:op_index[1]= [int] $x.opl.number
 	}
-	if($comb_opn.SelectedIndex -ne ([int] $x.opn.number)){
-		$comb_opn.SelectedIndex= [int] $x.opn.number
+	if($script:op_index[2] -ne ([int] $x.opn.number)){
+		$script:op_index[2]= [int] $x.opn.number
 	}
-	if($comb_opm.SelectedIndex -ne ([int] $x.opm.number)){
-		$comb_opm.SelectedIndex= [int] $x.opm.number
+	if($script:op_index[3] -ne ([int] $x.opm.number)){
+		$script:op_index[3]= [int] $x.opm.number
 	}
+
+	$script:event_change= $True
+
 
 	[array]$r= @("","")
 	$r[0]= $x.vrc.M1.value -split ","
@@ -4389,10 +4381,10 @@ function Saveauto($x){
 	$x.name= $comb_fm.SelectedItem
 	$x.param= "AutoSave : "+ (Get-Date).ToString("yyyy/MM/dd HH:mm")
 
-	$x.vrc.number= [string] $comb_vrc.SelectedIndex
-	$x.opl.number=  [string] $comb_opl.SelectedIndex
-	$x.opn.number=  [string] $comb_opn.SelectedIndex
-	$x.opm.number=  [string] $comb_opm.SelectedIndex
+	$x.vrc.number= [string] $script:op_index[0]
+	$x.opl.number=  [string] $script:op_index[1]
+	$x.opn.number=  [string] $script:op_index[2]
+	$x.opm.number=  [string] $script:op_index[3]
 
 	[array]$r= @()
 
@@ -4767,7 +4759,7 @@ function Fmwrite_xml($x,$y){
  } #func
   
 # gui 
-	
+	 
 function Menu_comp_build([string]$t){ 
 
 	$fm_menu_cmck.Text= "MCK"
@@ -5454,7 +5446,7 @@ function MSop_checker([int]$i, [string]$ss){ # Mask,SSG
  } #func
   
 # Panel 
-	
+	 
 function Enable_chk([string]$s){ 
 
 	[int[]]$num= 0,0
@@ -5564,17 +5556,7 @@ function Ten_sw([string]$t){
  
 function Idx(){ 
 
-	[int]$i= 0
-	switch($comb_fm.SelectedItem){
-
-	'vrc7 2op'{ $i= $comb_vrc.SelectedIndex; break; # mod select
-	}'opl 2op'{ $i= $comb_opl.SelectedIndex; break;
-	}'opn 4op'{ $i= $comb_opn.SelectedIndex; break;
-	}'opm 4op'{ $i= $comb_opm.SelectedIndex
-	}
-	} #sw
-
-	return $i
+	return $script:op_index[$comb_fm.SelectedIndex]
  } #func
  
 function Itm(){ 
@@ -5594,11 +5576,12 @@ function Itm(){
  
 function Value_gui(){ 
 
-	$script:event_change= $False
-
 	$fm_panel.SuspendLayout()
 
 	[int]$i= Idx # OP1-4index
+
+
+	$script:event_change= $False	# 高速化
 
 	switch($comb_fm.SelectedItem){
 	'vrc7 2op'{
@@ -5670,19 +5653,17 @@ function Value_gui(){
 	}
 	} # sw
 
+	$script:event_change= $True
+
 	$fm_panel.ResumeLayout()
 
-	$script:event_change= $True
  } # func
  
 function Fm_osc(){ 
 
 	$fm_panel.SuspendLayout()
 
-	$comb_vrc.Hide()
-	$comb_opl.Hide()
-	$comb_opn.Hide()
-	$comb_opm.Hide()
+	$comb_op.Items.Clear()
 
 	$eg_grp.Controls.Clear() #
 	$lev_grp.Controls.Clear() #
@@ -5690,6 +5671,8 @@ function Fm_osc(){
 	$op_grp.Controls.Clear()
 	$alg_grp.Controls.Clear()
 
+
+	$script:event_change= $False
 
 	switch($comb_fm.SelectedItem){
 	'vrc7 2op'{
@@ -5702,21 +5685,32 @@ function Fm_osc(){
 		}'1'{
 		}
 		} #sw
-		$comb_vrc.Show()
+
+		$comb_op.Items.AddRange(@("Operator1", "Operator2"))
+		$comb_op.SelectedIndex= $script:op_index[0]
 		break;
 	}'opl 2op'{
 		$op_grp.Controls.AddRange(@($PictboxTL, $lbl_tl))
 		$alg_grp.Controls.AddRange(@($PictboxALG, $lbl_alg))
-		$comb_opl.Show()
+
+		$comb_op.Items.AddRange(@("Operator1", "Operator2"))
+		$comb_op.SelectedIndex= $script:op_index[1]
 		break;
 	}'opn 4op'{
-		$comb_opn.Show()
+
+		$comb_op.Items.AddRange(@("Operator1", "Operator2", "Operator3", "Operator4"))
+		$comb_op.SelectedIndex= $script:op_index[2]
 		break;
 	}'opm 4op'{
 		$ring_grp.Controls.AddRange(@($PictboxDT2, $lbl_dt2))
-		$comb_opm.Show()
+
+		$comb_op.Items.AddRange(@("Operator1", "Operator2", "Operator3", "Operator4"))
+		$comb_op.SelectedIndex= $script:op_index[3]
 	}
 	} #sw
+
+	$script:event_change= $True
+
 
 	switch(Itm){
 	'2op'{
@@ -5868,15 +5862,18 @@ function Panel_chg([string]$sw){
 	}
 	} #sw
 
+
 	Fm_osc	# カラーチェンジの瞬間見せないためひとつ前
+
 	Box_mml_read
-	Box_read	# mtx
-	Value_gui	# bar
+	Box_read		# mtx
+
+	Value_gui
 
  } #func
   
 # Lis 
-	
+	 
 function Adv_edit([string]$t){ 
 
 	switch($t){
@@ -6394,35 +6391,36 @@ function Box_listen([int]$j){
   }
  } #func
  
-function Key_down([string]$t){ 
+function Key_conv([string]$t){ 
 
-  switch($t){
-  'F12'{
-		$lisn_btn.PerformClick()
-		break
-  }'F5'{		$conv_btn.PerformClick()
-  }
-  } #sw
+	switch($t){
+	'F5'{
+		$conv_btn.Focus()
+		$conv_btn.PerformClick()
+	}
+	} #sw
  } #func
  
+<# 
+	
 function Key_play([string]$t){ 
 
-  switch($t){
-  'F12'{
+	switch($t){
+	'Space'{
 		$lisn_btn.PerformClick()
 		break;
-  }'Space'{
+	}'Enter'{
 		$lisn_btn.PerformClick()
-		break;
-  }'Return'{
-		$lisn_btn.PerformClick()
-  }
-  } #sw
+	}
+	} #sw
  } #func
-  
+ 
+#> 
+   
 # Export 
-	
+	 
 function Unredo([int]$n){ 
+
 
 	switch($n){ # 初期化
 	0{
@@ -6432,7 +6430,7 @@ function Unredo([int]$n){
 
 	}1{	## undo呼出し ## <- $fm_menu_ud.Add_Click - sansyo
 
-		if(($script:undo[2] -eq 'store') -or ($script:undo[2] -eq 'store_op')){
+		if(($script:undo[2] -eq 'store_knob') -or ($script:undo[2] -eq 'store_op') -or ($script:undo[2] -eq 'store_box')){
 			$script:undo[2]= "undo"
 		}
 
@@ -6458,7 +6456,7 @@ function Unredo([int]$n){
 
 	}2{	# knob undo開始
 
-		$script:undo[2]= "store"
+		$script:undo[2]= "store_knob"
 		$script:undo[0]= $fm_box.Text
 		break;
 
@@ -6472,14 +6470,8 @@ function Unredo([int]$n){
 
 		$script:undo[2]= "store_box"
 		$script:undo[0]= $fm_box.Text
-		break;
-
-	}5{	# box_mml undo開始
-
-		$script:undo[2]= "store_box_mml"
 	}
 	} #sw
-
 
 	if($undo[0] -ne $null){
 
@@ -7155,7 +7147,7 @@ function Param_exp([int]$jj,[string]$mtx){
 
   switch($nn){
   '0'{
-	if($jj -eq 0){ # Unredo 1 thru
+	if($jj -eq 0){ # Unredo 1 - thru
 
 		Write-Host ('<< FM音色を読み込みました')
 	}
@@ -7755,9 +7747,9 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 [Environment]::CurrentDirectory= pwd # working_dir set
  
 # Sub forms 
-	
-# $contxtA_7bwを読み込んだ後$PictureBox objが安全 
 	 
+# $contxtA_7bwを読み込んだ後$PictureBox objが安全 
+	
 $contxtA_Sep_7bw= New-Object System.Windows.Forms.ToolStripSeparator 
 $contxtA_Sep_Lbw= New-Object System.Windows.Forms.ToolStripSeparator
 $contxtA_Sep_Nbg= New-Object System.Windows.Forms.ToolStripSeparator
@@ -7853,7 +7845,7 @@ $script:toppos= New-Object System.Drawing.Point
 
 
 
-	
+	 
 [int[]]$op_IMG= @(162, 102) 
 $op_Rect= New-Object System.Drawing.Rectangle(0, 0, $op_IMG[0], $op_IMG[1])
  
@@ -7868,6 +7860,7 @@ $Pictbg= New-Object System.Windows.Forms.PictureBox
 $Pictbg.ClientSize=  $bgimg.Size
 $Pictbg.Image= $bgimg
 $Pictbg.Location= "0,0"
+
 
 $Pictbg.Add_MouseWheel({
  try{
@@ -7912,6 +7905,7 @@ $Pictbw= New-Object System.Windows.Forms.PictureBox
 $Pictbw.ClientSize=  $bgimw.Size
 $Pictbw.Image= $bgimw
 $Pictbw.Location= "0,0"
+
 
 $Pictbw.Add_MouseWheel({
  try{
@@ -8023,7 +8017,7 @@ $Pictbox2a.Image= $image2a
 
 $Pictbox2a.Add_MouseWheel({
  try{
-	if($comb_fm.SelectedIndex -eq 0 -and $comb_vrc.SelectedIndex -eq 1 -and $key["knob"][0] -eq 'TL'){
+	if($comb_fm.SelectedIndex -eq 0 -and $script:op_index[0] -eq 1 -and $key["knob"][0] -eq 'TL'){
 	}else{
 		Mouse_opwiner "Wheel" 1 $_
 	}
@@ -8042,7 +8036,7 @@ $Pictbox2a.Add_MouseUp({
 
 $Pictbox2a.Add_MouseMove({ # drag enter
  try{
-	if($comb_fm.SelectedIndex -eq 0 -and $comb_vrc.SelectedIndex -eq 1 -and $key["knob"][0] -eq 'TotalLevel'){
+	if($comb_fm.SelectedIndex -eq 0 -and $script:op_index[0] -eq 1 -and $key["knob"][0] -eq 'TotalLevel'){
 	}else{
 		Mouse_opwiner "Move"
 	}
@@ -8368,7 +8362,7 @@ $contxtx.MaximumBuffer= $buf_Size -join ","
 $buffx= $contxtx.Allocate($buf_grp, $buf_Rect)
   
 # 2op ura buffer 
-	 
+	
 $image5a= New-Object System.Drawing.Bitmap($buf_IMG) 
 
 $gpv= [System.Drawing.Graphics]::FromImage($image5a)
@@ -8402,7 +8396,7 @@ $contxti.MaximumBuffer= $buf_Size -join ","
 $buffi= $contxti.Allocate($buf_grp, $buf_Rect)
   
 # 4op ura buffer 
-	 
+	
 $image5= New-Object System.Drawing.Bitmap($buf_IMG) 
 
 $gpk= [System.Drawing.Graphics]::FromImage($image5)
@@ -8449,7 +8443,7 @@ $sb_label= New-Object System.Windows.Forms.ToolStripStatusLabel
  
 $sb_alg= New-Object System.Windows.Forms.Form 
 $sb_alg.Text= "FM Operator window"
-#$sb_alg.Size= "502,627"
+# $sb_alg.Size= "502,627"
 $sb_alg.Location= "500,0"
 
 $sb_alg.FormBorderStyle= "FixedSingle"
@@ -8459,17 +8453,9 @@ $sb_alg.MinimizeBox= $True
 $sb_alg.MaximizeBox= $False
 
 
-#$sb_alg.TopLevel= $True
+# $sb_alg.TopLevel= $True
 $sb_alg.Owner= $frm_fm
 
-$sb_alg.Add_KeyDown({
- try{
-	Key_play $_.KeyCode
-
- }catch{
-	echo $_.exception
- }
-})
 
 $sb_alg.Add_FormClosing({
  try{
@@ -8493,7 +8479,7 @@ $sb_alg.Add_FormClosing({
 })
  
 $sb_mnu= New-Object System.Windows.Forms.MenuStrip 
-	
+	 
 $sb_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $sb_menu_f.Text= "File"
 
@@ -8929,7 +8915,7 @@ $sb_stus.Items.AddRange(@($sb_label))
 $sb_alg.Controls.AddRange(@($sb_mnu,$pict_panel,$sb_stus))
   
 # Preset forms 
-	
+	 
 $ff_baloon= New-Object System.Windows.Forms.Tooltip 
 $ff_baloon.ShowAlways= $False
 # $ff_baloon.ToolTipIcon= "Info"
@@ -9230,8 +9216,8 @@ $ff_frm.Add_FormClosing({
 	$fm_box.BackColor= "white" # "gainsboro"
 
 	Autoload $fm_xml.table.presetstore
-
 	Panel_chg $comb_fm.SelectedItem
+
 	Stus_build
 
 	if($sb_alg.Visible){
@@ -9253,7 +9239,7 @@ $ff_frm.Add_FormClosing({
 })
  
 $ff_mnu= New-Object System.Windows.Forms.MenuStrip 
-	
+	 
 $ff_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $ff_menu_f.Text= "File"
 
@@ -9354,7 +9340,7 @@ $ff_mnu.Items.AddRange(@($ff_menu_f,$ff_menu_b))
 $ff_frm.Controls.AddRange(@($ff_mnu, $ff_tab, $play_chk, $import_btn, $close_btn))
   
 # Mask forms 
-	
+	 
 $sub_mask= New-Object System.Windows.Forms.Form 
 $sub_mask.Text= "Operator Mask"
 $sub_mask.Size= "272,172"
@@ -9665,7 +9651,7 @@ $sub_sav.AcceptButton= $sub_sav_ok_Btn	# [Enter]
 # Main forms 
 	 
 # BUFFER 
-	 
+	
 [int[]]$IMG_buf= @(480, 480) # バッファサイズ 
 [int[]]$Size_buf= @(($IMG_buf[0]+ 2), ($IMG_buf[1]+ 2))
 $Rect_buf= New-Object System.Drawing.Rectangle(0,0, $IMG_buf[0],$IMG_buf[1])
@@ -10683,7 +10669,71 @@ $PictboxFB.Add_MouseLeave({
 })
   
 # Group 
-	
+	 
+<# 
+	 
+function Contxt_op([int]$a){ 
+
+	$x= $contxt_op.Items
+
+	$x.Clear() # $contxt_op.Items.Clear()
+
+	[string[]] $rr= "Op.1", "Op.2", "Op.3", "Op.4"
+
+	switch($a){
+	0{
+		$rr[0]= "Op.1 [v]"
+		break;
+	}1{
+		$rr[1]= "Op.2 [v]"
+		break;
+	}2{
+		$rr[2]= "Op.3 [v]"
+		break;
+	}3{
+		$rr[3]= "Op.4 [v]"
+	}
+	} #sw
+
+	for([int] $i= 0; $i -lt 4; $i++){
+		[void]$x.Add($rr[$i]) # "string" direct ha .Add - $obj de .AddRange
+	} #
+
+ } #func
+ 
+$contxt_op= New-Object System.Windows.Forms.ContextMenuStrip 
+
+##[void]$contxt_op.Items.Add("Operator1") # ->Contxt_op
+
+$contxt_op.Add_ItemClicked({
+ try{
+	[string] $rtn= $_.ClickedItem
+
+	if($rtn.Contains("[v]")  -eq $False){
+
+		[int] $j= 0
+
+		switch($rtn){
+		'Op.1'{	$j= 0
+		}'Op.2'{	$j= 1
+		}'Op.3'{	$j= 2
+		}'Op.4'{	$j= 3
+		}
+		} #sw
+
+		Opmap_change $j
+		Contxt_op $j
+	}
+	$this.Close()
+ }catch{
+	echo $_.exception
+ }
+})
+ 
+	Contxt_op (Idx) 
+ 
+#> 
+  
 $eg_grp= New-Object System.Windows.Forms.GroupBox 
 $eg_grp.Location= "10, 30"
 $eg_grp.Size= "255, 130" # 4op "255, 210"
@@ -10691,9 +10741,9 @@ $eg_grp.Text= "Envelope Rate"
 $eg_grp.FlatStyle= "Flat"
 $eg_grp.ForeColor= "gray"
 $eg_grp.Font= $FonLabel
-	
+	 
 # ------ AR - AttackRate 15-0 2op /  31-0 4op 
-	
+	 
 $lbl_ar= New-Object System.Windows.Forms.Label 
 $lbl_ar.Location= "10,20"
 $lbl_ar.Size= "60,40"
@@ -10810,7 +10860,7 @@ $opm_nmud_ar.Add_ValueChanged({
 })
   
 # ------ DR - DecayRate 0-15 2op / 0-31 4op 
-	
+	 
 $lbl_dr= New-Object System.Windows.Forms.Label 
 $lbl_dr.Location= "70,20"
 $lbl_dr.Size= "60,40"
@@ -10927,7 +10977,7 @@ $opm_nmud_dr.Add_ValueChanged({
 })
   
 # ------ SR - SustainRate 15-0 2op /  0-31 4op 
-	
+	 
 $lbl_sr= New-Object System.Windows.Forms.Label 
 $lbl_sr.Location= "130,20"
 $lbl_sr.Size= "60,40"
@@ -11044,7 +11094,7 @@ $opm_nmud_sr.Add_ValueChanged({
 })
   
 # ------ RR - ReleaseRate 0-15 
-	
+	 
 $lbl_rr= New-Object System.Windows.Forms.Label 
 $lbl_rr.Location= "190,20"
 $lbl_rr.Size= "60,40"
@@ -11161,7 +11211,7 @@ $opm_nmud_rr.Add_ValueChanged({
 })
   
 # ------ SL - SustainLevel 15-0 
-	
+	 
 $lbl_sl= New-Object System.Windows.Forms.Label 
 $lbl_sl.Location= "70, 130"
 $lbl_sl.Size= "120,20"
@@ -11233,7 +11283,7 @@ $lev_grp.Font= $FonLabel
 # $lev_grp.Hide() # $lev_grp.Show()
 	
 # ------ KSL - KeyScaleLevel 0-3 
-	
+	 
 $lbl_ksl= New-Object System.Windows.Forms.Label 
 $lbl_ksl.Location= "10, 20"
 $lbl_ksl.Size= "120, 20"
@@ -11298,7 +11348,7 @@ $opl_nmud_ksl.Add_ValueChanged({
 })
   
 # ------ KSR - KeyScaleRate 0-1 
-	
+	 
 $lbl_ksr= New-Object System.Windows.Forms.Label 
 $lbl_ksr.Location= "130, 20"
 $lbl_ksr.Size= "120, 20"
@@ -12156,7 +12206,7 @@ $opm_nmud_alg.Add_ValueChanged({
 })
   
 # ------ FB - Feedback 0-7 
-	
+	 
 $lbl_fb= New-Object System.Windows.Forms.Label 
 $lbl_fb.Location= "130,20"
 $lbl_fb.Size= "120,20"
@@ -12278,7 +12328,7 @@ $osc_grp.Size= "255, 105"
 $osc_grp.Location= "270,300"
 $osc_grp.ForeColor= "gray"
 $osc_grp.Font= $FonLabel
-	
+	 
 $lisn_btn= New-Object System.Windows.Forms.Button 
 $lisn_btn.Location= "20, 30"
 $lisn_btn.Size= "25, 25"
@@ -12310,9 +12360,9 @@ $conv_btn.Add_Click({ # text convert
 
 		Param_exp 0 $fm_box.Text
 
-		## visible gi preset edit baai presetstore overwrite ##
 		if($ff_frm.Visible -eq $True){
 
+			## visible gi preset edit baai presetstore overwrite ##
 			Saveauto $script:fm_xml.table.presetstore
 		}
 
@@ -12394,12 +12444,11 @@ $comb_opl.SelectedIndex= 0
 
 $comb_opl.Add_SelectedValueChanged({
  try{
-
-	$this.Select() # forcus return
-
 	Panel_chg $comb_fm.SelectedItem
 	Color_Render
 	Stus_build
+
+	$this.Focus() # forcus return
 
 	if($sb_alg.Visible){
 		Pict_chg
@@ -12466,6 +12515,37 @@ $comb_opm.Add_SelectedValueChanged({
  }
 })
  
+$comb_op= New-Object System.Windows.Forms.Combobox 	
+$comb_op.Size= "180, 30"
+$comb_op.Location= "60, 30"
+$comb_op.FlatStyle= "Popup"
+# $comb_op.Font= $FonLabel
+
+[void]$comb_op.Items.AddRange(@("Operator1", "Operator2"))
+$comb_op.DropDownStyle= "DropDownList"
+$comb_op.SelectedIndex= 0
+
+
+$comb_op.Add_SelectedValueChanged({
+ try{
+	if($event_change){
+
+		$script:op_index[$comb_fm.SelectedIndex]= $this.SelectedIndex
+
+		Value_gui
+
+		Color_Render
+		Stus_build
+
+		if($sb_alg.Visible){
+			Pict_chg	# op-alg img change
+	 	}
+	}
+ }catch{
+	echo $_.exception
+ }
+})
+ 
 $comb_fm= New-Object System.Windows.Forms.Combobox 
 $comb_fm.Size= "180, 30"
 $comb_fm.Location= "60, 65"
@@ -12474,35 +12554,50 @@ $comb_fm.FlatStyle= "Popup"
 
 [void]$comb_fm.Items.AddRange(@("vrc7 2op", "opl 2op", "opn 4op", "opm 4op"))
 $comb_fm.DropDownStyle= "DropDownList"
-# $comb_fm.SelectedItem= "vrc7 2op" # ダミー必要
+## $comb_fm.SelectedItem= "vrc7 2op" # ダミー必要
 $comb_fm.SelectedIndex= 0
 
 $comb_fm.Add_SelectedValueChanged({ # Event
   try{
-	$fm_menu_copy.Enabled= Enable_chk $key["style"]
-	Unredo 0
+	if($event_change){
 
-	Panel_chg $comb_fm.SelectedItem	# compiler change
-	Color_Render
+		$fm_menu_copy.Enabled= Enable_chk $key["style"]
+		Unredo 0
 
-	Menu_build "compiler"
-	Send_build 1
-	Stus_build
+		Panel_chg $comb_fm.SelectedItem	# compiler change
+		Color_Render
 
-	if($sb_alg.Visible){
-		All_chg
+		Menu_build "compiler"
+		Send_build 1
+		Stus_build
+
+		if($sb_alg.Visible){
+			All_chg
+		}
 	}
   }catch{
 	echo $_.exception
   }
  })
-   
+ 	  
 # forms 
 	 
 $fm_panel= New-Object System.Windows.Forms.Panel 
 $fm_panel.Location= "0,0"
 $fm_panel.Size= "530,415"
 # $fm_panel.BackColor= "orange"
+
+$fm_panel.Add_Click({
+ try{
+	switch([string] $_.Button){
+	'Left'{
+		$lisn_btn.PerformClick()
+	}
+	} #sw
+ }catch{
+	echo $_.exception
+ }
+})
  
 $fm_box_mml= New-Object System.Windows.Forms.TextBox 
 $fm_box_mml.Size= "520,75"
@@ -12520,8 +12615,6 @@ $fm_box_mml.font= $Fon
 
 $fm_box_mml.Add_Enter({
  try{
-	Unredo 5
-
 	$this.ForeColor= "black"
 	$this.BackColor= "white"
  }catch{
@@ -12537,7 +12630,7 @@ $fm_box_mml.Add_Leave({
 
 $fm_box_mml.Add_KeyDown({ # インポート
  try{
-	Key_down $_.KeyCode
+	Key_conv $_.KeyCode
  }catch{
 	echo $_.exception
  }
@@ -12576,7 +12669,7 @@ $fm_box.Add_Leave({
 
 $fm_box.Add_KeyDown({ # インポート
  try{
-	Key_down $_.KeyCode
+	Key_conv $_.KeyCode
 
  }catch{
 	echo $_.exception
@@ -12651,9 +12744,20 @@ $frm_fm.Icon= Icon_read "..\fm_editor.exe"
 # $frm_fm.ShowIcon= $False
 $frm_fm.MinimizeBox= $True
 $frm_fm.MaximizeBox= $False
+## $frm_fm.AcceptButton= $lisn_btn	# [Enter]時、clickの場所
 
 $frm_fm.TopLevel= $True
 # $frm_fm.Topmost= $True
+
+
+# $frm_fm.Add_KeyDown({
+#  try{
+# 	Key_play $_.KeyCode
+
+#  }catch{
+# 	echo $_.exception
+#  }
+# })
 
 $frm_fm.Add_Shown({ # .ShowDialog()呼出時のみ使用 - 挙動怪ため
  try{
@@ -12713,7 +12817,7 @@ $fm_menu_f.Text= "File"
 
 
 
-	
+	 
 $fm_menu_pset= New-Object System.Windows.Forms.ToolStripSeparator 
 $fm_menu_pset= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_pset.Text= "Preset"
@@ -12951,7 +13055,7 @@ $fm_sav_h.Add_Click({
 $fm_menu_ktn= New-Object System.Windows.Forms.ToolStripSeparator 
 $fm_menu_kt= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_kt.Text= "Preferences"
-	
+	 
 $menu_fty= New-Object System.Windows.Forms.ToolStripMenuItem 
 # $menu_fty.Text= "v Task tray"
 
@@ -13006,8 +13110,8 @@ $fm_menu_rcver.Add_Click({	# 数値リストア
 		Unredo 2
 
 		Autoload $fm_xml.table.autosave
-
 		Panel_chg $comb_fm.SelectedItem
+
 		Stus_build
 
 		if($sb_alg.Visible){
@@ -13040,8 +13144,8 @@ $fm_menu_rst.Add_Click({	# 数値リセット
 		Unredo 2
 
 		Autoload $fm_xml.table.resetting
-
 		Panel_chg $comb_fm.SelectedItem
+
 		Stus_build
 
 		if($sb_alg.Visible){
@@ -13161,7 +13265,7 @@ $fm_menu_set.Add_Click({
 })
 
 
-	 
+	
 <# 
  
 $fm_menu_cmp0= New-Object System.Windows.Forms.ToolStripMenuItem 
@@ -14102,7 +14206,7 @@ $fm_menu_copy.Add_Click({
 	echo $_.exception
  }
 })
-	
+	 
 $fm_menu_zero= New-Object System.Windows.Forms.ToolStripMenuItem 
 #$fm_menu_zero.Text= "zero padding"
 $fm_menu_zero.Add_Click({
@@ -14476,7 +14580,7 @@ $fm_menu_w.DropDownItems.AddRange(@($fm_menu_sb,$fm_menu_spy,$fm_menu_py))
 $fm_menu_h.DropDownItems.AddRange(@($fm_menu_adv,$fm_menu_rld,$fm_menu_srld,$fm_menu_whelp))
 
 $fm_mnu.Items.AddRange(@($fm_menu_f,$fm_menu_o,$fm_menu_m,$fm_menu_b,$fm_menu_w,$fm_menu_h))
-$osc_grp.Controls.AddRange(@($comb_vrc,$comb_opl,$comb_opn,$comb_opm,$comb_fm,$lisn_btn,$conv_btn))
+$osc_grp.Controls.AddRange(@($comb_op,$comb_fm,$lisn_btn,$conv_btn))
 $fm_panel.Controls.AddRange(@($eg_grp,$lev_grp,$ring_grp,$op_grp,$alg_grp,$osc_grp))
 $fm_stus.Items.AddRange(@($fm_label))
 
@@ -15252,6 +15356,9 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 	$opn_fur= All_sz $opn_fur 12
 	$opm_fur= All_sz $opm_fur 13
 
+
+	[int[]] $script:op_index= 0,0,0,0
+
 	# Parameter Reset時のため
 	Saveauto $script:fm_xml.table.resetting
 
@@ -15260,17 +15367,18 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 	}
 
 
+	[bool]$script:event_change= $False # 多重ロード防止ため
+
+
 	if($key["autosave"] -eq 'True'){
 		Autoload $fm_xml.table.autosave
 	}else{
 		Autoload $fm_xml.table.resetting # auto:off
 	}
 
-	[bool]$event_change= $True # 多重ロード防止
-
 	Panel_chg $comb_fm.SelectedItem
-	Color_Render
 
+	Color_Render
 	Send_build 1
 
 	Menu_comp_build $opt["radio_bin"] > $null
