@@ -421,7 +421,7 @@ function Brush_Color(){
 } #func
   
 # buffer 
-	
+	 
 function Pixcel_Select([int] $max){ 
 
 	$max= $max+ 1
@@ -588,7 +588,7 @@ function Color_Render(){
 	}
 	} #sw
 
-	switch($comb_fm.SelectedItem){
+	switch($script:op_index[4]){
 	'vrc7 2op'{
 		[array] $brr= $script:lbl_ar, $script:lbl_dr, $script:lbl_sr, $script:lbl_rr,  $script:lbl_ksl, $script:lbl_ksr,  $script:lbl_dt, $script:lbl_eg, $script:lbl_vib, $script:lbl_am,  $script:lbl_tl, $script:lbl_ml, $script:lbl_fb
 		[string[]] $arr= "FB", "AR", "DR", "SR", "RR", "KSL", "KSR", "DT", "EG", "VIB", "AM", "ML", "TL";		break;
@@ -617,7 +617,7 @@ function Color_Render(){
  
 function NmudX([string] $sw){ 
 
-	switch($comb_fm.SelectedItem){
+	switch($script:op_index[4]){
 	'vrc7 2op'{
 		switch($sw){
 		'FB'{	$x= $script:vrc_nmud_fb;	break;
@@ -710,14 +710,11 @@ function NmudX([string] $sw){
   
 # contxt 
 	 
-function Opmap_change([int]$j){ 
+function Opmap_change([int] $j){ 
 
-	if($script:op_index[$comb_fm.SelectedIndex] -ne $j){
+	$script:op_index[$comb_fm.SelectedIndex]= $j
+	$comb_op.SelectedIndex= $j
 
-		$script:op_index[$comb_fm.SelectedIndex]= $j
-		$comb_op.SelectedIndex= $j
-
-	}
  } #func
  
 function Mouse_opwiner([string] $sw, [string] $opnum, $ev){	# Op. 
@@ -809,7 +806,7 @@ function Mouse_bger([string] $sw, $ev){
 			Unredo 3
 		}
 
-		switch($comb_fm.SelectedItem){
+		switch($script:op_index[4]){
 		'opl 2op'{		$x= $script:opl_nmud_alg
 				break;
 		}'opn 4op'{	$x= $script:opn_nmud_alg
@@ -834,14 +831,14 @@ function Mouse_bger([string] $sw, $ev){
 
 	}'Hover'{
 
-		if($comb_fm.SelectedItem -ne 'vrc7 2op'){
+		if($script:op_index[4] -ne 'vrc7 2op'){
 			$x= NmudX "ALG"
 			Buffer_Render $x.Value $x.Maximum "ALG" $True
 		}
 		break;
 
 	}'Leave'{
-		if($comb_fm.SelectedItem -ne 'vrc7 2op'){
+		if($script:op_index[4] -ne 'vrc7 2op'){
 			$x= NmudX "ALG"
 			Buffer_Render $x.Value $x.Maximum "ALG" $False
 		}
@@ -967,7 +964,7 @@ function Value_out(){
 
 	[string[]] $ss= "","", "",""
 
-	switch($comb_fm.SelectedItem){
+	switch($script:op_index[4]){
 	'vrc7 2op'{
 		[array] $rr= $script:vrc_svn
 
@@ -1238,7 +1235,7 @@ function Value_out(){
  
 function ADSR_in([string[]] $ss){ 
 
-	switch($comb_fm.SelectedItem){
+	switch($script:op_index[4]){
 	'vrc7 2op'{
 		[array] $rr= $script:vrc_svn
 		[int] $nn= $script:op_index[0] # Op.
@@ -1318,7 +1315,7 @@ function ADSR_out([string[]] $ss, [string] $sw){
 	}
 	} #sw
 
-	switch($comb_fm.SelectedItem){
+	switch($script:op_index[4]){
 	'vrc7 2op'{
 		$rr= $script:vrc_svn
 		[int] $nn= $script:op_index[0] # Op.
@@ -1468,7 +1465,7 @@ function Contxt_select([string]$s){
 
 	switch($s){
 	'boxpict'{
-		switch($comb_fm.SelectedItem){
+		switch($script:op_index[4]){
 		'vrc7 2op'{	$contxt_7bw.Show([Windows.Forms.Cursor]::Position);	break;
 		}'opl 2op'{	$contxt_Lbw.Show([Windows.Forms.Cursor]::Position);	break;
 		}'opn 4op'{	$contxt_Nbg.Show([Windows.Forms.Cursor]::Position);	break;
@@ -1485,7 +1482,7 @@ function Contxt_select([string]$s){
  
 function Contxt_change([string] $ss){ 
 
-	switch($comb_fm.SelectedItem){
+	switch($script:op_index[4]){
 	'vrc7 2op'{	Contxt_chg_vrc $ss;	break;
 	}'opl 2op'{	Contxt_chg_opl $ss;	break;
 	}'opn 4op'{	Contxt_chg_opn $ss;	break;
@@ -2104,7 +2101,7 @@ function Poly_chw(){
 
 	[int]$j= Idx # op.num
 
-	switch($comb_fm.SelectedItem){
+	switch($script:op_index[4]){
 
 	'vrc7 2op'{
 		[array]$arr= $vrc_svn
@@ -2169,7 +2166,7 @@ function Poly_chg(){
 
 	[int]$j= Idx
 
-	switch($comb_fm.SelectedItem){
+	switch($script:op_index[4]){
 	'opn 4op'{	[array]$arr= $opn_fur; break;
 	}'opm 4op'{	[array]$arr= $opm_fur
 	}
@@ -2592,7 +2589,7 @@ function Sin_4op([array]$rc,[int]$alg,[int]$fbj){ # 4op sin render
  
 function Sin_chw(){ 
 
-	switch($comb_fm.SelectedItem){
+	switch($script:op_index[4]){
 	'vrc7 2op'{
 		[array]$arr= $vrc_svn
 
@@ -2647,7 +2644,7 @@ function Sin_chw(){
  
 function Sin_chg(){ 
 
-	switch($comb_fm.SelectedItem){
+	switch($script:op_index[4]){
 
 	'opn 4op'{	[array]$arr= $opn_fur; break;
 	}'opm 4op'{	[array]$arr= $opm_fur
@@ -2703,7 +2700,7 @@ function Sin_chg(){
  } #func
   
 # bg alg 
-	
+	 
 function Chip_view([int]$x,[int]$y){ 
 
 	[array]$p= "",""
@@ -3976,7 +3973,7 @@ function Alg_cable([int]$alg){
  
 function Pict_chg(){ 
 
-	switch($comb_fm.SelectedItem){
+	switch($script:op_index[4]){
 	'vrc7 2op'{	[int]$n= 0;		break; # alg
 	}'opl 2op'{	[int]$n= $opl_two[0][0];	break;
 	}'opn 4op'{	[int]$n= $opn_fur[0][0];	break;
@@ -4006,7 +4003,7 @@ function Pict_chg(){
  
 function All_chg(){	# $vrc_svn[][] ha "__1" no string 
 
-	switch($comb_fm.SelectedItem){
+	switch($script:op_index[4]){
 	'vrc7 2op'{
 		[array]$arr= $vrc_svn
 
@@ -4322,26 +4319,15 @@ function Color_alg([string]$t){
 	 
 function Autoload($x){ 
 
-	$script:event_change= $False
 	# $comb_fm.Add_SelectedValueChanged
+	$script:event_change= $False
 
-	if($comb_fm.SelectedItem -ne $x.name){
+	$script:op_index[4]= $x.name
 
-		$comb_fm.SelectedItem= $x.name
-	}
-
-	if($script:op_index[0] -ne ([int] $x.vrc.number)){
-		$script:op_index[0]= [int] $x.vrc.number
-	}
-	if($script:op_index[1] -ne ([int] $x.opl.number)){
-		$script:op_index[1]= [int] $x.opl.number
-	}
-	if($script:op_index[2] -ne ([int] $x.opn.number)){
-		$script:op_index[2]= [int] $x.opn.number
-	}
-	if($script:op_index[3] -ne ([int] $x.opm.number)){
-		$script:op_index[3]= [int] $x.opm.number
-	}
+	$script:op_index[0]= [int] $x.vrc.number
+	$script:op_index[1]= [int] $x.opl.number
+	$script:op_index[2]= [int] $x.opn.number
+	$script:op_index[3]= [int] $x.opm.number
 
 	$script:event_change= $True
 
@@ -4378,7 +4364,7 @@ function Autoload($x){
  
 function Saveauto($x){ 
 
-	$x.name= $comb_fm.SelectedItem
+	$x.name= $script:op_index[4]
 	$x.param= "AutoSave : "+ (Get-Date).ToString("yyyy/MM/dd HH:mm")
 
 	$x.vrc.number= [string] $script:op_index[0]
@@ -4429,7 +4415,7 @@ function Write_slot([string]$sw){
 	}
 	} #sw
 
-	$x.name= $comb_fm.SelectedItem
+	$x.name= $script:op_index[4]
 	$x.number= [string](Idx)
 	$x.param= $sub_sav_box.Text+ " : "+ (Get-Date).ToString("yyyy/MM/dd HH:mm")
 
@@ -4574,42 +4560,42 @@ function Load_value($x, [string]$sw){
 
 	switch($sw){
 	'A'{
-		$comb_fm.SelectedItem= $x.A.name # $comb_fm change
+		$script:op_index[4]= $x.A.name # $comb_fm change
 		Opmap_change $x.A.number
 		Slot_read $x.A
 		break;
 	}'B'{
-		$comb_fm.SelectedItem= $x.B.name
+		$script:op_index[4]= $x.B.name
 		Opmap_change $x.B.number
 		Slot_read $x.B
 		break;
 	}'C'{
-		$comb_fm.SelectedItem= $x.C.name
+		$script:op_index[4]= $x.C.name
 		Opmap_change $x.C.number
 		Slot_read $x.C
 		break;
 	}'D'{
-		$comb_fm.SelectedItem= $x.D.name
+		$script:op_index[4]= $x.D.name
 		Opmap_change $x.D.number
 		Slot_read $x.D
 		break;
 	}'E'{
-		$comb_fm.SelectedItem= $x.E.name
+		$script:op_index[4]= $x.E.name
 		Opmap_change $x.E.number
 		Slot_read $x.E
 		break;
 	}'F'{
-		$comb_fm.SelectedItem= $x.F.name
+		$script:op_index[4]= $x.F.name
 		Opmap_change $x.F.number
 		Slot_read $x.F
 		break;
 	}'G'{
-		$comb_fm.SelectedItem= $x.G.name
+		$script:op_index[4]= $x.G.name
 		Opmap_change $x.G.number
 		Slot_read $x.G
 		break;
 	}'H'{
-		$comb_fm.SelectedItem= $x.H.name
+		$script:op_index[4]= $x.H.name
 		Opmap_change $x.H.number
 		Slot_read $x.H
 	}
@@ -4617,7 +4603,7 @@ function Load_value($x, [string]$sw){
 
 	Unredo 0
 
-	Panel_chg $comb_fm.SelectedItem
+	Panel_chg
 	Stus_build
 
 	$comb_fm.Select() # sai enter event no tame
@@ -4628,7 +4614,7 @@ function Load_value($x, [string]$sw){
  } #func
   
 # hash 
-	
+	 
 function Fmchange_value([string]$sw, [string]$name){ 
 
   # if($name -match '[v]' -eq $False){
@@ -5447,219 +5433,76 @@ function MSop_checker([int]$i, [string]$ss){ # Mask,SSG
   
 # Panel 
 	 
-function Enable_chk([string]$s){ 
+function Panel_chg(){ 
 
-	[int[]]$num= 0,0
-
-	switch($comb_fm.SelectedItem){
-	'opn 4op'{	$num[0]= 1; break;
-	}'opm 4op'{	$num[0]= 1
-	}
-	} #sw
-
-	switch($s){
-	'fmp7'{	$num[1]= 1; break;
-	}'mucom'{	$num[1]= 1; break;
-	}'mxdrv'{	$num[1]= 1
-	}
-	} #sw
-
-	if(($num[0]* $num[1]) -eq 0){
-
-		return $True
-	}else{
-		return $False
-	}
- } #func
- 
-function Type_sw([string]$t){ 
-
-	$fm_menu_type_mckreg.Text= "MCK Reg"
-	$fm_menu_type_nsdreg.Text= "NSD Reg"
-	$fm_menu_type_nsd.Text= "NSD"
-
-	switch($t){
-	'mckreg'{	$fm_menu_type_mckreg.Text= "[v] MCK Reg";	break;
-	}'nsdreg'{	$fm_menu_type_nsdreg.Text= "[v] NSD Reg";	break;
-	}'nsd'{	$fm_menu_type_nsd.Text= "[v] NSD Op"
-	}
-	} #sw
-
-	return $t
- } #func
- 
-function Style_sw([string]$t){ 
-
-	$fm_menu_copy.Enabled= Enable_chk $t
-
-	#初期化
-	$opn_nmud_ams.BackColor= "white"
-	$opm_nmud_ams.BackColor= "white"
-	$opn_nmud_ams.ForeColor= "black"
-	$opm_nmud_ams.ForeColor= "black"
-
-	$fm_menu_style_pmd.Text= "PMD"
-	$fm_menu_style_fmp7.Text= "FMP7"
-	$fm_menu_style_mucom.Text= "MUCOM"
-	$fm_menu_style_mxdrv.Text= "MXDRV"
-
-	switch($t){
-	'pmd'{
-		$fm_menu_style_pmd.Text= "[v] PMD"
-		break;
-	}'fmp7'{
-		$fm_menu_style_fmp7.Text= "[v] FMP7"
-		break;
-	}'mucom'{
-		$opn_nmud_ams.BackColor= "beige"
-		$opm_nmud_ams.BackColor= "beige"
-		$opn_nmud_ams.ForeColor= "silver"
-		$opm_nmud_ams.ForeColor= "silver"
-
-		$fm_menu_style_mucom.Text= "[v] MUCOM"
-		break;
-	}'mxdrv'{
-		$fm_menu_style_mxdrv.Text= "[v] MXDRV"
-	}
-	} #sw
-
-	return $t
- } #func
- 
-function Zero_sw([string]$t){ 
-
-	switch($t){
-	'True'{
-		$fm_menu_zero.Text= "v zero padding"
-		break;
-	}'False'{
-		$fm_menu_zero.Text= "zero padding"
-	}
-	} #sw
-
-	return $t
- } #func
- 
-function Ten_sw([string]$t){ 
-
-	switch($t){
-	'True'{
-		$fm_menu_ten.Text= "v comma"
-		break;
-	}'False'{
-		$fm_menu_ten.Text= "comma"
-	}
-	} #sw
-
-	return $t
- } #func
- 
-function Idx(){ 
-
-	return $script:op_index[$comb_fm.SelectedIndex]
- } #func
- 
-function Itm(){ 
-
-	[string]$s= 0
-	switch($comb_fm.SelectedItem){
-
-	'vrc7 2op'{ $s= "2op"; break;
-	}'opl 2op'{ $s= "2op"; break;
-	}'opn 4op'{ $s= "4op"; break;
-	}'opm 4op'{ $s= "4op"
-	}
-	} #sw
-
-	return $s
- } #func
- 
-function Value_gui(){ 
-
-	$fm_panel.SuspendLayout()
-
-	[int]$i= Idx # OP1-4index
-
-
-	$script:event_change= $False	# 高速化
-
-	switch($comb_fm.SelectedItem){
+	switch($script:op_index[4]){
 	'vrc7 2op'{
-		[array]$arr= $vrc_svn
-
-		$vrc_nmud_tl.Value= $arr[$i][0]
-		$vrc_nmud_fb.Value= $arr[0][1]
-		$vrc_nmud_ar.Value= $arr[$i][2]
-		$vrc_nmud_dr.Value= $arr[$i][3]
-		$vrc_nmud_sr.Value= $arr[$i][4]
-		$vrc_nmud_rr.Value= $arr[$i][5]
-		$vrc_nmud_ksl.Value= $arr[$i][6]
-		$vrc_nmud_ml.Value= $arr[$i][7]
-		$vrc_nmud_am.Value= $arr[$i][8]
-		$vrc_nmud_vib.Value= $arr[$i][9]
-		$vrc_nmud_eg.Value= $arr[$i][10]
-		$vrc_nmud_ksr.Value= $arr[$i][11]
-		$vrc_nmud_dt.Value= $arr[$i][12]
+		switch($key["type"]){
+		'mckreg'{	$script:val["compiler"]= $val["mck"]; break;
+		}default{	$script:val["compiler"]= $val["nsd"]
+		}
+		} #sw
 		break;
-	}'opl 2op'{
-		[array]$arr= $opl_two
 
-		$opl_nmud_alg.Value= $arr[0][0]
-		$opl_nmud_fb.Value= $arr[0][1]
-		$opl_nmud_ar.Value= $arr[$i][2]
-		$opl_nmud_dr.Value= $arr[$i][3]
-		$opl_nmud_rr.Value= $arr[$i][4]
-		$opl_nmud_sr.Value= $arr[$i][5]
-		$opl_nmud_tl.Value= $arr[$i][6]
-		$opl_nmud_ksl.Value= $arr[$i][7]
-		$opl_nmud_ml.Value= $arr[$i][8]
-		$opl_nmud_ksr.Value= $arr[$i][9]
-		$opl_nmud_eg.Value= $arr[$i][10]
-		$opl_nmud_vib.Value= $arr[$i][11]
-		$opl_nmud_am.Value= $arr[$i][12]
-		break;
-	}'opn 4op'{
-		[array]$arr= $opn_fur
-
-		$opn_nmud_alg.Value= $arr[0][0]
-		$opn_nmud_fb.Value= $arr[0][1]
-		$opn_nmud_ar.Value= $arr[$i][2]
-		$opn_nmud_dr.Value= $arr[$i][3]
-		$opn_nmud_sr.Value= $arr[$i][4]
-		$opn_nmud_rr.Value= $arr[$i][5]
-		$opn_nmud_sl.Value= $arr[$i][6]
-		$opn_nmud_tl.Value= $arr[$i][7]
-		$opn_nmud_ks.Value= $arr[$i][8]
-		$opn_nmud_ml.Value= $arr[$i][9]
-		$opn_nmud_dt1.Value= $arr[$i][10]
-		$opn_nmud_ams.Value= $arr[$i][11]
-		break;
-	}'opm 4op'{
-		[array]$arr= $opm_fur
-
-		$opm_nmud_alg.Value= $arr[0][0]
-		$opm_nmud_fb.Value= $arr[0][1]
-		$opm_nmud_ar.Value= $arr[$i][2]
-		$opm_nmud_dr.Value= $arr[$i][3]
-		$opm_nmud_sr.Value= $arr[$i][4]
-		$opm_nmud_rr.Value= $arr[$i][5]
-		$opm_nmud_sl.Value= $arr[$i][6]
-		$opm_nmud_tl.Value= $arr[$i][7]
-		$opm_nmud_ks.Value= $arr[$i][8]
-		$opm_nmud_ml.Value= $arr[$i][9]
-		$opm_nmud_dt1.Value= $arr[$i][10]
-		$opm_nmud_dt2.Value= $arr[$i][11]
-		$opm_nmud_ams.Value= $arr[$i][12]
+	}default{	$script:val["compiler"]= $val["pmd"]
 	}
-	} # sw
+	} #sw
 
-	$script:event_change= $True
 
-	$fm_panel.ResumeLayout()
+	$fm_menu_header.Enabled= Enable_header_copy
 
- } # func
+
+	Panel_knob	# カラーチェンジの瞬間見せないためひとつ前
+	Value_gui
+	Box_read		# mtx
+
+ } #func
  
-function Fm_osc(){ 
+function Change_value([string]$sw, [string]$name){ 
+
+  # if($name -match '[v]' -eq $False){ # .Contains() moka
+
+	switch($sw){
+	'mck'{		$script:val[$sw]= $mck[$name];	break;
+	}'nsd'{		$script:val[$sw]= $nsd[$name];	break;
+	}'pmd'{		$script:val[$sw]= $pmd[$name];	break;
+	}'compiler'{	$script:val[$sw]= $val[$name];	break;
+
+	}'player'{		$script:val[$sw]= $play[$name];	break;
+	}'dos'{		$script:val[$sw]= $dos[$name];	break;
+	}'editor'{		$script:val[$sw]= $edit[$name]
+	}
+	} #sw
+  # }
+ } #func
+ 
+function Stus_build(){ 
+
+	[string[]]$t= Split_path $val["compiler"]
+	[string[]]$s= Split_path $val["player"]
+
+	[string]$q= "  comp: "+ $t[0]+ " | play: "+ $s[0]+ " | oct: "+ $key["oct"]
+	[string]$b= " | "+ $script:op_index[4]+ ": "
+
+	switch($script:op_index[4]){
+	'vrc7 2op'{	$b+= $key["type"];		break;
+	}'opl 2op'{	$b+= "pmd";		break;
+	}'opn 4op'{
+			$q+= " | mask: "+ $key["mask"]
+			$b+= $key["style"]
+			break;
+	}'opm 4op'{
+			$q+= " | mask: "+ $key["mask"]
+			$b+= $key["style"]
+	}
+	} #sw
+
+	$fm_label.Text= $q+ $b
+ } #func
+ 
+# ------ 
+ 
+function Panel_knob(){	# knob add/remove 
 
 	$fm_panel.SuspendLayout()
 
@@ -5674,7 +5517,10 @@ function Fm_osc(){
 
 	$script:event_change= $False
 
-	switch($comb_fm.SelectedItem){
+	$comb_fm.SelectedItem= $script:op_index[4]
+
+
+	switch($script:op_index[4]){
 	'vrc7 2op'{
 		$ring_grp.Controls.AddRange(@($PictboxDT, $lbl_dt))
 
@@ -5753,6 +5599,209 @@ function Fm_osc(){
 	$fm_panel.ResumeLayout()
  } #func
  
+function Value_gui(){ 
+
+	$fm_panel.SuspendLayout()
+
+	[int]$i= Idx # OP1-4index
+
+
+	$script:event_change= $False	# 高速化
+
+	switch($script:op_index[4]){
+	'vrc7 2op'{
+		[array]$arr= $vrc_svn
+
+		$vrc_nmud_tl.Value= $arr[$i][0]
+		$vrc_nmud_fb.Value= $arr[0][1]
+		$vrc_nmud_ar.Value= $arr[$i][2]
+		$vrc_nmud_dr.Value= $arr[$i][3]
+		$vrc_nmud_sr.Value= $arr[$i][4]
+		$vrc_nmud_rr.Value= $arr[$i][5]
+		$vrc_nmud_ksl.Value= $arr[$i][6]
+		$vrc_nmud_ml.Value= $arr[$i][7]
+		$vrc_nmud_am.Value= $arr[$i][8]
+		$vrc_nmud_vib.Value= $arr[$i][9]
+		$vrc_nmud_eg.Value= $arr[$i][10]
+		$vrc_nmud_ksr.Value= $arr[$i][11]
+		$vrc_nmud_dt.Value= $arr[$i][12]
+		break;
+	}'opl 2op'{
+		[array]$arr= $opl_two
+
+		$opl_nmud_alg.Value= $arr[0][0]
+		$opl_nmud_fb.Value= $arr[0][1]
+		$opl_nmud_ar.Value= $arr[$i][2]
+		$opl_nmud_dr.Value= $arr[$i][3]
+		$opl_nmud_rr.Value= $arr[$i][4]
+		$opl_nmud_sr.Value= $arr[$i][5]
+		$opl_nmud_tl.Value= $arr[$i][6]
+		$opl_nmud_ksl.Value= $arr[$i][7]
+		$opl_nmud_ml.Value= $arr[$i][8]
+		$opl_nmud_ksr.Value= $arr[$i][9]
+		$opl_nmud_eg.Value= $arr[$i][10]
+		$opl_nmud_vib.Value= $arr[$i][11]
+		$opl_nmud_am.Value= $arr[$i][12]
+		break;
+	}'opn 4op'{
+		[array]$arr= $opn_fur
+
+		$opn_nmud_alg.Value= $arr[0][0]
+		$opn_nmud_fb.Value= $arr[0][1]
+		$opn_nmud_ar.Value= $arr[$i][2]
+		$opn_nmud_dr.Value= $arr[$i][3]
+		$opn_nmud_sr.Value= $arr[$i][4]
+		$opn_nmud_rr.Value= $arr[$i][5]
+		$opn_nmud_sl.Value= $arr[$i][6]
+		$opn_nmud_tl.Value= $arr[$i][7]
+		$opn_nmud_ks.Value= $arr[$i][8]
+		$opn_nmud_ml.Value= $arr[$i][9]
+		$opn_nmud_dt1.Value= $arr[$i][10]
+		$opn_nmud_ams.Value= $arr[$i][11]
+		break;
+	}'opm 4op'{
+		[array]$arr= $opm_fur
+
+		$opm_nmud_alg.Value= $arr[0][0]
+		$opm_nmud_fb.Value= $arr[0][1]
+		$opm_nmud_ar.Value= $arr[$i][2]
+		$opm_nmud_dr.Value= $arr[$i][3]
+		$opm_nmud_sr.Value= $arr[$i][4]
+		$opm_nmud_rr.Value= $arr[$i][5]
+		$opm_nmud_sl.Value= $arr[$i][6]
+		$opm_nmud_tl.Value= $arr[$i][7]
+		$opm_nmud_ks.Value= $arr[$i][8]
+		$opm_nmud_ml.Value= $arr[$i][9]
+		$opm_nmud_dt1.Value= $arr[$i][10]
+		$opm_nmud_dt2.Value= $arr[$i][11]
+		$opm_nmud_ams.Value= $arr[$i][12]
+	}
+	} # sw
+
+	$script:event_change= $True
+
+	$fm_panel.ResumeLayout()
+
+ } # func
+ 
+# ------ 
+ 
+function Enable_header_copy(){ 
+
+	[bool] $ss= $True
+
+	if($script:op_index[4] -eq 'opn 4op' -or $script:op_index[4] -eq 'opm 4op'){	
+
+		switch($key["style"]){
+		'fmp7'{		$ss= $False; break;
+		}'mucom'{	$ss= $False; break;
+		}'mxdrv'{		$ss= $False
+		}
+		} #sw
+	}
+	return $ss
+ } #func
+ 	
+function Type_sw([string]$t){ 
+
+	$fm_menu_type_mckreg.Text= "MCK Reg"
+	$fm_menu_type_nsdreg.Text= "NSD Reg"
+	$fm_menu_type_nsd.Text= "NSD"
+
+	switch($t){
+	'mckreg'{	$fm_menu_type_mckreg.Text= "[v] MCK Reg";	break;
+	}'nsdreg'{	$fm_menu_type_nsdreg.Text= "[v] NSD Reg";	break;
+	}'nsd'{	$fm_menu_type_nsd.Text= "[v] NSD Op"
+	}
+	} #sw
+
+	return $t
+ } #func
+ 
+function Style_sw([string]$t){ 
+
+	#初期化
+	$opn_nmud_ams.BackColor= "white"
+	$opm_nmud_ams.BackColor= "white"
+	$opn_nmud_ams.ForeColor= "black"
+	$opm_nmud_ams.ForeColor= "black"
+
+	$fm_menu_style_pmd.Text= "PMD"
+	$fm_menu_style_fmp7.Text= "FMP7"
+	$fm_menu_style_mucom.Text= "MUCOM"
+	$fm_menu_style_mxdrv.Text= "MXDRV"
+
+	switch($t){
+	'pmd'{
+		$fm_menu_style_pmd.Text= "[v] PMD"
+		break;
+	}'fmp7'{
+		$fm_menu_style_fmp7.Text= "[v] FMP7"
+		break;
+	}'mucom'{
+		$opn_nmud_ams.BackColor= "beige"
+		$opm_nmud_ams.BackColor= "beige"
+		$opn_nmud_ams.ForeColor= "silver"
+		$opm_nmud_ams.ForeColor= "silver"
+
+		$fm_menu_style_mucom.Text= "[v] MUCOM"
+		break;
+	}'mxdrv'{
+		$fm_menu_style_mxdrv.Text= "[v] MXDRV"
+	}
+	} #sw
+
+	return $t
+ } #func
+ 
+function Zero_sw([string]$t){ 
+
+	switch($t){
+	'True'{
+		$fm_menu_zero.Text= "v zero padding"
+		break;
+	}'False'{
+		$fm_menu_zero.Text= "zero padding"
+	}
+	} #sw
+
+	return $t
+ } #func
+ 
+function Ten_sw([string]$t){ 
+
+	switch($t){
+	'True'{
+		$fm_menu_ten.Text= "v comma"
+		break;
+	}'False'{
+		$fm_menu_ten.Text= "comma"
+	}
+	} #sw
+
+	return $t
+ } #func
+ 
+function Idx(){ 
+
+	return $script:op_index[$comb_fm.SelectedIndex]
+ } #func
+ 
+function Itm(){ 
+
+	[string]$s= 0
+	switch($script:op_index[4]){
+
+	'vrc7 2op'{ $s= "2op"; break;
+	}'opl 2op'{ $s= "2op"; break;
+	}'opn 4op'{ $s= "4op"; break;
+	}'opm 4op'{ $s= "4op"
+	}
+	} #sw
+
+	return $s
+ } #func
+ 
 function Zeropad([string]$tt){ # zero padding 
 
 	[string]$ss= "0"* (3- $tt.Length)+ $tt
@@ -5802,78 +5851,9 @@ function All_sz([array]$r,[int]$j){
 
 	return $s
  } #func
- 
-# ------ 
- 
-function Change_value([string]$sw, [string]$name){ 
-
-  # if($name -match '[v]' -eq $False){ # .Contains() moka
-
-	switch($sw){
-	'mck'{		$script:val[$sw]= $mck[$name];	break;
-	}'nsd'{		$script:val[$sw]= $nsd[$name];	break;
-	}'pmd'{		$script:val[$sw]= $pmd[$name];	break;
-	}'compiler'{	$script:val[$sw]= $val[$name];	break;
-
-	}'player'{		$script:val[$sw]= $play[$name];	break;
-	}'dos'{		$script:val[$sw]= $dos[$name];	break;
-	}'editor'{		$script:val[$sw]= $edit[$name]
-	}
-	} #sw
-  # }
- } #func
- 
-function Stus_build(){ 
-
-	[string[]]$t= Split_path $val["compiler"]
-	[string[]]$s= Split_path $val["player"]
-
-	[string]$q= "  comp: "+ $t[0]+ " | play: "+ $s[0]+ " | oct: "+ $key["oct"]
-	[string]$b= " | "+ $comb_fm.SelectedItem+ ": "
-
-	switch($comb_fm.SelectedItem){
-	'vrc7 2op'{	$b+= $key["type"];		break;
-	}'opl 2op'{	$b+= "pmd";		break;
-	}'opn 4op'{
-			$q+= " | mask: "+ $key["mask"]
-			$b+= $key["style"]
-			break;
-	}'opm 4op'{
-			$q+= " | mask: "+ $key["mask"]
-			$b+= $key["style"]
-	}
-	} #sw
-
-	$fm_label.Text= $q+ $b
- } #func
- 
-function Panel_chg([string]$sw){ 
-
-	switch($sw){
-	'vrc7 2op'{
-		switch($key["type"]){
-		'mckreg'{	$script:val["compiler"]= $val["mck"]; break;
-		}default{	$script:val["compiler"]= $val["nsd"]
-		}
-		} #sw
-		break;
-
-	}default{	$script:val["compiler"]= $val["pmd"]
-	}
-	} #sw
-
-
-	Fm_osc	# カラーチェンジの瞬間見せないためひとつ前
-
-	Box_mml_read
-	Box_read		# mtx
-
-	Value_gui
-
- } #func
   
 # Lis 
-	 
+	
 function Adv_edit([string]$t){ 
 
 	switch($t){
@@ -6241,7 +6221,7 @@ function Prefixfm_mml([string]$gg){ # fm-matrix -> mml
 	[string]$hh= ""
 	[string]$mm= ""
 
-	switch($comb_fm.SelectedItem){
+	switch($script:op_index[4]){
 
 	'vrc7 2op'{
 		switch($key["type"]){
@@ -6292,7 +6272,7 @@ function Lisnfm_nsf([int]$sw, [string]$t){
 	[string[]]$arr= Split_path $file
 	[string]$dpn= Join-Path $arr[1] $arr[2]
 
-	switch($comb_fm.SelectedItem){
+	switch($script:op_index[4]){
 
 	'vrc7 2op'{
 		switch($key["type"]){
@@ -6359,7 +6339,7 @@ function Lisnfm_nsf([int]$sw, [string]$t){
  
 function Box_listen([int]$j){ 
 
-  switch($comb_fm.SelectedItem){
+  switch($script:op_index[4]){
   'vrc7 2op'{
 
 	  switch($key["type"]){
@@ -6945,7 +6925,7 @@ function Fmx_exp([string]$zz,[string]$key_style){ # $key["style"]
 	[int]$n= 0
 	[string]$ary= ""
 
-	switch($comb_fm.SelectedItem){
+	switch($script:op_index[4]){
 
 	'vrc7 2op'{	$n= 24; $ary= "VRC7";	break; # マトリクス総数 2+11*2
 	}'opl 2op'{	$n= 24; $ary= "OPL";	break;
@@ -7030,7 +7010,7 @@ function Fmx_exp([string]$zz,[string]$key_style){ # $key["style"]
 		# [string[]]$ir= $er[($er.Length- $n)..($er.Length- 1)] # @numあらば先頭削除
 		# 末尾からカウント - 最終フィルタ
 
-		switch($comb_fm.SelectedItem){
+		switch($script:op_index[4]){
 		'vrc7 2op'{
 			[array]$r= (0,0)
 			[int[]]$r[0]= $er[0..12]
@@ -7117,7 +7097,7 @@ function Fmx_exp([string]$zz,[string]$key_style){ # $key["style"]
  
 function Param_exp([int]$jj,[string]$mtx){ 
 
-  switch($comb_fm.SelectedItem){
+  switch($script:op_index[4]){
   'vrc7 2op'{
 
 	switch($key["type"]){
@@ -7229,7 +7209,7 @@ function Mskseg_out([int]$sw){
 
 	if($key["eg_type"] -ne 'Thru'){
 
-		if($comb_fm.SelectedItem -eq  'opn 4op'){
+		if($script:op_index[4] -eq  'opn 4op'){
 			$ss+= $tt
 			$ss+= $eg+ $key["ssg"]+ ","+ $key["eg_type"]
 		}
@@ -7347,7 +7327,7 @@ function Fmx_light(){
 
 	[string]$header= ""
 
-	switch($comb_fm.SelectedItem){
+	switch($script:op_index[4]){
 	'vrc7 2op'{
 		$ir[0]= $vrc_svn[0][0..1]
 		$ir[1]= $vrc_svn[0][2..12]
@@ -7446,7 +7426,7 @@ function Fmx_write(){ # $key["ten"],$key["zero"],$key["style"]
 	}
 	} #sw
 
-	switch($comb_fm.SelectedItem){
+	switch($script:op_index[4]){
 	'vrc7 2op'{
 		switch($key["zero"]){
 		'False'{
@@ -7689,7 +7669,7 @@ function Box_read(){
 
 	$fm_box.SuspendLayout()
 
-	switch($comb_fm.SelectedItem){
+	switch($script:op_index[4]){
 	'vrc7 2op'{
 		switch($key["type"]){
 		'mckreg'{	[string]$s= Reg_write;	break;
@@ -7713,7 +7693,7 @@ function Box_mml_read(){
 
 	$fm_box_mml.SuspendLayout()
 
-	switch($comb_fm.SelectedItem){
+	switch($script:op_index[4]){
 	'vrc7 2op'{
 		switch($key["type"]){
 		'mckreg'{	[string]$ss= $box_mml["mck"];	break;
@@ -7749,7 +7729,7 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 # Sub forms 
 	 
 # $contxtA_7bwを読み込んだ後$PictureBox objが安全 
-	
+	 
 $contxtA_Sep_7bw= New-Object System.Windows.Forms.ToolStripSeparator 
 $contxtA_Sep_Lbw= New-Object System.Windows.Forms.ToolStripSeparator
 $contxtA_Sep_Nbg= New-Object System.Windows.Forms.ToolStripSeparator
@@ -8036,10 +8016,7 @@ $Pictbox2a.Add_MouseUp({
 
 $Pictbox2a.Add_MouseMove({ # drag enter
  try{
-	if($comb_fm.SelectedIndex -eq 0 -and $script:op_index[0] -eq 1 -and $key["knob"][0] -eq 'TotalLevel'){
-	}else{
-		Mouse_opwiner "Move"
-	}
+	Mouse_opwiner "Move"
  }catch{
 	echo $_.exception
  }
@@ -8055,7 +8032,10 @@ $Pictbox2a.Add_MouseHover({
 
 $Pictbox2a.Add_MouseDown({
  try{
-	Mouse_opwiner "Down" 1 $_
+	if($comb_fm.SelectedIndex -eq 0 -and $script:op_index[0] -eq 1 -and $key["knob"][0] -eq 'TL'){
+	}else{
+		Mouse_opwiner "Down" 1 $_
+	}
  }catch{
 	echo $_.exception
  }
@@ -8318,7 +8298,7 @@ $Pictbox4.Add_MouseLeave({
 # buffb 
 
 
-	
+	 
 [int[]]$buf_IMG= @(322, 202) 
 $buf_Rect= New-Object System.Drawing.Rectangle(0, 0, $buf_IMG[0], $buf_IMG[1])
 [int[]]$buf_Size= @(($buf_IMG[0]+ 2), ($buf_IMG[1]+ 2)) # バッファサイズ
@@ -8479,7 +8459,7 @@ $sb_alg.Add_FormClosing({
 })
  
 $sb_mnu= New-Object System.Windows.Forms.MenuStrip 
-	 
+	
 $sb_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $sb_menu_f.Text= "File"
 
@@ -9046,12 +9026,12 @@ $tab_mck.Add_VisibleChanged({
  	#write-host ($tab_mck.Visible) # in時のみ、$True, out時のみ、$False
 
 	if($tab_mck.Visible){
-	 	$comb_fm.SelectedItem= "vrc7 2op"
+	 	$script:op_index[4]= "vrc7 2op"
 
 		$script:key["type"]= Type_sw "mckreg"
 		Change_value "compiler" "mck"
 
-		Panel_chg $comb_fm.SelectedItem
+		Panel_chg
 		Menu_build "compiler"
 		Stus_build
 
@@ -9068,12 +9048,12 @@ $tab_vrc.Text= "nsd"
 $tab_vrc.Add_VisibleChanged({
  try{
 	if($tab_vrc.Visible){
-		$comb_fm.SelectedItem= "vrc7 2op"
+		$script:op_index[4]= "vrc7 2op"
 
 		$script:key["type"]= Type_sw "nsd"
 		Change_value "compiler" "nsd"
 
-		Panel_chg $comb_fm.SelectedItem
+		Panel_chg
 		Menu_build "compiler"
 		Stus_build
 
@@ -9090,9 +9070,9 @@ $tab_88.Text= "pc88"
 $tab_88.Add_VisibleChanged({
  try{
 	if($tab_88.Visible){
-		$comb_fm.SelectedItem= "opn 4op"
+		$script:op_index[4]= "opn 4op"
 
-		Panel_chg $comb_fm.SelectedItem
+		Panel_chg
 		Menu_build "compiler"
 		Stus_build
 
@@ -9109,9 +9089,9 @@ $tab_x68.Text= "x68ed"
 $tab_x68.Add_VisibleChanged({
  try{
 	if($tab_x68.Visible){
- 		$comb_fm.SelectedItem= "opn 4op"
+ 		$script:op_index[4]= "opn 4op"
 
-		Panel_chg $comb_fm.SelectedItem
+		Panel_chg
 		Menu_build "compiler"
 		Stus_build
 
@@ -9128,9 +9108,9 @@ $tab_efx.Text= "effec"
 $tab_efx.Add_VisibleChanged({
  try{
 	if($tab_efx.Visible){
-		$comb_fm.SelectedItem= "opn 4op"
+		$script:op_index[4]= "opn 4op"
 
-		Panel_chg $comb_fm.SelectedItem
+		Panel_chg
 		Menu_build "compiler"
 		Stus_build
 
@@ -9216,7 +9196,7 @@ $ff_frm.Add_FormClosing({
 	$fm_box.BackColor= "white" # "gainsboro"
 
 	Autoload $fm_xml.table.presetstore
-	Panel_chg $comb_fm.SelectedItem
+	Panel_chg
 
 	Stus_build
 
@@ -9340,7 +9320,7 @@ $ff_mnu.Items.AddRange(@($ff_menu_f,$ff_menu_b))
 $ff_frm.Controls.AddRange(@($ff_mnu, $ff_tab, $play_chk, $import_btn, $close_btn))
   
 # Mask forms 
-	 
+	
 $sub_mask= New-Object System.Windows.Forms.Form 
 $sub_mask.Text= "Operator Mask"
 $sub_mask.Size= "272,172"
@@ -10741,9 +10721,9 @@ $eg_grp.Text= "Envelope Rate"
 $eg_grp.FlatStyle= "Flat"
 $eg_grp.ForeColor= "gray"
 $eg_grp.Font= $FonLabel
-	 
+	
 # ------ AR - AttackRate 15-0 2op /  31-0 4op 
-	 
+	
 $lbl_ar= New-Object System.Windows.Forms.Label 
 $lbl_ar.Location= "10,20"
 $lbl_ar.Size= "60,40"
@@ -10860,7 +10840,7 @@ $opm_nmud_ar.Add_ValueChanged({
 })
   
 # ------ DR - DecayRate 0-15 2op / 0-31 4op 
-	 
+	
 $lbl_dr= New-Object System.Windows.Forms.Label 
 $lbl_dr.Location= "70,20"
 $lbl_dr.Size= "60,40"
@@ -10977,7 +10957,7 @@ $opm_nmud_dr.Add_ValueChanged({
 })
   
 # ------ SR - SustainRate 15-0 2op /  0-31 4op 
-	 
+	
 $lbl_sr= New-Object System.Windows.Forms.Label 
 $lbl_sr.Location= "130,20"
 $lbl_sr.Size= "60,40"
@@ -11094,7 +11074,7 @@ $opm_nmud_sr.Add_ValueChanged({
 })
   
 # ------ RR - ReleaseRate 0-15 
-	 
+	
 $lbl_rr= New-Object System.Windows.Forms.Label 
 $lbl_rr.Location= "190,20"
 $lbl_rr.Size= "60,40"
@@ -11211,7 +11191,7 @@ $opm_nmud_rr.Add_ValueChanged({
 })
   
 # ------ SL - SustainLevel 15-0 
-	 
+	
 $lbl_sl= New-Object System.Windows.Forms.Label 
 $lbl_sl.Location= "70, 130"
 $lbl_sl.Size= "120,20"
@@ -11869,7 +11849,7 @@ $op_grp.Text= "Frequency Modulation"
 $op_grp.FlatStyle= "Flat"
 $op_grp.ForeColor= "gray"
 $op_grp.Font= $FonLabel
-	
+	 
 # ------ TL - TotalLevel 63-0 2op / 0max - 127min 4op 
 	 
 $lbl_tl= New-Object System.Windows.Forms.Label 
@@ -11988,7 +11968,7 @@ $opm_nmud_tl.Add_ValueChanged({
 })
   
 # ------ ML - Multiple 0-15 
-	 
+	
 $lbl_ml= New-Object System.Windows.Forms.Label 
 $lbl_ml.Location= "130, 20"
 $lbl_ml.Size= "120, 20"
@@ -12111,7 +12091,7 @@ $alg_grp.Text= "Algorithm / Feedback"
 $alg_grp.FlatStyle= "Flat"
 $alg_grp.ForeColor= "gray"
 $alg_grp.Font= $FonLabel
-	
+	 
 # ------ ALG - Algorithm 0-1 opl / 0-7 4op 
 	 
 $lbl_alg= New-Object System.Windows.Forms.Label 
@@ -12374,7 +12354,7 @@ $conv_btn.Add_Click({ # text convert
 
 	if($fm_box_mml.Modified -eq $True){ #変更あらば
 
-		switch($comb_fm.SelectedItem){
+		switch($script:op_index[4]){
 		'vrc7 2op'{
 			switch($key["type"]){
 			'mckreg'{
@@ -12404,118 +12384,7 @@ $conv_btn.Add_Click({ # text convert
  }
 })
  
-$comb_vrc= New-Object System.Windows.Forms.Combobox 
-$comb_vrc.Size= "180, 30"
-$comb_vrc.Location= "60, 30"
-$comb_vrc.FlatStyle= "Popup"
-# $comb_vrc.Font= $FonLabel
-
-[void]$comb_vrc.Items.AddRange(@("Operator1", "Operator2"))
-$comb_vrc.DropDownStyle= "DropDownList"
-$comb_vrc.SelectedIndex= 0
-
-$comb_vrc.Add_SelectedValueChanged({
- try{
-
-	$this.Select() # forcus return
-
-	Panel_chg $comb_fm.SelectedItem # Box_read ha tsuide
-	Color_Render
-	Stus_build
-
-	if($sb_alg.Visible){
-		Pict_chg	# op-alg img change
- 	}
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$comb_opl= New-Object System.Windows.Forms.Combobox 
-$comb_opl.Size= "180, 30"
-$comb_opl.Location= "60, 30"
-$comb_opl.FlatStyle= "Popup"
-# $comb_opl.Font= $FonLabel
-
-[void]$comb_opl.Items.AddRange(@("Operator1", "Operator2"))
-$comb_opl.DropDownStyle= "DropDownList"
-$comb_opl.SelectedIndex= 0
-
-$comb_opl.Add_SelectedValueChanged({
- try{
-	Panel_chg $comb_fm.SelectedItem
-	Color_Render
-	Stus_build
-
-	$this.Focus() # forcus return
-
-	if($sb_alg.Visible){
-		Pict_chg
- 	}
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$comb_opn= New-Object System.Windows.Forms.Combobox 
-$comb_opn.Size= "180, 30"
-$comb_opn.Location= "60, 30"
-$comb_opn.FlatStyle= "Popup"
-# $comb_opn.Font= $FonLabel
-
-[void]$comb_opn.Items.AddRange(@("Operator1", "Operator2", "Operator3", "Operator4"))
-$comb_opn.DropDownStyle= "DropDownList"
-$comb_opn.SelectedIndex= 0
-
-$comb_opn.Add_SelectedValueChanged({
- try{
-
-	$this.Select() # forcus return
-
-	Panel_chg $comb_fm.SelectedItem
-	Color_Render
-	Stus_build
-
-	if($sb_alg.Visible){
-		Pict_chg
- 	}
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$comb_opm= New-Object System.Windows.Forms.Combobox 
-$comb_opm.Size= "180, 30"
-$comb_opm.Location= "60, 30"
-$comb_opm.FlatStyle= "Popup"
-# $comb_opm.Font= $FonLabel
-
-[void]$comb_opm.Items.AddRange(@("Operator1", "Operator2", "Operator3", "Operator4"))
-$comb_opm.DropDownStyle= "DropDownList"
-$comb_opm.SelectedIndex= 0
-
-$comb_opm.Add_SelectedValueChanged({
- try{
-
-	$this.Select() # forcus return
-
-	Panel_chg $comb_fm.SelectedItem
-	Color_Render
-	Stus_build
-
-	if($sb_alg.Visible){
-		Pict_chg
- 	}
-
- }catch{
-	echo $_.exception
- }
-})
- 
-$comb_op= New-Object System.Windows.Forms.Combobox 	
+$comb_op= New-Object System.Windows.Forms.Combobox 
 $comb_op.Size= "180, 30"
 $comb_op.Location= "60, 30"
 $comb_op.FlatStyle= "Popup"
@@ -12532,6 +12401,7 @@ $comb_op.Add_SelectedValueChanged({
 
 		$script:op_index[$comb_fm.SelectedIndex]= $this.SelectedIndex
 
+		Panel_knob
 		Value_gui
 
 		Color_Render
@@ -12561,10 +12431,11 @@ $comb_fm.Add_SelectedValueChanged({ # Event
   try{
 	if($event_change){
 
-		$fm_menu_copy.Enabled= Enable_chk $key["style"]
+		$script:op_index[4]= $this.SelectedItem
+
 		Unredo 0
 
-		Panel_chg $comb_fm.SelectedItem	# compiler change
+		Panel_chg	# compiler change
 		Color_Render
 
 		Menu_build "compiler"
@@ -12579,25 +12450,13 @@ $comb_fm.Add_SelectedValueChanged({ # Event
 	echo $_.exception
   }
  })
- 	  
+   
 # forms 
 	 
 $fm_panel= New-Object System.Windows.Forms.Panel 
 $fm_panel.Location= "0,0"
 $fm_panel.Size= "530,415"
 # $fm_panel.BackColor= "orange"
-
-$fm_panel.Add_Click({
- try{
-	switch([string] $_.Button){
-	'Left'{
-		$lisn_btn.PerformClick()
-	}
-	} #sw
- }catch{
-	echo $_.exception
- }
-})
  
 $fm_box_mml= New-Object System.Windows.Forms.TextBox 
 $fm_box_mml.Size= "520,75"
@@ -12817,7 +12676,7 @@ $fm_menu_f.Text= "File"
 
 
 
-	 
+	
 $fm_menu_pset= New-Object System.Windows.Forms.ToolStripSeparator 
 $fm_menu_pset= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_pset.Text= "Preset"
@@ -13055,7 +12914,7 @@ $fm_sav_h.Add_Click({
 $fm_menu_ktn= New-Object System.Windows.Forms.ToolStripSeparator 
 $fm_menu_kt= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_kt.Text= "Preferences"
-	 
+	
 $menu_fty= New-Object System.Windows.Forms.ToolStripMenuItem 
 # $menu_fty.Text= "v Task tray"
 
@@ -13110,7 +12969,7 @@ $fm_menu_rcver.Add_Click({	# 数値リストア
 		Unredo 2
 
 		Autoload $fm_xml.table.autosave
-		Panel_chg $comb_fm.SelectedItem
+		Panel_chg
 
 		Stus_build
 
@@ -13144,7 +13003,7 @@ $fm_menu_rst.Add_Click({	# 数値リセット
 		Unredo 2
 
 		Autoload $fm_xml.table.resetting
-		Panel_chg $comb_fm.SelectedItem
+		Panel_chg
 
 		Stus_build
 
@@ -13236,11 +13095,9 @@ $fm_menu_set.Add_Click({
 		Write-Host ("`r`n"+ '"setting.xml" 読み込みエラー')
 	}
 
-	$fm_menu_copy.Enabled= Enable_chk $key["style"]
+	Panel_chg	# compiler list change
 
-	Panel_chg $comb_fm.SelectedItem	# compiler change
-
- 	Menu_comp_build $opt["radio_bin"] > $null
+ 	## Menu_comp_build $opt["radio_bin"] > $null
 
 	Menu_build "mck"
 	Menu_build "nsd"
@@ -14191,11 +14048,11 @@ $fm_menu_mml.Add_Click({
  }
 })
 
-$fm_menu_copy= New-Object System.Windows.Forms.ToolStripMenuItem
-$fm_menu_copy.Text= "header+ Voice Clipboard"
-$fm_menu_copy.ForeColor= "Black"
+$fm_menu_header= New-Object System.Windows.Forms.ToolStripMenuItem
+$fm_menu_header.Text= "header+ Voice Clipboard"
+$fm_menu_header.ForeColor= "Black"
 
-$fm_menu_copy.Add_Click({
+$fm_menu_header.Add_Click({
  try{
 	Box_listen 1 # Clipboard
 
@@ -14249,9 +14106,9 @@ $fm_menu_type_nsd.Add_Click({
 	$script:key["ten"]= Ten_sw $False
 	Change_value "compiler" "nsd"
 
-	if($comb_fm.SelectedItem -eq 'vrc7 2op'){
+	if($script:op_index[4] -eq 'vrc7 2op'){
 
-		Panel_chg $comb_fm.SelectedItem
+		Panel_chg
 		Menu_build "compiler"
 		Stus_build
 
@@ -14269,9 +14126,9 @@ $fm_menu_type_mckreg.Add_Click({
 	$script:key["type"]= Type_sw "mckreg"
 	Change_value "compiler" "mck"
 
-	if($comb_fm.SelectedItem -eq 'vrc7 2op'){
+	if($script:op_index[4] -eq 'vrc7 2op'){
 
-		Panel_chg $comb_fm.SelectedItem
+		Panel_chg
 		Menu_build "compiler"
 		Stus_build
 
@@ -14289,9 +14146,9 @@ $fm_menu_type_nsdreg.Add_Click({
 	$script:key["type"]= Type_sw "nsdreg"
 	Change_value "compiler" "nsd"
 
-	if($comb_fm.SelectedItem -eq 'vrc7 2op'){
+	if($script:op_index[4] -eq 'vrc7 2op'){
 
-		Panel_chg $comb_fm.SelectedItem
+		Panel_chg
 		Menu_build "compiler"
 		Stus_build
 
@@ -14309,9 +14166,9 @@ $fm_menu_style_pmd.Add_Click({
 	$script:key["style"]= Style_sw "pmd"
 	$script:key["ten"]= Ten_sw $False
 
-	if($comb_fm.SelectedItem -ne 'vrc7 2op'){
+	if($script:op_index[4] -ne 'vrc7 2op'){
 
-		Panel_chg $comb_fm.SelectedItem
+		Panel_chg
 		Menu_build "compiler"
 		Stus_build
 
@@ -14329,9 +14186,9 @@ $fm_menu_style_mucom.Add_Click({
 	$script:key["style"]= Style_sw "mucom"
 	$script:key["ten"]= Ten_sw $True
 
-	if($comb_fm.SelectedItem -ne 'vrc7 2op'){
+	if($script:op_index[4] -ne 'vrc7 2op'){
 
-		Panel_chg $comb_fm.SelectedItem
+		Panel_chg
 		Menu_build "compiler"
 		Stus_build
 
@@ -14349,9 +14206,9 @@ $fm_menu_style_fmp7.Add_Click({
 	$script:key["style"]= Style_sw "fmp7"
 	$script:key["ten"]= Ten_sw $True
 
-	if($comb_fm.SelectedItem -ne 'vrc7 2op'){
+	if($script:op_index[4] -ne 'vrc7 2op'){
 
-		Panel_chg $comb_fm.SelectedItem
+		Panel_chg
 		Menu_build "compiler"
 		Stus_build
 
@@ -14369,9 +14226,9 @@ $fm_menu_style_mxdrv.Add_Click({
 	$script:key["style"]= Style_sw "mxdrv"
 	$script:key["ten"]= Ten_sw $True
 
-	if($comb_fm.SelectedItem -ne 'vrc7 2op'){
+	if($script:op_index[4] -ne 'vrc7 2op'){
 
-		Panel_chg $comb_fm.SelectedItem
+		Panel_chg
 		Menu_build "compiler"
 		Stus_build
 
@@ -14575,7 +14432,7 @@ $fm_menu_f.DropDownItems.AddRange(@($fm_menu_pset,$fm_menu_ladn,$fm_menu_lad,$fm
 $fm_menu_o.DropDownItems.AddRange(@($fm_menu_ud,$fm_menu_comn,$fm_menu_comp,$fm_menu_play,$fm_menu_dosv,$fm_menu_edit,$fm_menu_setn,$fm_menu_set))
 
 $fm_menu_m.DropDownItems.AddRange(@($fm_menu_mask,$fm_menu_so,$fm_menu_oct1,$fm_menu_oct2,$fm_menu_oct3,$fm_menu_oct4,$fm_menu_oct5,$fm_menu_oct6,$fm_menu_oct7,$fm_menu_oct8))
-$fm_menu_b.DropDownItems.AddRange(@($fm_menu_put,$fm_menu_type,$fm_menu_style,$fm_menu_sendn,$fm_menu_send,$fm_menu_mmlun,$fm_menu_mml,$fm_menu_copy))
+$fm_menu_b.DropDownItems.AddRange(@($fm_menu_put,$fm_menu_type,$fm_menu_style,$fm_menu_sendn,$fm_menu_send,$fm_menu_mmlun,$fm_menu_mml,$fm_menu_header))
 $fm_menu_w.DropDownItems.AddRange(@($fm_menu_sb,$fm_menu_spy,$fm_menu_py))
 $fm_menu_h.DropDownItems.AddRange(@($fm_menu_adv,$fm_menu_rld,$fm_menu_srld,$fm_menu_whelp))
 
@@ -15330,6 +15187,7 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 	Preset_read > $null  # <- $pmd["MC.EXE"] <- .\setting.xml
 
 
+
 # write-host "------"
 # write-host $val["compiler"]
 # write-host $val["player"]
@@ -15357,7 +15215,7 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 	$opm_fur= All_sz $opm_fur 13
 
 
-	[int[]] $script:op_index= 0,0,0,0
+	[array] $script:op_index= 0,0,0,0,"vrc7 2op"
 
 	# Parameter Reset時のため
 	Saveauto $script:fm_xml.table.resetting
@@ -15376,7 +15234,9 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 		Autoload $fm_xml.table.resetting # auto:off
 	}
 
-	Panel_chg $comb_fm.SelectedItem
+
+	Panel_chg
+	Box_mml_read
 
 	Color_Render
 	Send_build 1
