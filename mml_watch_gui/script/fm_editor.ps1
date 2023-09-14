@@ -159,7 +159,7 @@ $xml_editor= @'
 # function ====== 
  
 # color 
-	 
+	
 Function Line_highlight([array]$rr){ 
 
 	switch(Itm){ # Chip_position $script:xye2
@@ -709,7 +709,7 @@ function NmudX([string] $sw){
  } #func
   
 # contxt 
-	 
+	
 function Mouse_opwiner([string] $sw, [string] $opnum, $ev){	# Op. 
 
 	[string] $type= $key["knob"][(Item_index)]
@@ -1754,7 +1754,7 @@ function Idx(){
 # ------ 
  
 # poly 
-	
+	 
 function Flow_ssg([int]$num, [array]$e, [int]$width, [int]$height){ 
 
 
@@ -2298,7 +2298,7 @@ function Poly_chg(){
  } #func
   
 # sine 
-	
+	 
 function Flowtting_point([int]$cnt, [int]$opt, [array]$xy){ 
 
 	[int]$i= 0
@@ -2741,7 +2741,7 @@ function Sin_chg(){
  } #func
   
 # bg alg 
-	
+	 
 function Chip_view([int]$x,[int]$y){ 
 
 	[array]$p= "",""
@@ -4657,7 +4657,7 @@ function Load_value($x, [string]$sw){
  } #func
   
 # hash 
-	 
+	
 function Fmchange_value([string]$sw, [string]$name){ 
 
   # if($name -match '[v]' -eq $False){
@@ -6933,11 +6933,9 @@ function Param_exp([int] $sw, [string] $mtx){
 		break;
 
 	}default{
-		[string] $tt= $key["style"]
-
-		[int] $nn= Fmx_exp $mtx $tt
+		[int] $nn= Fmx_exp $mtx $key["style"]
 	}
-	} #sw	
+	} #sw
 
 	switch($nn){
 	0{
@@ -6951,7 +6949,7 @@ function Param_exp([int] $sw, [string] $mtx){
 	}
 	} #sw
  } #func
- 	
+ 
 # ------ 
  
 function Vrc_flow([array]$s){ 
@@ -7754,13 +7752,13 @@ $ErrorActionPreference= "Stop"
 
 $FonLabel= New-Object System.Drawing.Font("Segoe UI", 10)
 $Fon= New-Object System.Drawing.Font("MS Gothic",11) # Microsoft Sans Serif  MS Gothic
-$Fona= New-Object System.Drawing.Font("Lucida Console", 12, [System.Drawing.FontStyle]::Bold) # Lucida Console  Garamond Georgia Verdana Impact
+$Fona= New-Object System.Drawing.Font("Lucida Console", 11, [System.Drawing.FontStyle]::Bold) # Lucida Console  Garamond Georgia Verdana Impact
 
 cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 [Environment]::CurrentDirectory= pwd # working_dir set
- 
+ 	
 # Sub forms 
-	 
+	
 # $contxtA_7bwを読み込んだ後$PictureBox objが安全 
 	
 $contxtA_Sep_7bw= New-Object System.Windows.Forms.ToolStripSeparator 
@@ -8492,7 +8490,7 @@ $sb_alg.Add_FormClosing({
 })
  
 $sb_mnu= New-Object System.Windows.Forms.MenuStrip 
-	 
+	
 $sb_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $sb_menu_f.Text= "File"
 
@@ -8928,7 +8926,7 @@ $sb_stus.Items.AddRange(@($sb_label))
 $sb_alg.Controls.AddRange(@($sb_mnu,$pict_panel,$sb_stus))
   
 # Preset forms 
-	 
+	
 $ff_baloon= New-Object System.Windows.Forms.Tooltip 
 $ff_baloon.ShowAlways= $False
 # $ff_baloon.ToolTipIcon= "Info"
@@ -8939,19 +8937,23 @@ $list_mck= New-Object System.Windows.Forms.ListBox
 $list_mck.Size= "220,190"
 $list_mck.Location= "5,25"
 
+$list_mck.Add_MouseUp({	
+
+	if([string] $_.Button -eq 'Right'){
+
+		$ff_baloon.SetToolTip($this, $hsmck[[string] $this.SelectedItem])
+	}
+})
+
 $list_mck.Add_MouseDown({
  try{
 	$fm_box.ForeColor= "dimgray"
 	$fm_box.BackColor= "gainsboro"
 
-	switch([string]$_.Button){
-	'Left'{
-		Mck_listen $hsmck[[string]$list_mck.SelectedItem]
-		break;
-	}'Right'{
-		$ff_baloon.SetToolTip($list_mck,$hsmck[[string]$list_mck.SelectedItem])
+	if([string] $_.Button -eq 'Left'){
+
+		Mck_listen $hsmck[[string] $this.SelectedItem]
 	}
-	} #sw
  }catch{
 	echo $_.exception
  }
@@ -8961,19 +8963,23 @@ $list_vrc= New-Object System.Windows.Forms.ListBox
 $list_vrc.Size= "220,190"
 $list_vrc.Location= "5,25"
 
+$list_vrc.Add_MouseUp({
+
+	if([string] $_.Button -eq 'Right'){
+
+		$ff_baloon.SetToolTip($this, $hsvrc[[string] $this.SelectedItem])
+	}
+})
+
 $list_vrc.Add_MouseDown({
  try{
 	$fm_box.ForeColor= "dimgray"
 	$fm_box.BackColor= "gainsboro"
 
-	switch([string]$_.Button){
-	'Left'{
-		Vrc7_listen $hsvrc[[string]$list_vrc.SelectedItem]
-		break;
-	}'Right'{
-		$ff_baloon.SetToolTip($list_vrc,$hsvrc[[string]$list_vrc.SelectedItem])
+	if([string] $_.Button -eq 'Left'){
+
+		Vrc7_listen $hsvrc[[string] $this.SelectedItem]
 	}
-	} #sw
  }catch{
 	echo $_.exception
  }
@@ -8983,19 +8989,23 @@ $list_88= New-Object System.Windows.Forms.ListBox
 $list_88.Size= "220,190"
 $list_88.Location= "5,25"
 
+$list_88.Add_MouseUp({
+
+	if([string] $_.Button -eq 'Right'){
+
+		$ff_baloon.SetToolTip($this, $hs88[[string] $this.SelectedItem])
+	}
+})
+
 $list_88.Add_MouseDown({
  try{
 	$fm_box.ForeColor= "dimgray"
 	$fm_box.BackColor= "gainsboro"
 
-	switch([string]$_.Button){
-	'Left'{
-		FF_listen $hs88[[string]$list_88.SelectedItem]
-		break;
-	}'Right'{
-		$ff_baloon.SetToolTip($list_88,$hs88[[string]$list_88.SelectedItem])
+	if([string] $_.Button -eq 'Left'){
+
+		FF_listen $hs88[[string] $this.SelectedItem]
 	}
-	} #sw
  }catch{
 	echo $_.exception
  }
@@ -9005,19 +9015,23 @@ $list_x68= New-Object System.Windows.Forms.ListBox
 $list_x68.Size= "220,190"
 $list_x68.Location= "5,25"
 
+$list_x68.Add_MouseUp({
+
+	if([string] $_.Button -eq 'Right'){
+
+		$ff_baloon.SetToolTip($this, $hsx68[[string]$this.SelectedItem])
+	}
+})
+
 $list_x68.Add_MouseDown({
  try{
 	$fm_box.ForeColor= "dimgray"
 	$fm_box.BackColor= "gainsboro"
 
-	switch([string]$_.Button){
-	'Left'{
-		FF_listen $hsx68[[string]$list_x68.SelectedItem]
-		break;
-	}'Right'{
-		$ff_baloon.SetToolTip($list_x68,$hsx68[[string]$list_x68.SelectedItem])
+	if([string] $_.Button -eq 'Left'){
+
+		FF_listen $hsx68[[string] $this.SelectedItem]
 	}
-	} #sw
  }catch{
 	echo $_.exception
  }
@@ -9027,19 +9041,23 @@ $list_efx= New-Object System.Windows.Forms.ListBox
 $list_efx.Size= "220,190"
 $list_efx.Location= "5,25"
 
+$list_efx.Add_MouseUp({
+
+	if([string] $_.Button -eq 'Right'){
+
+		$ff_baloon.SetToolTip($this, $hsefx[[string] $this.SelectedItem])
+	}
+})
+
 $list_efx.Add_MouseDown({
  try{
 	$fm_box.ForeColor= "dimgray"
 	$fm_box.BackColor= "gainsboro"
 
-	switch([string] $_.Button){
-	'Left'{
+	if([string] $_.Button -eq 'Left'){
+
 		FF_listen $hsefx[[string] $this.SelectedItem]
-		break;
-	}'Right'{
-		$ff_baloon.SetToolTip($this, $hsefx[[string] $this.SelectedItem])
 	}
-	} #sw
  }catch{
 	echo $_.exception
  }
@@ -9255,7 +9273,7 @@ $ff_frm.Add_FormClosing({
 })
  
 $ff_mnu= New-Object System.Windows.Forms.MenuStrip 
-	 
+	
 $ff_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $ff_menu_f.Text= "File"
 
@@ -10757,7 +10775,7 @@ $eg_grp.Text= "Envelope Rate"
 $eg_grp.FlatStyle= "Flat"
 $eg_grp.ForeColor= "gray"
 $eg_grp.Font= $FonLabel
-	
+	 
 # ------ AR - AttackRate 15-0 2op /  31-0 4op 
 	 
 $lbl_ar= New-Object System.Windows.Forms.Label 
@@ -10778,9 +10796,9 @@ $vrc_nmud_ar.Maximum= "15"
 
 $vrc_nmud_ar.Add_ValueChanged({
  try{
-	$script:vrc_svn[(Idx)][2]= Sz $this.Value
-
 	if($event_change){
+
+		$script:vrc_svn[(Idx)][2]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "AR" $True
 		Box_read
@@ -10805,9 +10823,9 @@ $opl_nmud_ar.Maximum= "15"
 
 $opl_nmud_ar.Add_ValueChanged({
  try{
-	$script:opl_two[(Idx)][2]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opl_two[(Idx)][2]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "AR" $True
 		Box_read
@@ -10832,9 +10850,9 @@ $opn_nmud_ar.Maximum= "31"
 
 $opn_nmud_ar.Add_ValueChanged({
  try{
-	$script:opn_fur[(Idx)][2]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opn_fur[(Idx)][2]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "AR" $True
 		Box_read
@@ -10859,11 +10877,11 @@ $opm_nmud_ar.Maximum= "31"
 
 $opm_nmud_ar.Add_ValueChanged({
  try{
-	$script:opm_fur[(Idx)][2]= Sz $this.Value
-
 	if($event_change){
 
-		Buffer_Render $this.Value $this.Maximum "AR" $True
+		$script:opm_fur[(Idx)][2]= Sz $this.Value
+
+ 		Buffer_Render $this.Value $this.Maximum "AR" $True
 		Box_read
 
 		if($sb_alg.Visible){
@@ -10895,9 +10913,9 @@ $vrc_nmud_dr.Maximum= "15"
 
 $vrc_nmud_dr.Add_ValueChanged({
  try{
-	$script:vrc_svn[(Idx)][3]= Sz $this.Value
-
 	if($event_change){
+
+		$script:vrc_svn[(Idx)][3]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "DR" $True
 		Box_read
@@ -10922,9 +10940,9 @@ $opl_nmud_dr.Maximum= "15"
 
 $opl_nmud_dr.Add_ValueChanged({
  try{
-	$script:opl_two[(Idx)][3]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opl_two[(Idx)][3]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "DR" $True
 		Box_read
@@ -10949,9 +10967,9 @@ $opn_nmud_dr.Maximum= "31"
 
 $opn_nmud_dr.Add_ValueChanged({
  try{
-	$script:opn_fur[(Idx)][3]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opn_fur[(Idx)][3]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "DR" $True
 		Box_read
@@ -10976,9 +10994,9 @@ $opm_nmud_dr.Maximum= "31"
 
 $opm_nmud_dr.Add_ValueChanged({
  try{
-	$script:opm_fur[(Idx)][3]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opm_fur[(Idx)][3]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "DR" $True
 		Box_read
@@ -11012,9 +11030,9 @@ $vrc_nmud_sr.Maximum= "15"
 
 $vrc_nmud_sr.Add_ValueChanged({
  try{
-	$script:vrc_svn[(Idx)][4]= Sz $this.Value
-
 	if($event_change){
+
+		$script:vrc_svn[(Idx)][4]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "SR" $True
 		Box_read
@@ -11039,9 +11057,9 @@ $opl_nmud_sr.Maximum= "15"
 
 $opl_nmud_sr.Add_ValueChanged({
  try{
-	$script:opl_two[(Idx)][5]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opl_two[(Idx)][5]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "SR" $True
 		Box_read
@@ -11066,9 +11084,9 @@ $opn_nmud_sr.Maximum= "31"
 
 $opn_nmud_sr.Add_ValueChanged({
  try{
-	$script:opn_fur[(Idx)][4]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opn_fur[(Idx)][4]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "SR" $True
 		Box_read
@@ -11093,9 +11111,9 @@ $opm_nmud_sr.Maximum= "31"
 
 $opm_nmud_sr.Add_ValueChanged({
  try{
-	$script:opm_fur[(Idx)][4]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opm_fur[(Idx)][4]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "SR" $True
 		Box_read
@@ -11129,9 +11147,9 @@ $vrc_nmud_rr.Maximum= "15"
 
 $vrc_nmud_rr.Add_ValueChanged({
  try{
-	$script:vrc_svn[(Idx)][5]= Sz $this.Value
-
 	if($event_change){
+
+		$script:vrc_svn[(Idx)][5]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "RR" $True
 		Box_read
@@ -11156,9 +11174,9 @@ $opl_nmud_rr.Maximum= "15"
 
 $opl_nmud_rr.Add_ValueChanged({
  try{
-	$script:opl_two[(Idx)][4]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opl_two[(Idx)][4]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "RR" $True
 		Box_read
@@ -11183,9 +11201,9 @@ $opn_nmud_rr.Maximum= "15"
 
 $opn_nmud_rr.Add_ValueChanged({
  try{
-	$script:opn_fur[(Idx)][5]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opn_fur[(Idx)][5]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "RR" $True
 		Box_read
@@ -11210,9 +11228,9 @@ $opm_nmud_rr.Maximum= "15"
 
 $opm_nmud_rr.Add_ValueChanged({
  try{
-	$script:opm_fur[(Idx)][5]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opm_fur[(Idx)][5]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "RR" $True
 		Box_read
@@ -11246,9 +11264,9 @@ $opn_nmud_sl.Maximum= "15"
 
 $opn_nmud_sl.Add_ValueChanged({
  try{
-	$script:opn_fur[(Idx)][6]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opn_fur[(Idx)][6]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "SL" $True
 		Box_read
@@ -11273,9 +11291,9 @@ $opm_nmud_sl.Maximum= "15"
 
 $opm_nmud_sl.Add_ValueChanged({
  try{
-	$script:opm_fur[(Idx)][6]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opm_fur[(Idx)][6]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "SL" $True
 		Box_read
@@ -11297,7 +11315,7 @@ $lev_grp.FlatStyle= "Flat"
 $lev_grp.ForeColor= "gray"
 $lev_grp.Font= $FonLabel
 # $lev_grp.Hide() # $lev_grp.Show()
-	
+	 
 # ------ KSL - KeyScaleLevel 0-3 
 	 
 $lbl_ksl= New-Object System.Windows.Forms.Label 
@@ -11319,9 +11337,9 @@ $vrc_nmud_ksl.Maximum= "3"
 
 $vrc_nmud_ksl.Add_ValueChanged({
  try{
-	$script:vrc_svn[(Idx)][6]= Sz $this.Value
-
 	if($event_change){
+
+		$script:vrc_svn[(Idx)][6]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "KSL" $True
 		Box_read
@@ -11347,9 +11365,9 @@ $opl_nmud_ksl.Maximum= "3"
 
 $opl_nmud_ksl.Add_ValueChanged({
  try{
-	$script:opl_two[(Idx)][7]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opl_two[(Idx)][7]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "KSL" $True
 		Box_read
@@ -11382,9 +11400,9 @@ $vrc_nmud_ksr.Maximum= "1"
 
 $vrc_nmud_ksr.Add_ValueChanged({
  try{
-	$script:vrc_svn[(Idx)][11]= Sz $this.Value
-
 	if($event_change){
+
+		$script:vrc_svn[(Idx)][11]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "KSR" $True
 		Box_read
@@ -11409,9 +11427,9 @@ $opl_nmud_ksr.Maximum= "1"
 
 $opl_nmud_ksr.Add_ValueChanged({
  try{
-	$script:opl_two[(Idx)][9]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opl_two[(Idx)][9]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "KSR" $True
 		Box_read
@@ -11432,7 +11450,7 @@ $ring_grp.Text= "Tune Control"
 $ring_grp.FlatStyle= "Flat"
 $ring_grp.ForeColor= "gray"
 $ring_grp.Font= $FonLabel
-	
+	 
 # ------ DT - Distortion 0-1 vrc7 
 	 
 $lbl_dt= New-Object System.Windows.Forms.Label 
@@ -11453,9 +11471,9 @@ $vrc_nmud_dt.Maximum= "1"
 
 $vrc_nmud_dt.Add_ValueChanged({
  try{
-	$script:vrc_svn[(Idx)][12]= Sz $this.Value
-
 	if($event_change){
+
+		$script:vrc_svn[(Idx)][12]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "DT" $True
 		Box_read
@@ -11488,9 +11506,9 @@ $vrc_nmud_eg.Maximum= "1"
 
 $vrc_nmud_eg.Add_ValueChanged({
  try{
-	$script:vrc_svn[(Idx)][10]= Sz $this.Value
-
 	if($event_change){
+
+		$script:vrc_svn[(Idx)][10]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "EG" $True
 		Box_read
@@ -11515,9 +11533,9 @@ $opl_nmud_eg.Maximum= "1"
 
 $opl_nmud_eg.Add_ValueChanged({
  try{
-	$script:opl_two[(Idx)][10]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opl_two[(Idx)][10]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "EG" $True
 		Box_read
@@ -11550,9 +11568,9 @@ $vrc_nmud_vib.Maximum= "1"
 
 $vrc_nmud_vib.Add_ValueChanged({
  try{
-	$script:vrc_svn[(Idx)][9]= Sz $this.Value
-
 	if($event_change){
+
+		$script:vrc_svn[(Idx)][9]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "VIB" $True
 		Box_read
@@ -11577,9 +11595,9 @@ $opl_nmud_vib.Maximum= "1"
 
 $opl_nmud_vib.Add_ValueChanged({
  try{
-	$script:opl_two[(Idx)][11]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opl_two[(Idx)][11]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "VIB" $True
 		Box_read
@@ -11612,9 +11630,9 @@ $vrc_nmud_am.Maximum= "1"
 
 $vrc_nmud_am.Add_ValueChanged({
  try{
-	$script:vrc_svn[(Idx)][8]= Sz $this.Value
-
 	if($event_change){
+
+		$script:vrc_svn[(Idx)][8]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "AM" $True
 		Box_read
@@ -11639,9 +11657,9 @@ $opl_nmud_am.Maximum= "1"
 
 $opl_nmud_am.Add_ValueChanged({
  try{
-	$script:opl_two[(Idx)][12]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opl_two[(Idx)][12]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "AM" $True
 		Box_read
@@ -11676,9 +11694,9 @@ $opn_nmud_ks.Maximum= "3"
 
 $opn_nmud_ks.Add_ValueChanged({
  try{
-	$script:opn_fur[(Idx)][8]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opn_fur[(Idx)][8]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "KS" $True
 		Box_read
@@ -11703,9 +11721,9 @@ $opm_nmud_ks.Maximum= "3"
 
 $opm_nmud_ks.Add_ValueChanged({
  try{
-	$script:opm_fur[(Idx)][8]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opm_fur[(Idx)][8]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "KS" $True
 		Box_read
@@ -11738,9 +11756,9 @@ $opn_nmud_dt1.Maximum= "7"
 
 $opn_nmud_dt1.Add_ValueChanged({
  try{
-	$script:opn_fur[(Idx)][10]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opn_fur[(Idx)][10]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "DT1" $True
 		Box_read
@@ -11765,9 +11783,9 @@ $opm_nmud_dt1.Maximum= "7"
 
 $opm_nmud_dt1.Add_ValueChanged({
  try{
-	$script:opm_fur[(Idx)][10]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opm_fur[(Idx)][10]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "DT1" $True
 		Box_read
@@ -11800,9 +11818,9 @@ $opm_nmud_dt2.Maximum= "3"
 
 $opm_nmud_dt2.Add_ValueChanged({
  try{
-	$script:opm_fur[(Idx)][11]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opm_fur[(Idx)][11]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "DT2" $True
 		Box_read
@@ -11835,9 +11853,9 @@ $opn_nmud_ams.Maximum= "3"
 
 $opn_nmud_ams.Add_ValueChanged({
  try{
-	$script:opn_fur[(Idx)][11]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opn_fur[(Idx)][11]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "AMS" $True
 		Box_read
@@ -11862,9 +11880,9 @@ $opm_nmud_ams.Maximum= "3"
 
 $opm_nmud_ams.Add_ValueChanged({
  try{
-	$script:opm_fur[(Idx)][12]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opm_fur[(Idx)][12]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "AMS" $True
 		Box_read
@@ -11885,7 +11903,7 @@ $op_grp.Text= "Frequency Modulation"
 $op_grp.FlatStyle= "Flat"
 $op_grp.ForeColor= "gray"
 $op_grp.Font= $FonLabel
-	
+	 
 # ------ TL - TotalLevel 63-0 2op / 0max - 127min 4op 
 	 
 $lbl_tl= New-Object System.Windows.Forms.Label 
@@ -11906,9 +11924,9 @@ $vrc_nmud_tl.Maximum= "63"
 
 $vrc_nmud_tl.Add_ValueChanged({
  try{
-	$script:vrc_svn[(Idx)][0]= Sz $this.Value
-
 	if($event_change){
+
+		$script:vrc_svn[(Idx)][0]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "TL" $True
 		Box_read
@@ -11933,9 +11951,9 @@ $opl_nmud_tl.Maximum= "63"
 
 $opl_nmud_tl.Add_ValueChanged({
  try{
-	$script:opl_two[(Idx)][6]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opl_two[(Idx)][6]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "TL" $True
 		Box_read
@@ -11960,9 +11978,9 @@ $opn_nmud_tl.Maximum= "127"
 
 $opn_nmud_tl.Add_ValueChanged({
  try{
-	$script:opn_fur[(Idx)][7]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opn_fur[(Idx)][7]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "TL" $True
 		Box_read
@@ -11987,9 +12005,9 @@ $opm_nmud_tl.Maximum= "127"
 
 $opm_nmud_tl.Add_ValueChanged({
  try{
-	$script:opm_fur[(Idx)][7]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opm_fur[(Idx)][7]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "TL" $True
 		Box_read
@@ -12023,9 +12041,9 @@ $vrc_nmud_ml.Maximum= "15"
 
 $vrc_nmud_ml.Add_ValueChanged({
  try{
-	$script:vrc_svn[(Idx)][7]= Sz $this.Value
-
 	if($event_change){
+
+		$script:vrc_svn[(Idx)][7]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "ML" $True
 		Box_read
@@ -12050,9 +12068,9 @@ $opl_nmud_ml.Maximum= "15"
 
 $opl_nmud_ml.Add_ValueChanged({
  try{
-	$script:opl_two[(Idx)][8]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opl_two[(Idx)][8]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "ML" $True
 		Box_read
@@ -12077,9 +12095,9 @@ $opn_nmud_ml.Maximum= "15"
 
 $opn_nmud_ml.Add_ValueChanged({
  try{
-	$script:opn_fur[(Idx)][9]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opn_fur[(Idx)][9]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "ML" $True
 		Box_read
@@ -12104,9 +12122,9 @@ $opm_nmud_ml.Maximum= "15"
 
 $opm_nmud_ml.Add_ValueChanged({
  try{
-	$script:opm_fur[(Idx)][9]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opm_fur[(Idx)][9]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "ML" $True
 		Box_read
@@ -12127,7 +12145,7 @@ $alg_grp.Text= "Algorithm / Feedback"
 $alg_grp.FlatStyle= "Flat"
 $alg_grp.ForeColor= "gray"
 $alg_grp.Font= $FonLabel
-	
+	 
 # ------ ALG - Algorithm 0-1 opl / 0-7 4op 
 	 
 $lbl_alg= New-Object System.Windows.Forms.Label 
@@ -12148,9 +12166,9 @@ $opl_nmud_alg.Maximum= "1"
 
 $opl_nmud_alg.Add_ValueChanged({
  try{
-	$script:opl_two[0][0]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opl_two[0][0]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "ALG" $True
 		Box_read
@@ -12176,9 +12194,9 @@ $opn_nmud_alg.Maximum= "7"
 
 $opn_nmud_alg.Add_ValueChanged({
  try{
-	$script:opn_fur[0][0]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opn_fur[0][0]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "ALG" $True
 		Box_read
@@ -12204,9 +12222,9 @@ $opm_nmud_alg.Maximum= "7"
 
 $opm_nmud_alg.Add_ValueChanged({
  try{
-	$script:opm_fur[0][0]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opm_fur[0][0]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "ALG" $True
 		Box_read
@@ -12241,9 +12259,9 @@ $vrc_nmud_fb.Maximum= "7"
 
 $vrc_nmud_fb.Add_ValueChanged({
  try{
-	$script:vrc_svn[0][1]= Sz $this.Value
-
 	if($event_change){
+
+		$script:vrc_svn[0][1]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "FB" $True
 		Box_read
@@ -12268,9 +12286,9 @@ $opl_nmud_fb.Maximum= "7"
 
 $opl_nmud_fb.Add_ValueChanged({
  try{
-	$script:opl_two[0][1]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opl_two[0][1]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "FB" $True
 		Box_read
@@ -12295,9 +12313,9 @@ $opn_nmud_fb.Maximum= "7"
 
 $opn_nmud_fb.Add_ValueChanged({
  try{
-	$script:opn_fur[0][1]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opn_fur[0][1]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "FB" $True
 		Box_read
@@ -12322,9 +12340,9 @@ $opm_nmud_fb.Maximum= "7"
 
 $opm_nmud_fb.Add_ValueChanged({
  try{
-	$script:opm_fur[0][1]= Sz $this.Value
-
 	if($event_change){
+
+		$script:opm_fur[0][1]= Sz $this.Value
 
 		Buffer_Render $this.Value $this.Maximum "FB" $True
 		Box_read
@@ -12490,7 +12508,7 @@ $comb_fm.Add_SelectedValueChanged({ # Event
  })
    
 # forms 
-	 
+	
 $fm_panel= New-Object System.Windows.Forms.Panel 
 $fm_panel.Location= "0,0"
 $fm_panel.Size= "530,415"
@@ -12693,7 +12711,7 @@ $frm_fm.Add_FormClosing({
 })
  
 $fm_mnu= New-Object System.Windows.Forms.MenuStrip 
-	 
+	
 $fm_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_f.Text= "File"
 
