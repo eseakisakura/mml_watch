@@ -159,7 +159,7 @@ $xml_editor= @'
 # function ====== 
  
 # color 
-	
+	 
 Function Line_highlight([array]$rr){ 
 
 	switch(Itm){ # Chip_position $script:xye2
@@ -509,7 +509,7 @@ function Mouse_knober([string] $sw, [string] $type, $ev){	# knob
 		$x= NmudX $type
 		Buffer_Render $x.Value $x.Maximum $type $True
 
-		$script:key["knob"][$comb_fm.SelectedIndex]= $type
+		$script:key["knob"][(Item_index)]= $type
 
 		if($sb_alg.Visible){
 			Contxt_change $type
@@ -532,7 +532,7 @@ function Buffer_Render([int] $val, [int] $max, [string] $sw, [bool] $layer){
 	$ellipsebrush= $rr[1]
 
 	if($layer -eq $True){
-		$piebrush= $rr[3]
+		$piebrush= $rr[3] # Hover color
 	}else{
 		$piebrush= $rr[2]
 	}
@@ -574,7 +574,7 @@ function Buffer_Render([int] $val, [int] $max, [string] $sw, [bool] $layer){
 	$y.Refresh()
  } #func
  
-function Color_Render(){ 
+function All_Render(){ 
 
 	switch($key["mode"]){
 	'dark'{
@@ -710,16 +710,9 @@ function NmudX([string] $sw){
   
 # contxt 
 	 
-function Opmap_change([int] $j){ 
-
-	$script:op_index[$comb_fm.SelectedIndex]= $j
-	$comb_op.SelectedIndex= $j
-
- } #func
- 
 function Mouse_opwiner([string] $sw, [string] $opnum, $ev){	# Op. 
 
-	[string] $type= $key["knob"][$comb_fm.SelectedIndex]
+	[string] $type= $key["knob"][(Item_index)]
 
 	switch($sw){
 	'Up'{
@@ -878,7 +871,7 @@ function Drug_chg([int] $delta, [int] $num, [int] $max){
  
 function Trans_ADSR([int] $qq){ # [int] $pp, 
 
-	# switch($key["knob"][$comb_fm.SelectedIndex]){
+	# switch($key["knob"][(Item_index)]){
 	# 'AR'{	$delta= $pp;	break;
 	# }'DR'{	$delta= $pp;	break;
 	# }'SR'{	$delta= $pp;	break;
@@ -889,7 +882,7 @@ function Trans_ADSR([int] $qq){ # [int] $pp,
 
 	$delta= $qq # Y
 
-	$x= NmudX $key["knob"][$comb_fm.SelectedIndex]
+	$x= NmudX $key["knob"][(Item_index)]
 
 	[int] $dd= Pixcel_Select $x.Maximum
 
@@ -898,7 +891,7 @@ function Trans_ADSR([int] $qq){ # [int] $pp,
  } #func
  
 <# 
-	 
+	
 function Wheel_ALG([int] $delta){ 
 
 	[int] $num= $key["oct"].Replace("o", "")
@@ -1451,7 +1444,7 @@ function ADSR_cp([string] $str){
 	}default{
 		if($str.Contains("[v]") -eq $False){
 
-			$script:key["knob"][$comb_fm.SelectedIndex]= (ShortX $str "short")
+			$script:key["knob"][(Item_index)]= (ShortX $str "short")
 			Contxt_change (ShortX $str "short")
 			All_chg # pictbox string tame
 		}
@@ -1712,6 +1705,54 @@ function Contxt_octave([string]$a){
 
  } #func
   
+# trans 
+	
+function Item_index(){ 
+
+	[int] $jj= 0
+
+	switch($script:op_index[4]){
+	'vrc7 2op'{	$jj= 0;	break;
+	}'opl 2op'{	$jj= 1;	break;
+	}'opn 4op'{	$jj= 2;	break;
+	}'opm 4op'{	$jj= 3
+	}
+	} #sw
+
+	return $jj
+
+ } #func
+ 
+function Opmap_change([int] $j){ 
+
+	$script:op_index[(Item_index)]= $j
+	$comb_op.SelectedIndex= $j
+
+ } #func
+
+ 
+function Itm(){ 
+
+	[string]$s= 0
+	switch($script:op_index[4]){
+
+	'vrc7 2op'{ $s= "2op"; break;
+	}'opl 2op'{ $s= "2op"; break;
+	}'opn 4op'{ $s= "4op"; break;
+	}'opm 4op'{ $s= "4op"
+	}
+	} #sw
+
+	return $s
+ } #func
+ 
+function Idx(){ 
+
+	return $script:op_index[(Item_index)]
+ } #func
+  
+# ------ 
+ 
 # poly 
 	
 function Flow_ssg([int]$num, [array]$e, [int]$width, [int]$height){ 
@@ -2700,7 +2741,7 @@ function Sin_chg(){
  } #func
   
 # bg alg 
-	 
+	
 function Chip_view([int]$x,[int]$y){ 
 
 	[array]$p= "",""
@@ -2765,7 +2806,7 @@ function Alg_cablw([int]$alg){
  [array]$ary= @("vrc7","opl","opn","opm") # .SelectedIndex
 
 
- [string]$tt= $ary[$comb_fm.SelectedIndex]+ "`r`n"+ "Alg:"+ ($alg -as [string])+ "`r`n"+ $arr[$sw]+ "`r`n"+ $mtx[$alg][$sw]+ "`r`n"+ (ShortX $key["knob"][$comb_fm.SelectedIndex] "long")
+ [string]$tt= $ary[(Item_index)]+ "`r`n"+ "Alg:"+ ($alg -as [string])+ "`r`n"+ $arr[$sw]+ "`r`n"+ $mtx[$alg][$sw]+ "`r`n"+ (ShortX $key["knob"][(Item_index)] "long")
 
 
  [array]$rr= Monotone_select "Alg_"
@@ -2875,7 +2916,7 @@ function Alg_cable([int]$alg){
  [array]$ary= @("vrc7","opl","opn","opm")
 
 
- [string]$tt= $ary[$comb_fm.SelectedIndex]+ "`r`n"+ "Alg:"+($alg -as [string])+ "`r`n"+ $arr[$sw]+ "`r`n"+ $mtx[$alg][$sw]+ "`r`n"+  (ShortX $key["knob"][$comb_fm.SelectedIndex] "long")
+ [string]$tt= $ary[(Item_index)]+ "`r`n"+ "Alg:"+($alg -as [string])+ "`r`n"+ $arr[$sw]+ "`r`n"+ $mtx[$alg][$sw]+ "`r`n"+  (ShortX $key["knob"][(Item_index)] "long")
 
  if(Mskseg_chk){ $tt+= (Mskseg_out 2) }
 
@@ -3351,8 +3392,8 @@ function Alg_cablw([int]$alg){
 	[array]$ary= @("vrc7","opl","opn","opm") # .SelectedIndex
 
 
-	[string] $ss= $key["oct"]+ "`r`n"+ $ary[$comb_fm.SelectedIndex]+ "`r`n"+ "Alg:"+ ($alg -as [string])+ "`r`n"+ $mtx[$alg][$sw]
-	[string] $tt= $arr[$sw]+ "`r`n"+ (ShortX $key["knob"][$comb_fm.SelectedIndex] "long")
+	[string] $ss= $key["oct"]+ "`r`n"+ $ary[(Item_index)]+ "`r`n"+ "Alg:"+ ($alg -as [string])+ "`r`n"+ $mtx[$alg][$sw]
+	[string] $tt= $arr[$sw]+ "`r`n"+ (ShortX $key["knob"][(Item_index)] "long")
 
 
 
@@ -3472,8 +3513,8 @@ function Alg_cable([int]$alg){
 
 	[array]$ary= @("vrc7","opl","opn","opm")
 
-	[string] $ss= $key["oct"]+ "`r`n"+ $ary[$comb_fm.SelectedIndex]+ "`r`n"+ "Alg:"+ ($alg -as [string])+ "`r`n"+ $mtx[$alg][$sw]
-	[string] $tt= $arr[$sw]+ "`r`n"+ (ShortX $key["knob"][$comb_fm.SelectedIndex] "long")
+	[string] $ss= $key["oct"]+ "`r`n"+ $ary[(Item_index)]+ "`r`n"+ "Alg:"+ ($alg -as [string])+ "`r`n"+ $mtx[$alg][$sw]
+	[string] $tt= $arr[$sw]+ "`r`n"+ (ShortX $key["knob"][(Item_index)] "long")
 
 	if(Mskseg_chk){ $tt+= (Mskseg_out 2) }
 
@@ -4316,7 +4357,7 @@ function Color_alg([string]$t){
 # ------ 
  
 # load save 
-	 
+	
 function Autoload($x){ 
 
 	# $comb_fm.Add_SelectedValueChanged
@@ -4561,42 +4602,42 @@ function Load_value($x, [string]$sw){
 	switch($sw){
 	'A'{
 		$script:op_index[4]= $x.A.name # $comb_fm change
-		Opmap_change $x.A.number
+		$script:op_index[(Item_index)]= $x.A.number
 		Slot_read $x.A
 		break;
 	}'B'{
 		$script:op_index[4]= $x.B.name
-		Opmap_change $x.B.number
+		$script:op_index[(Item_index)]= $x.B.number
 		Slot_read $x.B
 		break;
 	}'C'{
 		$script:op_index[4]= $x.C.name
-		Opmap_change $x.C.number
+		$script:op_index[(Item_index)]= $x.C.number
 		Slot_read $x.C
 		break;
 	}'D'{
 		$script:op_index[4]= $x.D.name
-		Opmap_change $x.D.number
+		$script:op_index[(Item_index)]= $x.D.number
 		Slot_read $x.D
 		break;
 	}'E'{
 		$script:op_index[4]= $x.E.name
-		Opmap_change $x.E.number
+		$script:op_index[(Item_index)]= $x.E.number
 		Slot_read $x.E
 		break;
 	}'F'{
 		$script:op_index[4]= $x.F.name
-		Opmap_change $x.F.number
+		$script:op_index[(Item_index)]= $x.F.number
 		Slot_read $x.F
 		break;
 	}'G'{
 		$script:op_index[4]= $x.G.name
-		Opmap_change $x.G.number
+		$script:op_index[(Item_index)]= $x.G.number
 		Slot_read $x.G
 		break;
 	}'H'{
 		$script:op_index[4]= $x.H.name
-		Opmap_change $x.H.number
+		$script:op_index[(Item_index)]= $x.H.number
 		Slot_read $x.H
 	}
 	} #sw
@@ -4604,6 +4645,8 @@ function Load_value($x, [string]$sw){
 	Unredo 0
 
 	Panel_chg
+
+	Menu_comp_build $opt["radio_bin"] > $null
 	Stus_build
 
 	$comb_fm.Select() # sai enter event no tame
@@ -4687,7 +4730,7 @@ function Fmxml_read($x,$y){ # hash設定
 	$script:key["eg_type"]= "Thru"	#
 
 	$script:key["tray"]= Trayfm_hide $y.tray.value
-	$script:key["autosave"]= Autosav_sw $y.autosave.value
+	$script:key["autosave"]= Autosav_menu $y.autosave.value
 	$script:key["oct"]= Osc_sw $y.oct.value
 	$script:key["ten"]= Ten_sw $y.ten.value
 	$script:key["zero"]= Zero_sw $y.zero.value
@@ -4745,7 +4788,7 @@ function Fmwrite_xml($x,$y){
  } #func
   
 # gui 
-	 
+	
 function Menu_comp_build([string]$t){ 
 
 	$fm_menu_cmck.Text= "MCK"
@@ -5270,7 +5313,7 @@ function Contxt_state([string]$t,[int[]]$ss){
  
 # ------ 
  
-function Autosav_sw([string]$sw){ 
+function Autosav_menu([string]$sw){ 
 
 	switch($sw){
 	'True'{	$fm_menu_auto.Text= "v Autosave";	break;
@@ -5431,22 +5474,30 @@ function MSop_checker([int]$i, [string]$ss){ # Mask,SSG
 	return $k # $k -eq 1
  } #func
   
+# ------ 
+ 
 # Panel 
 	 
 function Panel_chg(){ 
 
+	[string] $ss= ""
+
 	switch($script:op_index[4]){
 	'vrc7 2op'{
 		switch($key["type"]){
-		'mckreg'{	$script:val["compiler"]= $val["mck"]; break;
-		}default{	$script:val["compiler"]= $val["nsd"]
+		'mckreg'{	$ss= "mck"
+			break;
+		}default{	$ss= "nsd"
 		}
 		} #sw
 		break;
 
-	}default{	$script:val["compiler"]= $val["pmd"]
+	}default{	$ss= "pmd"
 	}
 	} #sw
+
+	$script:val["compiler"]= $val[$ss]
+	$script:opt["radio_bin"]= $ss
 
 
 	$fm_menu_header.Enabled= Enable_header_copy
@@ -5454,53 +5505,10 @@ function Panel_chg(){
 
 	Panel_knob	# カラーチェンジの瞬間見せないためひとつ前
 	Value_gui
+	All_Render	# Value_guiの後
 	Box_read		# mtx
 
  } #func
- 
-function Change_value([string]$sw, [string]$name){ 
-
-  # if($name -match '[v]' -eq $False){ # .Contains() moka
-
-	switch($sw){
-	'mck'{		$script:val[$sw]= $mck[$name];	break;
-	}'nsd'{		$script:val[$sw]= $nsd[$name];	break;
-	}'pmd'{		$script:val[$sw]= $pmd[$name];	break;
-	}'compiler'{	$script:val[$sw]= $val[$name];	break;
-
-	}'player'{		$script:val[$sw]= $play[$name];	break;
-	}'dos'{		$script:val[$sw]= $dos[$name];	break;
-	}'editor'{		$script:val[$sw]= $edit[$name]
-	}
-	} #sw
-  # }
- } #func
- 
-function Stus_build(){ 
-
-	[string[]]$t= Split_path $val["compiler"]
-	[string[]]$s= Split_path $val["player"]
-
-	[string]$q= "  comp: "+ $t[0]+ " | play: "+ $s[0]+ " | oct: "+ $key["oct"]
-	[string]$b= " | "+ $script:op_index[4]+ ": "
-
-	switch($script:op_index[4]){
-	'vrc7 2op'{	$b+= $key["type"];		break;
-	}'opl 2op'{	$b+= "pmd";		break;
-	}'opn 4op'{
-			$q+= " | mask: "+ $key["mask"]
-			$b+= $key["style"]
-			break;
-	}'opm 4op'{
-			$q+= " | mask: "+ $key["mask"]
-			$b+= $key["style"]
-	}
-	} #sw
-
-	$fm_label.Text= $q+ $b
- } #func
- 
-# ------ 
  
 function Panel_knob(){	# knob add/remove 
 
@@ -5675,6 +5683,7 @@ function Value_gui(){
 		$opm_nmud_dt1.Value= $arr[$i][10]
 		$opm_nmud_dt2.Value= $arr[$i][11]
 		$opm_nmud_ams.Value= $arr[$i][12]
+
 	}
 	} # sw
 
@@ -5686,11 +5695,55 @@ function Value_gui(){
  
 # ------ 
  
+function Change_value([string]$sw, [string]$name){ 
+
+  # if($name -match '[v]' -eq $False){ # .Contains() moka
+
+	switch($sw){
+	'mck'{		$script:val[$sw]= $mck[$name];	break;
+	}'nsd'{		$script:val[$sw]= $nsd[$name];	break;
+	}'pmd'{		$script:val[$sw]= $pmd[$name];	break;
+	}'compiler'{	$script:val[$sw]= $val[$name];	break;
+
+	}'player'{		$script:val[$sw]= $play[$name];	break;
+	}'dos'{		$script:val[$sw]= $dos[$name];	break;
+	}'editor'{		$script:val[$sw]= $edit[$name]
+	}
+	} #sw
+  # }
+ } #func
+ 
+function Stus_build(){ 
+
+	[string[]]$t= Split_path $val["compiler"]
+	[string[]]$s= Split_path $val["player"]
+
+	[string]$q= "  comp: "+ $t[0]+ " | play: "+ $s[0]+ " | oct: "+ $key["oct"]
+	[string]$b= " | "+ $script:op_index[4]+ ": "
+
+	switch($script:op_index[4]){
+	'vrc7 2op'{	$b+= $key["type"];		break;
+	}'opl 2op'{	$b+= "pmd";		break;
+	}'opn 4op'{
+			$q+= " | mask: "+ $key["mask"]
+			$b+= $key["style"]
+			break;
+	}'opm 4op'{
+			$q+= " | mask: "+ $key["mask"]
+			$b+= $key["style"]
+	}
+	} #sw
+
+	$fm_label.Text= $q+ $b
+ } #func
+ 
+# ------ 
+ 
 function Enable_header_copy(){ 
 
 	[bool] $ss= $True
 
-	if($script:op_index[4] -eq 'opn 4op' -or $script:op_index[4] -eq 'opm 4op'){	
+	if($script:op_index[4] -eq 'opn 4op' -or $script:op_index[4] -eq 'opm 4op'){
 
 		switch($key["style"]){
 		'fmp7'{		$ss= $False; break;
@@ -5701,7 +5754,7 @@ function Enable_header_copy(){
 	}
 	return $ss
  } #func
- 	
+ 
 function Type_sw([string]$t){ 
 
 	$fm_menu_type_mckreg.Text= "MCK Reg"
@@ -5782,26 +5835,6 @@ function Ten_sw([string]$t){
 	return $t
  } #func
  
-function Idx(){ 
-
-	return $script:op_index[$comb_fm.SelectedIndex]
- } #func
- 
-function Itm(){ 
-
-	[string]$s= 0
-	switch($script:op_index[4]){
-
-	'vrc7 2op'{ $s= "2op"; break;
-	}'opl 2op'{ $s= "2op"; break;
-	}'opn 4op'{ $s= "4op"; break;
-	}'opm 4op'{ $s= "4op"
-	}
-	} #sw
-
-	return $s
- } #func
- 
 function Zeropad([string]$tt){ # zero padding 
 
 	[string]$ss= "0"* (3- $tt.Length)+ $tt
@@ -5853,7 +5886,7 @@ function All_sz([array]$r,[int]$j){
  } #func
   
 # Lis 
-	
+	 
 function Adv_edit([string]$t){ 
 
 	switch($t){
@@ -6139,6 +6172,7 @@ function Mck_listen([string]$ss){
 	$hh= $hh.Replace("%fm_param%",$gg)
 
 	Param_exp 1 $ss
+	Panel_chg
 
 	if($key["clickplay"] -eq 'True'){
 		Lisnfm_nsf 0 $hh
@@ -6168,6 +6202,7 @@ function Vrc7_listen([string]$ss){
 	$hh= $hh.Replace("%fm_param%", $gg)
 
 	Param_exp 1 $ss
+	Panel_chg
 
 	if($key["clickplay"] -eq 'True'){
 		Lisnfm_nsf 0 $hh
@@ -6198,11 +6233,13 @@ function FF_listen([string]$ss){
 	$hh= $hh.Replace("%mml_param%", $mm)
 	$hh= $hh.Replace("%fm_param%", $gg)
 
-	Param_exp 2 $ss # pmdで読み込む
+	Param_exp 1 $ss	# pmdで読み込む
+	Panel_chg
 
 	if($key["clickplay"] -eq 'True'){
 		Lisnfm_nsf 0 $hh
 	}
+
 	if($sb_alg.Visible){
 		if($key["clickplay"] -eq 'True'){
 			Monotone_select "lisn_btn"
@@ -6428,6 +6465,7 @@ function Unredo([int]$n){
 		} #sw
 
 		Param_exp 1 $fm_box.Text
+		Panel_chg
 
 		if($sb_alg.Visible){
 			All_chg
@@ -6465,7 +6503,7 @@ function Send_build([int]$sw){
 
 	[array]$ary= @("OPL","VRC7","OPM","OPN") # OPL -> VRC7
 
-	[string]$tt= $ary[$comb_fm.SelectedIndex]
+	[string]$tt= $ary[(Item_index)]
 
 	switch($sw){
 	1{
@@ -6589,229 +6627,6 @@ function Send_build([int]$sw){
 		} #sw
 	}
 	} #sw
- } #func
- 
-# ------ 
- 
-function Vrc_flow([array]$s){ 
-
-	for([int]$i= 0;$i -lt 13; $i++){
-
-		if($s[0][$i] -lt 0){	$s[0][$i]= 0 } # <0 chk
-		if($s[1][$i] -lt 0){	$s[1][$i]= 0 }
-	} #
-
-	if($s[0][0] -gt 63){	$s[0][0]= 63 }	#tl >63 chk
-	if($s[0][1] -gt 7){	$s[0][1]= 7 }	#fb
-
-	if($s[0][2] -gt 15){	$s[0][2]= 15 }	#ar
-	if($s[1][2] -gt 15){	$s[1][2]= 15 }
-	if($s[0][3] -gt 15){	$s[0][3]= 15 }	# dr
-	if($s[1][3] -gt 15){	$s[1][3]= 15 }
-	if($s[0][4] -gt 15){	$s[0][4]= 15 }	# sl
-	if($s[1][4] -gt 15){	$s[1][4]= 15 }
-	if($s[0][5] -gt 15){	$s[0][5]= 15 }	# rr
-	if($s[1][5] -gt 15){	$s[1][5]= 15 }
-
-	if($s[0][6] -gt 3){	$s[0][6]= 3 }	# ksl
-	if($s[1][6] -gt 3){	$s[1][6]= 3 }
-	if($s[0][7] -gt 15){	$s[0][7]= 15 }	# ml
-	if($s[1][7] -gt 15){	$s[1][7]= 15 }
-
-	if($s[0][8] -gt 1){	$s[0][8]= 1 }	# am
-	if($s[1][8] -gt 1){	$s[1][8]= 1 }
-	if($s[0][9] -gt 1){	$s[0][9]= 1 }	# vib
-	if($s[1][9] -gt 1){	$s[1][9]= 1 }
-
-	if($s[0][10] -gt 1){	$s[0][10]= 1 }	# eg
-	if($s[1][10] -gt 1){	$s[1][10]= 1 }
-	if($s[0][11] -gt 1){	$s[0][11]= 1 }	#ksr
-	if($s[1][11] -gt 1){	$s[1][11]= 1 }
-	if($s[0][12] -gt 1){	$s[0][12]= 1 }	#dt
-	if($s[1][12] -gt 1){	$s[1][12]= 1 }
-
-	return $s
- } #func
- 
-function Opl_flow([array]$s){ 
-
-	for([int]$i= 0;$i -lt 13; $i++){
-
-		if($s[0][$i] -lt 0){	$s[0][$i]= 0 }
-		if($s[1][$i] -lt 0){	$s[1][$i]= 0 }
-	} #
-
-	if($s[0][0] -gt 1){	$s[0][0]= 1 }	#alg
-	if($s[0][1] -gt 7){	$s[0][1]= 7 }	#fb
-
-	if($s[0][2] -gt 15){	$s[0][2]= 15 }	#ar
-	if($s[1][2] -gt 15){	$s[1][2]= 15 }
-	if($s[0][3] -gt 15){	$s[0][3]= 15 }	# dr
-	if($s[1][3] -gt 15){	$s[1][3]= 15 }
-	if($s[0][4] -gt 15){	$s[0][4]= 15 }	# rr
-	if($s[1][4] -gt 15){	$s[1][4]= 15 }
-	if($s[0][5] -gt 15){	$s[0][5]= 15 }	# sl
-	if($s[1][5] -gt 15){	$s[1][5]= 15 }
-
-	if($s[0][6] -gt 63){	$s[0][6]= 63 }	#tl
-	if($s[1][6] -gt 63){	$s[1][6]= 63 }
-	if($s[0][7] -gt 3){	$s[0][7]= 3 }	# ksl
-	if($s[1][7] -gt 3){	$s[1][7]= 3 }
-
-	if($s[0][8] -gt 15){	$s[0][8]= 15 }	# ml
-	if($s[1][8] -gt 15){	$s[1][8]= 15 }
-	if($s[0][9] -gt 1){	$s[0][9]= 1 }	#ksr
-	if($s[1][9] -gt 1){	$s[1][9]= 1 }
-
-	if($s[0][10] -gt 1){	$s[0][10]= 1 }	# eg
-	if($s[1][10] -gt 1){	$s[1][10]= 1 }
-	if($s[0][11] -gt 1){	$s[0][11]= 1 }	# vib
-	if($s[1][11] -gt 1){	$s[1][11]= 1 }
-	if($s[0][12] -gt 1){	$s[0][12]= 1 }	# am
-	if($s[1][12] -gt 1){	$s[1][12]= 1 }
-
-	return $s
- } #func
- 
-function Opn_flow([array]$s){ 
-
-	for([int]$i= 0;$i -lt 12; $i++){
-
-		if($s[0][$i] -lt 0){	$s[0][$i]= 0 }
-		if($s[1][$i] -lt 0){	$s[1][$i]= 0 }
-		if($s[2][$i] -lt 0){	$s[2][$i]= 0 }
-		if($s[3][$i] -lt 0){	$s[3][$i]= 0 }
-	} #
-
-	if($s[0][0] -gt 7){	$s[0][0]= 7 }	#alg
-	if($s[0][1] -gt 7){	$s[0][1]= 7 }	#fb
-
-	if($s[0][2] -gt 31){	$s[0][2]= 31 }	#ar
-	if($s[1][2] -gt 31){	$s[1][2]= 31 }
-	if($s[2][2] -gt 31){	$s[2][2]= 31 }
-	if($s[3][2] -gt 31){	$s[3][2]= 31 }
-
-	if($s[0][3] -gt 31){	$s[0][3]= 31 }	# dr
-	if($s[1][3] -gt 31){	$s[1][3]= 31 }
-	if($s[2][3] -gt 31){	$s[2][3]= 31 }
-	if($s[3][3] -gt 31){	$s[3][3]= 31 }
-
-	if($s[0][4] -gt 31){	$s[0][4]= 31 }	# sr
-	if($s[1][4] -gt 31){	$s[1][4]= 31 }
-	if($s[2][4] -gt 31){	$s[2][4]= 31 }
-	if($s[3][4] -gt 31){	$s[3][4]= 31 }
-
-	if($s[0][5] -gt 15){	$s[0][5]= 15 }	# rr
-	if($s[1][5] -gt 15){	$s[1][5]= 15 }
-	if($s[2][5] -gt 15){	$s[2][5]= 15 }
-	if($s[3][5] -gt 15){	$s[3][5]= 15 }
-
-
-	if($s[0][6] -gt 15){	$s[0][6]= 15 }	# sl
-	if($s[1][6] -gt 15){	$s[1][6]= 15 }
-	if($s[2][6] -gt 15){	$s[2][6]= 15 }
-	if($s[3][6] -gt 15){	$s[3][6]= 15 }
-
-	if($s[0][7] -gt 127){	$s[0][7]= 127 }	# tl
-	if($s[1][7] -gt 127){	$s[1][7]= 127 }
-	if($s[2][7] -gt 127){	$s[2][7]= 127 }
-	if($s[3][7] -gt 127){	$s[3][7]= 127 }
-
-
-	if($s[0][8] -gt 3){	$s[0][8]= 3 }	# ks
-	if($s[1][8] -gt 3){	$s[1][8]= 3 }
-	if($s[2][8] -gt 3){	$s[2][8]= 3 }
-	if($s[3][8] -gt 3){	$s[3][8]= 3 }
-
-	if($s[0][9] -gt 15){	$s[0][9]= 15 }	# ml
-	if($s[1][9] -gt 15){	$s[1][9]= 15 }
-	if($s[2][9] -gt 15){	$s[2][9]= 15 }
-	if($s[3][9] -gt 15){	$s[3][9]= 15 }
-
-	if($s[0][10] -gt 7){	$s[0][10]= 7 }	# dt
-	if($s[1][10] -gt 7){	$s[1][10]= 7 }
-	if($s[2][10] -gt 7){	$s[2][10]= 7 }
-	if($s[3][10] -gt 7){	$s[3][10]= 7 }
-
-	if($s[0][11] -gt 3){	$s[0][11]= 3 }	#ams
-	if($s[1][11] -gt 3){	$s[1][11]= 3 }
-	if($s[2][11] -gt 3){	$s[2][11]= 3 }
-	if($s[3][11] -gt 3){	$s[3][11]= 3 }
-
-	return $s
- } #func
- 
-function Opm_flow([array]$s){ 
-
-	for([int]$i= 0;$i -lt 13; $i++){
-
-		if($s[0][$i] -lt 0){	$s[0][$i]= 0 }
-		if($s[1][$i] -lt 0){	$s[1][$i]= 0 }
-		if($s[2][$i] -lt 0){	$s[2][$i]= 0 }
-		if($s[3][$i] -lt 0){	$s[3][$i]= 0 }
-	} #
-
-	if($s[0][0] -gt 7){	$s[0][0]= 7 }	#alg
-	if($s[0][1] -gt 7){	$s[0][1]= 7 }	#fb
-
-	if($s[0][2] -gt 31){	$s[0][2]= 31 }	#ar
-	if($s[1][2] -gt 31){	$s[1][2]= 31 }
-	if($s[2][2] -gt 31){	$s[2][2]= 31 }
-	if($s[3][2] -gt 31){	$s[3][2]= 31 }
-
-	if($s[0][3] -gt 31){	$s[0][3]= 31 }	# dr
-	if($s[1][3] -gt 31){	$s[1][3]= 31 }
-	if($s[2][3] -gt 31){	$s[2][3]= 31 }
-	if($s[3][3] -gt 31){	$s[3][3]= 31 }
-
-	if($s[0][4] -gt 31){	$s[0][4]= 31 }	# sr
-	if($s[1][4] -gt 31){	$s[1][4]= 31 }
-	if($s[2][4] -gt 31){	$s[2][4]= 31 }
-	if($s[3][4] -gt 31){	$s[3][4]= 31 }
-
-	if($s[0][5] -gt 15){	$s[0][5]= 15 }	# rr
-	if($s[1][5] -gt 15){	$s[1][5]= 15 }
-	if($s[2][5] -gt 15){	$s[2][5]= 15 }
-	if($s[3][5] -gt 15){	$s[3][5]= 15 }
-
-
-	if($s[0][6] -gt 15){	$s[0][6]= 15 }	# sl
-	if($s[1][6] -gt 15){	$s[1][6]= 15 }
-	if($s[2][6] -gt 15){	$s[2][6]= 15 }
-	if($s[3][6] -gt 15){	$s[3][6]= 15 }
-
-	if($s[0][7] -gt 127){	$s[0][7]= 127 }	# tl
-	if($s[1][7] -gt 127){	$s[1][7]= 127 }
-	if($s[2][7] -gt 127){	$s[2][7]= 127 }
-	if($s[3][7] -gt 127){	$s[3][7]= 127 }
-
-
-	if($s[0][8] -gt 3){	$s[0][8]= 3 }	# ks
-	if($s[1][8] -gt 3){	$s[1][8]= 3 }
-	if($s[2][8] -gt 3){	$s[2][8]= 3 }
-	if($s[3][8] -gt 3){	$s[3][8]= 3 }
-
-	if($s[0][9] -gt 15){	$s[0][9]= 15 }	# ml
-	if($s[1][9] -gt 15){	$s[1][9]= 15 }
-	if($s[2][9] -gt 15){	$s[2][9]= 15 }
-	if($s[3][9] -gt 15){	$s[3][9]= 15 }
-
-	if($s[0][10] -gt 7){	$s[0][10]= 7 }	# dt1
-	if($s[1][10] -gt 7){	$s[1][10]= 7 }
-	if($s[2][10] -gt 7){	$s[2][10]= 7 }
-	if($s[3][10] -gt 7){	$s[3][10]= 7 }
-
-	if($s[0][11] -gt 3){	$s[0][11]= 3 }	# dt2
-	if($s[1][11] -gt 3){	$s[1][11]= 3 }
-	if($s[2][11] -gt 3){	$s[2][11]= 3 }
-	if($s[3][11] -gt 3){	$s[3][11]= 3 }
-
-	if($s[0][12] -gt 3){	$s[0][12]= 3 }	#ams
-	if($s[1][12] -gt 3){	$s[1][12]= 3 }
-	if($s[2][12] -gt 3){	$s[2][12]= 3 }
-	if($s[3][12] -gt 3){	$s[3][12]= 3 }
-
-	return $s
  } #func
  
 # ------ 
@@ -7095,51 +6910,269 @@ function Fmx_exp([string]$zz,[string]$key_style){ # $key["style"]
  	}
  } #func
  
-function Param_exp([int]$jj,[string]$mtx){ 
+function Param_exp([int] $sw, [string] $mtx){ 
 
-  switch($script:op_index[4]){
-  'vrc7 2op'{
+	switch($script:op_index[4]){
+	'vrc7 2op'{
+		switch($key["type"]){
 
-	switch($key["type"]){
-	'mckreg'{	[int]$nn= Reg_exp $mtx $key["type"];	break;
-	}'nsdreg'{	[int]$nn= Reg_exp $mtx $key["type"];	break;
-	}default{	[int]$nn= Fmx_exp $mtx $key["type"]
+		'mckreg'{
+			[int] $nn= Reg_exp $mtx $key["type"]
+			break;
+		}'nsdreg'{
+			[int] $nn= Reg_exp $mtx $key["type"]
+			break;
+		}default{
+			[int] $nn= Fmx_exp $mtx $key["type"]
+		}
+		} #sw
+		break;
+
+	}'opl 2op'{
+		[int] $nn= Fmx_exp $mtx "opl"
+		break;
+
+	}default{
+		[string] $tt= $key["style"]
+
+		[int] $nn= Fmx_exp $mtx $tt
+	}
+	} #sw	
+
+	switch($nn){
+	0{
+		if($sw -eq 0){	# Param_exp 0	# Param_exp 1
+
+			Write-Host ('<< FM音色を読み込みました')
+		}
+		break;
+	}1{
+		Write-Host ('>> FM音色の読み込みに失敗しました')
 	}
 	} #sw
-	break;
+ } #func
+ 	
+# ------ 
+ 
+function Vrc_flow([array]$s){ 
 
-  }'opl 2op'{
+	for([int]$i= 0;$i -lt 13; $i++){
 
-	[int]$nn= Fmx_exp $mtx "opl"
-	break;
+		if($s[0][$i] -lt 0){	$s[0][$i]= 0 } # <0 chk
+		if($s[1][$i] -lt 0){	$s[1][$i]= 0 }
+	} #
 
-  }default{
-	if($jj -eq 2){
+	if($s[0][0] -gt 63){	$s[0][0]= 63 }	#tl >63 chk
+	if($s[0][1] -gt 7){	$s[0][1]= 7 }	#fb
 
-		[string]$tt= "pmd"
-	}else{
-		[string]$tt= $key["style"]
-	}
+	if($s[0][2] -gt 15){	$s[0][2]= 15 }	#ar
+	if($s[1][2] -gt 15){	$s[1][2]= 15 }
+	if($s[0][3] -gt 15){	$s[0][3]= 15 }	# dr
+	if($s[1][3] -gt 15){	$s[1][3]= 15 }
+	if($s[0][4] -gt 15){	$s[0][4]= 15 }	# sl
+	if($s[1][4] -gt 15){	$s[1][4]= 15 }
+	if($s[0][5] -gt 15){	$s[0][5]= 15 }	# rr
+	if($s[1][5] -gt 15){	$s[1][5]= 15 }
 
-	[int]$nn= Fmx_exp $mtx $tt
-  }
-  } #sw
+	if($s[0][6] -gt 3){	$s[0][6]= 3 }	# ksl
+	if($s[1][6] -gt 3){	$s[1][6]= 3 }
+	if($s[0][7] -gt 15){	$s[0][7]= 15 }	# ml
+	if($s[1][7] -gt 15){	$s[1][7]= 15 }
 
-  switch($nn){
-  '0'{
-	if($jj -eq 0){ # Unredo 1 - thru
+	if($s[0][8] -gt 1){	$s[0][8]= 1 }	# am
+	if($s[1][8] -gt 1){	$s[1][8]= 1 }
+	if($s[0][9] -gt 1){	$s[0][9]= 1 }	# vib
+	if($s[1][9] -gt 1){	$s[1][9]= 1 }
 
-		Write-Host ('<< FM音色を読み込みました')
-	}
+	if($s[0][10] -gt 1){	$s[0][10]= 1 }	# eg
+	if($s[1][10] -gt 1){	$s[1][10]= 1 }
+	if($s[0][11] -gt 1){	$s[0][11]= 1 }	#ksr
+	if($s[1][11] -gt 1){	$s[1][11]= 1 }
+	if($s[0][12] -gt 1){	$s[0][12]= 1 }	#dt
+	if($s[1][12] -gt 1){	$s[1][12]= 1 }
 
-	Box_read # 整形
-	Value_gui
+	return $s
+ } #func
+ 
+function Opl_flow([array]$s){ 
 
-	break;
-  }'1'{
-		Write-Host ('>> FM音色の読み込みに失敗しました')
-  }
-  } #sw
+	for([int]$i= 0;$i -lt 13; $i++){
+
+		if($s[0][$i] -lt 0){	$s[0][$i]= 0 }
+		if($s[1][$i] -lt 0){	$s[1][$i]= 0 }
+	} #
+
+	if($s[0][0] -gt 1){	$s[0][0]= 1 }	#alg
+	if($s[0][1] -gt 7){	$s[0][1]= 7 }	#fb
+
+	if($s[0][2] -gt 15){	$s[0][2]= 15 }	#ar
+	if($s[1][2] -gt 15){	$s[1][2]= 15 }
+	if($s[0][3] -gt 15){	$s[0][3]= 15 }	# dr
+	if($s[1][3] -gt 15){	$s[1][3]= 15 }
+	if($s[0][4] -gt 15){	$s[0][4]= 15 }	# rr
+	if($s[1][4] -gt 15){	$s[1][4]= 15 }
+	if($s[0][5] -gt 15){	$s[0][5]= 15 }	# sl
+	if($s[1][5] -gt 15){	$s[1][5]= 15 }
+
+	if($s[0][6] -gt 63){	$s[0][6]= 63 }	#tl
+	if($s[1][6] -gt 63){	$s[1][6]= 63 }
+	if($s[0][7] -gt 3){	$s[0][7]= 3 }	# ksl
+	if($s[1][7] -gt 3){	$s[1][7]= 3 }
+
+	if($s[0][8] -gt 15){	$s[0][8]= 15 }	# ml
+	if($s[1][8] -gt 15){	$s[1][8]= 15 }
+	if($s[0][9] -gt 1){	$s[0][9]= 1 }	#ksr
+	if($s[1][9] -gt 1){	$s[1][9]= 1 }
+
+	if($s[0][10] -gt 1){	$s[0][10]= 1 }	# eg
+	if($s[1][10] -gt 1){	$s[1][10]= 1 }
+	if($s[0][11] -gt 1){	$s[0][11]= 1 }	# vib
+	if($s[1][11] -gt 1){	$s[1][11]= 1 }
+	if($s[0][12] -gt 1){	$s[0][12]= 1 }	# am
+	if($s[1][12] -gt 1){	$s[1][12]= 1 }
+
+	return $s
+ } #func
+ 
+function Opn_flow([array]$s){ 
+
+	for([int]$i= 0;$i -lt 12; $i++){
+
+		if($s[0][$i] -lt 0){	$s[0][$i]= 0 }
+		if($s[1][$i] -lt 0){	$s[1][$i]= 0 }
+		if($s[2][$i] -lt 0){	$s[2][$i]= 0 }
+		if($s[3][$i] -lt 0){	$s[3][$i]= 0 }
+	} #
+
+	if($s[0][0] -gt 7){	$s[0][0]= 7 }	#alg
+	if($s[0][1] -gt 7){	$s[0][1]= 7 }	#fb
+
+	if($s[0][2] -gt 31){	$s[0][2]= 31 }	#ar
+	if($s[1][2] -gt 31){	$s[1][2]= 31 }
+	if($s[2][2] -gt 31){	$s[2][2]= 31 }
+	if($s[3][2] -gt 31){	$s[3][2]= 31 }
+
+	if($s[0][3] -gt 31){	$s[0][3]= 31 }	# dr
+	if($s[1][3] -gt 31){	$s[1][3]= 31 }
+	if($s[2][3] -gt 31){	$s[2][3]= 31 }
+	if($s[3][3] -gt 31){	$s[3][3]= 31 }
+
+	if($s[0][4] -gt 31){	$s[0][4]= 31 }	# sr
+	if($s[1][4] -gt 31){	$s[1][4]= 31 }
+	if($s[2][4] -gt 31){	$s[2][4]= 31 }
+	if($s[3][4] -gt 31){	$s[3][4]= 31 }
+
+	if($s[0][5] -gt 15){	$s[0][5]= 15 }	# rr
+	if($s[1][5] -gt 15){	$s[1][5]= 15 }
+	if($s[2][5] -gt 15){	$s[2][5]= 15 }
+	if($s[3][5] -gt 15){	$s[3][5]= 15 }
+
+
+	if($s[0][6] -gt 15){	$s[0][6]= 15 }	# sl
+	if($s[1][6] -gt 15){	$s[1][6]= 15 }
+	if($s[2][6] -gt 15){	$s[2][6]= 15 }
+	if($s[3][6] -gt 15){	$s[3][6]= 15 }
+
+	if($s[0][7] -gt 127){	$s[0][7]= 127 }	# tl
+	if($s[1][7] -gt 127){	$s[1][7]= 127 }
+	if($s[2][7] -gt 127){	$s[2][7]= 127 }
+	if($s[3][7] -gt 127){	$s[3][7]= 127 }
+
+
+	if($s[0][8] -gt 3){	$s[0][8]= 3 }	# ks
+	if($s[1][8] -gt 3){	$s[1][8]= 3 }
+	if($s[2][8] -gt 3){	$s[2][8]= 3 }
+	if($s[3][8] -gt 3){	$s[3][8]= 3 }
+
+	if($s[0][9] -gt 15){	$s[0][9]= 15 }	# ml
+	if($s[1][9] -gt 15){	$s[1][9]= 15 }
+	if($s[2][9] -gt 15){	$s[2][9]= 15 }
+	if($s[3][9] -gt 15){	$s[3][9]= 15 }
+
+	if($s[0][10] -gt 7){	$s[0][10]= 7 }	# dt
+	if($s[1][10] -gt 7){	$s[1][10]= 7 }
+	if($s[2][10] -gt 7){	$s[2][10]= 7 }
+	if($s[3][10] -gt 7){	$s[3][10]= 7 }
+
+	if($s[0][11] -gt 3){	$s[0][11]= 3 }	#ams
+	if($s[1][11] -gt 3){	$s[1][11]= 3 }
+	if($s[2][11] -gt 3){	$s[2][11]= 3 }
+	if($s[3][11] -gt 3){	$s[3][11]= 3 }
+
+	return $s
+ } #func
+ 
+function Opm_flow([array]$s){ 
+
+	for([int]$i= 0;$i -lt 13; $i++){
+
+		if($s[0][$i] -lt 0){	$s[0][$i]= 0 }
+		if($s[1][$i] -lt 0){	$s[1][$i]= 0 }
+		if($s[2][$i] -lt 0){	$s[2][$i]= 0 }
+		if($s[3][$i] -lt 0){	$s[3][$i]= 0 }
+	} #
+
+	if($s[0][0] -gt 7){	$s[0][0]= 7 }	#alg
+	if($s[0][1] -gt 7){	$s[0][1]= 7 }	#fb
+
+	if($s[0][2] -gt 31){	$s[0][2]= 31 }	#ar
+	if($s[1][2] -gt 31){	$s[1][2]= 31 }
+	if($s[2][2] -gt 31){	$s[2][2]= 31 }
+	if($s[3][2] -gt 31){	$s[3][2]= 31 }
+
+	if($s[0][3] -gt 31){	$s[0][3]= 31 }	# dr
+	if($s[1][3] -gt 31){	$s[1][3]= 31 }
+	if($s[2][3] -gt 31){	$s[2][3]= 31 }
+	if($s[3][3] -gt 31){	$s[3][3]= 31 }
+
+	if($s[0][4] -gt 31){	$s[0][4]= 31 }	# sr
+	if($s[1][4] -gt 31){	$s[1][4]= 31 }
+	if($s[2][4] -gt 31){	$s[2][4]= 31 }
+	if($s[3][4] -gt 31){	$s[3][4]= 31 }
+
+	if($s[0][5] -gt 15){	$s[0][5]= 15 }	# rr
+	if($s[1][5] -gt 15){	$s[1][5]= 15 }
+	if($s[2][5] -gt 15){	$s[2][5]= 15 }
+	if($s[3][5] -gt 15){	$s[3][5]= 15 }
+
+
+	if($s[0][6] -gt 15){	$s[0][6]= 15 }	# sl
+	if($s[1][6] -gt 15){	$s[1][6]= 15 }
+	if($s[2][6] -gt 15){	$s[2][6]= 15 }
+	if($s[3][6] -gt 15){	$s[3][6]= 15 }
+
+	if($s[0][7] -gt 127){	$s[0][7]= 127 }	# tl
+	if($s[1][7] -gt 127){	$s[1][7]= 127 }
+	if($s[2][7] -gt 127){	$s[2][7]= 127 }
+	if($s[3][7] -gt 127){	$s[3][7]= 127 }
+
+
+	if($s[0][8] -gt 3){	$s[0][8]= 3 }	# ks
+	if($s[1][8] -gt 3){	$s[1][8]= 3 }
+	if($s[2][8] -gt 3){	$s[2][8]= 3 }
+	if($s[3][8] -gt 3){	$s[3][8]= 3 }
+
+	if($s[0][9] -gt 15){	$s[0][9]= 15 }	# ml
+	if($s[1][9] -gt 15){	$s[1][9]= 15 }
+	if($s[2][9] -gt 15){	$s[2][9]= 15 }
+	if($s[3][9] -gt 15){	$s[3][9]= 15 }
+
+	if($s[0][10] -gt 7){	$s[0][10]= 7 }	# dt1
+	if($s[1][10] -gt 7){	$s[1][10]= 7 }
+	if($s[2][10] -gt 7){	$s[2][10]= 7 }
+	if($s[3][10] -gt 7){	$s[3][10]= 7 }
+
+	if($s[0][11] -gt 3){	$s[0][11]= 3 }	# dt2
+	if($s[1][11] -gt 3){	$s[1][11]= 3 }
+	if($s[2][11] -gt 3){	$s[2][11]= 3 }
+	if($s[3][11] -gt 3){	$s[3][11]= 3 }
+
+	if($s[0][12] -gt 3){	$s[0][12]= 3 }	#ams
+	if($s[1][12] -gt 3){	$s[1][12]= 3 }
+	if($s[2][12] -gt 3){	$s[2][12]= 3 }
+	if($s[3][12] -gt 3){	$s[3][12]= 3 }
+
+	return $s
  } #func
  
 # ------ 
@@ -7729,7 +7762,7 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 # Sub forms 
 	 
 # $contxtA_7bwを読み込んだ後$PictureBox objが安全 
-	 
+	
 $contxtA_Sep_7bw= New-Object System.Windows.Forms.ToolStripSeparator 
 $contxtA_Sep_Lbw= New-Object System.Windows.Forms.ToolStripSeparator
 $contxtA_Sep_Nbg= New-Object System.Windows.Forms.ToolStripSeparator
@@ -7825,7 +7858,7 @@ $script:toppos= New-Object System.Drawing.Point
 
 
 
-	 
+	
 [int[]]$op_IMG= @(162, 102) 
 $op_Rect= New-Object System.Drawing.Rectangle(0, 0, $op_IMG[0], $op_IMG[1])
  
@@ -7997,7 +8030,7 @@ $Pictbox2a.Image= $image2a
 
 $Pictbox2a.Add_MouseWheel({
  try{
-	if($comb_fm.SelectedIndex -eq 0 -and $script:op_index[0] -eq 1 -and $key["knob"][0] -eq 'TL'){
+	if((Item_index) -eq 0 -and $script:op_index[0] -eq 1 -and $key["knob"][0] -eq 'TL'){
 	}else{
 		Mouse_opwiner "Wheel" 1 $_
 	}
@@ -8032,7 +8065,7 @@ $Pictbox2a.Add_MouseHover({
 
 $Pictbox2a.Add_MouseDown({
  try{
-	if($comb_fm.SelectedIndex -eq 0 -and $script:op_index[0] -eq 1 -and $key["knob"][0] -eq 'TL'){
+	if((Item_index) -eq 0 -and $script:op_index[0] -eq 1 -and $key["knob"][0] -eq 'TL'){
 	}else{
 		Mouse_opwiner "Down" 1 $_
 	}
@@ -8298,7 +8331,7 @@ $Pictbox4.Add_MouseLeave({
 # buffb 
 
 
-	 
+	
 [int[]]$buf_IMG= @(322, 202) 
 $buf_Rect= New-Object System.Drawing.Rectangle(0, 0, $buf_IMG[0], $buf_IMG[1])
 [int[]]$buf_Size= @(($buf_IMG[0]+ 2), ($buf_IMG[1]+ 2)) # バッファサイズ
@@ -8459,7 +8492,7 @@ $sb_alg.Add_FormClosing({
 })
  
 $sb_mnu= New-Object System.Windows.Forms.MenuStrip 
-	
+	 
 $sb_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $sb_menu_f.Text= "File"
 
@@ -8769,7 +8802,7 @@ $sb_menu_dark.Add_Click({
 
 		$script:key["mode"]= Mode_alg "dark"
 
-		Color_Render
+		All_Render
 		All_chg # ura buffer no tame
 		Stus_alg
 	}
@@ -8788,7 +8821,7 @@ $sb_menu_light.Add_Click({
 
 		$script:key["mode"]= Mode_alg "light"
 
-		Color_Render
+		All_Render
 		All_chg
 		Stus_alg
 	}
@@ -8810,7 +8843,7 @@ $sb_menu_steel.Add_Click({
 
 		$script:key["color"]= Color_alg "steel"
 
-		Color_Render
+		All_Render
 		All_chg
 		Stus_alg
 	}
@@ -8829,7 +8862,7 @@ $sb_menu_natural.Add_Click({
 
 		$script:key["color"]= Color_alg "natural"
 
-		Color_Render
+		All_Render
 		All_chg # ura buffer no tame
 		Stus_alg
 	}
@@ -8848,7 +8881,7 @@ $sb_menu_pastel.Add_Click({
 
 		$script:key["color"]= Color_alg "pastel"
 
-		Color_Render
+		All_Render
 		All_chg
 		Stus_alg
 	}
@@ -8867,7 +8900,7 @@ $sb_menu_vivid.Add_Click({
 
 		$script:key["color"]= Color_alg "vivid"
 
-		Color_Render
+		All_Render
 		All_chg
 		Stus_alg
 	}
@@ -8999,12 +9032,12 @@ $list_efx.Add_MouseDown({
 	$fm_box.ForeColor= "dimgray"
 	$fm_box.BackColor= "gainsboro"
 
-	switch([string]$_.Button){
+	switch([string] $_.Button){
 	'Left'{
-		FF_listen $hsefx[[string]$list_efx.SelectedItem]
+		FF_listen $hsefx[[string] $this.SelectedItem]
 		break;
 	}'Right'{
-		$ff_baloon.SetToolTip($list_efx,$hsefx[[string]$list_efx.SelectedItem])
+		$ff_baloon.SetToolTip($this, $hsefx[[string] $this.SelectedItem])
 	}
 	} #sw
  }catch{
@@ -9032,7 +9065,8 @@ $tab_mck.Add_VisibleChanged({
 		Change_value "compiler" "mck"
 
 		Panel_chg
-		Menu_build "compiler"
+
+		Menu_comp_build $opt["radio_bin"] > $null
 		Stus_build
 
 		Unredo 0
@@ -9054,7 +9088,8 @@ $tab_vrc.Add_VisibleChanged({
 		Change_value "compiler" "nsd"
 
 		Panel_chg
-		Menu_build "compiler"
+
+		Menu_comp_build $opt["radio_bin"] > $null
 		Stus_build
 
 		Unredo 0
@@ -9071,9 +9106,11 @@ $tab_88.Add_VisibleChanged({
  try{
 	if($tab_88.Visible){
 		$script:op_index[4]= "opn 4op"
+		Change_value "compiler" "pmd"
 
 		Panel_chg
-		Menu_build "compiler"
+
+		Menu_comp_build $opt["radio_bin"] > $null
 		Stus_build
 
 		Unredo 0
@@ -9090,9 +9127,11 @@ $tab_x68.Add_VisibleChanged({
  try{
 	if($tab_x68.Visible){
  		$script:op_index[4]= "opn 4op"
+		Change_value "compiler" "pmd"
 
 		Panel_chg
-		Menu_build "compiler"
+
+		Menu_comp_build $opt["radio_bin"] > $null
 		Stus_build
 
 		Unredo 0
@@ -9109,9 +9148,11 @@ $tab_efx.Add_VisibleChanged({
  try{
 	if($tab_efx.Visible){
 		$script:op_index[4]= "opn 4op"
+		Change_value "compiler" "pmd"
 
 		Panel_chg
-		Menu_build "compiler"
+
+		Menu_comp_build $opt["radio_bin"] > $null
 		Stus_build
 
 		Unredo 0
@@ -9145,14 +9186,9 @@ $import_btn.Add_Click({
 
 	Write-Host '<< presetをimportしました'
 
+	$fm_box.Modified= $True
+
 	$conv_btn.PerformClick()
-	## $conv_btn.Add_Click <- storeを更新
-
-	## Saveauto $script:fm_xml.table.presetstore
-	## if($sb_alg.Visible){
-	##	Monotone_select "conv_btn" # line書込
-	## }
-
     }
 
  }catch{
@@ -10723,7 +10759,7 @@ $eg_grp.ForeColor= "gray"
 $eg_grp.Font= $FonLabel
 	
 # ------ AR - AttackRate 15-0 2op /  31-0 4op 
-	
+	 
 $lbl_ar= New-Object System.Windows.Forms.Label 
 $lbl_ar.Location= "10,20"
 $lbl_ar.Size= "60,40"
@@ -10742,17 +10778,17 @@ $vrc_nmud_ar.Maximum= "15"
 
 $vrc_nmud_ar.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "AR" $True
 	$script:vrc_svn[(Idx)][2]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "AR" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	  Poly_chw
+		if($sb_alg.Visible){
+			Poly_chw
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -10769,17 +10805,17 @@ $opl_nmud_ar.Maximum= "15"
 
 $opl_nmud_ar.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "AR" $True
 	$script:opl_two[(Idx)][2]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "AR" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	  Poly_chw
+		if($sb_alg.Visible){
+			Poly_chw
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -10796,17 +10832,17 @@ $opn_nmud_ar.Maximum= "31"
 
 $opn_nmud_ar.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "AR" $True
 	$script:opn_fur[(Idx)][2]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "AR" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	  Poly_chg
+		if($sb_alg.Visible){
+			Poly_chg
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -10823,24 +10859,24 @@ $opm_nmud_ar.Maximum= "31"
 
 $opm_nmud_ar.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "AR" $True
 	$script:opm_fur[(Idx)][2]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "AR" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	  Poly_chg
+		if($sb_alg.Visible){
+			Poly_chg
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
 })
   
 # ------ DR - DecayRate 0-15 2op / 0-31 4op 
-	
+	 
 $lbl_dr= New-Object System.Windows.Forms.Label 
 $lbl_dr.Location= "70,20"
 $lbl_dr.Size= "60,40"
@@ -10859,17 +10895,17 @@ $vrc_nmud_dr.Maximum= "15"
 
 $vrc_nmud_dr.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "DR" $True
 	$script:vrc_svn[(Idx)][3]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "DR" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	  Poly_chw
+		if($sb_alg.Visible){
+			Poly_chw
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -10886,17 +10922,17 @@ $opl_nmud_dr.Maximum= "15"
 
 $opl_nmud_dr.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "DR" $True
 	$script:opl_two[(Idx)][3]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "DR" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	  Poly_chw
+		if($sb_alg.Visible){
+			Poly_chw
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -10913,17 +10949,17 @@ $opn_nmud_dr.Maximum= "31"
 
 $opn_nmud_dr.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "DR" $True
 	$script:opn_fur[(Idx)][3]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "DR" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	  Poly_chg
+		if($sb_alg.Visible){
+			Poly_chg
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -10940,24 +10976,24 @@ $opm_nmud_dr.Maximum= "31"
 
 $opm_nmud_dr.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "DR" $True
 	$script:opm_fur[(Idx)][3]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "DR" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	  Poly_chg
+		if($sb_alg.Visible){
+			Poly_chg
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
 })
   
 # ------ SR - SustainRate 15-0 2op /  0-31 4op 
-	
+	 
 $lbl_sr= New-Object System.Windows.Forms.Label 
 $lbl_sr.Location= "130,20"
 $lbl_sr.Size= "60,40"
@@ -10976,17 +11012,17 @@ $vrc_nmud_sr.Maximum= "15"
 
 $vrc_nmud_sr.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "SR" $True
 	$script:vrc_svn[(Idx)][4]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "SR" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	  Poly_chw
+		if($sb_alg.Visible){
+			Poly_chw
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -11003,17 +11039,17 @@ $opl_nmud_sr.Maximum= "15"
 
 $opl_nmud_sr.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "SR" $True
 	$script:opl_two[(Idx)][5]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "SR" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	  Poly_chw
+		if($sb_alg.Visible){
+			Poly_chw
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -11030,17 +11066,17 @@ $opn_nmud_sr.Maximum= "31"
 
 $opn_nmud_sr.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "SR" $True
 	$script:opn_fur[(Idx)][4]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "SR" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	  Poly_chg
+		if($sb_alg.Visible){
+			Poly_chg
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -11057,24 +11093,24 @@ $opm_nmud_sr.Maximum= "31"
 
 $opm_nmud_sr.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "SR" $True
 	$script:opm_fur[(Idx)][4]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "SR" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	  Poly_chg
+		if($sb_alg.Visible){
+			Poly_chg
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
 })
   
 # ------ RR - ReleaseRate 0-15 
-	
+	 
 $lbl_rr= New-Object System.Windows.Forms.Label 
 $lbl_rr.Location= "190,20"
 $lbl_rr.Size= "60,40"
@@ -11093,17 +11129,17 @@ $vrc_nmud_rr.Maximum= "15"
 
 $vrc_nmud_rr.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "RR" $True
 	$script:vrc_svn[(Idx)][5]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "RR" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	  Poly_chw
+		if($sb_alg.Visible){
+			  Poly_chw
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -11120,17 +11156,17 @@ $opl_nmud_rr.Maximum= "15"
 
 $opl_nmud_rr.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "RR" $True
 	$script:opl_two[(Idx)][4]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "RR" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	  Poly_chw
+		if($sb_alg.Visible){
+			Poly_chw
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -11147,17 +11183,17 @@ $opn_nmud_rr.Maximum= "15"
 
 $opn_nmud_rr.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "RR" $True
 	$script:opn_fur[(Idx)][5]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "RR" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	  Poly_chg
+		if($sb_alg.Visible){
+			Poly_chg
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -11174,24 +11210,24 @@ $opm_nmud_rr.Maximum= "15"
 
 $opm_nmud_rr.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "RR" $True
 	$script:opm_fur[(Idx)][5]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "RR" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	  Poly_chg
+		if($sb_alg.Visible){
+			Poly_chg
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
 })
   
 # ------ SL - SustainLevel 15-0 
-	
+	 
 $lbl_sl= New-Object System.Windows.Forms.Label 
 $lbl_sl.Location= "70, 130"
 $lbl_sl.Size= "120,20"
@@ -11210,17 +11246,17 @@ $opn_nmud_sl.Maximum= "15"
 
 $opn_nmud_sl.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "SL" $True
 	$script:opn_fur[(Idx)][6]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "SL" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	  Poly_chg
+		if($sb_alg.Visible){
+			Poly_chg
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -11237,17 +11273,17 @@ $opm_nmud_sl.Maximum= "15"
 
 $opm_nmud_sl.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "SL" $True
 	$script:opm_fur[(Idx)][6]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "SL" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	  Poly_chg
+		if($sb_alg.Visible){
+			Poly_chg
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -11283,17 +11319,17 @@ $vrc_nmud_ksl.Maximum= "3"
 
 $vrc_nmud_ksl.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "KSL" $True
 	$script:vrc_svn[(Idx)][6]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "KSL" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	  Poly_chw
+		if($sb_alg.Visible){
+			Poly_chw
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -11311,17 +11347,17 @@ $opl_nmud_ksl.Maximum= "3"
 
 $opl_nmud_ksl.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "KSL" $True
 	$script:opl_two[(Idx)][7]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "KSL" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	  Poly_chw
+		if($sb_alg.Visible){
+			Poly_chw
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -11346,17 +11382,17 @@ $vrc_nmud_ksr.Maximum= "1"
 
 $vrc_nmud_ksr.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "KSR" $True
 	$script:vrc_svn[(Idx)][11]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "KSR" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	  Poly_chw
+		if($sb_alg.Visible){
+			Poly_chw
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -11373,17 +11409,17 @@ $opl_nmud_ksr.Maximum= "1"
 
 $opl_nmud_ksr.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "KSR" $True
 	$script:opl_two[(Idx)][9]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "KSR" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	  Poly_chw
+		if($sb_alg.Visible){
+			Poly_chw
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -11417,17 +11453,17 @@ $vrc_nmud_dt.Maximum= "1"
 
 $vrc_nmud_dt.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "DT" $True
 	$script:vrc_svn[(Idx)][12]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "DT" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	  Sin_chw
+		if($sb_alg.Visible){
+			Sin_chw
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -11452,17 +11488,17 @@ $vrc_nmud_eg.Maximum= "1"
 
 $vrc_nmud_eg.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "EG" $True
 	$script:vrc_svn[(Idx)][10]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "EG" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	  Poly_chw
+		if($sb_alg.Visible){
+			Poly_chw
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -11479,17 +11515,17 @@ $opl_nmud_eg.Maximum= "1"
 
 $opl_nmud_eg.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "EG" $True
 	$script:opl_two[(Idx)][10]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "EG" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	  Poly_chw
+		if($sb_alg.Visible){
+			Poly_chw
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -11514,17 +11550,17 @@ $vrc_nmud_vib.Maximum= "1"
 
 $vrc_nmud_vib.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "VIB" $True
 	$script:vrc_svn[(Idx)][9]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "VIB" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	  Poly_chw
+		if($sb_alg.Visible){
+			Poly_chw
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -11541,17 +11577,17 @@ $opl_nmud_vib.Maximum= "1"
 
 $opl_nmud_vib.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "VIB" $True
 	$script:opl_two[(Idx)][11]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "VIB" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	  Poly_chw
+		if($sb_alg.Visible){
+			Poly_chw
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -11576,17 +11612,17 @@ $vrc_nmud_am.Maximum= "1"
 
 $vrc_nmud_am.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "AM" $True
 	$script:vrc_svn[(Idx)][8]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "AM" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	  Poly_chw
+		if($sb_alg.Visible){
+			Poly_chw
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -11603,17 +11639,17 @@ $opl_nmud_am.Maximum= "1"
 
 $opl_nmud_am.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "AM" $True
 	$script:opl_two[(Idx)][12]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "AM" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	  Poly_chw
+		if($sb_alg.Visible){
+			Poly_chw
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -11640,17 +11676,17 @@ $opn_nmud_ks.Maximum= "3"
 
 $opn_nmud_ks.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "KS" $True
 	$script:opn_fur[(Idx)][8]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "KS" $True
+		Box_read
 
-	if($sb_alg.Visible){
-		Poly_chg
+		if($sb_alg.Visible){
+			Poly_chg
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -11667,17 +11703,17 @@ $opm_nmud_ks.Maximum= "3"
 
 $opm_nmud_ks.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "KS" $True
 	$script:opm_fur[(Idx)][8]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "KS" $True
+		Box_read
 
-	if($sb_alg.Visible){
-		Poly_chg
+		if($sb_alg.Visible){
+			Poly_chg
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -11702,17 +11738,17 @@ $opn_nmud_dt1.Maximum= "7"
 
 $opn_nmud_dt1.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "DT1" $True
 	$script:opn_fur[(Idx)][10]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "DT1" $True
+		Box_read
 
-	if($sb_alg.Visible){
-		Poly_chg
+		if($sb_alg.Visible){
+			Poly_chg
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -11729,17 +11765,17 @@ $opm_nmud_dt1.Maximum= "7"
 
 $opm_nmud_dt1.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "DT1" $True
 	$script:opm_fur[(Idx)][10]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "DT1" $True
+		Box_read
 
-	if($sb_alg.Visible){
-		Poly_chg
+		if($sb_alg.Visible){
+			Poly_chg
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -11764,17 +11800,17 @@ $opm_nmud_dt2.Maximum= "3"
 
 $opm_nmud_dt2.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "DT2" $True
 	$script:opm_fur[(Idx)][11]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "DT2" $True
+		Box_read
 
-	if($sb_alg.Visible){
-		Poly_chg
+		if($sb_alg.Visible){
+			Poly_chg
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -11799,17 +11835,17 @@ $opn_nmud_ams.Maximum= "3"
 
 $opn_nmud_ams.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "AMS" $True
 	$script:opn_fur[(Idx)][11]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "AMS" $True
+		Box_read
 
-	if($sb_alg.Visible){
-		Poly_chg
+		if($sb_alg.Visible){
+			Poly_chg
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -11826,17 +11862,17 @@ $opm_nmud_ams.Maximum= "3"
 
 $opm_nmud_ams.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "AMS" $True
 	$script:opm_fur[(Idx)][12]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "AMS" $True
+		Box_read
 
-	if($sb_alg.Visible){
-		Poly_chg
+		if($sb_alg.Visible){
+			Poly_chg
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -11849,7 +11885,7 @@ $op_grp.Text= "Frequency Modulation"
 $op_grp.FlatStyle= "Flat"
 $op_grp.ForeColor= "gray"
 $op_grp.Font= $FonLabel
-	 
+	
 # ------ TL - TotalLevel 63-0 2op / 0max - 127min 4op 
 	 
 $lbl_tl= New-Object System.Windows.Forms.Label 
@@ -11870,17 +11906,17 @@ $vrc_nmud_tl.Maximum= "63"
 
 $vrc_nmud_tl.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "TL" $True
 	$script:vrc_svn[(Idx)][0]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "TL" $True
+		Box_read
 
-	if($sb_alg.Visible){
-		Sin_chw
+		if($sb_alg.Visible){
+			Sin_chw
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -11897,17 +11933,17 @@ $opl_nmud_tl.Maximum= "63"
 
 $opl_nmud_tl.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "TL" $True
 	$script:opl_two[(Idx)][6]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "TL" $True
+		Box_read
 
-	if($sb_alg.Visible){
-		Sin_chw
+		if($sb_alg.Visible){
+			Sin_chw
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -11924,17 +11960,17 @@ $opn_nmud_tl.Maximum= "127"
 
 $opn_nmud_tl.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "TL" $True
 	$script:opn_fur[(Idx)][7]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "TL" $True
+		Box_read
 
-	if($sb_alg.Visible){
-		Sin_chg
+		if($sb_alg.Visible){
+			Sin_chg
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -11951,24 +11987,24 @@ $opm_nmud_tl.Maximum= "127"
 
 $opm_nmud_tl.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "TL" $True
 	$script:opm_fur[(Idx)][7]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "TL" $True
+		Box_read
 
-	if($sb_alg.Visible){
-		Sin_chg
+		if($sb_alg.Visible){
+			Sin_chg
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
 })
   
 # ------ ML - Multiple 0-15 
-	
+	 
 $lbl_ml= New-Object System.Windows.Forms.Label 
 $lbl_ml.Location= "130, 20"
 $lbl_ml.Size= "120, 20"
@@ -11987,17 +12023,17 @@ $vrc_nmud_ml.Maximum= "15"
 
 $vrc_nmud_ml.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "ML" $True
 	$script:vrc_svn[(Idx)][7]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "ML" $True
+		Box_read
 
-	if($sb_alg.Visible){
-		Sin_chw
+		if($sb_alg.Visible){
+			Sin_chw
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -12014,17 +12050,17 @@ $opl_nmud_ml.Maximum= "15"
 
 $opl_nmud_ml.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "ML" $True
 	$script:opl_two[(Idx)][8]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "ML" $True
+		Box_read
 
-	if($sb_alg.Visible){
-		Sin_chw
+		if($sb_alg.Visible){
+			Sin_chw
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -12041,17 +12077,17 @@ $opn_nmud_ml.Maximum= "15"
 
 $opn_nmud_ml.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "ML" $True
 	$script:opn_fur[(Idx)][9]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "ML" $True
+		Box_read
 
-	if($sb_alg.Visible){
-		Sin_chg
+		if($sb_alg.Visible){
+			Sin_chg
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -12068,17 +12104,17 @@ $opm_nmud_ml.Maximum= "15"
 
 $opm_nmud_ml.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "ML" $True
 	$script:opm_fur[(Idx)][9]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "ML" $True
+		Box_read
 
-	if($sb_alg.Visible){
-		Sin_chg
+		if($sb_alg.Visible){
+			Sin_chg
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -12091,7 +12127,7 @@ $alg_grp.Text= "Algorithm / Feedback"
 $alg_grp.FlatStyle= "Flat"
 $alg_grp.ForeColor= "gray"
 $alg_grp.Font= $FonLabel
-	 
+	
 # ------ ALG - Algorithm 0-1 opl / 0-7 4op 
 	 
 $lbl_alg= New-Object System.Windows.Forms.Label 
@@ -12112,18 +12148,18 @@ $opl_nmud_alg.Maximum= "1"
 
 $opl_nmud_alg.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "ALG" $True
 	$script:opl_two[0][0]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "ALG" $True
+		Box_read
 
-	if($sb_alg.Visible){
-		Sin_chw
-		Pict_chg
+		if($sb_alg.Visible){
+			Sin_chw
+			Pict_chg
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -12140,18 +12176,18 @@ $opn_nmud_alg.Maximum= "7"
 
 $opn_nmud_alg.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "ALG" $True
 	$script:opn_fur[0][0]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "ALG" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	  	Sin_chg
-	 	Pict_chg
+		if($sb_alg.Visible){
+		  	Sin_chg
+		 	Pict_chg
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -12168,18 +12204,18 @@ $opm_nmud_alg.Maximum= "7"
 
 $opm_nmud_alg.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "ALG" $True
 	$script:opm_fur[0][0]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "ALG" $True
+		Box_read
 
-	if($sb_alg.Visible){
-	 	Sin_chg
-	 	Pict_chg
+		if($sb_alg.Visible){
+		 	Sin_chg
+		 	Pict_chg
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -12205,17 +12241,17 @@ $vrc_nmud_fb.Maximum= "7"
 
 $vrc_nmud_fb.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "FB" $True
 	$script:vrc_svn[0][1]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "FB" $True
+		Box_read
 
-	if($sb_alg.Visible){
-		Sin_chw
+		if($sb_alg.Visible){
+			Sin_chw
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -12232,17 +12268,17 @@ $opl_nmud_fb.Maximum= "7"
 
 $opl_nmud_fb.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "FB" $True
 	$script:opl_two[0][1]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "FB" $True
+		Box_read
 
-	if($sb_alg.Visible){
-		Sin_chw
+		if($sb_alg.Visible){
+			Sin_chw
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -12259,17 +12295,17 @@ $opn_nmud_fb.Maximum= "7"
 
 $opn_nmud_fb.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "FB" $True
 	$script:opn_fur[0][1]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "FB" $True
+		Box_read
 
-	if($sb_alg.Visible){
-		Sin_chg
+		if($sb_alg.Visible){
+			Sin_chg
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -12286,17 +12322,17 @@ $opm_nmud_fb.Maximum= "7"
 
 $opm_nmud_fb.Add_ValueChanged({
  try{
-	Buffer_Render $this.Value $this.Maximum "FB" $True
 	$script:opm_fur[0][1]= Sz $this.Value
 
-  if($event_change){
+	if($event_change){
 
-	Box_read
+		Buffer_Render $this.Value $this.Maximum "FB" $True
+		Box_read
 
-	if($sb_alg.Visible){
-		Sin_chg
+		if($sb_alg.Visible){
+			Sin_chg
+		}
 	}
-  }
  }catch{
 	echo $_.exception
  }
@@ -12339,6 +12375,8 @@ $conv_btn.Add_Click({ # text convert
 	if($fm_box.Modified -eq $True){ #変更あらば
 
 		Param_exp 0 $fm_box.Text
+		Panel_chg
+
 
 		if($ff_frm.Visible -eq $True){
 
@@ -12399,12 +12437,13 @@ $comb_op.Add_SelectedValueChanged({
  try{
 	if($event_change){
 
-		$script:op_index[$comb_fm.SelectedIndex]= $this.SelectedIndex
+		$script:op_index[(Item_index)]= $this.SelectedIndex
 
-		Panel_knob
-		Value_gui
+		# Panel_knob
+		# Value_gui
+		# All_Render
 
-		Color_Render
+		Panel_chg # Box_readはついで
 		Stus_build
 
 		if($sb_alg.Visible){
@@ -12431,14 +12470,13 @@ $comb_fm.Add_SelectedValueChanged({ # Event
   try{
 	if($event_change){
 
-		$script:op_index[4]= $this.SelectedItem
-
 		Unredo 0
 
-		Panel_chg	# compiler change
-		Color_Render
+		$script:op_index[4]= $this.SelectedItem
 
-		Menu_build "compiler"
+		Panel_chg	# compiler change
+
+		Menu_comp_build $opt["radio_bin"] > $null
 		Send_build 1
 		Stus_build
 
@@ -12676,7 +12714,7 @@ $fm_menu_f.Text= "File"
 
 
 
-	
+	 
 $fm_menu_pset= New-Object System.Windows.Forms.ToolStripSeparator 
 $fm_menu_pset= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_pset.Text= "Preset"
@@ -12723,7 +12761,7 @@ $fm_menu_pset.Add_Click({
 $fm_menu_ladn= New-Object System.Windows.Forms.ToolStripSeparator 
 $fm_menu_lad= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_lad.Text= "Load"
-	
+	 
 $fm_lad_a= New-Object System.Windows.Forms.ToolStripMenuItem 
 # $fm_lad_a.Text= "slot A"
 
@@ -12914,7 +12952,7 @@ $fm_sav_h.Add_Click({
 $fm_menu_ktn= New-Object System.Windows.Forms.ToolStripSeparator 
 $fm_menu_kt= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_kt.Text= "Preferences"
-	
+	 
 $menu_fty= New-Object System.Windows.Forms.ToolStripMenuItem 
 # $menu_fty.Text= "v Task tray"
 
@@ -12940,11 +12978,11 @@ $fm_menu_auto.Add_Click({
  try{
   switch($key["autosave"]){
   'False'{
-	$script:key["autosave"]= Autosav_sw $True
+	$script:key["autosave"]= Autosav_menu $True
 	break;
   }'True'{
 
-	$script:key["autosave"]= Autosav_sw $False
+	$script:key["autosave"]= Autosav_menu $False
   }
   } #sw
 
@@ -12961,16 +12999,17 @@ $fm_menu_rcver.Add_Click({	# 数値リストア
  try{
 	[string]$retn= [Windows.Forms.MessageBox]::Show(
 
-	"数値をAutosaveへ戻します", "確認", "OKCancel","Information","Button2"
+	"数値を全て起動時へ戻します", "確認", "OKCancel","Information","Button2"
 	)
 
 	switch($retn){
 	'OK'{
-		Unredo 2
+		Unredo 0
 
 		Autoload $fm_xml.table.autosave
 		Panel_chg
 
+		Menu_comp_build $opt["radio_bin"] > $null
 		Stus_build
 
 		if($sb_alg.Visible){
@@ -12995,16 +13034,17 @@ $fm_menu_rst.Add_Click({	# 数値リセット
  try{
 	[string]$retn= [Windows.Forms.MessageBox]::Show(
 
-	"数値をリセットします", "確認", "OKCancel","Information","Button2"
+	"数値を全て初期値に戻します", "確認", "OKCancel","Information","Button2"
 	)
 
 	switch($retn){
 	'OK'{
-		Unredo 2
+		Unredo 0
 
 		Autoload $fm_xml.table.resetting
 		Panel_chg
 
+		Menu_comp_build $opt["radio_bin"] > $null
 		Stus_build
 
 		if($sb_alg.Visible){
@@ -13095,9 +13135,9 @@ $fm_menu_set.Add_Click({
 		Write-Host ("`r`n"+ '"setting.xml" 読み込みエラー')
 	}
 
-	Panel_chg	# compiler list change
+	# Panel_chg	# compiler list change
 
- 	## Menu_comp_build $opt["radio_bin"] > $null
+ 	# Menu_comp_build $opt["radio_bin"] > $null
 
 	Menu_build "mck"
 	Menu_build "nsd"
@@ -13122,9 +13162,9 @@ $fm_menu_set.Add_Click({
 })
 
 
-	
+	 
 <# 
- 
+	
 $fm_menu_cmp0= New-Object System.Windows.Forms.ToolStripMenuItem 
 # $fm_menu_cmp0.Text= "0.exe"
 $fm_menu_cmp0.Visible= $False # .Hide() 不可
@@ -13211,7 +13251,7 @@ $fm_menu_cmp5.Add_Click({
  
 #> 
 
- 
+  
 $fm_menu_comp=  New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_comp.Text= "compiler"
 
@@ -13262,7 +13302,7 @@ $fm_menu_cpmd.Add_Click({
 	echo $_.exception
  }
 })
-	
+	 
 $fm_menu_mck0= New-Object System.Windows.Forms.ToolStripMenuItem 
 #$fm_menu_mck0.Text= "0.exe"
 $fm_menu_mck0.Visible= $False
@@ -14108,8 +14148,8 @@ $fm_menu_type_nsd.Add_Click({
 
 	if($script:op_index[4] -eq 'vrc7 2op'){
 
-		Panel_chg
-		Menu_build "compiler"
+		$fm_menu_header.Enabled= Enable_header_copy
+		Box_read		# mtx
 		Stus_build
 
 		Unredo 0
@@ -14128,8 +14168,8 @@ $fm_menu_type_mckreg.Add_Click({
 
 	if($script:op_index[4] -eq 'vrc7 2op'){
 
-		Panel_chg
-		Menu_build "compiler"
+		$fm_menu_header.Enabled= Enable_header_copy
+		Box_read
 		Stus_build
 
 		Unredo 0
@@ -14148,8 +14188,8 @@ $fm_menu_type_nsdreg.Add_Click({
 
 	if($script:op_index[4] -eq 'vrc7 2op'){
 
-		Panel_chg
-		Menu_build "compiler"
+		$fm_menu_header.Enabled= Enable_header_copy
+		Box_read
 		Stus_build
 
 		Unredo 0
@@ -14168,8 +14208,8 @@ $fm_menu_style_pmd.Add_Click({
 
 	if($script:op_index[4] -ne 'vrc7 2op'){
 
-		Panel_chg
-		Menu_build "compiler"
+		$fm_menu_header.Enabled= Enable_header_copy
+		Box_read		# mtx
 		Stus_build
 
 		Unredo 0
@@ -14188,8 +14228,8 @@ $fm_menu_style_mucom.Add_Click({
 
 	if($script:op_index[4] -ne 'vrc7 2op'){
 
-		Panel_chg
-		Menu_build "compiler"
+		$fm_menu_header.Enabled= Enable_header_copy
+		Box_read
 		Stus_build
 
 		Unredo 0
@@ -14208,8 +14248,8 @@ $fm_menu_style_fmp7.Add_Click({
 
 	if($script:op_index[4] -ne 'vrc7 2op'){
 
-		Panel_chg
-		Menu_build "compiler"
+		$fm_menu_header.Enabled= Enable_header_copy
+		Box_read
 		Stus_build
 
 		Unredo 0
@@ -14228,8 +14268,8 @@ $fm_menu_style_mxdrv.Add_Click({
 
 	if($script:op_index[4] -ne 'vrc7 2op'){
 
-		Panel_chg
-		Menu_build "compiler"
+		$fm_menu_header.Enabled= Enable_header_copy
+		Box_read
 		Stus_build
 
 		Unredo 0
@@ -15238,7 +15278,7 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 	Panel_chg
 	Box_mml_read
 
-	Color_Render
+	All_Render
 	Send_build 1
 
 	Menu_comp_build $opt["radio_bin"] > $null
@@ -15253,7 +15293,7 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 	Stus_build
 
 	[array]$undo= $null,$null,"" # array obj高速化
-	# Unredo 0 # Reset
+	# Unredo 0 #  # 初期化
 
 
 	[int[]]$frm_state= 0, 0,0,0,0 # Multi window state
