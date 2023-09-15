@@ -421,7 +421,7 @@ function Brush_Color(){
 } #func
   
 # buffer 
-	 
+	
 function Pixcel_Select([int] $max){ 
 
 	$max= $max+ 1
@@ -1754,7 +1754,7 @@ function Idx(){
 # ------ 
  
 # poly 
-	 
+	
 function Flow_ssg([int]$num, [array]$e, [int]$width, [int]$height){ 
 
 
@@ -2298,7 +2298,7 @@ function Poly_chg(){
  } #func
   
 # sine 
-	 
+	
 function Flowtting_point([int]$cnt, [int]$opt, [array]$xy){ 
 
 	[int]$i= 0
@@ -2741,7 +2741,7 @@ function Sin_chg(){
  } #func
   
 # bg alg 
-	 
+	
 function Chip_view([int]$x,[int]$y){ 
 
 	[array]$p= "",""
@@ -4357,7 +4357,7 @@ function Color_alg([string]$t){
 # ------ 
  
 # load save 
-	
+	 
 function Autoload($x){ 
 
 	# $comb_fm.Add_SelectedValueChanged
@@ -4645,8 +4645,6 @@ function Load_value($x, [string]$sw){
 	Unredo 0
 
 	Panel_chg
-
-	Menu_comp_build $opt["radio_bin"] > $null
 	Stus_build
 
 	$comb_fm.Select() # sai enter event no tame
@@ -4657,25 +4655,7 @@ function Load_value($x, [string]$sw){
  } #func
   
 # hash 
-	
-function Fmchange_value([string]$sw, [string]$name){ 
-
-  # if($name -match '[v]' -eq $False){
-
-	switch($sw){
-	'mck'{		$script:val[$sw]= $mck[$name];	break;
-	}'nsd'{		$script:val[$sw]= $nsd[$name];	break;
-	}'pmd'{		$script:val[$sw]= $pmd[$name];	break;
-
-	}'compiler'{	$script:val[$sw]= $val[$name];		break;
-	}'player'{		$script:val[$sw]= $play[$name];	break;
-	}'dos'{		$script:val[$sw]= $dos[$name];	break;
-	}'editor'{		$script:val[$sw]= $edit[$name]
-	}
-	} #sw
-  # }
- } #func
- 
+	 
 function Setxml_read($x){ 
 
 	# $x= $script:set_xml.table
@@ -5485,19 +5465,22 @@ function Panel_chg(){
 	switch($script:op_index[4]){
 	'vrc7 2op'{
 		switch($key["type"]){
-		'mckreg'{	$ss= "mck"
+		'mckreg'{
+			$ss= "mck"
 			break;
-		}default{	$ss= "nsd"
+		}default{
+			$ss= "nsd"
 		}
 		} #sw
 		break;
 
-	}default{	$ss= "pmd"
+	}default{
+		$ss= "pmd"
 	}
 	} #sw
 
-	$script:val["compiler"]= $val[$ss]
-	$script:opt["radio_bin"]= $ss
+	Change_value "compiler" $ss
+	$script:opt["radio_bin"]= Menu_comp_build $ss
 
 
 	$fm_menu_header.Enabled= Enable_header_copy
@@ -6171,7 +6154,7 @@ function Mck_listen([string]$ss){
 	$hh= $hh.Replace("%mml_param%", $mm)
 	$hh= $hh.Replace("%fm_param%",$gg)
 
-	Param_exp 1 $ss
+	Param_exp $ss
 	Panel_chg
 
 	if($key["clickplay"] -eq 'True'){
@@ -6201,7 +6184,7 @@ function Vrc7_listen([string]$ss){
 	$hh= $hh.Replace("%mml_param%", $mm)
 	$hh= $hh.Replace("%fm_param%", $gg)
 
-	Param_exp 1 $ss
+	Param_exp $ss
 	Panel_chg
 
 	if($key["clickplay"] -eq 'True'){
@@ -6233,7 +6216,7 @@ function FF_listen([string]$ss){
 	$hh= $hh.Replace("%mml_param%", $mm)
 	$hh= $hh.Replace("%fm_param%", $gg)
 
-	Param_exp 1 $ss	# pmdで読み込む
+	Param_exp $ss
 	Panel_chg
 
 	if($key["clickplay"] -eq 'True'){
@@ -6464,7 +6447,7 @@ function Unredo([int]$n){
 		}
 		} #sw
 
-		Param_exp 1 $fm_box.Text
+		Param_exp $fm_box.Text
 		Panel_chg
 
 		if($sb_alg.Visible){
@@ -6910,20 +6893,20 @@ function Fmx_exp([string]$zz,[string]$key_style){ # $key["style"]
  	}
  } #func
  
-function Param_exp([int] $sw, [string] $mtx){ 
+function Param_exp([string] $mtx, [string] $sw){ 
+
 
 	switch($script:op_index[4]){
 	'vrc7 2op'{
 		switch($key["type"]){
-
 		'mckreg'{
-			[int] $nn= Reg_exp $mtx $key["type"]
+			[int] $nn= Reg_exp $mtx "mckreg"
 			break;
 		}'nsdreg'{
-			[int] $nn= Reg_exp $mtx $key["type"]
+			[int] $nn= Reg_exp $mtx "nsdreg"
 			break;
 		}default{
-			[int] $nn= Fmx_exp $mtx $key["type"]
+			[int] $nn= Fmx_exp $mtx "nsd"
 		}
 		} #sw
 		break;
@@ -6939,7 +6922,7 @@ function Param_exp([int] $sw, [string] $mtx){
 
 	switch($nn){
 	0{
-		if($sw -eq 0){	# Param_exp 0	# Param_exp 1
+		if($sw -eq 'conv'){
 
 			Write-Host ('<< FM音色を読み込みました')
 		}
@@ -7756,7 +7739,7 @@ $Fona= New-Object System.Drawing.Font("Lucida Console", 11, [System.Drawing.Font
 
 cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 [Environment]::CurrentDirectory= pwd # working_dir set
- 	
+ 
 # Sub forms 
 	
 # $contxtA_7bwを読み込んだ後$PictureBox objが安全 
@@ -8926,7 +8909,7 @@ $sb_stus.Items.AddRange(@($sb_label))
 $sb_alg.Controls.AddRange(@($sb_mnu,$pict_panel,$sb_stus))
   
 # Preset forms 
-	
+	 
 $ff_baloon= New-Object System.Windows.Forms.Tooltip 
 $ff_baloon.ShowAlways= $False
 # $ff_baloon.ToolTipIcon= "Info"
@@ -9078,13 +9061,9 @@ $tab_mck.Add_VisibleChanged({
 
 	if($tab_mck.Visible){
 	 	$script:op_index[4]= "vrc7 2op"
+		$script:key["type"]= "mckreg"
 
-		$script:key["type"]= Type_sw "mckreg"
-		Change_value "compiler" "mck"
-
-		Panel_chg
-
-		Menu_comp_build $opt["radio_bin"] > $null
+		Panel_chg	# tab change gi
 		Stus_build
 
 		Unredo 0
@@ -9093,7 +9072,7 @@ $tab_mck.Add_VisibleChanged({
 	echo $_.exception
  }
 })
- 
+ 	
 $tab_vrc= New-Object System.Windows.Forms.TabPage 
 $tab_vrc.Text= "nsd"
 
@@ -9101,13 +9080,9 @@ $tab_vrc.Add_VisibleChanged({
  try{
 	if($tab_vrc.Visible){
 		$script:op_index[4]= "vrc7 2op"
-
-		$script:key["type"]= Type_sw "nsd"
-		Change_value "compiler" "nsd"
+		$script:key["type"]= "nsd"
 
 		Panel_chg
-
-		Menu_comp_build $opt["radio_bin"] > $null
 		Stus_build
 
 		Unredo 0
@@ -9124,11 +9099,9 @@ $tab_88.Add_VisibleChanged({
  try{
 	if($tab_88.Visible){
 		$script:op_index[4]= "opn 4op"
-		Change_value "compiler" "pmd"
+		$script:key["style"]= "pmd"
 
 		Panel_chg
-
-		Menu_comp_build $opt["radio_bin"] > $null
 		Stus_build
 
 		Unredo 0
@@ -9145,11 +9118,9 @@ $tab_x68.Add_VisibleChanged({
  try{
 	if($tab_x68.Visible){
  		$script:op_index[4]= "opn 4op"
-		Change_value "compiler" "pmd"
+		$script:key["style"]= "pmd"
 
 		Panel_chg
-
-		Menu_comp_build $opt["radio_bin"] > $null
 		Stus_build
 
 		Unredo 0
@@ -9166,11 +9137,9 @@ $tab_efx.Add_VisibleChanged({
  try{
 	if($tab_efx.Visible){
 		$script:op_index[4]= "opn 4op"
-		Change_value "compiler" "pmd"
+		$script:key["style"]= "pmd"
 
 		Panel_chg
-
-		Menu_comp_build $opt["radio_bin"] > $null
 		Stus_build
 
 		Unredo 0
@@ -9249,9 +9218,11 @@ $ff_frm.Add_FormClosing({
 	$fm_box.ForeColor= "dimgray"
 	$fm_box.BackColor= "white" # "gainsboro"
 
+	$script:key["type"]= $script:preset_restore[0]
+	$script:key["style"]= $script:preset_restore[1]
 	Autoload $fm_xml.table.presetstore
-	Panel_chg
 
+	Panel_chg
 	Stus_build
 
 	if($sb_alg.Visible){
@@ -9273,7 +9244,7 @@ $ff_frm.Add_FormClosing({
 })
  
 $ff_mnu= New-Object System.Windows.Forms.MenuStrip 
-	
+	 
 $ff_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $ff_menu_f.Text= "File"
 
@@ -10705,7 +10676,7 @@ $PictboxFB.Add_MouseLeave({
 # Group 
 	 
 <# 
-	 
+	
 function Contxt_op([int]$a){ 
 
 	$x= $contxt_op.Items
@@ -10775,7 +10746,7 @@ $eg_grp.Text= "Envelope Rate"
 $eg_grp.FlatStyle= "Flat"
 $eg_grp.ForeColor= "gray"
 $eg_grp.Font= $FonLabel
-	 
+	
 # ------ AR - AttackRate 15-0 2op /  31-0 4op 
 	 
 $lbl_ar= New-Object System.Windows.Forms.Label 
@@ -11315,7 +11286,7 @@ $lev_grp.FlatStyle= "Flat"
 $lev_grp.ForeColor= "gray"
 $lev_grp.Font= $FonLabel
 # $lev_grp.Hide() # $lev_grp.Show()
-	 
+	
 # ------ KSL - KeyScaleLevel 0-3 
 	 
 $lbl_ksl= New-Object System.Windows.Forms.Label 
@@ -11450,7 +11421,7 @@ $ring_grp.Text= "Tune Control"
 $ring_grp.FlatStyle= "Flat"
 $ring_grp.ForeColor= "gray"
 $ring_grp.Font= $FonLabel
-	 
+	
 # ------ DT - Distortion 0-1 vrc7 
 	 
 $lbl_dt= New-Object System.Windows.Forms.Label 
@@ -11903,7 +11874,7 @@ $op_grp.Text= "Frequency Modulation"
 $op_grp.FlatStyle= "Flat"
 $op_grp.ForeColor= "gray"
 $op_grp.Font= $FonLabel
-	 
+	
 # ------ TL - TotalLevel 63-0 2op / 0max - 127min 4op 
 	 
 $lbl_tl= New-Object System.Windows.Forms.Label 
@@ -12145,7 +12116,7 @@ $alg_grp.Text= "Algorithm / Feedback"
 $alg_grp.FlatStyle= "Flat"
 $alg_grp.ForeColor= "gray"
 $alg_grp.Font= $FonLabel
-	 
+	
 # ------ ALG - Algorithm 0-1 opl / 0-7 4op 
 	 
 $lbl_alg= New-Object System.Windows.Forms.Label 
@@ -12362,7 +12333,7 @@ $osc_grp.Size= "255, 105"
 $osc_grp.Location= "270,300"
 $osc_grp.ForeColor= "gray"
 $osc_grp.Font= $FonLabel
-	 
+	
 $lisn_btn= New-Object System.Windows.Forms.Button 
 $lisn_btn.Location= "20, 30"
 $lisn_btn.Size= "25, 25"
@@ -12392,7 +12363,7 @@ $conv_btn.Add_Click({ # text convert
  try{
 	if($fm_box.Modified -eq $True){ #変更あらば
 
-		Param_exp 0 $fm_box.Text
+		Param_exp $fm_box.Text "conv"
 		Panel_chg
 
 
@@ -12493,8 +12464,6 @@ $comb_fm.Add_SelectedValueChanged({ # Event
 		$script:op_index[4]= $this.SelectedItem
 
 		Panel_chg	# compiler change
-
-		Menu_comp_build $opt["radio_bin"] > $null
 		Send_build 1
 		Stus_build
 
@@ -12508,7 +12477,7 @@ $comb_fm.Add_SelectedValueChanged({ # Event
  })
    
 # forms 
-	
+	 
 $fm_panel= New-Object System.Windows.Forms.Panel 
 $fm_panel.Location= "0,0"
 $fm_panel.Size= "530,415"
@@ -12711,7 +12680,7 @@ $frm_fm.Add_FormClosing({
 })
  
 $fm_mnu= New-Object System.Windows.Forms.MenuStrip 
-	
+	 
 $fm_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_f.Text= "File"
 
@@ -12747,8 +12716,11 @@ $fm_menu_pset.Add_Click({
 	switch(Itm){ # $ff_tab先に変更のち -> .show()
 	'2op'{
 		switch($key["type"]){
-		'mckreg'{	$ff_tab.SelectedIndex= "0"; break;
-		}default{	$ff_tab.SelectedIndex= "1"
+		'mckreg'{
+			$ff_tab.SelectedIndex= "0"
+			break;
+		}default{
+			$ff_tab.SelectedIndex= "1"
 		}
 		} #sw
 		break;
@@ -12757,8 +12729,11 @@ $fm_menu_pset.Add_Click({
 	}
 	} #sw
 
+
+	$script:preset_restore= $key["type"], $key["style"]
 	Saveauto $script:fm_xml.table.presetstore
-	# non preset load gino restore tame
+	# preset load cancel gi restore tame
+
 
 	$fm_menu_pset.Text= "v Preset"
 	$ff_frm.Show(); break;
@@ -12779,7 +12754,7 @@ $fm_menu_pset.Add_Click({
 $fm_menu_ladn= New-Object System.Windows.Forms.ToolStripSeparator 
 $fm_menu_lad= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_lad.Text= "Load"
-	 
+	
 $fm_lad_a= New-Object System.Windows.Forms.ToolStripMenuItem 
 # $fm_lad_a.Text= "slot A"
 
@@ -13026,8 +13001,6 @@ $fm_menu_rcver.Add_Click({	# 数値リストア
 
 		Autoload $fm_xml.table.autosave
 		Panel_chg
-
-		Menu_comp_build $opt["radio_bin"] > $null
 		Stus_build
 
 		if($sb_alg.Visible){
@@ -13061,8 +13034,6 @@ $fm_menu_rst.Add_Click({	# 数値リセット
 
 		Autoload $fm_xml.table.resetting
 		Panel_chg
-
-		Menu_comp_build $opt["radio_bin"] > $null
 		Stus_build
 
 		if($sb_alg.Visible){
@@ -13153,9 +13124,9 @@ $fm_menu_set.Add_Click({
 		Write-Host ("`r`n"+ '"setting.xml" 読み込みエラー')
 	}
 
+
 	# Panel_chg	# compiler list change
 
- 	# Menu_comp_build $opt["radio_bin"] > $null
 
 	Menu_build "mck"
 	Menu_build "nsd"
@@ -13180,7 +13151,7 @@ $fm_menu_set.Add_Click({
 })
 
 
-	 
+	
 <# 
 	
 $fm_menu_cmp0= New-Object System.Windows.Forms.ToolStripMenuItem 
@@ -13279,7 +13250,7 @@ $fm_menu_cmck=  New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_cmck.Add_Click({
  try{
   if($this.Text.Contains("[v]") -eq $False){
-	Fmchange_value "compiler" "mck"
+	Change_value "compiler" "mck"
 
 	$script:opt["radio_bin"]= Menu_comp_build "mck"
 	Stus_build
@@ -13295,7 +13266,7 @@ $fm_menu_cnsd=  New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_cnsd.Add_Click({
  try{
   if($this.Text.Contains("[v]") -eq $False){
-	Fmchange_value "compiler" "nsd"
+	Change_value "compiler" "nsd"
 
 	$script:opt["radio_bin"]= Menu_comp_build "nsd"
 	Stus_build
@@ -13311,7 +13282,7 @@ $fm_menu_cpmd=  New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_cpmd.Add_Click({
  try{
   if($this.Text.Contains("[v]") -eq $False){
- 	Fmchange_value "compiler" "pmd"
+ 	Change_value "compiler" "pmd"
 
 	$script:opt["radio_bin"]= Menu_comp_build "pmd"
 	Stus_build
@@ -13329,8 +13300,8 @@ $fm_menu_mck0.Add_Click({
  try{
   if($this.Text.Contains("[v]") -eq $False){
 
-	Fmchange_value "mck" $this.Text
-	Fmchange_value "compiler" "mck"
+	Change_value "mck" $this.Text
+	Change_value "compiler" "mck"
 
 	$script:opt["radio_bin"]= Menu_comp_build "mck"
 	Menu_build "mck"
@@ -13349,8 +13320,8 @@ $fm_menu_mck1.Add_Click({
  try{
   if($this.Text.Contains("[v]") -eq $False){
 
-	Fmchange_value "mck" $this.Text
-	Fmchange_value "compiler" "mck"
+	Change_value "mck" $this.Text
+	Change_value "compiler" "mck"
 
 	$script:opt["radio_bin"]= Menu_comp_build "mck"
 	Menu_build "mck"
@@ -13369,8 +13340,8 @@ $fm_menu_mck2.Add_Click({
  try{
   if($this.Text.Contains("[v]") -eq $False){
 
-	Fmchange_value "mck" $this.Text
-	Fmchange_value "compiler" "mck"
+	Change_value "mck" $this.Text
+	Change_value "compiler" "mck"
 
 	$script:opt["radio_bin"]= Menu_comp_build "mck"
 	Menu_build "mck"
@@ -13389,8 +13360,8 @@ $fm_menu_mck3.Add_Click({
  try{
   if($this.Text.Contains("[v]") -eq $False){
 
-	Fmchange_value "mck" $this.Text
-	Fmchange_value "compiler" "mck"
+	Change_value "mck" $this.Text
+	Change_value "compiler" "mck"
 
 	$script:opt["radio_bin"]= Menu_comp_build "mck"
 	Menu_build "mck"
@@ -13409,8 +13380,8 @@ $fm_menu_nsd0.Add_Click({
  try{
   if($this.Text.Contains("[v]") -eq $False){
 
-	Fmchange_value "nsd" $this.Text
-	Fmchange_value "compiler" "nsd"
+	Change_value "nsd" $this.Text
+	Change_value "compiler" "nsd"
 
 	$script:opt["radio_bin"]= Menu_comp_build "nsd"
 	Menu_build "nsd"
@@ -13429,8 +13400,8 @@ $fm_menu_nsd1.Add_Click({
  try{
   if($this.Text.Contains("[v]") -eq $False){
 
-	Fmchange_value "nsd" $this.Text
-	Fmchange_value "compiler" "nsd"
+	Change_value "nsd" $this.Text
+	Change_value "compiler" "nsd"
 
 	$script:opt["radio_bin"]= Menu_comp_build "nsd"
 	Menu_build "nsd"
@@ -13449,8 +13420,8 @@ $fm_menu_nsd2.Add_Click({
  try{
   if($this.Text.Contains("[v]") -eq $False){
 
-	Fmchange_value "nsd" $this.Text
-	Fmchange_value "compiler" "nsd"
+	Change_value "nsd" $this.Text
+	Change_value "compiler" "nsd"
 
 	$script:opt["radio_bin"]= Menu_comp_build "nsd"
 	Menu_build "nsd"
@@ -13469,8 +13440,8 @@ $fm_menu_nsd3.Add_Click({
  try{
   if($this.Text.Contains("[v]") -eq $False){
 
-	Fmchange_value "nsd" $this.Text
-	Fmchange_value "compiler" "nsd"
+	Change_value "nsd" $this.Text
+	Change_value "compiler" "nsd"
 
 	$script:opt["radio_bin"]= Menu_comp_build "nsd"
 	Menu_build "nsd"
@@ -13489,8 +13460,8 @@ $fm_menu_pmd0.Add_Click({
  try{
   if($this.Text.Contains("[v]") -eq $False){
 
-	Fmchange_value "pmd" $this.Text
-	Fmchange_value "compiler" "pmd"
+	Change_value "pmd" $this.Text
+	Change_value "compiler" "pmd"
 
 	$script:opt["radio_bin"]= Menu_comp_build "pmd"
 	Menu_build "pmd"
@@ -13509,8 +13480,8 @@ $fm_menu_pmd1.Add_Click({
  try{
   if($this.Text.Contains("[v]") -eq $False){
 
-	Fmchange_value "pmd" $this.Text
-	Fmchange_value "compiler" "pmd"
+	Change_value "pmd" $this.Text
+	Change_value "compiler" "pmd"
 
 	$script:opt["radio_bin"]= Menu_comp_build "pmd"
 	Menu_build "pmd"
@@ -13529,8 +13500,8 @@ $fm_menu_pmd2.Add_Click({
  try{
   if($this.Text.Contains("[v]") -eq $False){
 
-	Fmchange_value "pmd" $this.Text
-	Fmchange_value "compiler" "pmd"
+	Change_value "pmd" $this.Text
+	Change_value "compiler" "pmd"
 
 	$script:opt["radio_bin"]= Menu_comp_build "pmd"
 	Menu_build "pmd"
@@ -13549,8 +13520,8 @@ $fm_menu_pmd3.Add_Click({
  try{
   if($this.Text.Contains("[v]") -eq $False){
 
-	Fmchange_value "pmd" $this.Text
-	Fmchange_value "compiler" "pmd"
+	Change_value "pmd" $this.Text
+	Change_value "compiler" "pmd"
 
 	$script:opt["radio_bin"]= Menu_comp_build "pmd"
 	Menu_build "pmd"
@@ -14162,9 +14133,11 @@ $fm_menu_type_nsd.Add_Click({
  try{
 	$script:key["type"]= Type_sw "nsd"
 	$script:key["ten"]= Ten_sw $False
-	Change_value "compiler" "nsd"
 
 	if($script:op_index[4] -eq 'vrc7 2op'){
+
+		Change_value "compiler" "nsd"
+		$script:opt["radio_bin"]= Menu_comp_build "nsd"
 
 		$fm_menu_header.Enabled= Enable_header_copy
 		Box_read		# mtx
@@ -14182,9 +14155,11 @@ $fm_menu_type_mckreg= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_type_mckreg.Add_Click({
  try{
 	$script:key["type"]= Type_sw "mckreg"
-	Change_value "compiler" "mck"
 
 	if($script:op_index[4] -eq 'vrc7 2op'){
+
+		Change_value "compiler" "mck"
+		$script:opt["radio_bin"]= Menu_comp_build "mck"
 
 		$fm_menu_header.Enabled= Enable_header_copy
 		Box_read
@@ -14202,9 +14177,11 @@ $fm_menu_type_nsdreg= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_type_nsdreg.Add_Click({
  try{
 	$script:key["type"]= Type_sw "nsdreg"
-	Change_value "compiler" "nsd"
 
 	if($script:op_index[4] -eq 'vrc7 2op'){
+
+		Change_value "compiler" "nsd"
+		$script:opt["radio_bin"]= Menu_comp_build "nsd"
 
 		$fm_menu_header.Enabled= Enable_header_copy
 		Box_read
@@ -14226,6 +14203,9 @@ $fm_menu_style_pmd.Add_Click({
 
 	if($script:op_index[4] -ne 'vrc7 2op'){
 
+		# Change_value "compiler" "pmd"
+		# $script:opt["radio_bin"]= Menu_comp_build "pmd"
+
 		$fm_menu_header.Enabled= Enable_header_copy
 		Box_read		# mtx
 		Stus_build
@@ -14245,6 +14225,9 @@ $fm_menu_style_mucom.Add_Click({
 	$script:key["ten"]= Ten_sw $True
 
 	if($script:op_index[4] -ne 'vrc7 2op'){
+
+		# Change_value "compiler" "pmd"
+		# $script:opt["radio_bin"]= Menu_comp_build "pmd"
 
 		$fm_menu_header.Enabled= Enable_header_copy
 		Box_read
@@ -14266,6 +14249,9 @@ $fm_menu_style_fmp7.Add_Click({
 
 	if($script:op_index[4] -ne 'vrc7 2op'){
 
+		# Change_value "compiler" "pmd"
+		# $script:opt["radio_bin"]= Menu_comp_build "pmd"
+
 		$fm_menu_header.Enabled= Enable_header_copy
 		Box_read
 		Stus_build
@@ -14285,6 +14271,9 @@ $fm_menu_style_mxdrv.Add_Click({
 	$script:key["ten"]= Ten_sw $True
 
 	if($script:op_index[4] -ne 'vrc7 2op'){
+
+		# Change_value "compiler" "pmd"
+		# $script:opt["radio_bin"]= Menu_comp_build "pmd"
 
 		$fm_menu_header.Enabled= Enable_header_copy
 		Box_read
@@ -15296,10 +15285,7 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 	Panel_chg
 	Box_mml_read
 
-	All_Render
 	Send_build 1
-
-	Menu_comp_build $opt["radio_bin"] > $null
 
 	Menu_build "mck"
 	Menu_build "nsd"
@@ -15313,6 +15299,8 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 	[array]$undo= $null,$null,"" # array obj高速化
 	# Unredo 0 #  # 初期化
 
+
+	[string[]] $script:preset_restore= "", ""
 
 	[int[]]$frm_state= 0, 0,0,0,0 # Multi window state
 
