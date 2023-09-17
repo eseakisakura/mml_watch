@@ -442,14 +442,16 @@ function Pixcel_Select([int] $max){
 	return $d
  } #func
  
-function Focus_btn(){ 
-
+function Focus_btn([string] $sw){ 
 
 	if(($fm_box.Focused -eq $True) -or ($fm_box_mml.Focused -eq $True)){
 
-		$conv_btn.Focus() # $fm_box.Add_Leave - .Focus() de leave event tame
-		$conv_btn.PerformClick()
+		if($sw -eq 'conv'){
 
+			$conv_btn.Focus() # $fm_box.Add_Leave - .Focus() de leave event tame
+		}
+
+		$conv_btn.PerformClick()
 	}
  } #func
  
@@ -505,7 +507,7 @@ function Mouse_knober([string] $sw, [string] $type, $ev){	# knob
 		break;
 	}'Hover'{
 
-		Focus_btn
+		Focus_btn "conv"
 		$x= NmudX $type
 		Buffer_Render $x.Value $x.Maximum $type $True
 
@@ -775,7 +777,7 @@ function Mouse_opwiner([string] $sw, [string] $opnum, $ev){	# Op.
 		break;
 	}'Hover'{
 
-		Focus_btn
+		Focus_btn "conv"
 		Opmap_change $opnum
 
 		$x= NmudX $type
@@ -4601,7 +4603,7 @@ function Load_value($x, [string]$sw){
 
 	switch($sw){
 	'A'{
-		$script:op_index[4]= $x.A.name # $comb_fm change
+		$script:op_index[4]= $x.A.name
 		$script:op_index[(Item_index)]= $x.A.number
 		Slot_read $x.A
 		break;
@@ -4645,6 +4647,8 @@ function Load_value($x, [string]$sw){
 	Unredo 0
 
 	Panel_chg
+	Box_read
+	Box_mml_read
 	Stus_build
 
 	$comb_fm.Select() # sai enter event no tame
@@ -4655,7 +4659,7 @@ function Load_value($x, [string]$sw){
  } #func
   
 # hash 
-	 
+	
 function Setxml_read($x){ 
 
 	# $x= $script:set_xml.table
@@ -5457,42 +5461,7 @@ function MSop_checker([int]$i, [string]$ss){ # Mask,SSG
 # ------ 
  
 # Panel 
-	 
-function Panel_chg(){ 
-
-	[string] $ss= ""
-
-	switch($script:op_index[4]){
-	'vrc7 2op'{
-		switch($key["type"]){
-		'mckreg'{
-			$ss= "mck"
-			break;
-		}default{
-			$ss= "nsd"
-		}
-		} #sw
-		break;
-
-	}default{
-		$ss= "pmd"
-	}
-	} #sw
-
-	Change_value "compiler" $ss
-	$script:opt["radio_bin"]= Menu_comp_build $ss
-
-
-	$fm_menu_header.Enabled= Enable_header_copy
-
-
-	Panel_knob	# カラーチェンジの瞬間見せないためひとつ前
-	Value_gui
-	All_Render	# Value_guiの後
-	Box_read		# mtx
-
- } #func
- 
+	
 function Panel_knob(){	# knob add/remove 
 
 	$fm_panel.SuspendLayout()
@@ -5675,6 +5644,40 @@ function Value_gui(){
 	$fm_panel.ResumeLayout()
 
  } # func
+ 
+function Panel_chg(){ 
+
+	[string] $ss= ""
+
+	switch($script:op_index[4]){
+	'vrc7 2op'{
+		switch($key["type"]){
+		'mckreg'{
+			$ss= "mck"
+			break;
+		}default{
+			$ss= "nsd"
+		}
+		} #sw
+		break;
+
+	}default{
+		$ss= "pmd"
+	}
+	} #sw
+
+	Change_value "compiler" $ss
+	$script:opt["radio_bin"]= Menu_comp_build $ss
+
+
+	$fm_menu_header.Enabled= Enable_header_copy
+
+
+	Panel_knob	# カラーチェンジの瞬間見せないためひとつ前
+	Value_gui
+	All_Render	# Value_guiの後
+
+ } #func
  
 # ------ 
  
@@ -6138,101 +6141,6 @@ function Preset_read(){
  
 # ------ 
  
-function Mck_listen([string]$ss){ 
-
-
-	[string]$gg= [System.Text.RegularExpressions.Regex]::Replace($ss,"@OP[0-9]+","@OP0")
-	#write-host $gg
-
-	[string]$tt= $key["oct"]
-
-	[string] $hh= $header["fm_header_mck"]
-	[string] $mm= $box_mml["mck"]
-
-
-	$hh= $hh.Replace("%oct_param%",$tt)
-	$hh= $hh.Replace("%mml_param%", $mm)
-	$hh= $hh.Replace("%fm_param%",$gg)
-
-	Param_exp $ss
-	Panel_chg
-
-	if($key["clickplay"] -eq 'True'){
-		Lisnfm_nsf 0 $hh
-	}
-	if($sb_alg.Visible){
-		if($key["clickplay"] -eq 'True'){
-			Monotone_select "lisn_btn"
-		}
-		All_chg
-	}
- } #func
- 
-function Vrc7_listen([string]$ss){ 
-
-
-	[string]$gg= [System.Text.RegularExpressions.Regex]::Replace($ss,"VRC7\([0-9]+\)","VRC7(100)")
-	#write-host $gg
-
-	[string]$tt= $key["oct"]
-
-	[string] $hh= $header["fm_header_nsd"]
-	[string] $mm= $box_mml["nsd"]
-
-
-	$hh= $hh.Replace("%oct_param%", $tt)
-	$hh= $hh.Replace("%mml_param%", $mm)
-	$hh= $hh.Replace("%fm_param%", $gg)
-
-	Param_exp $ss
-	Panel_chg
-
-	if($key["clickplay"] -eq 'True'){
-		Lisnfm_nsf 0 $hh
-	}
-	if($sb_alg.Visible){
-		if($key["clickplay"] -eq 'True'){
-			Monotone_select "lisn_btn"
-		}
-		All_chg
-	}
- } #func
- 
-function FF_listen([string]$ss){ 
-
-
-	[string]$gg= [System.Text.RegularExpressions.Regex]::Replace($ss,"@[0-9]+","@001")
-	#write-host $gg
-
-	[string]$tt= $key["oct"]
-
-	if(Mskseg_chk){ $tt+= (Mskseg_out 0) }
-
-
-	[string] $hh= $header["fm_header_pmd"]
-	[string] $mm= $box_mml["pmd"]
-
-	$hh= $hh.Replace("%oct_param%", $tt)
-	$hh= $hh.Replace("%mml_param%", $mm)
-	$hh= $hh.Replace("%fm_param%", $gg)
-
-	Param_exp $ss
-	Panel_chg
-
-	if($key["clickplay"] -eq 'True'){
-		Lisnfm_nsf 0 $hh
-	}
-
-	if($sb_alg.Visible){
-		if($key["clickplay"] -eq 'True'){
-			Monotone_select "lisn_btn"
-		}
-		All_chg
-	}
- } #func
- 
-# ------ 
- 
 function Prefixfm_mml([string]$gg){ # fm-matrix -> mml 
 
 
@@ -6272,19 +6180,17 @@ function Prefixfm_mml([string]$gg){ # fm-matrix -> mml
 	return $hh
  } #func
  
-function Lisnfm_nsf([int]$sw, [string]$t){ 
+function Lisnfm_nsf([string] $gg){ 
 
- switch($sw){	# ストップ
-  0{
 	Write-Host $val["compiler"]
 	Write-Host $val["player"]
 	Write-Host ""
-	Write-Host $t
+	Write-Host $gg	# $gg -> mmlfile
 	Write-Host ""
 
 
-	Mml_writer $t ".\temp\temp.mml" 0
-	# $t | Out-File -Encoding oem -FilePath ".\temp\temp.mml" # shiftJIS ms-dos
+	Mml_writer $gg ".\temp\temp.mml" 0
+	# $gg | Out-File -Encoding oem -FilePath ".\temp\temp.mml" # shiftJIS ms-dos
 
 	$file= [System.IO.Path]::GetFullPath(".\temp\temp.mml") # full path
 
@@ -6352,45 +6258,78 @@ function Lisnfm_nsf([int]$sw, [string]$t){
 			}
 		}
 	}
-  }
-  } #sw
-
 } #func
  
-function Box_listen([int]$j){ 
+# ------ 
+ 
+function Value_listen([string] $sw){ 
 
-  switch($script:op_index[4]){
-  'vrc7 2op'{
+	switch($script:op_index[4]){
+	'vrc7 2op'{
 
-	  switch($key["type"]){
-	  'mckreg'{	[string]$s= Reg_write;	break;
-	  }'nsdreg'{	[string]$s= Reg_write;	break;
-	  }default{	[string]$s= Fmx_light	# pmd comma less
-	  }
-	  } #sw
+		switch($key["type"]){
+		'mckreg'{
+			[string] $mtx= Reg_write;	break;
+		}'nsdreg'{
+			[string] $mtx= Reg_write;	break;
+		}default{
+			[string] $mtx= Fmx_light	# pmd comma less
+		}
+		} #sw
+		break;
 
-	  break;
+	}default{
 
-  }default{		[string]$s= Fmx_light
-  }
-  } #sw
+		[string] $mtx= Fmx_light
+	}
+	} #sw
 
-  [string]$lis= Prefixfm_mml $s
+	[string] $lis= Prefixfm_mml $mtx
 
-  if($j -eq 0){
+	if($sw -eq 'clip'){
 
-	Lisnfm_nsf 0 $lis # 前段にした
+		[Windows.Forms.Clipboard]::SetText($lis,[Windows.Forms.TextDataFormat]::UnicodeText)
+	}else{
+		Lisnfm_nsf $lis # 前段にした
+
+		if($sb_alg.Visible){
+
+			Monotone_select "lisn_btn"
+		}
+	}
+ } #func
+ 
+function Preset_listen([string] $sw, [string] $ss){ 
+
+	Param_exp $ss	# preset mtx
+	Panel_chg
+	Box_read
+
+	if($key["clickplay"] -eq 'True'){
+
+		switch($sw){
+		'mck'{	[array] $arr= $ss, "@OP[0-9]+", "@OP0";		break;
+		}'nsd'{	[array] $arr= $ss, "VRC7\([0-9]+\)", "VRC7(100)";	break;
+		}'pmd'{	[array] $arr= $ss, "@[0-9]+", "@001"
+		}
+		} #sw
+
+		[string] $mtx= [System.Text.RegularExpressions.Regex]::Replace($arr[0], $arr[1], $arr[2])
+		[string] $lis= Prefixfm_mml $mtx
+		Lisnfm_nsf $lis
+	}
 
 	if($sb_alg.Visible){
 
-		Monotone_select "lisn_btn"
+		if($key["clickplay"] -eq 'True'){
+			Monotone_select "lisn_btn"
+		}
+		All_chg
 	}
-
-  }else{
-	[Windows.Forms.Clipboard]::SetText($lis,[Windows.Forms.TextDataFormat]::UnicodeText)
-  }
  } #func
  
+# ------ 
+ 	
 function Key_conv([string]$t){ 
 
 	switch($t){
@@ -8473,7 +8412,7 @@ $sb_alg.Add_FormClosing({
 })
  
 $sb_mnu= New-Object System.Windows.Forms.MenuStrip 
-	
+	 
 $sb_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $sb_menu_f.Text= "File"
 
@@ -8920,7 +8859,7 @@ $list_mck= New-Object System.Windows.Forms.ListBox
 $list_mck.Size= "220,190"
 $list_mck.Location= "5,25"
 
-$list_mck.Add_MouseUp({	
+$list_mck.Add_MouseUp({
 
 	if([string] $_.Button -eq 'Right'){
 
@@ -8935,7 +8874,7 @@ $list_mck.Add_MouseDown({
 
 	if([string] $_.Button -eq 'Left'){
 
-		Mck_listen $hsmck[[string] $this.SelectedItem]
+		Preset_listen "mck" $hsmck[[string] $this.SelectedItem]
 	}
  }catch{
 	echo $_.exception
@@ -8961,7 +8900,7 @@ $list_vrc.Add_MouseDown({
 
 	if([string] $_.Button -eq 'Left'){
 
-		Vrc7_listen $hsvrc[[string] $this.SelectedItem]
+		Preset_listen "nsd" $hsvrc[[string] $this.SelectedItem]
 	}
  }catch{
 	echo $_.exception
@@ -8987,7 +8926,7 @@ $list_88.Add_MouseDown({
 
 	if([string] $_.Button -eq 'Left'){
 
-		FF_listen $hs88[[string] $this.SelectedItem]
+		Preset_listen "pmd" $hs88[[string] $this.SelectedItem]
 	}
  }catch{
 	echo $_.exception
@@ -9013,7 +8952,7 @@ $list_x68.Add_MouseDown({
 
 	if([string] $_.Button -eq 'Left'){
 
-		FF_listen $hsx68[[string] $this.SelectedItem]
+		Preset_listen "pmd" $hsx68[[string] $this.SelectedItem]
 	}
  }catch{
 	echo $_.exception
@@ -9039,7 +8978,7 @@ $list_efx.Add_MouseDown({
 
 	if([string] $_.Button -eq 'Left'){
 
-		FF_listen $hsefx[[string] $this.SelectedItem]
+		Preset_listen "pmd" $hsefx[[string] $this.SelectedItem]
 	}
  }catch{
 	echo $_.exception
@@ -9064,6 +9003,8 @@ $tab_mck.Add_VisibleChanged({
 		$script:key["type"]= "mckreg"
 
 		Panel_chg	# tab change gi
+		Box_read
+		Box_mml_read
 		Stus_build
 
 		Unredo 0
@@ -9072,7 +9013,7 @@ $tab_mck.Add_VisibleChanged({
 	echo $_.exception
  }
 })
- 	
+ 
 $tab_vrc= New-Object System.Windows.Forms.TabPage 
 $tab_vrc.Text= "nsd"
 
@@ -9083,6 +9024,8 @@ $tab_vrc.Add_VisibleChanged({
 		$script:key["type"]= "nsd"
 
 		Panel_chg
+		Box_read
+		Box_mml_read
 		Stus_build
 
 		Unredo 0
@@ -9102,6 +9045,8 @@ $tab_88.Add_VisibleChanged({
 		$script:key["style"]= "pmd"
 
 		Panel_chg
+		Box_read
+		Box_mml_read
 		Stus_build
 
 		Unredo 0
@@ -9121,6 +9066,8 @@ $tab_x68.Add_VisibleChanged({
 		$script:key["style"]= "pmd"
 
 		Panel_chg
+		Box_read
+		Box_mml_read
 		Stus_build
 
 		Unredo 0
@@ -9140,6 +9087,8 @@ $tab_efx.Add_VisibleChanged({
 		$script:key["style"]= "pmd"
 
 		Panel_chg
+		Box_read
+		Box_mml_read
 		Stus_build
 
 		Unredo 0
@@ -9223,6 +9172,8 @@ $ff_frm.Add_FormClosing({
 	Autoload $fm_xml.table.presetstore
 
 	Panel_chg
+	Box_read
+	Box_mml_read
 	Stus_build
 
 	if($sb_alg.Visible){
@@ -12333,7 +12284,7 @@ $osc_grp.Size= "255, 105"
 $osc_grp.Location= "270,300"
 $osc_grp.ForeColor= "gray"
 $osc_grp.Font= $FonLabel
-	
+	 
 $lisn_btn= New-Object System.Windows.Forms.Button 
 $lisn_btn.Location= "20, 30"
 $lisn_btn.Size= "25, 25"
@@ -12344,7 +12295,8 @@ $lisn_btn.BackColor= "white"
 
 $lisn_btn.Add_Click({ # 試聴
  try{
-	Box_listen 0
+	Focus_btn
+	Value_listen
 
  }catch{
 	echo $_.exception
@@ -12386,10 +12338,10 @@ $conv_btn.Add_Click({ # text convert
 			switch($key["type"]){
 			'mckreg'{
 				$script:box_mml["mck"]= $fm_box_mml.Text.TrimEnd("`r`n")
-				Mml_writer $script:box_mml["mck"] '.\header\fm_header_mck' 0
+				Mml_writer $script:box_mml["mck"] '.\header\fm_mml_mck' 0
 			}default{
 				$script:box_mml["nsd"]= $fm_box_mml.Text.TrimEnd("`r`n")
-				Mml_writer $script:box_mml["nsd"] '.\header\fm_header_nsd' 0
+				Mml_writer $script:box_mml["nsd"] '.\header\fm_mml_nsd' 0
 			}
 			} #sw
 			break;
@@ -12432,8 +12384,7 @@ $comb_op.Add_SelectedValueChanged({
 		# Value_gui
 		# All_Render
 
-		Panel_chg # Box_readはついで
-		Stus_build
+		Panel_chg
 
 		if($sb_alg.Visible){
 			Pict_chg	# op-alg img change
@@ -12464,6 +12415,9 @@ $comb_fm.Add_SelectedValueChanged({ # Event
 		$script:op_index[4]= $this.SelectedItem
 
 		Panel_chg	# compiler change
+		Box_read
+		Box_mml_read
+
 		Send_build 1
 		Stus_build
 
@@ -12754,7 +12708,7 @@ $fm_menu_pset.Add_Click({
 $fm_menu_ladn= New-Object System.Windows.Forms.ToolStripSeparator 
 $fm_menu_lad= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_lad.Text= "Load"
-	
+	 
 $fm_lad_a= New-Object System.Windows.Forms.ToolStripMenuItem 
 # $fm_lad_a.Text= "slot A"
 
@@ -13001,6 +12955,8 @@ $fm_menu_rcver.Add_Click({	# 数値リストア
 
 		Autoload $fm_xml.table.autosave
 		Panel_chg
+		Box_read
+		Box_mml_read
 		Stus_build
 
 		if($sb_alg.Visible){
@@ -13034,6 +12990,8 @@ $fm_menu_rst.Add_Click({	# 数値リセット
 
 		Autoload $fm_xml.table.resetting
 		Panel_chg
+		Box_read
+		Box_mml_read
 		Stus_build
 
 		if($sb_alg.Visible){
@@ -13124,9 +13082,9 @@ $fm_menu_set.Add_Click({
 		Write-Host ("`r`n"+ '"setting.xml" 読み込みエラー')
 	}
 
+	Unredo 0
 
 	# Panel_chg	# compiler list change
-
 
 	Menu_build "mck"
 	Menu_build "nsd"
@@ -13137,7 +13095,6 @@ $fm_menu_set.Add_Click({
 	Menu_build "editor"
 	Stus_build
 
-	Unredo 0
 
 	if($sb_alg.Visible){
 		All_chg
@@ -14083,7 +14040,7 @@ $fm_menu_header.ForeColor= "Black"
 
 $fm_menu_header.Add_Click({
  try{
-	Box_listen 1 # Clipboard
+	Value_listen "clip"	# Clipboard
 
 	if($sb_alg.Visible){
 		Monotone_select "conv_btn"
@@ -14140,7 +14097,9 @@ $fm_menu_type_nsd.Add_Click({
 		$script:opt["radio_bin"]= Menu_comp_build "nsd"
 
 		$fm_menu_header.Enabled= Enable_header_copy
+
 		Box_read		# mtx
+		Box_mml_read
 		Stus_build
 
 		Unredo 0
@@ -14163,6 +14122,7 @@ $fm_menu_type_mckreg.Add_Click({
 
 		$fm_menu_header.Enabled= Enable_header_copy
 		Box_read
+		Box_mml_read
 		Stus_build
 
 		Unredo 0
@@ -14185,6 +14145,7 @@ $fm_menu_type_nsdreg.Add_Click({
 
 		$fm_menu_header.Enabled= Enable_header_copy
 		Box_read
+		Box_mml_read
 		Stus_build
 
 		Unredo 0
@@ -14208,6 +14169,7 @@ $fm_menu_style_pmd.Add_Click({
 
 		$fm_menu_header.Enabled= Enable_header_copy
 		Box_read		# mtx
+		# Box_mml_read
 		Stus_build
 
 		Unredo 0
@@ -14231,6 +14193,7 @@ $fm_menu_style_mucom.Add_Click({
 
 		$fm_menu_header.Enabled= Enable_header_copy
 		Box_read
+		# Box_mml_read
 		Stus_build
 
 		Unredo 0
@@ -14254,6 +14217,7 @@ $fm_menu_style_fmp7.Add_Click({
 
 		$fm_menu_header.Enabled= Enable_header_copy
 		Box_read
+		# Box_mml_read
 		Stus_build
 
 		Unredo 0
@@ -14277,6 +14241,7 @@ $fm_menu_style_mxdrv.Add_Click({
 
 		$fm_menu_header.Enabled= Enable_header_copy
 		Box_read
+		# Box_mml_read
 		Stus_build
 
 		Unredo 0
@@ -15283,6 +15248,7 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 
 
 	Panel_chg
+	Box_read
 	Box_mml_read
 
 	Send_build 1
