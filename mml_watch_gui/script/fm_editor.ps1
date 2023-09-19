@@ -444,7 +444,7 @@ function Pixcel_Select([int] $max){
  
 function Focus_btn([string] $sw){ 
 
-	if(($fm_box.Focused -eq $True) -or ($fm_box_mml.Focused -eq $True)){
+	if(($fm_box.Modified -eq $True) -or ($fm_box_mml.Modified -eq $True)){
 
 		if($sw -eq 'conv'){
 
@@ -893,7 +893,7 @@ function Trans_ADSR([int] $qq){ # [int] $pp,
  } #func
  
 <# 
-	
+	 
 function Wheel_ALG([int] $delta){ 
 
 	[int] $num= $key["oct"].Replace("o", "")
@@ -4359,7 +4359,7 @@ function Color_alg([string]$t){
 # ------ 
  
 # load save 
-	 
+	
 function Autoload($x){ 
 
 	# $comb_fm.Add_SelectedValueChanged
@@ -4649,6 +4649,8 @@ function Load_value($x, [string]$sw){
 	Panel_chg
 	Box_read
 	Box_mml_read
+
+	Send_build 1
 	Stus_build
 
 	$comb_fm.Select() # sai enter event no tame
@@ -6290,12 +6292,12 @@ function Value_listen([string] $sw){
 
 		[Windows.Forms.Clipboard]::SetText($lis,[Windows.Forms.TextDataFormat]::UnicodeText)
 	}else{
-		Lisnfm_nsf $lis # 前段にした
-
 		if($sb_alg.Visible){
 
-			Monotone_select "lisn_btn"
+			Monotone_select "lisn_btn" # 前段にした
 		}
+
+		Lisnfm_nsf $lis
 	}
  } #func
  
@@ -6329,17 +6331,22 @@ function Preset_listen([string] $sw, [string] $ss){
  } #func
  
 # ------ 
- 	
-function Key_conv([string]$t){ 
+ 
+function Key_conv($t){ 
 
-	switch($t){
-	'F5'{
+	if($t.Control -eq 'True' -and $t.KeyCode -eq 'S'){
+
 		$conv_btn.Focus()
 		$conv_btn.PerformClick()
 	}
-	} #sw
+
+	if($t.Control -eq 'True' -and $t.KeyCode -eq 'P'){
+
+		$conv_btn.PerformClick()
+		$lisn_btn.PerformClick()
+	}
  } #func
- 
+ 	
 <# 
 	
 function Key_play([string]$t){ 
@@ -6357,7 +6364,7 @@ function Key_play([string]$t){
 #> 
    
 # Export 
-	 
+	
 function Unredo([int]$n){ 
 
 
@@ -7682,7 +7689,7 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 # Sub forms 
 	
 # $contxtA_7bwを読み込んだ後$PictureBox objが安全 
-	
+	 
 $contxtA_Sep_7bw= New-Object System.Windows.Forms.ToolStripSeparator 
 $contxtA_Sep_Lbw= New-Object System.Windows.Forms.ToolStripSeparator
 $contxtA_Sep_Nbg= New-Object System.Windows.Forms.ToolStripSeparator
@@ -8848,7 +8855,7 @@ $sb_stus.Items.AddRange(@($sb_label))
 $sb_alg.Controls.AddRange(@($sb_mnu,$pict_panel,$sb_stus))
   
 # Preset forms 
-	 
+	
 $ff_baloon= New-Object System.Windows.Forms.Tooltip 
 $ff_baloon.ShowAlways= $False
 # $ff_baloon.ToolTipIcon= "Info"
@@ -9005,6 +9012,8 @@ $tab_mck.Add_VisibleChanged({
 		Panel_chg	# tab change gi
 		Box_read
 		Box_mml_read
+
+		Send_build 1
 		Stus_build
 
 		Unredo 0
@@ -9026,6 +9035,8 @@ $tab_vrc.Add_VisibleChanged({
 		Panel_chg
 		Box_read
 		Box_mml_read
+
+		Send_build 1
 		Stus_build
 
 		Unredo 0
@@ -9047,6 +9058,8 @@ $tab_88.Add_VisibleChanged({
 		Panel_chg
 		Box_read
 		Box_mml_read
+
+		Send_build 1
 		Stus_build
 
 		Unredo 0
@@ -9068,6 +9081,8 @@ $tab_x68.Add_VisibleChanged({
 		Panel_chg
 		Box_read
 		Box_mml_read
+
+		Send_build 1
 		Stus_build
 
 		Unredo 0
@@ -9089,6 +9104,8 @@ $tab_efx.Add_VisibleChanged({
 		Panel_chg
 		Box_read
 		Box_mml_read
+
+		Send_build 1
 		Stus_build
 
 		Unredo 0
@@ -9174,6 +9191,8 @@ $ff_frm.Add_FormClosing({
 	Panel_chg
 	Box_read
 	Box_mml_read
+
+	Send_build 1	
 	Stus_build
 
 	if($sb_alg.Visible){
@@ -9345,8 +9364,8 @@ $sub_mask_chk0.Add_Click({
 
 	$script:key["mask"]= Mask_sw "0" $key["mask"]
 
-	Stus_build
 	Box_read
+	Stus_build
 
 	if($sb_alg.Visible){
 		All_chg
@@ -9363,8 +9382,8 @@ $sub_mask_chk1.Add_Click({
 
 	$script:key["mask"]= Mask_sw "1" $key["mask"]
 
-	Stus_build
 	Box_read
+	Stus_build
 
 	if($sb_alg.Visible){
 		All_chg
@@ -9381,8 +9400,8 @@ $sub_mask_chk2.Add_Click({
 
 	$script:key["mask"]= Mask_sw "2" $key["mask"]
 
-	Stus_build
 	Box_read
+	Stus_build
 
 	if($sb_alg.Visible){
 		All_chg
@@ -9399,8 +9418,8 @@ $sub_mask_chk3.Add_Click({
 
 	$script:key["mask"]= Mask_sw "3" $key["mask"]
 
-	Stus_build
 	Box_read
+	Stus_build
 
 	if($sb_alg.Visible){
 		All_chg
@@ -12318,7 +12337,6 @@ $conv_btn.Add_Click({ # text convert
 		Param_exp $fm_box.Text "conv"
 		Panel_chg
 
-
 		if($ff_frm.Visible -eq $True){
 
 			## visible gi preset edit baai presetstore overwrite ##
@@ -12329,6 +12347,8 @@ $conv_btn.Add_Click({ # text convert
 			Monotone_select "conv_btn" # Colorline書込
 			All_chg
 		}
+
+		$fm_box.Modified= $False
 	}
 
 	if($fm_box_mml.Modified -eq $True){ #変更あらば
@@ -12357,7 +12377,10 @@ $conv_btn.Add_Click({ # text convert
 		if($sb_alg.Visible){
 			Monotone_select "conv2_btn" # Colorline書込
 		}
+
+		$fm_box_mml.Modified= $False
 	}
+
  }catch{
 	echo $_.exception
  }
@@ -12468,7 +12491,7 @@ $fm_box_mml.Add_Leave({
 
 $fm_box_mml.Add_KeyDown({ # インポート
  try{
-	Key_conv $_.KeyCode
+	Key_conv $_
  }catch{
 	echo $_.exception
  }
@@ -12507,8 +12530,7 @@ $fm_box.Add_Leave({
 
 $fm_box.Add_KeyDown({ # インポート
  try{
-	Key_conv $_.KeyCode
-
+	Key_conv $_
  }catch{
 	echo $_.exception
  }
@@ -12954,9 +12976,12 @@ $fm_menu_rcver.Add_Click({	# 数値リストア
 		Unredo 0
 
 		Autoload $fm_xml.table.autosave
+
 		Panel_chg
 		Box_read
 		Box_mml_read
+
+		Send_build 1
 		Stus_build
 
 		if($sb_alg.Visible){
@@ -12989,9 +13014,12 @@ $fm_menu_rst.Add_Click({	# 数値リセット
 		Unredo 0
 
 		Autoload $fm_xml.table.resetting
+
 		Panel_chg
 		Box_read
 		Box_mml_read
+
+		Send_build 1
 		Stus_build
 
 		if($sb_alg.Visible){
@@ -13108,9 +13136,9 @@ $fm_menu_set.Add_Click({
 })
 
 
-	
+	 
 <# 
-	
+	 
 $fm_menu_cmp0= New-Object System.Windows.Forms.ToolStripMenuItem 
 # $fm_menu_cmp0.Text= "0.exe"
 $fm_menu_cmp0.Visible= $False # .Hide() 不可
@@ -13626,7 +13654,6 @@ $fm_menu_dos0.Add_Click({
   if($this.Text.Contains("[v]") -eq $False){
 	Change_value "dos" $this.Text
 	Menu_build "dos"
-	Stus_build
   }
  }catch{
 	echo $_.exception
@@ -13642,7 +13669,6 @@ $fm_menu_dos1.Add_Click({
   if($this.Text.Contains("[v]") -eq $False){
 	Change_value "dos" $this.Text
 	Menu_build "dos"
-	Stus_build
   }
  }catch{
 	echo $_.exception
@@ -13658,7 +13684,6 @@ $fm_menu_dos2.Add_Click({
   if($this.Text.Contains("[v]") -eq $False){
 	Change_value "dos" $this.Text
 	Menu_build "dos"
-	Stus_build
   }
  }catch{
 	echo $_.exception
@@ -13674,7 +13699,6 @@ $fm_menu_dos3.Add_Click({
   if($this.Text.Contains("[v]") -eq $False){
 	Change_value "dos" $this.Text
 	Menu_build "dos"
-	Stus_build
   }
  }catch{
 	echo $_.exception
@@ -13690,7 +13714,6 @@ $fm_menu_edt0.Add_Click({
   if($this.Text.Contains("[v]") -eq $False){
 	Change_value "editor" $this.Text
 	Menu_build "editor"
-	Stus_build
   }
  }catch{
 	echo $_.exception
@@ -13706,7 +13729,6 @@ $fm_menu_edt1.Add_Click({
   if($this.Text.Contains("[v]") -eq $False){
 	Change_value "editor" $this.Text
 	Menu_build "editor"
-	Stus_build
   }
  }catch{
 	echo $_.exception
@@ -13722,7 +13744,6 @@ $fm_menu_edt2.Add_Click({
   if($this.Text.Contains("[v]") -eq $False){
 	Change_value "editor" $this.Text
 	Menu_build "editor"
-	Stus_build
   }
  }catch{
 	echo $_.exception
@@ -13738,7 +13759,6 @@ $fm_menu_edt3.Add_Click({
   if($this.Text.Contains("[v]") -eq $False){
 	Change_value "editor" $this.Text
 	Menu_build "editor"
-	Stus_build
   }
  }catch{
 	echo $_.exception
@@ -13754,7 +13774,6 @@ $fm_menu_edt4.Add_Click({
   if($this.Text.Contains("[v]") -eq $False){
 	Change_value "editor" $this.Text
 	Menu_build "editor"
-	Stus_build
   }
  }catch{
 	echo $_.exception
@@ -13770,7 +13789,6 @@ $fm_menu_edt5.Add_Click({
   if($this.Text.Contains("[v]") -eq $False){
 	Change_value "editor" $this.Text
 	Menu_build "editor"
-	Stus_build
   }
  }catch{
 	echo $_.exception
@@ -13786,7 +13804,6 @@ $fm_menu_edt6.Add_Click({
   if($this.Text.Contains("[v]") -eq $False){
 	Change_value "editor" $this.Text
 	Menu_build "editor"
-	Stus_build
   }
  }catch{
 	echo $_.exception
@@ -13802,7 +13819,6 @@ $fm_menu_edt7.Add_Click({
   if($this.Text.Contains("[v]") -eq $False){
 	Change_value "editor" $this.Text
 	Menu_build "editor"
-	Stus_build
   }
  }catch{
 	echo $_.exception
@@ -13834,7 +13850,7 @@ $fm_menu_mask.Add_Click({
     	Write-Host '"ERROR: Safety Stopper >> $sub_mask.Show()"'
  }
 })
-	
+	 
 $fm_menu_so= New-Object System.Windows.Forms.ToolStripSeparator 
  
 $fm_menu_oct1= New-Object System.Windows.Forms.ToolStripMenuItem 
@@ -15251,8 +15267,6 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 	Box_read
 	Box_mml_read
 
-	Send_build 1
-
 	Menu_build "mck"
 	Menu_build "nsd"
 	Menu_build "pmd"
@@ -15260,6 +15274,8 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 	Menu_build "player"
 	Menu_build "dos"
 	Menu_build "editor"
+
+	Send_build 1
 	Stus_build
 
 	[array]$undo= $null,$null,"" # array obj高速化
