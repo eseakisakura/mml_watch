@@ -421,7 +421,7 @@ function Brush_Color(){
 } #func
   
 # buffer 
-	
+	 
 function Pixcel_Select([int] $max){ 
 
 	$max= $max+ 1
@@ -440,19 +440,6 @@ function Pixcel_Select([int] $max){
 	} #
 
 	return $d
- } #func
- 
-function Focus_btn([string] $sw){ 
-
-	if(($fm_box.Modified -eq $True) -or ($fm_box_mml.Modified -eq $True)){
-
-		if($sw -eq 'conv'){
-
-			$conv_btn.Focus() # $fm_box.Add_Leave - .Focus() de leave event tame
-		}
-
-		$conv_btn.PerformClick()
-	}
  } #func
  
 function Mouse_knober([string] $sw, [string] $type, $ev){	# knob 
@@ -507,7 +494,7 @@ function Mouse_knober([string] $sw, [string] $type, $ev){	# knob
 		break;
 	}'Hover'{
 
-		Focus_btn "conv"
+		Focus_btn
 		$x= NmudX $type
 		Buffer_Render $x.Value $x.Maximum $type $True
 
@@ -711,7 +698,7 @@ function NmudX([string] $sw){
  } #func
   
 # contxt 
-	
+	 
 function Mouse_opwiner([string] $sw, [string] $opnum, $ev){	# Op. 
 
 	[string] $type= $key["knob"][(Item_index)]
@@ -777,7 +764,7 @@ function Mouse_opwiner([string] $sw, [string] $opnum, $ev){	# Op.
 		break;
 	}'Hover'{
 
-		Focus_btn "conv"
+		Focus_btn
 		Opmap_change $opnum
 
 		$x= NmudX $type
@@ -1708,7 +1695,47 @@ function Contxt_octave([string]$a){
  } #func
   
 # trans 
-	
+	 
+function Key_play([string]$t){ 
+
+	switch($t){
+	'Space'{
+		$lisn_btn.PerformClick()
+	}
+	} #sw
+ } #func
+ 
+function Key_conv($t){ 
+
+	if($t.Control -eq 'True' -and $t.KeyCode -eq 'S'){
+
+		$conv_btn.Focus()
+		$conv_btn.PerformClick()
+	}
+
+	if($t.Control -eq 'True' -and $t.KeyCode -eq 'P'){
+
+		$conv_btn.PerformClick()
+		$lisn_btn.PerformClick()
+	}
+ } #func
+ 
+function Focus_btn(){ 
+
+		if(($fm_box.Focused -eq $True) -or ($fm_box_mml.Focused -eq $True)){
+
+			$conv_btn.Focus() # $fm_box.Add_Leave - .Focus() de leave event tame
+
+
+			if(($fm_box.Modified -eq $True) -or ($fm_box_mml.Modified -eq $True)){
+
+				$conv_btn.PerformClick()
+			}
+		}
+ } #func
+ 
+# ------ 
+ 
 function Item_index(){ 
 
 	[int] $jj= 0
@@ -2905,10 +2932,10 @@ function Alg_cable([int]$alg){
  [array]$arr= @("Op.1","Op.2","Op.3","Op.4")
 
  [array]$mtx= @("","","","", "","","","") # nazo err kikenn kosuu busoku dato
- $mtx[0]= @("Modulator","Modulator","Modulator","Carrier")
- $mtx[1]= @("Modulator","Modulator","Modulator","Carrier")
- $mtx[2]= @("Modulator","Modulator","Modulator","Carrier")
- $mtx[3]= @("Modulator","Modulator","Modulator","Carrier")
+ $mtx[0]= @("Modulator","Modu/Carr","Modu/Carr","Carrier")
+ $mtx[1]= @("Modulator","Modulator","Modu/Carr","Carrier")
+ $mtx[2]= @("Modulator","Modulator","Modu/Carr","Carrier")
+ $mtx[3]= @("Modulator","Modu/Carr","Modulator","Carrier")
 
  $mtx[4]= @("Modulator","Carrier","Modulator","Carrier")
  $mtx[5]= @("Modulator","Carrier","Carrier","Carrier")
@@ -3503,10 +3530,10 @@ function Alg_cable([int]$alg){
 	[array]$arr= @("Op.1","Op.2","Op.3","Op.4")
 
 	[array]$mtx= @("","","","", "","","","") # nazo err kikenn kosuu busoku dato
-	$mtx[0]= @("Modulator","Modulator","Modulator","Carrier")
-	$mtx[1]= @("Modulator","Modulator","Modulator","Carrier")
-	$mtx[2]= @("Modulator","Modulator","Modulator","Carrier")
-	$mtx[3]= @("Modulator","Modulator","Modulator","Carrier")
+	$mtx[0]= @("Modulator","Carr/Modu","Carr/Modu","Carrier")
+	$mtx[1]= @("Modulator","Modulator","Carr/Modu","Carrier")
+	$mtx[2]= @("Modulator","Modulator","Carr/Modu","Carrier")
+	$mtx[3]= @("Modulator","Carr/Modu","Modulator","Carrier")
 
 	$mtx[4]= @("Modulator","Carrier","Modulator","Carrier")
 	$mtx[5]= @("Modulator","Carrier","Carrier","Carrier")
@@ -5874,7 +5901,7 @@ function All_sz([array]$r,[int]$j){
  } #func
   
 # Lis 
-	 
+	
 function Adv_edit([string]$t){ 
 
 	switch($t){
@@ -6329,40 +6356,7 @@ function Preset_listen([string] $sw, [string] $ss){
 		All_chg
 	}
  } #func
- 
-# ------ 
- 
-function Key_conv($t){ 
-
-	if($t.Control -eq 'True' -and $t.KeyCode -eq 'S'){
-
-		$conv_btn.Focus()
-		$conv_btn.PerformClick()
-	}
-
-	if($t.Control -eq 'True' -and $t.KeyCode -eq 'P'){
-
-		$conv_btn.PerformClick()
-		$lisn_btn.PerformClick()
-	}
- } #func
- 	
-<# 
-	
-function Key_play([string]$t){ 
-
-	switch($t){
-	'Space'{
-		$lisn_btn.PerformClick()
-		break;
-	}'Enter'{
-		$lisn_btn.PerformClick()
-	}
-	} #sw
- } #func
- 
-#> 
-   
+  
 # Export 
 	
 function Unredo([int]$n){ 
@@ -7687,9 +7681,9 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 [Environment]::CurrentDirectory= pwd # working_dir set
  
 # Sub forms 
-	
-# $contxtA_7bwを読み込んだ後$PictureBox objが安全 
 	 
+# $contxtA_7bwを読み込んだ後$PictureBox objが安全 
+	
 $contxtA_Sep_7bw= New-Object System.Windows.Forms.ToolStripSeparator 
 $contxtA_Sep_Lbw= New-Object System.Windows.Forms.ToolStripSeparator
 $contxtA_Sep_Nbg= New-Object System.Windows.Forms.ToolStripSeparator
@@ -8392,10 +8386,18 @@ $sb_alg.Icon= Icon_read "..\fm_editor.exe"
 $sb_alg.MinimizeBox= $True
 $sb_alg.MaximizeBox= $False
 
-
 # $sb_alg.TopLevel= $True
 $sb_alg.Owner= $frm_fm
 
+
+$sb_alg.KeyPreview= $True
+$sb_alg.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+ }catch{
+	echo $_.exception
+ }
+})
 
 $sb_alg.Add_FormClosing({
  try{
@@ -8419,7 +8421,7 @@ $sb_alg.Add_FormClosing({
 })
  
 $sb_mnu= New-Object System.Windows.Forms.MenuStrip 
-	 
+	
 $sb_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $sb_menu_f.Text= "File"
 
@@ -8855,7 +8857,7 @@ $sb_stus.Items.AddRange(@($sb_label))
 $sb_alg.Controls.AddRange(@($sb_mnu,$pict_panel,$sb_stus))
   
 # Preset forms 
-	
+	 
 $ff_baloon= New-Object System.Windows.Forms.Tooltip 
 $ff_baloon.ShowAlways= $False
 # $ff_baloon.ToolTipIcon= "Info"
@@ -9192,7 +9194,7 @@ $ff_frm.Add_FormClosing({
 	Box_read
 	Box_mml_read
 
-	Send_build 1	
+	Send_build 1
 	Stus_build
 
 	if($sb_alg.Visible){
@@ -12321,7 +12323,16 @@ $lisn_btn.Add_Click({ # 試聴
 	echo $_.exception
  }
 })
- 
+
+
+$lisn_btn.Add_Enter({
+	$frm_fm.KeyPreview= $False
+})
+
+$lisn_btn.Add_Leave({
+	$frm_fm.KeyPreview= $True
+})
+ 	
 $conv_btn= New-Object System.Windows.Forms.Button 
 $conv_btn.Location= "20, 65"
 $conv_btn.Size= "25, 25"
@@ -12329,6 +12340,14 @@ $conv_btn.FlatStyle= "Popup"
 $conv_btn.Image= [System.Drawing.Image]::FromFile(".\img\convert.png")
 # $conv_btn.Text= ">>"
 $conv_btn.BackColor= "white"
+
+# $conv_btn.Add_KeyPress({	# KeyDown不可
+#  try{
+# 	Key_play $_.KeyCode
+#  }catch{
+# 	echo $_.exception
+#  }
+# })
 
 $conv_btn.Add_Click({ # text convert
  try{
@@ -12476,6 +12495,8 @@ $fm_box_mml.font= $Fon
 
 $fm_box_mml.Add_Enter({
  try{
+	$frm_fm.KeyPreview= $False
+
 	$this.ForeColor= "black"
 	$this.BackColor= "white"
  }catch{
@@ -12484,6 +12505,8 @@ $fm_box_mml.Add_Enter({
 })
 
 $fm_box_mml.Add_Leave({
+
+	$frm_fm.KeyPreview= $True
 
 	$this.ForeColor= "dimgray"
 	$this.BackColor= "white" # "gainsboro"
@@ -12513,6 +12536,8 @@ $fm_box.font= $Fon
 
 $fm_box.Add_Enter({ # kaki komi de undo reset
  try{
+	$frm_fm.KeyPreview= $False
+
 	Unredo 4
 
 	$this.ForeColor= "black"
@@ -12523,6 +12548,8 @@ $fm_box.Add_Enter({ # kaki komi de undo reset
 })
 
 $fm_box.Add_Leave({
+
+	$frm_fm.KeyPreview= $True
 
 	$this.ForeColor= "dimgray"
 	$this.BackColor= "white" # "gainsboro"
@@ -12610,14 +12637,14 @@ $frm_fm.TopLevel= $True
 # $frm_fm.Topmost= $True
 
 
-# $frm_fm.Add_KeyDown({
-#  try{
-# 	Key_play $_.KeyCode
-
-#  }catch{
-# 	echo $_.exception
-#  }
-# })
+$frm_fm.KeyPreview= $True
+$frm_fm.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+ }catch{
+	echo $_.exception
+ }
+})
 
 $frm_fm.Add_Shown({ # .ShowDialog()呼出時のみ使用 - 挙動怪ため
  try{
@@ -12656,7 +12683,7 @@ $frm_fm.Add_FormClosing({
 })
  
 $fm_mnu= New-Object System.Windows.Forms.MenuStrip 
-	 
+	
 $fm_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_f.Text= "File"
 
@@ -12730,7 +12757,7 @@ $fm_menu_pset.Add_Click({
 $fm_menu_ladn= New-Object System.Windows.Forms.ToolStripSeparator 
 $fm_menu_lad= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_lad.Text= "Load"
-	 
+	
 $fm_lad_a= New-Object System.Windows.Forms.ToolStripMenuItem 
 # $fm_lad_a.Text= "slot A"
 
@@ -12921,7 +12948,7 @@ $fm_sav_h.Add_Click({
 $fm_menu_ktn= New-Object System.Windows.Forms.ToolStripSeparator 
 $fm_menu_kt= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_kt.Text= "Preferences"
-	 
+	
 $menu_fty= New-Object System.Windows.Forms.ToolStripMenuItem 
 # $menu_fty.Text= "v Task tray"
 
@@ -13136,9 +13163,9 @@ $fm_menu_set.Add_Click({
 })
 
 
-	 
+	
 <# 
-	 
+	
 $fm_menu_cmp0= New-Object System.Windows.Forms.ToolStripMenuItem 
 # $fm_menu_cmp0.Text= "0.exe"
 $fm_menu_cmp0.Visible= $False # .Hide() 不可
@@ -13276,7 +13303,7 @@ $fm_menu_cpmd.Add_Click({
 	echo $_.exception
  }
 })
-	 
+	
 $fm_menu_mck0= New-Object System.Windows.Forms.ToolStripMenuItem 
 #$fm_menu_mck0.Text= "0.exe"
 $fm_menu_mck0.Visible= $False
@@ -13850,7 +13877,7 @@ $fm_menu_mask.Add_Click({
     	Write-Host '"ERROR: Safety Stopper >> $sub_mask.Show()"'
  }
 })
-	 
+	
 $fm_menu_so= New-Object System.Windows.Forms.ToolStripSeparator 
  
 $fm_menu_oct1= New-Object System.Windows.Forms.ToolStripMenuItem 
@@ -14065,7 +14092,7 @@ $fm_menu_header.Add_Click({
 	echo $_.exception
  }
 })
-	 
+	
 $fm_menu_zero= New-Object System.Windows.Forms.ToolStripMenuItem 
 #$fm_menu_zero.Text= "zero padding"
 $fm_menu_zero.Add_Click({
