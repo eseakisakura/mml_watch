@@ -243,7 +243,7 @@ function Play_nsf([string]$file){
  } #func
   
 # chk_path 
-	 
+	
 function Err_build(){ 
 
 	[int[]]$err= 0,0,0,0
@@ -683,9 +683,10 @@ function Watch_Drop([string[]] $args_path){
 		[string[]] $arr_mml= $mml.Keys
 		[string[]] $arr= Split_path $args_path[0]
 
-		foreach($pick in $arr_mml){
+		[string] $p= ""
+		foreach($p in $arr_mml){
 
-			if($pick -eq $arr[0]){
+			if($p -eq $arr[0]){ # file name
 				$sw= 1
 			}
 		} #
@@ -729,9 +730,9 @@ function Watch_Drop([string[]] $args_path){
 	} #sw
 
  } #func
- 	 
+  
 # gui 
-	
+	 
 function New_mml([string] $sw){ 
 
 	[string] $new_set= "" # kara iretoku -> system err kaihi
@@ -750,18 +751,20 @@ function New_mml([string] $sw){
 
 	[string] $btn= $dia.ShowDialog()
 
+	[string] $path= ""
+
 	switch($btn){
 	'OK'{
-		[string] $path= $dia.FileName
+		$path= $dia.FileName
 
 		Mml_writer $new_set $path 0
 		# $new_set | Out-File -Encoding oem -FilePath $path # shiftJIS
 
-		return $path
-
 	#}'Cancel'{
 	}
 	} #sw
+
+	return $path
  } #func
  
 function Setadv_edit([string] $t){ 
@@ -1692,6 +1695,7 @@ $frm.Icon= Icon_read "..\mml_watch.exe"
 #$frm.ShowIcon= $False
 #$frm.MinimizeBox= $False
 $frm.MaximizeBox= $False
+$frm.AcceptButton= $wait_btn	# [Enter]時、clickの場所
 
 $frm.TopLevel= $True
 ## $frm.TopMost= $True # 最前面表示のプロパティ
@@ -1711,6 +1715,13 @@ $frm.Add_Shown({
 	$wait.SynchronizingObject= $this
 
 	$wait_btn.Select() # forcus
+
+
+	if((Chk_path $args_str[0]) -eq 0){
+
+		Watch_Drop $args_str
+	}
+
 
 	if($opt["edt_open"] -eq 'True'){
 
@@ -1765,9 +1776,7 @@ $frm.Add_DragDrop({
 	echo $_.exception
   }
 })
- 
-$frm.AcceptButton= $wait_btn	# [Enter] 
- 
+ 	
 $mnu= New-Object System.Windows.Forms.MenuStrip 
 	 
 $menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
@@ -1779,18 +1788,18 @@ $sub_menu_new.Text= "新規ファイル"
 
 
 	 
-$sub_menu_mck= New-Object System.Windows.Forms.ToolStripMenuItem 
+$sub_menu_mck= New-Object System.Windows.Forms.ToolStripMenuItem 	
 $sub_menu_mck.Text= "MCK new mml"
 
 $sub_menu_mck.Add_Click({
  try{
-	[string] $pth= New_mml "mck"
+	[string] $ptn= New_mml "mck"
 
-	$menu_cmck.PerformClick()
-
-	Watch_Drop $pth
-
-}catch{
+	if($ptn -ne ""){
+		$menu_cmck.PerformClick()
+		Watch_Drop $pth
+	}
+ }catch{
 	echo $_.exception
  }
 })
@@ -1800,12 +1809,12 @@ $sub_menu_nsd.Text= "NSD new mml"
 
 $sub_menu_nsd.Add_Click({
  try{
-	[string] $pth= New_mml "nsd"
+	[string] $ptn= New_mml "nsd"
 
-	$menu_cnsd.PerformClick()
-
-	Watch_Drop $pth
-
+	if($ptn -ne ""){
+		$menu_cnsd.PerformClick()
+		Watch_Drop $pth
+	}
  }catch{
 	echo $_.exception
  }
@@ -1816,12 +1825,12 @@ $sub_menu_pmd.Text= "PMD new mml"
 
 $sub_menu_pmd.Add_Click({
  try{
-	[string] $pth= New_mml "pmd"
+	[string] $ptn= New_mml "pmd"
 
-	$menu_cpmd.PerformClick()
-
-	Watch_Drop $pth
-
+	if($ptn -ne ""){
+		$menu_cpmd.PerformClick()
+		Watch_Drop $pth
+	}
  }catch{
 	echo $_.exception
  }
@@ -1913,7 +1922,7 @@ $menu_t.Add_Click({
 	echo $_.exception
  }
 })
-	 
+	
 $menu_sm= New-Object System.Windows.Forms.ToolStripSeparator 
 $menu_mml=  New-Object System.Windows.Forms.ToolStripMenuItem
 $menu_mml.Text= "MML"
@@ -3287,18 +3296,6 @@ $wait.Add_Changed({	# event func入れ子は一段が理想..
 
 	[string[]]$comlin= Comline $opt["option"]
 
-
-	switch(Chk_path $args_str[0]){
-
-	2{	Write-Host ('FileDrop >> Null')
-		break;
-
-	}1{	Write-Host ('FileDrop >> Chk_path Error')
-		break;
-
-	}0{	$script:val["mmlfile"]= $args_str[0]
-	}
-	} #sw
 
 
 	[string]$scroll_text= "" # 一つ前の履歴 $csl_box  - Console_out
