@@ -31,7 +31,7 @@ $xml_watch= @'
 '@
  
 # nsf_trans 
-	
+	 
 function Mck_trans([string]$file){ 
 
 
@@ -243,7 +243,7 @@ function Play_nsf([string]$file){
  } #func
   
 # chk_path 
-	
+	 
 function Err_build(){ 
 
 	[int[]]$err= 0,0,0,0
@@ -647,7 +647,58 @@ function Watch_Start(){
 
  } #func
  
-function Watch_Drop([string[]] $args_path){ 
+function Drop_Out([string] $arg_file){ 
+
+
+	[bool] $sw= $False
+
+
+	switch(Chk_path $arg_file){
+	2{
+		[string] $ss= "ERROR: Form File Set >> Null"
+
+		$err_box.Text= $ss+ "`r`n"
+		Write-Host $ss
+		break;
+	}1{
+		[string] $ss= "'ERROR: Form File Set >> Check Path"
+
+		$err_box.Text= $ss+ "`r`n"
+		Write-Host $ss
+		break;
+	}0{
+		[string[]] $arr_mml= $mml.Keys
+		[string[]] $arr= Split_path $arg_file
+
+
+		[string] $p= ""
+		foreach($p in $arr_mml){
+
+			if($p -eq $arr[0]){	# =file name thru
+				$sw= $True
+			}
+		} #
+
+
+		if($arr_mml.Length -lt 4){	# $mml.Keys.Count
+			$sw= $True
+		}
+
+
+		if($sw -eq $False){
+
+			[string] $ss= "ERROR: MML Slot >>  Over Count"
+
+			$err_box.Text= $ss+ "`r`n"
+			Write-Host $ss
+		}
+	}
+	} #sw
+
+	return $sw
+ } #func
+ 
+function Watch_Drop([string[]] $arg_path){ 
 
 	if($wait.EnableRaisingEvents -eq $True){
 
@@ -661,74 +712,34 @@ function Watch_Drop([string[]] $args_path){
 	}
 
 
-	[string] $ss= ""
+	[bool] $sw= Drop_Out $arg_path[0]
 
-	switch(Chk_path $args_path[0]){
 
-	2{	$ss= "ERROR: Form File Set >> Null"
+	if($sw -eq $True){
 
-		$err_box.Text= $ss+ "`r`n"
-		Write-Host $ss
-		break;
-	}1{
-		$ss= "'ERROR: Form File Set >> Check Path"
+		$script:val["mmlfile"]= $arg_path[0]
 
-		$err_box.Text= $ss+ "`r`n"
-		Write-Host $ss
-		break;
 
-	}0{
-		[int] $sw= 0
+		Status_cheker
+		$script:chk_mml= Wait_setpath
 
-		[string[]] $arr_mml= $mml.Keys
-		[string[]] $arr= Split_path $args_path[0]
 
-		[string] $p= ""
-		foreach($p in $arr_mml){
+		if($chk_mml){
 
-			if($p -eq $arr[0]){ # file name
-				$sw= 1
-			}
-		} #
+			[string[]] $arr= Split_path $arg_path[0]
 
-		if($sw -eq 0){
 
-			## if($mml.Keys.Count -lt 4){
+			$script:mml[$arr[0]]= $arg_path[0]	# hash add
+			Wthmenu_build "mmlfile"
 
-			if($arr_mml.Length -lt 4){
-				$sw= 1
-			}
+			SetWrite_xml $script:set_xml.table
+			File_writer $script:set_xml '.\setting.xml'
+
+			Toggle_sw "true"
 		}
 
-		if($sw -eq 0){
-
-			$ss= "ERROR: MML Slot >>  Over Count"
-
-			$err_box.Text= $ss+ "`r`n"
-			Write-Host $ss
-		}else{
-
-			$script:val["mmlfile"]= $args_path[0]
-
-			Status_cheker
-			$script:chk_mml= Wait_setpath
-
-			if($chk_mml){
-
-				$script:mml[$arr[0]]= $args_path[0]	# hash add
-				Wthmenu_build "mmlfile"
-
-				SetWrite_xml $script:set_xml.table
-				File_writer $script:set_xml '.\setting.xml'
-
-				Toggle_sw "true"
-			}
-
-			Toggle_label
-		}
+		Toggle_label
 	}
-	} #sw
-
  } #func
   
 # gui 
@@ -1332,9 +1343,49 @@ function Wthmenu_build([string]$sw){
   }
   } #sw
  } #func
+ 
+function Menu_Change($ev, [string] $ss, [string] $sw){ 	
+
+	 if($ev.Contains("[v]") -eq $False){
+
+		switch($sw){
+		'comp_select'{
+			Wthmenu_build $ss
+
+			Change_value "compiler" $ss
+			$script:opt["radio_bin"]= Menu_comp_build $ss
+
+			break;
+		}'comp_value'{
+
+			Change_value $ss $ev
+			Wthmenu_build $ss
+
+			Change_value "compiler" $ss
+			$script:opt["radio_bin"]= Menu_comp_build $ss
+
+			break;
+		}default{
+			Change_value $ss $ev
+			Wthmenu_build $ss
+		}
+		} #sw
+
+		Status_cheker
+		$script:chk_mml= Wait_setpath
+
+		if($chk_mml){
+
+			Toggle_sw "true"
+		}else{
+			Toggle_sw "false"
+		}
+		Toggle_label
+	}
+ } #func
   
 # hash 
-	
+	 
 function Change_value([string]$sw, [string]$name){ 
 
  #if($name -match '[v]'  -eq $False){ # 不要 .Contains("[v]") も可
@@ -1717,9 +1768,9 @@ $frm.Add_Shown({
 	$wait_btn.Select() # forcus
 
 
-	if((Chk_path $args_str[0]) -eq 0){
+	if((Chk_path $args_str[0]) -ne 2){
 
-		Watch_Drop $args_str
+		Watch_Drop $args_str[0]
 	}
 
 
@@ -1776,7 +1827,7 @@ $frm.Add_DragDrop({
 	echo $_.exception
   }
 })
- 	
+ 
 $mnu= New-Object System.Windows.Forms.MenuStrip 
 	 
 $menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
@@ -1788,7 +1839,7 @@ $sub_menu_new.Text= "新規ファイル"
 
 
 	 
-$sub_menu_mck= New-Object System.Windows.Forms.ToolStripMenuItem 	
+$sub_menu_mck= New-Object System.Windows.Forms.ToolStripMenuItem 
 $sub_menu_mck.Text= "MCK new mml"
 
 $sub_menu_mck.Add_Click({
@@ -1797,7 +1848,7 @@ $sub_menu_mck.Add_Click({
 
 	if($ptn -ne ""){
 		$menu_cmck.PerformClick()
-		Watch_Drop $pth
+		Watch_Drop $ptn
 	}
  }catch{
 	echo $_.exception
@@ -1813,7 +1864,7 @@ $sub_menu_nsd.Add_Click({
 
 	if($ptn -ne ""){
 		$menu_cnsd.PerformClick()
-		Watch_Drop $pth
+		Watch_Drop $ptn
 	}
  }catch{
 	echo $_.exception
@@ -1829,7 +1880,7 @@ $sub_menu_pmd.Add_Click({
 
 	if($ptn -ne ""){
 		$menu_cpmd.PerformClick()
-		Watch_Drop $pth
+		Watch_Drop $ptn
 	}
  }catch{
 	echo $_.exception
@@ -1922,7 +1973,7 @@ $menu_t.Add_Click({
 	echo $_.exception
  }
 })
-	
+	 
 $menu_sm= New-Object System.Windows.Forms.ToolStripSeparator 
 $menu_mml=  New-Object System.Windows.Forms.ToolStripMenuItem
 $menu_mml.Text= "MML"
@@ -2033,30 +2084,13 @@ $menu_mml3.Add_Click({
  
 $menu_comp=  New-Object System.Windows.Forms.ToolStripMenuItem 
 $menu_comp.Text= "コンパイラ"
-
-$menu_cmck=  New-Object System.Windows.Forms.ToolStripMenuItem
+	 
+$menu_cmck=  New-Object System.Windows.Forms.ToolStripMenuItem 
 # $menu_cmck.Text= "MCK"
 
 $menu_cmck.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Change_value "compiler" "mck"
-	Wthmenu_build "mck"
-
-	$script:opt["radio_bin"]= Menu_comp_build "mck"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-	Toggle_label
-  }
+	Menu_Change $this.Text "mck" "comp_select"
  }catch{
 	echo $_.exception
  }
@@ -2067,24 +2101,7 @@ $menu_cnsd=  New-Object System.Windows.Forms.ToolStripMenuItem
 
 $menu_cnsd.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Change_value "compiler" "nsd"
-	Wthmenu_build "nsd"
-
-	$script:opt["radio_bin"]= Menu_comp_build "nsd"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-	Toggle_label
-  }
+	Menu_Change $this.Text "nsd" "comp_select"
  }catch{
 	echo $_.exception
  }
@@ -2095,54 +2112,19 @@ $menu_cpmd=  New-Object System.Windows.Forms.ToolStripMenuItem
 
 $menu_cpmd.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Change_value "compiler" "pmd"
-	Wthmenu_build "pmd"
-
-	$script:opt["radio_bin"]= Menu_comp_build "pmd"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-	Toggle_label
-  }
+	Menu_Change $this.Text "pmd" "comp_select"
  }catch{
 	echo $_.exception
  }
 })
-	
+ 
 $menu_mck0= New-Object System.Windows.Forms.ToolStripMenuItem 
 #$menu_mck0.Text= "0.exe"
 $menu_mck0.Visible= $False
 
 $menu_mck0.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Change_value "mck" $this.Text
-	Change_value "compiler" "mck"
-	Wthmenu_build "mck"
-
-	$script:opt["radio_bin"]= Menu_comp_build "mck"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-	Toggle_label
-  }
+	Menu_Change $this.Text "mck" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -2154,25 +2136,7 @@ $menu_mck1.Visible= $False
 
 $menu_mck1.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Change_value "mck" $this.Text
-	Change_value "compiler" "mck"
-	Wthmenu_build "mck"
-
-	$script:opt["radio_bin"]= Menu_comp_build "mck"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-	Toggle_label
-  }
+	Menu_Change $this.Text "mck" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -2184,25 +2148,7 @@ $menu_mck2.Visible= $False
 
 $menu_mck2.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Change_value "mck" $this.Text
-	Change_value "compiler" "mck"
-	Wthmenu_build "mck"
-
-	$script:opt["radio_bin"]= Menu_comp_build "mck"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-	Toggle_label
-  }
+	Menu_Change $this.Text "mck" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -2214,25 +2160,7 @@ $menu_mck3.Visible= $False
 
 $menu_mck3.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Change_value "mck" $this.Text
-	Change_value "compiler" "mck"
-	Wthmenu_build "mck"
-
-	$script:opt["radio_bin"]= Menu_comp_build "mck"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-	Toggle_label
-  }
+	Menu_Change $this.Text "mck" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -2244,25 +2172,7 @@ $menu_nsd0.Visible= $False
 
 $menu_nsd0.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Change_value "nsd" $this.Text
-	Change_value "compiler" "nsd"
-	Wthmenu_build "nsd"
-
-	$script:opt["radio_bin"]= Menu_comp_build "nsd"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-	Toggle_label
-  }
+	Menu_Change $this.Text "nsd" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -2274,25 +2184,7 @@ $menu_nsd1.Visible= $False
 
 $menu_nsd1.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Change_value "nsd" $this.Text
-	Change_value "compiler" "nsd"
-	Wthmenu_build "nsd"
-
-	$script:opt["radio_bin"]= Menu_comp_build "nsd"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-	Toggle_label
-  }
+	Menu_Change $this.Text "nsd" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -2304,25 +2196,7 @@ $menu_nsd2.Visible= $False
 
 $menu_nsd2.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Change_value "nsd" $this.Text
-	Change_value "compiler" "nsd"
-	Wthmenu_build "nsd"
-
-	$script:opt["radio_bin"]= Menu_comp_build "nsd"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-	Toggle_label
-  }
+	Menu_Change $this.Text "nsd" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -2334,25 +2208,7 @@ $menu_nsd3.Visible= $False
 
 $menu_nsd3.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Change_value "nsd" $this.Text
-	Change_value "compiler" "nsd"
-	Wthmenu_build "nsd"
-
-	$script:opt["radio_bin"]= Menu_comp_build "nsd"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-	Toggle_label
-  }
+	Menu_Change $this.Text "nsd" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -2364,25 +2220,7 @@ $menu_pmd0.Visible= $False
 
 $menu_pmd0.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Change_value "pmd" $this.Text
-	Change_value "compiler" "pmd"
-	Wthmenu_build "pmd"
-
-	$script:opt["radio_bin"]= Menu_comp_build "pmd"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-	Toggle_label
-  }
+	Menu_Change $this.Text "pmd" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -2394,25 +2232,7 @@ $menu_pmd1.Visible= $False
 
 $menu_pmd1.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Change_value "pmd" $this.Text
-	Change_value "compiler" "pmd"
-	Wthmenu_build "pmd"
-
-	$script:opt["radio_bin"]= Menu_comp_build "pmd"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-	Toggle_label
-  }
+	Menu_Change $this.Text "pmd" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -2424,25 +2244,7 @@ $menu_pmd2.Visible= $False
 
 $menu_pmd2.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Change_value "pmd" $this.Text
-	Change_value "compiler" "pmd"
-	Wthmenu_build "pmd"
-
-	$script:opt["radio_bin"]= Menu_comp_build "pmd"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-	Toggle_label
-  }
+	Menu_Change $this.Text "pmd" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -2454,30 +2256,12 @@ $menu_pmd3.Visible= $False
 
 $menu_pmd3.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Change_value "pmd" $this.Text
-	Change_value "compiler" "pmd"
-	Wthmenu_build "pmd"
-
-	$script:opt["radio_bin"]= Menu_comp_build "pmd"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-	Toggle_label
-  }
+	Menu_Change $this.Text "pmd" "comp_value"
  }catch{
 	echo $_.exception
  }
 })
-  
+  	
 $menu_player=  New-Object System.Windows.Forms.ToolStripMenuItem 
 $menu_player.Text= "プレイヤー"
 
@@ -2487,20 +2271,7 @@ $menu_ply0.Visible= $False
 
 $menu_ply0.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "player" $this.Text # $val[$sw]
-	Wthmenu_build "player"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-  }
+	Menu_Change $this.Text "player"
  }catch{
 	echo $_.exception
  }
@@ -2512,20 +2283,7 @@ $menu_ply1.Visible= $False
 
 $menu_ply1.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "player" $this.Text
-	Wthmenu_build "player"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-  }
+	Menu_Change $this.Text "player"
  }catch{
 	echo $_.exception
  }
@@ -2537,20 +2295,7 @@ $menu_ply2.Visible= $False
 
 $menu_ply2.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "player" $this.Text
-	Wthmenu_build "player"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-  }
+	Menu_Change $this.Text "player"
  }catch{
 	echo $_.exception
  }
@@ -2562,20 +2307,7 @@ $menu_ply3.Visible= $False
 
 $menu_ply3.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "player" $this.Text
-	Wthmenu_build "player"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-  }
+	Menu_Change $this.Text "player"
  }catch{
 	echo $_.exception
  }
@@ -2587,20 +2319,7 @@ $menu_ply4.Visible= $False
 
 $menu_ply4.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "player" $this.Text
-	Wthmenu_build "player"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-  }
+	Menu_Change $this.Text "player"
  }catch{
 	echo $_.exception
  }
@@ -2612,20 +2331,7 @@ $menu_ply5.Visible= $False
 
 $menu_ply5.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "player" $this.Text
-	Wthmenu_build "player"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-  }
+	Menu_Change $this.Text "player"
  }catch{
 	echo $_.exception
  }
@@ -2637,20 +2343,7 @@ $menu_ply6.Visible= $False
 
 $menu_ply6.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "player" $this.Text
-	Wthmenu_build "player"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-  }
+	Menu_Change $this.Text "player"
  }catch{
 	echo $_.exception
  }
@@ -2662,20 +2355,7 @@ $menu_ply7.Visible= $False
 
 $menu_ply7.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "player" $this.Text
-	Wthmenu_build "player"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-  }
+	Menu_Change $this.Text "player"
  }catch{
 	echo $_.exception
  }
@@ -2690,20 +2370,7 @@ $menu_edt0.Visible= $False
 
 $menu_edt0.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "editor" $this.Text # $val[$sw]
-	Wthmenu_build "editor"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-  }
+	Menu_Change $this.Text "editor"
  }catch{
 	echo $_.exception
  }
@@ -2715,20 +2382,7 @@ $menu_edt1.Visible= $False
 
 $menu_edt1.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "editor" $this.Text
-	Wthmenu_build "editor"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-  }
+	Menu_Change $this.Text "editor"
  }catch{
 	echo $_.exception
  }
@@ -2740,20 +2394,7 @@ $menu_edt2.Visible= $False
 
 $menu_edt2.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "editor" $this.Text
-	Wthmenu_build "editor"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-  }
+	Menu_Change $this.Text "editor"
  }catch{
 	echo $_.exception
  }
@@ -2765,20 +2406,7 @@ $menu_edt3.Visible= $False
 
 $menu_edt3.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "editor" $this.Text
-	Wthmenu_build "editor"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-  }
+	Menu_Change $this.Text "editor"
  }catch{
 	echo $_.exception
  }
@@ -2790,20 +2418,7 @@ $menu_edt4.Visible= $False
 
 $menu_edt4.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "editor" $this.Text
-	Wthmenu_build "editor"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-  }
+	Menu_Change $this.Text "editor"
  }catch{
 	echo $_.exception
  }
@@ -2815,20 +2430,7 @@ $menu_edt5.Visible= $False
 
 $menu_edt5.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "editor" $this.Text
-	Wthmenu_build "editor"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-  }
+	Menu_Change $this.Text "editor"
  }catch{
 	echo $_.exception
  }
@@ -2840,20 +2442,7 @@ $menu_edt6.Visible= $False
 
 $menu_edt6.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "editor" $this.Text
-	Wthmenu_build "editor"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-  }
+	Menu_Change $this.Text "editor"
  }catch{
 	echo $_.exception
  }
@@ -2865,20 +2454,7 @@ $menu_edt7.Visible= $False
 
 $menu_edt7.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "editor" $this.Text
-	Wthmenu_build "editor"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-  }
+	Menu_Change $this.Text "editor"
  }catch{
 	echo $_.exception
  }
@@ -2893,21 +2469,7 @@ $menu_dos0.Visible= $False
 
 $menu_dos0.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "dos" $this.Text
-	Wthmenu_build "dos"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-	Toggle_label
-  }
+	Menu_Change $this.Text "dos"
  }catch{
 	echo $_.exception
  }
@@ -2919,21 +2481,7 @@ $menu_dos1.Visible= $False
 
 $menu_dos1.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "dos" $this.Text
-	Wthmenu_build "dos"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-	Toggle_label
-  }
+	Menu_Change $this.Text "dos"
  }catch{
 	echo $_.exception
  }
@@ -2945,21 +2493,7 @@ $menu_dos2.Visible= $False
 
 $menu_dos2.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "dos" $this.Text
-	Wthmenu_build "dos"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-	Toggle_label
-  }
+	Menu_Change $this.Text "dos"
  }catch{
 	echo $_.exception
  }
@@ -2971,21 +2505,7 @@ $menu_dos3.Visible= $False
 
 $menu_dos3.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "dos" $this.Text
-	Wthmenu_build "dos"
-
-	Status_cheker
-	$script:chk_mml= Wait_setpath
-
-	if($chk_mml){
-
-		Toggle_sw "true"
-	}else{
-		Toggle_sw "false"
-	}
-	Toggle_label
-  }
+	Menu_Change $this.Text "dos"
  }catch{
 	echo $_.exception
  }
