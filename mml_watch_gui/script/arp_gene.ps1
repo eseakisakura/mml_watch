@@ -2189,6 +2189,8 @@ function Lisnarp_nsf([int]$sw, [string]$lis){
 
  } #func
  
+<# 
+	
 function Keydown_arp([string]$t){ 
 
   switch($t){
@@ -2202,6 +2204,39 @@ function Keydown_arp([string]$t){
 		$import_btn.PerformClick()
   }
   } #sw
+ } #func
+ 
+#> 
+  
+function Key_play([string]$t){ 	
+
+	switch($t){
+	'Space'{
+		$lisn_btn.PerformClick()
+		break;
+	}'Return'{
+		$stop_btn.PerformClick()
+	}
+	} #sw
+ } #func
+ 
+function Key_conv($t){ 
+
+	if($t.Control -eq 'True' -and $t.KeyCode -eq 'S'){
+
+		$import_btn.PerformClick()
+	}
+
+	if($t.Control -eq 'True' -and $t.KeyCode -eq 'P'){
+
+		$lisn_btn.PerformClick()
+	}
+
+	if($t.Control -eq 'True' -and $t.KeyCode -eq 'O'){
+
+		$stop_btn.PerformClick()
+	}
+
  } #func
  
 function Unredo_arp([int]$n){ 
@@ -2252,6 +2287,8 @@ function Unredo_arp([int]$n){
 
  } #func
  
+<# 
+	 
 function Arpadv_edit([string]$t){ 
 
   switch($t){
@@ -2273,7 +2310,9 @@ function Arpadv_edit([string]$t){
   }
 
  } #func
-  
+ 
+#> 
+   
 Add-Type -AssemblyName System.Windows.Forms > $null 
 Add-Type -AssemblyName System.Drawing > $null
 
@@ -2717,17 +2756,16 @@ $box_apeg.BorderStyle= "FixedSingle"
 $box_apeg.font= $Fon
 #$box_apeg.Text= "5313  1313"
 
-$box_apeg.Add_Enter({ # konrann surutame reset
-
+$box_apeg.Add_Enter({	# konrann surutame reset
+	$frm_arp.KeyPreview= $False
 	Unredo_arp 0
-})
 
-$box_apeg.Add_Enter({
- 	$this.ForeColor= "black"
+	$this.ForeColor= "black"
 	$this.BackColor= "white"
 })
 
 $box_apeg.Add_Leave({
+	$frm_arp.KeyPreview= $True
 	$this.ForeColor= "dimgray"
 	$this.BackColor= "white"
 })
@@ -2742,7 +2780,7 @@ $box_apeg.Add_TextChanged({
 
 $box_apeg.Add_KeyDown({ # 試聴
  try{
-	Keydown_arp $_.KeyCode
+	Key_conv $_
 
  }catch{
     echo $_.exception
@@ -2754,7 +2792,7 @@ $mml_grp.Text= "MML arpeggio"
 $mml_grp.Size= "565,345"
 $mml_grp.Location= "10,285"
 $mml_grp.FlatStyle= "Flat"
-	
+	 
 $label_prefix= New-Object System.Windows.Forms.Label 
 $label_prefix.Text= "Track header"
 $label_prefix.Size= "90,20"
@@ -2990,18 +3028,20 @@ $box_mml.font= $Fon
 # $box_mml.Text= 'cg`eg  `eg`eg'
 
 $box_mml.Add_Enter({
- 	$this.ForeColor= "black"
+	$frm_arp.KeyPreview= $False
+	$this.ForeColor= "black"
 	$this.BackColor= "white"
 })
 
 $box_mml.Add_Leave({
+	$frm_arp.KeyPreview= $True
 	$this.ForeColor= "dimgray"
 	$this.BackColor= "white"
 })
 
 $box_mml.Add_KeyDown({ # 試聴
  try{
-	Keydown_arp $_.KeyCode
+	Key_conv $_
 
  }catch{
     echo $_.exception
@@ -3020,9 +3060,17 @@ $box_mtr.BorderStyle= "FixedSingle"
 $box_mtr.BackColor= "White"
 $box_mtr.font= $Fon
 
+$box_mtr.Add_Enter({
+	$frm_arp.KeyPreview= $False
+})
+
+$box_mtr.Add_Leave({
+	$frm_arp.KeyPreview= $True
+})
+
 $box_mtr.Add_KeyDown({ # 試聴
  try{
-	Keydown_arp $_.KeyCode
+	Key_conv $_
 
  }catch{
     echo $_.exception
@@ -3098,10 +3146,19 @@ $frm_arp.Icon= Icon_read "..\arp_gene.exe"
 # $frm_arp.ShowIcon= $False
 $frm_arp.MinimizeBox= $True
 $frm_arp.MaximizeBox= $False
+# $frm_arp.AcceptButton= $lisn_btn # [Enter]時、clickの場所
 
 # $frm_arp.Topmost= $True
 $frm_arp.TopLevel= $True
 
+$frm_arp.KeyPreview= $True
+$frm_arp.Add_KeyDown({
+ try{
+	Key_play $_.KeyCode
+ }catch{
+	echo $_.exception
+ }
+})
 
 # $frm_arp.Add_Load({ # load before form open
 #	$this.WindowState= "Normal" # "Minimized"
@@ -4070,22 +4127,7 @@ $arp_menu_whelp.Text= "GtArpeggioGenerator Help"
 
 $arp_menu_whelp.Add_Click({
  try{
-
-  if((Chk_path $edit["sted.exe"]) -eq 0){
-
-	[string]$retn= Editor_open $edit["sted.exe"] "..\doc\Gt_Arpeggio_Generator.txt"
-  }else{
-	[string]$retn= Editor_open $val["editor"] "..\doc\Gt_Arpeggio_Generator.txt"
-  }
-
-  if($retn -ne ''){
-
-	$retn= [Windows.Forms.MessageBox]::Show(
-
-	$retn, "確認", "OK","Information","Button1"
-	)
-  }
-
+	Help_editor "..\doc\Gt_Arpeggio_Generator.txt" "sted"
  }catch{
 	echo $_.exception
  }
@@ -4118,7 +4160,7 @@ $arp_menu_mckh= New-Object System.Windows.Forms.ToolStripMenuItem
 $arp_menu_mckh.Text= "edit mck header"
 $arp_menu_mckh.Add_Click({
  try{
-	Arpadv_edit "mck"
+	Help_editor ".\header\arp_header_mck"
  }catch{
 	echo $_.exception
  }
@@ -4128,7 +4170,7 @@ $arp_menu_nsdh= New-Object System.Windows.Forms.ToolStripMenuItem
 $arp_menu_nsdh.Text= "edit nsd header"
 $arp_menu_nsdh.Add_Click({
  try{
-	Arpadv_edit "nsd"
+	Help_editor ".\header\arp_header_nsd"
  }catch{
 	echo $_.exception
  }
@@ -4138,7 +4180,7 @@ $arp_menu_pmdh= New-Object System.Windows.Forms.ToolStripMenuItem
 $arp_menu_pmdh.Text= "edit pmd header"
 $arp_menu_pmdh.Add_Click({
  try{
-	Arpadv_edit "pmd"
+	Help_editor ".\header\arp_header_pmd"
  }catch{
 	echo $_.exception
  }

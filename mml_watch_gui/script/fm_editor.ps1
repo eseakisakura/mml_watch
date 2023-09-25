@@ -1696,14 +1696,18 @@ function Contxt_octave([string]$a){
   
 # trans 
 	 
-function Key_play([string]$t){ 
+function Key_play([string] $t){ 
 
 	switch($t){
 	'Space'{
 		$lisn_btn.PerformClick()
+		break;
+	}'Return'{
+		$lisn_btn.PerformClick()
 	}
 	} #sw
  } #func
+
  
 function Key_conv($t){ 
 
@@ -5901,7 +5905,9 @@ function All_sz([array]$r,[int]$j){
  } #func
   
 # Lis 
-	
+	 
+<# 
+	 
 function Adv_edit([string]$t){ 
 
 	switch($t){
@@ -5928,6 +5934,8 @@ function Adv_edit([string]$t){
  	}
  } #func
  
+#> 
+  
 function Read_mck([int]$j,$xx,[array]$yy){ 
 
 	[array]$label=@("","")
@@ -12088,7 +12096,7 @@ $alg_grp.Text= "Algorithm / Feedback"
 $alg_grp.FlatStyle= "Flat"
 $alg_grp.ForeColor= "gray"
 $alg_grp.Font= $FonLabel
-	
+	 
 # ------ ALG - Algorithm 0-1 opl / 0-7 4op 
 	 
 $lbl_alg= New-Object System.Windows.Forms.Label 
@@ -12324,9 +12332,16 @@ $lisn_btn.Add_Click({ # 試聴
  }
 })
 
+# $lisn_btn.Add_PreviewKeyDown({
+#  try{
+# 	Key_play $_.KeyCode
+#  }catch{
+# 	echo $_.exception
+#  }
+# })
 
 $lisn_btn.Add_Enter({
-	$frm_fm.KeyPreview= $False
+	$frm_fm.KeyPreview= $False # Key Press de 2重再生迂回
 })
 
 $lisn_btn.Add_Leave({
@@ -12341,13 +12356,21 @@ $conv_btn.Image= [System.Drawing.Image]::FromFile(".\img\convert.png")
 # $conv_btn.Text= ">>"
 $conv_btn.BackColor= "white"
 
-# $conv_btn.Add_KeyPress({	# KeyDown不可
-#  try{
-# 	Key_play $_.KeyCode
-#  }catch{
-# 	echo $_.exception
-#  }
-# })
+$conv_btn.Add_PreviewKeyDown({
+ try{
+	Key_play $_.KeyCode
+ }catch{
+	echo $_.exception
+ }
+})
+
+$conv_btn.Add_Enter({
+	$frm_fm.KeyPreview= $False
+})
+
+$conv_btn.Add_Leave({
+	$frm_fm.KeyPreview= $True
+})
 
 $conv_btn.Add_Click({ # text convert
  try{
@@ -12683,7 +12706,7 @@ $frm_fm.Add_FormClosing({
 })
  
 $fm_mnu= New-Object System.Windows.Forms.MenuStrip 
-	
+	 
 $fm_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_f.Text= "File"
 
@@ -14351,26 +14374,7 @@ $fm_menu_whelp.Text= "FMToneEditor Help"
 
 $fm_menu_whelp.Add_Click({
  try{
-	[string] $s= ""
-	foreach($d in $edit.Keys){
-
-		if($d.Contains("sted") -eq $True){
-			$s= $d
-			break; # first hit de stop
-		}
-	} #
-
-	if($s -ne ""){
-		[string]$retn= Editor_open $edit[$s] "..\doc\FM_Tone_Editor.txt"
-	}else{
-		[string]$retn= Editor_open $val["editor"] "..\doc\FM_Tone_Editor.txt"
-	}
-
-	if($retn -ne ''){
-		$retn= [Windows.Forms.MessageBox]::Show(
-		$retn, "確認", "OK","Information","Button1"
-		)
-	}
+	Help_editor "..\doc\FM_Tone_Editor.txt" "sted"
  }catch{
 	echo $_.exception
  }
@@ -14398,7 +14402,7 @@ $fm_menu_rld.Add_Click({
 	echo $_.exception
  }
 })
-	
+	 
 $fm_menu_adv= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_adv.Text= "Advanced"
  
@@ -14408,7 +14412,7 @@ $fm_menu_mckh= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_mckh.Text= "edit mck header"
 $fm_menu_mckh.Add_Click({
  try{
-	Adv_edit "mck"
+	Help_editor ".\header\fm_header_mck"
  }catch{
 	echo $_.exception
  }
@@ -14418,7 +14422,7 @@ $fm_menu_mckm= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_mckm.Text= "edit mck mml"
 $fm_menu_mckm.Add_Click({
  try{
-	Adv_edit "mck_mml"
+	Help_editor ".\header\fm_mml_mck"
  }catch{
 	echo $_.exception
  }
@@ -14428,7 +14432,7 @@ $fm_menu_nsdh= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_nsdh.Text= "edit nsd header"
 $fm_menu_nsdh.Add_Click({
  try{
-	Adv_edit "nsd"
+	Help_editor ".\header\fm_header_nsd"
  }catch{
 	echo $_.exception
  }
@@ -14438,7 +14442,7 @@ $fm_menu_nsdm= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_nsdm.Text= "edit nsd mml"
 $fm_menu_nsdm.Add_Click({
  try{
-	Adv_edit "nsd_mml"
+	Help_editor ".\header\fm_mml_nsd"
  }catch{
 	echo $_.exception
  }
@@ -14448,7 +14452,7 @@ $fm_menu_pmdh= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_pmdh.Text= "edit pmd header"
 $fm_menu_pmdh.Add_Click({
  try{
-	Adv_edit "pmd"
+	Help_editor ".\header\fm_header_pmd"
  }catch{
 	echo $_.exception
  }
@@ -14458,7 +14462,7 @@ $fm_menu_pmdm= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_pmdm.Text= "edit pmd mml"
 $fm_menu_pmdm.Add_Click({
  try{
-	Adv_edit "pmd_mml"
+	Help_editor ".\header\fm_mml_pmd"
  }catch{
 	echo $_.exception
  }

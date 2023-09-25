@@ -778,7 +778,9 @@ function New_mml([string] $sw){
 	return $path
  } #func
  
-function Setadv_edit([string] $t){ 
+<# 
+	 
+function Setadv_edit([string] $t){ 	
 
 	[string] $ss= ""
 
@@ -803,6 +805,8 @@ function Setadv_edit([string] $t){
 	}
  } #func
  
+#> 
+  
 function Contxt_chg([string]$sw,[int]$chg){ 
 
 	switch($sw){
@@ -1344,7 +1348,7 @@ function Wthmenu_build([string]$sw){
   } #sw
  } #func
  
-function Menu_Change($ev, [string] $ss, [string] $sw){ 	
+function Menu_Change($ev, [string] $ss, [string] $sw){ 
 
 	 if($ev.Contains("[v]") -eq $False){
 
@@ -2261,7 +2265,7 @@ $menu_pmd3.Add_Click({
 	echo $_.exception
  }
 })
-  	
+  
 $menu_player=  New-Object System.Windows.Forms.ToolStripMenuItem 
 $menu_player.Text= "プレイヤー"
 
@@ -2600,13 +2604,13 @@ $menu_h.Text= "Help"
  
 $sub_menu_adv= New-Object System.Windows.Forms.ToolStripMenuItem 
 $sub_menu_adv.Text= "Advanced"
-	
+	 
 $adv_menu_mck= New-Object System.Windows.Forms.ToolStripMenuItem 
 $adv_menu_mck.Text= "MCK new edit"
 
 $adv_menu_mck.Add_Click({
  try{
-	Setadv_edit "mck"
+	Help_editor ".\new\new_mck.mml"
  }catch{
 	echo $_.exception
  }
@@ -2617,7 +2621,7 @@ $adv_menu_nsd.Text= "NSD new edit"
 
 $adv_menu_nsd.Add_Click({
  try{
-	Setadv_edit "nsd"
+	Help_editor ".\new\new_nsd.mml"
  }catch{
 	echo $_.exception
  }
@@ -2628,7 +2632,7 @@ $adv_menu_pmd.Text= "PMD new edit"
 
 $adv_menu_pmd.Add_Click({
  try{
-	Setadv_edit "pmd"
+	Help_editor ".\new\new_pmd.mml"
  }catch{
 	echo $_.exception
  }
@@ -2638,22 +2642,13 @@ $menu_sq= New-Object System.Windows.Forms.ToolStripSeparator
  
 $menu_quickhelp= New-Object System.Windows.Forms.ToolStripMenuItem 
 $menu_quickhelp.Text= "Quick Help"
-	
+	 
 $menu_mhelp= New-Object System.Windows.Forms.ToolStripMenuItem 
 $menu_mhelp.Text= "ppmck Quick Help"
 
 $menu_mhelp.Add_Click({
  try{
-
-  if((Chk_path $edit["sted.exe"]) -eq 0){
-
-	[string]$retn= Editor_open $edit["sted.exe"] "..\doc\ppmck_Quick_Help.txt"
-  }else{
-	[string]$retn= Editor_open $val["editor"] "..\doc\ppmck_Quick_Help.txt"
-  }
-
-  if($retn -ne ""){ $err_box.Text= $retn }
-
+	Help_editor "..\doc\ppmck_Quick_Help.txt" "sted"
  }catch{
 	echo $_.exception
  }
@@ -2664,16 +2659,7 @@ $menu_nhelp.Text= "NSDlib Quick Help"
 
 $menu_nhelp.Add_Click({
  try{
-
-  if((Chk_path $edit["sted.exe"]) -eq 0){
-
-	[string]$retn= Editor_open $edit["sted.exe"] "..\doc\Nsdlib_Quick_Help.txt"
-  }else{
-	[string]$retn= Editor_open $val["editor"] "..\doc\Nsdlib_Quick_Help.txt"
-  }
-
-  if($retn -ne ""){ $err_box.Text= $retn }
-
+	Help_editor "..\doc\Nsdlib_Quick_Help.txt" "sted"
  }catch{
 	echo $_.exception
  }
@@ -2684,16 +2670,7 @@ $menu_phelp.Text= "PMD Quick Help"
 
 $menu_phelp.Add_Click({
  try{
-
-  if((Chk_path $edit["sted.exe"]) -eq 0){
-
-	[string]$retn= Editor_open $edit["sted.exe"] "..\doc\PMD_Quick_Help.txt"
-  }else{
-	[string]$retn= Editor_open $val["editor"] "..\doc\PMD_Quick_Help.txt"
-  }
-
-  if($retn -ne ""){ $err_box.Text= $retn }
-
+	Help_editor "..\doc\PMD_Quick_Help.txt" "sted"
  }catch{
 	echo $_.exception
  }
@@ -2704,21 +2681,12 @@ $menu_whelp.Text= "MmlWatch Help"
 
 $menu_whelp.Add_Click({
  try{
-
-  if((Chk_path $edit["sted.exe"]) -eq 0){
-
-	[string]$retn= Editor_open $edit["sted.exe"] "..\doc\Mml_Watch.txt"
-  }else{
-	[string]$retn= Editor_open $val["editor"] "..\doc\Mml_Watch.txt"
-  }
-
-  if($retn -ne ""){ $err_box.Text= $retn }
-
+	Help_editor "..\doc\Mml_Watch.txt" "sted"
  }catch{
 	echo $_.exception
  }
 })
-  
+ 	 
 $sub_menu_new.DropDownItems.AddRange(@($sub_menu_mck,$sub_menu_nsd,$sub_menu_pmd)) 
 
 $menu_f.DropDownItems.AddRange(@($sub_menu_new,$sub_menu_an,$menu_e,$menu_d,$menu_spy,$menu_py,$menu_sn,$menu_n))

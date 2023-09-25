@@ -43,7 +43,7 @@ function Mml_writer([string]$lis,[string]$out,[int]$sw){
 	# $xml_sav.Close()
   }
  } #func
- 	
+ 
 function File_writer($x, [string]$xml_file){ 
 
   try{
@@ -149,6 +149,40 @@ function Editor_open([string]$edt_path,[string]$file_path){
 	return $ss[2]
 } #func
  
+function Help_editor([string] $file, [string] $sw){ 
+
+	if($sw -eq 'sted'){
+
+		[string] $s= ""
+		foreach($d in $edit.Keys){
+
+			if($d.Contains("sted") -eq $True){
+				$s= $d
+				break; # first hit de stop
+			}
+		} #
+
+		if($s -ne ""){
+
+			[string] $retn= Editor_open $edit[$s] $file
+		}else{
+			$sw= ""
+		}
+	}
+
+	if($sw -eq ''){
+
+		[string] $retn= Editor_open $val["editor"] $file
+	}
+
+	if($retn -ne ''){
+
+		$retn= [Windows.Forms.MessageBox]::Show(
+		$retn, "確認", "OK","Information","Button1"
+		)
+	}
+ } #func
+ 	
 function Folder_open([int]$sw,[string]$path){ 
 
 	[string[]]$tt= "Folder","File"
