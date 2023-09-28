@@ -56,7 +56,7 @@ $setting_xml= @'
 '@
  
 # hash 
-	
+	 
 function Xml_read($x){ 
 
   # $x= $script:xml_set.table
@@ -474,21 +474,22 @@ function Write_hash(){
 	$script:opts["chk_dos"]= [string]$dos_chk.CheckState
 
 
-	if([string]$radio_mck.Checked -eq 'True'){
+	## if([string]$radio_mck.Checked -eq 'True'){	# 戻りのradio_bin不要
 
-		$script:opts["radio_bin"]= "mck"
-		$script:vals["compiler"]= $vals["mck"]
+		## $script:opts["radio_bin"]= "mck"
+		## $script:vals["compiler"]= $vals["mck"]
 
-	}elseif([string]$radio_nsd.Checked -eq 'True'){
+	## }elseif([string]$radio_nsd.Checked -eq 'True'){
 
-		$script:opts["radio_bin"]= "nsd"
-		$script:vals["compiler"]= $vals["nsd"]
+		## $script:opts["radio_bin"]= "nsd"
+		## $script:vals["compiler"]= $vals["nsd"]
 
-	}elseif([string]$radio_pmd.Checked -eq 'True'){
+	## }elseif([string]$radio_pmd.Checked -eq 'True'){
 
-		$script:opts["radio_bin"]= "pmd"
-		$script:vals["compiler"]= $vals["pmd"]
-	}
+		## $script:opts["radio_bin"]= "pmd"
+		## $script:vals["compiler"]= $vals["pmd"]
+	## }
+
 
 	switch($mck.Count){
 	0{	$script:vals["mck"]= ""; break;
@@ -623,21 +624,22 @@ function Write_hash_cut(){
 
 	$script:opts["chk_dos"]= [string]$dos_chk.CheckState
 
-	if([string]$radio_mck.Checked -eq 'True'){
+	## if([string]$radio_mck.Checked -eq 'True'){	# 戻りのradio_bin不要
 
-		$script:opts["radio_bin"]= "mck"
-		$script:vals["compiler"]= $vals["mck"]
+		## $script:opts["radio_bin"]= "mck"
+		## $script:vals["compiler"]= $vals["mck"]
 
-	}elseif([string]$radio_nsd.Checked -eq 'True'){
+	## }elseif([string]$radio_nsd.Checked -eq 'True'){
 
-		$script:opts["radio_bin"]= "nsd"
-		$script:vals["compiler"]= $vals["nsd"]
+		## $script:opts["radio_bin"]= "nsd"
+		## $script:vals["compiler"]= $vals["nsd"]
 
-	}elseif([string]$radio_pmd.Checked -eq 'True'){
+	## }elseif([string]$radio_pmd.Checked -eq 'True'){
 
-		$script:opts["radio_bin"]= "pmd"
-		$script:vals["compiler"]= $vals["pmd"]
-	}
+		## $script:opts["radio_bin"]= "pmd"
+		## $script:vals["compiler"]= $vals["pmd"]
+	## }
+
 
 	switch($mck.Count){
 	0{	$script:vals["mck"]= ""; break;
@@ -982,6 +984,8 @@ function Drag_drop([string]$sw,[array]$drp){
 
 } #func
  
+<# 
+	 
 function Box_radio([string]$ss){ 
 
 	[string]$tt=　"nsd" # radio's list初期値入れる
@@ -996,6 +1000,8 @@ function Box_radio([string]$ss){
 	return $tt
  } #func
  
+#> 
+  
 Add-Type -AssemblyName System.Windows.Forms > $null 
 
 $ErrorActionPreference= "Stop"
@@ -1413,7 +1419,7 @@ $listbox_dmc.Add_DragDrop({
 })
   
 # tab_bin 
-	
+	 
 $tab_bin= New-Object System.Windows.Forms.TabPage 
 $tab_bin.Text= "binary"
  
@@ -1965,7 +1971,7 @@ $label_dos_read.Location= "10,135"
 $tab= New-Object System.Windows.Forms.TabControl 
 $tab.Size= "245,255"
 $tab.Location= "5,25"
- 	
+ 
 $ok_btn= New-Object System.Windows.Forms.Button 
 $ok_btn.Text= "OK"
 $ok_btn.Size= "90,30"
@@ -2011,43 +2017,42 @@ $sub_f.Add_Shown({
 })
 
 $sub_f.Add_FormClosing({
- try{
+  try{
 
-  if($_.CloseReason -eq 'UserClosing'){ # x ボタンの場合
-  }
+	if($_.CloseReason -eq 'UserClosing'){ # x ボタンの場合
+	}
 
-  # $_.Cancel= $True # .ShowDialog()の場合、$sub_fがとじなくなる
-  # write-host ("chk button---"+ $sub_f.DialogResult) # 選択button
+	# $_.Cancel= $True # .ShowDialog()の場合、$sub_fがとじなくなる
+	# write-host ("chk button---"+ $sub_f.DialogResult) # 選択button
 
-  switch($sub_f.DialogResult){
-  # 'None'{}		# 不要
+ 	switch($sub_f.DialogResult){
+	# }'None'{		# 不要
+	# }'Cancel'{	break;	# キャンセルでxml書き込みスルー
 
-  'Cancel'{ break;	# キャンセルでxml書き込みスルー
+ 	'OK'{
+		switch($args_pram[0]){
+  		'all'{
+			Write_hash
+			break;
+		}'cut'{
+			Write_hash_cut
+		}
+		} #sw
 
-  }'OK'{
-	switch($args_pram[2]){
-  	'all'{
-		Write_hash
-		break;
-	}'cut'{
-		Write_hash_cut
+		Write_xml $script:xml_set.table
+
+		File_writer $script:xml_set '.\setting.xml'
 	}
 	} #sw
 
-	Write_xml $script:xml_set.table
-
-	File_writer $script:xml_set '.\setting.xml'
-  }
-  } #sw
-
- }catch{
+  }catch{
 	echo $_.exception
 	Write-Host '"ERROR: Safety Stopper >> $sub_f.FormClosing()"'
- }
+  }
 })
  
 $sub_mnu= New-Object System.Windows.Forms.MenuStrip 
-	
+	 
 $sub_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $sub_menu_f.Text= "File"
 
@@ -2067,7 +2072,7 @@ $sub_menu_a.Add_Click({	# 環境リセット
 
 	Xml_read $script:xml_set.table
 
-	switch($args_pram[2]){
+	switch($args_pram[0]){
 
 	'all'{	Hash_read;	break;
 	}'cut'{	Hash_read_cut
@@ -2149,54 +2154,63 @@ $sub_f.AcceptButton= $ok_btn	# [Enter]
  try{
 
   #引数
-  $args_pram= $Args
+	$args_pram= $Args
 
-  $vals= $args_pram[0]
-  $opts= $args_pram[1] # only memory
+	if($args_pram[0] -eq 'send'){
 
-
-  # キャスト
-  if((Chk_path '.\setting.xml') -eq 0){
-
-	$xml_set= [xml](cat '.\setting.xml')
-  }else{
-	$xml_set= [xml]$setting_xml
-  }
-
-  # 連想配列化
-
-  $mck= @{}; $nsd= @{}; $pmd= @{};
-  $mml= @{}; $ply= @{}; $dmc= @{}; $edt= @{}; $dos= @{};
+		$script:xml_set= [xml]$setting_xml
+		File_writer $script:xml_set '.\setting.xml'
+	}else{
 
 
-  Xml_read $script:xml_set.table
+		$vals= $args_pram[1]
+		$opts= $args_pram[2]	# only memory
+
+		# キャスト
+		if((Chk_path '.\setting.xml') -eq 0){
+
+			$xml_set= [xml](cat '.\setting.xml')
+		}else{
+			$xml_set= [xml]$setting_xml
+		}
+
+		# 連想配列化
+
+		$mck= @{}; $nsd= @{}; $pmd= @{};
+		$mml= @{}; $ply= @{}; $dmc= @{}; $edt= @{}; $dos= @{};
 
 
-  switch($args_pram[2]){
-  'all'{
-	$sub_menu_opt.Text= "Command Option"
+		Xml_read $script:xml_set.table
 
-	$tab.Controls.AddRange(@($tab_mml,$tab_bin,$tab_ply,$tab_edt,$tab_dos))
 
-	Hash_read # List化
-	break;
-  }'cut'{
-	$sub_menu_opt.Text= "Auto Option"
+		switch($args_pram[0]){
+		'all'{
+			$sub_menu_opt.Text= "Command Option"
 
-	$tab.Controls.AddRange(@($tab_bin,$tab_ply,$tab_edt,$tab_dos))
+			$tab.Controls.AddRange(@($tab_mml,$tab_bin,$tab_ply,$tab_edt,$tab_dos))
 
-	$script:opts["radio_bin"]= Box_radio $vals["compiler"] # radioを選択
-	Hash_read_cut # List化
+			Hash_read	# List化
+			break;
+		}'cut'{
+			$sub_menu_opt.Text= "Auto Option"
 
-  }
-  } #sw
+			$tab.Controls.AddRange(@($tab_bin,$tab_ply,$tab_edt,$tab_dos))
 
-  $Sub_f.ShowDialog() > $null
+			Hash_read_cut # List化
 
-  echo $vals $opts # return dato Safety Stopper
+		}
+		} #sw
 
-  Write-Host ("`r`n"+"`"環境設定`"を終了します"+"`r`n")
+		$Sub_f.ShowDialog() > $null
 
+		Write-Host ("`r`n"+"`"環境設定`"を終了します"+"`r`n")
+
+		[array] $retn= $vals, $opts
+		return $retn
+
+		## echo $vals $opts # return dato Safety Stopper
+
+	}
 
  }catch{
 	echo $_.exception
@@ -2205,4 +2219,4 @@ $sub_f.AcceptButton= $ok_btn	# [Enter]
  }finally{
 	$pram_frm.Dispose()
  }
- 
+ 	

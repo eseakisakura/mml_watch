@@ -416,7 +416,7 @@ $rot["4D"]=	"4323 1232",
 		"432 123 132 132"
  
 # gui 
-	
+	 
 function Trayarp_hide([string]$t){ 
 
 	switch($t){
@@ -584,7 +584,7 @@ function Mml_select([string]$sw){
 	} #sw
  } #func
  
-function Arpstus_build(){ 
+function Stus_build(){ 
 
 	[string[]]$t= Split_path $val["compiler"]
 	[string[]]$s= Split_path $val["player"]
@@ -592,7 +592,7 @@ function Arpstus_build(){
 	$arp_label.Text= "  comp: "+ $t[0]+ " | play: "+ $s[0]+ " | oct: "+ $opt["oct"] +" | Track Header: "+ $comb_prefix.SelectedItem
  } #func
  
-function Arpmenu_build([string]$sw){ 
+function Menu_build([string]$sw){ 
 
   [string]$d= "[v] "
 
@@ -969,10 +969,41 @@ function Menu_comp_build([string]$t){
 
 	return $t
  } #func
+ 
+function Menu_Change($ev, [string] $ss, [string] $sw){ 	
+
+	 if($ev.Contains("[v]") -eq $False){
+
+		switch($sw){
+		'comp_select'{
+
+			Change_value "compiler" $ss
+			$script:opt["radio_bin"]= Menu_comp_build $ss
+
+			break;
+		}'comp_value'{
+
+			Change_value $ss $ev
+			Menu_build $ss
+
+			Change_value "compiler" $ss
+			$script:opt["radio_bin"]= Menu_comp_build $ss
+
+			break;
+		}default{
+			Change_value $ss $ev
+			Menu_build $ss
+
+ 		}
+		} #sw
+
+		Stus_build
+	}
+ } #func
   
 # Hash Xml 
-	
-function Arpchange_value([string]$sw, [string]$name){ 
+	 
+function Change_value([string]$sw, [string]$name){ 
 
   # if($name -match '[v]' -eq $False){
 
@@ -2208,7 +2239,7 @@ function Keydown_arp([string]$t){
  
 #> 
   
-function Key_play([string]$t){ 	
+function Key_play([string]$t){ 
 
 	switch($t){
 	'Space'{
@@ -2288,7 +2319,7 @@ function Unredo_arp([int]$n){
  } #func
  
 <# 
-	 
+	
 function Arpadv_edit([string]$t){ 
 
   switch($t){
@@ -2666,7 +2697,7 @@ $number_grp.Text= "Number arpeggio"
 $number_grp.Size= "565,130"
 $number_grp.Location= "10,150"
 $number_grp.FlatStyle= "Flat"
-	 
+	
 $label_apeg= New-Object System.Windows.Forms.Label 
 $label_apeg.Text= "Arpeggio"
 $label_apeg.Size= "65,20"
@@ -2786,7 +2817,7 @@ $box_apeg.Add_KeyDown({ # 試聴
     echo $_.exception
  }
 })
- 	 
+  
 $mml_grp= New-Object System.Windows.Forms.GroupBox 
 $mml_grp.Text= "MML arpeggio"
 $mml_grp.Size= "565,345"
@@ -2818,17 +2849,17 @@ $comb_prefix.Add_SelectedValueChanged({
 	switch($this.SelectedItem){
 	'ppmck'{
 		$rtrn= "mck"
-		Arpchange_value "compiler" $rtrn
+		Change_value "compiler" $rtrn
 		break;
 
 	}'NSDlib'{
 		$rtrn= "nsd"
-		Arpchange_value "compiler" $rtrn
+		Change_value "compiler" $rtrn
 		break;
 
 	}'PMD'{
 		$rtrn= "pmd"
-		Arpchange_value "compiler" $rtrn
+		Change_value "compiler" $rtrn
 		break;
 
 	}Default{
@@ -2838,7 +2869,7 @@ $comb_prefix.Add_SelectedValueChanged({
 	} #sw
 
 	Menu_comp_build $rtrn > $null
-	Arpstus_build
+	Stus_build
 
  }catch{
 	echo $_.exception
@@ -3296,7 +3327,7 @@ $arp_menu_set.Add_Click({
 	$tray_arp.Visible= $False
 
 	[array]$args_set= "",""
-	$args_set= .\setting.ps1 $val $opt "cut"
+	$args_set= .\setting.ps1 "cut" $val $opt
 
 	$script:val= $args_set[0]
 	$script:opt= $args_set[1]
@@ -3309,22 +3340,24 @@ $arp_menu_set.Add_Click({
 		$script:play=@{}; $script:dos=@{}; $script:edit=@{};
 
 		Setxml_read $script:set_xml.table # hash化 script: ga hitsuyo
+
+		Menu_build "mck"
+		Menu_build "nsd"
+		Menu_build "pmd"
+
+		Menu_build "player"
+		Menu_build "dos"
+		Menu_build "editor"
+
 	}else{
-		Write-Host ("`r`n"+ '"setting.xml" 読み込みエラー')
+		Write-Host ('"setting.xml" 読み込みエラー')
 	}
 
-	Mml_select $comb_prefix.SelectedItem
+	Change_value "compiler" $opt["radio_bin"]
 
-	Menu_comp_build $opt["radio_bin"] > $null
+	# Mml_select $comb_prefix.SelectedItem
 
-	Arpmenu_build "mck"
-	Arpmenu_build "nsd"
-	Arpmenu_build "pmd"
-
-	Arpmenu_build "player"
-	Arpmenu_build "dos"
-	Arpmenu_build "editor"
-	Arpstus_build
+	Stus_build
 
 	$tray_arp.Visible= $bool_sw
 
@@ -3332,21 +3365,16 @@ $arp_menu_set.Add_Click({
 	echo $_.exception
  }
 })
-	
+	 
 $arp_menu_comp=  New-Object System.Windows.Forms.ToolStripMenuItem 
 $arp_menu_comp.Text= "compiler"
-
-$arp_menu_cmck=  New-Object System.Windows.Forms.ToolStripMenuItem
+	 
+$arp_menu_cmck=  New-Object System.Windows.Forms.ToolStripMenuItem 
 # $arp_menu_cmck.Text= "MCK"
 
 $arp_menu_cmck.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Arpchange_value "compiler" "mck"
-
-	$script:opt["radio_bin"]= Menu_comp_build "mck"
-	Arpstus_build
-  }
+	Menu_Change $this.Text "mck" "comp_select"
  }catch{
 	echo $_.exception
  }
@@ -3357,12 +3385,7 @@ $arp_menu_cnsd=  New-Object System.Windows.Forms.ToolStripMenuItem
 
 $arp_menu_cnsd.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Arpchange_value "compiler" "nsd"
-
-	$script:opt["radio_bin"]= Menu_comp_build "nsd"
-	Arpstus_build
-  }
+	Menu_Change $this.Text "nsd" "comp_select"
  }catch{
 	echo $_.exception
  }
@@ -3373,32 +3396,19 @@ $arp_menu_cpmd=  New-Object System.Windows.Forms.ToolStripMenuItem
 
 $arp_menu_cpmd.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
- 	Arpchange_value "compiler" "pmd"
-
-	$script:opt["radio_bin"]= Menu_comp_build "pmd"
-	Arpstus_build
-  }
+	Menu_Change $this.Text "pmd" "comp_select"
  }catch{
 	echo $_.exception
  }
 })
-	
+ 
 $arp_menu_mck0= New-Object System.Windows.Forms.ToolStripMenuItem 
 #$arp_menu_mck0.Text= "0.exe"
 $arp_menu_mck0.Visible= $False
 
 $arp_menu_mck0.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Arpchange_value "mck" $this.Text
-	Arpchange_value "compiler" "mck"
-
-	$script:opt["radio_bin"]= Menu_comp_build "mck"
-	Arpmenu_build "mck"
-	Arpstus_build
-  }
+	Menu_Change $this.Text "mck" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -3410,15 +3420,7 @@ $arp_menu_mck1.Visible= $False
 
 $arp_menu_mck1.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Arpchange_value "mck" $this.Text
-	Arpchange_value "compiler" "mck"
-
-	$script:opt["radio_bin"]= Menu_comp_build "mck"
-	Arpmenu_build "mck"
-	Arpstus_build
-  }
+	Menu_Change $this.Text "mck" "comp_value"
   }catch{
 	echo $_.exception
  }
@@ -3430,15 +3432,7 @@ $arp_menu_mck2.Visible= $False
 
 $arp_menu_mck2.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Arpchange_value "mck" $this.Text
-	Arpchange_value "compiler" "mck"
-
-	$script:opt["radio_bin"]= Menu_comp_build "mck"
-	Arpmenu_build "mck"
-	Arpstus_build
-  }
+	Menu_Change $this.Text "mck" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -3450,15 +3444,7 @@ $arp_menu_mck3.Visible= $False
 
 $arp_menu_mck3.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Arpchange_value "mck" $this.Text
-	Arpchange_value "compiler" "mck"
-
-	$script:opt["radio_bin"]= Menu_comp_build "mck"
-	Arpmenu_build "mck"
-	Arpstus_build
-  }
+	Menu_Change $this.Text "mck" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -3470,15 +3456,7 @@ $arp_menu_nsd0.Visible= $False
 
 $arp_menu_nsd0.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Arpchange_value "nsd" $this.Text
-	Arpchange_value "compiler" "nsd"
-
-	$script:opt["radio_bin"]= Menu_comp_build "nsd"
-	Arpmenu_build "nsd"
-	Arpstus_build
-  }
+	Menu_Change $this.Text "nsd" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -3490,15 +3468,7 @@ $arp_menu_nsd1.Visible= $False
 
 $arp_menu_nsd1.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Arpchange_value "nsd" $this.Text
-	Arpchange_value "compiler" "nsd"
-
-	$script:opt["radio_bin"]= Menu_comp_build "nsd"
-	Arpmenu_build "nsd"
-	Arpstus_build
-  }
+	Menu_Change $this.Text "nsd" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -3510,15 +3480,7 @@ $arp_menu_nsd2.Visible= $False
 
 $arp_menu_nsd2.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Arpchange_value "nsd" $this.Text
-	Arpchange_value "compiler" "nsd"
-
-	$script:opt["radio_bin"]= Menu_comp_build "nsd"
-	Arpmenu_build "nsd"
-	Arpstus_build
-  }
+	Menu_Change $this.Text "nsd" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -3530,15 +3492,7 @@ $arp_menu_nsd3.Visible= $False
 
 $arp_menu_nsd3.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Arpchange_value "nsd" $this.Text
-	Arpchange_value "compiler" "nsd"
-
-	$script:opt["radio_bin"]= Menu_comp_build "nsd"
-	Arpmenu_build "nsd"
-	Arpstus_build
-  }
+	Menu_Change $this.Text "nsd" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -3550,15 +3504,7 @@ $arp_menu_pmd0.Visible= $False
 
 $arp_menu_pmd0.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Arpchange_value "pmd" $this.Text
-	Arpchange_value "compiler" "pmd"
-
-	$script:opt["radio_bin"]= Menu_comp_build "pmd"
-	Arpmenu_build "pmd"
-	Arpstus_build
-  }
+	Menu_Change $this.Text "pmd" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -3570,15 +3516,7 @@ $arp_menu_pmd1.Visible= $False
 
 $arp_menu_pmd1.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Arpchange_value "pmd" $this.Text
-	Arpchange_value "compiler" "pmd"
-
-	$script:opt["radio_bin"]= Menu_comp_build "pmd"
-	Arpmenu_build "pmd"
-	Arpstus_build
-  }
+	Menu_Change $this.Text "pmd" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -3590,15 +3528,7 @@ $arp_menu_pmd2.Visible= $False
 
 $arp_menu_pmd2.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Arpchange_value "pmd" $this.Text
-	Arpchange_value "compiler" "pmd"
-
-	$script:opt["radio_bin"]= Menu_comp_build "pmd"
-	Arpmenu_build "pmd"
-	Arpstus_build
-  }
+	Menu_Change $this.Text "pmd" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -3610,15 +3540,7 @@ $arp_menu_pmd3.Visible= $False
 
 $arp_menu_pmd3.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Arpchange_value "pmd" $this.Text
-	Arpchange_value "compiler" "pmd"
-
-	$script:opt["radio_bin"]= Menu_comp_build "pmd"
-	Arpmenu_build "pmd"
-	Arpstus_build
-  }
+	Menu_Change $this.Text  "pmd" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -3630,12 +3552,7 @@ $arp_menu_ply0.Visible= $False
 
 $arp_menu_ply0.Add_Click({
  try{
-   if($this.Text.Contains("[v]") -eq $False){
-
-	Arpchange_value "player" $this.Text
-	Arpmenu_build "player"
-	Arpstus_build
-   }
+	Menu_Change $this.Text "player"
  }catch{
 	echo $_.exception
  }
@@ -3647,12 +3564,7 @@ $arp_menu_ply1.Visible= $False
 
 $arp_menu_ply1.Add_Click({
  try{
-   if($this.Text.Contains("[v]") -eq $False){
-
-	Arpchange_value "player" $this.Text
-	Arpmenu_build "player"
-	Arpstus_build
-   }
+	Menu_Change $this.Text "player"
  }catch{
 	echo $_.exception
  }
@@ -3664,12 +3576,7 @@ $arp_menu_ply2.Visible= $False
 
 $arp_menu_ply2.Add_Click({
  try{
-   if($this.Text.Contains("[v]") -eq $False){
-
-	Arpchange_value "player" $this.Text
-	Arpmenu_build "player"
-	Arpstus_build
-   }
+	Menu_Change $this.Text "player"
  }catch{
 	echo $_.exception
  }
@@ -3681,12 +3588,7 @@ $arp_menu_ply3.Visible= $False
 
 $arp_menu_ply3.Add_Click({
  try{
-   if($this.Text.Contains("[v]") -eq $False){
-
-	Arpchange_value "player" $this.Text
-	Arpmenu_build "player"
-	Arpstus_build
-   }
+	Menu_Change $this.Text "player"
  }catch{
 	echo $_.exception
  }
@@ -3698,12 +3600,7 @@ $arp_menu_ply4.Visible= $False
 
 $arp_menu_ply4.Add_Click({
  try{
-   if($this.Text.Contains("[v]") -eq $False){
-
-	Arpchange_value "player" $this.Text
-	Arpmenu_build "player"
-	Arpstus_build
-   }
+	Menu_Change $this.Text "player"
  }catch{
 	echo $_.exception
  }
@@ -3715,12 +3612,7 @@ $arp_menu_ply5.Visible= $False
 
 $arp_menu_ply5.Add_Click({
  try{
-   if($this.Text.Contains("[v]") -eq $False){
-
-	Arpchange_value "player" $this.Text
-	Arpmenu_build "player"
-	Arpstus_build
-   }
+	Menu_Change $this.Text "player"
  }catch{
 	echo $_.exception
  }
@@ -3732,12 +3624,7 @@ $arp_menu_ply6.Visible= $False
 
 $arp_menu_ply6.Add_Click({
  try{
-   if($this.Text.Contains("[v]") -eq $False){
-
-	Arpchange_value "player" $this.Text
-	Arpmenu_build "player"
-	Arpstus_build
-   }
+	Menu_Change $this.Text "player"
  }catch{
 	echo $_.exception
  }
@@ -3749,81 +3636,11 @@ $arp_menu_ply7.Visible= $False
 
 $arp_menu_ply7.Add_Click({
  try{
-   if($this.Text.Contains("[v]") -eq $False){
-
-	Arpchange_value "player" $this.Text
-	Arpmenu_build "player"
-	Arpstus_build
-   }
+	Menu_Change $this.Text "player"
  }catch{
 	echo $_.exception
  }
 })
- 
-$arp_menu_dos0= New-Object System.Windows.Forms.ToolStripMenuItem 
-#$arp_menu_dos0.Text= "0.exe"
-$arp_menu_dos0.Visible= $False
-
-$arp_menu_dos0.Add_Click({
- try{
-   if($this.Text.Contains("[v]") -eq $False){
-	Arpchange_value "dos" $this.Text
-	Arpmenu_build "dos"
-	Arpstus_build
-  }
- }catch{
-	echo $_.exception
- }
-})
-
-$arp_menu_dos1= New-Object System.Windows.Forms.ToolStripMenuItem
-#$arp_menu_dos1.Text= "1.exe"
-$arp_menu_dos1.Visible= $False
-
-$arp_menu_dos1.Add_Click({
- try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Arpchange_value "dos" $this.Text
-	Arpmenu_build "dos"
-	Arpstus_build
-  }
- }catch{
-	echo $_.exception
- }
-})
-
-$arp_menu_dos2= New-Object System.Windows.Forms.ToolStripMenuItem
-#$arp_menu_dos2.Text= "2.exe"
-$arp_menu_dos2.Visible= $False
-
-$arp_menu_dos2.Add_Click({
- try{
-  if($this.Text.Contains("[v]") -eq $False){
- 	Arpchange_value "dos" $this.Text
-	Arpmenu_build "dos"
-	Arpstus_build
-  }
-}catch{
-	echo $_.exception
- }
-})
-
-$arp_menu_dos3= New-Object System.Windows.Forms.ToolStripMenuItem
-#$arp_menu_dos3.Text= "3.exe"
-$arp_menu_dos3.Visible= $False
-
-$arp_menu_dos3.Add_Click({
- try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Arpchange_value "dos" $this.Text
-	Arpmenu_build "dos"
-	Arpstus_build
-  }
- }catch{
-	echo $_.exception
- }
-})
-
  
 $arp_menu_edt0= New-Object System.Windows.Forms.ToolStripMenuItem 
 #$arp_menu_edt0.Text= "0.exe"
@@ -3831,11 +3648,7 @@ $arp_menu_edt0.Visible= $False
 
 $arp_menu_edt0.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Arpchange_value "editor" $this.Text
-	Arpmenu_build "editor"
-	Arpstus_build
-  }
+	Menu_Change $this.Text "editor"
  }catch{
 	echo $_.exception
  }
@@ -3847,11 +3660,7 @@ $arp_menu_edt1.Visible= $False
 
 $arp_menu_edt1.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Arpchange_value "editor" $this.Text
-	Arpmenu_build "editor"
-	Arpstus_build
-  }
+	Menu_Change $this.Text "editor"
  }catch{
 	echo $_.exception
  }
@@ -3863,11 +3672,7 @@ $arp_menu_edt2.Visible= $False
 
 $arp_menu_edt2.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Arpchange_value "editor" $this.Text
-	Arpmenu_build "editor"
-	Arpstus_build
-  }
+	Menu_Change $this.Text "editor"
  }catch{
 	echo $_.exception
  }
@@ -3879,11 +3684,7 @@ $arp_menu_edt3.Visible= $False
 
 $arp_menu_edt3.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Arpchange_value "editor" $this.Text
-	Arpmenu_build "editor"
-	Arpstus_build
-  }
+	Menu_Change $this.Text "editor"
  }catch{
 	echo $_.exception
  }
@@ -3895,11 +3696,7 @@ $arp_menu_edt4.Visible= $False
 
 $arp_menu_edt4.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Arpchange_value "editor" $this.Text
-	Arpmenu_build "editor"
-	Arpstus_build
-  }
+	Menu_Change $this.Text "editor"
  }catch{
 	echo $_.exception
  }
@@ -3911,11 +3708,7 @@ $arp_menu_edt5.Visible= $False
 
 $arp_menu_edt5.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Arpchange_value "editor" $this.Text
-	Arpmenu_build "editor"
-	Arpstus_build
-  }
+	Menu_Change $this.Text "editor"
  }catch{
 	echo $_.exception
  }
@@ -3927,11 +3720,7 @@ $arp_menu_edt6.Visible= $False
 
 $arp_menu_edt6.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Arpchange_value "editor" $this.Text
-	Arpmenu_build "editor"
-	Arpstus_build
-  }
+	Menu_Change $this.Text "editor"
  }catch{
 	echo $_.exception
  }
@@ -3943,15 +3732,60 @@ $arp_menu_edt7.Visible= $False
 
 $arp_menu_edt7.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Arpchange_value "editor" $this.Text
-	Arpmenu_build "editor"
-	Arpstus_build
-  }
+	Menu_Change $this.Text "editor"
  }catch{
 	echo $_.exception
  }
 })
+ 
+$arp_menu_dos0= New-Object System.Windows.Forms.ToolStripMenuItem 
+#$arp_menu_dos0.Text= "0.exe"
+$arp_menu_dos0.Visible= $False
+
+$arp_menu_dos0.Add_Click({
+ try{
+	Menu_Change $this.Text "dos"
+ }catch{
+	echo $_.exception
+ }
+})
+
+$arp_menu_dos1= New-Object System.Windows.Forms.ToolStripMenuItem
+#$arp_menu_dos1.Text= "1.exe"
+$arp_menu_dos1.Visible= $False
+
+$arp_menu_dos1.Add_Click({
+ try{
+	Menu_Change $this.Text "dos"
+ }catch{
+	echo $_.exception
+ }
+})
+
+$arp_menu_dos2= New-Object System.Windows.Forms.ToolStripMenuItem
+#$arp_menu_dos2.Text= "2.exe"
+$arp_menu_dos2.Visible= $False
+
+$arp_menu_dos2.Add_Click({
+ try{
+	Menu_Change $this.Text "dos"
+}catch{
+	echo $_.exception
+ }
+})
+
+$arp_menu_dos3= New-Object System.Windows.Forms.ToolStripMenuItem
+#$arp_menu_dos3.Text= "3.exe"
+$arp_menu_dos3.Visible= $False
+
+$arp_menu_dos3.Add_Click({
+ try{
+	Menu_Change $this.Text "dos"
+ }catch{
+	echo $_.exception
+ }
+})
+
   
 $arp_menu_m= New-Object System.Windows.Forms.ToolStripMenuItem 
 $arp_menu_m.Text= "Octave"
@@ -3963,7 +3797,7 @@ $arp_menu_oct1.Add_Click({
     if($opt["oct"] -ne 'o1'){
 
 	$script:opt["oct"]= Oscarp_sw "o1"
-	Arpstus_build
+	Stus_build
     }
  }catch{
 	echo $_.exception
@@ -3977,7 +3811,7 @@ $arp_menu_oct2.Add_Click({
     if($opt["oct"] -ne 'o2'){
 
 	$script:opt["oct"]= Oscarp_sw "o2"
-	Arpstus_build
+	Stus_build
     }
  }catch{
 	echo $_.exception
@@ -3991,7 +3825,7 @@ $arp_menu_oct3.Add_Click({
     if($opt["oct"] -ne 'o3'){
 
 	$script:opt["oct"]= Oscarp_sw "o3"
-	Arpstus_build
+	Stus_build
     }
  }catch{
 	echo $_.exception
@@ -4005,7 +3839,7 @@ $arp_menu_oct4.Add_Click({
     if($opt["oct"] -ne 'o4'){
 
 	$script:opt["oct"]= Oscarp_sw "o4"
-	Arpstus_build
+	Stus_build
     }
  }catch{
 	echo $_.exception
@@ -4019,7 +3853,7 @@ $arp_menu_oct5.Add_Click({
     if($opt["oct"] -ne 'o5'){
 
 	$script:opt["oct"]= Oscarp_sw "o5"
-	Arpstus_build
+	Stus_build
     }
  }catch{
 	echo $_.exception
@@ -4033,7 +3867,7 @@ $arp_menu_oct6.Add_Click({
     if($opt["oct"] -ne 'o6'){
 
 	$script:opt["oct"]= Oscarp_sw "o6"
-	Arpstus_build
+	Stus_build
     }
  }catch{
 	echo $_.exception
@@ -4047,7 +3881,7 @@ $arp_menu_oct7.Add_Click({
     if($opt["oct"] -ne 'o7'){
 
 	$script:opt["oct"]= Oscarp_sw "o7"
-	Arpstus_build
+	Stus_build
     }
  }catch{
 	echo $_.exception
@@ -4061,7 +3895,7 @@ $arp_menu_oct8.Add_Click({
     if($opt["oct"] -ne 'o8'){
 
 	$script:opt["oct"]= Oscarp_sw "o8"
-	Arpstus_build
+	Stus_build
     }
  }catch{
 	echo $_.exception
@@ -4248,12 +4082,14 @@ $frm_arp.Controls.AddRange(@($arp_mnu,$chd_grp,$flet_grp,$number_grp,$mml_grp,$a
   Arpxml_read $script:arp_xml.table.val $script:arp_xml.table.opt
 
 
-  # readのみ - Menuのため
-  if((Chk_path '.\setting.xml') -eq 0){
 
-	$set_xml= [xml](cat '.\setting.xml')
-	Setxml_read $script:set_xml.table # hash化
-  }
+	if((Chk_path '.\setting.xml') -ne 0){
+
+		.\setting.ps1 "send"
+	}
+
+	$set_xml= [xml](cat '.\setting.xml')	# Menuのため
+	Setxml_read $script:set_xml.table	# hash化
 
 #write-host "------"
 #write-host  ("mck: "+ $val["mck"])
@@ -4271,15 +4107,15 @@ $frm_arp.Controls.AddRange(@($arp_mnu,$chd_grp,$flet_grp,$number_grp,$mml_grp,$a
 
   Menu_comp_build $opt["radio_bin"] > $null
 
-  Arpmenu_build "mck"
-  Arpmenu_build "nsd"
-  Arpmenu_build "pmd"
+  Menu_build "mck"
+  Menu_build "nsd"
+  Menu_build "pmd"
 
-  Arpmenu_build "player"
-  Arpmenu_build "dos"
-  Arpmenu_build "editor"
+  Menu_build "player"
+  Menu_build "dos"
+  Menu_build "editor"
 
-  Arpstus_build # $opt["oct"]
+  Stus_build # $opt["oct"]
 
   [string]$lis= ""
 
@@ -4328,4 +4164,4 @@ $frm_arp.Controls.AddRange(@($arp_mnu,$chd_grp,$flet_grp,$number_grp,$mml_grp,$a
 
 	$tray_arp.Dispose()
  }
- 
+ 	

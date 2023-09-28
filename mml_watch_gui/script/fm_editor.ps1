@@ -698,7 +698,7 @@ function NmudX([string] $sw){
  } #func
   
 # contxt 
-	 
+	
 function Mouse_opwiner([string] $sw, [string] $opnum, $ev){	# Op. 
 
 	[string] $type= $key["knob"][(Item_index)]
@@ -1695,7 +1695,7 @@ function Contxt_octave([string]$a){
  } #func
   
 # trans 
-	 
+	
 function Key_play([string] $t){ 
 
 	switch($t){
@@ -1726,16 +1726,16 @@ function Key_conv($t){
  
 function Focus_btn(){ 
 
-		if(($fm_box.Focused -eq $True) -or ($fm_box_mml.Focused -eq $True)){
+	if(($fm_box.Focused -eq $True) -or ($fm_box_mml.Focused -eq $True)){
 
-			$conv_btn.Focus() # $fm_box.Add_Leave - .Focus() de leave event tame
+		$conv_btn.Focus() # $fm_box.Add_Leave - .Focus() de leave event tame
 
 
-			if(($fm_box.Modified -eq $True) -or ($fm_box_mml.Modified -eq $True)){
+		if(($fm_box.Modified -eq $True) -or ($fm_box_mml.Modified -eq $True)){
 
-				$conv_btn.PerformClick()
-			}
+			$conv_btn.PerformClick()
 		}
+	}
  } #func
  
 # ------ 
@@ -1787,7 +1787,7 @@ function Idx(){
 # ------ 
  
 # poly 
-	
+	 
 function Flow_ssg([int]$num, [array]$e, [int]$width, [int]$height){ 
 
 
@@ -2331,7 +2331,7 @@ function Poly_chg(){
  } #func
   
 # sine 
-	
+	 
 function Flowtting_point([int]$cnt, [int]$opt, [array]$xy){ 
 
 	[int]$i= 0
@@ -2774,7 +2774,7 @@ function Sin_chg(){
  } #func
   
 # bg alg 
-	
+	 
 function Chip_view([int]$x,[int]$y){ 
 
 	[array]$p= "",""
@@ -4805,7 +4805,38 @@ function Fmwrite_xml($x,$y){
  } #func
   
 # gui 
-	
+	 
+function Menu_Change($ev, [string] $ss, [string] $sw){ 
+
+	 if($ev.Contains("[v]") -eq $False){
+
+		switch($sw){
+		'comp_select'{
+
+			Change_value "compiler" $ss
+			$script:opt["radio_bin"]= Menu_comp_build $ss
+
+			break;
+		}'comp_value'{
+
+			Change_value $ss $ev
+			Menu_build $ss
+
+			Change_value "compiler" $ss
+			$script:opt["radio_bin"]= Menu_comp_build $ss
+
+			break;
+		}default{
+			Change_value $ss $ev
+			Menu_build $ss
+
+ 		}
+		} #sw
+
+		Stus_build
+	}
+ } #func
+ 
 function Menu_comp_build([string]$t){ 
 
 	$fm_menu_cmck.Text= "MCK"
@@ -5494,7 +5525,7 @@ function MSop_checker([int]$i, [string]$ss){ # Mask,SSG
 # ------ 
  
 # Panel 
-	
+	 
 function Panel_knob(){	# knob add/remove 
 
 	$fm_panel.SuspendLayout()
@@ -6366,7 +6397,7 @@ function Preset_listen([string] $sw, [string] $ss){
  } #func
   
 # Export 
-	
+	 
 function Unredo([int]$n){ 
 
 
@@ -7682,7 +7713,7 @@ Add-Type -AssemblyName System.Drawing > $null
 $ErrorActionPreference= "Stop"
 
 $FonLabel= New-Object System.Drawing.Font("Segoe UI", 10)
-$Fon= New-Object System.Drawing.Font("MS Gothic",11) # Microsoft Sans Serif  MS Gothic
+$FonMono= New-Object System.Drawing.Font("MS Gothic",11) # Microsoft Sans Serif  MS Gothic
 $Fona= New-Object System.Drawing.Font("Lucida Console", 11, [System.Drawing.FontStyle]::Bold) # Lucida Console  Garamond Georgia Verdana Impact
 
 cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
@@ -8381,7 +8412,7 @@ $sb_stus.SizingGrip= $false
 
 $sb_label= New-Object System.Windows.Forms.ToolStripStatusLabel
 # $sb_label.Text= "  Test ------"
-# $sb_label.Font= $Fon
+# $sb_label.Font= $FonMono
  
 $sb_alg= New-Object System.Windows.Forms.Form 
 $sb_alg.Text= "FM Operator window"
@@ -8407,6 +8438,18 @@ $sb_alg.Add_KeyDown({
  }
 })
 
+$sb_alg.Add_VisibleChanged({
+
+	switch($this.Visible){
+	$True{
+		Write-Host ('>> Operator windowを開きます'+ "`r`n")
+		break;
+	}$False{
+		Write-Host ('<< Operator windowを閉じます'+ "`r`n")
+	}
+	} #sw
+})
+
 $sb_alg.Add_FormClosing({
  try{
 	if($_.CloseReason -eq 'UserClosing'){ # x ボタンの場合のため
@@ -8418,8 +8461,6 @@ $sb_alg.Add_FormClosing({
 
 	$_.Cancel= $True # Hide -> 再度 Showのため
 	# EventArgs -> $_.(c# dato e.)
-
-	Write-Host ('<< Operator windowを閉じます'+ "`r`n")
 
 	$this.Hide() #.Visible= $false
 
@@ -8865,7 +8906,7 @@ $sb_stus.Items.AddRange(@($sb_label))
 $sb_alg.Controls.AddRange(@($sb_mnu,$pict_panel,$sb_stus))
   
 # Preset forms 
-	 
+	
 $ff_baloon= New-Object System.Windows.Forms.Tooltip 
 $ff_baloon.ShowAlways= $False
 # $ff_baloon.ToolTipIcon= "Info"
@@ -12347,7 +12388,7 @@ $lisn_btn.Add_Enter({
 $lisn_btn.Add_Leave({
 	$frm_fm.KeyPreview= $True
 })
- 	
+ 
 $conv_btn= New-Object System.Windows.Forms.Button 
 $conv_btn.Location= "20, 65"
 $conv_btn.Size= "25, 25"
@@ -12377,6 +12418,7 @@ $conv_btn.Add_Click({ # text convert
 	if($fm_box.Modified -eq $True){ #変更あらば
 
 		Param_exp $fm_box.Text "conv"
+		Box_read	# 整形
 		Panel_chg
 
 		if($ff_frm.Visible -eq $True){
@@ -12514,7 +12556,7 @@ $fm_box_mml.BorderStyle= "FixedSingle"
 # $fm_box_mml.ReadOnly= "True"
 $fm_box_mml.ForeColor= "dimgray"
 $fm_box_mml.BackColor= "white" # "gainsboro"
-$fm_box_mml.font= $Fon
+$fm_box_mml.font= $FonMono	
 
 $fm_box_mml.Add_Enter({
  try{
@@ -12555,7 +12597,7 @@ $fm_box.BorderStyle= "FixedSingle"
 # $fm_box.ReadOnly= "True"
 $fm_box.ForeColor= "dimgray"
 $fm_box.BackColor= "white" # "gainsboro"
-$fm_box.font= $Fon
+$fm_box.font= $FonMono
 
 $fm_box.Add_Enter({ # kaki komi de undo reset
  try{
@@ -12591,7 +12633,7 @@ $fm_stus.SizingGrip= $false
 
 $fm_label= New-Object System.Windows.Forms.ToolStripStatusLabel
 # $fm_label.Text= "  Test ------"
-# $fm_label.Font= $Fon
+# $fm_label.Font= $FonMono
  
 $contxt_trayfm= New-Object System.Windows.Forms.ContextMenuStrip 
 # $contxt objを読み込んだ後$NotifyIcon objが安全
@@ -12727,7 +12769,7 @@ $fm_menu_f.Text= "File"
 
 
 
-	 
+	
 $fm_menu_pset= New-Object System.Windows.Forms.ToolStripSeparator 
 $fm_menu_pset= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_pset.Text= "Preset"
@@ -13104,12 +13146,9 @@ $fm_menu_ud.Enabled= $False
 
 $fm_menu_ud.Add_Click({
  try{
-	if($fm_box_mml.Focused -eq $True){
-		$fm_box_mml.Undo() # text_box gawa api de
+	if($fm_box.Focused -eq $True){
 
-	}elseif($fm_box.Focused -eq $True){
-		$fm_box.Undo()
-
+		$fm_box.Undo()	# text_box gawa api de
 	}else{
 		Unredo 1
 	}
@@ -13141,7 +13180,7 @@ $fm_menu_set.Add_Click({
 	$tray_fm.Visible= $False
 
 	[array]$args_set= "",""
-	$args_set= .\setting.ps1 $val $opt "cut"
+	$args_set= .\setting.ps1 "cut" $val $opt
 
 
 	$script:val= $args_set[0]
@@ -13156,21 +13195,24 @@ $fm_menu_set.Add_Click({
 
 		Setxml_read $script:set_xml.table # hash化 script: ga hitsuyo
 
+		Menu_build "mck"
+		Menu_build "nsd"
+		Menu_build "pmd"
+
+		Menu_build "player"
+		Menu_build "dos"
+		Menu_build "editor"
+
 	}else{
-		Write-Host ("`r`n"+ '"setting.xml" 読み込みエラー')
+		Write-Host ('"setting.xml" 読み込みエラー')
 	}
 
-	Unredo 0
 
+	Unredo 0
 	# Panel_chg	# compiler list change
 
-	Menu_build "mck"
-	Menu_build "nsd"
- 	Menu_build "pmd"
+	Change_value "compiler" $opt["radio_bin"]
 
-	Menu_build "player"
-	Menu_build "dos"
-	Menu_build "editor"
 	Stus_build
 
 
@@ -13186,7 +13228,7 @@ $fm_menu_set.Add_Click({
 })
 
 
-	
+	 
 <# 
 	
 $fm_menu_cmp0= New-Object System.Windows.Forms.ToolStripMenuItem 
@@ -13278,18 +13320,13 @@ $fm_menu_cmp5.Add_Click({
   
 $fm_menu_comp=  New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_comp.Text= "compiler"
-
-$fm_menu_cmck=  New-Object System.Windows.Forms.ToolStripMenuItem
+	 
+$fm_menu_cmck=  New-Object System.Windows.Forms.ToolStripMenuItem 
 # $fm_menu_cmck.Text= "MCK"
 
 $fm_menu_cmck.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "compiler" "mck"
-
-	$script:opt["radio_bin"]= Menu_comp_build "mck"
-	Stus_build
-  }
+	Menu_Change $this.Text "mck" "comp_select"
  }catch{
 	echo $_.exception
  }
@@ -13300,12 +13337,7 @@ $fm_menu_cnsd=  New-Object System.Windows.Forms.ToolStripMenuItem
 
 $fm_menu_cnsd.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "compiler" "nsd"
-
-	$script:opt["radio_bin"]= Menu_comp_build "nsd"
-	Stus_build
-  }
+	Menu_Change $this.Text "nsd" "comp_select"
  }catch{
 	echo $_.exception
  }
@@ -13316,32 +13348,19 @@ $fm_menu_cpmd=  New-Object System.Windows.Forms.ToolStripMenuItem
 
 $fm_menu_cpmd.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
- 	Change_value "compiler" "pmd"
-
-	$script:opt["radio_bin"]= Menu_comp_build "pmd"
-	Stus_build
-  }
+	Menu_Change $this.Text "pmd" "comp_select"
  }catch{
 	echo $_.exception
  }
 })
-	
+ 
 $fm_menu_mck0= New-Object System.Windows.Forms.ToolStripMenuItem 
 #$fm_menu_mck0.Text= "0.exe"
 $fm_menu_mck0.Visible= $False
 
 $fm_menu_mck0.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Change_value "mck" $this.Text
-	Change_value "compiler" "mck"
-
-	$script:opt["radio_bin"]= Menu_comp_build "mck"
-	Menu_build "mck"
-	Stus_build
-  }
+	Menu_Change $this.Text "mck" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -13353,15 +13372,7 @@ $fm_menu_mck1.Visible= $False
 
 $fm_menu_mck1.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Change_value "mck" $this.Text
-	Change_value "compiler" "mck"
-
-	$script:opt["radio_bin"]= Menu_comp_build "mck"
-	Menu_build "mck"
-	Stus_build
-   }
+	Menu_Change $this.Text "mck" "comp_value"
   }catch{
 	echo $_.exception
  }
@@ -13373,15 +13384,7 @@ $fm_menu_mck2.Visible= $False
 
 $fm_menu_mck2.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Change_value "mck" $this.Text
-	Change_value "compiler" "mck"
-
-	$script:opt["radio_bin"]= Menu_comp_build "mck"
-	Menu_build "mck"
-	Stus_build
-  }
+	Menu_Change $this.Text "mck" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -13393,15 +13396,7 @@ $fm_menu_mck3.Visible= $False
 
 $fm_menu_mck3.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Change_value "mck" $this.Text
-	Change_value "compiler" "mck"
-
-	$script:opt["radio_bin"]= Menu_comp_build "mck"
-	Menu_build "mck"
-	Stus_build
-  }
+	Menu_Change $this.Text "mck" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -13413,15 +13408,7 @@ $fm_menu_nsd0.Visible= $False
 
 $fm_menu_nsd0.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Change_value "nsd" $this.Text
-	Change_value "compiler" "nsd"
-
-	$script:opt["radio_bin"]= Menu_comp_build "nsd"
-	Menu_build "nsd"
-	Stus_build
-  }
+	Menu_Change $this.Text "nsd" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -13433,15 +13420,7 @@ $fm_menu_nsd1.Visible= $False
 
 $fm_menu_nsd1.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Change_value "nsd" $this.Text
-	Change_value "compiler" "nsd"
-
-	$script:opt["radio_bin"]= Menu_comp_build "nsd"
-	Menu_build "nsd"
-	Stus_build
-  }
+	Menu_Change $this.Text "nsd" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -13453,15 +13432,7 @@ $fm_menu_nsd2.Visible= $False
 
 $fm_menu_nsd2.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Change_value "nsd" $this.Text
-	Change_value "compiler" "nsd"
-
-	$script:opt["radio_bin"]= Menu_comp_build "nsd"
-	Menu_build "nsd"
-	Stus_build
-  }
+	Menu_Change $this.Text "nsd" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -13473,15 +13444,7 @@ $fm_menu_nsd3.Visible= $False
 
 $fm_menu_nsd3.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Change_value "nsd" $this.Text
-	Change_value "compiler" "nsd"
-
-	$script:opt["radio_bin"]= Menu_comp_build "nsd"
-	Menu_build "nsd"
-	Stus_build
-  }
+	Menu_Change $this.Text "nsd" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -13493,15 +13456,7 @@ $fm_menu_pmd0.Visible= $False
 
 $fm_menu_pmd0.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Change_value "pmd" $this.Text
-	Change_value "compiler" "pmd"
-
-	$script:opt["radio_bin"]= Menu_comp_build "pmd"
-	Menu_build "pmd"
-	Stus_build
-  }
+	Menu_Change $this.Text "pmd" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -13513,15 +13468,7 @@ $fm_menu_pmd1.Visible= $False
 
 $fm_menu_pmd1.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Change_value "pmd" $this.Text
-	Change_value "compiler" "pmd"
-
-	$script:opt["radio_bin"]= Menu_comp_build "pmd"
-	Menu_build "pmd"
-	Stus_build
-  }
+	Menu_Change $this.Text "pmd" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -13533,15 +13480,7 @@ $fm_menu_pmd2.Visible= $False
 
 $fm_menu_pmd2.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Change_value "pmd" $this.Text
-	Change_value "compiler" "pmd"
-
-	$script:opt["radio_bin"]= Menu_comp_build "pmd"
-	Menu_build "pmd"
-	Stus_build
-  }
+	Menu_Change $this.Text "pmd" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -13553,15 +13492,7 @@ $fm_menu_pmd3.Visible= $False
 
 $fm_menu_pmd3.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-
-	Change_value "pmd" $this.Text
-	Change_value "compiler" "pmd"
-
-	$script:opt["radio_bin"]= Menu_comp_build "pmd"
-	Menu_build "pmd"
-	Stus_build
-  }
+	Menu_Change $this.Text "pmd" "comp_value"
  }catch{
 	echo $_.exception
  }
@@ -13573,11 +13504,7 @@ $fm_menu_ply0.Visible= $False
 
 $fm_menu_ply0.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "player" $this.Text
-	Menu_build "player"
-	Stus_build
-  }
+	Menu_Change $this.Text "player"
  }catch{
 	echo $_.exception
  }
@@ -13589,11 +13516,7 @@ $fm_menu_ply1.Visible= $False
 
 $fm_menu_ply1.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "player" $this.Text
-	Menu_build "player"
-	Stus_build
-  }
+	Menu_Change $this.Text "player"
  }catch{
 	echo $_.exception
  }
@@ -13605,11 +13528,7 @@ $fm_menu_ply2.Visible= $False
 
 $fm_menu_ply2.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "player" $this.Text
-	Menu_build "player"
-	Stus_build
-  }
+	Menu_Change $this.Text "player"
  }catch{
 	echo $_.exception
  }
@@ -13621,11 +13540,7 @@ $fm_menu_ply3.Visible= $False
 
 $fm_menu_ply3.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "player" $this.Text
-	Menu_build "player"
-	Stus_build
-  }
+	Menu_Change $this.Text "player"
  }catch{
 	echo $_.exception
  }
@@ -13637,11 +13552,7 @@ $fm_menu_ply4.Visible= $False
 
 $fm_menu_ply4.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "player" $this.Text
-	Menu_build "player"
-	Stus_build
-  }
+	Menu_Change $this.Text "player"
  }catch{
 	echo $_.exception
  }
@@ -13653,11 +13564,7 @@ $fm_menu_ply5.Visible= $False
 
 $fm_menu_ply5.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "player" $this.Text
-	Menu_build "player"
-	Stus_build
-  }
+	Menu_Change $this.Text "player"
  }catch{
 	echo $_.exception
  }
@@ -13669,11 +13576,7 @@ $fm_menu_ply6.Visible= $False
 
 $fm_menu_ply6.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "player" $this.Text
-	Menu_build "player"
-	Stus_build
-  }
+	Menu_Change $this.Text "player"
  }catch{
 	echo $_.exception
  }
@@ -13685,71 +13588,7 @@ $fm_menu_ply7.Visible= $False
 
 $fm_menu_ply7.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "player" $this.Text
-	Menu_build "player"
-	Stus_build
-  }
- }catch{
-	echo $_.exception
- }
-})
- 
-$fm_menu_dos0= New-Object System.Windows.Forms.ToolStripMenuItem 
-# $fm_menu_dos0.Text= "0.exe"
-$fm_menu_dos0.Visible= $False
-
-$fm_menu_dos0.Add_Click({
- try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "dos" $this.Text
-	Menu_build "dos"
-  }
- }catch{
-	echo $_.exception
- }
-})
-
-$fm_menu_dos1= New-Object System.Windows.Forms.ToolStripMenuItem
-# $fm_menu_dos1.Text= "1.exe"
-$fm_menu_dos1.Visible= $False
-
-$fm_menu_dos1.Add_Click({
- try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "dos" $this.Text
-	Menu_build "dos"
-  }
- }catch{
-	echo $_.exception
- }
-})
-
-$fm_menu_dos2= New-Object System.Windows.Forms.ToolStripMenuItem
-# $fm_menu_dos2.Text= "2.exe"
-$fm_menu_dos2.Visible= $False
-
-$fm_menu_dos2.Add_Click({
- try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "dos" $this.Text
-	Menu_build "dos"
-  }
- }catch{
-	echo $_.exception
- }
-})
-
-$fm_menu_dos3= New-Object System.Windows.Forms.ToolStripMenuItem
-# $fm_menu_dos3.Text= "3.exe"
-$fm_menu_dos3.Visible= $False
-
-$fm_menu_dos3.Add_Click({
- try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "dos" $this.Text
-	Menu_build "dos"
-  }
+	Menu_Change $this.Text "player"
  }catch{
 	echo $_.exception
  }
@@ -13761,10 +13600,7 @@ $fm_menu_edt0.Visible= $False
 
 $fm_menu_edt0.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "editor" $this.Text
-	Menu_build "editor"
-  }
+	Menu_Change $this.Text "editor"
  }catch{
 	echo $_.exception
  }
@@ -13776,10 +13612,7 @@ $fm_menu_edt1.Visible= $False
 
 $fm_menu_edt1.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "editor" $this.Text
-	Menu_build "editor"
-  }
+	Menu_Change $this.Text "editor"
  }catch{
 	echo $_.exception
  }
@@ -13791,10 +13624,7 @@ $fm_menu_edt2.Visible= $False
 
 $fm_menu_edt2.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "editor" $this.Text
-	Menu_build "editor"
-  }
+	Menu_Change $this.Text "editor"
  }catch{
 	echo $_.exception
  }
@@ -13806,10 +13636,7 @@ $fm_menu_edt3.Visible= $False
 
 $fm_menu_edt3.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "editor" $this.Text
-	Menu_build "editor"
-  }
+	Menu_Change $this.Text "editor"
  }catch{
 	echo $_.exception
  }
@@ -13821,10 +13648,7 @@ $fm_menu_edt4.Visible= $False
 
 $fm_menu_edt4.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "editor" $this.Text
-	Menu_build "editor"
-  }
+	Menu_Change $this.Text "editor"
  }catch{
 	echo $_.exception
  }
@@ -13836,10 +13660,7 @@ $fm_menu_edt5.Visible= $False
 
 $fm_menu_edt5.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "editor" $this.Text
-	Menu_build "editor"
-  }
+	Menu_Change $this.Text "editor"
  }catch{
 	echo $_.exception
  }
@@ -13851,10 +13672,7 @@ $fm_menu_edt6.Visible= $False
 
 $fm_menu_edt6.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "editor" $this.Text
-	Menu_build "editor"
-  }
+	Menu_Change $this.Text "editor"
  }catch{
 	echo $_.exception
  }
@@ -13866,15 +13684,60 @@ $fm_menu_edt7.Visible= $False
 
 $fm_menu_edt7.Add_Click({
  try{
-  if($this.Text.Contains("[v]") -eq $False){
-	Change_value "editor" $this.Text
-	Menu_build "editor"
-  }
+	Menu_Change $this.Text "editor"
  }catch{
 	echo $_.exception
  }
 })
-  
+ 
+$fm_menu_dos0= New-Object System.Windows.Forms.ToolStripMenuItem 
+# $fm_menu_dos0.Text= "0.exe"
+$fm_menu_dos0.Visible= $False
+
+$fm_menu_dos0.Add_Click({
+ try{
+	Menu_Change $this.Text "dos"
+ }catch{
+	echo $_.exception
+ }
+})
+
+$fm_menu_dos1= New-Object System.Windows.Forms.ToolStripMenuItem
+# $fm_menu_dos1.Text= "1.exe"
+$fm_menu_dos1.Visible= $False
+
+$fm_menu_dos1.Add_Click({
+ try{
+	Menu_Change $this.Text "dos"
+ }catch{
+	echo $_.exception
+ }
+})
+
+$fm_menu_dos2= New-Object System.Windows.Forms.ToolStripMenuItem
+# $fm_menu_dos2.Text= "2.exe"
+$fm_menu_dos2.Visible= $False
+
+$fm_menu_dos2.Add_Click({
+ try{
+	Menu_Change $this.Text "dos"
+ }catch{
+	echo $_.exception
+ }
+})
+
+$fm_menu_dos3= New-Object System.Windows.Forms.ToolStripMenuItem
+# $fm_menu_dos3.Text= "3.exe"
+$fm_menu_dos3.Visible= $False
+
+$fm_menu_dos3.Add_Click({
+ try{
+	Menu_Change $this.Text "dos"
+ }catch{
+	echo $_.exception
+ }
+})
+  	
 $fm_menu_m= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_m.Text= "Octave"
 
@@ -14402,7 +14265,7 @@ $fm_menu_rld.Add_Click({
 	echo $_.exception
  }
 })
-	 
+	
 $fm_menu_adv= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_adv.Text= "Advanced"
  
@@ -15235,12 +15098,14 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 	Peralg_build $bai
 	Reso $bai
 
-	# Menuのため読み込み
-	if((Chk_path '.\setting.xml') -eq 0){
+	if((Chk_path '.\setting.xml') -ne 0){
 
-		$set_xml= [xml](cat '.\setting.xml')
-		Setxml_read $script:set_xml.table # hash化
+		.\setting.ps1 "send"
 	}
+
+	$set_xml= [xml](cat '.\setting.xml')	# Menuのため読み込み
+	Setxml_read $script:set_xml.table	# hash化
+
 
 	#preset,FF読み込み
 	Preset_read > $null  # <- $pmd["MC.EXE"] <- .\setting.xml
