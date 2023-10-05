@@ -1,4 +1,4 @@
-﻿Readme.txt ------
+Readme.txt ------
 =====================================================================
 	・MML Watch GUI
 	・FM Synthesis Chip - Tone Editor
@@ -19,6 +19,13 @@
 
 
 　・win10(22H2)+ PS7 or PS5において、起動確認
+
+　　各CMDファイルより起動します。
+
+
+　　Powershellショートカットによる起動の場合は、
+　　mml_watchのHelpを参照してください。
+
 
 　　※ バイナリ "mml_watch.exe" による起動の場合、
 　　.NET Framework4.0以上が必要です。
