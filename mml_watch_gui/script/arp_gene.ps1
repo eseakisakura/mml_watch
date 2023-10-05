@@ -970,7 +970,7 @@ function Menu_comp_build([string]$t){
 	return $t
  } #func
  
-function Menu_Change($ev, [string] $ss, [string] $sw){ 	
+function Menu_Change($ev, [string] $ss, [string] $sw){ 
 
 	 if($ev.Contains("[v]") -eq $False){
 
@@ -1099,7 +1099,7 @@ function Arpwrite_xml($x,$y){
  } #func
   
 # Chord select 
-	
+	 
 function Gen_num([string]$kk,[string]$gg){ 
 
 	$r= @{}
@@ -1437,21 +1437,6 @@ function Importer_chd([string]$mm){
 	}
 
 	return $out
- } #func
- 
-function Keydown_chd_arp([string]$t){ 
-
-  switch($t){
-  'F12'{
-		$lisn_btn.PerformClick()
-		break
-  }'F11'{
-		$stop_btn.PerformClick()
-		break
-  }'F5'{
-		$import_chd_btn.PerformClick()
-  }
-  } #sw
  } #func
   
 # MML arpeggio 
@@ -2221,7 +2206,7 @@ function Lisnarp_nsf([int]$sw, [string]$lis){
  } #func
  
 <# 
-	
+	 
 function Keydown_arp([string]$t){ 
 
   switch($t){
@@ -2237,85 +2222,205 @@ function Keydown_arp([string]$t){
   } #sw
  } #func
  
-#> 
-  
-function Key_play([string]$t){ 
+function Keydown_chd_arp([string]$t){ 
 
-	switch($t){
-	'Space'{
+  switch($t){
+  'F12'{
 		$lisn_btn.PerformClick()
-		break;
-	}'Return'{
+		break
+  }'F11'{
 		$stop_btn.PerformClick()
-	}
-	} #sw
+		break
+  }'F5'{
+		$import_chd_btn.PerformClick()
+  }
+  } #sw
  } #func
  
-function Key_conv($t){ 
+function Key_conv($t, [string] $sw){ 
+
 
 	if($t.Control -eq 'True' -and $t.KeyCode -eq 'S'){
 
-		$import_btn.PerformClick()
+		switch($sw){
+		'box_flet'{
+			$lisn_btn.PerformClick()
+			break;
+		}'box_chd'{
+			$import_chd_btn.PerformClick()
+			$lisn_btn.PerformClick()
+			break;
+		}'box_mml'{
+			$lisn_btn.PerformClick()
+			break;
+		}'$box_chd'{
+			$import_btn.PerformClick()
+			$lisn_btn.PerformClick()
+			break;
+		}'box_mtr'{
+			$lisn_btn.PerformClick()
+		}
+		} #sw
 	}
 
-	if($t.Control -eq 'True' -and $t.KeyCode -eq 'P'){
+	#if($t.Control -eq 'True' -and $t.KeyCode -eq 'P'){
 
-		$lisn_btn.PerformClick()
-	}
+	#	$lisn_btn.PerformClick()
+	#}
 
-	if($t.Control -eq 'True' -and $t.KeyCode -eq 'O'){
+	#if($t.Control -eq 'True' -and $t.KeyCode -eq 'O'){
 
-		$stop_btn.PerformClick()
-	}
-
+	#	$stop_btn.PerformClick()
+	#}
  } #func
  
-function Unredo_arp([int]$n){ 
+#> 
+  
+function Key_play($t, [string] $sw){ 
 
-  switch($n){
-  2{
-	$script:undo[0][0]= $null
-	$script:undo[1][0]= $null
+	switch($sw){
+	'box_flet'{
+		if($t.Control -eq 'True'){
+			switch($t.KeyCode){
+			'P'{
+				$lisn_btn.PerformClick()
+				break;
+			}'O'{
+				$stop_btn.PerformClick()
+				break;
+			}'S'{
+				$label_apeg.Focus()
+			}
+			} #sw
+		}
+		break;
+	}'box_chd'{
+		if($t.Control -eq 'True'){
+			switch($t.KeyCode){
+			'P'{
+				$import_chd_btn.PerformClick()
+				$lisn_btn.PerformClick()
+				break;
+			}'O'{
+				$stop_btn.PerformClick()
+				break;
+			}'S'{
+				$import_chd_btn.PerformClick()
+				$label_apeg.Focus()
+			}
+			} #sw
+		}
+		break;
+	}'box_apeg'{
+		if($t.Control -eq 'True'){
+			switch($t.KeyCode){
+			'P'{
+				$lisn_btn.PerformClick()
+				break;
+			}'O'{
+				$stop_btn.PerformClick()
+				break;
+			}'S'{
+				$label_apeg.Focus()	
+			}
+			} #sw
+		}
+		break;
+	}'box_mml'{
+		if($t.Control -eq 'True'){
+			switch($t.KeyCode){
+			'P'{
+				$import_btn.PerformClick()
+				$lisn_btn.PerformClick()
+				break;
+			}'O'{
+				$stop_btn.PerformClick()
+				break;
+			}'S'{
+				$import_btn.PerformClick()
+				$label_apeg.Focus()
+			}
+			} #sw
+		}
+		break;
+	}'box_mtr'{
+		if($t.Control -eq 'True'){
+			switch($t.KeyCode){
+			'P'{
+				$lisn_btn.PerformClick()
+				break;
+			}'O'{
+				$stop_btn.PerformClick()
+				break;
+			}'S'{
+				$label_apeg.Focus()
+			}
+			} #sw
+		}
+		break;
+	}default{
+		switch($t.KeyCode){
+		'Space'{
+			$lisn_btn.PerformClick()
+			break;
+		}'Return'{
+			$stop_btn.PerformClick()
+		}
+		} #sw
 
-	break;
-  }1{
-	switch($undo[2][0]){ # undo
-	'0'{
-		$script:undo[1][0]= $box_apeg.Text	# omote buffer
-		$script:undo[1][1]= $box_apeg.SelectionStart
+	}
+	} #sw
+ } #func
+ 
+function Unredo([int] $n){ 
 
-		$script:undo[2][0]= "1"			# toggle
-		$box_apeg.Text= $undo[0][0]		# undo read
-		$box_apeg.SelectionStart= $undo[0][1]
+ 	switch($n){
+ 	0{
+		$script:undo[0][0]= $null
+		$script:undo[1][0]= $null
 		break;
 
-	}'1'{ #redo
-		$script:undo[0][0]= $box_apeg.Text	# ura buffer
-		$script:undo[0][1]= $box_apeg.SelectionStart
+	}1{	# $arp_menu_ud.Add_Click - sansyo
 
-		$script:undo[2][0]= "0"
-		$box_apeg.Text= $undo[1][0]		# redo read
-		$box_apeg.SelectionStart= $undo[1][1]
+		if($script:undo[2] -eq 'store'){
+			$script:undo[2]= "undo"
+		}
+
+		switch($script:undo[2]){
+		'undo'{
+			$script:undo[1][0]= $box_apeg.Text
+			$script:undo[1][1]= $box_apeg.SelectionStart
+
+			$box_apeg.Text= $script:undo[0][0]
+			$box_apeg.SelectionStart= $script:undo[0][1]
+
+			$script:undo[2]= "redo"
+			break;
+		}'redo'{
+			$script:undo[0][0]= $box_apeg.Text
+			$script:undo[0][1]= $box_apeg.SelectionStart
+
+			$box_apeg.Text= $script:undo[1][0]
+			$box_apeg.SelectionStart= $script:undo[1][1]
+
+			$script:undo[2]= "undo"
+		}
+		} #sw
+
+		break;
+	}2{
+		$script:undo[0][0]= $box_apeg.Text
+		$script:undo[0][1]= $box_apeg.SelectionStart
+		$script:undo[2]= "store"
 	}
 	} #sw
 
-	break;
+	if($script:undo[0][0] -ne $null){
 
-  }0{ # do .Add_Enterでdo (menu->objでは再enterとはならない)
-
-	# undo buffer dochiraka ni
-	$script:undo[$undo[2][0]][0]= $box_apeg.Text
-	$script:undo[$undo[2][0]][1]= $box_apeg.SelectionStart
-  }
-  } #sw
-
-  if(($undo[0][0] -ne $null) -or ($undo[1][0] -ne $null)){
-
-	$arp_menu_ud.Enabled= $True
-  }else{
-	$arp_menu_ud.Enabled= $False
-  }
-
+		$arp_menu_ud.Enabled= $True
+	}else{
+		$arp_menu_ud.Enabled= $False
+	}
  } #func
  
 <# 
@@ -2348,8 +2453,8 @@ Add-Type -AssemblyName System.Windows.Forms > $null
 Add-Type -AssemblyName System.Drawing > $null
 
 $ErrorActionPreference= "Stop"
-
-$Fon= New-Object System.Drawing.Font("MS Gothic",11) # Microsoft Sans Serif
+$FonLabel= New-Object System.Drawing.Font("Segoe UI", 10)
+$FonMono= New-Object System.Drawing.Font("MS Gothic",11) # Microsoft Sans Serif
 
 cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 [Environment]::CurrentDirectory= pwd # working_dir set
@@ -2489,7 +2594,7 @@ $flet_grp.Text= "Flet setting"
 $flet_grp.Size= "290,120"
 $flet_grp.Location= "285,30"
 $flet_grp.FlatStyle= "Flat"
-	
+	 
 $label_flet= New-Object System.Windows.Forms.Label 
 $label_flet.Text= "Flet Number"
 $label_flet.Size= "90,20"
@@ -2527,11 +2632,19 @@ $box_flet.Add_TextChanged({ # textbox key input gi
 
 $box_flet.Add_KeyDown({
  try{
-	Keydown_chd_arp $_.KeyCode
+	Key_play $_ "box_flet"
 
  }catch{
     echo $_.exception
  }
+})
+
+$box_flet.Add_Enter({
+	$frm_arp.KeyPreview= $False
+})
+
+$box_flet.Add_Leave({
+	$frm_arp.KeyPreview= $True
 })
  
 $box_chd= New-Object System.Windows.Forms.TextBox 
@@ -2555,11 +2668,19 @@ $box_chd.Add_Leave({
 
 $box_chd.Add_KeyDown({
  try{
-	Keydown_chd_arp $_.KeyCode
+	Key_play $_ "box_chd"
 
  }catch{
     echo $_.exception
  }
+})
+
+$box_chd.Add_Enter({
+	$frm_arp.KeyPreview= $False
+})
+
+$box_chd.Add_Leave({
+	$frm_arp.KeyPreview= $True
 })
  
 $import_chd_btn= New-Object System.Windows.Forms.Button 
@@ -2697,7 +2818,7 @@ $number_grp.Text= "Number arpeggio"
 $number_grp.Size= "565,130"
 $number_grp.Location= "10,150"
 $number_grp.FlatStyle= "Flat"
-	
+	 
 $label_apeg= New-Object System.Windows.Forms.Label 
 $label_apeg.Text= "Arpeggio"
 $label_apeg.Size= "65,20"
@@ -2715,7 +2836,7 @@ $comb_apeg.DropDownStyle= "DropDownList"
 
 $comb_apeg.Add_SelectedValueChanged({
 
-	Unredo_arp 0
+	Unredo 2
 
 	switch($box_apeg.SelectionStart){ # caret [num]
 
@@ -2784,18 +2905,23 @@ $box_apeg.AcceptsReturn= "True"
 $box_apeg.AcceptsTab= "True"
 $box_apeg.ScrollBars= "Both"
 $box_apeg.BorderStyle= "FixedSingle"
-$box_apeg.font= $Fon
+$box_apeg.font= $FonMono
 #$box_apeg.Text= "5313  1313"
 
-$box_apeg.Add_Enter({	# konrann surutame reset
+$box_apeg.Add_Enter({
+ try{
 	$frm_arp.KeyPreview= $False
-	Unredo_arp 0
+	Unredo 2
 
 	$this.ForeColor= "black"
 	$this.BackColor= "white"
+ }catch{
+	echo $_.exception
+ }
 })
 
 $box_apeg.Add_Leave({
+
 	$frm_arp.KeyPreview= $True
 	$this.ForeColor= "dimgray"
 	$this.BackColor= "white"
@@ -2811,11 +2937,19 @@ $box_apeg.Add_TextChanged({
 
 $box_apeg.Add_KeyDown({ # 試聴
  try{
-	Key_conv $_
+	Key_play $_ "box_apeg"
 
  }catch{
     echo $_.exception
  }
+})
+
+$box_apeg.Add_Enter({
+	$frm_arp.KeyPreview= $False
+})
+
+$box_apeg.Add_Leave({
+	$frm_arp.KeyPreview= $True
 })
   
 $mml_grp= New-Object System.Windows.Forms.GroupBox 
@@ -3055,7 +3189,7 @@ $box_mml.BorderStyle= "FixedSingle"
 # $box_mml.ReadOnly= "True"
 $box_mml.ForeColor= "Gray"
 $box_mml.BackColor= "White"
-$box_mml.font= $Fon
+$box_mml.font= $FonMono
 # $box_mml.Text= 'cg`eg  `eg`eg'
 
 $box_mml.Add_Enter({
@@ -3072,11 +3206,19 @@ $box_mml.Add_Leave({
 
 $box_mml.Add_KeyDown({ # 試聴
  try{
-	Key_conv $_
+	Key_play $_ "box_mml"
 
  }catch{
     echo $_.exception
  }
+})
+
+$box_mml.Add_Enter({
+	$frm_arp.KeyPreview= $False
+})
+
+$box_mml.Add_Leave({
+	$frm_arp.KeyPreview= $True
 })
  
 $box_mtr= New-Object System.Windows.Forms.TextBox 
@@ -3089,7 +3231,7 @@ $box_mtr.BorderStyle= "FixedSingle"
 # $box_mtr.ReadOnly= "True"
 # $box_mtr.ForeColor= "Gray"
 $box_mtr.BackColor= "White"
-$box_mtr.font= $Fon
+$box_mtr.font= $FonMono
 
 $box_mtr.Add_Enter({
 	$frm_arp.KeyPreview= $False
@@ -3101,11 +3243,19 @@ $box_mtr.Add_Leave({
 
 $box_mtr.Add_KeyDown({ # 試聴
  try{
-	Key_conv $_
+	Key_play $_ "box_mtr"
 
  }catch{
     echo $_.exception
  }
+})
+
+$box_mtr.Add_Enter({
+	$frm_arp.KeyPreview= $False
+})
+
+$box_mtr.Add_Leave({
+	$frm_arp.KeyPreview= $True
 })
   
 $arp_stus= New-Object System.Windows.Forms.StatusStrip 
@@ -3113,7 +3263,7 @@ $arp_stus.SizingGrip= $false
 
 $arp_label= New-Object System.Windows.Forms.ToolStripStatusLabel
 # $arp_label.Text= "  Test ------"
-# $arp_label.Font= $Fon
+# $arp_label.Font= $FonLabel
  
 $contxt_trayarp= New-Object System.Windows.Forms.ContextMenuStrip 
 # $contxt objを読み込んだ後$NotifyIcon objが安全
@@ -3178,6 +3328,7 @@ $frm_arp.Icon= Icon_read "..\arp_gene.exe"
 $frm_arp.MinimizeBox= $True
 $frm_arp.MaximizeBox= $False
 # $frm_arp.AcceptButton= $lisn_btn # [Enter]時、clickの場所
+$frm_arp.Font= $FonLabel
 
 # $frm_arp.Topmost= $True
 $frm_arp.TopLevel= $True
@@ -3185,7 +3336,7 @@ $frm_arp.TopLevel= $True
 $frm_arp.KeyPreview= $True
 $frm_arp.Add_KeyDown({
  try{
-	Key_play $_.KeyCode
+	Key_play $_
  }catch{
 	echo $_.exception
  }
@@ -3293,7 +3444,7 @@ $arp_menu_ud.Add_Click({
  try{
 	switch($box_apeg.Focused){
 	'False'{
-		Unredo_arp 1; break;
+		Unredo 1; break;
 	}'True'{
 		$box_apeg.Undo()
 	}
@@ -3329,8 +3480,17 @@ $arp_menu_set.Add_Click({
 	[array]$args_set= "",""
 	$args_set= .\setting.ps1 "cut" $val $opt
 
+
 	$script:val= $args_set[0]
 	$script:opt= $args_set[1]
+
+
+	Change_value "compiler" $opt["radio_bin"]
+
+	# valの書き込み
+	Arpwrite_xml $script:arp_xml.table.val $script:arp_xml.table.opt
+	File_writer $script:arp_xml '.\arp_gene.xml'
+
 
 	if((Chk_path '.\setting.xml') -eq 0){
 
@@ -3352,8 +3512,6 @@ $arp_menu_set.Add_Click({
 	}else{
 		Write-Host ('"setting.xml" 読み込みエラー')
 	}
-
-	Change_value "compiler" $opt["radio_bin"]
 
 	# Mml_select $comb_prefix.SelectedItem
 
@@ -4023,7 +4181,7 @@ $arp_menu_pmdh.Add_Click({
 $chd_grp.Controls.AddRange(@($label_key,$label_kata,$label_genn,$comb_key,$comb_chd,$comb_genn,$check_open,$Pictbox)) 
 $flet_grp.Controls.AddRange(@($comb_ab,$comb_bb,$comb_db,$comb_eb,$comb_gb,$label_chd,$label_flet,$box_flet,$box_chd,$import_chd_btn))
 
-$number_grp.Controls.AddRange(@($label_apeg,$comb_apeg,$label_exp,$lisn_btn,$stop_btn,$box_apeg))
+$number_grp.Controls.AddRange(@($label_apeg,$lisn_btn,$stop_btn,$box_apeg,$comb_apeg,$label_exp))
 
 $mml_grp.Controls.AddRange(@($import_btn,$box_trk,$label_prefix,$label_mml_exp,$label_oct,$label_mtr,$label_tainum,$label_taimark))
 $mml_grp.Controls.AddRange(@($comb_prefix,$comb_trk,$comb_oct,$comb_tai,$nmud_trk,$nmud_tai,$box_mml,$box_mtr))
@@ -4050,7 +4208,7 @@ $arp_mnu.Items.AddRange(@($arp_menu_f,$arp_menu_o,$arp_menu_m,$arp_menu_b,$arp_m
 
 $arp_stus.Items.AddRange(@($arp_label))
 $frm_arp.Controls.AddRange(@($arp_mnu,$chd_grp,$flet_grp,$number_grp,$mml_grp,$arp_stus))
- 
+ 	
 # ------ main 
 
  try{
@@ -4141,13 +4299,11 @@ $frm_arp.Controls.AddRange(@($arp_mnu,$chd_grp,$flet_grp,$number_grp,$mml_grp,$a
   [void]$comb_apeg.Items.AddRange($rot[$comb_genn.SelectedItem])
 
 
-  # array obj高速化
-  [array]$undo= "","",""
-  [array]$undo[0]= $null,"0" # omote
-  [array]$undo[1]= $null,"0" # ura
-  [array]$undo[2]= "0"
+ 	[array] $undo= "","",""	# array obj高速化
+ 	[array] $undo[0]= $null, 0	# undo .SelectionStart
+ 	[array] $undo[1]= $null, 0	# redo
+ 	# Unredo 0
 
-  # Unredo_arp 2
 
   [int[]]$frm_state= 0, 0 # Multi window state
 
@@ -4164,4 +4320,4 @@ $frm_arp.Controls.AddRange(@($arp_mnu,$chd_grp,$flet_grp,$number_grp,$mml_grp,$a
 
 	$tray_arp.Dispose()
  }
- 	
+ 

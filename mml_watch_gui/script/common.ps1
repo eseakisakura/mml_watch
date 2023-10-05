@@ -101,9 +101,7 @@ function Eor_open([string]$path_chk,[string]$name){
 
 	switch(Chk_path $path_chk){
 	2{
-		[string[]]$ff= "","","",""
-		$ff= Split_path $path_chk # unkhown出力
-
+		[string[]] $ff= Split_path $path_chk	# unkhown出力
 
 		$tt=  ('"'+ $ff[0]+  '": '+ $name+ '選択されてません')
 		Write-Host (">"+ $tt)
@@ -151,38 +149,40 @@ function Editor_open([string]$edt_path,[string]$file_path){
  
 function Help_editor([string] $file, [string] $sw){ 
 
+	[string] $tt= ""
+
 	if($sw -eq 'sted'){
 
-		[string] $s= ""
-		foreach($d in $edit.Keys){
+		[string] $ss= ""
+		foreach($dd in $edit.Keys){
 
-			if($d.Contains("sted") -eq $True){
-				$s= $d
+			if($dd.Contains("sted") -eq $True){
+				$ss= $dd
 				break; # first hit de stop
 			}
 		} #
 
-		if($s -ne ""){
+		if((Chk_path $edit[$ss]) -eq 0){
 
-			[string] $retn= Editor_open $edit[$s] $file
+			$tt= Editor_open $edit[$ss] $file
 		}else{
-			$sw= ""
+
+			$tt= Editor_open $val["editor"] $file
 		}
+	}else{
+
+		$tt= Editor_open $val["editor"] $file
 	}
 
-	if($sw -eq ''){
+	if($tt -ne ''){
 
-		[string] $retn= Editor_open $val["editor"] $file
-	}
+		[string] $retn= [Windows.Forms.MessageBox]::Show(
 
-	if($retn -ne ''){
-
-		$retn= [Windows.Forms.MessageBox]::Show(
-		$retn, "確認", "OK","Information","Button1"
+		$tt, "確認", "OK","Information","Button1"
 		)
 	}
  } #func
- 	
+ 
 function Folder_open([int]$sw,[string]$path){ 
 
 	[string[]]$tt= "Folder","File"
@@ -374,13 +374,13 @@ function Mknsd([string[]]$arg){ # mknsd.ps1
 
   }elseif($arr[0] -notmatch "nsc[0-9]*\.exe"){	# compiler chk
 
-	$out[0]= ('Mknsd>>"'+ $arr[0]+ '": nscxx.exeではありません')
+	$out[0]= ('Mknsd>>"'+ $arr[0]+ '": nsc---.exeではありません')
 	Write-Host ("`r`n"+ $out[0])
 
 
   }elseif((Chk_path $bin) -ne 0){	# compiler path chk
 
-	$out[0]= ('Mknsd>>"'+ $bin+ '": nscxx.exeがパス上にありません')
+	$out[0]= ('Mknsd>>"'+ $bin+ '": nsc---.exeがパス上にありません')
 	Write-Host ("`r`n"+ $out[0])
 
 
@@ -420,7 +420,7 @@ function Mknsd([string[]]$arg){ # mknsd.ps1
  # exit $LASTEXITCODE
 
  } #func
- 
+ 	
 function Mkpmd([string[]]$arg){ # mkpmd.ps1 
 
  # $arg // mml,bin,dmc,cmdline,dos,x64
