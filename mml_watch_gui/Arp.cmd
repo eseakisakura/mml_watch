@@ -7,5 +7,5 @@ echo.
 
 cd .\script
 rem // -Sta シングルスレッド指定、PS2.0以前必須 //
-powershell.exe -ExecutionPolicy RemoteSigned -Sta -File .\common.ps1 "arp_gene"
+powershell.exe -ExecutionPolicy RemoteSigned -Sta -File .\common.ps1 arp_gene
  

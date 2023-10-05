@@ -1,26 +1,27 @@
-﻿using System; 
+﻿using System;
 using System.Diagnostics;
 
 class Program
 {
-  public static void Main(string[] args)
+  public static void Main()
   {
+
+	string dir_path= System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+	System.IO.Directory.SetCurrentDirectory(dir_path);
+
+	// Console.WriteLine(System.IO.Directory.GetCurrentDirectory());
+
+
 	string abs= " -ExecutionPolicy RemoteSigned -Sta -File .\\script\\common.ps1 fm_editor";
 
-	// if(args.Length > 0){
-
-	// 	string mml= " "+ "\""+ args[0]+ "\"";
-	// 	abs+= mml;
-	// }
-	
 	// Console.WriteLine(abs);
 
 	ProcessStartInfo dp= new ProcessStartInfo();
 
 	dp.FileName= "powershell.exe";
 
-	dp.UseShellExecute= false;	// シェル窓を開くか
-	dp.CreateNoWindow= true;	// call appの窓を開かない
+	dp.UseShellExecute= false;
+	dp.CreateNoWindow= true;
 
 	dp.Arguments= abs;
 

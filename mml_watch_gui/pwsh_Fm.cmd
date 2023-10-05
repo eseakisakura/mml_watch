@@ -1,4 +1,4 @@
-@rem Fm_alpha.cmd 
+@rem pwsh_Fm.cmd 
 @echo off
 cd /d %~dp0
 
@@ -10,4 +10,4 @@ cd .\script
 rem $Env:Path+= ";pwsh.exeへのフォルダ"
 
 rem // -Sta シングルスレッド指定、PS2.0以前必須 //
-pwsh.exe -ExecutionPolicy RemoteSigned -Sta -File .\common.ps1 "fm_editor"
+pwsh.exe -ExecutionPolicy RemoteSigned -Sta -File .\common.ps1 fm_editor

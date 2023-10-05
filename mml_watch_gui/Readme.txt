@@ -1,5 +1,5 @@
 ﻿Readme.txt ------
-========================================================================
+=====================================================================
 	・MML Watch GUI
 	・FM Synthesis Chip - Tone Editor
 	・Guitar Arpeggio - MML Generator
@@ -7,51 +7,49 @@
 	説明書
 	https://eseakisakura.github.io/mml_watch_gui
 
-	ver5.0β2版
+	ver5.3 暫定正式版
 	Copyright(C)04coreworks
-========================================================================
 
-　・chiptuneコンパイラ"ppmck","NSDlib","P.M.D"へ対応するフロントエンドです。
+---------------------------------------------------------------------
+
+　・MML chiptune コンパイラである、
+　"ppmck","NSDlib","P.M.D"へ対応するフロントエンドです。
 
 　・レジストリは使わず、iniの代りに、xml環境ファイルを書き出します。
-
-　・各パーツの座標は、[.NET6]へ最適化済みです。
 
 
 　・win10(22H2)+ PS7 or PS5において、起動確認
 
-　　※ mml_watch_pwsh.exeなどのバイナリ起動の場合、
+　　※ バイナリ "mml_watch.exe" による起動の場合、
 　　.NET Framework4.0以上が必要です。
 
-------------------------------------------------------------------------
+=====================================================================
 
 　Powershell5 系統(.NET Framework4.0)で使用する場合は、
-  "_pwsh"の付いていない起動ファイルを使用して下さい。
+  "powershell.exe" を使用し、スクリプトを起動します。
 
-　Powershell7.1系統[.NET5]の場合は、
-　mml_watchで使用している、"filesystemwatcher"の実装に難があるため、
-　mmlファイルを上書きした瞬間、落ちる問題があります。
-
-　Powershell7.2[.NET6]以上での、運用であれば問題はありません。
-　
+　Powershell7 系統[.NET5以上]の場合は、
+  "pwsh.exe" を使用してスクリプトを起動します。
 
 
-　==== Powershell7.3対応 _pwsh版について ====
-
+　====  pwsh仕様(Powershell7対応版)について ====
 
 　※ pwsh.exeにパスを通すことで起動できます。
 
-　Powershell[.NET6] - download
-　https://github.com/PowerShell/PowerShell/releases
 
+　リリースから、最新版をダウンロードします。
+　Powershell[.NET7] - download
+
+　https://github.com/PowerShell/PowerShell/releases
 
 
 　※ "pwsh.exe"へのPathの追加
 
-　# 一時パス
+　# コンソール起動での一時パスの場合
 　　$Env:Path+= ";pwsh.exeへのフォルダパス"
 
-　# 永続的なパス
+
+　# 永続的なパスの場合
 　(win10 22H2の場合)
 
 　　[設定] - システム - 詳細情報 - システムの詳細設定
@@ -60,12 +58,12 @@
 
 　　Path環境変数に"pwsh.exeへのフォルダパス"を追加する。
 
-
 　==== ==== ==== ====
 
 　注意
 
-    ・MMLファイル文字コードは、"shiftJIS"のみ対応します。(mmlコンパイラの仕様ため)
+　・MMLファイルの文字コードは、"shiftJIS"のみ対応します。
+　(mmlコンパイラの仕様ため)
 
 　　"UTF8bom無し"でもコンパイル自体は問題ありませんが、
 　　日本語出力は文字化けします。
@@ -86,7 +84,7 @@
 　
   Unblock-File -Path ".\実行ファイル名"
 
-------------------------------------------------------------------------
+---------------------------------------------------------------------
 
 　　免責事項 /使用条件 /著作権など
 
@@ -103,4 +101,4 @@
 　https://twitter.com/huangbaihonglan
 
 　Copyright(C) 04coreworks
-　https://github.com/eseakisakura
+　https://eseakisakura.wordpress.com/about/

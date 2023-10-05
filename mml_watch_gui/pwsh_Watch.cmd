@@ -1,4 +1,4 @@
-@rem Watch_alpha.cmd 
+@rem pwsh_Watch.cmd
 @echo off
 cd /d %~dp0
 
@@ -10,4 +10,4 @@ cd .\script
 rem $Env:Path+= ";pwsh.exeへのフォルダ"
 
 rem // -Sta シングルスレッド指定、PS2.0以前必須 //
-pwsh.exe -ExecutionPolicy RemoteSigned -Sta -File .\common.ps1 "mml_watch"
+pwsh.exe -ExecutionPolicy RemoteSigned -Sta -File .\common.ps1 mml_watch "%~f1"
