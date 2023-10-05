@@ -18,7 +18,7 @@ class Program
 
 	ProcessStartInfo dp= new ProcessStartInfo();
 
-	dp.FileName= "powershell.exe";
+	dp.FileName= "pwsh.exe";
 
 	dp.UseShellExecute= false;
 	dp.CreateNoWindow= true;

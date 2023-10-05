@@ -15,7 +15,7 @@
 　・MML chiptune コンパイラである、
 　"ppmck","NSDlib","P.M.D"へ対応するフロントエンドです。
 
-　・レジストリは使わず、iniの代りに、xml環境ファイルを書き出します。
+　・レジストリは使わず、iniの代りにxml環境ファイルを書き出します。
 
 
 　・win10(22H2)+ PS7 or PS5において、起動確認
@@ -38,12 +38,12 @@
 
 
 　リリースから、最新版をダウンロードします。
-　Powershell[.NET7] - download
 
+　Powershell[.NET7] - download
 　https://github.com/PowerShell/PowerShell/releases
 
 
-　※ "pwsh.exe"へのPathの追加
+　※ パス"pwsh.exe"の追加
 
 　# コンソール起動での一時パスの場合
 　　$Env:Path+= ";pwsh.exeへのフォルダパス"

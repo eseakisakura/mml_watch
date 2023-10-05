@@ -32,6 +32,12 @@ winXP+ Powershell2(.NET Framework3.5) - 旧版 ver4.5.2<br/>
 ※各起動バイナリexeについて<br/>
 powershell scriptを呼び出すための、c#によるラッパーとなっています。<br/>
 <br/>
+※Attention!!<br>
+故あって、githubの要求する2段階認証ができません。今回期限が切られたため、<br>
+リリースアップロードしますが、完全な意味での(曲をつくるなりの)ロードテストはしていないので、<br>
+暫定の正式版とさせて下さい、よろしくお願いします。<br>
+<br>
+<br/>
 
 <h4><img src="./image/MW_icon.png" /> Mml Watch GUI</h4>
 

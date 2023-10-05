@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<table>
+	<!-- タグ value -->
+	<val>
+		<mmlfile value="C:\data\SSD 22 3 27\upload\github\watch\mml_watch_gui\sample\nsdlib\n163_EP.mml" />
+		<mck value="..\ppmck\bin\ppmckc.exe" />
+		<nsd value="C:\programs\arc\nsdlib\bin\nsc.exe" />
+		<pmd value="..\pmd\MC.EXE" />
+		<compiler value="C:\programs\arc\nsdlib\bin\nsc.exe" />
+		<player value="C:\programs\media\Winamp\winamp.exe" />
+		<dmcdir value="" />
+		<editor value="..\sted\sted.exe" />
+		<dos value="..\msdos\msdos.exe" />
+	</val>
+	<opt>
+		<option value="10000 00000, 01200 11000, 01000 00000" />
+		<radio_bin value="nsd" />
+		<chk_pass value="True" />
+		<chk_dos value="Checked" />
+		<chk_stop value="Unchecked" />
+		<chk_auto value="True" />
+		<edt_open value="False" />
+		<chk_tray value="True" />
+		<chk_topmost value="False" />
+	</opt>
+</table>

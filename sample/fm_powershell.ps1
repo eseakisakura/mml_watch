@@ -123,7 +123,7 @@ Function Sinwave([int[]]$ttlev,[float[]]$mlpul,[int]$fedb,$darkpen,$lightpen){
 
 
 　[double]$pi= [Math]::PI # 180度のラジアン値
-　[int]$adj_value= 20 # 電圧比の定数から
+　[int]$adj_value= 21 # 定数から
 
 　[int]$xmax= $IMG[0]        # x軸の最終値
 　[int]$yheight= $IMG[1]/ 2  # 振幅

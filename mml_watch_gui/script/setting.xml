@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<table>
+	<!-- listbox / nameは変動値 -->
+	<mml name="n163_EP.mml" param="C:\data\SSD 22 3 27\upload\github\watch\mml_watch_gui\sample\nsdlib\n163_EP.mml" />
+	<mml name="test.mml" param="C:\Users\toryu\Desktop\テンプファイル\test.mml" />
+	<mml name="" param="" />
+	<mml name="" param="" />
+	<br />
+	<mck name="ppmckc.exe" param="..\ppmck\bin\ppmckc.exe" />
+	<mck name="" param="" />
+	<mck name="" param="" />
+	<mck name="" param="" />
+	<br />
+	<nsd name="nsc.exe" param="C:\programs\arc\nsdlib\bin\nsc.exe" />
+	<nsd name="" param="" />
+	<nsd name="" param="" />
+	<nsd name="" param="" />
+	<br />
+	<pmd name="MC.EXE" param="..\pmd\MC.EXE" />
+	<pmd name="" param="" />
+	<pmd name="" param="" />
+	<pmd name="" param="" />
+	<br />
+	<ply name="MDPlayer.exe" param="..\mdplayer\MDPlayer.exe" />
+	<ply name="FMPMD.exe" param="..\fmpmd\FMPMD.exe" />
+	<ply name="nsfplay.exe" param="..\nsfplay\nsfplay.exe" />
+	<ply name="winamp.exe" param="C:\programs\media\Winamp\winamp.exe" />
+	<ply name="" param="" />
+	<ply name="" param="" />
+	<ply name="" param="" />
+	<ply name="" param="" />
+	<br />
+	<dmc name="" param="" />
+	<dmc name="" param="" />
+	<dmc name="" param="" />
+	<dmc name="" param="" />
+	<br />
+	<edt name="sted.exe" param="..\sted\sted.exe" />
+	<edt name="" param="" />
+	<edt name="" param="" />
+	<edt name="" param="" />
+	<edt name="" param="" />
+	<edt name="" param="" />
+	<edt name="" param="" />
+	<edt name="" param="" />
+	<br />
+	<dos name="msdos.exe" param="..\msdos\msdos.exe" />
+	<dos name="" param="" />
+	<dos name="" param="" />
+	<dos name="" param="" />
+</table>

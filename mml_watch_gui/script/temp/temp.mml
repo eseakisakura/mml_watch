@@ -1,0 +1,21 @@
+#Code "nsd_all.bin" 
+#Bank
+#timebase 24 //l4
+// track_parameter %%Ev20 Q2 l8 v15 @2%%
+
+BGM(0){ t150
+// replace parameter
+TR1 o4Ev20 Q2 l8 v15 @2
+TR2 o4Ev20 Q2 l8 v15 @2
+TR15 o4Ev20 Q2 l8 v15 @2
+TR16 o4Ev20 Q2 l8 v15 @2
+
+TR1 c^rr `e^rr
+TR2 rg^r r`c^r
+TR15 rr`c^ rrg^
+TR16 rrrg ^rr`c
+ }
+
+E(20){ L 15 R (15,2,20) L 2 } // Ev
+ 
+
