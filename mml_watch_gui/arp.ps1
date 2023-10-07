@@ -1,4 +1,4 @@
-# ------ main
+﻿# ------ main
 
 $ErrorActionPreference= "Stop"
 
@@ -7,12 +7,11 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 
  try{
 
-	[string[]]$args_str= $Args
 	.\script\common.ps1 arp_gene
 
  }catch{
 	echo $_.exception
-	Write-Host '"ERROR: Safety Stopper >> .\watch.ps1 - main"'
+	Write-Host '"ERROR: Safety Stopper >> .\arp.ps1 - main"'
 
  }finally{
  }
