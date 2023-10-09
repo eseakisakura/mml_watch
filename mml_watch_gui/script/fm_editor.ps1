@@ -7813,7 +7813,7 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 [Environment]::CurrentDirectory= pwd # working_dir set
  
 # Sub forms 
-	
+	 
 # $contxtA_7bwを読み込んだ後$PictureBox objが安全 
 	
 $contxtA_Sep_7bw= New-Object System.Windows.Forms.ToolStripSeparator 
@@ -8514,7 +8514,7 @@ $sb_alg.Location= "500,0"
 
 $sb_alg.FormBorderStyle= "FixedSingle"
 $sb_alg.StartPosition= "WindowsDefaultLocation"
-$sb_alg.Icon= Icon_read "..\fm_editor.exe"
+$sb_alg.Icon= Icon_read "..\src\FE_icon.ico"
 $sb_alg.MinimizeBox= $True
 $sb_alg.MaximizeBox= $False
 
@@ -8561,7 +8561,7 @@ $sb_alg.Add_FormClosing({
 	echo $_.exception
  }
 })
- 
+ 	
 $sb_mnu= New-Object System.Windows.Forms.MenuStrip 
 	
 $sb_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
@@ -9314,7 +9314,7 @@ $ff_frm.Location= "500,0"
 
 $ff_frm.FormBorderStyle= "FixedSingle"
 $ff_frm.StartPosition= "WindowsDefaultLocation"
-$ff_frm.Icon= Icon_read "..\fm_editor.exe"
+$ff_frm.Icon= Icon_read "..\src\FE_icon.ico"
 # $ff_frm.MinimizeBox= $False
 $ff_frm.MaximizeBox= $False
 
@@ -9459,7 +9459,7 @@ $ff_mnu.Items.AddRange(@($ff_menu_f,$ff_menu_b))
 $ff_frm.Controls.AddRange(@($ff_mnu, $ff_tab, $play_chk, $import_btn, $close_btn))
   
 # Mask forms 
-	
+	 
 $sub_mask= New-Object System.Windows.Forms.Form 
 $sub_mask.Text= "Operator Mask"
 $sub_mask.Size= "272,172"
@@ -9467,7 +9467,7 @@ $sub_mask.Location= "500,0"
 
 $sub_mask.FormBorderStyle= "FixedSingle"
 $sub_mask.StartPosition= "WindowsDefaultLocation"
-$sub_mask.Icon= Icon_read "..\fm_editor.exe"
+$sub_mask.Icon= Icon_read "..\src\FE_icon.ico"
 # $sub_mask.MinimizeBox= $False
 $sub_mask.MaximizeBox= $False
 
@@ -9696,7 +9696,7 @@ $sub_ssg_grp.Controls.AddRange(@($sub_ssg_label2,$sub_ssg_label,$sub_ssg_comb,$s
 $sub_mask.Controls.AddRange(@($sub_mask_grp,$sub_ssg_grp))
   
 # Sav forms 
-	
+	 
 $sub_sav_grp= New-Object System.Windows.Forms.GroupBox 
 # $sub_sav_grp.Text= "Save Name"
 $sub_sav_grp.Size= "242,82"
@@ -9746,7 +9746,7 @@ $sub_sav.Size= "272,172"
 $sub_sav.Location= "500,0"
 $sub_sav.FormBorderStyle= "FixedSingle"
 $sub_sav.StartPosition= "WindowsDefaultLocation"
-$sub_sav.Icon= Icon_read "..\fm_editor.exe"
+$sub_sav.Icon= Icon_read "..\src\FE_icon.ico"
 $sub_sav.MinimizeBox= $False
 $sub_sav.MaximizeBox= $False
 
@@ -12666,7 +12666,7 @@ $contxt_trayfm.Add_ItemClicked({
 })
  
 $tray_fm= New-Object System.Windows.Forms.NotifyIcon 
-$tray_fm.Icon= Icon_read "..\fm_editor.exe"
+$tray_fm.Icon= Icon_read "..\src\FE_icon.ico"
 # $tray_fm.Visible= $True
 $tray_fm.Text= "FM editor"
 $tray_fm.ContextMenuStrip= $contxt_trayfm
@@ -12703,7 +12703,7 @@ $frm_fm.Text= "FM Synthesis Chip - Tone Editor"
 $frm_fm.Size= "547,717"
 $frm_fm.FormBorderStyle= "FixedSingle"
 $frm_fm.StartPosition= "WindowsDefaultLocation"
-$frm_fm.Icon= Icon_read "..\fm_editor.exe"
+$frm_fm.Icon= Icon_read "..\src\FE_icon.ico"
 # $frm_fm.ShowIcon= $False
 $frm_fm.MinimizeBox= $True
 $frm_fm.MaximizeBox= $False
@@ -14383,7 +14383,7 @@ $fm_panel.Controls.AddRange(@($eg_grp,$lev_grp,$ring_grp,$op_grp,$alg_grp,$osc_g
 $fm_stus.Items.AddRange(@($fm_label))
 
 $frm_fm.Controls.AddRange(@($fm_mnu, $fm_panel, $fm_box, $fm_box_mml, $fm_stus))
- 	  
+   
 # Global variable ====== 
 	
 # color setting 

@@ -13,9 +13,9 @@ cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
 #csc .\new2_fm.cs
 #csc .\new2_arp.cs
 
-csc -target:winexe -win32icon:MW_icon.ico .\new2_watch.cs
-csc -target:winexe -win32icon:FE_icon.ico .\new2_fm.cs
-csc -target:winexe -win32icon:AG_icon.ico .\new2_arp.cs
+#csc -target:winexe -win32icon:MW_icon.ico .\new2_watch.cs
+#csc -target:winexe -win32icon:FE_icon.ico .\new2_fm.cs
+#csc -target:winexe -win32icon:AG_icon.ico .\new2_arp.cs
 
 
 read-host "pause"

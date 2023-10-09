@@ -1,7 +1,7 @@
 ﻿-- Nsdlib_Quick_Help.txt 
 
 -- NSDL(NES Sound Driver Library)より抜粋、一部加筆しています
-http://shaw.la.coocan.jp/nsdl/doc/index.html
+https://shaw02.github.io/nsdlib/
 
 -- 当テキストは、構造化エディタで組まれてます。
  
@@ -59,7 +59,7 @@ TR26,27,28	Sunsoft 5B(Tone& Noise) ch1,2,3
 TR29 		制御用トラック(音符は発音しない)
 		曲全体のコマンド(テンポや、VRC7, n16xの
 		音色設定等)を記述できます。
- 
+ 	
 数値の記法 ---- 
 
 	0~9で始まる数値は、10進数
@@ -95,7 +95,7 @@ TR1  o4Ev20 Q2 l8 v15 @2
 のみだと、playerが100%になる
   
 ヘッダ////// 
-	 
+	
 #title "str" 		タイトル名 
 #composer "str" 	作曲者
 #copyright "str" 	著作権者
@@ -124,7 +124,7 @@ id = volume		[APU1,APU2,VRC6,VRC7,FDS,MMC5,N163,SN5B]
 
 
 
- 	
+ 
 #QMax num		"Q"の分母の設定(def:8) 
 #QReverse		"Q"と"q"を入替え
 

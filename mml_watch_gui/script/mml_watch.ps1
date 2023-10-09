@@ -235,7 +235,7 @@ function Play_nsf([string] $file){
  } #func
   
 # chk_path 
-	 
+	
 function ErrBox_Console([string] $ss){ 
 
 	if($script:arr_errbox.Length -lt 8){
@@ -532,7 +532,7 @@ function Play_setpath(){
  } #func
   
 # toggle 
-	 
+	
 function Toggle_label(){ 
 
 
@@ -666,7 +666,7 @@ function Watch_Setting(){
 	$frm.AllowDrop= $True
 	$tray.Visible= $bool_sw
  } #func
- 	
+ 
 <# 
 	 
 function Watches_nsf([string]$eor){ 
@@ -800,7 +800,7 @@ function Watch_Drop([string[]] $arg_path){
  } #func
   
 # gui 
-	 
+	
 function New_mml([string] $sw){ 
 
 	[string] $new_set= "" # kara iretoku -> system err kaihi
@@ -1448,7 +1448,7 @@ function Menu_Change($ev, [string] $ss, [string] $sw){
  } #func
   
 # hash 
-	 
+	
 function Change_value([string]$sw, [string]$name){ 
 
  #if($name -match '[v]'  -eq $False){ # 不要 .Contains("[v]") も可
@@ -1770,7 +1770,7 @@ $contxt_tray.Add_ItemClicked({
 })
  
 $tray= New-Object System.Windows.Forms.NotifyIcon 
-$tray.Icon= Icon_read "..\mml_watch.exe"
+$tray.Icon= Icon_read "..\src\MW_icon.ico"
 # $tray.Visible= $True
 # $tray.Text= "watches"
 $tray.ContextMenuStrip= $contxt_tray
@@ -1801,13 +1801,13 @@ $tray.Add_Click({ # .Add_MouseDown
 	echo $_.exception
  }
 })
- 
+ 	
 $frm= New-Object System.Windows.Forms.Form 
 #$frm.Text= "mml watch"
 $frm.Size= "302,402"
 $frm.FormBorderStyle= "FixedSingle"
 $frm.StartPosition= "WindowsDefaultLocation"
-$frm.Icon= Icon_read "..\mml_watch.exe"
+$frm.Icon= Icon_read "..\src\MW_icon.ico"
 #$frm.ShowIcon= $False
 #$frm.MinimizeBox= $False
 $frm.MaximizeBox= $False
@@ -1819,8 +1819,8 @@ $frm.TopLevel= $True
 
 $frm.AllowDrop= $True
 
-#$frm.Add_Load({
-#	$frm.WindowState= "Minimized" # 最小化 "Normal"
+#$frm.Add_Shown({	# Load
+#	$frm.WindowState= "Normal" # 最小化 "Minimized"
 #})
 #$frm.Add_KeyDown({
 #	Write-Host $_.KeyCode # check
@@ -2834,7 +2834,7 @@ $wait.Add_Changed({	# event func入れ子は一段が理想..
 	[string]$chk_time= ""
 	[string]$lated_time= ""
 
-
+PowerShell -WindowStyle Normal -Command Exit
 	$frm.ShowDialog() > $null
 
 

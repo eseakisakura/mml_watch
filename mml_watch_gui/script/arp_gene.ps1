@@ -3286,7 +3286,7 @@ $contxt_trayarp.Add_ItemClicked({
 })
  
 $tray_arp= New-Object System.Windows.Forms.NotifyIcon 
-$tray_arp.Icon= Icon_read "..\arp_gene.exe"
+$tray_arp.Icon= Icon_read "..\src\AG_icon.ico"
 $tray_arp.Visible= $True
 $tray_arp.Text= "Arp gene"
 $tray_arp.ContextMenuStrip= $contxt_trayarp
@@ -3323,7 +3323,7 @@ $frm_arp.Text= "Guitar Arpeggio MML Generator" #Transfer
 $frm_arp.Size= "602,697"
 $frm_arp.StartPosition= "WindowsDefaultLocation"
 $frm_arp.FormBorderStyle= "FixedSingle"
-$frm_arp.Icon= Icon_read "..\arp_gene.exe"
+$frm_arp.Icon= Icon_read "..\src\AG_icon.ico"
 # $frm_arp.ShowIcon= $False
 $frm_arp.MinimizeBox= $True
 $frm_arp.MaximizeBox= $False
@@ -3398,7 +3398,7 @@ $frm_arp.Add_FormClosing({
 	echo $_.exception
  }
 })
- 
+ 	
 $arp_mnu= New-Object System.Windows.Forms.MenuStrip 
 	 
 $arp_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
@@ -4208,7 +4208,7 @@ $arp_mnu.Items.AddRange(@($arp_menu_f,$arp_menu_o,$arp_menu_m,$arp_menu_b,$arp_m
 
 $arp_stus.Items.AddRange(@($arp_label))
 $frm_arp.Controls.AddRange(@($arp_mnu,$chd_grp,$flet_grp,$number_grp,$mml_grp,$arp_stus))
- 	
+ 
 # ------ main 
 
  try{

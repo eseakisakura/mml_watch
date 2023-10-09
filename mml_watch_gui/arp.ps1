@@ -1,4 +1,8 @@
-﻿# ------ main
+﻿# arp.ps1 ------
+# ショートカットリンク
+# powershell.exe -ExecutionPolicy RemoteSigned -Sta -File .\arp.ps1
+
+# ------ main
 
 $ErrorActionPreference= "Stop"
 

@@ -20,7 +20,7 @@ winXP+ Powershell2(.NET Framework3.5) - 旧版 ver4.5.2<br/>
 <span style="color: red;">※Attention!!</span><br>
 故あって、githubの要求する2段階認証ができません。<br>
 開発自体は続けますが、将来的にはどこかに引っ越してのUploadとなりそうです。<br>
-その後については、twitterかblogにての確認お願いします。<br>
+その後については、x(twitter)かblogにての確認お願いします。<br>
 <br>
 <br>
 <table><tr><td>・Mml Watch GUI</td><td>mmlチップチューンのfront end</td>
@@ -31,13 +31,7 @@ winXP+ Powershell2(.NET Framework3.5) - 旧版 ver4.5.2<br/>
 ※Watch.cmdなどのバッチファイルによる起動であれば、<br>
 .NET Framework3.5以上、PowerShell2以上なら動くと思います。<br>
 <br>
-※mml_watch.exeなどのバイナリ起動の場合、.NET Framework4.0以上が必要となります。<br>
 <br>
-※各起動バイナリexeについて<br>
-powershell scriptを呼び出すための、c#によるラッパーとなっています。<br>
-<br>
-<br>
-
 <h4><img src="./image/MW_icon.png"> Mml Watch GUI</h4>
 
 <table><tr><td>

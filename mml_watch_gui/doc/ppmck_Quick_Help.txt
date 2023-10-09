@@ -21,7 +21,7 @@ P~W	namco16x音源
 X~Z	FME-7音源
 ab	MMC5音源
 
- 
+ 	
 数値の記法 ---- 
 
 	0~9,a~fで始まる数値は、10進数
@@ -50,13 +50,13 @@ A v15 @vr20 q2 o3 @2 l4
 のみだと、playerが100%になる
   
 ヘッダ////// 
-	 
+	
 #TITLE [str] 			タイトル 
 
 #COMPOSER [str]		作曲者名
 #MAKER [str]			原著作者名
 #PROGRAMER [str]		打ち込み者名
- 	
+ 
 #OCTAVE-REV [0,1]	oct.変更記号反転[0,1](off,on)(def:0) 
 #GATE-DENOM [num]	quantize分母指定(def:8)
 

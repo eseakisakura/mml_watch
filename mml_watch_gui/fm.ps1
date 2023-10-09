@@ -1,4 +1,8 @@
-﻿# ------ main
+﻿# fm.ps1 ------
+# ショートカットリンク
+# powershell.exe -ExecutionPolicy RemoteSigned -Sta -File .\fm.ps1
+
+# ------ main
 
 $ErrorActionPreference= "Stop"
 
