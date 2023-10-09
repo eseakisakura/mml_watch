@@ -1801,7 +1801,7 @@ $tray.Add_Click({ # .Add_MouseDown
 	echo $_.exception
  }
 })
- 	
+ 
 $frm= New-Object System.Windows.Forms.Form 
 #$frm.Text= "mml watch"
 $frm.Size= "302,402"
@@ -2834,7 +2834,6 @@ $wait.Add_Changed({	# event func入れ子は一段が理想..
 	[string]$chk_time= ""
 	[string]$lated_time= ""
 
-PowerShell -WindowStyle Normal -Command Exit
 	$frm.ShowDialog() > $null
 
 
@@ -2851,7 +2850,7 @@ PowerShell -WindowStyle Normal -Command Exit
 	$wait.Dispose()
 	$tray.Dispose() # 必要
   }
- 
+ 	
 # ハッシュ名追加の場合 
 # $xml_watch= @'
 # function Wthxml_read($x,$y){
