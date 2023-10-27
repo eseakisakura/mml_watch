@@ -6,6 +6,7 @@ githubのPATでは、今後も面倒を見てくれるとのお達者があり�
 <br>
 ただ、2要素認証ができないため、Releases uploadはないです。<br>
 今後の最新版は、緑色の Code> から DownLoad ZIP によりDLして下さい。<br>
+<span style="color: red;">※ ----------------</span><br>
 <br>
 <br>
 Chiptune MMLコンパイラへ、GUIを提供するフロントエンドです。<br>
