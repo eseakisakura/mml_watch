@@ -1,26 +1,31 @@
 <h1>mml watch GUI</h1>
 
-Chiptune MMLコンパイラへ、GUIを提供するフロントエンドです。<br/>
-"ppmck", "nsdLib", "P.M.D"へ対応します。<br/>
-<br/>
-GUI部も含めて、総Powershellで組まれており、それぞれがスタンドアロン(単体)で起動します。<br/>
+Chiptune MMLコンパイラへ、GUIを提供するフロントエンドです。<br>
+"ppmck", "nsdLib", "P.M.D"へ対応します。<br>
+<br>
+GUI部も含めて、総Powershellで組まれており、それぞれがスタンドアロン(単体)で起動します。<br>
 
-<h5>起動済み確認環境: <br/>
- <br/>
-win10(22H2)+ Powershell7.3(.NET7)<br/>
-win10(22H2)+ Powershell5(.NET Framework4.8)<br/>
-<br/>
-winXP+ Powershell2(.NET Framework3.5) - 旧版 ver4.5.2<br/>
+
+<span style="color: red;">※Attention!!</span><br>
+githubのPATでは、今後も面倒を見てくれるとのお達者があり、<br>
+当面は、こちらへUploadと相成りました。<br>
+<br>
+ただ、2要素認証ができないため、Releases uploadはないです。<br>
+今後の最新版は、緑色の Code> から DownLoad ZIP によりDLして下さい。<br>
+<br>
+<br>
+<h5>起動済み確認環境: <br>
+ <br>
+win10(22H2)+ Powershell7.3(.NET7)<br>
+win10(22H2)+ Powershell5(.NET Framework4.8)<br>
+<br>
+winXP+ Powershell2(.NET Framework3.5) - 旧版 ver4.5.2<br>
 </h5>
 
 <h4>
-説明書及び、必須ソフトウェアのリンク <br/>
-・<a href="https://eseakisakura.github.io/mml_watch_gui/"> Mml Watch GUI - download</a><br/>
+説明書及び、必須ソフトウェアのリンク <br>
+・<a href="https://eseakisakura.github.io/mml_watch_gui/"> Mml Watch GUI - download</a><br>
 </h4>
-<span style="color: red;">※Attention!!</span><br>
-故あって、githubの要求する2段階認証ができません。<br>
-開発自体は続けますが、将来的にはどこかに引っ越してのUploadとなりそうです。<br>
-その後については、x(twitter)かblogにての確認お願いします。<br>
 <br>
 <br>
 <table><tr><td>・Mml Watch GUI</td><td>mmlチップチューンのfront end</td>
