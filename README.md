@@ -1,17 +1,17 @@
 <h1>mml watch GUI</h1>
 
-Chiptune MMLコンパイラへ、GUIを提供するフロントエンドです。<br>
-"ppmck", "nsdLib", "P.M.D"へ対応します。<br>
-<br>
-GUI部も含めて、総Powershellで組まれており、それぞれがスタンドアロン(単体)で起動します。<br>
-
-
-<span style="color: red;">※Attention!!</span><br>
+<span style="color: red;">※Attention!! ----</span><br>
 githubのPATでは、今後も面倒を見てくれるとのお達者があり、<br>
 当面は、こちらへUploadと相成りました。<br>
 <br>
 ただ、2要素認証ができないため、Releases uploadはないです。<br>
 今後の最新版は、緑色の Code> から DownLoad ZIP によりDLして下さい。<br>
+<br>
+<br>
+Chiptune MMLコンパイラへ、GUIを提供するフロントエンドです。<br>
+"ppmck", "nsdLib", "P.M.D"へ対応します。<br>
+<br>
+GUI部も含めて、総Powershellで組まれており、それぞれがスタンドアロン(単体)で起動します。<br>
 <br>
 <br>
 <h5>起動済み確認環境: <br>
