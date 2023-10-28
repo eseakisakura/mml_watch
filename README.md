@@ -5,7 +5,7 @@ githubのPATにおいて、今後も面倒を見てくれるとのお達者が�
 当面は、こちらでUploadと相成りました。<br>
 <br>
 ただ、2要素認証ができないため、Releases uploadはないです。<br>
-今後の最新版は、緑色の Code> から DownLoad ZIP でDLして下さい。<br>
+今後の最新版は、緑色の Code> より DownLoad ZIP をDLして下さい。<br>
 よろしくお願いします。<br>
 <span style="color: red;">※ ----------------</span><br>
 <br>
