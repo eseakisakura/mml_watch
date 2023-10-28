@@ -1,11 +1,11 @@
 <h1>mml watch GUI</h1>
 
 <span style="color: red;">※Attention!! ----</span><br>
-githubのPATでは、今後も面倒を見てくれるとのお達者があり、<br>
-当面は、こちらへUploadと相成りました。<br>
+githubのPATにおいて、今後も面倒を見てくれるとのお達者があり、<br>
+当面は、こちらでUploadと相成りました。<br>
 <br>
 ただ、2要素認証ができないため、Releases uploadはないです。<br>
-今後の最新版は、緑色の Code> から DownLoad ZIP によりDLして下さい。<br>
+今後の最新版は、緑色の Code> から DownLoad ZIP でDLして下さい。<br>
 よろしくお願いします。<br>
 <span style="color: red;">※ ----------------</span><br>
 <br>
