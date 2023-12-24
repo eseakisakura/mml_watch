@@ -31,7 +31,7 @@ $xml_watch= @'
 '@
  
 # nsf_trans 
-	 
+	
 function Mck_trans([string]$file){ 
 
 
@@ -235,7 +235,7 @@ function Play_nsf([string] $file){
  } #func
   
 # chk_path 
-	
+	 
 function ErrBox_Console([string] $ss){ 
 
 	if($script:arr_errbox.Length -lt 8){
@@ -532,7 +532,7 @@ function Play_setpath(){
  } #func
   
 # toggle 
-	
+	 
 function Toggle_label(){ 
 
 
@@ -679,7 +679,7 @@ function Watches_nsf([string]$eor){
 	$err_box.SelectionStart= $err_box.Text.Length
 	$err_box.ScrollToCaret()
  } #func
- 
+ 	
 #> 
   
 function Watch_Start(){ 
@@ -1819,7 +1819,7 @@ $frm.TopLevel= $True
 
 $frm.AllowDrop= $True
 
-#$frm.Add_Shown({	# Load
+#$frm.Add_Load({
 #	$frm.WindowState= "Normal" # 最小化 "Minimized"
 #})
 #$frm.Add_KeyDown({
@@ -1834,9 +1834,9 @@ $frm.Add_Shown({
 	$wait_btn.Select() # forcus
 
 
-	if((Chk_path $args_str[0]) -ne 2){
+	if($args_str.Length -gt 0){
 
-		Watch_Drop $args_str[0]
+		Watch_Drop $args_str
 	}
 
 
@@ -2752,7 +2752,7 @@ $wait.Add_Changed({	# event func入れ子は一段が理想..
 		Write-Host ""
 
 		Play_nsf $_.FullPath	# $err_box.Text
-		Watches_nsf ('< Watches: '+ $_.Name)
+		## Watches_nsf ('< Watches: '+ $_.Name)
 
 		sleep -m 167	# ウェイト
 	}
@@ -2850,7 +2850,7 @@ $wait.Add_Changed({	# event func入れ子は一段が理想..
 	$wait.Dispose()
 	$tray.Dispose() # 必要
   }
- 	
+ 
 # ハッシュ名追加の場合 
 # $xml_watch= @'
 # function Wthxml_read($x,$y){
