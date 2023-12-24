@@ -1887,7 +1887,7 @@ function Idx(){
 # ------ 
  
 # poly 
-	
+	 
 function Flow_ssg([int]$num, [array]$e, [int]$width, [int]$height){ 
 
 
@@ -2431,7 +2431,7 @@ function Poly_chg(){
  } #func
   
 # sine 
-	
+	 
 function Flowtting_point([int]$cnt, [int]$opt, [array]$xy){ 
 
 	[int]$i= 0
@@ -4362,7 +4362,7 @@ function All_chg(){	# $vrc_svn[][] ha "__1" no string
  } #func
   
 # sub window gui 
-	
+	 
 function Stus_alg(){ # status bar 
 
 	switch($bai){
@@ -4732,48 +4732,16 @@ function Slot_read($x){
  
 function Load_value($x, [string]$sw){ 
 
-	switch($sw){
-	'A'{
-		$script:op_index[4]= $x.A.name
-		$script:op_index[(Item_index)]= $x.A.number
-		Slot_read $x.A
-		break;
-	}'B'{
-		$script:op_index[4]= $x.B.name
-		$script:op_index[(Item_index)]= $x.B.number
-		Slot_read $x.B
-		break;
-	}'C'{
-		$script:op_index[4]= $x.C.name
-		$script:op_index[(Item_index)]= $x.C.number
-		Slot_read $x.C
-		break;
-	}'D'{
-		$script:op_index[4]= $x.D.name
-		$script:op_index[(Item_index)]= $x.D.number
-		Slot_read $x.D
-		break;
-	}'E'{
-		$script:op_index[4]= $x.E.name
-		$script:op_index[(Item_index)]= $x.E.number
-		Slot_read $x.E
-		break;
-	}'F'{
-		$script:op_index[4]= $x.F.name
-		$script:op_index[(Item_index)]= $x.F.number
-		Slot_read $x.F
-		break;
-	}'G'{
-		$script:op_index[4]= $x.G.name
-		$script:op_index[(Item_index)]= $x.G.number
-		Slot_read $x.G
-		break;
-	}'H'{
-		$script:op_index[4]= $x.H.name
-		$script:op_index[(Item_index)]= $x.H.number
-		Slot_read $x.H
+	if($x.name -eq ""){
+
+		$retn= [Windows.Forms.MessageBox]::Show(
+		"SlotにSaveデータがありません", "確認", "OK","Information","Button1"
+		)
+	}else{
+		$script:op_index[4]= $x.name
+		$script:op_index[(Item_index)]= $x.number
+		Slot_read $x
 	}
-	} #sw
 
 	Unredo 0
 
@@ -4790,7 +4758,7 @@ function Load_value($x, [string]$sw){
 		All_chg
 	}
  } #func
-  
+ 	 
 # hash 
 	
 function Setxml_read($x){ 
@@ -8561,7 +8529,7 @@ $sb_alg.Add_FormClosing({
 	echo $_.exception
  }
 })
- 	
+ 
 $sb_mnu= New-Object System.Windows.Forms.MenuStrip 
 	
 $sb_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
@@ -12781,7 +12749,7 @@ $fm_menu_f.Text= "File"
 
 
 
-	
+	 
 $fm_menu_pset= New-Object System.Windows.Forms.ToolStripSeparator 
 $fm_menu_pset= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_pset.Text= "Preset"
@@ -12834,13 +12802,13 @@ $fm_menu_pset.Add_Click({
 $fm_menu_ladn= New-Object System.Windows.Forms.ToolStripSeparator 
 $fm_menu_lad= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_lad.Text= "Load"
-	
+	 
 $fm_lad_a= New-Object System.Windows.Forms.ToolStripMenuItem 
 # $fm_lad_a.Text= "slot A"
 
 $fm_lad_a.Add_Click({
  try{
-	Load_value $fm_xml.table.slot "A"
+	Load_value $fm_xml.table.slot.A
  }catch{
 	echo $_.exception
  }
@@ -12851,7 +12819,7 @@ $fm_lad_b= New-Object System.Windows.Forms.ToolStripMenuItem
 
 $fm_lad_b.Add_Click({
  try{
-	Load_value $fm_xml.table.slot "B"
+	Load_value $fm_xml.table.slot.B
  }catch{
 	echo $_.exception
  }
@@ -12862,7 +12830,7 @@ $fm_lad_c= New-Object System.Windows.Forms.ToolStripMenuItem
 
 $fm_lad_c.Add_Click({
  try{
-	Load_value $fm_xml.table.slot "C"
+	Load_value $fm_xml.table.slot.C
  }catch{
 	echo $_.exception
  }
@@ -12873,7 +12841,7 @@ $fm_lad_d= New-Object System.Windows.Forms.ToolStripMenuItem
 
 $fm_lad_d.Add_Click({
  try{
-	Load_value $fm_xml.table.slot "D"
+	Load_value $fm_xml.table.slot.D
  }catch{
 	echo $_.exception
  }
@@ -12884,7 +12852,7 @@ $fm_lad_e= New-Object System.Windows.Forms.ToolStripMenuItem
 
 $fm_lad_e.Add_Click({
  try{
-	Load_value $fm_xml.table.slot "E"
+	Load_value $fm_xml.table.slot.E
  }catch{
 	echo $_.exception
  }
@@ -12895,7 +12863,7 @@ $fm_lad_f= New-Object System.Windows.Forms.ToolStripMenuItem
 
 $fm_lad_f.Add_Click({
  try{
-	Load_value $fm_xml.table.slot "F"
+	Load_value $fm_xml.table.slot.F
  }catch{
 	echo $_.exception
  }
@@ -12906,7 +12874,7 @@ $fm_lad_g= New-Object System.Windows.Forms.ToolStripMenuItem
 
 $fm_lad_g.Add_Click({
  try{
-	Load_value $fm_xml.table.slot "G"
+	Load_value $fm_xml.table.slot.G
  }catch{
 	echo $_.exception
  }
@@ -12917,7 +12885,7 @@ $fm_lad_h= New-Object System.Windows.Forms.ToolStripMenuItem
 
 $fm_lad_h.Add_Click({
  try{
-	Load_value $fm_xml.table.slot "H"
+	Load_value $fm_xml.table.slot.H
  }catch{
 	echo $_.exception
  }
@@ -13247,7 +13215,7 @@ $fm_menu_set.Add_Click({
 })
 
 
-	 
+	
 <# 
 	
 $fm_menu_cmp0= New-Object System.Windows.Forms.ToolStripMenuItem 
