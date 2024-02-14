@@ -19,10 +19,11 @@ $xml_watch= @'
 	<opt>
 		<option value= "10000 00000, 01200 11000, 01000 00000"/>
 		<radio_bin value= "nsd"/>
-		<chk_pass value= "True"/>
+		<chk_play value= "False"/>
 		<chk_dos value= "Checked"/>
 		<chk_stop value= "UnChecked"/>
 		<chk_auto value= "True"/>
+		<chk_clear value= "False"/>
 		<edt_open value= "False"/>
 		<chk_tray value= "True"/>
 		<chk_topmost value= "False"/>
@@ -31,11 +32,12 @@ $xml_watch= @'
 '@
  
 # nsf_trans 
-	
+	 
 function Mck_trans([string]$file){ 
 
 
-	if($opt["play_open"] -eq "true"){
+	if($opt["play_open"] -eq "false"){
+
 		if($opt["chk_stop"] -eq 'Checked'){
 
 			Player_open 1 $val["player"] > $null
@@ -61,7 +63,7 @@ function Mck_trans([string]$file){
 	}else{
 
 		# $LASTEXITCODE [0-3]
-		$eor[0]= ('exitcode: '+ $LASTEXITCODE)
+		$eor[0]= ('>exitcode: '+ $LASTEXITCODE)
 
 		ErrBox_Console $eor[0]
 		Write-Host $eor[0]
@@ -78,7 +80,7 @@ function Mck_trans([string]$file){
 			Write-Host ""
 
 		}else{
-			if($opt["play_open"] -eq "true"){
+			if($opt["play_open"] -eq "false"){
 
 				Player_open 2 $val["player"] ($dpn+ '.nsf') > $null
 			}
@@ -91,7 +93,8 @@ function Mck_trans([string]$file){
 function Nsd_trans([string]$file){ 
 
 
-	if($opt["play_open"] -eq "true"){
+	if($opt["play_open"] -eq "false"){
+
 		if($opt["chk_stop"] -eq 'Checked'){
 
 			Player_open 1 $val["player"] > $null
@@ -117,7 +120,7 @@ function Nsd_trans([string]$file){
 	}else{
 
 		# $LASTEXITCODE [0-3]
-		$eor[0]= ('exitcode: '+ $LASTEXITCODE)
+		$eor[0]= ('>exitcode: '+ $LASTEXITCODE)
 
 		ErrBox_Console $eor[0]
 		Write-Host $eor[0]
@@ -134,7 +137,7 @@ function Nsd_trans([string]$file){
 			Write-Host ""
 
 		}else{
-			if($opt["play_open"] -eq "true"){
+			if($opt["play_open"] -eq "false"){
 				# '"' 空白パス対応
 				Player_open 2 $val["player"] ($dpn+ '.nsf') > $null
 			}
@@ -147,7 +150,8 @@ function Nsd_trans([string]$file){
 function Pmd_trans([string]$file){ 
 
 
-	if($opt["play_open"] -eq "true"){
+	if($opt["play_open"] -eq "false"){
+
 		if($opt["chk_stop"] -eq 'Checked'){
 
 			Player_open 1 $val["player"] > $null
@@ -173,7 +177,7 @@ function Pmd_trans([string]$file){
 	}else{
 
 		# $LASTEXITCODE [0-3]
-		$eor[0]= ('exitcode: '+ $LASTEXITCODE)
+		$eor[0]= ('>exitcode: '+ $LASTEXITCODE)
 
 		ErrBox_Console $eor[0]
 		Write-Host $eor[0]
@@ -190,7 +194,7 @@ function Pmd_trans([string]$file){
 			Write-Host ""
 
 		}else{
-			if($opt["play_open"] -eq "true"){
+			if($opt["play_open"] -eq "false"){
 
 				Player_open 2 $val["player"] ($dpn+ '.m') > $null
 			}
@@ -256,7 +260,7 @@ function ErrBox_Console([string] $ss){
  
 function CslBox_Console([string] $ss){ 
 
-	if($script:arr_cslbox.Length -lt 8){	
+	if($script:arr_cslbox.Length -lt 8){
 
 		$script:arr_cslbox+= $ss
 
@@ -307,8 +311,7 @@ function Wait_setpath(){
 				$eor= (">>フォルダの監視は不可です: "+ $f[0])
 			}else{
 
-				$eor= ("<<"+ $f[3]+ "の監視セット: "+ $f[0])
-				$sw= $True
+				$eor= (">>"+ $f[3]+ "の監視は不可です: "+ $f[0])
 			}
 		}
 		} #sw
@@ -328,8 +331,11 @@ function Wait_setpath(){
 		$script:wait.Filter= $null
 	}
 	} #sw
+
+	return $sw
+
  } #func
- 
+ 	
 function Err_build(){ 
 
 	[int[]]$err= 0,0,0, 0,0
@@ -350,7 +356,7 @@ Function Status_build(){
 
 	[string]$ss= ""
 
-	if($opt["play_open"] -eq "True"){
+	if($opt["play_open"] -eq "false"){
 
 		$ss= "  "+ "ply: "+ $f[0]+ $ph[2]
 	}else{
@@ -393,7 +399,7 @@ function Status_cheker(){
 		$g= " /x64対応"
 	}
 
-	if($opt["play_open"] -eq "True"){
+	if($opt["play_open"] -eq "false"){
 
 		if($opt["chk_stop"] -eq 'Checked'){
 
@@ -502,7 +508,7 @@ function Play_setpath(){
 
 	[int] $stus= $r[0]+ $r[1]
 
-	if($opt["play_open"] -eq "True"){
+	if($opt["play_open"] -eq "false"){
 
 		$stus+= $r[2]
 	}
@@ -586,7 +592,7 @@ function Toggle_sw([string]$sw){
 	}
 	} #sw
 
-	Write-Host ('RaisingEvents: '+ $wait.EnableRaisingEvents)
+	Write-Host ('>RaisingEvents: '+ $wait.EnableRaisingEvents)
 	Write-Host ""
 
  } #func
@@ -654,10 +660,11 @@ function Watch_Setting(){
 	Console_out
 	Status_build
 
-	Wait_setpath	# $wait.Filter
-	$script:chk_mml= Play_setpath
+	$script:chk_mml[0]= Wait_setpath	# $wait.Filter
+	$script:chk_mml[1]= Play_setpath
 
-	if($chk_mml){ # $wait_btn canceller
+	# $wait_btn canceller
+	if($chk_mml[0] -eq $True -and $chk_mml[1] -eq $True){
 
 		Toggle_sw "true"
 	}
@@ -679,7 +686,7 @@ function Watches_nsf([string]$eor){
 	$err_box.SelectionStart= $err_box.Text.Length
 	$err_box.ScrollToCaret()
  } #func
- 	
+ 
 #> 
   
 function Watch_Start(){ 
@@ -689,7 +696,7 @@ function Watch_Start(){
 		switch($wait.EnableRaisingEvents){	# トグル
 		$False{
 
-			if($opt["chk_auto"] -ne 'False'){
+			if($opt["chk_auto"] -eq 'True'){
 
 				Play_nsf $val["mmlfile"]
 			}
@@ -708,7 +715,6 @@ function Watch_Start(){
  
 function Drop_Out([string] $arg_file){ 
 
-	[bool] $sw= $False
 
 	switch(Chk_path $arg_file){
 	2{
@@ -723,36 +729,54 @@ function Drop_Out([string] $arg_file){
 		ErrBox_Console $ss
 		Write-Host $ss
 		break;
+
 	}0{
-		[string[]] $arr_mml= $mml.Keys
-		[string[]] $arr= Split_path $arg_file
+		[bool] $sw= $False
+
+		if($opt["dd_clear"] -eq "true"){
+
+			$script:mml.Clear()
+			$sw= $True
+
+		}else{
+			[string[]] $arr_mml= $mml.Keys
+			[string[]] $arr= Split_path $arg_file
 
 
-		[string] $p= ""
-		foreach($p in $arr_mml){
+			[string] $p= ""
+			foreach($p in $arr_mml){
 
-			if($p -eq $arr[0]){	# =file name thru
+				if($p -eq $arr[0]){	# =file name thru
+					$sw= $True
+				}
+			} #
+
+
+			if($arr_mml.Length -lt 4){	# $mml.Keys.Count
 				$sw= $True
 			}
-		} #
 
 
-		if($arr_mml.Length -lt 4){	# $mml.Keys.Count
-			$sw= $True
+			if($sw -eq $False){
+
+				[string] $ss= ">>ERROR mml Slot: Over Count"
+
+				ErrBox_Console $ss
+				Write-Host $ss
+
+				[string] $retn= [Windows.Forms.MessageBox]::Show(
+
+				"スロットが満杯です。", "確認", "OK","Information","Button1"
+				)
+			}
 		}
 
+		if($sw -eq $True){
 
-		if($sw -eq $False){
-
-			[string] $ss= ">>ERROR mml Slot: Over Count"
-
-			ErrBox_Console $ss
-			Write-Host $ss
+			Watch_Drop $arg_file
 		}
 	}
 	} #sw
-
-	return $sw
  } #func
  
 function Watch_Drop([string[]] $arg_path){ 
@@ -761,82 +785,103 @@ function Watch_Drop([string[]] $arg_path){
 
 		Toggle_sw "false"
 	}
+
 	Toggle_label
 
 
-	[bool] $sw= Drop_Out $arg_path[0]
+	$script:val["mmlfile"]= $arg_path[0]
+	[string[]] $arr= Split_path $arg_path[0]
 
 
-	if($sw -eq $True){
+	$script:mml[$arr[0]]= $arg_path[0]	# hash add
+	Menu_build "mmlfile"
 
-		$script:val["mmlfile"]= $arg_path[0]
-		[string[]] $arr= Split_path $arg_path[0]
+	if((Chk_path '.\setting.xml') -eq 0){
+
+		SetWrite_xml $script:set_xml.table
+		File_writer $script:set_xml '.\setting.xml'
+
+	}else{
+		Write-Host ('"setting.xml" 読み込みエラー')
+	}
+
+	Console_out
+	Status_build
 
 
-		$script:mml[$arr[0]]= $arg_path[0]	# hash add
-		Menu_build "mmlfile"
+	$script:chk_mml[0]= Wait_setpath	# $wait.Filter
+	$script:chk_mml[1]= Play_setpath
 
-		if((Chk_path '.\setting.xml') -eq 0){
+	# $wait_btn canceller
+	if($chk_mml[0] -eq $True -and $chk_mml[1] -eq $True){
 
-			SetWrite_xml $script:set_xml.table
-			File_writer $script:set_xml '.\setting.xml'
+		Toggle_sw "true"
 
-		}else{
-			Write-Host ('"setting.xml" 読み込みエラー')
+		if($opt["chk_auto"] -eq 'True'){
+
+			Play_nsf $val["mmlfile"]
 		}
 
-		Console_out
-		Status_build
-
-		Wait_setpath	# $wait.Filter
-		$script:chk_mml= Play_setpath
-
-		if($chk_mml){
-
-			Toggle_sw "true"
-		}
 		Toggle_label
+
 	}
  } #func
   
 # gui 
-	
+	 
 function New_mml([string] $sw){ 
-
-	[string] $new_set= "" # kara iretoku -> system err kaihi
-
-	switch($sw){
-	'mck'{
-		$new_set= (cat '.\new\new_mck.mml' | Out-String)
-		break;
-	}'nsd'{
-		$new_set= (cat '.\new\new_nsd.mml' | Out-String)
-		break;
-	}'pmd'{
-		$new_set= (cat '.\new\new_pmd.mml' | Out-String) # 改行付き
-	}
-	} #sw
-
-	[string] $btn= $dia.ShowDialog()
 
 	[string] $path= ""
 
-	switch($btn){
-	'OK'{
-		$path= $dia.FileName
 
-		Mml_writer $new_set $path 0
-		# $new_set | Out-File -Encoding oem -FilePath $path # shiftJIS
+	if($mml.Keys.Count -gt 3){	# $arr_mml.Length
 
-	#}'Cancel'{
+		[string] $ss= ">>ERROR mml Slot: Over Count"
+
+		ErrBox_Console $ss
+		Write-Host $ss
+
+		[string] $retn= [Windows.Forms.MessageBox]::Show(
+
+		"スロットが満杯です。", "確認", "OK","Information","Button1"
+		)
+	}else{
+
+		[string] $new_set= "" # kara iretoku -> system err kaihi
+
+		switch($sw){
+		'mck'{
+			$new_set= (cat '.\new\new_mck.mml' | Out-String)
+			break;
+		}'nsd'{
+			$new_set= (cat '.\new\new_nsd.mml' | Out-String)
+			break;
+		}'pmd'{
+			$new_set= (cat '.\new\new_pmd.mml' | Out-String) # 改行付き
+		}
+		} #sw
+
+		[string] $btn= $dia.ShowDialog()
+
+
+		switch($btn){
+		'OK'{
+			$path= $dia.FileName
+
+			Mml_writer $new_set $path 0
+			# $new_set | Out-File -Encoding oem -FilePath $path # shiftJIS
+
+		#}'Cancel'{
+		}
+		} #sw
 	}
-	} #sw
 
 	return $path
+
  } #func
  
 <# 
-	 
+	
 function Setadv_edit([string] $t){ 
 
 	[string] $ss= ""
@@ -955,10 +1000,24 @@ function Open_play([string]$t){
 
 	switch($t){
 	'true'{
-		$menu_pas.Text= "MMLコンパイルのみ"
+		$menu_pas.Text= "v MMLコンパイルのみ"
 		break;
 	}'false'{
-		$menu_pas.Text= "v MMLコンパイルのみ"
+		$menu_pas.Text= "MMLコンパイルのみ"
+	}
+	} #sw
+
+	return $t
+ } #func
+ 
+function Clear_slot([string] $t){ 
+
+	switch($t){
+	'true'{
+		$menu_clear.Text= "v DD時、mmlSlotを全てクリア"
+		break;
+	}'false'{
+		$menu_clear.Text= "DD時、mmlSlotを全てクリア"
 	}
 	} #sw
 
@@ -970,11 +1029,11 @@ function Auto_start([string]$t){
 	switch($t){
 	'true'{
 		$pic_box.Image= [System.Drawing.Image]::FromFile(".\img\orange.png")
-		$menu_r.Text= "v 監視開始時、リスタート"
+		$menu_r.Text= "v プレイヤー自動スタート"
 		break;
 	}'false'{
 		$pic_box.Image= [System.Drawing.Image]::FromFile(".\img\blue.png")
-		$menu_r.Text= "監視開始時、リスタート"
+		$menu_r.Text= "プレイヤー自動スタート"
 	}
 	} #sw
 
@@ -1434,10 +1493,11 @@ function Menu_Change($ev, [string] $ss, [string] $sw){
 		Console_out
 		Status_build
 
-		Wait_setpath	# $wait.Filter
-		$script:chk_mml= Play_setpath
+		$script:chk_mml[0]= Wait_setpath	# $wait.Filter
+		$script:chk_mml[1]= Play_setpath
 
-		if($chk_mml){
+		# $wait_btn canceller
+		if($chk_mml[0] -eq $True -and $chk_mml[1] -eq $True){
 
 			Toggle_sw "true"
 		}else{
@@ -1448,7 +1508,7 @@ function Menu_Change($ev, [string] $ss, [string] $sw){
  } #func
   
 # hash 
-	
+	 
 function Change_value([string]$sw, [string]$name){ 
 
  #if($name -match '[v]'  -eq $False){ # 不要 .Contains("[v]") も可
@@ -1542,7 +1602,8 @@ function Wthxml_read($x,$y){
 
 
 	# メニュー切換
-	$script:opt["play_open"]= Open_play $y.chk_pass.value
+	$script:opt["dd_clear"]= Clear_slot $y.chk_clear.value
+	$script:opt["play_open"]= Open_play $y.chk_play.value
 	$script:opt["chk_topmost"]= Top_most $y.chk_topmost.value
 	$script:opt["chk_auto"]= Auto_start $y.chk_auto.value
 	$script:opt["chk_tray"]= Tray_hide $y.chk_tray.value
@@ -1560,26 +1621,27 @@ function Wthwrite_xml($x,$y){
 	# $x= $script:wth_xml.table.val
 	# $y= $script:wth_xml.table.opt
 
-	$x.mmlfile.value= [string]$val["mmlfile"] # $xmlは[string]キャスト必要
-	$x.mck.value= [string]$val["mck"]
-	$x.nsd.value= [string]$val["nsd"]
-	$x.pmd.value= [string]$val["pmd"]
-	$x.compiler.value= [string]$val["compiler"]
-	$x.player.value= [string]$val["player"]
-	$x.dmcdir.value= [string]$val["dmcdir"]
-	$x.editor.value= [string]$val["editor"]
-	$x.dos.value= [string]$val["dos"]
+	$x.mmlfile.value= [string] $val["mmlfile"] # $xmlは[string]キャスト必要
+	$x.mck.value= [string] $val["mck"]
+	$x.nsd.value= [string] $val["nsd"]
+	$x.pmd.value= [string] $val["pmd"]
+	$x.compiler.value= [string] $val["compiler"]
+	$x.player.value= [string] $val["player"]
+	$x.dmcdir.value= [string] $val["dmcdir"]
+	$x.editor.value= [string] $val["editor"]
+	$x.dos.value= [string] $val["dos"]
 
-	$y.option.value= [string]$opt["option"]
-	$y.radio_bin.value= [string]$opt["radio_bin"]
-	$y.chk_pass.value= [string]$opt["play_open"]
-	$y.chk_dos.value= [string]$opt["chk_dos"]
-	$y.chk_stop.value= [string]$opt["chk_stop"]
+	$y.option.value= [string] $opt["option"]
+	$y.radio_bin.value= [string] $opt["radio_bin"]
+	$y.chk_clear.value= [string] $opt["dd_clear"]
+	$y.chk_play.value= [string] $opt["play_open"]
+	$y.chk_dos.value= [string] $opt["chk_dos"]
+	$y.chk_stop.value= [string] $opt["chk_stop"]
 
-	$y.chk_topmost.value= [string]$opt["chk_topmost"]
-	$y.chk_auto.value= [string]$opt["chk_auto"]
-	$y.chk_tray.value= [string]$opt["chk_tray"]
-	$y.edt_open.value= [string]$opt["edt_open"]
+	$y.chk_topmost.value= [string] $opt["chk_topmost"]
+	$y.chk_auto.value= [string] $opt["chk_auto"]
+	$y.chk_tray.value= [string] $opt["chk_tray"]
+	$y.edt_open.value= [string] $opt["edt_open"]
  } #func
  
 function Param_join([array]$rr){ 
@@ -1836,7 +1898,7 @@ $frm.Add_Shown({
 
 	if($args_str.Length -gt 0){
 
-		Watch_Drop $args_str
+		Drop_Out $args_str
 	}
 
 
@@ -1889,7 +1951,7 @@ $frm.Add_DragEnter({
 
 $frm.Add_DragDrop({
   try{
-	Watch_Drop $_.Data.GetData("FileDrop")
+	Drop_Out $_.Data.GetData("FileDrop")
 
   }catch{
 	echo $_.exception
@@ -1906,7 +1968,7 @@ $sub_menu_new.Text= "新規ファイル"
 
 
 
-	 
+	
 $sub_menu_mck= New-Object System.Windows.Forms.ToolStripMenuItem 
 $sub_menu_mck.Text= "MCK new mml"
 
@@ -2102,7 +2164,7 @@ $menu_mml3.Add_Click({
  
 $menu_comp=  New-Object System.Windows.Forms.ToolStripMenuItem 
 $menu_comp.Text= "コンパイラ"
-	 
+	
 $menu_cmck=  New-Object System.Windows.Forms.ToolStripMenuItem 
 # $menu_cmck.Text= "MCK"
 
@@ -2569,6 +2631,24 @@ $menu_pas.Add_Click({
  }
 })
 
+$menu_clearr= New-Object System.Windows.Forms.ToolStripSeparator
+$menu_clear=  New-Object System.Windows.Forms.ToolStripMenuItem
+# $menu_clear.Text= "v DD時、mmlSlotを全てクリア"
+
+$menu_clear.Add_Click({
+ try{
+	switch($opt["dd_clear"]){
+
+	'true'{	$script:opt["dd_clear"]= Clear_slot "false";	break;
+	}'false'{	$script:opt["dd_clear"]= Clear_slot "true"
+	}
+	} #sw
+
+ }catch{
+	echo $_.exception
+ }
+})
+
 $menu_eor= New-Object System.Windows.Forms.ToolStripSeparator
 $menu_eo=  New-Object System.Windows.Forms.ToolStripMenuItem
 # $menu_eo.Text= "v 起動時、エディタオープン"
@@ -2588,16 +2668,17 @@ $menu_eo.Add_Click({
 
 $menu_sr= New-Object System.Windows.Forms.ToolStripSeparator
 $menu_r=  New-Object System.Windows.Forms.ToolStripMenuItem
-# $menu_r.Text= "v 監視開始時、リスタート"
+# $menu_r.Text= "v プレイヤー自動スタート"
 
 $menu_r.Add_Click({
  try{
 	switch($opt["chk_auto"]){ # トグル
 
-	'True'{		$script:opt["chk_auto"]= Auto_start "False";	break;
+	'True'{	$script:opt["chk_auto"]= Auto_start "False";	break;
 	}'False'{	$script:opt["chk_auto"]= Auto_start "True"
 	}
 	} #sw
+
  }catch{
 	echo $_.exception
  }
@@ -2608,7 +2689,7 @@ $menu_h.Text= "Help"
  
 $sub_menu_adv= New-Object System.Windows.Forms.ToolStripMenuItem 
 $sub_menu_adv.Text= "Advanced"
-	
+	 
 $adv_menu_mck= New-Object System.Windows.Forms.ToolStripMenuItem 
 $adv_menu_mck.Text= "MCK new edit"
 
@@ -2646,7 +2727,7 @@ $menu_sq= New-Object System.Windows.Forms.ToolStripSeparator
  
 $menu_quickhelp= New-Object System.Windows.Forms.ToolStripMenuItem 
 $menu_quickhelp.Text= "Quick Help"
-	
+	 
 $menu_mhelp= New-Object System.Windows.Forms.ToolStripMenuItem 
 $menu_mhelp.Text= "ppmck Quick Help"
 
@@ -2694,7 +2775,7 @@ $menu_whelp.Add_Click({
 $sub_menu_new.DropDownItems.AddRange(@($sub_menu_mck,$sub_menu_nsd,$sub_menu_pmd)) 
 
 $menu_f.DropDownItems.AddRange(@($sub_menu_new,$sub_menu_an,$menu_e,$menu_d,$menu_spy,$menu_py,$menu_sn,$menu_n))
-$menu_ka.DropDownItems.AddRange(@($menu_eo,$menu_eor,$menu_r,$menu_sr,$menu_pas,$menu_pasr,$menu_ty))
+$menu_ka.DropDownItems.AddRange(@($menu_eo,$menu_eor,$menu_pas,$menu_pasr,$menu_r,$menu_sr,$menu_clear,$menu_clearr,$menu_ty))
 
 $menu_mml.DropDownItems.AddRange(@($menu_mml0,$menu_mml1,$menu_mml2,$menu_mml3))
 
@@ -2797,18 +2878,21 @@ $wait.Add_Changed({	# event func入れ子は一段が理想..
 	Console_out	# Status_build
 	Status_build
 
-	Wait_setpath	# $wait.Filter
-	[int] $script:chk_mml= Play_setpath
 
-	if($chk_mml){	# $wait_btn canceller
+	[bool[]] $script:chk_mml= $False, $False
+
+	$script:chk_mml[0]= Wait_setpath	# $wait.Filter
+	$script:chk_mml[1]= Play_setpath
+
+	# $wait_btn canceller
+	if($chk_mml[0] -eq $True -and $chk_mml[1] -eq $True){
 
 		Toggle_sw "true"
 	}else{
 		Toggle_sw "false"
 	}
+
 	Toggle_label
-
-
 
 
 	if((Chk_path '.\setting.xml') -ne 0){
