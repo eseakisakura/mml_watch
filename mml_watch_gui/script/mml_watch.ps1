@@ -335,7 +335,7 @@ function Wait_setpath(){
 	return $sw
 
  } #func
- 	
+ 
 function Err_build(){ 
 
 	[int[]]$err= 0,0,0, 0,0
@@ -1895,10 +1895,9 @@ $frm.Add_Shown({
 
 	$wait_btn.Select() # forcus
 
+	if($args_str[0] -ne ""){	# $args_str.Length deha "" ga count
 
-	if($args_str.Length -gt 0){
-
-		Drop_Out $args_str
+		Drop_Out $args_str[0]
 	}
 
 
@@ -1957,7 +1956,7 @@ $frm.Add_DragDrop({
 	echo $_.exception
   }
 })
- 
+ 	
 $mnu= New-Object System.Windows.Forms.MenuStrip 
 	 
 $menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
@@ -2848,7 +2847,7 @@ $wait.Add_Changed({	# event func入れ子は一段が理想..
 
   try{
 
-	[string[]]$args_str= $Args
+	[string[]] $args_str= $Args
 
   # キャスト
 
