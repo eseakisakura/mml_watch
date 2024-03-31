@@ -2590,7 +2590,7 @@ function Sin_2op([array]$rc,[int]$alg,[int]$fbj){ # 2op sin render
 		# op.1 // $sin_map= x軸[0-79]px * 2PI [radian] * ML / 80px
 
 		$ye[0]= $rdus[0]* [Math]::Sin($sine[$ml[0]][$i]+ $ye[2])
-		$ye[2]= $feedback* ($ye[0]+ $ye[2]) # 2sampleの場合
+		$ye[2]= $feedback* $ye[0]
 
 
 		switch($alg){
@@ -2682,7 +2682,7 @@ function Sin_4op([array]$rc,[int]$alg,[int]$fbj){ # 4op sin render
 
 		# op.1
 		$ye[0]= $rdus[0]* [Math]::Sin($sine[$ml[0]][$i] +$ye[4])
-		$ye[4]= $feedback* ($ye[0]+ $ye[4]) # 2sampleの場合
+		$ye[4]= $feedback* $ye[0]
 
 		switch($alg){
 		0{	# 直列
@@ -4758,7 +4758,7 @@ function Load_value($x, [string]$sw){
 		All_chg
 	}
  } #func
- 	 
+  
 # hash 
 	
 function Setxml_read($x){ 
@@ -4873,7 +4873,7 @@ function Fmwrite_xml($x,$y){
  } #func
   
 # gui 
-	
+	 
 function Menu_Change($ev, [string] $ss, [string] $sw){ 
 
 	 if($ev.Contains("[v]") -eq $False){
@@ -8531,7 +8531,7 @@ $sb_alg.Add_FormClosing({
 })
  
 $sb_mnu= New-Object System.Windows.Forms.MenuStrip 
-	
+	 
 $sb_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $sb_menu_f.Text= "File"
 
@@ -14353,7 +14353,7 @@ $fm_stus.Items.AddRange(@($fm_label))
 $frm_fm.Controls.AddRange(@($fm_mnu, $fm_panel, $fm_box, $fm_box_mml, $fm_stus))
    
 # Global variable ====== 
-	
+	 
 # color setting 
 
 
@@ -15003,7 +15003,7 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
  try{
 	[double]$radian= [Math]::PI
 
-	[string[]]$adjr= "17","18","19","20","21","22","23"
+	[string[]]$adjr= "21","22","23","24","25","26","27"
 
 	# [int[]]$img= 160, 100 # Op.box # -> func local側へ
 
@@ -15031,7 +15031,7 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 	echo $_.exception
 	Write-Host '"ERROR: Safety Stopper >> global variable err"'
  }
-  
+ 	 
 # ------ main 
 
  try{

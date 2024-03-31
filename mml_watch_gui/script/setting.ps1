@@ -15,7 +15,7 @@ $setting_xml= @'
 	<mck name= "" param= ""/>
 	<mck name= "" param= ""/>
 	<br />
-	<nsd name= "nsc.exe" param= "..\nsdlib\bin\nsc.exe"/>
+	<nsd name= "nsc64.exe" param= "..\nsdlib\bin\nsc64.exe"/>
 	<nsd name= "" param= ""/>
 	<nsd name= "" param= ""/>
 	<nsd name= "" param= ""/>
@@ -26,8 +26,8 @@ $setting_xml= @'
 	<pmd name= "" param= ""/>
 	<br />
 	<ply name= "nsfplay.exe" param= "..\nsfplay\nsfplay.exe"/>
-	<ply name= "winamp.exe" param= "..\winamp\winamp.exe"/>
 	<ply name= "FMPMD.exe" param= "..\fmpmd\FMPMD.exe"/>
+	<ply name= "winamp.exe" param= "..\winamp\winamp.exe"/>
 	<ply name= "MDPlayer.exe" param= "..\mdplayer\MDPlayer.exe"/>
 	<ply name= "" param= ""/>
 	<ply name= "" param= ""/>
@@ -54,9 +54,9 @@ $setting_xml= @'
 	<dos name= "" param= ""/>
 </table>
 '@
- 
+ 	
 # hash 
-	
+	 
 function Xml_read($x){ 
 
   # $x= $script:xml_set.table
@@ -1259,7 +1259,7 @@ $pram_mnu.Items.AddRange(@($parm_menu_f))
 $pram_frm.Controls.AddRange(@($pram_mnu,$pram_tab))
   
 # sub Form 
-	 
+	
 $baloon= New-Object System.Windows.Forms.Tooltip 
 $baloon.ShowAlways= $False
 # $baloon.ToolTipIcon= "Info"
@@ -2067,7 +2067,7 @@ $ok_btn.Add_Click({
 
 	$sub_f.Close() #.Add_FormClosingへ
 })
- 	
+ 
 $cancel_btn= New-Object System.Windows.Forms.Button 
 $cancel_btn.Text= "Cancel"
 $cancel_btn.Size= "90,30"

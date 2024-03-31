@@ -103,7 +103,7 @@ function Eor_open([string]$path_chk,[string]$name){
 	2{
 		[string[]] $ff= Split_path $path_chk	# unkhown出力
 
-		$tt=  ('"'+ $ff[0]+  '": '+ $name+ '選択されてません')
+		$tt=  ('"'+ $ff[0]+  '": '+ $name+ 'が選択されてません')
 		Write-Host (">"+ $tt)
 
 		break;
@@ -118,7 +118,7 @@ function Eor_open([string]$path_chk,[string]$name){
 
 	return $tt
  } #func
- 
+ 	
 function Editor_open([string]$edt_path,[string]$file_path){ 
 
 
@@ -399,7 +399,7 @@ function Mknsd([string[]]$arg){ # mknsd.ps1
 
 
 	# & $exe_nsc -n ('"'+ $r[0]+ '.mml"') | write-host	# Command時、[&]必要
-	$out[1]= & $exe_nsc $cmdline ($dpn+ '.mml') | Out-String # 改行付き出力
+	$out[1]= & $exe_nsc $cmdline ($dpn+ ".mml") | Out-String # 改行付き出力
 
 	Write-Host $out[1]
 
@@ -410,7 +410,7 @@ function Mknsd([string[]]$arg){ # mknsd.ps1
 
     }catch{
 	echo $_.exception
-	$out[0]= ( 'Mknsd>>"'+ ($brr[2]+ '.mml')+ ' -> '+ ($brr[2]+ '.nsf')+'" Compile ERR' )
+	$out[0]= ( 'Mknsd>>"'+ ($brr[2]+ $brr[3])+ ' -> '+ ($brr[2]+ '.nsf')+'" Compile ERR' )
 	Write-Host ("`r`n"+ $out[0])
     }
 	popd	# mml_watchへ
@@ -420,7 +420,109 @@ function Mknsd([string[]]$arg){ # mknsd.ps1
  # exit $LASTEXITCODE
 
  } #func
- 	
+ 
+<# 
+function Mkpmd([string[]]$arg){ # mkpmd.ps1
+
+ # $arg // mml,bin,dmc,cmdline,dos,x64
+
+ [string]$mml= $arg[0]
+ [string]$bin= $arg[1]
+ [string]$dmc= $arg[2]
+ [string[]]$cmdline= $arg[3] -split " " # string[]で来るため
+ [string]$dos= $arg[4]
+ [string]$x64= $arg[5]
+ # write-host ("check:"+$cmdline)
+
+ [string[]]$arr= Split_path $bin
+ [string[]]$frr= Split_path $dos
+
+
+ [string[]]$out= "",""
+
+  if((Chk_path $mml) -ne 0){
+
+	$out[0]= ('Mkpmd>>"'+ $mml+ '": mmlがパス上にありません')
+	Write-Host ("`r`n"+ $out[0])
+
+
+  }elseif($arr[0] -notmatch "MC.*\.EXE"){	# compiler chk
+
+	$out[0]= ('Mkpmd>>"'+ $arr[0]+ '": MC.EXEではありません')
+	Write-Host ("`r`n"+ $out[0])
+
+
+  }elseif((Chk_path $bin) -ne 0){	# compiler path chk # pushdのエラー回避
+
+	$out[0]= ('Mkpmd>>"'+ $bin+ '": MC.EXEがパス上にありません')
+	Write-Host ("`r`n"+ $out[0])
+
+
+  }elseif($frr[0] -notmatch '^.*msdos.*\.exe' -and $x64 -eq 'Checked'){	# dos chk
+
+	$out[0]= ('Mkpmd>>"'+ $frr[0]+ '": msdos.exeではありません')
+	Write-Host ("`r`n"+ $out[0])
+
+
+  }elseif((Chk_path $dos) -ne 0 -and $x64 -eq 'Checked'){	# dos path chk
+
+	$out[0]= ('Mkpmd>>"'+ $dos+ '": msdos.exeがパス上にありません')
+	Write-Host ("`r`n"+ $out[0])
+
+
+  }else{
+	[string]$exe_mc= '.\'+ $arr[0]
+	[string]$exe_dos= ""
+	$exe_dos= $dos
+	[string]$Env:PMD= $dmc	# パス対応素でよし
+
+	[string[]]$brr= Split_path $mml
+	[string]$dpn= Join-Path $brr[1] $brr[2]
+
+	pushd $arr[1]
+
+    try{
+	copy -force -literalpath ($dpn+ ".mml") -destination '.\tmp.mml'
+	# 同じフォルダでないとコンパイルできないため
+
+
+	if($x64 -eq "Checked"){
+
+		# & $exe_dos $exe_mc /v $opt 'tmp.mml' | Write-Host
+		$out[1]= & $exe_dos $exe_mc $cmdline 'tmp.mml' | Out-String
+		# Command時、[&]必要
+	}else{
+		# & $exe_mc /v $opt 'tmp.mml' | Write-Host
+		$out[1]= & $exe_mc $cmdline 'tmp.mml' | Out-String
+		# ".\tmp.mml" deha error
+	}
+
+	Write-Host $out[1]
+	sleep -m 33
+
+
+	if($LASTEXITCODE -eq 0){
+
+		move -force -literalpath '.\tmp.m' -destination $mml
+		# 元来のmmlの場所に移動
+
+		if((Chk_path '.\tmp.mml') -eq 0){ del '.\tmp.mml' }
+	}
+
+    }catch{
+	echo $_.exception
+	$out[0]= ( 'Mkpmd>>"'+ ($brr[2]+ '.mml')+ ' -> '+ ($brr[2]+ '.m')+'" Compile ERR' )
+	Write-Host ("`r`n"+ $out[0])
+    }
+	popd	# mml_watchへ
+  }
+
+ return $out
+ # exit $LASTEXITCODE
+
+ } #func
+#>
+ 
 function Mkpmd([string[]]$arg){ # mkpmd.ps1 
 
  # $arg // mml,bin,dmc,cmdline,dos,x64

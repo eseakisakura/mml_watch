@@ -17,7 +17,7 @@ $xml_watch= @'
 		<dos value= ""/>
 	</val>
 	<opt>
-		<option value= "10000 00000, 01200 11000, 01000 00000"/>
+		<option value= "10000 00000, 01200 11000, 01100 00000"/>
 		<radio_bin value= "nsd"/>
 		<chk_play value= "False"/>
 		<chk_dos value= "Checked"/>
@@ -82,7 +82,11 @@ function Mck_trans([string]$file){
 		}else{
 			if($opt["play_open"] -eq "false"){
 
-				Player_open 2 $val["player"] ($dpn+ '.nsf') > $null
+				[string] $ss= Player_open 2 $val["player"] ($dpn+ '.nsf')
+
+				if($ss -ne ""){
+					ErrBox_Console $ss
+				}
 			}
 		}
 	}
@@ -139,7 +143,11 @@ function Nsd_trans([string]$file){
 		}else{
 			if($opt["play_open"] -eq "false"){
 				# '"' 空白パス対応
-				Player_open 2 $val["player"] ($dpn+ '.nsf') > $null
+				[string] $ss= Player_open 2 $val["player"] ($dpn+ '.nsf')
+
+				if($ss -ne ""){
+					ErrBox_Console $ss
+				}
 			}
 		}
 	}
@@ -196,7 +204,11 @@ function Pmd_trans([string]$file){
 		}else{
 			if($opt["play_open"] -eq "false"){
 
-				Player_open 2 $val["player"] ($dpn+ '.m') > $null
+				[string] $ss= Player_open 2 $val["player"] ($dpn+ '.m')
+
+				if($ss -ne ""){
+					ErrBox_Console $ss
+				}
 			}
 		}
 	}
@@ -242,12 +254,12 @@ function Play_nsf([string] $file){
 	 
 function ErrBox_Console([string] $ss){ 
 
-	if($script:arr_errbox.Length -lt 8){
+	if($script:arr_errbox.Length -lt 12){
 
 		$script:arr_errbox+= $ss
 
 	}else{
-		[string[]] $brr= $script:arr_errbox[1..7]
+		[string[]] $brr= $script:arr_errbox[1..11]
 		$brr+= $ss
 		$script:arr_errbox= $brr
 	}
@@ -257,7 +269,7 @@ function ErrBox_Console([string] $ss){
 	$err_box.SelectionStart= $err_box.Text.Length	# caret set
 	$err_box.ScrollToCaret()
  } #func
- 
+ 	
 function CslBox_Console([string] $ss){ 
 
 	if($script:arr_cslbox.Length -lt 8){
@@ -881,7 +893,7 @@ function New_mml([string] $sw){
  } #func
  
 <# 
-	
+	 
 function Setadv_edit([string] $t){ 
 
 	[string] $ss= ""
@@ -1731,7 +1743,7 @@ $dia.RestoreDirectory= "True"
 # Form 
 	 
 $err_box= New-Object System.Windows.Forms.TextBox 
-$err_box.Size= "270,80"
+$err_box.Size= "270,120"
 $err_box.Location= "10,55"
 $err_box.WordWrap= "False"
 $err_box.Multiline= "True"
@@ -1743,7 +1755,7 @@ $err_box.BackColor= "White"
  
 $csl_box= New-Object System.Windows.Forms.TextBox 
 $csl_box.Size= "270,200"
-$csl_box.Location= "10,140"
+$csl_box.Location= "10,180"
 $csl_box.WordWrap= "False"
 $csl_box.Multiline= "True"
 $csl_box.ScrollBars= "Both"
@@ -1866,7 +1878,7 @@ $tray.Add_Click({ # .Add_MouseDown
  
 $frm= New-Object System.Windows.Forms.Form 
 #$frm.Text= "mml watch"
-$frm.Size= "302,402"
+$frm.Size= "302,442"
 $frm.FormBorderStyle= "FixedSingle"
 $frm.StartPosition= "WindowsDefaultLocation"
 $frm.Icon= Icon_read "..\src\MW_icon.ico"
@@ -1956,7 +1968,7 @@ $frm.Add_DragDrop({
 	echo $_.exception
   }
 })
- 	
+ 
 $mnu= New-Object System.Windows.Forms.MenuStrip 
 	 
 $menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
