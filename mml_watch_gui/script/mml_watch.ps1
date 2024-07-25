@@ -32,7 +32,7 @@ $xml_watch= @'
 '@
  
 # nsf_trans 
-	 
+	
 function Mck_trans([string]$file){ 
 
 
@@ -251,7 +251,7 @@ function Play_nsf([string] $file){
  } #func
   
 # chk_path 
-	 
+	
 function ErrBox_Console([string] $ss){ 
 
 	if($script:arr_errbox.Length -lt 12){
@@ -269,7 +269,7 @@ function ErrBox_Console([string] $ss){
 	$err_box.SelectionStart= $err_box.Text.Length	# caret set
 	$err_box.ScrollToCaret()
  } #func
- 	
+ 
 function CslBox_Console([string] $ss){ 
 
 	if($script:arr_cslbox.Length -lt 8){
@@ -687,7 +687,7 @@ function Watch_Setting(){
  } #func
  
 <# 
-	 
+	
 function Watches_nsf([string]$eor){ 
 
 	Write-Host ""
@@ -840,7 +840,7 @@ function Watch_Drop([string[]] $arg_path){
  } #func
   
 # gui 
-	 
+	
 function New_mml([string] $sw){ 
 
 	[string] $path= ""
@@ -893,7 +893,7 @@ function New_mml([string] $sw){
  } #func
  
 <# 
-	 
+	
 function Setadv_edit([string] $t){ 
 
 	[string] $ss= ""
@@ -1520,7 +1520,7 @@ function Menu_Change($ev, [string] $ss, [string] $sw){
  } #func
   
 # hash 
-	 
+	
 function Change_value([string]$sw, [string]$name){ 
 
  #if($name -match '[v]'  -eq $False){ # 不要 .Contains("[v]") も可
@@ -1730,9 +1730,9 @@ Add-Type -AssemblyName System.Drawing > $null
 $ErrorActionPreference= "Stop"
 $FonLabel= New-Object System.Drawing.Font("Segoe UI", 10)
 
-cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
+cd (Split-Path -Parent $PSCommandPath)
 [Environment]::CurrentDirectory= pwd # working_dir set
- 
+ 	
 $dia= New-Object System.Windows.Forms.SaveFileDialog 
 # ファイル選択ダイアログ
 
@@ -1970,7 +1970,7 @@ $frm.Add_DragDrop({
 })
  
 $mnu= New-Object System.Windows.Forms.MenuStrip 
-	 
+	
 $menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $menu_f.Text= "File"
  

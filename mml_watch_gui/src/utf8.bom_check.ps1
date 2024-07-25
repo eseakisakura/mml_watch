@@ -45,6 +45,7 @@ function Path_read([string]$tt,[string]$xx){
  } #func
 
 Path_read "..\" "*.txt"
+Path_read "..\" "*.ps1"
 # Path_read "..\" "*.cmd"
 
 Path_read "..\script" "*.ps1"

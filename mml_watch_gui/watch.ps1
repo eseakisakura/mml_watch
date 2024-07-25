@@ -1,4 +1,4 @@
-﻿# watch.ps1 ------
+﻿# watch.ps1 ------ 
 # ショートカットリンク
 # powershell.exe -ExecutionPolicy RemoteSigned -Sta -File .\watch.ps1
 
@@ -6,7 +6,7 @@
 
 $ErrorActionPreference= "Stop"
 
-cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
+cd (Split-Path -Parent $PSCommandPath)
 [Environment]::CurrentDirectory= pwd # working_dir set
 
  try{

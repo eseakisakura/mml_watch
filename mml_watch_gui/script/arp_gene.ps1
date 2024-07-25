@@ -416,7 +416,7 @@ $rot["4D"]=	"4323 1232",
 		"432 123 132 132"
  
 # gui 
-	 
+	
 function Trayarp_hide([string]$t){ 
 
 	switch($t){
@@ -1002,7 +1002,7 @@ function Menu_Change($ev, [string] $ss, [string] $sw){
  } #func
   
 # Hash Xml 
-	 
+	
 function Change_value([string]$sw, [string]$name){ 
 
   # if($name -match '[v]' -eq $False){
@@ -1099,7 +1099,7 @@ function Arpwrite_xml($x,$y){
  } #func
   
 # Chord select 
-	 
+	
 function Gen_num([string]$kk,[string]$gg){ 
 
 	$r= @{}
@@ -2089,7 +2089,7 @@ function Apeg([string]$mm){ # <- $box_apeg.Text
  } #func
   
 # Exp 
-	 
+	
 function Prefixarp_mml([string]$oct, [string]$ss){ 
 
 	[string]$hh= ""
@@ -2456,9 +2456,9 @@ $ErrorActionPreference= "Stop"
 $FonLabel= New-Object System.Drawing.Font("Segoe UI", 10)
 $FonMono= New-Object System.Drawing.Font("MS Gothic",11) # Microsoft Sans Serif
 
-cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
+cd (Split-Path -Parent $PSCommandPath)
 [Environment]::CurrentDirectory= pwd # working_dir set
- 
+ 	
 $chd_grp= New-Object System.Windows.Forms.GroupBox 
 $chd_grp.Text= "Chord select"
 $chd_grp.Size= "270,120"
@@ -2594,7 +2594,7 @@ $flet_grp.Text= "Flet setting"
 $flet_grp.Size= "290,120"
 $flet_grp.Location= "285,30"
 $flet_grp.FlatStyle= "Flat"
-	 
+	
 $label_flet= New-Object System.Windows.Forms.Label 
 $label_flet.Text= "Flet Number"
 $label_flet.Size= "90,20"
@@ -2818,7 +2818,7 @@ $number_grp.Text= "Number arpeggio"
 $number_grp.Size= "565,130"
 $number_grp.Location= "10,150"
 $number_grp.FlatStyle= "Flat"
-	 
+	
 $label_apeg= New-Object System.Windows.Forms.Label 
 $label_apeg.Text= "Arpeggio"
 $label_apeg.Size= "65,20"
@@ -2957,7 +2957,7 @@ $mml_grp.Text= "MML arpeggio"
 $mml_grp.Size= "565,345"
 $mml_grp.Location= "10,285"
 $mml_grp.FlatStyle= "Flat"
-	 
+	
 $label_prefix= New-Object System.Windows.Forms.Label 
 $label_prefix.Text= "Track header"
 $label_prefix.Size= "90,20"
@@ -3398,7 +3398,7 @@ $frm_arp.Add_FormClosing({
 	echo $_.exception
  }
 })
- 	
+ 
 $arp_mnu= New-Object System.Windows.Forms.MenuStrip 
 	 
 $arp_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 

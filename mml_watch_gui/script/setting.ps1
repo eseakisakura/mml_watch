@@ -54,7 +54,7 @@ $setting_xml= @'
 	<dos name= "" param= ""/>
 </table>
 '@
- 	
+ 
 # hash 
 	 
 function Xml_read($x){ 
@@ -1008,9 +1008,9 @@ Add-Type -AssemblyName System.Drawing > $null
 $ErrorActionPreference= "Stop"
 $FonLabel= New-Object System.Drawing.Font("Segoe UI", 10)
 
-cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
+cd (Split-Path -Parent $PSCommandPath)
 [Environment]::CurrentDirectory= pwd # working_dir set
- 
+ 	
 # Sub pram forms ----- 
 	 
 $pram_frm= New-Object System.Windows.Forms.Form 

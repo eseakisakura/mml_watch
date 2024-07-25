@@ -730,4 +730,7 @@
 	10 5		ver5.3 暫定正式版 upload
 	12 24		Slotにセーブデータがない場合、読み込みエラーとなるため、
 			Load_value側を訂正。
+
+'24	4 12		プリセットロードミスの修正。
+			import_btn.Add_ClickイベントへSaveauto $script:fm_xml.table.presetstoreを追加。
  	

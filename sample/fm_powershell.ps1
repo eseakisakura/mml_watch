@@ -34,13 +34,13 @@
 Add-Type -AssemblyName System.Windows.Forms > $null
 Add-Type -AssemblyName System.Drawing > $null
 
-cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
+cd (Split-Path -Parent $PSCommandPath)
 [Environment]::CurrentDirectory= pwd # working_dir set
 
 
 [string]$buff_size= @(($IMG[0]+ 1),($IMG[1]+ 1)) -join "," # string出力
 [string]$frm_size= @(($IMG[0]+ 20),($IMG[1]+ 80)) -join ","
- 
+ 	
 # 色指定、色オブジェクト 
 
 $purple= [System.Drawing.Color]::FromName("blueviolet")
@@ -173,7 +173,7 @@ Function Sinwave([int[]]$ttlev,[float[]]$mlpul,[int]$fedb,$darkpen,$lightpen){
 　　} #
 
 　} #func
- 	
+ 
 # FM波形出力の呼出し 
 
 Function Grf([string]$sw){

@@ -159,7 +159,7 @@ $xml_editor= @'
 # function ====== 
  
 # color 
-	 
+	
 Function Line_highlight([array]$rr){ 
 
 	switch(Itm){ # Chip_position $script:xye2
@@ -421,7 +421,7 @@ function Brush_Color(){
 } #func
   
 # buffer 
-	 
+	
 function Pixcel_Select([int] $max){ 
 
 	$max= $max+ 1
@@ -698,7 +698,7 @@ function NmudX([string] $sw){
  } #func
   
 # contxt 
-	 
+	
 function Mouse_opwiner([string] $sw, [string] $opnum, $ev){	# Op. 
 
 	[string] $type= $key["knob"][(Item_index)]
@@ -1695,7 +1695,7 @@ function Contxt_octave([string]$a){
  } #func
   
 # trans 
-	 
+	
 function Value_conv([string] $sw){ 
 
 
@@ -1887,7 +1887,7 @@ function Idx(){
 # ------ 
  
 # poly 
-	 
+	
 function Flow_ssg([int]$num, [array]$e, [int]$width, [int]$height){ 
 
 
@@ -2431,7 +2431,7 @@ function Poly_chg(){
  } #func
   
 # sine 
-	 
+	
 function Flowtting_point([int]$cnt, [int]$opt, [array]$xy){ 
 
 	[int]$i= 0
@@ -2590,7 +2590,9 @@ function Sin_2op([array]$rc,[int]$alg,[int]$fbj){ # 2op sin render
 		# op.1 // $sin_map= x軸[0-79]px * 2PI [radian] * ML / 80px
 
 		$ye[0]= $rdus[0]* [Math]::Sin($sine[$ml[0]][$i]+ $ye[2])
-		$ye[2]= $feedback* $ye[0]
+
+		# $ye[2]= $feedback* $ye[0]	# 1sample
+		$ye[2]= $feedback* ($ye[0]+ $ye[2])	# 2sampleの場合
 
 
 		switch($alg){
@@ -2682,7 +2684,9 @@ function Sin_4op([array]$rc,[int]$alg,[int]$fbj){ # 4op sin render
 
 		# op.1
 		$ye[0]= $rdus[0]* [Math]::Sin($sine[$ml[0]][$i] +$ye[4])
-		$ye[4]= $feedback* $ye[0]
+
+		# $ye[4]= $feedback* $ye[0]	# 1sample
+		$ye[4]= $feedback* ($ye[0]+ $ye[4]) # 2sampleの場合
 
 		switch($alg){
 		0{	# 直列
@@ -2874,7 +2878,7 @@ function Sin_chg(){
  } #func
   
 # bg alg 
-	 
+	
 function Chip_view([int]$x,[int]$y){ 
 
 	[array]$p= "",""
@@ -4362,7 +4366,7 @@ function All_chg(){	# $vrc_svn[][] ha "__1" no string
  } #func
   
 # sub window gui 
-	 
+	
 function Stus_alg(){ # status bar 
 
 	switch($bai){
@@ -4490,7 +4494,7 @@ function Color_alg([string]$t){
 # ------ 
  
 # load save 
-	 
+	
 function Autoload($x){ 
 
 	# $comb_fm.Add_SelectedValueChanged
@@ -4685,9 +4689,10 @@ function Save_value([string]$sw){
 	# }'Cancel'{
 	}
 	} #sw
+
  } #func
  
-function Slot_read($x){ 
+function Slot_read($x){ 	
 
 
 	switch($x.name){
@@ -4873,7 +4878,7 @@ function Fmwrite_xml($x,$y){
  } #func
   
 # gui 
-	 
+	
 function Menu_Change($ev, [string] $ss, [string] $sw){ 
 
 	 if($ev.Contains("[v]") -eq $False){
@@ -6004,7 +6009,7 @@ function All_sz([array]$r,[int]$j){
  } #func
   
 # Lis 
-	 
+	
 <# 
 	 
 function Adv_edit([string]$t){ 
@@ -6465,7 +6470,7 @@ function Preset_listen([string] $sw, [string] $ss){
  } #func
   
 # Export 
-	 
+	
 function Unredo([int]$n){ 
 
 
@@ -7777,9 +7782,9 @@ $FonLabel= New-Object System.Drawing.Font("Segoe UI", 10)
 $FonMono= New-Object System.Drawing.Font("MS Gothic",11) # Microsoft Sans Serif  MS Gothic
 $Fona= New-Object System.Drawing.Font("Lucida Console", 11, [System.Drawing.FontStyle]::Bold) # Lucida Console  Garamond Georgia Verdana Impact
 
-cd (Split-Path -Parent $MyInvocation.MyCommand.Path)
+cd (Split-Path -Parent $PSCommandPath)
 [Environment]::CurrentDirectory= pwd # working_dir set
- 
+ 	
 # Sub forms 
 	 
 # $contxtA_7bwを読み込んだ後$PictureBox objが安全 
@@ -8531,7 +8536,7 @@ $sb_alg.Add_FormClosing({
 })
  
 $sb_mnu= New-Object System.Windows.Forms.MenuStrip 
-	 
+	
 $sb_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $sb_menu_f.Text= "File"
 
@@ -9232,7 +9237,6 @@ $import_btn.Text= "Import"
 $import_btn.Size= "90,30"
 $import_btn.Location= "65,284"
 
-
 $import_btn.Add_Click({
  try{
 	switch($ff_tab.SelectedIndex){
@@ -9244,17 +9248,19 @@ $import_btn.Add_Click({
 	}
 	} #sw
 
-    if($retn -ne ''){
+	if($retn -ne ''){
 
-	$fm_box.ForeColor= "dimgray"
-	$fm_box.BackColor= "white" # "gainsboro"
+		$fm_box.ForeColor= "dimgray"
+		$fm_box.BackColor= "white" # "gainsboro"
 
-	Write-Host '<< presetをimportしました'
+		Saveauto $script:fm_xml.table.presetstore
 
-	# $fm_box.Modified= $True
+		Write-Host '<< presetをimportしました'
 
-	$conv_btn.PerformClick()
-    }
+		# $fm_box.Modified= $True
+
+		$conv_btn.PerformClick()
+	}
 
  }catch{
 	echo $_.exception
@@ -9693,7 +9699,7 @@ $sub_sav_ok_Btn.DialogResult= "OK"
 
 $sub_sav_ok_Btn.Add_Click({
 
-	$sub_sav.Close() # -> $retn
+	$sub_sav.Close()
 })
  
 $sub_sav_cancel_Btn= New-Object System.Windows.Forms.Button 
@@ -9705,7 +9711,7 @@ $sub_sav_cancel_Btn.DialogResult= "Cancel"
 
 $sub_sav_cancel_Btn.Add_Click({
 
-	$sub_sav.Close() # -> $retn
+	$sub_sav.Close()
 })
  
 $sub_sav= New-Object System.Windows.Forms.Form 
@@ -9738,7 +9744,7 @@ $sub_sav.AcceptButton= $sub_sav_ok_Btn	# [Enter]
 # Main forms 
 	 
 # BUFFER 
-	
+	 
 [int[]]$IMG_buf= @(480, 480) # バッファサイズ 
 [int[]]$Size_buf= @(($IMG_buf[0]+ 2), ($IMG_buf[1]+ 2))
 $Rect_buf= New-Object System.Drawing.Rectangle(0,0, $IMG_buf[0],$IMG_buf[1])
@@ -12566,7 +12572,7 @@ $fm_box.Add_KeyDown({	# インポート
  }
 })
  
-$fm_box_mml= New-Object System.Windows.Forms.TextBox 	
+$fm_box_mml= New-Object System.Windows.Forms.TextBox 
 $fm_box_mml.Size= "520,75"
 $fm_box_mml.Location= "10,575"
 $fm_box_mml.WordWrap= "False"
@@ -12901,7 +12907,7 @@ $fm_menu_sav.Text= "Save"
 
 
 
-	
+	 
 $fm_sav_a= New-Object System.Windows.Forms.ToolStripMenuItem 
 # $fm_sav_a.Text= "slot A"
 
@@ -15003,7 +15009,7 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
  try{
 	[double]$radian= [Math]::PI
 
-	[string[]]$adjr= "21","22","23","24","25","26","27"
+	[string[]]$adjr= "14","16","18","20","22","24","26"
 
 	# [int[]]$img= 160, 100 # Op.box # -> func local側へ
 
@@ -15031,7 +15037,7 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 	echo $_.exception
 	Write-Host '"ERROR: Safety Stopper >> global variable err"'
  }
- 	 
+  
 # ------ main 
 
  try{
