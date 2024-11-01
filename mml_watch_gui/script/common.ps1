@@ -4,7 +4,7 @@ $ErrorActionPreference= "Stop"
 
 cd (Split-Path -Parent $PSCommandPath)
 [Environment]::CurrentDirectory= pwd # working_dir set
- 	
+ 
 # ---- WriterSetting ---- 
 
   # $write_UTFB= New-Object System.Text.UTF8Encoding($True) # UTF8 bom
@@ -185,31 +185,39 @@ function Help_editor([string] $file, [string] $sw){
  
 function Folder_open([int]$sw,[string]$path){ 
 
-	[string[]]$tt= "Folder","File"
+	[string[]]$tt= "File","Folder"
 
 	[string]$ss= Eor_open $path $tt[$sw]
 
 	if($ss -eq ""){
 
-		# 0:folder path, 1: file path
+		# 0: file path, 1: folder path
 
 		switch($sw){
 		1{
-			[string[]]$arr= Split_path $path
+			#[string[]]$arr= Split_path $path
 			# folder path split
 
-			$path= $arr[1]
+			#$path= $arr[1]
+
+			[System.Diagnostics.Process]::Start("explorer.exe", ("/select, "+ $path))
+			# explorer /select, C:\Windows\test.txt
+
 			break;
-		#}0{
+		}0{
+			[System.Diagnostics.Process]::Start($path)
+
 		}
 		} #sw
 
-		Invoke-Item "$path"
+		# Invoke-Item "$path"
+
+
 	}
 
 	return $ss
 } #func
- 
+ 	
 function Icon_read([string]$tt){ 
 
   switch(Chk_path $tt){
@@ -398,10 +406,11 @@ function Mknsd([string[]]$arg){ # mknsd.ps1
 	# write-host "[System.IO.Directory]::GetCurrentDirectory()"	# cd chk
 
 
-	# & $exe_nsc -n ('"'+ $r[0]+ '.mml"') | write-host	# Command時、[&]必要
+	# & $exe_nsc -n ('"'+ $r[0]+ '.mml"') | Write-Host	# Command時、[&]必要
 	$out[1]= & $exe_nsc $cmdline ($dpn+ ".mml") | Out-String # 改行付き出力
 
-	Write-Host $out[1]
+
+	# Write-Host $out[1]
 
 	sleep -m 33	# 異常時用ウェイト
 

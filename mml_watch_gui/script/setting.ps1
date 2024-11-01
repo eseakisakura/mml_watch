@@ -15,7 +15,7 @@ $setting_xml= @'
 	<mck name= "" param= ""/>
 	<mck name= "" param= ""/>
 	<br />
-	<nsd name= "nsc64.exe" param= "..\nsdlib\bin\nsc64.exe"/>
+	<nsd name= "nsc.exe" param= "..\nsdlib\bin\nsc.exe"/>
 	<nsd name= "" param= ""/>
 	<nsd name= "" param= ""/>
 	<nsd name= "" param= ""/>
@@ -40,7 +40,7 @@ $setting_xml= @'
 	<dmc name= "" param= ""/>
 	<br />
 	<edt name= "sted.exe" param= "..\sted\sted.exe"/>
-	<edt name= "" param= ""/>
+	<edt name= "Code.exe" param= "..\VSCode\Code.exe"/>
 	<edt name= "" param= ""/>
 	<edt name= "" param= ""/>
 	<edt name= "" param= ""/>
@@ -54,7 +54,7 @@ $setting_xml= @'
 	<dos name= "" param= ""/>
 </table>
 '@
- 
+ 	
 # hash 
 	 
 function Xml_read($x){ 
@@ -1010,7 +1010,7 @@ $FonLabel= New-Object System.Drawing.Font("Segoe UI", 10)
 
 cd (Split-Path -Parent $PSCommandPath)
 [Environment]::CurrentDirectory= pwd # working_dir set
- 	
+ 
 # Sub pram forms ----- 
 	 
 $pram_frm= New-Object System.Windows.Forms.Form 
@@ -1259,7 +1259,7 @@ $pram_mnu.Items.AddRange(@($parm_menu_f))
 $pram_frm.Controls.AddRange(@($pram_mnu,$pram_tab))
   
 # sub Form 
-	
+	 
 $baloon= New-Object System.Windows.Forms.Tooltip 
 $baloon.ShowAlways= $False
 # $baloon.ToolTipIcon= "Info"
@@ -1600,7 +1600,7 @@ $listbox_nsd.Add_DragDrop({
 })
   
 # pmd ------ 
-	
+	 
 $radio_pmd= New-Object System.Windows.Forms.RadioButton 
 $radio_pmd.Text= "P.M.D"
 $radio_pmd.Size= "100,20"
@@ -1758,7 +1758,7 @@ $listbox_sakura.Add_DragDrop({
 #> 
    
 # tab_ply 
-	
+	 
 $tab_ply= New-Object System.Windows.Forms.TabPage 
 $tab_ply.Text= "player"
  
@@ -1869,7 +1869,7 @@ $thru_label.Location= "10,155"
 #> 
   
 # tab_edt 
-	
+	 
 $tab_edt= New-Object System.Windows.Forms.TabPage 
 $tab_edt.Text= "editor"
  

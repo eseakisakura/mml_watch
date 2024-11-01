@@ -421,7 +421,7 @@ function Brush_Color(){
 } #func
   
 # buffer 
-	
+	 
 function Pixcel_Select([int] $max){ 
 
 	$max= $max+ 1
@@ -508,7 +508,7 @@ function Mouse_knober([string] $sw, [string] $type, $ev){	# knob
 	}'Leave'{
 
 		$x= NmudX $type
-		Buffer_Render $x.Value $x.Maximum $type $False
+		Buffer_Render $x.Value $x.Maximum $type $False	
 	}
 	} #sw
  } #func
@@ -4494,7 +4494,7 @@ function Color_alg([string]$t){
 # ------ 
  
 # load save 
-	
+	 
 function Autoload($x){ 
 
 	# $comb_fm.Add_SelectedValueChanged
@@ -4692,7 +4692,7 @@ function Save_value([string]$sw){
 
  } #func
  
-function Slot_read($x){ 	
+function Slot_read($x){ 
 
 
 	switch($x.name){
@@ -7784,7 +7784,7 @@ $Fona= New-Object System.Drawing.Font("Lucida Console", 11, [System.Drawing.Font
 
 cd (Split-Path -Parent $PSCommandPath)
 [Environment]::CurrentDirectory= pwd # working_dir set
- 	
+ 
 # Sub forms 
 	 
 # $contxtA_7bwを読み込んだ後$PictureBox objが安全 
@@ -9769,7 +9769,7 @@ $Horizonbuff= $Contxtbuf.Allocate($Graphics_buf, $Rect_buf)
 # $Horizonbuff= $Contxtb.Allocate($Graphics_buf, $Pictbox_buf.ClientRectangle)
   
 # Pictbox 
-	
+	 
 [bool] $script:mouser_capure= $False 
 [int] $script:starter_value= 0
 $script:topper_pos= New-Object System.Drawing.Point
@@ -9830,7 +9830,7 @@ $PictboxAR.Add_MouseLeave({
 	echo $_.exception
  }
 })
- 
+ 	
 $imageDR= New-Object System.Drawing.Bitmap($IMGvi) 
 $graphicsDR= [System.Drawing.Graphics]::FromImage($imageDR)# 書き込む場所
 

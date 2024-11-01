@@ -1002,7 +1002,7 @@ function Menu_Change($ev, [string] $ss, [string] $sw){
  } #func
   
 # Hash Xml 
-	
+	 
 function Change_value([string]$sw, [string]$name){ 
 
   # if($name -match '[v]' -eq $False){
@@ -1051,7 +1051,7 @@ function Setxml_read($x){ # hash読み込み
     }
   } #
  } #func
- 
+ 	
 function Arpxml_read($x,$y){ # ワーク読み込み 
 
 	# $x= $script:arp_xml.table.val
@@ -2089,7 +2089,7 @@ function Apeg([string]$mm){ # <- $box_apeg.Text
  } #func
   
 # Exp 
-	
+	 
 function Prefixarp_mml([string]$oct, [string]$ss){ 
 
 	[string]$hh= ""
@@ -2321,7 +2321,7 @@ function Key_play($t, [string] $sw){
 				$stop_btn.PerformClick()
 				break;
 			}'S'{
-				$label_apeg.Focus()	
+				$label_apeg.Focus()
 			}
 			} #sw
 		}
@@ -2337,7 +2337,7 @@ function Key_play($t, [string] $sw){
 				$stop_btn.PerformClick()
 				break;
 			}'S'{
-				$import_btn.PerformClick()
+				$import_btn.PerformClick()	
 				$label_apeg.Focus()
 			}
 			} #sw
@@ -2458,7 +2458,7 @@ $FonMono= New-Object System.Drawing.Font("MS Gothic",11) # Microsoft Sans Serif
 
 cd (Split-Path -Parent $PSCommandPath)
 [Environment]::CurrentDirectory= pwd # working_dir set
- 	
+ 
 $chd_grp= New-Object System.Windows.Forms.GroupBox 
 $chd_grp.Text= "Chord select"
 $chd_grp.Size= "270,120"
