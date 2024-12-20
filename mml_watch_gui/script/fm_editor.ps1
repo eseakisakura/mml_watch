@@ -159,7 +159,7 @@ $xml_editor= @'
 # function ====== 
  
 # color 
-	
+	 
 Function Line_highlight([array]$rr){ 
 
 	switch(Itm){ # Chip_position $script:xye2
@@ -421,7 +421,7 @@ function Brush_Color(){
 } #func
   
 # buffer 
-	 
+	
 function Pixcel_Select([int] $max){ 
 
 	$max= $max+ 1
@@ -508,7 +508,7 @@ function Mouse_knober([string] $sw, [string] $type, $ev){	# knob
 	}'Leave'{
 
 		$x= NmudX $type
-		Buffer_Render $x.Value $x.Maximum $type $False	
+		Buffer_Render $x.Value $x.Maximum $type $False
 	}
 	} #sw
  } #func
@@ -2162,7 +2162,7 @@ function Poly_2op([array]$v, [int]$j){ # 2op ADSR render
 	Flow_poinw 0 $xy[0] $damp $width $height
 
 	$buffz.Graphics.Clear($color[0])			#fill
-	$buffz.Graphics.FillPolygon($brush, $pointed[0])	# 折れ線のfill
+	$buffz.Graphics.FillPolygon($brush, $script:pointed[0])	# 折れ線のfill
 	$buffz.Graphics.DrawLine($XBpen, 0, $height, ($width*4), $height) # x軸を上書き
 
 	break;
@@ -2170,7 +2170,7 @@ function Poly_2op([array]$v, [int]$j){ # 2op ADSR render
 	Flow_poinw 1 $xy[1] $damp $width $height
 
 	$buffx.Graphics.Clear($color[1])
-	$buffx.Graphics.FillPolygon($brush, $pointed[1])
+	$buffx.Graphics.FillPolygon($brush, $script:pointed[1])
 	$buffx.Graphics.DrawLine($XRpen, 0, $height, ($width*4), $height)
   }
   } #sw
@@ -2210,10 +2210,10 @@ function Poly_4op([array]$v, [int]$j){ # 4op ADSR render
 
 			if(MSop_checker 1 "ssg"){
 				Flow_ssg 0 $xy[0] $width $height
-				$pt= $pointsg[0]
+				$pt= $script:pointsg[0]
 			}else{
 				Flow_point 0 $xy[0] $width $height
-				$pt= $pointed[0]
+				$pt= $script:pointed[0]
 			}
 			$buffc.Graphics.FillPolygon($brush, $pt)	# 折れ線のfill
 		}
@@ -2226,10 +2226,10 @@ function Poly_4op([array]$v, [int]$j){ # 4op ADSR render
 		if(MSop_checker 2 "mask"){
 			if(MSop_checker 2 "ssg"){
 				Flow_ssg 1 $xy[1] $width $height
-				$pt= $pointsg[1]
+				$pt= $script:pointsg[1]
 			}else{
 				Flow_point 1 $xy[1] $width $height
-				$pt= $pointed[1]
+				$pt= $script:pointed[1]
 			}
 			$buffe.Graphics.FillPolygon($brush, $pt)
 		}
@@ -2242,10 +2242,10 @@ function Poly_4op([array]$v, [int]$j){ # 4op ADSR render
 		if(MSop_checker 4 "mask"){
 			if(MSop_checker 4 "ssg"){
 				Flow_ssg 2 $xy[2] $width $height
-				$pt= $pointsg[2]
+				$pt= $script:pointsg[2]
 			}else{
 				Flow_point 2 $xy[2] $width $height
-				$pt= $pointed[2]
+				$pt= $script:pointed[2]
 			}
 			$buffg.Graphics.FillPolygon($brush, $pt)
 		}
@@ -2258,10 +2258,10 @@ function Poly_4op([array]$v, [int]$j){ # 4op ADSR render
 		if(MSop_checker 8 "mask"){
 			if(MSop_checker 8 "ssg"){
 				Flow_ssg 3 $xy[3] $width $height
-				$pt= $pointsg[3]
+				$pt= $script:pointsg[3]
 			}else{
 				Flow_point 3 $xy[3] $width $height
-				$pt= $pointed[3]
+				$pt= $script:pointed[3]
 			}
 			$buffi.Graphics.FillPolygon($brush, $pt)
 		}
@@ -2303,7 +2303,7 @@ function Poly_chw(){
 		$gpz.DrawImage($image_tmp, $op_Rect) # size down
 
 
-		$gpz.DrawLines($Mpen, $pointing[0]) # sin wave
+		$gpz.DrawLines($Mpen, $script:pointing[0]) # sin wave
 
 		[string[]]$value= Value_out
 		$gpz.DrawString($value[0], $Fona, $XBbrush, 120,5)
@@ -2322,7 +2322,7 @@ function Poly_chw(){
 		$gpx.DrawImage($image_tmp, $op_Rect) # size down
 
 
-		$gpx.DrawLines($Cpen, $pointing[1]) # sin wave
+		$gpx.DrawLines($Cpen, $script:pointing[1]) # sin wave
 
 		[string[]]$value= Value_out
 		$gpx.DrawString($value[1], $Fona, $XRbrush, 120,5)
@@ -2361,7 +2361,7 @@ function Poly_chg(){
 		$gpc.DrawImage($image_tmp, $op_Rect)
 
 
-		$gpc.DrawLines($Mpen, $pointing[0]) # sine wave
+		$gpc.DrawLines($Mpen, $script:pointing[0]) # sine wave
 
 		[string[]]$value= Value_out
 		$gpc.DrawString($value[0], $Fona, $XBbrush, 120,5)
@@ -2380,7 +2380,7 @@ function Poly_chg(){
 		$gpe.DrawImage($image_tmp, $op_Rect)
 
 
-		$gpe.DrawLines($Ypen, $pointing[1])
+		$gpe.DrawLines($Ypen, $script:pointing[1])
 
 		[string[]]$value= Value_out
 		$gpe.DrawString($value[1], $Fona, $XGbrush, 120,5)
@@ -2399,7 +2399,7 @@ function Poly_chg(){
 		$gpg.DrawImage($image_tmp, $op_Rect)
 
 
-		$gpg.DrawLines($Lpen, $pointing[2])
+		$gpg.DrawLines($Lpen, $script:pointing[2])
 
 		[string[]]$value= Value_out
 		$gpg.DrawString($value[2], $Fona, $XObrush, 120,5)
@@ -2418,7 +2418,7 @@ function Poly_chg(){
 		$gpi.DrawImage($image_tmp, $op_Rect)
 
 
-		$gpi.DrawLines($Cpen, $pointing[3])
+		$gpi.DrawLines($Cpen, $script:pointing[3])
 
 		[string[]]$value= Value_out
 		$gpi.DrawString($value[3], $Fona, $XRbrush, 120,5)
@@ -2431,7 +2431,7 @@ function Poly_chg(){
  } #func
   
 # sine 
-	
+	 
 function Flowtting_point([int]$cnt, [int]$opt, [array]$xy){ 
 
 	[int]$i= 0
@@ -2442,23 +2442,28 @@ function Flowtting_point([int]$cnt, [int]$opt, [array]$xy){
 	} #
  } #func
  
-function Point_obj([int]$cnt){ 
+function Point_obj([int] $cnt){	 # ver7.4.6errbug 
 
 	# 4op分,(2opも)
-	[array]$pt= @("","","","")
+	[array] $pt= @("","","","")
 
-	[array]$pt[0]= ""; $pt[0]*= $cnt
-	[array]$pt[1]= ""; $pt[1]*= $cnt
-	[array]$pt[2]= ""; $pt[2]*= $cnt
-	[array]$pt[3]= ""; $pt[3]*= $cnt
+	#$pt[0]= @(""); $pt[0]*= $cnt
+	#$pt[1]= @(""); $pt[1]*= $cnt
+	#$pt[2]= @(""); $pt[2]*= $cnt
+	#$pt[3]= @(""); $pt[3]*= $cnt
 
-  for([int]$num= 0; $num -lt $cnt; $num++){
+	[array] $pt[0]= @(""); $pt[0]*= $cnt
+	[array] $pt[1]= @(""); $pt[1]*= $cnt
+	[array] $pt[2]= @(""); $pt[2]*= $cnt
+	[array] $pt[3]= @(""); $pt[3]*= $cnt
 
-	$pt[0][$num]= New-Object System.Drawing.Point # loop de obj nomi ka
-	$pt[1][$num]= New-Object System.Drawing.Point
-	$pt[2][$num]= New-Object System.Drawing.Point
-	$pt[3][$num]= New-Object System.Drawing.Point
-  } #
+	 for([int] $num= 0; $num -lt $cnt; $num++){
+
+		$pt[0][$num]= New-Object System.Drawing.Point(0, 0) # loop de obj nomi ka
+		$pt[1][$num]= New-Object System.Drawing.Point(0, 0)
+		$pt[2][$num]= New-Object System.Drawing.Point(0, 0)
+		$pt[3][$num]= New-Object System.Drawing.Point(0, 0)
+	} #
 
 	return $pt
  } #func
@@ -2516,21 +2521,27 @@ function Sin_mapping([int]$cnt,[double]$rad){
 
  } #func
  
-function Reso([int]$b){ 
+function Reso([int] $b){	 # ver7.4.6errbug 
 
-	[int[]]$img= 320, 200 # Op.box
+	[int[]] $img= 320, 200 # Op.box size
 
-	[int]$script:count= $img[0]/ $b
+	$script:count= $img[0]/ $b
 
 
-	[array]$script:sin_pos= Sin_position $count # "0"の配列ブロック
-	[array]$script:sin_map= Sin_mapping $count $radian
+	$script:sin_pos= Sin_position $script:count		# "0"の配列ブロック
+	$script:sin_map= Sin_mapping $script:count $radian	# to feedback
 
 	# 参照型
 
-	[array]$script:pointed= Point_obj 8 # polygon point obj
-	[array]$script:pointsg= Point_obj 11 # polygon ssg-eg
-	[array]$script:pointing= Point_obj $count # sine
+	$script:pointed= Point_obj 8			# polygon point obj
+	$script:pointsg= Point_obj 11			# polygon ssg-eg
+	$script:pointing= Point_obj $script:count		# sine
+
+	# ポインタで関数に送ると、XY emptyのエラーが出力される
+	#Point_obj 8 $script:pointed			# polygon point obj
+	#Point_obj 11 $script:pointsg			# polygon ssg-eg
+	#Point_obj $script:count $script:pointing		# sine
+
  } #func
  
 # ------ 
@@ -2579,8 +2590,8 @@ function Sin_2op([array]$rc,[int]$alg,[int]$fbj){ # 2op sin render
 
 	[float[]]$ye= @(0,0,0) # 2op
 
-	[array]$xy= $sin_pos # "0"の変数ブロック
-	[array]$sine= $sin_map # gbl -> localへメモリアクセス
+	[array]$xy= $script:sin_pos # "0"の変数ブロック
+	[array]$sine= $script:sin_map # gbl -> localへメモリアクセス
 
 	[int]$i= 0
 	for($i=0; $i -lt $count; $i++){ # x軸
@@ -2628,8 +2639,10 @@ function Sin_2op([array]$rc,[int]$alg,[int]$fbj){ # 2op sin render
 	Flowtting_point $count 0 $xy[0]
 	Flowtting_point $count 1 $xy[1]
 
-	$gpz.DrawLines($Mpen, $pointing[0])
-	$gpx.DrawLines($Cpen, $pointing[1])
+
+	$gpz.DrawLines($Mpen, $script:pointing[0])	# ver7.4.6errbug
+	$gpx.DrawLines($Cpen, $script:pointing[1])	# ver7.4.6errbug
+
  } #func
  
 function Sin_4op([array]$rc,[int]$alg,[int]$fbj){ # 4op sin render 
@@ -2676,8 +2689,8 @@ function Sin_4op([array]$rc,[int]$alg,[int]$fbj){ # 4op sin render
 
 	[float[]]$ye= @(0,0,0, 0,0,0) # 4op+ 2
 
-	[array]$xy= $sin_pos
-	[array]$sine= $sin_map
+	[array]$xy= $script:sin_pos
+	[array]$sine= $script:sin_map
 
 	[int]$i= 0
 	for($i=0; $i -lt $count; $i++){ # x軸
@@ -2759,10 +2772,10 @@ function Sin_4op([array]$rc,[int]$alg,[int]$fbj){ # 4op sin render
 	Flowtting_point $count 2 $xy[2]
 	Flowtting_point $count 3 $xy[3]
 
-	$gpc.DrawLines($Mpen, $pointing[0])
-	$gpe.DrawLines($Ypen, $pointing[1])
-	$gpg.DrawLines($Lpen, $pointing[2])
-	$gpi.DrawLines($Cpen, $pointing[3])
+	$gpc.DrawLines($Mpen, $script:pointing[0])
+	$gpe.DrawLines($Ypen, $script:pointing[1])
+	$gpg.DrawLines($Lpen, $script:pointing[2])
+	$gpi.DrawLines($Cpen, $script:pointing[3])
  } #func
  
 function Sin_chw(){ 
@@ -2878,7 +2891,7 @@ function Sin_chg(){
  } #func
   
 # bg alg 
-	
+	 
 function Chip_view([int]$x,[int]$y){ 
 
 	[array]$p= "",""
@@ -2930,7 +2943,7 @@ function Chip_position([string]$k){
  } #func
  
 <# 
-	 
+	
 function Alg_cablw([int]$alg){ 
 
  [int]$sw= Idx
@@ -3568,9 +3581,9 @@ function Alg_cablw([int]$alg){
 		$gpw.DrawString($ss,$Fona,$brush, $xytwo[0], $xytwo[1]) # $script:xytwo
 		$gpw.DrawString($tt,$Fona,$tex[$sw], $xytwo[0], ($xytwo[1]+ 64)) # $script:xytwo
 
-		$gpw.DrawBeziers($cable[0],$pointar[0])
-		$gpw.DrawBeziers($cable[1],$pointar[1])
-		$gpw.DrawBeziers($cable[2],$pointar[2])
+		$gpw.DrawBeziers($cable[0], $pointar[0])	# ver7.4.6errbug
+		$gpw.DrawBeziers($cable[1], $pointar[1])	# ver7.4.6errbug
+		$gpw.DrawBeziers($cable[2], $pointar[2])	# ver7.4.6errbug
 
 		$gpw.DrawRectangle($pen, $xyi[0][9],$xyi[1][7], 15,18) # op
 		$gpw.DrawRectangle($pen, $xyi[0][13],$xyi[1][7], 15,18)
@@ -4181,6 +4194,7 @@ function Pict_chg(){
  
 function All_chg(){	# $vrc_svn[][] ha "__1" no string 
 
+
 	switch($script:op_index[4]){
 	'vrc7 2op'{
 		[array]$arr= $vrc_svn
@@ -4265,7 +4279,6 @@ function All_chg(){	# $vrc_svn[][] ha "__1" no string
 		$buffx.Render($gpt)
 
 		# size down
-
 		$buffz.Render($gp_tmp);
 		$gpz.DrawImage($image_tmp, $op_Rect)
 
@@ -4275,6 +4288,7 @@ function All_chg(){	# $vrc_svn[][] ha "__1" no string
 
 		Sin_2op $cyle $n $f
 		sleep -m $key["wait"]
+
 
 		[string[]]$value= Value_out
 
@@ -4494,7 +4508,7 @@ function Color_alg([string]$t){
 # ------ 
  
 # load save 
-	 
+	
 function Autoload($x){ 
 
 	# $comb_fm.Add_SelectedValueChanged
@@ -6009,7 +6023,7 @@ function All_sz([array]$r,[int]$j){
  } #func
   
 # Lis 
-	
+	 
 <# 
 	 
 function Adv_edit([string]$t){ 
@@ -6470,7 +6484,7 @@ function Preset_listen([string] $sw, [string] $ss){
  } #func
   
 # Export 
-	
+	 
 function Unredo([int]$n){ 
 
 
@@ -7788,7 +7802,7 @@ cd (Split-Path -Parent $PSCommandPath)
 # Sub forms 
 	 
 # $contxtA_7bwを読み込んだ後$PictureBox objが安全 
-	
+	 
 $contxtA_Sep_7bw= New-Object System.Windows.Forms.ToolStripSeparator 
 $contxtA_Sep_Lbw= New-Object System.Windows.Forms.ToolStripSeparator
 $contxtA_Sep_Nbg= New-Object System.Windows.Forms.ToolStripSeparator
@@ -7877,14 +7891,14 @@ $contxt_oct.Add_ItemClicked({
   
 [bool] $script:mouse_capure= $False 
 [int] $script:start_value= 0
-$script:toppos= New-Object System.Drawing.Point
+$script:toppos= New-Object System.Drawing.Point(0, 0)
  
 # Pictbg 
 
 
 
 
-	
+	 
 [int[]]$op_IMG= @(162, 102) 
 $op_Rect= New-Object System.Drawing.Rectangle(0, 0, $op_IMG[0], $op_IMG[1])
  
@@ -8357,7 +8371,7 @@ $Pictbox4.Add_MouseLeave({
 # buffb 
 
 
-	
+	 
 [int[]]$buf_IMG= @(322, 202) 
 $buf_Rect= New-Object System.Drawing.Rectangle(0, 0, $buf_IMG[0], $buf_IMG[1])
 [int[]]$buf_Size= @(($buf_IMG[0]+ 2), ($buf_IMG[1]+ 2)) # バッファサイズ
@@ -8401,7 +8415,7 @@ $contxtx.MaximumBuffer= $buf_Size -join ","
 $buffx= $contxtx.Allocate($buf_grp, $buf_Rect)
   
 # 2op ura buffer 
-	
+	 
 $image5a= New-Object System.Drawing.Bitmap($buf_IMG) 
 
 $gpv= [System.Drawing.Graphics]::FromImage($image5a)
@@ -8435,7 +8449,7 @@ $contxti.MaximumBuffer= $buf_Size -join ","
 $buffi= $contxti.Allocate($buf_grp, $buf_Rect)
   
 # 4op ura buffer 
-	
+	 
 $image5= New-Object System.Drawing.Bitmap($buf_IMG) 
 
 $gpk= [System.Drawing.Graphics]::FromImage($image5)
@@ -8493,7 +8507,7 @@ $sb_alg.MaximizeBox= $False
 
 # $sb_alg.TopLevel= $True
 $sb_alg.Owner= $frm_fm
-
+# $sb_alg.Visible= $false
 
 $sb_alg.KeyPreview= $True
 $sb_alg.Add_KeyDown({
@@ -8536,7 +8550,7 @@ $sb_alg.Add_FormClosing({
 })
  
 $sb_mnu= New-Object System.Windows.Forms.MenuStrip 
-	
+	 
 $sb_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $sb_menu_f.Text= "File"
 
@@ -8833,7 +8847,7 @@ $sb_menu_rev.Add_Click({
 	echo $_.exception
  }
 })
- 
+ 	
 $sb_menu_m= New-Object System.Windows.Forms.ToolStripMenuItem 
 $sb_menu_m.Text= "Mode"
 
@@ -9772,7 +9786,7 @@ $Horizonbuff= $Contxtbuf.Allocate($Graphics_buf, $Rect_buf)
 	 
 [bool] $script:mouser_capure= $False 
 [int] $script:starter_value= 0
-$script:topper_pos= New-Object System.Drawing.Point
+$script:topper_pos= New-Object System.Drawing.Point(0, 0)
  
 [int[]]$IMGviii= @(80, 80) 
 [int[]]$IMGvi= @(60, 60)
@@ -9830,7 +9844,7 @@ $PictboxAR.Add_MouseLeave({
 	echo $_.exception
  }
 })
- 	
+ 
 $imageDR= New-Object System.Drawing.Bitmap($IMGvi) 
 $graphicsDR= [System.Drawing.Graphics]::FromImage($imageDR)# 書き込む場所
 
@@ -10764,7 +10778,7 @@ $PictboxFB.Add_MouseLeave({
 # Group 
 	 
 <# 
-	
+	 
 function Contxt_op([int]$a){ 
 
 	$x= $contxt_op.Items
@@ -10833,7 +10847,7 @@ $eg_grp.Size= "255, 130" # 4op "255, 210"
 $eg_grp.Text= "Envelope Rate"
 $eg_grp.FlatStyle= "Flat"
 $eg_grp.ForeColor= "gray"
-	
+	 
 # ------ AR - AttackRate 15-0 2op /  31-0 4op 
 	 
 $lbl_ar= New-Object System.Windows.Forms.Label 
@@ -11372,7 +11386,7 @@ $lev_grp.Text= "KeyScaling"
 $lev_grp.FlatStyle= "Flat"
 $lev_grp.ForeColor= "gray"
 # $lev_grp.Hide() # $lev_grp.Show()
-	
+	 
 # ------ KSL - KeyScaleLevel 0-3 
 	 
 $lbl_ksl= New-Object System.Windows.Forms.Label 
@@ -11506,7 +11520,7 @@ $ring_grp.Size= "255,130"
 $ring_grp.Text= "Tune Control"
 $ring_grp.FlatStyle= "Flat"
 $ring_grp.ForeColor= "gray"
-	
+	 
 # ------ DT - Distortion 0-1 vrc7 
 	 
 $lbl_dt= New-Object System.Windows.Forms.Label 
@@ -11958,7 +11972,7 @@ $op_grp.Size= "255,140"
 $op_grp.Text= "Frequency Modulation"
 $op_grp.FlatStyle= "Flat"
 $op_grp.ForeColor= "gray"
-	
+	 
 # ------ TL - TotalLevel 63-0 2op / 0max - 127min 4op 
 	 
 $lbl_tl= New-Object System.Windows.Forms.Label 
@@ -12199,7 +12213,7 @@ $alg_grp.Size= "255,135"
 $alg_grp.Text= "Algorithm / Feedback"
 $alg_grp.FlatStyle= "Flat"
 $alg_grp.ForeColor= "gray"
-	
+	 
 # ------ ALG - Algorithm 0-1 opl / 0-7 4op 
 	 
 $lbl_alg= New-Object System.Windows.Forms.Label 
@@ -12710,6 +12724,7 @@ $frm_fm.Add_Shown({ # .ShowDialog()呼出時のみ使用 - 挙動怪ため
 
 		Popalg_build $True > $null
 		$sb_alg.Show()
+
 	}
 	} #sw
 
@@ -12999,7 +13014,7 @@ $fm_sav_h.Add_Click({
 $fm_menu_ktn= New-Object System.Windows.Forms.ToolStripSeparator 
 $fm_menu_kt= New-Object System.Windows.Forms.ToolStripMenuItem
 $fm_menu_kt.Text= "Preferences"
-	
+	 
 $menu_fty= New-Object System.Windows.Forms.ToolStripMenuItem 
 # $menu_fty.Text= "v Task tray"
 
@@ -13221,9 +13236,9 @@ $fm_menu_set.Add_Click({
 })
 
 
-	
+	 
 <# 
-	
+	 
 $fm_menu_cmp0= New-Object System.Windows.Forms.ToolStripMenuItem 
 # $fm_menu_cmp0.Text= "0.exe"
 $fm_menu_cmp0.Visible= $False # .Hide() 不可
@@ -13313,7 +13328,7 @@ $fm_menu_cmp5.Add_Click({
   
 $fm_menu_comp=  New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_comp.Text= "compiler"
-	
+	 
 $fm_menu_cmck=  New-Object System.Windows.Forms.ToolStripMenuItem 
 # $fm_menu_cmck.Text= "MCK"
 
@@ -13756,7 +13771,7 @@ $fm_menu_mask.Add_Click({
     	Write-Host '"ERROR: Safety Stopper >> $sub_mask.Show()"'
  }
 })
-	
+	 
 $fm_menu_so= New-Object System.Windows.Forms.ToolStripSeparator 
  
 $fm_menu_oct1= New-Object System.Windows.Forms.ToolStripMenuItem 
@@ -13971,7 +13986,7 @@ $fm_menu_header.Add_Click({
 	echo $_.exception
  }
 })
-	
+	 
 $fm_menu_zero= New-Object System.Windows.Forms.ToolStripMenuItem 
 #$fm_menu_zero.Text= "zero padding"
 $fm_menu_zero.Add_Click({
@@ -14187,6 +14202,7 @@ $fm_menu_sb.Add_Click({
 
 	$script:key["open"]= Popalg_build $True
 	$sb_alg.Show()
+
 	break;
   }'True'{
 
@@ -14258,7 +14274,7 @@ $fm_menu_rld.Add_Click({
 	echo $_.exception
  }
 })
-	
+	 
 $fm_menu_adv= New-Object System.Windows.Forms.ToolStripMenuItem 
 $fm_menu_adv.Text= "Advanced"
  
@@ -14369,7 +14385,7 @@ $frm_fm.Controls.AddRange(@($fm_mnu, $fm_panel, $fm_box, $fm_box_mml, $fm_stus))
 
 
 
-	
+	 
  try{ 
  
 # bg,line,text ------ 
@@ -14632,7 +14648,7 @@ $Kbrush= New-Object System.Drawing.SolidBrush($khaki)
 #	100,	205=80+100+25	260, 205
 #	180,	330=205+100+25	340, 330
 #	260,	455=330+100+25	420, 455
-	
+	 
  try{ 
  
 # 4op ------ 
@@ -14907,27 +14923,35 @@ $pointap[4][3]=  New-Object System.Drawing.Point(340,455)
  
 # 2op ------ 
  
-[array]$pointar= @("","","","", "") # alg0 
-[array]$pointar[0]= @("","","","")
-[array]$pointar[1]= @("","","","")
-[array]$pointar[2]= @("","","","")
+[array] $pointar= @("","","") # alg0 2op. 
 
-$pointar[0][0]=  New-Object System.Drawing.Point(260,80)
-$pointar[0][1]=  New-Object System.Drawing.Point(310,170) # 50,90 feedback
-$pointar[0][2]=  New-Object System.Drawing.Point(50,170)
-$pointar[0][3]=  New-Object System.Drawing.Point(100,60)
 
-$pointar[1][0]=  New-Object System.Drawing.Point(180,205)
-$pointar[1][1]=  New-Object System.Drawing.Point(100,225) # 80,20
-$pointar[1][2]=  New-Object System.Drawing.Point(320,140) # 60,60 1線1段
-$pointar[1][3]=  New-Object System.Drawing.Point(260,80)
+# [System.Drawing.Point[]] イレギュラーな変数指定だと一応通る # ver7.4.6errbug
+# [System.Drawing.Point[]] $pointar[0]= @("","","","")
+# [System.Drawing.Point[]] $pointar[1]= @("","","","")
+# [System.Drawing.Point[]] $pointar[2]= @("","","","")
 
-$pointar[2][0]=  New-Object System.Drawing.Point(480,255)
-$pointar[2][1]=  New-Object System.Drawing.Point(390,255) # 50,0 outputline
-$pointar[2][2]=  New-Object System.Drawing.Point(390,205)
-$pointar[2][3]=  New-Object System.Drawing.Point(340,205)
+[array] $pointar[0]= @("","","","")
+[array] $pointar[1]= @("","","","")
+[array] $pointar[2]= @("","","","")
+
+
+$pointar[0][0]=  New-Object System.Drawing.Point(260, 80)
+$pointar[0][1]=  New-Object System.Drawing.Point(310, 170) # 50,90 feedback
+$pointar[0][2]=  New-Object System.Drawing.Point(50, 170)
+$pointar[0][3]=  New-Object System.Drawing.Point(100, 60)
+
+$pointar[1][0]=  New-Object System.Drawing.Point(180, 205)
+$pointar[1][1]=  New-Object System.Drawing.Point(100, 225) # 80,20
+$pointar[1][2]=  New-Object System.Drawing.Point(320, 140) # 60,60 1線1段
+$pointar[1][3]=  New-Object System.Drawing.Point(260, 80)
+
+$pointar[2][0]=  New-Object System.Drawing.Point(480, 255)
+$pointar[2][1]=  New-Object System.Drawing.Point(390, 255) # 50,0 outputline
+$pointar[2][2]=  New-Object System.Drawing.Point(390, 205)
+$pointar[2][3]=  New-Object System.Drawing.Point(340, 205)
  
-[array]$pointat= @("","","","", "") # alg1 
+[array]$pointat= @("","","") # alg1 2op. 
 [array]$pointat[0]= @("","","","")
 [array]$pointat[1]= @("","","","")
 [array]$pointat[2]= @("","","","")
@@ -15014,13 +15038,32 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 	# [int[]]$img= 160, 100 # Op.box # -> func local側へ
 
 	# Reso func
-	[int]$bai= 0 # 精度
-	[int]$count= 0
-	[array]$sin_pos= @()
-	[array]$sin_map= @()
-	[array]$pointed= @()
-	[array]$pointsg= @()
-	[array]$pointing= @()
+	[int] $script:bai= 0 # 精度
+	[int] $script:count= 0
+
+	[array] $script:sin_pos= @("","","","")
+	[array] $script:sin_map= @()
+
+	[array] $script:pointed= @("","","","")	# ver7.4.6errbug
+	[array] $script:pointsg= @("","","","")
+	[array] $script:pointing= @("","","","")
+
+	# [System.Drawing.Point[]] イレギュラーでも不可 # ver7.4.6errbug
+	#[System.Drawing.Point[]] $script:pointed[0]= @()
+	#[System.Drawing.Point[]] $script:pointed[1]= @()
+	#[System.Drawing.Point[]] $script:pointed[2]= @()
+	#[System.Drawing.Point[]] $script:pointed[3]= @()
+
+	#[System.Drawing.Point[]] $script:pointsg[0]= @()
+	#[System.Drawing.Point[]] $script:pointsg[1]= @()
+	#[System.Drawing.Point[]] $script:pointsg[2]= @()
+	#[System.Drawing.Point[]] $script:pointsg[3]= @();
+
+	#[System.Drawing.Point[]] $script:pointing[0]= @()
+	#[System.Drawing.Point[]] $script:pointing[1]= @()
+	#[System.Drawing.Point[]] $script:pointing[2]= @()
+	#[System.Drawing.Point[]] $script:pointing[3]= @();
+
 
 
 	[array]$xyi= @() # Chip_position 定数的ため
@@ -15202,7 +15245,7 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 #$graphics.FillEllipse($brush, 0, 0, 200, 300)	# 円
  
 # base part 
-	
+	 
 #$graphics.DrawLine($pen, 10, 20, 100, 200) 	# 直線 
 #$graphics.DrawRectangle($pen, 0, 0, 200, 300)	# 四角
 
