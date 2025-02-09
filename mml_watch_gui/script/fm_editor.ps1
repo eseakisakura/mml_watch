@@ -200,10 +200,10 @@ function Monotone_select([string]$out){
 
 		switch($key["mode"]){
 		'dark'{
-			[array]$qq= @($Whwpen,$Whbrush,$black,$Blsolid)
+			[array] $qq= @($Whwpen, $Whbrush, $black, $Blsolid)
 			break;
 		}'light'{
-			[array]$qq= @($Blwpen,$Blbrush,$white,$Whsolid)
+			[array] $qq= @($Blwpen, $Blbrush, $white, $Whsolid)
 		}
 		} #sw
 
@@ -214,10 +214,10 @@ function Monotone_select([string]$out){
 
 		switch($key["mode"]){
 		'dark'{
-			[array]$qq= @($Tbrush,$Blsolid)
+			[array] $qq= @($Pbrush, $Blsolid)
 			break;
 		}'light'{
-			[array]$qq= @($Tbrush,$Whsolid)
+			[array] $qq= @($Pbrush, $Whsolid)
 		}
 		} #sw
 
@@ -228,10 +228,10 @@ function Monotone_select([string]$out){
 
 		switch($key["mode"]){
 		'dark'{
-			[array]$qq= @($Pbrush,$Blsolid)
+			[array] $qq= @($Tbrush, $Blsolid)
 			break;
 		}'light'{
-			[array]$qq= @($Pbrush,$Whsolid)
+			[array] $qq= @($Tbrush, $Whsolid)
 		}
 		} #sw
 
@@ -242,10 +242,10 @@ function Monotone_select([string]$out){
 
 		switch($key["mode"]){
 		'dark'{
-			[array]$qq= @($Kbrush,$Blsolid)
+			[array] $qq= @($Kbrush, $Blsolid)
 			break;
 		}'light'{
-			[array]$qq= @($Kbrush,$Whsolid)
+			[array] $qq= @($Kbrush, $Whsolid)
 		}
 		} #sw
 
@@ -266,7 +266,15 @@ function Color_select(){
 	'steel'{
 		switch(Itm){
 		'2op'{	[array]$color= @($darkblue, $darkred); break;
-		}'4op'{	[array]$color= @($darkblue, $darkgreen, $darkorange, $darkred)
+		}'4op'{	[array]$color= @($darkgreen, $darkblue, $darkred, $darkorange)
+		}
+		} #sw
+		break;
+
+	}'sepia'{
+		switch(Itm){
+		'2op'{	[array]$color= @($sepiablue, $sepiared); break;
+		}'4op'{	[array]$color= @($sepiagreen, $sepiablue, $sepiared, $sepiaorange)
 		}
 		} #sw
 		break;
@@ -274,7 +282,7 @@ function Color_select(){
 	}'natural'{
 		switch(Itm){
 		'2op'{	[array]$color= @($naturalblue, $naturalred); break;
-		}'4op'{	[array]$color= @($naturalblue,$naturalgreen, $naturalorange, $naturalred)
+		}'4op'{	[array]$color= @($naturalgreen, $naturalblue, $naturalred, $naturalorange)
 		}
 		} #sw
 		break;
@@ -282,7 +290,7 @@ function Color_select(){
 	}'pastel'{
 		switch(Itm){
 		'2op'{	[array]$color= @($pastelblue, $pastelred); break;
-		}'4op'{	[array]$color= @($pastelblue, $pastelgreen, $pastelorange, $pastelred)
+		}'4op'{	[array]$color= @($pastelgreen, $pastelblue, $pastelred, $pastelorange)
 		}
 		} #sw
 		break;
@@ -290,7 +298,7 @@ function Color_select(){
 	}'vivid'{
 		switch(Itm){
 		'2op'{	[array]$color= @($vividblue, $vividred); break;
-		}'4op'{	[array]$color= @($vividblue, $vividgreen, $vividorange, $vividred)
+		}'4op'{	[array]$color= @($vividgreen, $vividblue, $vividred, $vividorange)
 		}
 		} #sw
 	}
@@ -306,9 +314,10 @@ function Silver_convert($tt, [int] $sw){
 	[int] $qq= ($tt.R+$tt.G+ $tt.B)/ 3/ 3 #
 
 	switch($sw){
-	0{	[int]$nn= [Math]::Floor( $qq* 2); break;	# dark
-	}1{	[int]$nn= [Math]::Floor( $qq* 3); break;	# nomal
-	}2{	[int]$nn= [Math]::Floor( $qq* 4)	# light
+	0{	[int]$nn= [Math]::Floor( $qq* 1.65); break;	# dark
+	}1{	[int]$nn= [Math]::Floor( $qq* 2.25); break;	# dark nomal
+	}2{	[int]$nn= [Math]::Floor( $qq* 3.55); break;	# light nomal
+	}3{	[int]$nn= [Math]::Floor( $qq* 4.15); break;	# light
 	}
 	} #sw
 
@@ -325,7 +334,7 @@ function Brush_Color(){
 	[int] $jj= 0
 	switch($script:key["mode"]){
 	'dark'{	$jj= 0	; break;
-	}'light'{	$jj= 1
+	}'light'{	$jj= 1	; break;
 	}
 	} #sw
 
@@ -334,17 +343,38 @@ function Brush_Color(){
 		switch(Itm){
 		'2op'{
 			switch(Idx){
-			0{	$brush= $darkBEllipse; $bgbrush= $darkBPie; $spot= $darkBPieL, $darkBPieD;	break;
-			}1{	$brush= $darkREllipse; $bgbrush= $darkRPie; $spot=$darkRPieL, $darkRPieD
+			0{	$brush= $darkBEllipse; $bgbrush= $darkBPieNL, $darkBPieND; $spot= $darkBPieL, $darkBPieD;	break;
+			}1{	$brush= $darkREllipse; $bgbrush= $darkRPieNL, $darkRPieND; $spot=$darkRPieL, $darkRPieD;	break;
 			}
 			} #sw
 			break;
 		}'4op'{
 			switch(Idx){
-			0{	$brush= $darkBEllipse; $bgbrush= $darkBPie; $spot= $darkBPieL, $darkBPieD;	break;
-			}1{	$brush= $darkGEllipse; $bgbrush= $darkGPie; $spot= $darkGPieL, $darkGPieD;	break;
-			}2{	$brush= $darkOEllipse; $bgbrush= $darkOPie; $spot= $darkOPieL, $darkOPieD;	break;
-			}3{	$brush= $darkREllipse; $bgbrush= $darkRPie; $spot= $darkRPieL, $darkRPieD
+			0{	$brush= $darkGEllipse; $bgbrush= $darkGPieNL, $darkGPieND; $spot= $darkGPieL, $darkGPieD;	break;
+			}1{	$brush= $darkBEllipse; $bgbrush= $darkBPieNL, $darkBPieND; $spot= $darkBPieL, $darkBPieD;	break;
+			}2{	$brush= $darkREllipse; $bgbrush= $darkRPieNL, $darkRPieND; $spot= $darkRPieL, $darkRPieD;	break;
+			}3{	$brush= $darkOEllipse; $bgbrush= $darkOPieNL, $darkOPieND; $spot= $darkOPieL, $darkOPieD;	break;
+			}
+			} #sw
+		}
+		} #sw
+		break;
+
+	}'sepia'{
+		switch(Itm){
+		'2op'{
+			switch(Idx){
+			0{	$brush= $sepiaBEllipse; $bgbrush= $sepiaBPieNL, $sepiaBPieND; $spot= $sepiaBPieL, $sepiaBPieD;	break;
+			}1{	$brush= $sepiaREllipse; $bgbrush= $sepiaRPieNL, $sepiaRPieND; $spot= $sepiaRPieL, $sepiaRPieD;	break;
+			}
+			} #sw
+			break;
+		}'4op'{
+			switch(Idx){
+			0{	$brush= $sepiaGEllipse; $bgbrush= $sepiaGPieNL, $sepiaGPieND; $spot= $sepiaGPieL, $sepiaGPieD;	break;
+			}1{	$brush= $sepiaBEllipse; $bgbrush= $sepiaBPieNL, $sepiaBPieND; $spot= $sepiaBPieL, $sepiaBPieD;	break;
+			}2{	$brush= $sepiaREllipse; $bgbrush= $sepiaRPieNL, $sepiaRPieND; $spot= $sepiaRPieL, $sepiaRPieD;	break;
+			}3{	$brush= $sepiaOEllipse; $bgbrush= $sepiaOPieNL, $sepiaOPieND; $spot= $sepiaOPieL, $sepiaOPieD;	break;
 			}
 			} #sw
 		}
@@ -355,17 +385,17 @@ function Brush_Color(){
 		switch(Itm){
 		'2op'{
 			switch(Idx){
-			0{	$brush= $naturalBEllipse; $bgbrush= $naturalBPie; $spot= $naturalBPieL, $naturalBPieD;	break;
-			}1{	$brush= $naturalREllipse; $bgbrush= $naturalRPie; $spot= $naturalRPieL, $naturalRPieD
+			0{	$brush= $naturalBEllipse; $bgbrush= $naturalBPieNL, $naturalBPieND; $spot= $naturalBPieL, $naturalBPieD;	break;
+			}1{	$brush= $naturalREllipse; $bgbrush= $naturalRPieNL, $naturalRPieND; $spot= $naturalRPieL, $naturalRPieD;	break;
 			}
 			} #sw
 			break;
 		}'4op'{
 			switch(Idx){
-			0{	$brush= $naturalBEllipse; $bgbrush= $naturalBPie; $spot= $naturalBPieL, $naturalBPieD;	break;
-			}1{	$brush= $naturalGEllipse; $bgbrush= $naturalGPie; $spot= $naturalGPieL, $naturalGPieD;	break;
-			}2{	$brush= $naturalOEllipse; $bgbrush= $naturalOPie; $spot= $naturalOPieL, $naturalOPieD;	break;
-			}3{	$brush= $naturalREllipse; $bgbrush= $naturalRPie; $spot= $naturalRPieL, $naturalRPieD
+			0{	$brush= $naturalGEllipse; $bgbrush= $naturalGPieNL, $naturalGPieND; $spot= $naturalGPieL, $naturalGPieD;	break;
+			}1{	$brush= $naturalBEllipse; $bgbrush= $naturalBPieNL, $naturalBPieND; $spot= $naturalBPieL, $naturalBPieD;	break;
+			}2{	$brush= $naturalREllipse; $bgbrush= $naturalRPieNL, $naturalRPieND; $spot= $naturalRPieL, $naturalRPieD;	break;
+			}3{	$brush= $naturalOEllipse; $bgbrush= $naturalOPieNL, $naturalOPieND; $spot= $naturalOPieL, $naturalOPieD;	break;
 			}
 			} #sw
 		}
@@ -376,17 +406,17 @@ function Brush_Color(){
 		switch(Itm){
 		'2op'{
 			switch(Idx){
-			0{	$brush= $pastelBEllipse; $bgbrush= $pastelBPie; $spot= $pastelBPieL, $pastelBPieD;	break;
-			}1{	$brush= $pastelREllipse; $bgbrush= $pastelRPie; $spot= $pastelRPieL, $pastelRPieD
+			0{	$brush= $pastelBEllipse; $bgbrush= $pastelBPieNL, $pastelBPieND; $spot= $pastelBPieL, $pastelBPieD;	break;
+			}1{	$brush= $pastelREllipse; $bgbrush= $pastelRPieNL, $pastelRPieND; $spot= $pastelRPieL, $pastelRPieD;	break;
 			}
 			} #sw
 			break;
 		}'4op'{
 			switch(Idx){
-			0{	$brush= $pastelBEllipse; $bgbrush= $pastelBPie; $spot= $pastelBPieL, $pastelBPieD;	break;
-			}1{	$brush= $pastelGEllipse; $bgbrush= $pastelGPie; $spot= $pastelGPieL, $pastelGPieD;	break;
-			}2{	$brush= $pastelOEllipse; $bgbrush= $pastelOPie; $spot= $pastelOPieL, $pastelOPieD;	break;
-			}3{	$brush= $pastelREllipse; $bgbrush= $pastelRPie; $spot= $pastelRPieL, $pastelRPieD
+			0{	$brush= $pastelGEllipse; $bgbrush= $pastelGPieNL, $pastelGPieND; $spot= $pastelGPieL, $pastelGPieD;	break;
+			}1{	$brush= $pastelBEllipse; $bgbrush= $pastelBPieNL, $pastelBPieND; $spot= $pastelBPieL, $pastelBPieD;	break;
+			}2{	$brush= $pastelREllipse; $bgbrush= $pastelRPieNL, $pastelRPieND; $spot= $pastelRPieL, $pastelRPieD;	break;
+			}3{	$brush= $pastelOEllipse; $bgbrush= $pastelOPieNL, $pastelOPieND; $spot= $pastelOPieL, $pastelOPieD;	break;
 			}
 			} #sw
 		}
@@ -397,17 +427,17 @@ function Brush_Color(){
 		switch(Itm){
 		'2op'{
 			switch(Idx){
-			0{	$brush= $vividBEllipse; $bgbrush= $vividBPie; $spot= $vividBPieL, $vividBPieD;	break;
-			}1{	$brush= $vividREllipse; $bgbrush= $vividRPie; $spot= $vividRPieL, $vividRPieD
+			0{	$brush= $vividBEllipse; $bgbrush= $vividBPieNL, $vividBPieND; $spot= $vividBPieL, $vividBPieD;	break;
+			}1{	$brush= $vividREllipse; $bgbrush= $vividRPieNL, $vividRPieND; $spot= $vividRPieL, $vividRPieD;	break;
 			}
 			} #sw
 			break;
 		}'4op'{
 			switch(Idx){
-			0{	$brush= $vividBEllipse; $bgbrush= $vividBPie; $spot= $vividBPieL, $vividBPieD;	break;
-			}1{	$brush= $vividGEllipse; $bgbrush= $vividGPie; $spot= $vividGPieL, $vividGPieD;	break;
-			}2{	$brush= $vividOEllipse; $bgbrush= $vividOPie; $spot= $vividOPieL, $vividOPieD;	break;
-			}3{	$brush= $vividREllipse; $bgbrush= $vividRPie; $spot= $vividRPieL, $vividRPieD
+			0{	$brush= $vividGEllipse; $bgbrush= $vividGPieNL, $vividGPieND; $spot= $vividGPieL, $vividGPieD;	break;
+			}1{	$brush= $vividBEllipse; $bgbrush= $vividBPieNL, $vividBPieND; $spot= $vividBPieL, $vividBPieD;	break;
+			}2{	$brush= $vividREllipse; $bgbrush= $vividRPieNL, $vividRPieND; $spot= $vividRPieL, $vividRPieD;	break;
+			}3{	$brush= $vividOEllipse; $bgbrush= $vividOPieNL, $vividOPieND; $spot= $vividOPieL, $vividOPieD;	break;
 			}
 			} #sw
 		}
@@ -415,7 +445,7 @@ function Brush_Color(){
 	}
 	} #sw
 
-	[array]$rr= $color[$jj], $brush, $bgbrush, $spot[$jj]
+	[array]$rr= $color[$jj], $brush, $bgbrush[$jj], $spot[$jj]
 
 	return $rr
 } #func
@@ -1695,7 +1725,7 @@ function Contxt_octave([string]$a){
  } #func
   
 # trans 
-	
+	 
 function Value_conv([string] $sw){ 
 
 
@@ -1806,7 +1836,7 @@ function Key_play($t, [string] $sw){
 
  
 <# 
-	 
+	
 function Focus_btn(){ 
 
 	if(($fm_box.Focused -eq $True) -or ($fm_box_mml.Focused -eq $True)){
@@ -1887,7 +1917,7 @@ function Idx(){
 # ------ 
  
 # poly 
-	
+	 
 function Flow_ssg([int]$num, [array]$e, [int]$width, [int]$height){ 
 
 
@@ -2218,7 +2248,7 @@ function Poly_4op([array]$v, [int]$j){ # 4op ADSR render
 			$buffc.Graphics.FillPolygon($brush, $pt)	# 折れ線のfill
 		}
 
-		$buffc.Graphics.DrawLine($XBpen, 0, $height, $img[0], $height) # x軸を上書き
+		$buffc.Graphics.DrawLine($XGpen, 0, $height, $img[0], $height) # x軸を上書き
 		break;
 	}1{
 		$buffe.Graphics.Clear($color[1])
@@ -2234,7 +2264,7 @@ function Poly_4op([array]$v, [int]$j){ # 4op ADSR render
 			$buffe.Graphics.FillPolygon($brush, $pt)
 		}
 
-		$buffe.Graphics.DrawLine($XGpen, 0, $height, $img[0], $height)
+		$buffe.Graphics.DrawLine($XBpen, 0, $height, $img[0], $height)
 		break;
 	}2{
 		$buffg.Graphics.Clear($color[2])
@@ -2250,7 +2280,7 @@ function Poly_4op([array]$v, [int]$j){ # 4op ADSR render
 			$buffg.Graphics.FillPolygon($brush, $pt)
 		}
 
-		$buffg.Graphics.DrawLine($XOpen, 0, $height, $img[0], $height)
+		$buffg.Graphics.DrawLine($XRpen, 0, $height, $img[0], $height)
 		break;
 	}3{
 		$buffi.Graphics.Clear($color[3])
@@ -2266,7 +2296,7 @@ function Poly_4op([array]$v, [int]$j){ # 4op ADSR render
 			$buffi.Graphics.FillPolygon($brush, $pt)
 		}
 
-		$buffi.Graphics.DrawLine($XRpen, 0, $height, $img[0], $height)
+		$buffi.Graphics.DrawLine($XPpen, 0, $height, $img[0], $height)
 	}
 	} #sw
  } #func
@@ -2364,7 +2394,7 @@ function Poly_chg(){
 		$gpc.DrawLines($Mpen, $script:pointing[0]) # sine wave
 
 		[string[]]$value= Value_out
-		$gpc.DrawString($value[0], $Fona, $XBbrush, 120,5)
+		$gpc.DrawString($value[0], $Fona, $XGbrush, 120,5)
 
 		$pict_panel.ResumeLayout()
 
@@ -2383,7 +2413,7 @@ function Poly_chg(){
 		$gpe.DrawLines($Ypen, $script:pointing[1])
 
 		[string[]]$value= Value_out
-		$gpe.DrawString($value[1], $Fona, $XGbrush, 120,5)
+		$gpe.DrawString($value[1], $Fona, $XBbrush, 120,5)
 
 		$pict_panel.ResumeLayout()
 
@@ -2402,7 +2432,7 @@ function Poly_chg(){
 		$gpg.DrawLines($Lpen, $script:pointing[2])
 
 		[string[]]$value= Value_out
-		$gpg.DrawString($value[2], $Fona, $XObrush, 120,5)
+		$gpg.DrawString($value[2], $Fona, $XRbrush, 120,5)
 
 		$pict_panel.ResumeLayout()
 
@@ -2421,7 +2451,7 @@ function Poly_chg(){
 		$gpi.DrawLines($Cpen, $script:pointing[3])
 
 		[string[]]$value= Value_out
-		$gpi.DrawString($value[3], $Fona, $XRbrush, 120,5)
+		$gpi.DrawString($value[3], $Fona, $XPbrush, 120,5)
 
 		$pict_panel.ResumeLayout()
 
@@ -2877,10 +2907,10 @@ function Sin_chg(){
 
 	[string[]]$value= Value_out
 
-	$gpc.DrawString($value[0], $Fona, $XBbrush, 120,5)
-	$gpe.DrawString($value[1], $Fona, $XGbrush, 120,5)
-	$gpg.DrawString($value[2], $Fona, $XObrush, 120,5)
-	$gpi.DrawString($value[3], $Fona, $XRbrush, 120,5)
+	$gpc.DrawString($value[0], $Fona, $XGbrush, 120,5)
+	$gpe.DrawString($value[1], $Fona, $XBbrush, 120,5)
+	$gpg.DrawString($value[2], $Fona, $XRbrush, 120,5)
+	$gpi.DrawString($value[3], $Fona, $XPbrush, 120,5)
 
 	$pict_panel.ResumeLayout()
 
@@ -2943,7 +2973,7 @@ function Chip_position([string]$k){
  } #func
  
 <# 
-	
+	 
 function Alg_cablw([int]$alg){ 
 
  [int]$sw= Idx
@@ -2970,7 +3000,7 @@ function Alg_cablw([int]$alg){
  $buffw.Graphics.DrawString($tt,$Fona,$brush, $xytwo[0],$xytwo[1]) # $script:xytwo
 
  [array]$color_pen= @($XBpen,$XRpen)
- [array]$cable= @($Ppen,$Bpen,$Rpen)
+ [array]$cable= @($Open,$Bpen,$Rpen)
  [array]$tex= @($Cbrush,$Mbrush)
 
   switch($alg){
@@ -3080,9 +3110,9 @@ function Alg_cable([int]$alg){
  $buffb.Graphics.Clear($board)
  $buffb.Graphics.DrawString($tt,$Fona,$brush, $xyfour[0],$xyfour[1]) # $script:xyfour
 
- [array]$color_pen= @($XBpen,$XGpen,$XOpen,$XRpen)
- [array]$cable= @($Ppen,$Bpen,$Gpen,$Open,$Rpen)
- [array]$tex= @($Cbrush,$Lbrush,$Ybrush,$Mbrush)
+ [array]$color_pen= @($XGpen, $XBpen, $XRpen, $XPpen)
+ [array]$cable= @($Open, $Gpen, $Bpen, $Rpen, $Ppen)
+ [array]$tex= @($Lbrush, $Cbrush, $Mbrush, $Ybrush)
 
  switch($alg){
  0{
@@ -3555,7 +3585,7 @@ function Alg_cablw([int]$alg){
 	$line= $rr[3]
 
 	[array]$color_pen= @($XBpen,$XRpen)
-	[array]$cable= @($Ppen,$Bpen,$Rpen)
+	[array]$cable= @($Open,$Bpen,$Rpen)
 	[array]$tex= @($Cbrush,$Mbrush)
 
 	$buffw.Graphics.Clear($board)
@@ -3675,9 +3705,9 @@ function Alg_cable([int]$alg){
 	$board= $rr[2]
 	$line= $rr[3]
 
-	[array]$color_pen= @($XBpen,$XGpen,$XOpen,$XRpen)
-	[array]$cable= @($Ppen,$Bpen,$Gpen,$Open,$Rpen)
-	[array]$tex= @($Cbrush,$Lbrush,$Ybrush,$Mbrush)
+	[array]$color_pen= @($XGpen, $XBpen, $XRpen, $XPpen)
+	[array]$cable= @($Open, $Gpen, $Bpen, $Rpen, $Ppen)
+	[array]$tex= @($Lbrush, $Cbrush, $Mbrush, $Ybrush)
 
 	$buffb.Graphics.Clear($board)
 
@@ -4350,10 +4380,10 @@ function All_chg(){	# $vrc_svn[][] ha "__1" no string
 
 		[string[]]$value= Value_out
 
-		$gpc.DrawString($value[0], $Fona, $XBbrush, 120,5)
-		$gpe.DrawString($value[1], $Fona, $XGbrush, 120,5)
-		$gpg.DrawString($value[2], $Fona, $XObrush, 120,5)
-		$gpi.DrawString($value[3], $Fona, $XRbrush, 120,5)
+		$gpc.DrawString($value[0], $Fona, $XGbrush, 120,5)
+		$gpe.DrawString($value[1], $Fona, $XBbrush, 120,5)
+		$gpg.DrawString($value[2], $Fona, $XRbrush, 120,5)
+		$gpi.DrawString($value[3], $Fona, $XPbrush, 120,5)
 
 		$Pictbw.Hide()
 		$Pictbox1a.Hide()
@@ -4490,15 +4520,17 @@ function Mode_alg([string] $t){
 function Color_alg([string]$t){ 
 
 	$sb_menu_steel.Text= "Steel"
+	$sb_menu_sepia.Text= "Sepia"
 	$sb_menu_natural.Text= "Natural"
 	$sb_menu_pastel.Text= "Pastel"
 	$sb_menu_vivid.Text= "Vivid"
 
 	switch($t){
 	'steel'{	$sb_menu_steel.Text= "[v] Steel";	break;
+	}'sepia'{	$sb_menu_sepia.Text= "[v] Sepia";	break;
 	}'natural'{	$sb_menu_natural.Text= "[v] Natural";	break;
 	}'pastel'{	$sb_menu_pastel.Text= "[v] Pastel";	break;
-	}'vivid'{	$sb_menu_vivid.Text= "[v] Vivid"
+	}'vivid'{	$sb_menu_vivid.Text= "[v] Vivid";	break;
 	}
 	} #sw
 
@@ -6484,7 +6516,7 @@ function Preset_listen([string] $sw, [string] $ss){
  } #func
   
 # Export 
-	 
+	
 function Unredo([int]$n){ 
 
 
@@ -7800,9 +7832,9 @@ cd (Split-Path -Parent $PSCommandPath)
 [Environment]::CurrentDirectory= pwd # working_dir set
  
 # Sub forms 
-	 
+	
 # $contxtA_7bwを読み込んだ後$PictureBox objが安全 
-	 
+	
 $contxtA_Sep_7bw= New-Object System.Windows.Forms.ToolStripSeparator 
 $contxtA_Sep_Lbw= New-Object System.Windows.Forms.ToolStripSeparator
 $contxtA_Sep_Nbg= New-Object System.Windows.Forms.ToolStripSeparator
@@ -7898,7 +7930,7 @@ $script:toppos= New-Object System.Drawing.Point(0, 0)
 
 
 
-	 
+	
 [int[]]$op_IMG= @(162, 102) 
 $op_Rect= New-Object System.Drawing.Rectangle(0, 0, $op_IMG[0], $op_IMG[1])
  
@@ -8371,7 +8403,7 @@ $Pictbox4.Add_MouseLeave({
 # buffb 
 
 
-	 
+	
 [int[]]$buf_IMG= @(322, 202) 
 $buf_Rect= New-Object System.Drawing.Rectangle(0, 0, $buf_IMG[0], $buf_IMG[1])
 [int[]]$buf_Size= @(($buf_IMG[0]+ 2), ($buf_IMG[1]+ 2)) # バッファサイズ
@@ -8847,7 +8879,7 @@ $sb_menu_rev.Add_Click({
 	echo $_.exception
  }
 })
- 	
+ 
 $sb_menu_m= New-Object System.Windows.Forms.ToolStripMenuItem 
 $sb_menu_m.Text= "Mode"
 
@@ -8900,6 +8932,25 @@ $sb_menu_steel.Add_Click({
 	if($key["color"] -ne 'steel'){
 
 		$script:key["color"]= Color_alg "steel"
+
+		All_Render
+		All_chg
+		Stus_alg
+	}
+
+ }catch{
+	echo $_.exception
+ }
+})
+
+$sb_menu_sepia= New-Object System.Windows.Forms.ToolStripMenuItem
+#$sb_menu_sepia.Text= "sepia"
+
+$sb_menu_sepia.Add_Click({
+ try{
+	if($key["color"] -ne 'sepia'){
+
+		$script:key["color"]= Color_alg "sepia"
 
 		All_Render
 		All_chg
@@ -8975,7 +9026,7 @@ $pict_panel.Controls.AddRange(@($Pictbox1a,$Pictbox2a,$Pictbox1,$Pictbox2,$Pictb
 $sb_menu_e.DropDownItems.AddRange(@($sb_menu_one,$sb_menu_two,$sb_menu_three,$sb_menu_four,$sb_menu_five,$sb_menu_six,$sb_menu_seven))
 $sb_menu_a.DropDownItems.AddRange(@($sb_menu_a0,$sb_menu_a1,$sb_menu_a2,$sb_menu_a3,$sb_menu_a4))
 $sb_menu_y.DropDownItems.AddRange(@($sb_menu_ff,$sb_menu_rev))
-$sb_menu_o.DropDownItems.AddRange(@($sb_menu_steel, $sb_menu_natural, $sb_menu_pastel, $sb_menu_vivid))
+$sb_menu_o.DropDownItems.AddRange(@($sb_menu_steel, $sb_menu_sepia, $sb_menu_natural, $sb_menu_pastel, $sb_menu_vivid))
 $sb_menu_m.DropDownItems.AddRange(@($sb_menu_dark, $sb_menu_light))
 $sb_menu_p.DropDownItems.AddRange(@($sb_menu_w0,$sb_menu_w1,$sb_menu_w2))
 $sb_menu_f.DropDownItems.AddRange(@($sb_menu_p,$sb_menu_sn,$sb_menu_fin))
@@ -8986,7 +9037,7 @@ $sb_stus.Items.AddRange(@($sb_label))
 $sb_alg.Controls.AddRange(@($sb_mnu,$pict_panel,$sb_stus))
   
 # Preset forms 
-	 
+	
 $ff_baloon= New-Object System.Windows.Forms.Tooltip 
 $ff_baloon.ShowAlways= $False
 # $ff_baloon.ToolTipIcon= "Info"
@@ -9447,7 +9498,7 @@ $ff_mnu.Items.AddRange(@($ff_menu_f,$ff_menu_b))
 $ff_frm.Controls.AddRange(@($ff_mnu, $ff_tab, $play_chk, $import_btn, $close_btn))
   
 # Mask forms 
-	 
+	
 $sub_mask= New-Object System.Windows.Forms.Form 
 $sub_mask.Text= "Operator Mask"
 $sub_mask.Size= "272,172"
@@ -9684,7 +9735,7 @@ $sub_ssg_grp.Controls.AddRange(@($sub_ssg_label2,$sub_ssg_label,$sub_ssg_comb,$s
 $sub_mask.Controls.AddRange(@($sub_mask_grp,$sub_ssg_grp))
   
 # Sav forms 
-	 
+	
 $sub_sav_grp= New-Object System.Windows.Forms.GroupBox 
 # $sub_sav_grp.Text= "Save Name"
 $sub_sav_grp.Size= "242,82"
@@ -9783,7 +9834,7 @@ $Horizonbuff= $Contxtbuf.Allocate($Graphics_buf, $Rect_buf)
 # $Horizonbuff= $Contxtb.Allocate($Graphics_buf, $Pictbox_buf.ClientRectangle)
   
 # Pictbox 
-	 
+	
 [bool] $script:mouser_capure= $False 
 [int] $script:starter_value= 0
 $script:topper_pos= New-Object System.Drawing.Point(0, 0)
@@ -10847,7 +10898,7 @@ $eg_grp.Size= "255, 130" # 4op "255, 210"
 $eg_grp.Text= "Envelope Rate"
 $eg_grp.FlatStyle= "Flat"
 $eg_grp.ForeColor= "gray"
-	 
+	
 # ------ AR - AttackRate 15-0 2op /  31-0 4op 
 	 
 $lbl_ar= New-Object System.Windows.Forms.Label 
@@ -11386,7 +11437,7 @@ $lev_grp.Text= "KeyScaling"
 $lev_grp.FlatStyle= "Flat"
 $lev_grp.ForeColor= "gray"
 # $lev_grp.Hide() # $lev_grp.Show()
-	 
+	
 # ------ KSL - KeyScaleLevel 0-3 
 	 
 $lbl_ksl= New-Object System.Windows.Forms.Label 
@@ -11520,7 +11571,7 @@ $ring_grp.Size= "255,130"
 $ring_grp.Text= "Tune Control"
 $ring_grp.FlatStyle= "Flat"
 $ring_grp.ForeColor= "gray"
-	 
+	
 # ------ DT - Distortion 0-1 vrc7 
 	 
 $lbl_dt= New-Object System.Windows.Forms.Label 
@@ -11972,7 +12023,7 @@ $op_grp.Size= "255,140"
 $op_grp.Text= "Frequency Modulation"
 $op_grp.FlatStyle= "Flat"
 $op_grp.ForeColor= "gray"
-	 
+	
 # ------ TL - TotalLevel 63-0 2op / 0max - 127min 4op 
 	 
 $lbl_tl= New-Object System.Windows.Forms.Label 
@@ -12213,7 +12264,7 @@ $alg_grp.Size= "255,135"
 $alg_grp.Text= "Algorithm / Feedback"
 $alg_grp.FlatStyle= "Flat"
 $alg_grp.ForeColor= "gray"
-	 
+	
 # ------ ALG - Algorithm 0-1 opl / 0-7 4op 
 	 
 $lbl_alg= New-Object System.Windows.Forms.Label 
@@ -12458,11 +12509,15 @@ $conv_btn.BackColor= "white"
 
 $conv_btn.Add_Click({ # text convert
  try{
+
 	if($fm_box.Modified -eq $True){
+
 		Value_conv "btn"
 		$fm_box.Modified= $False
 	}
+
 	if($fm_box_mml.Modified -eq $True){
+
 		Mml_conv
 		$fm_box_mml.Modified= $False
 	}
@@ -12473,7 +12528,7 @@ $conv_btn.Add_Click({ # text convert
  
 $comb_op= New-Object System.Windows.Forms.Combobox 
 $comb_op.Size= "180, 30"
-$comb_op.Location= "60, 30"
+$comb_op.Location= "60, 65"
 $comb_op.FlatStyle= "Popup"
 
 [void]$comb_op.Items.AddRange(@("Operator1", "Operator2"))
@@ -12504,7 +12559,7 @@ $comb_op.Add_SelectedValueChanged({
  
 $comb_fm= New-Object System.Windows.Forms.Combobox 
 $comb_fm.Size= "180, 30"
-$comb_fm.Location= "60, 65"
+$comb_fm.Location= "60, 30"
 $comb_fm.FlatStyle= "Popup"
 
 [void]$comb_fm.Items.AddRange(@("vrc7 2op", "opl 2op", "opn 4op", "opm 4op"))
@@ -12565,6 +12620,9 @@ $fm_box.Add_Enter({ # kaki komi de undo reset
 
 	$this.ForeColor= "black"
 	$this.BackColor= "white"
+
+	$this.Modified= $True
+
  }catch{
 	echo $_.exception
  }
@@ -12606,6 +12664,9 @@ $fm_box_mml.Add_Enter({
 
 	$this.ForeColor= "black"
 	$this.BackColor= "white"
+
+	$this.Modified= $True
+
  }catch{
 	echo $_.exception
  }
@@ -14392,7 +14453,7 @@ $frm_fm.Controls.AddRange(@($fm_mnu, $fm_panel, $fm_box, $fm_box_mml, $fm_stus))
 
 $poix= New-Object System.Drawing.Point(0,0)			# グラデーションpoint obj
 $poia= New-Object System.Drawing.Point(162,0)
-	 
+	
 # 'white' set ------ 
 $white= [System.Drawing.Color]::FromArgb(255, 251, 250, 245)	# 生成り色 A:254
 $white248= [System.Drawing.Color]::FromArgb(248, $white.R, $white.G, $white.B)
@@ -14441,119 +14502,193 @@ $Blbrush.InterpolationColors= $Clbrend
  
 # poly,sine,text ------ 
 	 
-$darkblue= [System.Drawing.Color]::FromArgb(195,0,139,139)	# 185 -> 195 alpha 
-$naturalblue= [System.Drawing.Color]::FromArgb(221,32,178,170)	# 241 -> 221
-$pastelblue= [System.Drawing.Color]::FromArgb(190,0,225,201)	# 190
-$vividblue= [System.Drawing.Color]::FromArgb(200,35,134,215)	# 220 -> 200
+$darkblue= [System.Drawing.Color]::FromArgb(195,0,139,139) 
+$sepiablue= [System.Drawing.Color]::FromArgb(210, 121, 204, 196)
+
+$naturalblue= [System.Drawing.Color]::FromArgb(221,32,178,170)
+$pastelblue= [System.Drawing.Color]::FromArgb(190,0,225,201)
+$vividblue= [System.Drawing.Color]::FromArgb(200,35,134,215)
+
 
 $darkBEllipse= New-Object System.Drawing.SolidBrush($darkblue)
+$sepiaBEllipse= New-Object System.Drawing.SolidBrush($sepiablue)
 $naturalBEllipse= New-Object System.Drawing.SolidBrush($naturalblue)
 $pastelBEllipse= New-Object System.Drawing.SolidBrush($pastelblue)
 $vividBEllipse= New-Object System.Drawing.SolidBrush($vividblue)
 
 $darkBPieD= Silver_convert $darkblue 0
+$sepiaBPieD= Silver_convert $sepiablue 0
 $naturalBPieD= Silver_convert $naturalblue 0
 $pastelBPieD= Silver_convert $pastelblue 0
 $vividBPieD= Silver_convert $vividblue 0
 
-$darkBPie= Silver_convert $darkblue 1
-$naturalBPie= Silver_convert $naturalblue 1
-$pastelBPie= Silver_convert $pastelblue 1
-$vividBPie= Silver_convert $vividblue 1
+$darkBPieND= Silver_convert $darkblue 1
+$sepiaBPieND= Silver_convert $sepiablue 1
+$naturalBPieND= Silver_convert $naturalblue 1
+$pastelBPieND= Silver_convert $pastelblue 1
+$vividBPieND= Silver_convert $vividblue 1
 
-$darkBPieL= Silver_convert $darkblue 2
-$naturalBPieL= Silver_convert $naturalblue 2
-$pastelBPieL= Silver_convert $pastelblue 2
-$vividBPieL= Silver_convert $vividblue 2
- 
+$darkBPieNL= Silver_convert $darkblue 2
+$sepiaBPieNL= Silver_convert $sepiablue 2
+$naturalBPieNL= Silver_convert $naturalblue 2
+$pastelBPieNL= Silver_convert $pastelblue 2
+$vividBPieNL= Silver_convert $vividblue 2
+
+$darkBPieL= Silver_convert $darkblue 3
+$sepiaBPieL= Silver_convert $sepiablue 3
+$naturalBPieL= Silver_convert $naturalblue 3
+$pastelBPieL= Silver_convert $pastelblue 3
+$vividBPieL= Silver_convert $vividblue 3
+	 
+# alpha:185>195 
+# alpha: 210
+# alpha: 241>221
+# alpha: 190
+# alpha: 220>200
+  
 $darkgreen= [System.Drawing.Color]::FromArgb(195,107,162,35) 
+$sepiagreen= [System.Drawing.Color]::FromArgb(210, 156, 200, 154)	#Hue:117.4
+
 $naturalgreen= [System.Drawing.Color]::FromArgb(221,154,215,50)
 $pastelgreen= [System.Drawing.Color]::FromArgb(190,140,220,61)
 $vividgreen= [System.Drawing.Color]::FromArgb(200,35,216,66)
 
+
 $darkGEllipse= New-Object System.Drawing.SolidBrush($darkgreen)
+$sepiaGEllipse= New-Object System.Drawing.SolidBrush($sepiagreen)
 $naturalGEllipse= New-Object System.Drawing.SolidBrush($naturalgreen)
 $pastelGEllipse= New-Object System.Drawing.SolidBrush($pastelgreen)
 $vividGEllipse= New-Object System.Drawing.SolidBrush($vividgreen)
 
 $darkGPieD= Silver_convert $darkgreen 0
+$sepiaGPieD= Silver_convert $sepiagreen 0
 $naturalGPieD= Silver_convert $naturalgreen 0
 $pastelGPieD= Silver_convert $pastelgreen 0
 $vividGPieD= Silver_convert $vividgreen 0
 
-$darkGPie= Silver_convert $darkgreen 1
-$naturalGPie= Silver_convert $naturalgreen 1
-$pastelGPie= Silver_convert $pastelgreen 1
-$vividGPie= Silver_convert $vividgreen 1
+$darkGPieND= Silver_convert $darkgreen 1
+$sepiaGPieND= Silver_convert $sepiagreen 1
+$naturalGPieND= Silver_convert $naturalgreen 1
+$pastelGPieND= Silver_convert $pastelgreen 1
+$vividGPieND= Silver_convert $vividgreen 1
 
-$darkGPieL= Silver_convert $darkgreen 2
-$naturalGPieL= Silver_convert $naturalgreen 2
-$pastelGPieL= Silver_convert $pastelgreen 2
-$vividGPieL= Silver_convert $vividgreen 2
+$darkGPieNL= Silver_convert $darkgreen 2
+$sepiaGPieNL= Silver_convert $sepiagreen 2
+$naturalGPieNL= Silver_convert $naturalgreen 2
+$pastelGPieNL= Silver_convert $pastelgreen 2
+$vividGPieNL= Silver_convert $vividgreen 2
+
+$darkGPieL= Silver_convert $darkgreen 3
+$sepiaGPieL= Silver_convert $sepiagreen 3
+$naturalGPieL= Silver_convert $naturalgreen 3
+$pastelGPieL= Silver_convert $pastelgreen 3
+$vividGPieL= Silver_convert $vividgreen 3
  
-$darkorange= [System.Drawing.Color]::FromArgb(195,231,226,24) 
-$naturalorange= [System.Drawing.Color]::FromArgb(221,239,254,48)
-$pastelorange= [System.Drawing.Color]::FromArgb(190,254,248,34)
-$vividorange= [System.Drawing.Color]::FromArgb(200,242,246,25)
+#$darkorange= [System.Drawing.Color]::FromArgb(195,231,226,24) 
+#$naturalorange= [System.Drawing.Color]::FromArgb(221,239,254,48)
+#$pastelorange= [System.Drawing.Color]::FromArgb(190,254,248,34)
+#$vividorange= [System.Drawing.Color]::FromArgb(200,242,246,25)
+
+
+$darkorange= [System.Drawing.Color]::FromArgb(195, 71, 64, 106)
+$sepiaorange= [System.Drawing.Color]::FromArgb(210, 187, 157, 207)	# 276.0
+
+$naturalorange= [System.Drawing.Color]::FromArgb(221,119, 108, 174)
+$pastelorange= [System.Drawing.Color]::FromArgb(190, 114, 94, 218)
+$vividorange= [System.Drawing.Color]::FromArgb(200, 82, 65, 166)
 
 $darkOEllipse= New-Object System.Drawing.SolidBrush($darkorange)
+$sepiaOEllipse= New-Object System.Drawing.SolidBrush($sepiaorange)
 $naturalOEllipse= New-Object System.Drawing.SolidBrush($naturalorange)
 $pastelOEllipse= New-Object System.Drawing.SolidBrush($pastelorange)
 $vividOEllipse= New-Object System.Drawing.SolidBrush($vividorange)
 
 $darkOPieD= Silver_convert $darkorange 0
+$sepiaOPieD= Silver_convert $sepiaorange 0
 $naturalOPieD= Silver_convert $naturalorange 0
 $pastelOPieD= Silver_convert $pastelorange 0
 $vividOPieD= Silver_convert $vividorange 0
 
-$darkOPie= Silver_convert $darkorange 1
-$naturalOPie= Silver_convert $naturalorange 1
-$pastelOPie= Silver_convert $pastelorange 1
-$vividOPie= Silver_convert $vividorange 1
+$darkOPieND= Silver_convert $darkorange 1
+$sepiaOPieND= Silver_convert $sepiaorange 1
+$naturalOPieND= Silver_convert $naturalorange 1
+$pastelOPieND= Silver_convert $pastelorange 1
+$vividOPieND= Silver_convert $vividorange 1
 
-$darkOPieL= Silver_convert $darkorange 2
-$naturalOPieL= Silver_convert $naturalorange 2
-$pastelOPieL= Silver_convert $pastelorange 2
-$vividOPieL= Silver_convert $vividorange 2
+$darkOPieNL= Silver_convert $darkorange 2
+$sepiaOPieNL= Silver_convert $sepiaorange 2
+$naturalOPieNL= Silver_convert $naturalorange 2
+$pastelOPieNL= Silver_convert $pastelorange 2
+$vividOPieNL= Silver_convert $vividorange 2
+
+$darkOPieL= Silver_convert $darkorange 3
+$sepiaOPieL= Silver_convert $sepiaorange 3
+$naturalOPieL= Silver_convert $naturalorange 3
+$pastelOPieL= Silver_convert $pastelorange 3
+$vividOPieL= Silver_convert $vividorange 3
+
  
 $darkred= [System.Drawing.Color]::FromArgb(195,189,72,76) 
+$sepiared= [System.Drawing.Color]::FromArgb(210, 206, 156, 171)
+
 $naturalred= [System.Drawing.Color]::FromArgb(221,255,99,71)
 $pastelred= [System.Drawing.Color]::FromArgb(190,252,81,84)
-$vividred= [System.Drawing.Color]::FromArgb(200,241,55,55)
+$vividred= [System.Drawing.Color]::FromArgb(200,241,50,50)		# GB: 55>50
 
 $darkREllipse= New-Object System.Drawing.SolidBrush($darkred)
+$sepiaREllipse= New-Object System.Drawing.SolidBrush($sepiared)
 $naturalREllipse= New-Object System.Drawing.SolidBrush($naturalred)
 $pastelREllipse= New-Object System.Drawing.SolidBrush($pastelred)
 $vividREllipse= New-Object System.Drawing.SolidBrush($vividred)
 
 $darkRPieD= Silver_convert $darkred 0
+$sepiaRPieD= Silver_convert $sepiared 0
 $naturalRPieD= Silver_convert $naturalred 0
 $pastelRPieD= Silver_convert $pastelred 0
 $vividRPieD= Silver_convert $vividred 0
 
-$darkRPie= Silver_convert $darkred 1
-$naturalRPie= Silver_convert $naturalred 1
-$pastelRPie= Silver_convert $pastelred 1
-$vividRPie= Silver_convert $vividred 1
+$darkRPieND= Silver_convert $darkred 1
+$sepiaRPieND= Silver_convert $sepiared 1
+$naturalRPieND= Silver_convert $naturalred 1
+$pastelRPieND= Silver_convert $pastelred 1
+$vividRPieND= Silver_convert $vividred 1
 
-$darkRPieL= Silver_convert $darkred 2
-$naturalRPieL= Silver_convert $naturalred 2
-$pastelRPieL= Silver_convert $pastelred 2
-$vividRPieL= Silver_convert $vividred 2
+$darkRPieNL= Silver_convert $darkred 2
+$sepiaRPieNL= Silver_convert $sepiared 2
+$naturalRPieNL= Silver_convert $naturalred 2
+$pastelRPieNL= Silver_convert $pastelred 2
+$vividRPieNL= Silver_convert $vividred 2
+
+$darkRPieL= Silver_convert $darkred 3
+$sepiaRPieL= Silver_convert $sepiared 3
+$naturalRPieL= Silver_convert $naturalred 3
+$pastelRPieL= Silver_convert $pastelred 3
+$vividRPieL= Silver_convert $vividred 3
   
 # $trans= [System.Drawing.Color]::FromName($transparent)	# 透明色 
  
+# listen line ------ 
+$tomato= [System.Drawing.Color]::FromName("tomato")
+$turquoise= [System.Drawing.Color]::FromName("darkturquoise")
+$khaki= [System.Drawing.Color]::FromName("greenyellow")
+
+$Pbrush= New-Object System.Drawing.SolidBrush($tomato)
+$Tbrush= New-Object System.Drawing.SolidBrush($turquoise)
+$Kbrush= New-Object System.Drawing.SolidBrush($khaki)
+ 	
 # nomal color 
 $yellow= [System.Drawing.Color]::FromName("orange")		# RGup de yellow
 $magenta= [System.Drawing.Color]::FromName("magenta")
 $cyan= [System.Drawing.Color]::FromName("cyan")
 $lime= [System.Drawing.Color]::FromName("lime")
+$purple= [System.Drawing.Color]::FromName("mediumpurple")
 
 # sine wave -----
-$Ypen= New-Object System.Drawing.Pen($yellow, 1 )	# Draw
 $Mpen= New-Object System.Drawing.Pen($magenta, 1 )
-$Cpen= New-Object System.Drawing.Pen($cyan, 1 )
+$Ypen= New-Object System.Drawing.Pen($yellow, 1 )	# Draw
+# $Vpen= New-Object System.Drawing.Pen($purple, 1 )	# Draw
 $Lpen= New-Object System.Drawing.Pen($lime, 1 )
+$Cpen= New-Object System.Drawing.Pen($cyan, 1 )
 
 # $Ybrush= New-Object System.Drawing.SolidBrush($yellow)	# Fill
 # $Mbrush= New-Object System.Drawing.SolidBrush($magenta)
@@ -14566,71 +14701,73 @@ $greenyellow= [System.Drawing.Color]::FromArgb(210,173,255,47)	# greenyellow
 $gold= [System.Drawing.Color]::FromArgb(210,255,215,0)		# gold 255,215,0
 $pink= [System.Drawing.Color]::FromArgb(210,255,182,193)		# lightpink
 $thistle= [System.Drawing.Color]::FromArgb(220,216,191,216)
+$plum= [System.Drawing.Color]::FromName("plum")
 
 # DrawString -----
 $XBbrush= New-Object System.Drawing.SolidBrush($skyblue)
 $XGbrush= New-Object System.Drawing.SolidBrush($greenyellow)
 $XObrush= New-Object System.Drawing.SolidBrush($gold)
 $XRbrush= New-Object System.Drawing.SolidBrush($pink)
+$XPbrush= New-Object System.Drawing.SolidBrush($purple)
 
 # 中心軸,枠 -----
 $XBpen= New-Object System.Drawing.Pen($skyblue, 1)
 $XGpen= New-Object System.Drawing.Pen($greenyellow, 1)
 $XOpen= New-Object System.Drawing.Pen($gold, 1)
 $XRpen= New-Object System.Drawing.Pen($pink, 1)
+$XPpen= New-Object System.Drawing.Pen($purple, 1)
 
 # cable -----
-$Ppen= New-Object System.Drawing.Pen($thistle, 7)	# Draw
+$Ppen= New-Object System.Drawing.Pen($plum, 7)	# Draw
 $Bpen= New-Object System.Drawing.Pen($skyblue, 7)
 $Gpen= New-Object System.Drawing.Pen($greenyellow, 7)
-$Open= New-Object System.Drawing.Pen($gold, 7)
+# $Open= New-Object System.Drawing.Pen($gold, 7)
+$Open= New-Object System.Drawing.Pen($thistle, 7)
 $Rpen= New-Object System.Drawing.Pen($pink, 7)
 
 
  
 # mini alg font + text ----- 
 
+#$Ybrend= New-Object System.Drawing.Drawing2D.ColorBlend(3)	# グラデーション
+#$Ybrend.Colors= @($gold,$yellow,$gold)
+#$Ybrend.Positions= @(0.0, 0.25, 1.0)
+#$Ybrush= New-Object System.Drawing.Drawing2D.LinearGradientBrush($poix,$poia,$yellow,$yellow)
+#$Ybrush.InterpolationColors= $Ybrend
+
+
 $Ybrend= New-Object System.Drawing.Drawing2D.ColorBlend(3)	# グラデーション
-$Ybrend.Colors= @($gold,$yellow,$gold)
+$Ybrend.Colors= @($plum, $purple, $plum)
 $Ybrend.Positions= @(0.0, 0.25, 1.0)
-$Ybrush= New-Object System.Drawing.Drawing2D.LinearGradientBrush($poix,$poia,$yellow,$yellow)
+$Ybrush= New-Object System.Drawing.Drawing2D.LinearGradientBrush($poix,$poia,$plum, $plum)
 $Ybrush.InterpolationColors= $Ybrend
 
 
 $Mbrend= New-Object System.Drawing.Drawing2D.ColorBlend(3)
-$Mbrend.Colors= @($pink,$magenta,$pink)
+$Mbrend.Colors= @($pink,$magenta, $pink)
 $Mbrend.Positions= @(0.0, 0.25, 1.0)
 $Mbrush= New-Object System.Drawing.Drawing2D.LinearGradientBrush($poix,$poia,$magenta,$magenta)
 $Mbrush.InterpolationColors= $Mbrend
 
 
 $Cbrend= New-Object System.Drawing.Drawing2D.ColorBlend(3)
-$Cbrend.Colors= @($skyblue,$cyan,$skyblue)
+$Cbrend.Colors= @($skyblue, $cyan, $skyblue)
 $Cbrend.Positions= @(0.0, 0.25, 1.0)
 $Cbrush= New-Object System.Drawing.Drawing2D.LinearGradientBrush($poix,$poia,$cyan,$cyan)
 $Cbrush.InterpolationColors= $Cbrend
 
 
 $Lbrend= New-Object System.Drawing.Drawing2D.ColorBlend(3)
-$Lbrend.Colors= @($greenyellow,$lime,$greenyellow)
+$Lbrend.Colors= @($greenyellow, $lime, $greenyellow)
 $Lbrend.Positions= @(0.0, 0.25, 1.0)
 $Lbrush= New-Object System.Drawing.Drawing2D.LinearGradientBrush($poix,$poia,$lime,$lime)
 $Lbrush.InterpolationColors= $Lbrend
  
-# listen line ------ 
-$plum= [System.Drawing.Color]::FromName("plum")
-$turquoise= [System.Drawing.Color]::FromName("powderblue")
-$khaki= [System.Drawing.Color]::FromName("khaki")
-
-$Pbrush= New-Object System.Drawing.SolidBrush($plum)
-$Tbrush= New-Object System.Drawing.SolidBrush($turquoise)
-$Kbrush= New-Object System.Drawing.SolidBrush($khaki)
- 
 # cyan		powderblue	darkcyan	cadetblue	lightseagreen 
 # lime		greenyellow	olivedrab	darkseagreen	yellowgreen
-# orange	gold	goldenrod	darkkhaki	khaki
+# orange	gold	goldenrod		darkkhaki	khaki
 # magenta	lightpink	brown	rosybrown	tomato
-# plum		thistle		indigo
+# plum		thistle		indigo	mediumpurple
  
  }catch{ 
 	echo $_.exception
@@ -14648,7 +14785,7 @@ $Kbrush= New-Object System.Drawing.SolidBrush($khaki)
 #	100,	205=80+100+25	260, 205
 #	180,	330=205+100+25	340, 330
 #	260,	455=330+100+25	420, 455
-	 
+	
  try{ 
  
 # 4op ------ 
@@ -15245,7 +15382,7 @@ $pointat[2][3]=  New-Object System.Drawing.Point(340,205)
 #$graphics.FillEllipse($brush, 0, 0, 200, 300)	# 円
  
 # base part 
-	 
+	
 #$graphics.DrawLine($pen, 10, 20, 100, 200) 	# 直線 
 #$graphics.DrawRectangle($pen, 0, 0, 200, 300)	# 四角
 
