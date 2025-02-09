@@ -1019,6 +1019,7 @@ function Change_value([string]$sw, [string]$name){
 	}
 	} #sw
   # }
+
  } #func
  
 function Setxml_read($x){ # hash読み込み 
@@ -1051,7 +1052,7 @@ function Setxml_read($x){ # hash読み込み
     }
   } #
  } #func
- 	
+ 
 function Arpxml_read($x,$y){ # ワーク読み込み 
 
 	# $x= $script:arp_xml.table.val
@@ -2204,7 +2205,7 @@ function Lisnarp_nsf([int]$sw, [string]$lis){
  } #sw
 
  } #func
- 
+ 	
 <# 
 	 
 function Keydown_arp([string]$t){ 
@@ -2818,7 +2819,7 @@ $number_grp.Text= "Number arpeggio"
 $number_grp.Size= "565,130"
 $number_grp.Location= "10,150"
 $number_grp.FlatStyle= "Flat"
-	
+	 
 $label_apeg= New-Object System.Windows.Forms.Label 
 $label_apeg.Text= "Arpeggio"
 $label_apeg.Size= "65,20"
@@ -2957,7 +2958,7 @@ $mml_grp.Text= "MML arpeggio"
 $mml_grp.Size= "565,345"
 $mml_grp.Location= "10,285"
 $mml_grp.FlatStyle= "Flat"
-	
+	 
 $label_prefix= New-Object System.Windows.Forms.Label 
 $label_prefix.Text= "Track header"
 $label_prefix.Size= "90,20"
@@ -2976,7 +2977,9 @@ $comb_prefix.SelectedIndex= 2
 
 $comb_prefix.Add_SelectedValueChanged({
  try{
+
 	Mml_select $this.SelectedItem
+
 
 	[string]$rtrn= ""
 
@@ -3400,7 +3403,7 @@ $frm_arp.Add_FormClosing({
 })
  
 $arp_mnu= New-Object System.Windows.Forms.MenuStrip 
-	 
+	
 $arp_menu_f= New-Object System.Windows.Forms.ToolStripMenuItem 
 $arp_menu_f.Text= "File"
 
@@ -3523,10 +3526,10 @@ $arp_menu_set.Add_Click({
 	echo $_.exception
  }
 })
-	 
+	
 $arp_menu_comp=  New-Object System.Windows.Forms.ToolStripMenuItem 
 $arp_menu_comp.Text= "compiler"
-	 
+	
 $arp_menu_cmck=  New-Object System.Windows.Forms.ToolStripMenuItem 
 # $arp_menu_cmck.Text= "MCK"
 

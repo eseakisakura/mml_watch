@@ -1732,7 +1732,7 @@ $FonLabel= New-Object System.Drawing.Font("Segoe UI", 10)
 
 cd (Split-Path -Parent $PSCommandPath)
 [Environment]::CurrentDirectory= pwd # working_dir set
- 	
+ 
 $dia= New-Object System.Windows.Forms.SaveFileDialog 
 # ファイル選択ダイアログ
 
@@ -1784,8 +1784,9 @@ $pic_box.Add_Click({
 })
  
 $wait_lbl= New-Object System.Windows.Forms.Label 
-$wait_lbl.Size= "194,25"
-$wait_lbl.Location= "70,27"
+$wait_lbl.Size= "224,25"
+# $wait_lbl.Location= "70,27"
+$wait_lbl.Location= "10,27"
 $wait_lbl.TextAlign= "MiddleCenter"
 $wait_lbl.BorderStyle= "Fixed3D"
 $wait_lbl.ForeColor= "black"
@@ -1804,7 +1805,7 @@ $wait_lbl.Add_Click({
  
 $wait_btn= New-Object System.Windows.Forms.Button 
 $wait_btn.Size= "25,25"
-$wait_btn.Location= "40,27"
+$wait_btn.Location= "236,27"
 $wait_btn.FlatStyle= "Popup"
 # $wait_btn.Image= [System.Drawing.Image]::FromFile(".\img\stop.png")
 # $wait_btn.Image= [System.Drawing.Image]::FromFile(".\img\play.png")
@@ -1817,7 +1818,7 @@ $wait_btn.Add_Click({	# 監視ボタン
 	echo $_.exception
   }
  })
- 
+ 	
 $stus_bar= New-Object System.Windows.Forms.StatusStrip 
 $stus_bar.SizingGrip= $false
 

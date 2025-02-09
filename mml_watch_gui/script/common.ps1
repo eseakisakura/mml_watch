@@ -217,7 +217,7 @@ function Folder_open([int]$sw,[string]$path){
 
 	return $ss
 } #func
- 	
+ 
 function Icon_read([string]$tt){ 
 
   switch(Chk_path $tt){
@@ -530,7 +530,7 @@ function Mkpmd([string[]]$arg){ # mkpmd.ps1
  # exit $LASTEXITCODE
 
  } #func
- 
+ 	
 function Player_open([int]$num,[string]$plyer,[string]$path){ 
 
 	[string]$ss= Eor_open $plyer "Player"
